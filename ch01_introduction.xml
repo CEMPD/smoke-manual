@@ -12,11 +12,13 @@
 
 <para>The MCNC Environmental Modeling Center (EMC) created the Sparse Matrix Operator Kernel Emissions (SMOKE) Modeling System to allow emissions data processing methods to integrate high-performance-computing (HPC) sparse-matrix algorithms. The SMOKE system is a significant addition to the available resources for decision-making about emissions controls for both urban and regional applications. It provides a mechanism for preparing specialized inputs for air quality modeling research, and it makes air quality forecasting possible. The SMOKE system continues to develop and improve at the University of North Carolina at Chapel Hill&rsquo;s Carolina Environmental Program (CEP).</para>
 
-<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA), for use with <ulink url="http://www.epa.gov/asmdnerl/models3/">EPA&rsquo;s Models-3 Air Quality Modeling System</ulink>. The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms (described in more detail in <xref linkend="sect_concepts_chemical_processing" />) and (2) emissions processing for reactivity assessments (described in <xref linkend="sect_concepts_create_reactivity" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE version 1.5. Most recently, in 2003 SMOKE version 2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE version 2.0 can process criteria gaseous pollutants such as carbon monoxide (CO), nitrogen oxides (NO<subscript>x</subscript>), volatile organic compounds (VOC), ammonia (NH<subscript>3</subscript>), sulfur dioxide (SO<subscript>2</subscript>); particulate matter (PM) pollutants such as PM 2.5 microns or less (PM<subscript>2.5</subscript>) and PM less than 10 microns (PM<subscript>10</subscript>); as well as a large array of toxic pollutants, such as mercury, cadmium, benzene, and formaldehyde. In fact, SMOKE has no limitation regarding the number or types of pollutants it can process.</para>
+<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA), for use with <ulink url="http://www.epa.gov/asmdnerl/models3/">EPA&rsquo;s Models-3 Air Quality Modeling System</ulink>. The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms (described in more detail in <xref linkend="sect_concepts_chemical_processing" />) and (2) emissions processing for reactivity assessments (described in <xref linkend="sect_concepts_create_reactivity" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE v1.5. In 2003, SMOKE v2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. The latest version of SMOKE, SMOKE v2.1, includes updated versions of the BEIS3 and MOBILE6.2 models, the ability to use humidity data when processing on-road mobile sources with MOBILE6, and support for polar stereographic output grids.</para>
+
+<para>SMOKE can process criteria gaseous pollutants such as carbon monoxide (CO), nitrogen oxides (NO<subscript>x</subscript>), volatile organic compounds (VOC), ammonia (NH<subscript>3</subscript>), sulfur dioxide (SO<subscript>2</subscript>); particulate matter (PM) pollutants such as PM 2.5 microns or less (PM<subscript>2.5</subscript>) and PM less than 10 microns (PM<subscript>10</subscript>); as well as a large array of toxic pollutants, such as mercury, cadmium, benzene, and formaldehyde. In fact, SMOKE has no limitation regarding the number or types of pollutants it can process.</para>
 
 <para>The purpose of SMOKE (or any emissions processor) is to convert the resolution of the emission inventory data to the resolution needed by an air quality model. Emission inventories are typically available with an annual-total emissions value for each emissions source, or perhaps with an average-day emissions value. The AQMs, however, typically require emissions data on an hourly basis, for each model grid cell (and perhaps model layer), and for each model species. (Refer to <xref linkend="app_glossary" /> for definitions of these terms.) Consequently, emissions processing involves transforming an emission inventory through temporal allocation, chemical speciation, and spatial allocation, to achieve the input requirements of the AQM.</para>
 
-<para>Currently, SMOKE supports area-, mobile-, and point-source emissions processing and also includes biogenic emissions modeling through both a rewrite of the Biogenic Emission Inventory System, version 2 (BEIS2) and the new BEIS3 system. SMOKE can process both criteria and toxic emissions data inventories. The terminology of source categories used by inventory developers is often different from that used in SMOKE. The list below clarifies how various inventory source categories map to the SMOKE source categories described in this manual.</para>
+<para>Currently, SMOKE supports area-, mobile-, and point-source emissions processing and also includes biogenic emissions modeling through both a rewrite of the Biogenic Emission Inventory System, version 2 (BEIS2) and the BEIS3 system. SMOKE can process both criteria and toxic emissions data inventories. The terminology of source categories used by inventory developers is often different from that used in SMOKE. The list below clarifies how various inventory source categories map to the SMOKE source categories described in this manual.</para>
 
 <itemizedlist spacing="compact">
 <listitem>SMOKE <quote>area</quote> sources
@@ -65,10 +67,10 @@
 <listitem>Persons with emission inventories in hand who need to process the data for input to an AQM.</listitem>
 <listitem>EPA personnel who want to create emission inputs for research or regulatory efforts with AQMs.</listitem>
 <listitem>State environmental personnel who want to create emission inputs to AQMs for regulatory efforts, including State Implementation Plans (SIPs).</listitem>
-<listitem>Those wishing to generate an on-road mobile inventory using MOBILE6 and the Pennsylvania State University/National Center for Atmospheric Research fifth-generation Mesoscale Model (MM5) gridded, hourly temperature data.</listitem>
+<listitem>Those wishing to generate an on-road mobile inventory using MOBILE6 and the Pennsylvania State University/National Center for Atmospheric Research fifth-generation Mesoscale Model (MM5) gridded, hourly meteorology data.</listitem>
 </orderedlist>
 
-<para>SMOKE users who have previous UNIX (which includes Linux) experience can expect to run SMOKE more easily than users who must learn both UNIX and SMOKE. This is because the standard way to run SMOKE is from UNIX scripts. SMOKE can also be run through the Multimedia Integrated Modeling System (MIMS) framework, though instructions for doing so are not included here. More information on using MIMS can be found at the <ulink url="http://www.epa.gov/asmdnerl/mims/software/release/fw_release.html">MIMS Framework Download</ulink> page.</para>
+<para>SMOKE users who have previous UNIX experience can expect to run SMOKE more easily than users who must learn both UNIX and SMOKE. This is because the standard way to run SMOKE is from UNIX scripts. SMOKE can also be run through the Multimedia Integrated Modeling System (MIMS) framework, though instructions for doing so are not included here. More information on using MIMS can be found at the <ulink url="http://www.epa.gov/asmdnerl/mims/software/release/fw_release.html">MIMS Framework Download</ulink> page.</para>
 
 </section>
 
@@ -76,11 +78,11 @@
 
 <title>SMOKE Features</title>
 
-<para>SMOKE version 2.0 is primarily an emissions processing system and not an emission inventory preparation system. This means that its main purpose is to provide an efficient tool for converting emission inventory data into the formatted emission input files required by an AQM. However, for mobile and biogenic sources, SMOKE does offer emission inventory preparation functions. For mobile sources, SMOKE computes an emission inventory from mobile-source activity data, using emission factors from the MOBILE6 model. Previous versions of SMOKE (version 1.4 and below) supported the MOBILE5b model. For biogenic sources, SMOKE includes both the BEIS2 and BEIS3 models for computation of hour-specific, meteorology-based biogenic emissions from vegetation and soils.</para>
+<para>SMOKE v2.1 is primarily an emissions processing system and not an emission inventory preparation system. This means that its main purpose is to provide an efficient tool for converting emission inventory data into the formatted emission input files required by an AQM. However, for mobile and biogenic sources, SMOKE does offer emission inventory preparation functions. For mobile sources, SMOKE computes an emission inventory from mobile-source activity data, using emission factors from the MOBILE6 model. Previous versions of SMOKE (version 1.4 and below) supported the MOBILE5b model. For biogenic sources, SMOKE includes both the BEIS2 and BEIS3 models for computation of hour-specific, meteorology-based biogenic emissions from vegetation and soils.</para>
 
 <para>The SMOKE modeling system can be run using either of two approaches. The most common method is through the use of UNIX scripts, which includes the Linux versions of the UNIX operating system. The second approach is to run SMOKE using the <ulink url="http://www.epa.gov/asmdnerl/mims/">MIMS interface</ulink>, which is a general-purpose graphical user interface (GUI).</para>
 
-<para>Below, we summarize the major features of SMOKE version 2.0.</para>
+<para>Below, we summarize the major features of SMOKE v2.1.</para>
 
 <itemizedlist>
 <listitem>
@@ -111,9 +113,6 @@
 <para>Supports Lambert conformal, lat-lon, UTM, and polar stereographic output grid projections with any number of grid cells.</para>
 </listitem>
 <listitem>
-<para>Improved control strategy input formats and design over previous SMOKE versions.</para>
-</listitem>
-<listitem>
 <para>Control strategies can include changes in the reactivity of emitted pollutants. This is useful, for example, when a solvent is changed in an industrial process.</para>
 </listitem>
 <listitem>
@@ -124,9 +123,6 @@
 </listitem>
 <listitem>
 <para>Supports plume in grid (PinG) processing.</para>
-</listitem>
-<listitem>
-<para>Improved data file formats from previous SMOKE version.</para>
 </listitem>
 <listitem>
 <para>Integrated use of Continuous Emissions Monitoring (CEM) data, an hour-specific dataset of emissions from electric generating facilities. Also supports other day-specific and hour-specific point-source data.</para>
@@ -141,7 +137,7 @@
 <para>Supports emissions data input formats for the following AQMs and chemical mechanisms:</para>
     <itemizedlist>
     <listitem>
-    <para>Community Multiscale Air Quality (CMAQ) model: part of the Models-3 system. Version 2.0 of SMOKE supports a research toxics version of CMAQ for non-point (stationary area) sources, nonroad mobile sources, on-road mobile sources, point sources, and biogenic sources.</para>
+    <para>Community Multiscale Air Quality (CMAQ) model: part of the Models-3 system. SMOKE v2.0 and later supports a research toxics version of CMAQ for non-point (stationary area) sources, nonroad mobile sources, on-road mobile sources, point sources, and biogenic sources.</para>
     </listitem>
     <listitem>
     <para>Multiscale Air Quality Simulation Platform (MAQSIP): for both standard and real-time air quality modeling. Also MAQSIP-PM as an alternative system for modeling regional haze.</para>
