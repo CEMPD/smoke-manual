@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<chapter id="utilities">
+<chapter id="ch_utilities">
 
 <title>SMOKE Utility Programs</title>
 
@@ -151,7 +151,7 @@
 <tbody>
 <row>
 <entry><envar>INRECS</envar>:</entry>
-<entry><para>(ASCII) Input list of state/county codes and plant IDs. This file format <remark>(which is not documented in Chapter 8)</remark> is a single concatenated field of state/county code and plant ID with no spaces on each line. For example, to select county 37001 and plant 0001, the line of the <envar>INRECS</envar> file must be:</para>
+<entry><para>(ASCII) Input list of state/county codes and plant IDs. This file format <comment>(which is not documented in Chapter 8) </comment>is a single concatenated field of state/county code and plant ID with no spaces on each line. For example, to select county 37001 and plant 0001, the line of the <envar>INRECS</envar> file must be:</para>
 
 <programlisting>370010001</programlisting></entry>
 </row>
@@ -233,11 +233,11 @@
 </row>
 <row>
 <entry><envar>GEOMASK</envar>:</entry>
-<entry>(I/O API) Gridded, time-independent file that assigns a 1 to any grid cell whose emissions you want to adjust. The emissions from <envar>INFILE</envar> in grid cells that have a 1 in <envar>GEOMASK</envar> are multiplied by the factor provided in <envar>SPECFACS</envar>. All other emissions and grid cells are untouched. <remark>(Note that this file is not documented in Chapter 8.)</remark></entry>
+<entry>(I/O API) Gridded, time-independent file that assigns a 1 to any grid cell whose emissions you want to adjust. The emissions from <envar>INFILE</envar> in grid cells that have a 1 in <envar>GEOMASK</envar> are multiplied by the factor provided in <envar>SPECFACS</envar>. All other emissions and grid cells are untouched.<comment>(Note that this file is not documented in Chapter 8.)</comment></entry>
 </row>
 <row>
 <entry><envar>SPECFACS</envar>:</entry>
-<entry><para>(ASCII) File that lists the species name in the first column and the factor to be applied to all grid cells with a 1 value in the <envar>GEOMASK</envar> file. For example, the following <envar>SPECFACS</envar> file sample would multiply NO and NO<subscript>2</subscript> emissions by 1.3 (30% increase) and multiply PAR by 0.6 (40% decrease). <remark>(Note that this file is not documented in Chapter 8.)</remark></para>
+<entry><para>(ASCII) File that lists the species name in the first column and the factor to be applied to all grid cells with a 1 value in the <envar>GEOMASK</envar> file. For example, the following <envar>SPECFACS</envar> file sample would multiply NO and NO<subscript>2</subscript> emissions by 1.3 (30% increase) and multiply PAR by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
 
 <programlisting>NO   1.3
 NO2  1.3
@@ -316,7 +316,7 @@ PAR  0.6</programlisting></entry>
 </row>
 <row>
 <entry><envar>SPLITS</envar>:</entry>
-<entry><para>(ASCII) Space-delimited file that lists the state codes and indicates which output file should include the emissions for that state. The first column is for the state codes and the second column is the output file number. In this example, states 1 and 4 will be written to the <envar>OUTFILE01</envar> output file logical name, state 37 to <envar>OUTFILE02</envar>, and state 45 to <envar>OUTFILE03</envar>. The numbers in the second column need not be sequential. <remark>(Note that this file is not documented in Chapter 8.)</remark></para>
+<entry><para>(ASCII) Space-delimited file that lists the state codes and indicates which output file should include the emissions for that state. The first column is for the state codes and the second column is the output file number. In this example, states 1 and 4 will be written to the <envar>OUTFILE01</envar> output file logical name, state 37 to <envar>OUTFILE02</envar>, and state 45 to <envar>OUTFILE03</envar>. The numbers in the second column need not be sequential.<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
 
 <programlisting>01    1
 04    1
@@ -461,7 +461,7 @@ PAR  0.6</programlisting></entry>
 
 <title><command>Pktreduc</command></title>
 
-<section>
+<section id="sect_pktreduc_description">
 
 <title>Description</title>
 
@@ -515,7 +515,7 @@ PAR  0.6</programlisting></entry>
 <tbody>
 <row>
 <entry><envar>GCNTL_OUT</envar>:</entry>
-<entry>(ASCII) Reformatted <envar>GCNTL</envar> file that includes only the /PROJECTION/ packet for inventory growth. The reformatting performed was described in the <command>Pktreduc</command> main description <remark>section (5.7.1)</remark>.</entry>
+<entry>(ASCII) Reformatted <envar>GCNTL</envar> file that includes only the /PROJECTION/ packet for inventory growth. The reformatting performed is described in <xref linkend="sect_pktreduc_description" />.</entry>
 </row>
 <row>
 <entry><envar>LOGFILE</envar>:</entry>
@@ -813,7 +813,7 @@ PAR  0.6</programlisting></entry>
 <tbody>
 <row>
 <entry><envar>INFILE</envar>:</entry>
-<entry>(ASCII) Spatial surrogates file in <envar>AGPRO</envar>/<envar>BGPRO</envar>/<envar>MGPRO</envar> format <remark>(see Chapter 8)</remark>. File can be for Lambert Conformal, UTM, or lat-lon projection.</entry>
+<entry>(ASCII) Spatial surrogates file in <envar>AGPRO</envar>/<envar>BGPRO</envar>/<envar>MGPRO</envar> format (see <xref linkend="ch_input_files" />). File can be for Lambert Conformal, UTM, or lat-lon projection.</entry>
 </row>
 <row>
 <entry><envar>GRIDDESC</envar>:</entry>
