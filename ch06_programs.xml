@@ -2628,7 +2628,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The purpose of the <command>Mrggrid</command> program is to combine gridded emission data files, which can be speciated or nonspeciated, and hourly or time-independent. It can combine any number of 3-D emissions files with any number of 2-D emissions files. In fact, this program will work with any I/O API NetCDF gridded files and need not be used only for emissions files. The program merges whatever data variables are in the input files. These files can each have different sets of data variables; <command>Mrggrid</command> will sum values only for each variable that is common to two or more files.</para>
 
-<para><command>Mrggrid</command> checks several features of the input files to ensure that the data in these files are appropriate to be merged together. <command>Mrggrid</command> compares the units of the variables with the same name and it creates an error message when the units are not identical. It is not sufficient to have units that are the same in meaning but different in syntax. For example, although tons/hour and tons/hr represent the same units, <command>Mrggrid</command> will not recognize this because of the different syntax. The user must resolve unit discrepancies before running the program. In addition, <command>Mrggrid</command> compares the horizontal grid settings across all 2-D and 3-D files, and these settings must be identical in all respects (e.g., number of cells, grid cell size, grid projection). Finally, <command>Mrggrid</command> checks the layer structures across multiple 3-D files. The 3-D files can have a different number of layers, as long as any layer common to two or more files has the same thickness in each of the files. <command>Mrggrid</command> also checks the I/O API type of vertical structures and top height, and these must be identical across all 3-D files.</para>
+<para><command>Mrggrid</command> checks several features of the input files to ensure that the data in these files are appropriate to be merged together. All input files must have use the same time step. <command>Mrggrid</command> compares the units of the variables with the same name and it creates an error message when the units are not identical. It is not sufficient to have units that are the same in meaning but different in syntax. For example, although tons/hour and tons/hr represent the same units, <command>Mrggrid</command> will not recognize this because of the different syntax. The user must resolve unit discrepancies before running the program. In addition, <command>Mrggrid</command> compares the horizontal grid settings across all 2-D and 3-D files, and these settings must be identical in all respects (e.g., number of cells, grid cell size, grid projection). Finally, <command>Mrggrid</command> checks the layer structures across multiple 3-D files. The 3-D files can have a different number of layers, as long as any layer common to two or more files has the same thickness in each of the files; <command>Mrggrid</command> also checks the I/O API type of vertical structures and top height, and these must be identical across all 3-D files.</para>
 
 </section>
 
@@ -2658,7 +2658,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_mrggrid" /> shows the input and output files for the <command>Mrggrid</command> program. The input file is simply a list of the logical file names for the files to be merged (<envar>FILELIST</envar>). The program outputs a log file (<envar>LOGFILE</envar>) and a gridded, optionally layered, optionally hourly emissions file (<envar>OUTFILE</envar>).</para>
+<para><xref linkend="fig_programs_mrggrid" /> shows the input and output files for the <command>Mrggrid</command> program. The input file is simply a list of the logical file names for the files to be merged (<envar>FILELIST</envar>). The program outputs a log file (<envar>LOGFILE</envar>), a gridded, optionally layered, optionally hourly emissions file (<envar>OUTFILE</envar>), and if merging different days, a report file (<envar>REPMRGGRID</envar>).</para>
 
 <section>
 
@@ -2694,7 +2694,27 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <title>Input Environment Variables</title>
 
-<para>None</para>
+<itemizedlist>
+<listitem>
+<para><envar>MRG_DIFF_DAYS</envar>: [default: N]</para>
+
+<para>This environment variable allows <command>Mrggrid</command> to merge files with data from different days.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Allow data from different dates to be merged together</para>
+
+<para><command>Mrggrid</command> will use the environment variables <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, <envar>G_RUNLEN</envar>, and <envar>G_TSTEP</envar> to set the start date, start time, length, and time step of the output file. All input files must have the same starting time as <envar>G_STTIME</envar>, the same time step as <envar>G_TSTEP</envar>, and must contain more than <envar>G_RUNLEN</envar> steps of data. For each input file, if it contains data to cover the actual episode requested by <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar>, then the data for the actual episode will be used; otherwise, data starting at the first time step of the file will be used.</para>
+</listitem>
+<listitem>
+<para>N: Require all merged data to be from the same date</para>
+
+<para><command>Mrggrid</command> will determine the output file time period based on the latest starting input file and the earliest ending input file.</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+</itemizedlist>
 
 </section>
 
@@ -2726,6 +2746,11 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry><envar>OUTFILE</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Gridded, optionally layered, optionally hourly emission file</entry>
+</row>
+<row>
+<entry><envar>REPMRGGRID</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file generated when <envar>MRG_DIFF_DAYS</envar> is set to Y; the report lists the date and time for each output time step along with the actual date and time of the data read from each file</entry>
 </row>
 </tbody>
 </tgroup>
