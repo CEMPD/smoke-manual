@@ -8,11 +8,11 @@
 
 <title>Introduction</title>
 
-<para>Instructions on how to download and install SMOKE are provided in <remark>Sections 12.2 and 12.3</remark>. <remark>Section 12.4</remark> describes how to compile SMOKE for UNIX platforms other than those supported by CMAS. The SMOKE compile scripts are configured to use a UNIX c-shell environment, so they are not useful for creating Windows-based SMOKE files; using SMOKE with any version of the Windows operating system is not currently supported. If your operating system is one of the types supported by CMAS, you need only to download the SMOKE executables available from the CMAS Model Clearinghouse, accessible at <remark><ulink url="http://www.cmascenter.org/modelclear.shtml" /></remark>.</para>
+<para>Instructions on how to download and install SMOKE are provided in <xref linkend="sect_install_download" /> and <xref linkend="sect_install_install" />. <xref linkend="sect_install_compile" /> describes how to compile SMOKE for UNIX platforms other than those supported by CMAS. The SMOKE compile scripts are configured to use a UNIX c-shell environment, so they are not useful for creating Windows-based SMOKE files; using SMOKE with any version of the Windows operating system is not supported. If your operating system is one of the types supported by CMAS, you need only to download the SMOKE executables available from the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>.</para>
 
 </section>
 
-<section id="sect_install_download_smoke">
+<section id="sect_install_download">
 
 <title>Downloading SMOKE</title>
 
@@ -20,7 +20,7 @@
 
 <orderedlist>
 <listitem>
-<para>Go to the CMAS Model Clearinghouse at <remark><ulink url="http://www.cmascenter.org/modelclear.shtml" /></remark>, then click on "SMOKE".</para>
+<para>Go to the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>, then click on "SMOKE".</para>
 </listitem>
 <listitem>
 <para>Click on "Register to download SMOKE".</para>
@@ -44,7 +44,7 @@
 
 </section>
 
-<section id="sect_install_installing_smoke">
+<section id="sect_install_install">
 
 <title>Installing SMOKE</title>
 
@@ -95,11 +95,11 @@
 </listitem>
 </orderedlist>
 
-<para>Now you are ready to run the SMOKE test case. Running SMOKE is described in <remark>Chapter 4</remark>, which discusses using SMOKE scripts. Please refer to <remark>Section 4.4</remark> of that chapter for instructions on running the default scripts, the "nctox" case. The current SMOKE documentation can be found online at <ulink url="http://www.cep.unc.edu/empd/products/smoke/" />.</para>
+<para>Now you are ready to run the SMOKE test case. Running SMOKE is described in <xref linkend="ch_scripts" />, which discusses using SMOKE scripts. Please refer to <xref linkend="sect_scripts_run_default" /> for instructions on running the default scripts for the nctox case. The current SMOKE documentation can be found online at <ulink url="http://www.cep.unc.edu/empd/products/smoke/" />.</para>
 
 </section>
 
-<section>
+<section id="sect_install_compile">
 
 <title>Compiling SMOKE for UNIX</title>
 
@@ -168,7 +168,7 @@
 
 <para><userinput><command>Makeall</command></userinput></para>
 
-<para>The only errors that are acceptable when you use this script are errors after the <command>/bin/rm</command> commands. The <command>/bin/rm</command> commands will fail if there are no object files (<filename>*.o</filename> files) in your SMOKE source code directories. This will be the case if you have not previously compiled SMOKE. <remark>If you get errors other than those after the <command>/bin/rm</command> commands, you may submit a help request to the CMAS Help Desk (<ulink url="http://www.cmascenter.org/help.shtml" />).</remark></para>
+<para>The only errors that are acceptable when you use this script are errors after the <command>/bin/rm</command> commands. The <command>/bin/rm</command> commands will fail if there are no object files (<filename>*.o</filename> files) in your SMOKE source code directories. This will be the case if you have not previously compiled SMOKE. <remark>If you get errors other than those after the <command>/bin/rm</command> commands, you may submit a help request to the <ulink url="http://www.cmascenter.org/html/help.html">CMAS Help Desk</ulink>.</remark></para>
 </listitem>
 </itemizedlist>
 
