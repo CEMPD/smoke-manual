@@ -144,7 +144,7 @@
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -152,7 +152,7 @@
 <para>The <envar>B3XRF</envar> file was updated in the SMOKE v1.5 release. The earlier version of this file had been tested only in the eastern United States. Application of this program for the rest of North America (BELD3 geographical area) resulted in numerous changes to the <envar>B3XRF</envar> file.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -322,11 +322,11 @@
 <row>
 <entry><envar>SPECFACS</envar></entry>
 <entry>ASCII</entry>
-<entry><para>File that lists the species name in the first column and the factor to be applied to all grid cells with a 1 value in the <envar>GEOMASK</envar> file. For example, the following <envar>SPECFACS</envar> file sample would multiply NO and NO<subscript>2</subscript> emissions by 1.3 (30% increase) and multiply PAR by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
+<entry><para>File that lists the species name and the factor to be applied to all grid cells with a 1 value in the <envar>GEOMASK</envar> file. The species name must be in columns 1-16 and the factor in columns 17-22. For example, the following <envar>SPECFACS</envar> file sample would multiply NO and NO<subscript>2</subscript> emissions by 1.3 (30% increase) and multiply PAR by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
 
-<programlisting>NO   1.3
-NO2  1.3
-PAR  0.6</programlisting></entry>
+<programlisting>NO              1.3
+NO2             1.3
+PAR             0.6</programlisting></entry>
 </row>
 </tbody>
 </tgroup>
@@ -397,7 +397,7 @@ PAR  0.6</programlisting></entry>
 
 <title>Processing Order</title>
 
-<para>This optional program can optionally be run prior to running the <command>Smkinven</command> program to import the emission inventories.</para>
+<para>This optional program can be run prior to running the <command>Smkinven</command> program to import the emission inventories.</para>
 
 </section>
 
@@ -997,7 +997,7 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -1005,7 +1005,7 @@ PAR  0.6</programlisting></entry>
 <para>The SMOKE prototype used a <envar>USERIN</envar> file to input the necessary UAM header information. The <envar>USERIN</envar> file is no longer needed. Previous versions of the <command>Smk2emis</command> code also did not use the <envar>SMK_SOURCE</envar> environment variable to set the input or output file names.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
