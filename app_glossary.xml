@@ -7,12 +7,14 @@
 <glossdiv>
 <title>A</title>
 
+<comment>
 <glossentry>
-<glossterm><remark>Activity data</remark></glossterm>
+<glossterm>Activity data</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Air quality model</glossterm>
@@ -69,26 +71,32 @@
 </glossdef>
 </glossentry>
 
+<comment>
 <glossentry>
-<glossterm><remark>Control strategy</remark></glossterm>
+<glossterm>Control strategy</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
+<comment>
 <glossentry>
-<glossterm><remark>Controls</remark></glossterm>
+<glossterm>Controls</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
+<comment>
 <glossentry>
-<glossterm><remark>Criteria emissions</remark></glossterm>
+<glossterm>Criteria emissions</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Cross-reference file</glossterm>
@@ -180,12 +188,14 @@
 </glossdiv>
 <glossdiv><title>I</title>
 
+<comment>
 <glossentry>
-<glossterm><remark>Inventory data</remark></glossterm>
+<glossterm>Inventory data</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Inventory pollutant</glossterm>
@@ -204,12 +214,14 @@
 </glossdef>
 </glossentry>
 
+<comment>
 <glossentry>
-<glossterm><remark>Land use data</remark></glossterm>
+<glossterm>Land use data</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Latitude/longitude (lat/lon)</glossterm>
@@ -223,12 +235,14 @@
 <glosssee otherterm="glossary_model_layers" />
 </glossentry>
 
+<comment>
 <glossentry>
-<glossterm><remark>Layer assignment</remark></glossterm>
+<glossterm>Layer assignment</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Logical file names</glossterm>
@@ -254,12 +268,14 @@
 </glossdef>
 </glossentry>
 
+<comment>
 <glossentry>
-<glossterm><remark>Matrix</remark></glossterm>
+<glossterm>Matrix</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Merging</glossterm>
@@ -313,12 +329,14 @@
 </glossdiv>
 <glossdiv><title>N</title>
 
+<comment>
 <glossentry>
-<glossterm><remark>Non-point sources</remark></glossterm>
+<glossterm>Non-point sources</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Nonroad mobile sources</glossterm>
@@ -336,12 +354,14 @@
 </glossdiv>
 <glossdiv><title>P</title>
 
+<comment>
 <glossentry>
-<glossterm><remark>Particulate emissions</remark></glossterm>
+<glossterm>Particulate emissions</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 <glossentry>
 <glossterm>Past year</glossterm>
@@ -464,12 +484,14 @@
 </glossdef>
 </glossentry>
 
+<comment>
 <glossentry>
-<glossterm><remark>Toxic emissions</remark></glossterm>
+<glossterm>Toxic emissions</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
+</comment>
 
 </glossdiv>
 <glossdiv><title>U</title>
@@ -494,15 +516,18 @@
 </glossentry>
 
 </glossdiv>
+
+<comment>
 <glossdiv><title>V</title>
 
 <glossentry>
-<glossterm><remark>Vector</remark></glossterm>
+<glossterm>Vector</glossterm>
 <glossdef>
 <para></para>
 </glossdef>
 </glossentry>
 
 </glossdiv>
+</comment>
 
 </glossary>
