@@ -101,7 +101,7 @@
 
 <programlisting>## User-defined I/O directory settings
    setenv EDSS_SUBSYS $EDSS_ROOT/subsys              # EDSS subsystem dir
-   setenv SMKROOT     $EDSS_SUBSYS/smokev1           # System root dir
+   setenv SMKROOT     $EDSS_SUBSYS/smoke             # System root dir
    setenv SMKDAT      $EDSS_ROOT/data                # Data root dir
    setenv ASSIGNS     $SMKROOT/assigns               # SMOKE assigns files
 
@@ -170,11 +170,11 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">netcdf</filename>: A placeholder location for the NetCDF library object files. When compiling SMOKE, the makefiles look here for the NetCDF library, but the actual library can be linked to the main NetCDF installation, which can be elsewhere on your computer. Please see <xref linkend="ch_installation" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">smokev1</filename>: This is the main SMOKE directory. It contains the Assigns files (one per modeling case), <comment>SMOKE documentation,</comment> SMOKE source code, makefiles, scripts, and executables.</para>
+<para><filename class="directory">smoke</filename>: This is the main SMOKE directory. It contains the Assigns files (one per modeling case), <comment>SMOKE documentation,</comment> SMOKE source code, makefiles, scripts, and executables.</para>
 </listitem>
 </itemizedlist>
 
-<para><xref linkend="fig_dirs_subdirs_main" /> shows the subdirectories inside the main SMOKE directory, <filename class="directory">smokev1</filename>; these are all created during the installation of SMOKE (<xref linkend="ch_installation" />). These subdirectories contain the Assigns files, <comment>SMOKE user documentation,</comment> source code and makefiles, scripts, and executables.</para>
+<para><xref linkend="fig_dirs_subdirs_main" /> shows the subdirectories inside the main SMOKE directory, <filename class="directory">smoke</filename>; these are all created during the installation of SMOKE (<xref linkend="ch_installation" />). These subdirectories contain the Assigns files, <comment>SMOKE user documentation,</comment> source code and makefiles, scripts, and executables.</para>
 
 <figure id="fig_dirs_subdirs_main">
 <title>Subdirectories of the main SMOKE directory</title>
