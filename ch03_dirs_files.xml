@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<chapter id="dirs_files">
+<chapter id="ch_dirs_files">
 
-<title>SMOKE directories and default data</title>
+<title>SMOKE Directories and Default Data</title>
 
 <section>
 
 <title>Introduction</title>
 
-<para>The primary user interface for SMOKE is a series of UNIX scripts. (Other interfaces, such as the Multimedia Integrated Modeling System [MIMS], can also be used.) Because the basic SMOKE installation and instructions use these scripts, a key factor in using SMOKE is understanding the directory structure used for reading input files and writing output files. Additionally, it is critical that users know where to find the run scripts and other files that must be configured for a specific application of SMOKE. Section 3.2 of this chapter describes the default directory structure.</para>
+<para>The primary user interface for SMOKE is a series of UNIX scripts. (Other interfaces, such as the Multimedia Integrated Modeling System [MIMS], can also be used.) Because the basic SMOKE installation and instructions use these scripts, a key factor in using SMOKE is understanding the directory structure used for reading input files and writing output files. Additionally, it is critical that users know where to find the run scripts and other files that must be configured for a specific application of SMOKE. <xref linkend="sect_dirs_directory_structure" /> of this chapter describes the default directory structure.</para>
 
-<para>Because SMOKE is based on UNIX scripts, it can also be reconfigured to use a different directory structure. This is useful if SMOKE is to be used from the MIMS interface, or incorporated into another modeling system, or simply to suit the needs of a particular user. In Section 3.3, we describe what must be done to reconfigure the default directory structure to meet such needs.</para>
+<para>Because SMOKE is based on UNIX scripts, it can also be reconfigured to use a different directory structure. This is useful if SMOKE is to be used from the MIMS interface, or incorporated into another modeling system, or simply to suit the needs of a particular user. In <xref linkend="sect_dirs_change_directory" />, we describe what must be done to reconfigure the default directory structure to meet such needs.</para>
 
 <para>In this chapter, we describe the default directory structures set automatically by the Assigns file provided with the default installation of SMOKE. We discuss a basic directory structure and an advanced structure that follow the same approach and can easily be adjusted using the Assigns file. For example, you can change a scenario name in the Assigns file, and this will automatically change all of your intermediate and output directory names. However, these two directory structures are only examples; as noted above, SMOKE is flexible enough to use any structure one wants to create. You could rework the Assigns file (or even completely remove it) if so desired, although this would be a much more complex process than changing a few environment variables. We have developed the SMOKE default directory structure based upon experience gained from many years of emissions modeling; we hope that SMOKE users will find it useful.</para>
 
-<para>In addition to a default directory structure, SMOKE comes with many default data files. Many users will likely rely on these files temporarily, or in some cases permanently, both to test SMOKE and to run their modeling cases. Section 3.4 provides various kinds of information about these files, such as who created them and when, and any known limitations on their use. These descriptions are intended to provide you with some background on the data files that could significantly impact your emissions processing. Additionally, this information is a starting point for users who need to modify these files to suit their particular modeling needs.</para>
+<para>In addition to a default directory structure, SMOKE comes with many default data files. Many users will likely rely on these files temporarily, or in some cases permanently, both to test SMOKE and to run their modeling cases. <xref linkend="sect_dirs_default_data_files" /> provides various kinds of information about these files, such as who created them and when, and any known limitations on their use. These descriptions are intended to provide you with some background on the data files that could significantly impact your emissions processing. Additionally, this information is a starting point for users who need to modify these files to suit their particular modeling needs.</para>
 
 </section>
 
-<section>
+<section id="sect_dirs_directory_structure">
 
 <title>Directory structure</title>
 
-<para>The SMOKE directory structure is the organization of UNIX directories and subdirectories (essentially the same as "folders" on Windows computers). These directories are defined and created using the SMOKE Assigns file. By "defined" we mean that environment variables are set to contain the actual path name for each of the directories, and their relationships to one another are implicit in these definitions. As will be described in more detail in Chapter 4, you should create an Assigns file for each modeling case, to organize your modeling runs. If created properly, the different Assigns files will cause the intermediate and output directories to be different for each case; this prevents overwriting files from one case with files from another. Some parts of the directory structure are shared by all modeling cases because they are usually the same (e.g., SMOKE ancillary files), but the intermediate and output files are not assumed to be the same because they often differ between cases.</para>
+<para>The SMOKE directory structure is the organization of UNIX directories and subdirectories (essentially the same as "folders" on Windows computers). These directories are defined and created using the SMOKE Assigns file. By "defined" we mean that environment variables are set to contain the actual path name for each of the directories, and their relationships to one another are implicit in these definitions. As will be described in more detail in <xref linkend="ch_scripts" />, you should create an Assigns file for each modeling case, to organize your modeling runs. If created properly, the different Assigns files will cause the intermediate and output directories to be different for each case; this prevents overwriting files from one case with files from another. Some parts of the directory structure are shared by all modeling cases because they are usually the same (e.g., SMOKE ancillary files), but the intermediate and output files are not assumed to be the same because they often differ between cases.</para>
 
-<section>
+<section id="sect_dirs_example_assigns">
 
 <title>Example Assigns file</title>
 
-<para>Before we can proceed with describing the scripts, we need to introduce the Assigns file. Detailed documentation on this file is provided in Chapter 4. For the purposes of the discussion here, we provide an example Assigns file to help clarify what it is. Because this file is quite lengthy, we have only included excerpts. In this subsection, the Assigns file is simply a set of <command>setenv</command> UNIX commands and calls to helper scripts.</para>
+<para>Before we can proceed with describing the scripts, we need to introduce the Assigns file. Detailed documentation on this file is provided in <xref linkend="ch_scripts" />. For the purposes of the discussion here, we provide an example Assigns file to help clarify what it is. Because this file is quite lengthy, we have only included excerpts. In this subsection, the Assigns file is simply a set of <command>setenv</command> UNIX commands and calls to helper scripts.</para>
 
 <para>The arrangement within the default Assigns file provided with SMOKE is:</para>
 
@@ -53,7 +53,7 @@
 </listitem>
 </itemizedlist>
 
-<para>The first settings section is the one on naming roots. These settings allow users to set the inventory input and output identifiers and base-case scenario names as well as the grid and chemical mechanism names (please see Chapter 4 for more details). The following lines provide the naming roots used in the sample Assigns file provided with SMOKE, <filename>ASSIGNS.nctox.cmaq.cb4pm25_wtox.us36-nc</filename>. This file and the helper scripts can be found in the SMOKE <envar>$ASSIGNS</envar> directory<remark>, which we will define in Section 3.1.1</remark>.</para>
+<para>The first settings section is the one on naming roots. These settings allow users to set the inventory input and output identifiers and base-case scenario names as well as the grid and chemical mechanism names (please see <xref linkend="ch_scripts" /> for more details). The following lines provide the naming roots used in the sample Assigns file provided with SMOKE, <filename>ASSIGNS.nctox.cmaq.cb4pm25_wtox.us36-nc</filename>. This file and the helper scripts can be found in the SMOKE <envar>$ASSIGNS</envar> directory, which we will define in <xref linkend="sect_dirs_basic_smoke_dirs" />.</para>
 
 <programlisting>#
 ## I/O Naming roots
@@ -95,9 +95,9 @@
    setenv YEAR         1996      # Base year for year-specific files
 </programlisting>
 
-<para>As described in Chapter 4, these settings control both the way SMOKE runs (e.g., SMOKE uses <envar>EPI_STDATE</envar>, the start date of the episode, to decide what day to start the simulation) and the way SMOKE names files (e.g., <envar>ESDATE</envar> is used to help name time-dependent files).</para>
+<para>As described in <xref linkend="ch_scripts" />, these settings control both the way SMOKE runs (e.g., SMOKE uses <envar>EPI_STDATE</envar>, the start date of the episode, to decide what day to start the simulation) and the way SMOKE names files (e.g., <envar>ESDATE</envar> is used to help name time-dependent files).</para>
 
-<para>The next section of the Assigns file is used to set the user-defined input and output directory paths. It uses a helper script called <filename>set_dirs.scr</filename> that applies the initial settings made by the Assigns file to set environment variables for the directories, as described in this chapter. The <filename>set_dirs.scr</filename> script also verifies that all of the directories are there and that the permissions of the directories are group readable and writable.</para>
+<para>The next section of the Assigns file is used to set the user-defined input and output directory paths. It uses a helper script called <filename>set_dirs.scr</filename> that applies the initial settings made by the Assigns file to set environment variables for the directories, as described in <xref linkend="sect_dirs_basic_smoke_dirs" />. The <filename>set_dirs.scr</filename> script also verifies that all of the directories are there and that the permissions of the directories are group readable and writable.</para>
 
 <programlisting>## User-defined I/O directory settings
    setenv EDSS_SUBSYS $EDSS_ROOT/subsys              # EDSS subsystem dir
@@ -112,58 +112,80 @@
 source $ASSIGNS/set_dirs.scr
 </programlisting>
 
-<para>Now that we have provided a little background on Assigns files, we will spend the rest of this chapter describing the SMOKE directory structure. We will return to discussion of the Assigns file and scripts in Chapter 4. It is important to comprehend the directory structure information in the rest of this chapter before moving on to Chapter 4.</para>
+<para>Now that we have provided a little background on Assigns files, we will spend the rest of this chapter describing the SMOKE directory structure. We will return to discussion of the Assigns file and scripts in <xref linkend="ch_scripts" />. It is important to comprehend the directory structure information in the rest of this chapter before moving on to <xref linkend="ch_scripts" />.</para>
 
 </section>
 
-<section>
+<section id="sect_dirs_basic_smoke_dirs">
 
 <title>The basic SMOKE directories</title>
 
-<para>By default, the SMOKE installation is created in a directory called <envar>EDSS_ROOT</envar> (please note that the complete process for installing SMOKE is described in Chapter 12). As shown in the previous subsection, <envar>EDSS_ROOT</envar> is an environment variable on which other SMOKE directories depend: it is the root directory of all other SMOKE directories. When you install SMOKE, you must define and create your own <envar>EDSS_ROOT</envar> directory as part of the installation process. Since <envar>EDSS_ROOT</envar> is an environment variable, you can choose whatever name you like; we cannot prescribe a name for you because each UNIX user has a different computer and disk names. One recommendation that we can make is that <envar>EDSS_ROOT</envar> be set close to the bottom of a directory structure, such as a short directory name like <filename class="directory">/models</filename>. Using a short directory name will limit the overall directory lengths for some of the subdirectories deep within the SMOKE directory structure. The <envar>EDSS_ROOT</envar> directory used for SMOKE can be the very same directory used to install PAVE or the I/O API.</para>
+<para>By default, the SMOKE installation is created in a directory called <envar>EDSS_ROOT</envar> (please note that the complete process for installing SMOKE is described in <xref linkend="ch_installation" />). As shown in the previous section, <envar>EDSS_ROOT</envar> is an environment variable on which other SMOKE directories depend: it is the root directory of all other SMOKE directories. When you install SMOKE, you must define and create your own <envar>EDSS_ROOT</envar> directory as part of the installation process. Since <envar>EDSS_ROOT</envar> is an environment variable, you can choose whatever name you like; we cannot prescribe a name for you because each UNIX user has a different computer and disk names. One recommendation that we can make is that <envar>EDSS_ROOT</envar> be set close to the bottom of a directory structure, such as a short directory name like <filename class="directory">/models</filename>. Using a short directory name will limit the overall directory lengths for some of the subdirectories deep within the SMOKE directory structure. The <envar>EDSS_ROOT</envar> directory used for SMOKE can be the very same directory used to install PAVE or the I/O API.</para>
 
-<para>Figure 3-1 shows the first three layers of the SMOKE directory structure. All of the directories in the figure are created during the SMOKE installation process. From the <envar>EDSS_ROOT</envar> directory stems the <filename class="directory">subsys</filename> directory and <filename class="directory">data</filename> directory. These two directories correspond to the environment variables <envar>EDSS_SUBSYS</envar> and <envar>SMKDAT</envar>, shown in parentheses underneath the actual directory names in the figure. The <filename class="directory">subsys</filename> directory is discussed in more detail within this subsection. The <filename class="directory">data</filename> directory will be described more fully in Sections 3.1.3 through 3.1.6, when we describe the locations of input, intermediate, and output files.</para>
+<para><xref linkend="fig_dirs_basic_dirs" /> shows the first three layers of the SMOKE directory structure. All of the directories in the figure are created during the SMOKE installation process. From the <envar>EDSS_ROOT</envar> directory stems the <filename class="directory">subsys</filename> directory and <filename class="directory">data</filename> directory. These two directories correspond to the environment variables <envar>EDSS_SUBSYS</envar> and <envar>SMKDAT</envar>, shown in parentheses underneath the actual directory names in the figure. The <filename class="directory">subsys</filename> directory is discussed in more detail within this subsection. The <filename class="directory">data</filename> directory will be described more fully in <xref linkend="sect_dirs_location_input_files" />, <xref linkend="sect_dirs_location_intmed_files" />, <xref linkend="sect_dirs_location_output_files" />, <xref linkend="sect_dirs_location_report_files" />, when we describe the locations of input, intermediate, output, and report files.</para>
 
-<remark>figure</remark>
+<figure id="fig_dirs_basic_dirs">
+<title>Basic SMOKE directories: the first three levels of the directory structure</title>
 
-<para>The environment variables shown in parentheses are available to the user once the Assigns file has been invoked from the UNIX command line. In some cases, we do not have environment variables associated with a directory name (e.g. <filename class="directory">ioapi_includes</filename>) because we have not found one useful and we have tried when possible to limit the number of environment variables. The run scripts that come with SMOKE invoke the Assigns file to set up the environment variables. To invoke the Assigns file, you must go to the <filename class="directory"><envar>$SMKROOT</envar>/assigns</filename> directory and type</para>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/dirs/basic_directories_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/dirs/basic_directories_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
 
-<para><userinput>source <replaceable>Assigns file name</replaceable></userinput></para>
+<para>The environment variables shown in parentheses are available to the user once the Assigns file has been invoked from the UNIX command line. The run scripts that come with SMOKE invoke the Assigns file to set up the environment variables. To invoke the Assigns file, you must go to the <filename class="directory"><envar>$SMKROOT</envar>/assigns</filename> directory and type</para>
 
-<para>where <replaceable>Assigns file name</replaceable> is replaced with your specific Assigns file name.</para>
+<para><userinput><command>source</command> <replaceable>&lt;Assigns file name&gt;</replaceable></userinput></para>
 
-<para>Once this command has been used in a UNIX window (e.g., <command>xterm</command>, <command>winterm</command>, <command>console</command>), then the environment variables are available at the command line or to a script that uses the Assigns file. What this means is that the UNIX environment "remembers" the setting of the environment variable. To access the contents of the variable--in this case, a path name--the dollar sign ($) must be used in front of the variable from a UNIX prompt or script. From the UNIX prompt, this is most useful for changing directories. For example, after the Assigns file has been invoked, the UNIX command</para>
+<para>where <replaceable>&lt;Assigns file name&gt;</replaceable> is replaced with your specific Assigns file name.</para>
 
-<para><userinput>cd <envar>$SMKDAT</envar></userinput></para>
+<para>Once this command has been used in a UNIX window (e.g., <command>xterm</command>, <command>winterm</command>, <command>console</command>), then the environment variables are available at the command line or to a script that uses the Assigns file. What this means is that the UNIX environment "remembers" the setting of the environment variable. To access the contents of the variable - in this case, a path name - the dollar sign ($) must be used in front of the variable from a UNIX prompt or script. From the UNIX prompt, this is most useful for changing directories. For example, after the Assigns file has been invoked, the UNIX command</para>
+
+<para><userinput><command>cd</command> <envar>$SMKDAT</envar></userinput></para>
 
 <para>will move the UNIX prompt to the <filename class="directory"><envar>$EDSS_ROOT</envar>/data</filename> directory, no matter where else in the directory structure the UNIX prompt was located when the command was issued. Similarly, the Assigns file can use these environment variables for setting the paths for files.</para>
 
-<para>As shown in Figure 3-1, the <filename class="directory">subsys</filename> directory (creating during installation of SMOKE) contains six subdirectories, each with the following purposes:</para>
+<para>As shown in <xref linkend="fig_dirs_basic_dirs" />, the <filename class="directory">subsys</filename> directory (creating during installation of SMOKE) contains six subdirectories, each with the following purposes:</para>
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">smokev2</filename>: This is the main SMOKE directory. It contains the Assigns files (one per modeling case), SMOKE user documentation, SMOKE source code, makefiles, scripts, and executables.</para>
+<para><filename class="directory">smokev2</filename>: This is the main SMOKE directory. It contains the Assigns files (one per modeling case), SMOKE user documentation, SMOKE source code, Makefiles, scripts, and executables.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">edss_tools</filename>: Contains the source code, makefiles, and library object files for the EDSS Tools library, necessary for compiling SMOKE programs.</para>
+<para><filename class="directory">edss_tools</filename>: Contains the source code, Makefiles, and library object files for the EDSS Tools library, necessary for compiling SMOKE programs.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">filesetapi</filename>: Contains the source code, makefiles, and library object files for the FileSetAPI library, necessary for compiling SMOKE programs.</para>
+<para><filename class="directory">filesetapi</filename>: Contains the source code, Makefiles, and library object files for the FileSetAPI library, necessary for compiling SMOKE programs.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">ioapi</filename>: A placeholder location for the I/O API library object files. When compiling SMOKE, the makefiles look here for the I/O API library, but the actual library can be linked to the main I/O API installation, which can be elsewhere on your computer. This is covered in the Chapter 12 installation description. The <filename class="directory">ioapi</filename> subdirectory is also where SMOKE scripts look for the <command>datshift</command> I/O API program.</para>
+<para><filename class="directory">ioapi</filename>: A placeholder location for the I/O API library object files. When compiling SMOKE, the Makefiles look here for the I/O API library, but the actual library can be linked to the main I/O API installation, which can be elsewhere on your computer. This is covered in the <xref linkend="ch_installation" /> installation description. The <filename class="directory">ioapi</filename> subdirectory is also where SMOKE scripts look for the <command>datshift</command> I/O API program.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">netcdf</filename>: A placeholder location for the NetCDF library object files. When compiling SMOKE, the makefiles look here for the NetCDF library, but the actual library can be linked to the main NetCDF installation, which can be elsewhere on your computer. Please see Chapter 12 for more information.</para>
+<para><filename class="directory">netcdf</filename>: A placeholder location for the NetCDF library object files. When compiling SMOKE, the Makefiles look here for the NetCDF library, but the actual library can be linked to the main NetCDF installation, which can be elsewhere on your computer. Please see <xref linkend="ch_installation" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">ioapi_includes</filename>: Location for the I/O API include file, needed for compiling the FileSetAPI library, EDSS Tools library, and SMOKE libraries and programs. All makefiles that come with SMOKE look here for the I/O API include files, which are included with the SMOKE installation files.</para>
+<para><filename class="directory">ioapi_includes</filename>: Location for the I/O API include files, needed for compiling the FileSetAPI library, EDSS Tools library, and SMOKE libraries and programs. All Makefiles that come with SMOKE look here for the I/O API include files, which are included with the SMOKE installation files.</para>
 </listitem>
 </itemizedlist>
 
-<para>Figure 3-2 shows the subdirectories of the main SMOKE directory, <filename class="directory">smokev2</filename>; these are all creating during the installation of SMOKE (Chapter 12). These subdirectories contain the Assigns files, SMOKE user documentation, source code and makefiles, scripts, and executables.</para>
+<para><xref linkend="fig_dirs_subdirs_main" /> shows the subdirectories of the main SMOKE directory, <filename class="directory">smokev2</filename>; these are all creating during the installation of SMOKE (<xref linkend="ch_installation" />). These subdirectories contain the Assigns files, <remark>SMOKE user documentation</remark>, source code and Makefiles, scripts, and executables.</para>
 
-<remark>figure</remark>
+<figure id="fig_dirs_subdirs_main">
+<title>Subdirectories of the main SMOKE directory</title>
+
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/dirs/subdirs_main_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/dirs/subdirs_main_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
 
 <para>These five subdirectories have the following purposes:</para>
 
@@ -172,10 +194,10 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">assigns</filename>: Contains the Assigns files and all helper scripts for the Assigns files.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">doc</filename>: Contains the SMOKE user documentation and files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked properly.</para>
+<para><remark><filename class="directory">doc</filename>: Contains the SMOKE user documentation and files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked properly.</remark></para>
 </listitem>
 <listitem>
-<para><filename class="directory">src</filename>: Contains subdirectories that store the source code and makefile for each SMOKE program:</para>
+<para><filename class="directory">src</filename>: Contains subdirectories that store the source code and Makefiles for each SMOKE program:</para>
 
 <itemizedlist>
 <listitem>
@@ -185,13 +207,14 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">src/cntlmat</filename>: <command>Cntlmat</command></para>
 </listitem>
 <listitem>
-<para><filename class="directory">src/emmod</filename>: Fortran90 modules used by multiple SMOKE programs</para>
+<para><filename class="directory">src/emmod</filename>: Fortran 90 modules used by multiple SMOKE programs</para>
 </listitem>
 <listitem>
 <para><filename class="directory">src/emqa</filename>: <command>Smkreport</command></para>
 </listitem>
 <listitem>
-<para><filename class="directory">src/emutil</filename>: <command>Beld3to2</command>, <command>Extractida</command>, <command>Invsplit</command>, <command>Metscan</command>, <command>Pktreduc</command>, <command>Smk2emis</command>, <command>Surgtool</command>, <command>Uam2ncf</command></para>
+<para><filename class="directory">src/emutil</filename>: <command>Beld3to2</command>, <command>Extractida</command>, 
+<command>Geofac</command>, <command>Invsplit</command>, <command>Metscan</command>, <command>Pktreduc</command>, <command>Smk2emis</command>, <command>Surgtool</command>, <command>Uam2ncf</command></para>
 </listitem>
 <listitem>
 <para><filename class="directory">src/grdmat</filename>: <command>Grdmat</command></para>
@@ -243,29 +266,40 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory">Linux2_x86ifc</filename>: For a Linux system only, this directory will include the Linux executables. Note that different directory names will apply to other platforms (e.g., <filename class="directory">IRIXn32f90</filename>, <filename class="directory">SunOS5f90</filename>).</para>
+<para><filename class="directory">Linux2_x86ifc</filename>: For a Linux system only, this directory will include the Linux executables. Note that different directory names will apply to other platforms (e.g., <filename class="directory">IRIXn32f90</filename>, <filename class="directory">SunOS5f90</filename>). For more information about the various platforms for which SMOKE is available, see <xref linkend="ch_installation" />.</para>
 </listitem>
 </itemizedlist>
 
 </section>
 
-<section>
+<section id="sect_dirs_location_input_files">
 
 <title>Locations of input files</title>
 
-<para>Input directories, which contain SMOKE input files, are one of the subdirectory types that make up the <envar>$SMKDAT</envar> directory <remark>shown in Figure 3-1 (Section 3.1.2)</remark> as <filename class="directory"><envar>$EDSS_ROOT</envar>/data</filename>. In this section, we provide the structure of these input directories.</para>
+<para>Input directories, which contain SMOKE input files, are one of the subdirectory types that make up the <envar>$SMKDAT</envar> directory shown in <xref linkend="fig_dirs_basic_dirs" /> as <filename class="directory"><envar>$EDSS_ROOT</envar>/data</filename>. In this section, we provide the structure of these input directories.</para>
 
-<para>Figure 3-3 shows all of the input directories in which you may need to install or modify input files that stem from <envar>$SMKDAT</envar>. In the diagram, please note how some paths depend on environment variables set in the Assigns file. For example, the <envar>INVID</envar> environment variable listed in Section 3.1.1 is defined by the user (as we will describe in Chapter 4) to label the inventory name. This variable is used to build the name of the <envar>INVDIR</envar> directory as follows:</para>
+<para><xref linkend="fig_dirs_input_dirs" /> shows all of the input directories in which you may need to install or modify input files that stem from <envar>$SMKDAT</envar>. In the diagram, note how some paths depend on environment variables set in the Assigns file. For example, the <envar>INVID</envar> environment variable listed in <xref linkend="sect_dirs_example_assigns" /> is defined by the user (as we will describe in <xref linkend="ch_scripts" />) to label the inventory name. This variable is used to build the name of the <envar>INVDIR</envar> directory as follows:</para>
 
 <para><envar>INVDIR</envar> = <filename class="directory"><envar>$SMKDAT</envar>/inventory/<envar>$INVID</envar></filename></para>
 
-<para>So, if a user decided to label the inventory "nei99", then the Assigns file would have <envar>INVID</envar> = nei99 and the <envar>INVDIR</envar> directory would be <filename class="directory"><envar>$SMKDAT</envar>/inventory/nei99</filename>. Another example of this in the figure is the <envar>SMK_M6PATH</envar> directory. The full path depends upon the setting of the <envar>MSCEN</envar> variable, such that if <envar>MSCEN</envar> were set to "case1", then <envar>SMK_M6PATH</envar> would be <filename class="directory"><envar>$SMKDAT</envar>/run_case1/static/m6</filename>.</para>
+<para>So, if a user decided to label the inventory "nei99", then the Assigns file would have <envar>INVID</envar> = nei99 and the <envar>INVDIR</envar> directory would be <filename class="directory"><envar>$SMKDAT</envar>/inventory/nei99</filename>. Another example of this in the figure is the <envar>SMK_M6PATH</envar> directory. The full path depends upon the setting of the <envar>MSCEN</envar> variable; if <envar>MSCEN</envar> is set to "case1", then <envar>SMK_M6PATH</envar> would be <filename class="directory"><envar>$SMKDAT</envar>/run_case1/static/m6</filename>.</para>
 
-<para>As mentioned previously, some directories are not assigned their own environment variables. One example is the <filename class="directory"><envar>$SMKDAT</envar>/inventory</filename> directory. In these cases, we did not assign variables simply because they were not very useful and we tried to limit the list of SMOKE environment variables to not overwhelm the operating system. It is possible to assign too many environment variables in UNIX, so when they were not really useful we did not assign them. If desired, users can add environment variables to the Assigns file and/or the <filename>set_dirs.scr</filename> helper script.</para>
+<para>In some cases, we do not have environment variables associated with a directory name. One example is the <filename class="directory"><envar>$SMKDAT</envar>/inventory</filename> directory. In these cases, we did not assign variables simply because they were not very useful and we have to limit the number of SMOKE environment variables. Most operating systems have a limit on the number of environment variables (usually 256), so when they were not really useful we did not assign them. If desired, users can add environment variables to the Assigns file and/or the <filename>set_dirs.scr</filename> helper script.</para>
 
-<remark>figure</remark>
+<figure id="fig_dirs_input_dirs">
+<title>SMOKE input files directory structure</title>
 
-<para>In the list below, we describe the purpose of each of these directories, along with the file names and in some cases file descriptions for those files that you may need to change. You can refer to Chapter 8 for more information about each of these files (look under the logical file names). Chapter 4 provides step-by-step instructions on how to create and install each of the files listed.</para>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/dirs/input_dirs_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/dirs/input_dirs_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>In the list below, we describe the purpose of each of these directories, along with the file names and in some cases file descriptions for those files that you may need to change. You can refer to <xref linkend="ch_input_files" /> for more information about each of these files (look under the logical file names). <xref linkend="ch_scripts" /> provides step-by-step instructions on how to create and install each of the files listed.</para>
 
 <itemizedlist>
 <listitem>
@@ -277,59 +311,111 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">area</filename>: Contains the nonpoint or stationary area inventories. Optionally, it may contain nonroad mobile inventories. Can include any inventory that will be processed as a SMOKE area source (e.g. criteria, particulates, and/or toxics inventories). Files should include:</para>
+<para><filename class="directory">area</filename>: Contains the nonpoint or stationary area inventories. Optionally, it may contain nonroad mobile inventories. Can include <emphasis>any</emphasis> inventory that will be processed as a SMOKE area source (e.g. criteria, particulates, and/or toxics inventories). Files should include:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>ARINV</envar> (raw area-source inventory file). If this is a list-formatted file, the files listed within it should also be included in this directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>GCNTL</envar> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme for these files is described in the default SMOKE scripts.</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 <listitem>
 <para><filename class="directory">nonroad</filename>: Optional directory that can include the nonroad mobile inventory, if this is not included with the other SMOKE area sources in the area directory. Files should include:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>NRINV</envar> (raw nonroad-mobile-source inventory file). If this is a list-formatted file, the files listed within it should also be included in this directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>GCNTL</envar> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme for these files is described in the default SMOKE scripts.</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 <listitem>
 <para><filename class="directory">mobile</filename>: Contains the on-road mobile inventory and other on-road mobile-specific input files. Files should include:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>MBINV</envar> (raw on-road mobile-source inventory file). If this is a list-formatted file, the files listed within it should also be included in this directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>VMTMIX</envar> (VMT mix file). For EMS-95 input only, contains the VMT mix (VMT fraction for each county and road class).</para>
+</listitem>
 
+<listitem>
 <para><envar>GCNTL</envar> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme for these files is described in the default SMOKE scripts.</para>
+</listitem>
 
+<listitem>
 <para><envar>MCODES</envar> (mobile-source codes file). Contains list of valid on-road SCCs, vehicle types, and road class codes.</para>
+</listitem>
 
+<listitem>
 <para><envar>MEPROC</envar> (mobile-source processing file). For MOBILE6 modeling only, contains the pollutants to be modeled by MOBILE6 and the emission processes (e.g., exhaust running) associated with each.</para>
+</listitem>
 
-<para><envar>MCREF</envar> (mobile-source county cross-reference). For MOBILE6 modeling only, contains the reference county assignments (see Chapter 2 for an explanation of reference counties).</para>
+<listitem>
+<para><envar>MCREF</envar> (mobile-source county cross-reference). For MOBILE6 modeling only, contains the reference county assignments (see <xref linkend="sect_concepts_reference_counties" /> for an explanation of reference counties).</para>
+</listitem>
 
+<listitem>
 <para><envar>MVREF</envar> (mobile-source county settings). For MOBILE6 modeling only, contains the reference county and its temporal averaging, spatial averaging, and local-road approach settings.</para>
+</listitem>
 
+<listitem>
 <para><envar>M6LIST</envar> (MOBILE6 input files list). With the default SMOKE scripts, this file is generated automatically based on the <envar>MCREF</envar> file and the files listed in the <filename class="directory">m6_<envar>$EF_YEAR</envar></filename> subdirectory of this directory. Contains a list of the MOBILE6 inputs files for each reference county.</para>
+</listitem>
 
+<listitem>
 <para><envar>METLIST</envar> (meteorology input files list). With the default SMOKE scripts, this file is generated automatically based on the meteorology files in the <envar>$METDAT</envar> directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>SPDREF</envar> (speed profiles cross-reference file). For MOBILE6 modeling only with optional hour-specific speed profiles, contains the cross-reference assignments for the speed profiles in the <envar>SPDPRO</envar> file to the inventory sources.</para>
+</listitem>
 
+<listitem>
 <para><envar>SPDPRO</envar> (Speed profiles file). For MOBILE6 modeling only, contains the optional hour-specific speed profiles.</para>
 </listitem>
+</itemizedlist>
+
+</listitem>
 <listitem>
-<para><filename class="directory">mobile/m6_<envar>$EF_YEAR</envar></filename>: This subdirectory is used only when MOBILE6 will be used with SMOKE, and should include the MOBILE6 input scenario files in standard MOBILE6 input format for each of the reference counties in the domain. The <envar>$EF_YEAR</envar> variable is set by the <envar>$YEAR</envar> variable in the Assigns file for base case runs or by the <envar>$FYEAR</envar> variable from the run script for future-year runs <remark>(see Section 3.1.4.2 for more information on the <envar>FYEAR</envar> setting)</remark>.</para>
+<para><filename class="directory">mobile/m6_<envar>$EF_YEAR</envar></filename>: This subdirectory is used only when MOBILE6 will be used with SMOKE, and should include the MOBILE6 input scenario files in standard MOBILE6 input format for each of the reference counties in the domain. The <envar>$EF_YEAR</envar> variable is set by the <envar>$YEAR</envar> variable in the Assigns file for base case runs or by the <envar>$FYEAR</envar> variable from the run script for future-year runs (see <xref linkend="sect_dirs_location_intmed_growth" /> for more information on the <envar>FYEAR</envar> setting).</para>
 </listitem>
 <listitem>
 <para><filename class="directory">point</filename>: Contains the point-source inventory and other point-specific input files. Files should include:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>PTINV</envar> (raw point-source inventory file). If this is a list-formatted file (required for EMS-95 inputs), the files listed within it should also be included in this directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>GCNTL</envar> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme for these files is described in the default SMOKE scripts.</para>
+</listitem>
 
+<listitem>
 <para><envar>PTDAY</envar> (raw day-specific point-source inventory file). If this optional file is a list-formatted file, which is typically the case, the files listed within it should also be included in this directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>PTHOUR</envar> (raw hour-specific point-source inventory file). If this optional file is a list-formatted file, which is typically the case, the files listed within it should also be included in this directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>PELVCONFIG</envar> (elevated-source selection configuration file). When using the <command>Elevpoint</command> program to select elevated and PinG sources, this file is required to specify the selection criteria.</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 </itemizedlist>
 
@@ -343,150 +429,272 @@ source $ASSIGNS/set_dirs.scr
 <listitem>
 <para><filename class="directory">other</filename>: Contains files that are associated with the various inventories, but which may be shared by more than one source category. These files are:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>INVTABLE</envar> (inventory table file). Contains a list of the valid inventory pollutants and whether or not emissions associated with each pollutant should be kept when reading the inventory files, among other purposes.</para>
+</listitem>
 
+<listitem>
 <para><envar>REPCONFIG</envar> (report configuration file). Contains instructions used by <command>Smkreport</command> to configure reports. The SMOKE installation includes only the <envar>REPCONFIG</envar> files for the default reports included with the SMOKE default scripts.</para>
+</listitem>
 
+<listitem>
 <para><envar>ARTOPNT</envar> (area-to-point file). Contains the area-to-point assignments by SCC with the point locations for each county in which a SMOKE area source will be assigned to point locations.</para>
+</listitem>
 
+<listitem>
 <para><envar>NHAPEXCLUDE</envar> (non-HAP exclusions file). Contains the SCCs that will be excluded from a NONHAPVOC or NONHAPTOG calculation when integrating toxics and criteria inventories.</para>
 </listitem>
 </itemizedlist>
 
 </listitem>
+</itemizedlist>
+
+</listitem>
 <listitem>
-<para><filename class="directory">data/ge_dat</filename>: This directory contains the cross-reference files, profile files, spatial surrogates and cross-reference files, and other files that are likely to be shared among multiple cases of processing inventories with SMOKE. You will be able to use the default files provided with SMOKE for many of these files. The file that is most likely to require changes is the spatial surrogates file, to customize it for the grid you wish to model. The logical file names for files included in this directory are listed here; many physical files could be available in the <filename class="directory">ge_dat</filename> directory for each file type. For example, you may have dozens of surrogate files for different modeling grids and several speciation profiles for different model-mechanism combinations. More detailed descriptions of these files are in Chapter 8.</para>
+<para><filename class="directory">data/ge_dat</filename>: This directory contains the cross-reference files, profile files, spatial surrogates and cross-reference files, and other files that are likely to be shared among multiple cases of processing inventories with SMOKE. You will be able to use the default files provided with SMOKE for many of these files. The file that is most likely to require changes is the spatial surrogates file, to customize it for the grid you wish to model. The logical file names for files included in this directory are listed here; many physical files could be available in the <filename class="directory">ge_dat</filename> directory for each file type. For example, you may have dozens of surrogate files for different modeling grids and several speciation profiles for different model-mechanism combinations. More detailed descriptions of these files are in <xref linkend="ch_input_files" />.</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>GSREF</envar>, <envar>GSPRO</envar>, <envar>GSCNV</envar>: The chemical speciation cross-reference file, speciation profiles file, and pollutant-to-pollutant conversion file (e.g., VOC-to-TOG factors), respectively.</para>
+</listitem>
 
+<listitem>
 <para><envar>ATREF</envar>, <envar>MTREF</envar>, <envar>PTREF</envar>: The temporal cross-reference files for nonpoint (stationary area)/nonroad, on-road mobile, and point sources. These three logical file names can all reference the same physical file.</para>
+</listitem>
 
+<listitem>
 <para><envar>AGREF</envar>, <envar>MGREF</envar>: The spatial cross-reference files for nonpoint (stationary area)/nonroad and on-road mobile sources. These two logical file names can all reference the same physical file.</para>
+</listitem>
 
+<listitem>
 <para><envar>AGPRO</envar>, <envar>BGPRO</envar>, <envar>MGPRO</envar>: The spatial surrogates file for nonpoint (stationary area)/nonroad, biogenics (for using county-total land use in <command>Rawbio</command> and/or computing county-total emissions with <command>Smkmerge</command>), and on-road mobile sources. These three logical file names can all reference the same physical file.</para>
+</listitem>
 
+<listitem>
 <para><envar>PSTK</envar>: The point-source replacement stack parameters.</para>
+</listitem>
 
+<listitem>
 <para><envar>GRIDDESC</envar>: The grid definitions file.</para>
+</listitem>
 
+<listitem>
 <para><envar>COSTCY</envar>: The country, state, and county information file.</para>
+</listitem>
 
-<para><envar>HOLIDAYS</envar>: The dates that SMOKE should process as holidays and the day of the week to use for each date instead of its actual day of the week.</para>
+<listitem>
+<para><envar>HOLIDAYS</envar>: The dates that SMOKE should process as holidays and the day of the week to use for each date instead of its actual day of the week (the substitute is usually a Saturday or Sunday).</para>
+</listitem>
 
+<listitem>
 <para><envar>SCCDESC</envar>, <envar>SRGDESC</envar>, <envar>ORISDESC</envar>, <envar>SICDESC</envar>: The descriptions of each known SCC, surrogate code, ORIS ID, and SIC code.</para>
+</listitem>
 
+<listitem>
 <para><envar>VNAMMAP</envar>: The name-mapping file for transforming the I/O API file model-species names to the names used by the model (e.g., renaming CD for REMSAD to CD-1).</para>
+</listitem>
 
+<listitem>
 <para><envar>BIOSEASON</envar>: I/O API file indicating which grid cells in a domain are winter and which are summer for biogenics modeling purposes, for each day of the year or episode.</para>
+</listitem>
 
+<listitem>
 <para><envar>BCUSE</envar>: The BEIS2 county-total land use for all U.S. counties</para>
+</listitem>
 
+<listitem>
 <para><envar>BFAC</envar>, <envar>S_BFAC</envar>, <envar>W_BFAC</envar>: The default, summer, and winter BEIS2 normalized emission factors.</para>
+</listitem>
 
+<listitem>
 <para><envar>B3FAC</envar>: The BEIS3 normalized emission factors.</para>
+</listitem>
 
+<listitem>
 <para><envar>B3XRF</envar>: The BELD3-to-BELD2 land use cross-reference</para>
 </listitem>
-<listitem>
-<para><filename class="directory">data/run_<envar>$MSCEN</envar>/static/m6</filename>: For MOBILE6 modeling only, this directory must contain the ancillary MOBILE6 inputs needed for running MOBILE6. <remark>Section [add section] of </remark>Chapter 4 contains a description of the files that are required and their dependencies on MOBILE6 commands. Some files are needed only when certain MOBILE6 input commands are used.</para>
+</itemizedlist>
+
 </listitem>
 <listitem>
-<para><filename class="directory">data/met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-road mobile sources with MOBILE6 using gridded, hourly meteorology data; or (3) point sources for the CMAQ or MAQSIP models. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ's MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats.</para>
+<para><filename class="directory">data/run_<envar>$MSCEN</envar>/static/m6</filename>: For MOBILE6 modeling only, this directory must contain the ancillary MOBILE6 inputs needed for running MOBILE6. <xref linkend="ch_scripts" /> contains a description of the files that are required and their dependencies on MOBILE6 commands. Some files are needed only when certain MOBILE6 input commands are used.</para>
+</listitem>
+<listitem>
+<para><filename class="directory">data/met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-road mobile sources with MOBILE6 using gridded, hourly meteorology data; or (3) point sources for the CMAQ or MAQSIP models. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ's MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats. See <xref linkend="ch_input_files" /> for more information about the meteorology data needed by SMOKE.</para>
 </listitem>
 </itemizedlist>
 
 </section>
 
-<section>
+<section id="sect_dirs_location_intmed_files">
 
 <title>Locations of intermediate files for base and growth/control cases</title>
 
-<para>The intermediate files for SMOKE are located in three primary directories for each case: the inventory output directory (<envar>$INVOPD</envar>), the static files directory (<envar>$STATIC</envar>), and the scenario directory (<envar>$SCENARIO</envar>). All intermediate file locations are subdirectories of the <envar>$SMKDAT</envar> directory shown in Figure 3-1 as <filename class="directory"><envar>$EDSS_ROOT/data</envar></filename>. Note that Figures 3-4 through 3-6 in this subsection show both intermediate and output directories. Here we focus only on the intermediate directories; the output directories are discussed in Section 3.2.5.</para>
+<para>The intermediate files for SMOKE are located in three primary directories for each case: the inventory output directory (<envar>$INVOPD</envar>), the static files directory (<envar>$STATIC</envar>), and the scenario directory (<envar>$SCENARIO</envar>). All intermediate file locations are subdirectories of the <envar>$SMKDAT</envar> directory shown in <xref linkend="fig_dirs_basic_dirs" /> as <filename class="directory"><envar>$EDSS_ROOT/data</envar></filename>. Note that <xref linkend="fig_dirs_files_base" />, <xref linkend="fig_dirs_files_advanced" />, and <xref linkend="fig_dirs_files_growth" /> show both intermediate and output directories. Here we focus only on the intermediate directories; the output directories are discussed in <xref linkend="sect_dirs_location_output_files" />.</para>
 
-<section>
+<section id="sect_dirs_location_intmed_base">
 
 <title>Basic configuration for base case</title>
 
-<para>Figure 3-4 shows the SMOKE intermediate directories for a basic configuration of a base case. In this configuration, the Assigns file variables <envar>ASCEN</envar>, <envar>MSCEN</envar>, <envar>PSCEN</envar>, and <envar>ESCEN</envar> are all set to the same value. These variables are the scenario names for the three processing categories (area, mobile, and point) and the combined category (used when combining emissions from multiple source categories). Having these variables set to the same value allows a simpler structure in which the <filename class="directory">run_<envar>$ESCEN</envar></filename> directory is the same as the <filename class="directory">run_<envar>$ASCEN</envar></filename>, <filename class="directory">run_<envar>$MSCEN</envar></filename>, and <filename class="directory">run_<envar>$PSCEN</envar></filename> directories. In the figure, this single directory is shown simply as <filename class="directory">run_<envar>$ESCEN</envar></filename>.</para>
+<para><xref linkend="fig_dirs_files_base" /> shows the SMOKE intermediate directories for a basic configuration of a base case. In this configuration, the Assigns file variables <envar>ASCEN</envar>, <envar>MSCEN</envar>, <envar>PSCEN</envar>, and <envar>ESCEN</envar> are all set to the same value. These variables are the scenario names for the three processing categories (area, mobile, and point) and the combined category (used when combining emissions from multiple source categories). Having these variables set to the same value allows a simpler structure in which the <filename class="directory">run_<envar>$ESCEN</envar></filename> directory is the same as the <filename class="directory">run_<envar>$ASCEN</envar></filename>, <filename class="directory">run_<envar>$MSCEN</envar></filename>, and <filename class="directory">run_<envar>$PSCEN</envar></filename> directories. In the figure, this single directory is shown simply as <filename class="directory">run_<envar>$ESCEN</envar></filename>.</para>
 
 <para>The <envar>$BSCEN</envar> setting for biogenic sources is almost always set to a different scenario name, usually simply "beld2" or "beld3". This is because there are not very many scenarios to choose from for biogenic emissions, since users almost always want to use one of the standard approaches and there are usually no control strategies considered for biogenic emissions. Hence, the <filename class="directory">run_<envar>$BSCEN</envar></filename> directory is a separate branch in the directory structure that stores just the biogenic files for use by both base case and future-year control scenarios.</para>
 
-<remark>figure</remark>
+<figure id="fig_dirs_files_base">
+<title>Locations of intermediate and output files for SMOKE base case, basic configuration</title>
 
-<para>The following list describes the intermediate files that are associated with each of the intermediate directories <envar>$INVOPD</envar>, <envar>$STATIC</envar>, and <envar>$SCENARIO</envar>. You can refer to Chapter 9 for more information about each of the intermediate files (look under the logical file names).</para>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/dirs/files_base_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/dirs/files_base_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para>The following list describes the intermediate files that are associated with each of the intermediate directories <envar>$INVOPD</envar>, <envar>$STATIC</envar>, and <envar>$SCENARIO</envar>. You can refer to <xref linkend="ch_intermediate_files" /> for more information about each of the intermediate files (look under the logical file names).</para>
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/inventory/<envar>$INVEN</envar></filename>: This directory contains the SMOKE intermediate inventory files, including the directories associated with them. These files are the outputs from Smkinven, and are map-formatted. The subdirectories <filename class="directory">area_dat</filename>, <filename class="directory">nroad_dat</filename>, <filename class="directory">mobl_dat</filename>, and <filename class="directory">pnts_dat</filename> contain the files that store the emissions values for each pollutant in the inventory. The intermediate files in this directory include:</para>
+<para><filename class="directory">data/inventory/<envar>$INVEN</envar></filename>: This directory contains the SMOKE intermediate inventory files, including the directories associated with them. These files are the outputs from <command>Smkinven</command>, and are map-formatted (see below for more information). The subdirectories <filename class="directory">area_dat</filename>, <filename class="directory">nroad_dat</filename>, <filename class="directory">mobl_dat</filename>, and <filename class="directory">pnts_dat</filename> contain the files that store the emissions values for each pollutant in the inventory. The intermediate files in this directory include:</para>
 
-<para><envar>AREA</envar>: Map-formatted SMOKE intermediate files for nonpoint/stationary area sources (from the <envar>ARINV</envar> input file) and/or nonroad mobile sources (from either the <envar>ARINV</envar> input file or from the <envar>NRINV</envar> input file if nonroad mobile sources are being run separately from other SMOKE area sources). Example file names include <filename>area.map.<envar>$INVOP</envar>.txt</filename> and <filename>nroad.map.<envar>$INVOP</envar>.txt</filename>. The map-formatted files group several files so that SMOKE treats them as a single file. For the <envar>AREA</envar> file, the files <filename>area.ncf</filename>, and <filename>asrc.txt</filename> that will also be stored in the <envar>$INVOPD</envar> directory go with the pollutant-specific files in the <filename class="directory">area_dat</filename> directory. For the <envar>NROAD</envar> file, the files <filename>nroad.ncf</filename> and <filename>nsrc.txt</filename> go with the files in the <filename class="directory">nroad_dat</filename> directory.</para>
+<itemizedlist>
+<listitem>
+<para><envar>AREA</envar>: Map-formatted SMOKE intermediate files for nonpoint/stationary area sources (from the <envar>ARINV</envar> input file) and/or nonroad mobile sources (from either the <envar>ARINV</envar> input file or from the <envar>NRINV</envar> input file if nonroad mobile sources are being run separately from other SMOKE area sources). Example file names include <filename>area.map.<envar>$INVOP</envar>.txt</filename> and <filename>nroad.map.<envar>$INVOP</envar>.txt</filename>.</para>
 
+<para>The data from the inventories is stored in several different files, both ASCII and I/O API format. The map-formatted intermediate files are used to organize and keep track of these separate files. See <xref linkend="ch_intermediate_files" /> for an example and further discussion of the intermediate inventory files. For the <envar>AREA</envar> file, the additional inventory files <filename>area.ncf</filename> and <filename>asrc.txt</filename> are stored in the <envar>$INVOPD</envar> directory. The pollutant-specific files are stored in the <filename class="directory">area_dat</filename> directory. For the <envar>NROAD</envar> file, the files are named <filename>nroad.ncf</filename> and <filename>nsrc.txt</filename> and the pollutant-specific files are placed in the <filename class="directory">nroad_dat</filename> directory.</para>
+</listitem>
+
+<listitem>
 <para><envar>ASCC</envar>: List of area-source SCCs in the inventory. Can include <filename>ASCC.<envar>$INVOP</envar>.txt</filename> and <filename>NSCC.<envar>$INVOP</envar>.txt</filename> (e.g., <filename>ASCC.nei99.txt</filename> and <filename>NSCC.nei99.txt</filename>).</para>
+</listitem>
 
-<para><envar>MOBL</envar>: Map-formatted SMOKE intermediate file for on-road mobile sources. Example file name is <filename>mobl.map.<envar>$INVOP</envar>.txt</filename>. The map-formatted file groups the files <filename>mobl.ncf</filename>, <filename>msrc.txt</filename>, and the pollutant-specific files in the <filename class="directory">mobl_dat</filename> directory.</para>
+<listitem>
+<para><envar>MOBL</envar>: Map-formatted SMOKE intermediate file for on-road mobile sources. Example file name is <filename>mobl.map.<envar>$INVOP</envar>.txt</filename>. The additional inventory files are named <filename>mobl.ncf</filename> and <filename>msrc.txt</filename>, and the pollutant-specific files are placed in the <filename class="directory">mobl_dat</filename> directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>MSCC</envar>: List of on-road mobile-source SCCs in the inventory; e.g., <filename>MSCC.<envar>$INVOP</envar>.txt</filename>.</para>
+</listitem>
 
-<para><envar>PNTS</envar>: Map-formatted SMOKE intermediate file for point sources. Example file name is <filename>pnts.map.<envar>$INVOP</envar>.txt</filename>. The map-formatted file groups the files <filename>pnts.ncf</filename>, <filename>psrc.txt</filename>, and the pollutant-specific files in the <filename class="directory">pnts_dat</filename> directory.</para>
+<listitem>
+<para><envar>PNTS</envar>: Map-formatted SMOKE intermediate file for point sources. Example file name is <filename>pnts.map.<envar>$INVOP</envar>.txt</filename>. The additional inventory files are named <filename>pnts.ncf</filename> and <filename>psrc.txt</filename>, and the pollutant-specific files are placed in the <filename class="directory">pnts_dat</filename> directory.</para>
+</listitem>
 
+<listitem>
 <para><envar>PSCC</envar>: List of point-source SCCs in the inventory; e.g., <filename>PSCC.<envar>$INVOP</envar>.txt</filename>.</para>
+</listitem>
 
+<listitem>
 <para><envar>PDAY</envar>: The day-specific SMOKE intermediate inventory.</para>
+</listitem>
 
+<listitem>
 <para><envar>PHOUR</envar>: The hour-specific SMOKE intermediate inventory.</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 <listitem>
 <para><filename class="directory">run_<envar>$ESCEN</envar>/static</filename>: Contains the matrices and other time-independent files. The intermediate files in this directory include:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>AGMAT</envar>, <envar>MGMAT</envar>, <envar>PGMAT</envar>: The area/nonroad, mobile, and point gridding matrices.</para>
+</listitem>
 
+<listitem>
 <para><envar>MUMAT</envar>: The mobile ungridding matrix.</para>
+</listitem>
 
+<listitem>
 <para><envar>AGSUP</envar>, <envar>MGSUP</envar>: The area/nonroad and mobile supplementary gridding files.</para>
+</listitem>
 
+<listitem>
 <para><envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, <envar>PSMAT_L</envar>: The area/nonroad, mobile, and point mole-based speciation matrices.</para>
+</listitem>
 
+<listitem>
 <para><envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, <envar>PSMAT_S</envar>: The area/nonroad, mobile, and point mass-based speciation matrices.</para>
+</listitem>
 
+<listitem>
 <para><envar>ASSUP</envar>, <envar>MSSUP</envar>, <envar>PSSUP</envar>: The area/nonroad, mobile, and point supplementary speciation files.</para>
+</listitem>
 
+<listitem>
 <para><envar>APMAT</envar>, <envar>MPMAT</envar>, <envar>PPMAT</envar>: The area/nonroad, mobile, and point growth matrices.</para>
+</listitem>
 
+<listitem>
 <para><envar>ACMAT</envar>, <envar>MCMAT</envar>, <envar>PCMAT</envar>: The area/nonroad, mobile, and point multiplicative control matrices.</para>
+</listitem>
 
+<listitem>
 <para><envar>ARMAT</envar>, <envar>MRMAT</envar>, <envar>PRMAT</envar>: The area/nonroad, mobile, and point reactivity control matrices.</para>
+</listitem>
 
+<listitem>
 <para><envar>ARSUP</envar>, <envar>MRSUP</envar>, <envar>MRSUP</envar>: The area/nonroad, mobile, and point reactivity supplementary files.</para>
+</listitem>
 
+<listitem>
 <para><envar>PELV</envar>: The point-source elevated- and PinG-source selection file</para>
+</listitem>
 
+<listitem>
 <para><envar>SPDSUM</envar>: The speeds summary file for on-road mobile sources and MOBILE6 processing.</para>
+</listitem>
 
+<listitem>
 <para><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, <envar>EPISODEGROUP</envar>: The temperature temporal averaging groups for on-road mobile sources and MOBILE6 processing.</para>
+</listitem>
+
+<listitem>
+<para><filename class="directory"><envar>$LOGS</envar></filename>: Contains the log files created when the SMOKE programs are run</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 <listitem>
 <para><filename class="directory">run_<envar>$ESCEN</envar>/scenario</filename>: Contains the intermediate hourly emissions files and other time-dependent files. The intermediate files in this directory include:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>ATMP</envar>, <envar>MTMP</envar>, <envar>PTMP</envar>: The area/nonroad, mobile, and point hourly emissions created by the <command>Temporal</command> program.</para>
+</listitem>
 
+<listitem>
 <para><envar>ATSUP</envar>, <envar>MTSUP</envar>, <envar>PTSUP</envar>: The area/nonroad, mobile, and point temporal allocation supplementary files.</para>
+</listitem>
 
+<listitem>
 <para><envar>PLAY</envar>: The point-source hourly layer fraction for each source.</para>
+</listitem>
 
-<para><envar>PLAY_EX</envar>: The point-source hourly layer fractions for explicit plume rise sources when processing for UAM, CAM<subscript>X</subscript>, or REMSAD.</para>
+<listitem>
+<para><envar>PLAY_EX</envar>: The point-source hourly layer fractions for <emphasis>explicit</emphasis> plume rise sources when processing for UAM, CAM<subscript>X</subscript>, or REMSAD.</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 <listitem>
-<para><filename class="directory">run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>: Contains the hourly, gridded, speciated biogenic emissions files. These are listed in this subsection for intermediate files because in some cases these are not ready for the AQM, because the units need to be converted. Specifically, the files written to this directory by the Tmpbio program have units of moles/hr and grams/hr, but the CMAQ model needs data in units of moles/s.</para>
+<para><filename class="directory">run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>: Contains the hourly, gridded, speciated biogenic emissions files. These are listed in this subsection for intermediate files because in some cases these are not ready for the AQM, because the units need to be converted. Specifically, the files written to this directory by the <command>Tmpbio</command> program have units of moles/hr and grams/hr, but the CMAQ model needs data in units of moles/s.</para>
+
+<para><filename class="directory"><envar>$REPORTS</envar></filename>: Discussed in <xref linkend="sect_dirs_location_report_files" /></para>
 </listitem>
 </itemizedlist>
 
 </section>
 
-<section>
+<section id="sect_dirs_location_intmed_advanced">
 
 <title>Advanced configuration for base case</title>
 
-<para>Instead of using the basic configuration technique of setting the scenario name variables (<envar>ASCEN</envar>, <envar>MSCEN</envar>, <envar>PSCEN</envar>, and <envar>ESCEN</envar>) all to the same value <remark>(Section 3.2.4.1)</remark>, you can set up an Assigns file to use different values for one or more of these variable. In this more advanced configuration, separate directories are created and used for intermediate and output files for each source category (examples of when this would be useful are given in the bullets below). Figure 3-5 illustrates the directory structure resulting from this approach; however, for simplicity's sake, we have not included all of the files in this structure. The files are the same as in Figure 3-4, with the exception that files specific to a source category go to their category-specific directories, based on the values given to <envar>ASCEN</envar>, <envar>MSCEN</envar>, and/or <envar>PSCEN</envar>. Note that the nonpoint (stationary area) and nonroad mobile sources would need to use the same scenario name, even if they are processed separately, because the nonroad mobile <envar>$STATIC</envar> and <envar>$SCENARIO</envar> directories are set using the same <envar>ASCEN</envar> variable as for other area sources in the default Assigns files.</para>
+<para>Instead of using the basic configuration technique of setting the scenario name variables (<envar>ASCEN</envar>, <envar>MSCEN</envar>, <envar>PSCEN</envar>, and <envar>ESCEN</envar>) all to the same value (<xref linkend="sect_dirs_location_intmed_base" />), you can set up an Assigns file to use different values for one or more of these variable. In this more advanced configuration, separate directories are created and used for intermediate and output files for each source category (examples of when this would be useful are given in the bullets below). <xref linkend="fig_dirs_files_advanced" /> illustrates the directory structure resulting from this approach; however, for simplicity's sake, we have not included all of the files in this structure. The files are the same as in <xref linkend="fig_dirs_files_base" />, with the exception that files specific to a source category go to their category-specific directories, based on the values given to <envar>ASCEN</envar>, <envar>MSCEN</envar>, and/or <envar>PSCEN</envar>. Note that the nonpoint (stationary area) and nonroad mobile sources would need to use the same scenario name, even if they are processed separately, because the nonroad mobile <envar>$STATIC</envar> and <envar>$SCENARIO</envar> directories are set using the same <envar>ASCEN</envar> variable as for other area sources in the default Assigns files. Having separate source-category-specific directories does not change the number of intermediate or output files, it just rearranges the files and results into fewer intermediate, output, and/or report files in each directory.</para>
 
 <para>This approach is particularly useful in the following cases:</para>
 
@@ -495,19 +703,30 @@ source $ASSIGNS/set_dirs.scr
 <para><emphasis>Using toxic inventories for some source categories but not others.</emphasis> In this case, different scenario names (<envar>ASCEN</envar>, <envar>MSCEN</envar>, <envar>PSCEN</envar>, and <envar>ESCEN</envar>) can be used to distinguish each case and the final-merged files (though it is not required to do this). For example, if you were running toxics for on-road mobile sources only, <envar>MSCEN</envar> could be set to "case1_tox", while <envar>ASCEN</envar> and <envar>PSCEN</envar> could be set to just "case1" and <envar>ESCEN</envar> could be "case1_all". If you would prefer instead to name all of these "case1" and simply remember that on-road mobile sources include toxics, then that would be fine as well.</para>
 </listitem>
 <listitem>
-<para><emphasis>Using the Mrggrid program to combine model-ready files from several previously run scenarios.</emphasis> For example, you might want to combine the future-year base case for all source categories except nonroad with a future-year control case for nonroad, as part of an evaluation of the impact of the nonroad control case. If three previous Assigns files were set up using the basic structure for three different control cases (case1, case2, and case3), and a new case is needed that uses area sources from case1, on-road mobile sources from case2, and point sources from case3, you could set up a new Assigns file that sets <envar>ASCEN</envar> to case1, <envar>MSCEN</envar> to case2, and <envar>PSCEN</envar> to case3. When you invoke that new Assigns file, all of the environment variables needed by Mrggrid for combining the model-ready files from the three different cases would be set: <envar>AGTS_L</envar> would be based on case1, <envar>MGTS_L</envar> would be based on case2, and <envar>PGTS3D_L</envar> would be based on case3.</para>
+<para><emphasis>Using the <command>Mrggrid</command> program to combine model-ready files from several previously run scenarios.</emphasis> For example, you might want to combine the future-year base case for all source categories except nonroad with a future-year control case for nonroad, as part of an evaluation of the impact of the nonroad control case. If three previous Assigns files were set up using the basic structure for three different control cases (case1, case2, and case3), and a new case is needed that uses area sources from case1, on-road mobile sources from case2, and point sources from case3, you could set up a new Assigns file that sets <envar>ASCEN</envar> to case1, <envar>MSCEN</envar> to case2, and <envar>PSCEN</envar> to case3. When you invoke that new Assigns file, all of the environment variables needed by <command>Mrggrid</command> for combining the model-ready files from the three different cases would be set: <envar>AGTS_L</envar> would be based on case1, <envar>MGTS_L</envar> would be based on case2, and <envar>PGTS3D_L</envar> would be based on case3. See <xref linkend="sect_dirs_location_output_files" /> for more information on the model-ready files.</para>
 </listitem>
 </itemizedlist>
 
-<remark>figure</remark>
+<figure id="fig_dirs_files_advanced">
+<title>Locations of intermediate and output files for SMOKE base case, advanced configuration</title>
+
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/dirs/files_advanced_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/dirs/files_advanced_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
 
 </section>
 
-<section>
+<section id="sect_dirs_location_intmed_growth">
 
 <title>Configuration for growth and/or control case</title>
 
-<para>The directory structure changes for growth and control cases. The default growth and control scripts have additional settings that impact the intermediate directories when running SMOKE. These settings are described in more detail in Chapter 4, but we introduce them here because they are closely linked to the directory structures used by SMOKE. The default configuration of SMOKE uses different directories for files impacted by growth and control so that they will be separated from the base-year files; this helps keep users from accidentally confusing their base and grown and/or controlled files.</para>
+<para>The directory structure changes for growth and control cases. The default growth and control scripts have additional settings that impact the intermediate directories when running SMOKE. These settings are described in more detail in <xref linkend="ch_scripts" />, but we introduce them here because they are closely linked to the directory structures used by SMOKE. The default configuration of SMOKE uses different directories for files impacted by growth and control so that they will be separated from the base-year files; this helps keep users from accidentally confusing their base and grown and/or controlled files.</para>
 
 <para>The key script environment variables that impact the directory structures are:</para>
 
@@ -519,34 +738,45 @@ source $ASSIGNS/set_dirs.scr
 <para><envar>CNTLCASE</envar>: Sets the name of the control case that will impact the directory names. Also is used by the scripts to set the required name of the <envar>GCNTL</envar> files containing the packets for defining growth and controls for the <command>Cntlmat</command> program.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_FUTURE_YN</envar>: When set to Y, this setting causes the Assigns file to change the intermediate and output paths by appending <envar>FYR2</envar> to the <envar>$INVOP</envar> setting (affecting the <envar>$INVOPD</envar> directory and SMOKE intermediate inventory file names) and to <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, <envar>$PSCEN</envar>, and <envar>$ESCEN</envar> (affecting the <envar>$STATIC</envar> and <envar>$SCENARIO</envar> directories and file names of intermediate files). <remark>This is illustrated in Figure 3-6.</remark> The Y setting also causes <envar>EF_YEAR</envar>, which is used for setting the MOBILE6 emission factors year, to be reset to <envar>$FYEAR</envar>.</para>
+<para><envar>SMK_FUTURE_YN</envar>: When set to Y, this setting causes the Assigns file to change the intermediate and output paths by appending <envar>$FYR2</envar> to the <envar>$INVOP</envar> setting (affecting the <envar>$INVOPD</envar> directory and SMOKE intermediate inventory file names) and to <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, <envar>$PSCEN</envar>, and <envar>$ESCEN</envar> (affecting the <envar>$STATIC</envar> and <envar>$SCENARIO</envar> directories and file names of intermediate files). This is illustrated in <xref linkend="fig_dirs_files_growth" />. The Y setting also causes <envar>EF_YEAR</envar>, which is used for setting the MOBILE6 emission factors year, to be set to <envar>$FYEAR</envar>.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_CONTROL_YN</envar>: When set to Y, this setting causes the Assigns file to change the intermediate and output paths by appending <envar>$CNTLCASE</envar> to the <envar>$INVOP</envar> setting (affecting the <envar>$INVOPD</envar> directory and SMOKE intermediate inventory file names) and to <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, <envar>$PSCEN</envar>, and <envar>$ESCEN</envar> (affecting the <envar>$STATIC</envar> and <envar>$SCENARIO</envar> directories and file names of intermediate files).</para>
 </listitem>
 </itemizedlist>
 
-<para>Figure 3-6 shows that the grown SMOKE intermediate inventory files go to a different <envar>$INVOPD</envar> directory than the one for the base case files. If the case included a control scenario as well (with the <envar>CNTLCASE</envar> and <envar>SMK_CONTROL_YN</envar> = Y), the <filename class="directory"><envar>$INVOP</envar>_<envar>FYR2</envar></filename> directory would be named <filename class="directory"><envar>$INVOP</envar>_<envar>$FYR2</envar>_<envar>$CNTLCASE</envar></filename>. The grown and/or grown and controlled files would go to this new <envar>$INVOPD</envar> directory.</para>
+<para><xref linkend="fig_dirs_files_growth" /> shows that the grown SMOKE intermediate inventory files go to a different <envar>$INVOPD</envar> directory than the one for the base case files. If the case included a control scenario as well (with the <envar>CNTLCASE</envar> variable set and <envar>SMK_CONTROL_YN</envar> = Y), the <filename class="directory"><envar>$INVOP</envar>_<envar>$FYR2</envar></filename> directory would be named <filename class="directory"><envar>$INVOP</envar>_<envar>$FYR2</envar>_<envar>$CNTLCASE</envar></filename>. The grown and/or grown and controlled files would go to this new <envar>$INVOPD</envar> directory.</para>
 
-<remark>figure</remark>
+<figure id="fig_dirs_files_growth">
+<title>Locations of intermediate and output files for SMOKE future-/past-year case</title>
 
-<para>The <envar>$STATIC</envar> directory for the future case is now a subdirectory of <filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar></filename>. However, unlike Figure 3-4, Figure 3-6 indicates that only the <envar>PELV</envar> file is stored in this directory. This is because SMOKE permits reusing the base-year gridding matrices and speciation matrices for growth and control cases. The growth and control matrices will also be stored in the base-year <envar>$STATIC</envar> directory. Therefore, the only file that is stored in the future-year <envar>$STATIC</envar> directory is the <envar>PELV</envar> file, which can depend on the emissions values in the future year. For example, if the elevated-source selection criteria were based on the future-year daily maximum emissions, then this <envar>PELV</envar> file would be different than the base-year file. It is therefore most safely stored in a directory that is named with the future-year (or control case) information.</para>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/dirs/files_growth_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/dirs/files_growth_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
 
-<para>The <envar>$SCENARIO</envar> directory for the future case is now a subdirectory of <filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar></filename>. The <envar>ATMP</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar> files are stored in this directory, because these depend on the future-year emissions inventory. Although the temporal profile assignments stored in the <envar>ATSUP</envar>, <envar>MTSUP</envar>, and <envar>PTSUP</envar> files may not have changed from the base case, these files are written out for the future/past year case to be consistent with the output files created by <command>Temporal</command> for the base case.</para>
+<para>The <envar>$STATIC</envar> directory for the future case is now a subdirectory of <filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar></filename>. However, unlike <xref linkend="fig_dirs_files_base" />, <xref linkend="fig_dirs_files_growth" /> indicates that only the <envar>PELV</envar> file is stored in this directory. This is because SMOKE permits reusing the base-year gridding matrices and speciation matrices for growth and control cases. The growth and control matrices will also be stored in the base-year <envar>$STATIC</envar> directory. Therefore, the only file that is stored in the future-year <envar>$STATIC</envar> directory is the <envar>PELV</envar> file, which can depend on the emissions values in the future year. For example, if the elevated-source selection criteria were based on the future-year daily maximum emissions, then this <envar>PELV</envar> file would be different than the base-year file. It is therefore most safely stored in a directory that is named with the future-year (or control case) information.</para>
+
+<para>The <envar>$SCENARIO</envar> directory for the future case is now a subdirectory of <filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar></filename>. The <envar>ATMP</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar> files are stored in this directory, because these depend on the future-year emissions inventory. Although the temporal profile assignments stored in the <envar>ATSUP</envar>, <envar>MTSUP</envar>, and <envar>PTSUP</envar> files may not have changed from the base case, these files are written out for the future-/past-year case to be consistent with the output files created by <command>Temporal</command> for the base case.</para>
 
 </section>
 
 </section>
 
-<section>
+<section id="sect_dirs_location_output_files">
 
-<title>Locations of model-ready output files</title>
+<title>Locations of model-ready output files for base and growth/control cases</title>
 
-<section>
+<section id="sect_dirs_location_output_base">
 
-<title>Base cases</title>
+<title>Configuration for base case</title>
 
-<para>Figures 3-4 through 3-6 show the locations of the output files as well as the intermediate files. The output files go to the subdirectory of the <filename class="directory">data/run_<envar>$ESCEN</envar></filename> directory called "output". This output directory has two subdirectories: the first is set by the <envar>$SPC</envar> environment variable from the Assigns file that sets the model and chemical mechanism being used for a SMOKE run; the second is named "merge". There can be just one set of these subdirectories (as in the basic configuration shown in Figure 3-4) or multiple sets (as in the advanced configuration shown in Figure 3-5). The <filename class="directory">run_<envar>$BSCEN</envar></filename> directory just has the <envar>$SPC</envar> subdirectory.</para>
+<para><xref linkend="fig_dirs_files_base" />, <xref linkend="fig_dirs_files_advanced" />, and <xref linkend="fig_dirs_files_growth" /> show the locations of the output files as well as the intermediate files. The output files go to the subdirectory of the <filename class="directory">data/run_<envar>$ESCEN</envar></filename> directory called "output". This output directory has two subdirectories: the first is set by the <envar>$SPC</envar> environment variable from the Assigns file that sets the model and chemical mechanism being used for a SMOKE run; the second is named "merge". There can be just one set of these subdirectories (as in the basic configuration shown in <xref linkend="fig_dirs_files_base" />) or multiple sets (as in the advanced configuration shown in <xref linkend="fig_dirs_files_advanced" />). The <filename class="directory">run_<envar>$BSCEN</envar>/output/</filename> directory just has the <envar>$SPC</envar> subdirectory.</para>
 
 <para>The <envar>$SPC</envar> subdirectory contains the category-specific model ready files, such as the model-ready files for nonpoint (stationary area) only, nonroad mobile only, etc. The "merge" subdirectory contains the final model-ready files. The following list provides the logical names and descriptions of each of the files in the basic configuration case.</para>
 
@@ -554,30 +784,58 @@ source $ASSIGNS/set_dirs.scr
 <listitem>
 <para><filename class="directory">data/run_<envar>$ESCEN</envar>/output/<envar>$SPC</envar></filename>:</para>
 
+<itemizedlist>
+<listitem>
 <para><envar>AGTS_L</envar> and <envar>AGTS_S</envar>: Nonpoint (stationary area) and optionally nonroad mobile-source hourly, gridded, speciated emissions in moles/hour and grams/hour (from the <command>Smkmerge</command> program).</para>
+</listitem>
 
+<listitem>
 <para><envar>NGTS_L</envar> and <envar>NGTS_S</envar>: Nonroad mobile-source hourly, gridded, speciated emissions in moles/hour and grams/hour (these files are written by <command>Smkmerge</command> as an <envar>AGTS_L</envar> or <envar>AGTS_S</envar> file, with the scripts changing the files to the <envar>NGTS</envar> name).</para>
+</listitem>
 
+<listitem>
 <para><envar>MGTS_L</envar> and <envar>MGTS_S</envar>: On-road mobile-source hourly, gridded, speciated emissions in moles/hour and grams/hour (from <command>Smkmerge</command>).</para>
+</listitem>
 
+<listitem>
 <para><envar>PGTS_L</envar> and <envar>PGTS_S</envar>: Point-surce hourly, gridded, speciated emissions in moles/hour and grams/hour (from <command>Smkmerge</command>). This intermediate file would be created when modeling for UAM, REMSAD, or CAM<subscript>X</subscript>, which need the low-level point sources but not the 3-D point sources. This file would not include the elevated-point-source emissions if it were created using the <envar>SMK_ASCIIELEV_YN</envar> = Y setting.</para>
+</listitem>
 
+<listitem>
 <para><envar>PGTS3D_L</envar> and <envar>PGTS3D_S</envar>: Point-source 3-D, hourly, gridded, speciated emissions in moles/hour and grams/hour (from <command>Smkmerge</command>). This intermediate file would be created for CMAQ and MAQSIP only, using the elevated layer fraction, which requires the option <envar>MRG_LAYERS_YN</envar> = Y.</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 <listitem>
 <para><filename class="directory">data/run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>:</para>
 
-<para><envar>BGTS_L</envar> and <envar>BGTS_S</envar>: Biogenic hourly, gridded, speciated emissions in moles/hour and grams/hour (from the <command>Tmpbio</command> program).</para>
+<itemizedlist>
+<listitem>
+<para><envar>BGTS_L</envar> and <envar>BGTS_S</envar>: Biogenic hourly, gridded, speciated emissions in moles/hour and tons/hour (from the <command>Tmpbio</command> program).</para>
+</listitem>
+
+<listitem>
+<para><envar>B3GTS_L</envar> and <envar>B3GTS_S</envar>: Biogenic hourly, gridded, speciated emissions in moles/hour and tons/hour (from the <command>Tmpbeis3</command> program).</para>
+</listitem>
+</itemizedlist>
+
 </listitem>
 <listitem>
 <para><filename class="directory">data/run_<envar>$ESCEN</envar>/output/merge</filename>:</para>
 
+<itemizedlist>
+<listitem>
 <para><emphasis role="bold">For CMAQ or MAQSIP:</emphasis> <envar>EGTS3D_L</envar>: CMAQ or MAQSIP 3-D hourly, gridded, speciated emissions file, excluding PinG emissions (from the <command>Smkmerge</command> program).</para>
+</listitem>
 
+<listitem>
 <para><emphasis role="bold">For CMAQ only:</emphasis> <envar>STACK_GROUPS</envar>: Optional file that identifies PinG stacks (or grouped stacks), their locations, and stack parameters (from the <command>Elevpoint</command> program).</para>
 
 <para><envar>PINGTS_L</envar>: Optional file that includes the hourly emissions for PinG stacks (or grouped stacks) for each hour (from <command>Smkmerge</command>).</para>
+</listitem>
 
+<listitem>
 <para><emphasis role="bold">For UAM, REMSAD, or CAM<subscript>X</subscript>:</emphasis> <envar>EGTS_L</envar>: I/O API version of the 2-D merged low-level, hourly, gridded, speciated emissions file (from <command>Smkmerge</command>).</para>
 
 <para><envar>EGTS_UAM</envar>: Fortran binary 2-D merged low-level hourly, gridded, speciated emissions file (from the <command>Smk2emis</command> program).</para>
@@ -586,22 +844,25 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 </itemizedlist>
 
+</listitem>
+</itemizedlist>
+
 </section>
 
 <section>
 
-<title>Growth and control cases</title>
+<title>Configuration for growth and/or control case</title>
 
-<para>The output file locations for the growth and control cases follow the same paradigm described above for the intermediate files. The <envar>$FYR2</envar> and/or <envar>$CNTLCASE</envar> environment variable values are inserted into the directory structure, as shown in Figure 3-6. The output directories are then reset as follows:</para>
+<para>The output file locations for the growth and control cases follow the same paradigm described in <xref linkend="sect_dirs_location_intmed_growth" /> for the intermediate files. The <envar>$FYR2</envar> and/or <envar>$CNTLCASE</envar> environment variable values are inserted into the directory structure, as shown in <xref linkend="fig_dirs_files_growth" />. The output directories are then reset as follows:</para>
 
 <para>Future/past-year case (no controls):</para>
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories, but with the <envar>$FYR2</envar> field included in the path name. The files are the same as those in the base case, but with future-year emissions<remark>; see Section 3.1.5.1 for more information</remark>.</para>
+<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$FYR2</envar> field included in the path name. The files are the same as those in the base case, but with future-year emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year emissions<remark>; see Section 3.1.5.1 for more information</remark>.</para>
+<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 </itemizedlist>
 
@@ -609,10 +870,10 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>_<envar>$CNTLCASE</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories, but with the <envar>$FYR2</envar> field included in the path name. The files are the same as those in the base case, but with future-year, controlled emissions<remark>; see Section 3.1.5.1 for more information</remark>.</para>
+<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>_<envar>$CNTLCASE</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$FYR2</envar> and <envar>$CNTLCASE</envar> fields included in the path name. The files are the same as those in the base case, but with future-year, controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>_<envar>$CNTLCASE</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year, controlled emissions<remark>; see Section 3.1.5.1 for more information</remark>.</para>
+<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$FYR2</envar>_<envar>$CNTLCASE</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year, controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 </itemizedlist>
 
@@ -620,19 +881,19 @@ source $ASSIGNS/set_dirs.scr
 
 </section>
 
-<section>
+<section id="sect_dirs_location_report_files">
 
 <title>Locations of reports</title>
 
-<para>The report output directory names follow the same paradigm as the intermediate and model-ready output directory names. "Reports" as defined for this directory structure are the files output from the <command>Smkreport</command> and <command>Smkmerge</command> programs and the <envar>REPINVEN</envar> report from Smkinven.</para>
+<para>The report output directory names follow the same paradigm as the intermediate and model-ready output directory names. "Reports" as defined for this directory structure are the files output from the <command>Smkreport</command> and <command>Smkmerge</command> programs and the <envar>REPINVEN</envar> report from <command>Smkinven</command>. More information on <command>Smkinven</command> and <command>Smkmerge</command> can be found in <xref linkend="ch_programs" />, while <command>Smkreport</command> is discussed in <xref linkend="ch_quality_assurance" />.</para>
 
-<para><remark>As shown in Figure 3-4, </remark>the two main report directories for the basic configuration are the <filename class="directory">data/reports/<envar>$ESCEN</envar>/static</filename> and <filename class="directory">data/reports/<envar>$ESCEN</envar>/scenario</filename> directories. The former directory is for time-independent reports, and the latter is for time-dependent reports. In addition, because the <envar>BSCEN</envar> variable is usually different from the <envar>ESCEN</envar> variable, a different report directory is available for the biogenic emissions: <filename class="directory">data/reports/<envar>$BSCEN</envar>/scenario</filename>, which contains the only biogenic report available from the Smkmerge program. If desired, the output report directories are very easy to change, as described below.</para>
+<para>As shown in <xref linkend="fig_dirs_files_base" />, the two main report directories for the basic configuration are the <filename class="directory">data/reports/<envar>$ESCEN</envar>/static</filename> and <filename class="directory">data/reports/<envar>$ESCEN</envar>/scenario</filename> directories. The former directory is for time-independent reports, and the latter is for time-dependent reports. Because the <envar>BSCEN</envar> variable is usually different from the <envar>ESCEN</envar> variable, a different report directory is available for the biogenic emissions: <filename class="directory">data/reports/<envar>$BSCEN</envar>/scenario</filename>, which contains the only biogenic reports available (created by the <command>Smkmerge</command> program).</para>
 
-<para>Figure 3-5 shows the report directories for the advanced configuration. The source-category-specific variables <envar>ASCEN</envar>, <envar>BSCEN</envar>, <envar>MSCEN</envar>, and <envar>PSCEN</envar> appear here, in addition to the <envar>ESCEN</envar> variable. The default setup of SMOKE uses the following directories for the <command>Smkmerge</command> and <command>Smkreport</command> files: For <command>Smkmerge</command>, separate source-category-specific directories are set up by the <filename><envar>$ASSIGNS</envar>/setmerge_files.scr</filename> script. For <command>Smkreport</command>, the <filename><envar>$SCRIPTS</envar>/run/qa_run.csh</filename> script sets the default reports to go to the <envar>$REPSTAT</envar> and <envar>$REPSCEN</envar> directories (which use the <envar>ESCEN</envar> variable in their path names). Both of these scripts are easy to change to accommodate user preferences. Note that having separate source-category-specific directories does not change the number of intermediate or output files, it just rearranges the files and results into fewer intermediate, output, and/or report files in each directory.</para>
+<para><xref linkend="fig_dirs_files_advanced" /> shows the report directories for the advanced configuration. The source-category-specific variables <envar>ASCEN</envar>, <envar>BSCEN</envar>, <envar>MSCEN</envar>, and <envar>PSCEN</envar> appear here, in addition to the <envar>ESCEN</envar> variable. The default setup of SMOKE uses the following directories for the <command>Smkmerge</command> and <command>Smkreport</command> files: For <command>Smkmerge</command>, separate source-category-specific directories are set up by the <filename><envar>$ASSIGNS</envar>/setmerge_files.scr</filename> script. For <command>Smkreport</command>, the <filename><envar>$SCRIPTS</envar>/run/qa_run.csh</filename> script sets the default reports to go to the <envar>$REPSTAT</envar> and <envar>$REPSCEN</envar> directories (which use the <envar>ESCEN</envar> variable in their path names). Both of these scripts are easy to change to accommodate user preferences.</para>
 
-<para>Figure 3-6 shows the report directories for the basic configuration of future/past-year and control case reports. The <envar>$REPSTAT</envar> and <envar>$REPSCEN</envar> directories use the year and/or control case name (from <envar>$FYR2</envar> and <envar>$CNTLCASE</envar>) to reset the report directory names, in the same way as for the intermediate and model-ready output files.</para>
+<para><xref linkend="fig_dirs_files_growth" /> shows the report directories for the basic configuration of future/past-year and control case reports. The <envar>$REPSTAT</envar> and <envar>$REPSCEN</envar> directories use the year and/or control case name (from <envar>$FYR2</envar> and <envar>$CNTLCASE</envar>) to reset the report directory names, in the same way as for the intermediate and model-ready output files.</para>
 
-<para>The <command>Smkmerge</command> program has numerous logical file names that can be used as output files (too many to list here). The reports include state and/or county totals for each day run by Smkmerge. The form of the output logical file names is <envar>REP[A|B|M|P|E]GTS_[S|L]</envar>. The A, B, M, P, or E in the file represents area, biogenic, mobile, point, or "every" emissions, respectively; the S or L suffix represents mass-based and mole-based reports, respectively (e.g., tons/day or moles/day).</para>
+<para>The <command>Smkmerge</command> program has numerous logical file names that can be used as output files (too many to list here). The reports include state and/or county totals for each day run by <command>Smkmerge</command>. The form of the output logical file names is <envar>REP[A|B|M|P|E]GTS_[S|L]</envar>. The A, B, M, P, or E in the file represents area, biogenic, mobile, point, or "every" emissions, respectively; the S or L suffix represents mass-based and mole-based reports, respectively (e.g., tons/day or moles/day).</para>
 
 <para>The <command>Smkreport</command> program uses logical file names that are user-defined settings in the <envar>REPCONFIG</envar> file. The /NEWFILE/ packet controls the logical file names, and the SMOKE script <filename>qa_run.csh</filename> (for default reporting) or the main run scripts control the values of these logical file names and hence the file paths. There are too many types of reports that <command>Smkreport</command> can create for us to list them all here with their appropriate files. In general, the time-independent reports go to the <envar>$REPSTAT</envar> directory and the time-dependent reports go to the <envar>$REPSCEN</envar> directory.</para>
 
@@ -640,11 +901,11 @@ source $ASSIGNS/set_dirs.scr
 
 </section>
 
-<section>
+<section id="sect_dirs_change_directory">
 
 <title>How to change the default directory structure</title>
 
-<para>The default Assigns files and scripts contain settings that allow users to modify the directories that will be used when running SMOKE. The basic structure has been developed to suit the needs of a variety of applications, from short, single-grid, base case modeling needs to annual, multigrid needs for many control strategies. The details of working within the default structure by changing Assigns file and script settings are provided in Chapter 4. The default structures that we have described represent our recommended way of running SMOKE. Although this structure has been quite useful for many people, it could be a burden to others. In this section, we describe ways in which users can change the default structure to meet their specific needs.</para>
+<para>The default Assigns files and scripts contain settings that allow users to modify the directories that will be used when running SMOKE. The basic structure has been developed to suit the needs of a variety of applications, from short, single-grid, base case modeling needs to annual, multigrid needs for many control strategies. The details of working within the default structure by changing Assigns file and script settings are provided in <xref linkend="ch_scripts" />. The default structures that we have described represent our recommended way of running SMOKE. Although this structure has been quite useful for many people, it could be a burden to others. In this section, we describe ways in which users can change the default structure to meet their specific needs.</para>
 
 <para>The SMOKE programs themselves do not require any specific directory structure because all input and output files depend only on environment variables, which can be set in any pattern. We have created a default directory structure so that other users can benefit from our experience in emissions modeling and using SMOKE, and to provide an initial structure that is useful. With a few exceptions for intermediate files, the SMOKE programs also do not require specific file names, only specific environment variables; but again, we have configured SMOKE to have a default structure for these names.</para>
 
@@ -654,32 +915,32 @@ source $ASSIGNS/set_dirs.scr
 
 </section>
 
-<section>
+<section id="sect_dirs_default_data_files">
 
-<title>Default data files</title>
+<title>Default ancillary data files</title>
 
-<para>In the following two subsections, we discuss the <envar>$SMKDAT</envar> directories and files that contain the default ancillary files. We document as well as we can the sources of this information, and include reasons why users might want to change from the default data files to other files.</para>
+<para>In the following two sections, we discuss the <envar>$SMKDAT</envar> directories and the default ancillary files included with SMOKE. These files are all the input files needed by SMOKE <emphasis>except</emphasis> for the actual inventory files. This includes the inventory table (<envar>INVTABLE</envar>), gridding surrogates (<envar>AGPRO</envar> and <envar>MGPRO</envar>), speciation profiles (<envar>GSPRO</envar>), temporal cross-reference files (<envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar>), etc. We document as well as we can the sources of this information, and include reasons why users might want to change from the default data files to other files.</para>
 
 <section>
 
 <title>Inventory ancillary files</title>
 
-<para>Default SMOKE inventory files are included in the "nctox" case. These files include criteria emissions from the 1996 NEI, version 3.11 data files for North Carolina <emphasis>only</emphasis>. They also include 1999 VMT for North Carolina, and draft 1999 toxics NEI version 3 (from October 2002) for all source categories. These files generally will not be useful to others for modeling purposes, except as example files for the IDA and SMOKE toxics formats; therefore, they are not included in the tables below.</para>
+<para>Default SMOKE inventory files are included in the "nctox" case. These files include criteria emissions from the 1996 NEI, version 3.11 data files for North Carolina <emphasis>only</emphasis>. They also include 1999 VMT for North Carolina, and draft 1999 toxics NEI version 3 data (from October 2002) for all source categories. These inventory files generally will not be useful to others for modeling purposes, except as example files for the IDA and SMOKE toxics formats; therefore, they are not included in the tables below.</para>
 
-<para>The default "nctox" case also includes ancillary files in the <filename class="directory">data/inventory/nctox/other</filename> directory that can be used for other modeling applications. These files are documented in <xref linkend="ch03_tbl_inv_files" />.</para>
+<para>The default "nctox" case includes ancillary files in the <filename class="directory">data/inventory/nctox/other</filename> directory that can be used for other modeling applications. These files are documented in <xref linkend="tbl_dirs_inventory_files" />.</para>
 
-<table id="ch03_tbl_inv_files">
-<title>Default SMOKE ancillary files associated with inventories.</title>
+<table id="tbl_dirs_inventory_files">
+<title>Default SMOKE ancillary files associated with inventories</title>
 <tgroup cols="3">
-<colspec colname="c1" />
-<colspec colname="c2" />
-<colspec colname="c3" />
+<colspec colname="c1" colwidth="8*" />
+<colspec colname="c2" colwidth="3*" />
+<colspec colname="c3" colwidth="7*" />
 
 <thead>
 <row>
-<entry>File name</entry>
-<entry>Logical file name</entry>
-<entry>Description</entry>
+<entry align="center">File name</entry>
+<entry align="center">Logical file name</entry>
+<entry align="center">Description</entry>
 </row>
 </thead>
 
@@ -690,12 +951,12 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>invtable_nonroad.cb4.120202.txt</filename></entry>
 <entry><envar>INVTABLE</envar></entry>
-<entry>Inventory table for nonroad mobile sources for CB4 chemical mechanism. This file has an error in that CHLOROBENZN, METHANOL, MEK, and PHENOL are included as toxics VOC that are to be subtracted from criteria VOC to create NONHAPVOC for the "integrate" case. These should actually not be included, and instead should use only the toxics VOC (depending on <envar>NHAPEXCLUDE</envar> file exclusions) computed in the 1999 NEI by EPA calculation approaches.</entry>
+<entry>Inventory table for nonroad mobile sources for CB4 chemical mechanism. This file has an error in that CHLOROBENZN, METHANOL, MEK, and PHENOL are included as toxics VOC that are to be subtracted from criteria VOC to create NONHAPVOC for the "integrate" case (see <xref linkend="sect_concepts_combine_toxics" />). These should actually not be included, and instead should use only the toxics VOC (depending on <envar>NHAPEXCLUDE</envar> file exclusions) computed in the 1999 NEI by EPA calculation approaches.</entry>
 </row>
 <row>
 <entry><filename>invtable_nonroad.cb4tx.120202.txt</filename></entry>
 <entry><envar>INVTABLE</envar></entry>
-<entry>Inventory table for nonroad mobile sources for CB4, toxics (version 1) chemical mechanism. This file has an error in that CHLOROBENZN, METHANOL, MEK, and PHENOL are included as toxics VOC that are to be subtracted from criteria VOC to create NONHAPVOC.  These should actually not be included, and instead should use only the toxics VOC (depending on <envar>NHAPEXCLUDE</envar> file exclusions) computed in the 1999 NEI by EPA calculation approaches. Users of this file need to make sure it will apply the particular version of the CB4 toxics chemical mechanism that the users intend to apply.</entry>
+<entry>Inventory table for nonroad mobile sources for CB4, toxics (version 1) chemical mechanism. This file has an error in that CHLOROBENZN, METHANOL, MEK, and PHENOL are included as toxics VOC that are to be subtracted from criteria VOC to create NONHAPVOC for the "integrate" case (see <xref linkend="sect_concepts_combine_toxics" />).  These should actually not be included, and instead should use only the toxics VOC (depending on <envar>NHAPEXCLUDE</envar> file exclusions) computed in the 1999 NEI by EPA calculation approaches. Users of this file need to make sure it will apply the particular version of the CB4 toxics chemical mechanism that the users intend to apply.</entry>
 </row>
 <row>
 <entry><filename>invtable_onroad.cb4.120202.txt</filename></entry>
@@ -705,12 +966,12 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>invtable_onroad.cb4tx.120202.txt</filename></entry>
 <entry><envar>INVTABLE</envar></entry>
-<entry>Inventory table for on-road mobile sources for CB4, toxics (version 1) chemical mechanism. It uses only the toxics VOC (depending on <envar>NHAPEXCLUDE</envar> file exclusions) computed in the 1999 NEI by EPA calculation approaches (i.e., MOBILE6 runs). Users of this file need to make sure it will apply the particular version of the CB4 toxics chemical mechanism that the users intend to apply.</entry>
+<entry>Inventory table for on-road mobile sources for CB4, toxics (version 1) chemical mechanism. It uses only the toxics VOC (depending on <envar>NHAPEXCLUDE</envar> file exclusions) computed in the 1999 NEI by EPA calculation approaches (i.e., MOBILE6 runs). Users of this file need to make sure it will apply the particular version of the CB4 toxics chemical mechanism that the users intend to use.</entry>
 </row>
 <row>
 <entry><filename>invtable_ptnpt.cb4tx1.071003.txt</filename></entry>
 <entry><envar>INVTABLE</envar></entry>
-<entry>Inventory table for point and nonpoint sources for the CB4 toxics (version 1) chemical mechanism. Users of this file need to make sure it will apply the particular version of the CB4 toxics chemical mechanism that the users intend to apply.</entry>
+<entry>Inventory table for point and nonpoint sources for the CB4 toxics (version 1) chemical mechanism. Users of this file need to make sure it will apply the particular version of the CB4 toxics chemical mechanism that the users intend to use.</entry>
 </row>
 <row>
 <entry><filename>invtable.remsad7.071103.txt</filename></entry>
@@ -794,15 +1055,15 @@ source $ASSIGNS/set_dirs.scr
 
 <title>Other ancillary files</title>
 
-<para>The SMOKE ancillary files available in the <envar>$GE_DAT</envar> directory are the most likely files for you to be able to use directly or adapt to your modeling case. <xref linkend="ch03_tbl_other_files" /> describes all of these files except for the speciation profile files and speciation cross-reference files, which are provided in separately in <xref linkend="ch03_tbl_spec_files" />.</para>
+<para>The SMOKE ancillary files available in the <envar>$GE_DAT</envar> directory are the most likely files for you to be able to use directly or adapt to your modeling case. <xref linkend="tbl_dirs_other_files" /> describes all of these files except for the speciation profile files and speciation cross-reference files, which are provided in separately in <xref linkend="tbl_dirs_spec_files" />.</para>
 
-<table id="ch03_tbl_other_files">
+<table id="tbl_dirs_other_files">
 <title>Default SMOKE ancillary files except inventory and speciation profiles and cross-reference files.</title>
 
 <tgroup cols="3">
-<colspec colname="c1" />
-<colspec colname="c2" />
-<colspec colname="c3" />
+<colspec colname="c1" colwidth="3*" />
+<colspec colname="c2" colwidth="1*" />
+<colspec colname="c3" colwidth="3*" />
 
 <thead>
 <row>
@@ -819,7 +1080,7 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>abmgpro.m3.040402.us36+can+mex.txt</filename></entry>
 <entry><envar>AGPRO</envar>, <envar>BGPRO</envar>, <envar>MGPRO</envar></entry>
-<entry><para>U.S. 36-km cell surrogates with Lambert projection center (40 degrees latitude, -100 degrees longitude), upper meridian at 30 degrees, and lower meridian at 60 degrees. Lower left grid location at (-2196 km, -1692 km) with 132 cells in the <emphasis>x</emphasis>-direction and 90 cells in the <emphasis>y</emphasis>-direction. Created based on EPA national surrogate data for the EPA's CMAQ "Proof of Concept" project plus Mexican population surrogate data added in 2001 from the WRAP Regional Modeling Center (RMC), developed by MCNC.</para>
+<entry><para>U.S. 36-km cell surrogates with Lambert projection center (40 degrees latitude, -100 degrees longitude), upper meridian at 30 degrees, and lower meridian at 60 degrees. Lower left grid location at (-2196 km, -1692 km) with 132 cells in the <emphasis>x</emphasis>-direction and 90 cells in the <emphasis>y</emphasis>-direction. Created based on EPA national surrogate data for the EPA's CMAQ "Proof of Concept" project plus Mexican population surrogate data added in 2001 from the Western Regional Air Partnership (WRAP) Regional Modeling Center (RMC), developed by MCNC.</para>
 <para>These pertain to the use of 1996 U.S. emissions and will not apply to the 1999 NEI.</para></entry>
 </row>
 <row>
@@ -831,7 +1092,7 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>amptpro.m3.us+can.txt</filename></entry>
 <entry><envar>ATPRO</envar>, <envar>MTPRO</envar>, <envar>PTPRO</envar></entry>
-<entry>U.S. temporal profiles from EPA web site: <ulink url="http://www.epa.gov/ttn/chief/emch/temporal/" /> from 4/29/02 for monthly profiles and 12/14/2000 for weekly and diurnal profiles. Canadian profiles added by MCNC for EPA's CMAQ "Proof of Concept" project. NC DENR on-road mobile profiles added for default road-class-specific profiles. These profiles have not yet been tested with the 1999 NEI.</entry>
+<entry>U.S. temporal profiles from EPA web site: <ulink url="http://www.epa.gov/ttn/chief/emch/temporal/" /> from 4/29/02 for monthly profiles and 12/14/2000 for weekly and diurnal profiles. Canadian profiles added by MCNC for EPA's CMAQ "Proof of Concept" project. North Carolina Department of Environment and Natural Resources (DENR) on-road mobile profiles added for default road-class-specific profiles. These profiles have not yet been tested with the 1999 NEI.</entry>
 </row>
 <row>
 <entry><filename>amptref.m3.us+can.txt</filename></entry>
@@ -861,12 +1122,12 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>bioseason.1996.us36.ncf</filename></entry>
 <entry><envar>BIOSEASON</envar></entry>
-<entry>Winter/summer indicators for 1996 based on annual 1996 MM5/MCIP simulations performed by MCNC and EPA for the EPA CMAQ "Proof of Concept" project. File created with SMOKE's Metscan file by MCNC for national 36-km grid (see description of file abmgpro.m3.040402.us36+can+mex.txt for grid parameters).</entry>
+<entry>Winter/summer indicators for 1996 based on annual 1996 MM5/MCIP simulations performed by MCNC and EPA for the EPA CMAQ "Proof of Concept" project. File created with SMOKE's <command>Metscan</command> utility by MCNC for national 36-km grid (see description of file <filename>abmgpro.m3.040402.us36+can+mex.txt</filename> for grid parameters).</entry>
 </row>
 <row>
 <entry><filename>costcy.txt</filename></entry>
 <entry><envar>COSTCY</envar></entry>
-<entry>Country, state, and county codes file. Provided by EPA/ORD via Dyntel circa 1998 and updated with Miami-Dade revisions. Will work for 1996, 1999, and later inventories. Includes time zone and Daylight Saving Time status information. Country codes added by MCNC for default SMOKE country codes.</entry>
+<entry>Country, state, and county codes file. Provided by EPA/ORD via Dyntel circa 1998 and updated with Miami-Dade revisions. Will work for 1996, 1999, and later inventories. Includes time zone and Daylight Saving Time status information. Country codes added by MCNC for default SMOKE countries.</entry>
 </row>
 <row>
 <entry><filename>GRIDDESC</filename></entry>
@@ -904,7 +1165,7 @@ source $ASSIGNS/set_dirs.scr
 </tgroup>
 </table>
 
-<para>The last type of ancillary files we discuss in this section are speciation profile files and speciation cross-reference files .There are many speciation files that are needed for SMOKE because of the large number of models and chemical mechanisms that SMOKE supports. <xref linkend="ch03_tbl_spec_files" /> summarizes these files and the many components that they have. The letters in the cells within the "Description" column indicate which major components are included by the <envar>GSPRO</envar> and <envar>GSREF</envar> files. These cells need supporting explanations, which are provided in the bulleted list below.</para>
+<para>The last type of ancillary files we discuss in this section are speciation profile files and speciation cross-reference files .There are many speciation files that are needed for SMOKE because of the large number of models and chemical mechanisms that SMOKE supports. <xref linkend="tbl_dirs_spec_files" /> summarizes these files and the many components that they have. The letters in the cells within the "Description" column indicate which major components are included by the <envar>GSPRO</envar> and <envar>GSREF</envar> files. These cells need supporting explanations, which are provided in the bulleted list below.</para>
 
 <itemizedlist>
 <listitem>
@@ -920,7 +1181,7 @@ source $ASSIGNS/set_dirs.scr
 <para><emphasis role="bold">CMAQ PM:</emphasis> Includes PM2.5 profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" /></para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">CMAQ CB4tx1:</emphasis> CMAQ CB4 toxics (version 1) TOG profiles and VOC SCC assignments to be used when integrating toxics VOC with criteria inventory for on-road mobile sources. Because changes are being made to the research version 1 of CB4 toxics, it is expected that users will have to create new CB4 toxics profiles for all source categories. TOG profiles are labeled with profile codes ending in "A" to identify them as different from standard profiles. They were developed by Jerry Gipson at EPA/ORD and can be used only for the "no-integrate" case, to drop mass of acetaldehyde, 1,3-butadiene, formaldehyde, and acrolein (all explicit CMAQ toxics). Benzene mapped to both CB4 species (PAR and NR) and to special BENZENE species, which doubles the mass of benzene output by SMOKE. Added to file by Marc Houyoux, MCNC. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
+<para><emphasis role="bold">CMAQ CB4tx1:</emphasis> CMAQ CB4 toxics (version 1) TOG profiles and VOC SCC assignments to be used when integrating toxics VOC with criteria inventory for on-road mobile sources. Because changes are being made to the research version 1 of CB4 toxics, it is expected that users will have to create new CB4 toxics profiles for all source categories. TOG profiles are labeled with profile codes ending in "A" to identify them as different from standard profiles. They were developed by Jerry Gipson at EPA/ORD and can be used only for the "no-integrate" case, to drop mass of acetaldehyde, 1,3-butadiene, formaldehyde, and acrolein (all explicit CMAQ toxics). Benzene is mapped to both CB4 species (PAR and NR) and to special BENZENE species, which doubles the mass of benzene output by SMOKE. Added to file by Marc Houyoux, MCNC. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
 </listitem>
 <listitem>
 <para><emphasis role="bold">Toxics:</emphasis> Includes toxics mapped to CB4 species using profile 0000. Developed by Jerry Gipson at EPA/ORD. Added to file by Marc Houyoux, MCNC.</para>
@@ -951,30 +1212,30 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 </itemizedlist>
 
-<table id="ch03_tbl_spec_files">
-<title>Default SMOKE ancillary files for speciation in <filename class="directory"><envar>$SMKDAT</envar>/ge_dat</filename> (<envar>$GE_DAT</envar>).</title>
+<table id="tbl_dirs_spec_files">
+<title>Default SMOKE ancillary files for speciation in <filename class="directory"><envar>$SMKDAT</envar>/ge_dat</filename> (<envar>$GE_DAT</envar>)</title>
 
 <tgroup cols="15">
-<colspec colname="Names" />
-<colspec colname="Profile 0000" />
-<colspec colname="BEIS3" />
-<colspec colname="CMAQ CB4" />
-<colspec colname="CMAQ PM" />
-<colspec colname="CMAQ CB4tx1" />
-<colspec colname="Toxics" />
-<colspec colname="RADM" />
-<colspec colname="SAPRC99" />
-<colspec colname="REMSAD6" />
-<colspec colname="REMSAD7" />
-<colspec colname="SO2-SULF" />
-<colspec colname="HG" />
-<colspec colname="MOBILE6" />
-<colspec colname="NONHAP" />
+<colspec colname="Names" colwidth="10*" />
+<colspec colname="Profile 0000" colwidth="1*" />
+<colspec colname="BEIS3" colwidth="1*" />
+<colspec colname="CMAQ CB4" colwidth="1*" />
+<colspec colname="CMAQ PM" colwidth="1*" />
+<colspec colname="CMAQ CB4tx1" colwidth="1*" />
+<colspec colname="Toxics" colwidth="1*" />
+<colspec colname="RADM" colwidth="1*" />
+<colspec colname="SAPRC99" colwidth="1*" />
+<colspec colname="REMSAD6" colwidth="1*" />
+<colspec colname="REMSAD7" colwidth="1*" />
+<colspec colname="SO2-SULF" colwidth="1*" />
+<colspec colname="HG" colwidth="1*" />
+<colspec colname="MOBILE6" colwidth="1*" />
+<colspec colname="NONHAP" colwidth="1*" />
 
 <thead>
 <row>
-<entry morerows="1">File names of speciation profiles (<envar>GSPRO</envar> files) and speciation cross-references (<envar>GSREF</envar> files)</entry>
-<entry namest="Profile 0000" nameend="NONHAP">Description*</entry>
+<entry morerows="1" align="center" valign="bottom">File names of speciation profiles (<envar>GSPRO</envar> files) and speciation cross-references (<envar>GSREF</envar> files)</entry>
+<entry namest="Profile 0000" nameend="NONHAP" align="center">Description*</entry>
 </row>
 
 <row>
@@ -1103,13 +1364,10 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="BEIS3">B</entry>
 </row>
 
-</tbody>
-
-<tfoot>
 <row>
 <entry namest="Names" nameend="NONHAP">* The letters in the "Description" cells indicate whether an entry in the file is included for a specific source category. <emphasis role="bold">A</emphasis> = for nonpoint (stationary area) only; <emphasis role="bold">B</emphasis> = for biogenic only; <emphasis role="bold">M</emphasis> = for on-road mobile only; <emphasis role="bold">N</emphasis> = for nonroad mobile only; <emphasis role="bold">P</emphasis> = for point only; <emphasis role="bold">X</emphasis> = for all source categories</entry>
 </row>
-</tfoot>
+</tbody>
 
 </tgroup>
 </table>
