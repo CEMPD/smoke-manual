@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<chapter id="quality_assurance">
+<chapter id="ch_quality_assurance">
 
 <title>SMOKE Quality Assurance</title>
 
@@ -225,7 +225,7 @@
 
 </section>
 
-<section>
+<section id="sect_qa_repconfig">
 
 <title><envar>REPCONFIG</envar> Input File</title>
 
