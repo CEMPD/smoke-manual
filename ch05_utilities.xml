@@ -60,6 +60,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -109,6 +113,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -178,6 +186,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -219,6 +231,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -280,6 +296,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -328,6 +348,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -387,6 +411,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -432,6 +460,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -495,6 +527,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -552,6 +588,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -613,6 +653,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -647,6 +691,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -706,6 +754,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -914,6 +966,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -985,6 +1041,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1030,6 +1090,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1103,6 +1167,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1148,6 +1216,10 @@ PAR  0.6</programlisting></entry>
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
