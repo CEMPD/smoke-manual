@@ -1178,6 +1178,36 @@ H<subscript>S</subscript> = Physical stack height (m)
 <para>Time step (HHMMSS), only 10000 is allowed</para>
 </listitem>
 <listitem>
+<para><envar>IOAPI_ISPH</envar>: [default: 8]</para>
+<para>Determines which USGS spheroid to use for grid-based calculations</para>
+
+<itemizedlist spacing="compact">
+<listitem>0: Clarke 1866</listitem>
+<listitem>1: Clarke 1880</listitem>
+<listitem>2: Bessel</listitem>
+<listitem>3: New International 1967</listitem>
+<listitem>4: International 1909</listitem>
+<listitem>5: WGS 72</listitem>
+<listitem>6: Everest</listitem>
+<listitem>7: WGS 66</listitem>
+<listitem>8: GRS 1980</listitem>
+<listitem>9: Airy</listitem>
+<listitem>10: Modified Everest</listitem>
+<listitem>11: Modified Airy</listitem>
+<listitem>12: WGS 84</listitem>
+<listitem>13: Southeast Asia</listitem>
+<listitem>14: Australian National</listitem>
+<listitem>15: Krassovsky</listitem>
+<listitem>16: Hough</listitem>
+<listitem>17: Mercury 1960</listitem>
+<listitem>18: Modified Mercury 1968</listitem>
+<listitem>19: Normal Sphere</listitem>
+</itemizedlist>
+
+<para>This environment variable can also be used to set custom spheroid representations. See the <ulink url="http://www.baronams.com/products/ioapi/SETSPHERE.html">I/O API documentation</ulink> for more information.</para>
+
+</listitem>
+<listitem>
 <para><envar>SMK_ELEV_METHOD</envar>: [default: 0]</para>
 
 <para>Defines the method to use in SMOKE for determining and processing elevated point sources. The setting chosen depends on the model output format needed from SMOKE. All PinG sources determined based on <envar>SMK_PING_METHOD</envar> will automatically be considered elevated sources (as defined specifically for the model for which you are creating emissions).</para>
@@ -1865,7 +1895,9 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </listitem>
 </comment>
-
+<listitem>
+<para><envar>IOAPI_ISPH</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
+</listitem>
 <listitem>
 <para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
@@ -2282,6 +2314,9 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 </itemizedlist>
 
+</listitem>
+<listitem>
+<para><envar>IOAPI_ISPH</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>REP_LAYER_MAX</envar>: [default: -1]</para>
