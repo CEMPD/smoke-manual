@@ -839,6 +839,19 @@
     </listitem>
     </itemizedlist>
 </listitem>
+
+<listitem>
+<para><envar>XREF_SICOVERSCC</envar>: [default: Y]</para>
+<para>Determines how to deal with packet entries that have both an SCC and SIC</para>
+    <itemizedlist>
+    <listitem>
+    <para>Y: Match sources by SIC before SCC</para>
+    </listitem>
+    <listitem>
+    <para>N: Match sources by SCC before SIC</para>
+    </listitem>
+    </itemizedlist>
+</listitem>
 </itemizedlist>
 
 </section>
