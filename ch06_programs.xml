@@ -8,11 +8,21 @@
 
 <title>Overview</title>
 
-<para>Figure 6-1 shows the SMOKE core programs and how they relate to each other. We define the core programs as those needed for the actual emissions processing; we exclude QA and utility programs such as <command>Smkreport</command> (these programs are discussed in Chapters 7 and 5, respectively). The lines between the boxes represent one or more files passing between the programs, and showthe dependencies among the programs. Note that we have omitted some redundant file dependencies to make the diagram easier to understand (for example, <command>Premobl</command> depends on the output from <command>Grdmat</command>; however, since <command>Premobl</command> also depends on the output from <command>Mbsetup</command> which in turn depends on <command>Grdmat</command>, the relationship between <command>Grdmat</command> and <command>Premobl</command> is implied). Unless otherwise noted, the SMOKE core programs are applied for the anthropogenic source categories: area-, mobile-, and point-source processing (biogenic processing follows a separate path from the other source categories). When a program that applies to multiple source categories is used, it can be run for only one source category at a time, with the exception of <command>Smkmerge</command> and <command>Mrggrid</command>.The rest of the programs apply to only a single processing category and are tagged in the figure to indicate that (e.g., B is used to indicate the biogenic-only programs).</para>
+<para><xref linkend="fig_programs_core_programs" /> shows the SMOKE core programs and how they relate to each other. We define the core programs as those needed for the actual emissions processing; we exclude QA and utility programs such as <command>Smkreport</command> (these programs are discussed in <xref linkend="ch_quality_assurance" /> and <xref linkend="ch_utilities" />). The lines between the boxes represent one or more files passing between the programs, and show the dependencies among the programs. Note that we have omitted some redundant file dependencies to make the diagram easier to understand (for example, <command>Premobl</command> depends on the output from <command>Grdmat</command>; however, since <command>Premobl</command> also depends on the output from <command>Mbsetup</command> which in turn depends on <command>Grdmat</command>, the relationship between <command>Grdmat</command> and <command>Premobl</command> is implied). Unless otherwise noted, the SMOKE core programs are applied for the anthropogenic source categories: area-, mobile-, and point-source processing (biogenic processing follows a separate path from the other source categories). When a program that applies to multiple source categories is used, it can be run for only one source category at a time, with the exception of <command>Smkmerge</command> and <command>Mrggrid</command>.The rest of the programs apply to only a single processing category and are marked in the figure.</para>
 
-<remark>figure</remark>
+<figure id="fig_programs_core_programs">
+<title>SMOKE core programs</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/core_programs_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/core_programs_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
 
-<para>The <command>Smkinven</command> program, at left in Figure 6-1, is responsible for importing the stationary area/non-point, nonroad, on-road mobile, and point source inventory emissions data. For mobile sources, <command>Smkinven</command> can also import activity data in the form of VMT and vehicle speed for use in generating emission factors. The output from <command>Smkinven</command> is used as input to nearly every other core SMOKE program.</para>
+<para>The <command>Smkinven</command> program, at left in <xref linkend="fig_programs_core_programs" />, is responsible for importing the stationary area/non-point, nonroad, on-road mobile, and point source inventory emissions data. For mobile sources, <command>Smkinven</command> can also import activity data in the form of VMT and vehicle speed for use in generating emission factors. The output from <command>Smkinven</command> is used as input to nearly every other core SMOKE program.</para>
 
 <para>Also at left, the <command>Rawbio</command> program imports the county or gridded land use data and computes normalized (time-independent) biogenic emissions.</para>
 
@@ -101,7 +111,7 @@
 
 <title>/MACT/ packet</title>
 
-<para>The /MACT/ packet is designed to support the primary MACT controls needed for toxics processing. It is applied first, and uses the following logic. When a source is found that matches a /MACT/ packet entry (source matching is addressed following this discussion of control packets), <command>Cntlmat</command> first calculates a inventory efficiency value (Eff<subscript>inv</subscript>) for that source based on the control efficiency (C<subscript>eff</subscript>), rule effectiveness (R<subscript>eff</subscript>), and rule penetration (R<subscript>pen</subscript>) provided in the inventory:</para>
+<para>The /MACT/ packet is designed to support the primary MACT controls needed for toxics processing. It is applied first, and uses the following logic. When a source is found that matches a /MACT/ packet entry (source matching is addressed in <xref linkend="sect_programs_cntlmat_source_match" />), <command>Cntlmat</command> first calculates a inventory efficiency value (Eff<subscript>inv</subscript>) for that source based on the control efficiency (C<subscript>eff</subscript>), rule effectiveness (R<subscript>eff</subscript>), and rule penetration (R<subscript>pen</subscript>) provided in the inventory:</para>
 
 <para>Eff<subscript>inv</subscript> = C<subscript>eff</subscript> [inventory] x R<subscript>eff</subscript> [inventory] x R<subscript>pen</subscript> [inventory]</para>
 
@@ -139,7 +149,7 @@
 
 <para>A cumulative control factor is then calculated by multiplying Fac<subscript>MACT</subscript> x Fac<subscript>CONTROL</subscript>.</para>
 
-<para>For "replacement" entries, Cntlmat first "backs out" the existing controls provided in the inventory from the control values provided in the /CONTROL/ packet entry as follows:</para>
+<para>For "replacement" entries, <command>Cntlmat</command> first "backs out" the existing controls provided in the inventory from the control values provided in the /CONTROL/ packet entry as follows:</para>
 
 <para>D = (1 - C<subscript>eff</subscript> [inventory] x R<subscript>eff</subscript> [inventory] x R<subscript>pen</subscript> [inventory])</para>
 
@@ -201,7 +211,7 @@
 
 </section>
 
-<section>
+<section id="sect_programs_cntlmat_source_match">
 
 <title>Source Matching Hierarchy</title>
 
@@ -671,11 +681,25 @@
 
 <para><command>Cntlmat</command> is an optional program that needs to be run only when controlled emissions are needed for the AQM.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-2</remark> shows the input and output files for the <command>Cntlmat</command> program. The input files are the inventory file output from <command>Smkinven</command> (either <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the control packets file (<envar>GCNTL</envar>), and the speciation profiles file (<envar>GSPRO</envar>) if there are reactivity controls. If the control packets file contains a /PROJECTION/ packet, the program outputs a projection matrix file (<envar>APMAT</envar>, <envar>MPMAT</envar>, or <envar>PPMAT</envar>) and a projection report (<envar>APROJREP</envar>, <envar>MPROJREP</envar>, or <envar>PPROJREP</envar>). If the control packets file contains a /REACTIVITY/ packet, the program outputs mole and mass-based reactivity matrix files (either <envar>ARMAT_L</envar> and <envar>ARMAT_S</envar>, <envar>MRMAT_L</envar> and <envar>MRMAT_S</envar>, or <envar>PRMAT_L</envar> and <envar>PRMAT_S</envar>), a reactivity matrix supplement file (<envar>ARSUP</envar>, <envar>MRSUP</envar>, or <envar>PRSUP</envar>), and a report of reactivity controls (<envar>AREACREP</envar>, <envar>MREACREP</envar>, or <envar>PREACREP</envar>). If the control packets file contains /MACT/, /CONTROL/, /EMS_CONTROL/, /ALLOWABLE/, and/or /CTG/ packets, the program outputs a multiplicative control matrix file (<envar>ACMAT</envar>, <envar>MCMAT</envar>, or <envar>PCMAT</envar>), a report of multiplicative controls (<envar>ACREP</envar>, <envar>MCREP</envar>, or <envar>PCREP</envar>), and a report of all controls applied to the inventory (<envar>ACSUMREP</envar>, <envar>MCSUMREP</envar>, or <envar>PCSUMREP</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_cntlmat">
+<title><command>Cntlmat</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/cntlmat_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/cntlmat_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_cntlmat" /> shows the input and output files for the <command>Cntlmat</command> program. The input files are the inventory file output from <command>Smkinven</command> (either <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the control packets file (<envar>GCNTL</envar>), and the speciation profiles file (<envar>GSPRO</envar>) if there are reactivity controls. If the control packets file contains a /PROJECTION/ packet, the program outputs a projection matrix file (<envar>APMAT</envar>, <envar>MPMAT</envar>, or <envar>PPMAT</envar>) and a projection report (<envar>APROJREP</envar>, <envar>MPROJREP</envar>, or <envar>PPROJREP</envar>). If the control packets file contains a /REACTIVITY/ packet, the program outputs mole and mass-based reactivity matrix files (either <envar>ARMAT_L</envar> and <envar>ARMAT_S</envar>, <envar>MRMAT_L</envar> and <envar>MRMAT_S</envar>, or <envar>PRMAT_L</envar> and <envar>PRMAT_S</envar>), a reactivity matrix supplement file (<envar>ARSUP</envar>, <envar>MRSUP</envar>, or <envar>PRSUP</envar>), and a report of reactivity controls (<envar>AREACREP</envar>, <envar>MREACREP</envar>, or <envar>PREACREP</envar>). If the control packets file contains /MACT/, /CONTROL/, /EMS_CONTROL/, /ALLOWABLE/, and/or /CTG/ packets, the program outputs a multiplicative control matrix file (<envar>ACMAT</envar>, <envar>MCMAT</envar>, or <envar>PCMAT</envar>), a report of multiplicative controls (<envar>ACREP</envar>, <envar>MCREP</envar>, or <envar>PCREP</envar>), and a report of all controls applied to the inventory (<envar>ACSUMREP</envar>, <envar>MCSUMREP</envar>, or <envar>PCSUMREP</envar>).</para>
 
 <section>
 
@@ -711,13 +735,13 @@
 </tgroup>
 </informaltable>
 
-<para>* As in Figure 6-2, the notation <envar>[AREA|MOBL|PNTS]</envar> is used to indicate that only one of the three files is used for a given run.</para>
+<para>* As in <xref linkend="fig_programs_cntlmat" />, the notation <envar>[AREA|MOBL|PNTS]</envar> is used to indicate that only one of the three files is used for a given run.</para>
 
 <para>The physical file name of the input file <envar>GCNTL</envar> file is typically overridden by the environment that is running <command>Cntlmat</command>. For example, when running SMOKE from scripts using the Assigns file, the projection factor inputs are available as the <envar>[A|M|P]PROJ</envar> files. So, for instance, the script must set <envar>GCNTL</envar> as <envar>APROJ</envar> (for area-source processing) after the Assigns file has been invoked by the script, but before the <command>Cntlmat</command> program is actually run.</para>
 
 </section>
 
-<section>
+<section id="sect_programs_cntlmat_envar">
 
 <title>Input Environment Variables</title>
 
@@ -817,7 +841,7 @@
 <tgroup cols="3">
 <thead>
 <row>
-<entry>File Name</entry>
+<entry>File Name*</entry>
 <entry>Format</entry>
 <entry>Description</entry>
 </row>
@@ -877,6 +901,10 @@
 </tbody>
 </tgroup>
 </informaltable>
+
+<para>* As in <xref linkend="fig_programs_cntlmat" />, the notation [A|M|P] is used to indicate that only one of the three files is output for a given run.</para>
+
+</section>
 
 </section>
 
@@ -1022,15 +1050,29 @@ H<subscript>S</subscript> = Physical stack height (m)
 </listitem>
 </orderedlist>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-3</remark> shows the input and output files for the <command>Elevpoint</command> program. The input files include the point-source inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), an elevated source configuration file (<envar>PELVCONFIG</envar>), the grid description file (<envar>GRIDDESC</envar>), and a list of hourly inventory files output by <command>Temporal</command> if the elevated source configuration file selects by emissions value or rank (<envar>PTMPLIST</envar>). The program outputs an elevated point source identification file (<envar>PELV</envar>), a plume-in-grid and/or elevated sources stack parameters file (<envar>STACK_GROUPS</envar>), and an elevated and PinG source report (<envar>REPPELV</envar>).</para>
-
 </section>
 
 <section>
 
-<title>Input Environment Variables</title>
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_elevpoint">
+<title><command>Elevpoint</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/elevpoint_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/elevpoint_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_elevpoint" /> shows the input and output files for the <command>Elevpoint</command> program. The input files include the point-source inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), an elevated source configuration file (<envar>PELVCONFIG</envar>), the grid description file (<envar>GRIDDESC</envar>), and a list of hourly inventory files output by <command>Temporal</command> if the elevated source configuration file selects by emissions value or rank (<envar>PTMPLIST</envar>). The program outputs an elevated point source identification file (<envar>PELV</envar>), a plume-in-grid and/or elevated sources stack parameters file (<envar>STACK_GROUPS</envar>), and an elevated and PinG source report (<envar>REPPELV</envar>).</para>
+
+<section>
+
+<title>Input Files</title>
 
 <informaltable>
 <tgroup cols="3">
@@ -1069,7 +1111,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 </section>
 
-<section>
+<section id="sect_programs_elevpoint_envar">
 
 <title>Input Environment Variables</title>
 
@@ -1109,7 +1151,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <para>For CMAQ, SMOKE will output a <envar>STACK_GROUPS</envar> file from the <command>Elevpoint</command> program and a <envar>PINGTS_[S|L]</envar> file from the <command>Smkmerge</command> program to support PinG. For UAM-style processing, SMOKE will flag PinG sources in the ASCII elevated file created by <command>Smkmerge</command>, and should be used with the <envar>SMK_ASCIIELEV_YN</envar> option set to Y to create this ASCII elevated file.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 </itemizedlist>
 
@@ -1156,6 +1198,8 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
@@ -1186,7 +1230,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <title>MOBILE modifications</title>
 
-<para>In adapting MOBILE6 for use in SMOKE, MOBILE6 has been changed somewhat in order to output emission factors at the level of aggregation required by SMOKE, generate multiple sets of emission factors in the same run, and create a better interface with <command>Emisfac</command>. The mapping of SMOKE road classes to MOBILE6 facilities and of SMOKE vehicle types to MOBILE6 facilities was described in <remark>Chapter 2</remark>.</para>
+<para>In adapting MOBILE6 for use in SMOKE, MOBILE6 has been changed somewhat in order to output emission factors at the level of aggregation required by SMOKE, generate multiple sets of emission factors in the same run, and create a better interface with <command>Emisfac</command>. The mappings of SMOKE road classes to MOBILE6 facilities and of SMOKE vehicle types to MOBILE6 facilities are given in <xref linkend="tbl_concepts_mobile6_roads" /> and <xref linkend="tbl_concepts_mobile6_vehicles" />.</para>
 
 </section>
 
@@ -1256,11 +1300,25 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Emisfac</command> is an optional program that is needed only if activity data are used in the SMOKE mobile-source inventory file.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-4</remark> shows the input and output files for the <command>Emisfac</command> program. The input files include a group file listing counties using <emphasis>xx</emphasis>-average temperatures (<envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, or <envar>EPISODEGROUP</envar>), a temperature file output from <command>Premobl</command> (<envar>HOURLYT</envar>), an inventory data table (<envar>INVTABLE</envar>), a file listing the MOBILE6 scenario files (<envar>M6LIST</envar>), a mobile emission processes file (<envar>MEPROC</envar>), the mobile-source inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the speed profiles file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y), a speed summary file output by <command>Mbsetup</command> (<envar>SPDSUM</envar>), and sets of temperature files subsequent to the <envar>HOURLYT</envar> file. The program outputs some MOBILE6 intermediate files and sets of emissions factor files.</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_emisfac">
+<title><command>Emisfac</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/emisfac_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/emisfac_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_emisfac" /> shows the input and output files for the <command>Emisfac</command> program. The input files include a group file listing counties using <emphasis>xx</emphasis>-average temperatures (<envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, or <envar>EPISODEGROUP</envar>), a temperature file output from <command>Premobl</command> (<envar>HOURLYT</envar>), an inventory data table (<envar>INVTABLE</envar>), a file listing the MOBILE6 scenario files (<envar>M6LIST</envar>), a mobile emission processes file (<envar>MEPROC</envar>), the mobile-source inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the speed profiles file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y), a speed summary file output by <command>Mbsetup</command> (<envar>SPDSUM</envar>), and sets of temperature files subsequent to the <envar>HOURLYT</envar> file. The program outputs some MOBILE6 intermediate files and sets of emissions factor files.</para>
 
 <section>
 
@@ -1426,7 +1484,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Directory for the hourly temperature files.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>SMK_SPDPATH</envar>: [default: <filename class="directory">.</filename>]</para>
@@ -1485,6 +1543,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -1599,18 +1659,32 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Grdmat</command> must be run before gridded emissions may be produced using <command>Smkmerge</command>.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-5</remark> shows the input and output files for the <command>Grdmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>), the spatial surrogates file (<envar>AGPRO</envar> or <envar>MGPRO</envar>), and the grid description file (<envar>GRIDDESC</envar>). For mobile sources, the mobile codes file (<envar>MCODES</envar>) is also needed, <remark>and the link definitions file (<envar>MGLNK</envar>) can be optionally provided to specify link coordinates</remark>. The program outputs a gridding matrix (<envar>AGMAT</envar>, <envar>MGMAT</envar>, or <envar>PGMAT</envar>) used by other SMOKE programs, and a supplemental output file (<envar>AGSUP</envar> or <envar>MGSUP</envar>) that includes all of the spatial surrogate codes assigned to each source. For mobile sources, <command>Grdmat</command> also outputs the <envar>MUMAT</envar> ungridding matrix file.</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_grdmat">
+<title><command>Grdmat</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/grdmat_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/grdmat_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_grdmat" /> shows the input and output files for the <command>Grdmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>), the spatial surrogates file (<envar>AGPRO</envar> or <envar>MGPRO</envar>), and the grid description file (<envar>GRIDDESC</envar>). For mobile sources, the mobile codes file (<envar>MCODES</envar>) is also needed, <remark>and the link definitions file (<envar>MGLNK</envar>) can be optionally provided to specify link coordinates</remark>. The program outputs a gridding matrix (<envar>AGMAT</envar>, <envar>MGMAT</envar>, or <envar>PGMAT</envar>) used by other SMOKE programs, and a supplemental output file (<envar>AGSUP</envar> or <envar>MGSUP</envar>) that includes all of the spatial surrogate codes assigned to each source. For mobile sources, <command>Grdmat</command> also outputs the <envar>MUMAT</envar> ungridding matrix file.</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1692,7 +1766,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </listitem>
 <listitem>
-<para><envar>REPORT_DEFAULTS</envar>: See description in <remark>Section 6.2.4.</remark></para>
+<para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>SMK_DEFAULT_SRGID</envar>: [default: 50 (Models-3 population surrogate code) or 1 (if 50 is unavailable in surrogates data)]</para>
@@ -1700,7 +1774,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Defines the surrogate code number to use as a fallback surrogate when the surrogate number set by the cross-reference file would zero out the emissions for that source.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4.</remark></para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 </itemizedlist>
 
@@ -1711,7 +1785,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1744,6 +1818,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -1783,18 +1859,32 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>After running <command>Grwinven</command>, the output can be used similarly to the output from <command>Smkinven</command>. If <command>Spcmat</command> or <command>Grdmat</command> have already been run for a given inventory, these programs do not need to be rerun after running <command>Grwinven</command> because the number and order of the sources in the grown emissions files are the same as in the base case.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-6</remark> shows the input and output files for the <command>Grwinven</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the country, state and county file (<envar>COSTCY</envar>), and all of the control or growth matrices output from <command>Cntlmat</command> (<envar>ACMATxx</envar>, <envar>MCMATxx</envar>, or <envar>PCMATxx</envar>). The program outputs new inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been either controlled or grown into the past or future. Optionally, you can choose to output ASCII inventory files (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files.</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_grwinven">
+<title><command>Grwinven</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/grwinven_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/grwinven_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_grwinven" /> shows the input and output files for the <command>Grwinven</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the country, state and county file (<envar>COSTCY</envar>), and all of the control or growth matrices output from <command>Cntlmat</command> (<envar>ACMATxx</envar>, <envar>MCMATxx</envar>, or <envar>PCMATxx</envar>). The program outputs new inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been either controlled or grown into the past or future. Optionally, you can choose to output ASCII inventory files (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files.</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1875,7 +1965,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1903,6 +1993,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -1940,18 +2032,32 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Laypoint</command> must be run before elevated sources can be processed using <command>Smkmerge</command>.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-7</remark> shows the input and output files for the <command>Laypoint</command> program. The input files include the grid description file (<envar>GRIDDESC</envar>), meteorology files created by the meteorology preprocessor (<envar>GRID_CRO_3D</envar>, <envar>MET_CRO_2D</envar>, <envar>MET_CRO_3D</envar>, and <envar>MET_DOT_3D</envar>), the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the elevated point source identification file output from <command>Elevpoint</command> (<envar>PELV</envar>) if this file will be used to set elevated sources, and optionally the hourly inventory file from <command>Smkinven</command> (<envar>PHOUR</envar>) if hourly plume data are to be used. The program outputs hourly plume rise layer fractions for all sources (<envar>PLAY</envar>) or optionally only for explicit sources (<envar>PLAY_EX</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_laypoint">
+<title><command>Laypoint</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/laypoint_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/laypoint_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_laypoint" /> shows the input and output files for the <command>Laypoint</command> program. The input files include the grid description file (<envar>GRIDDESC</envar>), meteorology files created by the meteorology preprocessor (<envar>GRID_CRO_3D</envar>, <envar>MET_CRO_2D</envar>, <envar>MET_CRO_3D</envar>, and <envar>MET_DOT_3D</envar>), the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the elevated point source identification file output from <command>Elevpoint</command> (<envar>PELV</envar>) if this file will be used to set elevated sources, and optionally the hourly inventory file from <command>Smkinven</command> (<envar>PHOUR</envar>) if hourly plume data are to be used. The program outputs hourly plume rise layer fractions for all sources (<envar>PLAY</envar>) or optionally only for explicit sources (<envar>PLAY_EX</envar>).</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2007,7 +2113,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_laypoint_envar">
 
 <title>Input Environment Variables</title>
 
@@ -2053,7 +2159,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Number of emissions layers; must be at least 4 otherwise program will not run.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark>.</para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_SPECELEV_YN</envar>: [default: N]</para>
@@ -2094,7 +2200,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2125,6 +2231,8 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
@@ -2145,7 +2253,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><emphasis>Processing categories:</emphasis> mobile</para>
 
-<para>The <command>Mbsetup</command> program prepares intermediate files needed to run <command>Premobl</command> and <command>Emisfac</command>. It uses a county cross-reference file to assign a reference county to each county in the mobile-source inventory. The program also reads a county-settings file to determine options for temperature averaging and handling of local roads. Mbsetup groups sources by speed and reference county, then outputs a summary file used by <command>Premobl</command> and <command>Emisfac</command>.</para>
+<para>The <command>Mbsetup</command> program prepares intermediate files needed to run <command>Premobl</command> and <command>Emisfac</command>. It uses a county cross-reference file to assign a reference county to each county in the mobile-source inventory. The program also reads a county-settings file to determine options for temperature averaging and handling of local roads. <command>Mbsetup</command> groups sources by speed and reference county, then outputs a summary file used by <command>Premobl</command> and <command>Emisfac</command>.</para>
 
 </section>
 
@@ -2159,18 +2267,32 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Mbsetup</command> is needed only if activity data are used in the SMOKE mobile inventory file.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-8</remark> shows the input and output files for the <command>Mbsetup</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file from <command>Grdmat</command> (<envar>MUMAT</envar>), the county cross-reference file (<envar>MCREF</envar>), the county settings file (<envar>MVREF</envar>), and the speed cross-reference file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y). The program outputs an ASCII listing of counties using either day-average temperatures (<envar>DAILYGROUP</envar>), week-average temperatures (<envar>WEEKLYGROUP</envar>), month-average temperatures (<envar>MONTHLYGROUP</envar>), or episode-average temperatures (<envar>EPISODEGROUP</envar>). It also outputs a summary of speeds and road types (<envar>SPDSUM</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_mbsetup">
+<title><command>Mbsetup</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/mbsetup_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/mbsetup_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_mbsetup" /> shows the input and output files for the <command>Mbsetup</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file from <command>Grdmat</command> (<envar>MUMAT</envar>), the county cross-reference file (<envar>MCREF</envar>), the county settings file (<envar>MVREF</envar>), and the speed cross-reference file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y). The program outputs an ASCII listing of counties using either day-average temperatures (<envar>DAILYGROUP</envar>), week-average temperatures (<envar>WEEKLYGROUP</envar>), month-average temperatures (<envar>MONTHLYGROUP</envar>), or episode-average temperatures (<envar>EPISODEGROUP</envar>). It also outputs a summary of speeds and road types (<envar>SPDSUM</envar>).</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2217,7 +2339,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <itemizedlist>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark>.</para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />.</para>
 </listitem>
 <listitem>
 <para><envar>USE_SPEED_PROFILES</envar>: [default: N]</para>
@@ -2243,7 +2365,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2289,6 +2411,8 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
@@ -2323,18 +2447,32 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>Output files from <command>Mrggrid</command> are usually model-ready input files that will be used in running an AQM.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-9</remark> shows the input and output files for the <command>Mrggrid</command> program. The input file is simply a list of the logical file names for the files to be merged (<envar>FILELIST</envar>). The program outputs a gridded, optionally layered, optionally hourly emissions file (<envar>OUTFILE</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_mrggrid">
+<title><command>Mrggrid</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/mrggrid_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/mrggrid_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_mrggrid" /> shows the input and output files for the <command>Mrggrid</command> program. The input file is simply a list of the logical file names for the files to be merged (<envar>FILELIST</envar>). The program outputs a gridded, optionally layered, optionally hourly emissions file (<envar>OUTFILE</envar>).</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2368,7 +2506,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2391,6 +2529,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -2426,11 +2566,25 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Normbeis3</command> must be executed before <command>Tmpbeis3</command>.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-10</remark> shows the input and output files for the <command>Normbeis3</command> program. The input files include the emission factors file (<envar>B3FAC</envar>), the gridded land use file for the first 120 land use types (<envar>BELD3_A</envar>), the gridded land use types for the next 110 types (<envar>BELD3_B</envar>), and the land use totals data file (<envar>BELD3_TOT</envar>). The program outputs a gridded, normalized biogenic emissions file (<envar>B3GRD</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_normbeis3">
+<title><command>Normbeis3</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/normbeis3_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/normbeis3_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_normbeis3" /> shows the input and output files for the <command>Normbeis3</command> program. The input files include the emission factors file (<envar>B3FAC</envar>), the gridded land use file for the first 120 land use types (<envar>BELD3_A</envar>), the gridded land use types for the next 110 types (<envar>BELD3_B</envar>), and the land use totals data file (<envar>BELD3_TOT</envar>). The program outputs a gridded, normalized biogenic emissions file (<envar>B3GRD</envar>).</para>
 
 <section>
 
@@ -2439,7 +2593,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Gridded land use data can be created using GIS software, such as ArcInfo. Another tool that can be used to generate gridded land use data is the SMOKE Tool in Models-3 (see Models-3 documentation). The typical database used to generate the <envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> files is the BELD3. Future versions of SMOKE may include a method for creating land use files for use with <command>Normbeis3</command>.</para>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2488,7 +2642,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2511,6 +2665,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -2558,18 +2714,32 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Premobl</command> is needed only if activity data are used in the SMOKE mobile-source inventory file.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-11</remark> shows the input and output files for the <command>Premobl</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file (<envar>MUMAT</envar>), the file listing the meteorology files (<envar>METLIST</envar>), the speed summary file (<envar>SPDSUM</envar>) from the <command>Mbsetup</command> program, and a file listing the counties using either day-average temperatures (<envar>DAILYGROUP</envar>), week-average temperatures (<envar>WEEKLYGROUP</envar>), month-average temperatures (<envar>MONTHLYGROUP</envar>), or episode-average temperatures (<envar>EPISODEGROUP</envar>). The program outputs sets of files containing 24-hour temperature profiles.</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_premobl">
+<title><command>Premobl</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/premobl_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/premobl_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_premobl" /> shows the input and output files for the <command>Premobl</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file (<envar>MUMAT</envar>), the file listing the meteorology files (<envar>METLIST</envar>), the speed summary file (<envar>SPDSUM</envar>) from the <command>Mbsetup</command> program, and a file listing the counties using either day-average temperatures (<envar>DAILYGROUP</envar>), week-average temperatures (<envar>WEEKLYGROUP</envar>), month-average temperatures (<envar>MONTHLYGROUP</envar>), or episode-average temperatures (<envar>EPISODEGROUP</envar>). The program outputs sets of files containing 24-hour temperature profiles.</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2625,7 +2795,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_premobl_envar">
 
 <title>Input Environment Variables</title>
 
@@ -2650,9 +2820,11 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>Indicates offset from Greenwich Mean Time (GMT) for episode start date and time. <envar>OUTZONE</envar> should be set to the standard time for the time zone of interest; SMOKE will adjust to Daylight Saving time for episodes that are during periods and in regions where Daylight Saving time applies.</para>
 
-<para><remark>The table below</remark> provides allowed values for <envar>OUTZONE</envar>. The CMAQ and MAQSIP models expect <envar>OUTZONE</envar> to be 0, while other models such as UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript> often use time zone 5. All models expect that the emissions and the meteorology data provided to the model will have a consistent time zone. SMOKE expects that the meteorology data will be in GMT.</para>
+<para><xref linkend="tbl_programs_outzone" /> provides allowed values for <envar>OUTZONE</envar>. The CMAQ and MAQSIP models expect <envar>OUTZONE</envar> to be 0, while other models such as UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript> often use time zone 5. All models expect that the emissions and the meteorology data provided to the model will have a consistent time zone. SMOKE expects that the meteorology data will be in GMT.</para>
 
-<informaltable>
+<table id="tbl_programs_outzone">
+<title>Values for <envar>OUTZONE</envar> and associated time zone</title>
+
 <tgroup cols="4">
 <thead>
 <row>
@@ -2726,7 +2898,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </row>
 </tbody>
 </tgroup>
-</informaltable>
+</table>
 
 <para>Note that SMOKE expects <envar>OUTZONE</envar> to be set as a positive number for time zones in the Western Hemisphere, although standard notation would list these as negative values. For example, Eastern Standard Time is -5:00 hours from GMT, but <envar>OUTZONE</envar> for EST in SMOKE is 5.</para>
 </listitem>
@@ -2746,7 +2918,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Defines the minimum allowable hourly temperature (&deg;F).</para>
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark>.</para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />.</para>
 </listitem>
 <listitem>
 <para><envar>TVARNAME</envar>: [default: TEMPG]</para>
@@ -2777,7 +2949,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2800,6 +2972,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -2857,7 +3031,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The default surrogate code for all of these land coverage categories is 60, which is the EPA Models-3 area surrogate code. If surrogate data exist for these specific land coverage categories, better results may be achieved by careful choice of surrogate mapping.</para>
 
-<para>Gridded land use can be created using GIS software (such as ArcInfo) by someone with expertise in generating gridding surrogates. Another tool that can be used to generate gridded land use data is the SMOKE Tool in Models-3 (see the <command>Beld3to2</command> utility program <remark>[Chapter 5]</remark> and Models-3 documentation).</para>
+<para>Gridded land use can be created using GIS software (such as ArcInfo) by someone with expertise in generating gridding surrogates. Another tool that can be used to generate gridded land use data is the SMOKE Tool in Models-3 (see the <command>Beld3to2</command> utility program in <xref linkend="ch_utilities" /> and Models-3 documentation).</para>
 
 </section>
 
@@ -2871,18 +3045,32 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The <command>Beld3to2</command> utility program can be executed to produce gridded land use for input into <command>Rawbio</command>.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-12</remark> shows the input and output files for the <command>Rawbio</command> program. The input files include the emission factors file for summer or winter (<envar>BFAC</envar>), the grid description file (<envar>GRIDDESC</envar>), the gridded land use data (<envar>BGUSE</envar>) or the county land use data (<envar>BCUSE</envar>), and the surrogates (<envar>BGPRO</envar>) if county land use data are to be processed. The program outputs a gridded, normalized biogenic emissions file for either summer or winter (<envar>BGRD</envar> or <envar>BGRDW</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_rawbio">
+<title><command>Rawbio</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/rawbio_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/rawbio_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_rawbio" /> shows the input and output files for the <command>Rawbio</command> program. The input files include the emission factors file for summer or winter (<envar>BFAC</envar>), the grid description file (<envar>GRIDDESC</envar>), the gridded land use data (<envar>BGUSE</envar>) or the county land use data (<envar>BCUSE</envar>), and the surrogates (<envar>BGPRO</envar>) if county land use data are to be processed. The program outputs a gridded, normalized biogenic emissions file for either summer or winter (<envar>BGRD</envar> or <envar>BGRDW</envar>).</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -3028,11 +3216,13 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
 
-<para>The SMOKE prototype version of <command>Rawbio</command> included an additional input file (<envar>BFIP</envar>) that contained a list of counties to use from the <envar>BCUSE</envar> file. Newer versions automatically create this list internally using the FIPS codes contained in the surrogates file <envar>BGPRO</envar>. A <envar>BGUSE</envar> input file can now be created using the utility program <command>Beld3to2</command> <remark>(see Chapter 5)</remark>.</para>
+<para>The SMOKE prototype version of <command>Rawbio</command> included an additional input file (<envar>BFIP</envar>) that contained a list of counties to use from the <envar>BCUSE</envar> file. Newer versions automatically create this list internally using the FIPS codes contained in the surrogates file <envar>BGPRO</envar>. A <envar>BGUSE</envar> input file can now be created using the utility program <command>Beld3to2</command> (see <xref linkend="ch_utilities" />).</para>
 
 </section>
 
@@ -3050,7 +3240,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Smkinven</command> reads in the raw input data, sorts the records, and creates the SMOKE inventory files that are required by most of the SMOKE programs. The program is run separately for area-, mobile-, and point-source processing. <command>Smkinven</command> reads annual, average-day, day-specific, and hour-specific inventory files. The annual and average-day inventory data are combined into a single inventory. The output also indicates whether the data started out as annual or average-day data; such "temporal origin" information is needed by the <command>Temporal</command> program to determine whether to apply monthly adjustments. <command>Smkinven</command> can also import gridded one-layer annual or average-day emissions in I/O API netCDF format.</para>
 
-<para><command>Smkinven</command> writes several SMOKE inventory files for each source category: an ASCII file containing all character-string fields from the inventory, individual I/O API netCDF files containing emissions data for each output pollutant, and an ASCII map file listing the names and locations of each file. The character string fields cannot be stored in the I/O API netCDF file because of limitations of the I/O API library. When day-specific and hour-specific data are available (this applies only for point sources), Smkinven can also read these data, and produce separate I/O API netCDF files for each data type (day-specific or hour-specific).</para>
+<para><command>Smkinven</command> writes several SMOKE inventory files for each source category: an ASCII file containing all character-string fields from the inventory, individual I/O API netCDF files containing emissions data for each output pollutant, and an ASCII map file listing the names and locations of each file. The character string fields cannot be stored in the I/O API netCDF file because of limitations of the I/O API library. When day-specific and hour-specific data are available (this applies only for point sources), <command>Smkinven</command> can also read these data, and produce separate I/O API netCDF files for each data type (day-specific or hour-specific).</para>
 
 <para><command>Smkinven</command> supports the following input file formats and source categories:</para>
 
@@ -3087,7 +3277,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 </itemizedlist>
 
-<para>It is not possible to import only day- or hour-specific data from EMS-95 input files. If only such data are to be used, mock annual files must be created; see the <envar>PTDAY</envar> and <envar>PTHOUR</envar> file formats <remark>(Chapter 8)</remark> for more information on the required formats.</para>
+<para>It is not possible to import only day- or hour-specific data from EMS-95 input files. If only such data are to be used, mock annual files must be created; see the <envar>PTDAY</envar> and <envar>PTHOUR</envar> file formats (<xref linkend="ch_input_files" />) for more information on the required formats.</para>
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
@@ -3097,7 +3287,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>By default, <command>Smkinven</command> will fill in missing average-day data with annual data when possible. To fill in missing annual data with average-day data, use the <envar>FILL_ANNUAL</envar> setting.</para>
 
-<remark>list default stack parameters</remark>
+<comment>list default stack parameters</comment>
 
 </section>
 
@@ -3107,19 +3297,53 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Smkinven</command> must be run for a given processing type (i.e., area, mobile, point) before any other SMOKE programs for that processing type can be run.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-13</remark> shows the input and output files for <command>Smkinven</command> for area sources. The input files include either the raw inventory file (<envar>ARINV</envar>) or a gridded annual or average-day input file (<envar>AG</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the optional area-to-point cross-reference file (<envar>ARTOPNT</envar>), and the optional NONHAP exclude file (<envar>NHAPEXCLUDE</envar>). The program outputs an annual and average-day inventory emissions file (<envar>AREA</envar>), a file listing the inventory SCCs (<envar>ASCC</envar>), and an optional report containing various information about the processed inventory (<envar>REPINVEN</envar>) for NTI-formatted inventory or for area-to-point sources.</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-14</remark> shows the input and output files for <command>Smkinven</command> for mobile sources. The input files include the mobile codes file (<envar>MCODES</envar>), the raw inventory file (<envar>MBINV</envar>), the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the optional NONHAP exclude file (<envar>NHAPEXCLUDE</envar>), and an optional <envar>VMTMIX</envar> file. The program outputs an annual and average-day inventory emissions file (<envar>MOBL</envar>), a file listing the inventory SCCs (<envar>MSCC</envar>), and an optional report containing various information about the processed inventory (<envar>REPINVEN</envar>) for NTI-formatted inputs only.</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-15</remark> shows the input and output files for <command>Smkinven</command> for point sources. The input files include either the raw inventory file (<envar>PTINV</envar>) <remark>or a gridded annual or average-day inventory file (<envar>PNTS</envar>), previously created by <command>Smkinven</command>, in place of the raw inventory file</remark>; the inventory data table (<envar>INVTABLE</envar>); the country, state and county codes file (<envar>COSTCY</envar>); the replacement stack parameters file (<envar>PSTK</envar>); the optional day-specific raw inventory file (<envar>PTDAY</envar>); the optional hour-specific raw inventory file (<envar>PTHOUR</envar>); and for CEM-formatted data, the ORIS facility description file (<envar>ORISDESC</envar>) and the SCC description file (<envar>SCCDESC</envar>). The program outputs an annual and average-day inventory emissions file (<envar>PNTS</envar>); a file listing the inventory SCCs (<envar>PSCC</envar>); an optional day-specific inventory file (<envar>PDAY</envar>); an optional hour-specific inventory file (<envar>PHOUR</envar>); for EMS-95 formatted inputs, an optional temporal profile file (<envar>PTREF_ALT</envar>); and for CEM-formatted inputs, an optional report containing various information about the processed inventory (<envar>REPINVEN</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_smkinven_area">
+<title><command>Smkinven</command> input and output files for area sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkinven_area_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkinven_area_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkinven_area" /> shows the input and output files for <command>Smkinven</command> for area sources. The input files include either the raw inventory file (<envar>ARINV</envar>) or a gridded annual or average-day input file (<envar>AG</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the optional area-to-point cross-reference file (<envar>ARTOPNT</envar>), and the optional NONHAP exclude file (<envar>NHAPEXCLUDE</envar>). The program outputs an annual and average-day inventory emissions file (<envar>AREA</envar>), a file listing the inventory SCCs (<envar>ASCC</envar>), and an optional report containing various information about the processed inventory (<envar>REPINVEN</envar>) for NTI-formatted inventory or for area-to-point sources.</para>
+
+<figure id="fig_programs_smkinven_mobile">
+<title><command>Smkinven</command> input and output files for mobile sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkinven_mobile_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkinven_mobile_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkinven_mobile" /> shows the input and output files for <command>Smkinven</command> for mobile sources. The input files include the mobile codes file (<envar>MCODES</envar>), the raw inventory file (<envar>MBINV</envar>), the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the optional NONHAP exclude file (<envar>NHAPEXCLUDE</envar>), and an optional <envar>VMTMIX</envar> file. The program outputs an annual and average-day inventory emissions file (<envar>MOBL</envar>), a file listing the inventory SCCs (<envar>MSCC</envar>), and an optional report containing various information about the processed inventory (<envar>REPINVEN</envar>) for NTI-formatted inputs only.</para>
+
+<figure id="fig_programs_smkinven_point">
+<title><command>Smkinven</command> input and output files for point sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkinven_point_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkinven_point_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkinven_point" /> shows the input and output files for <command>Smkinven</command> for point sources. The input files include either the raw inventory file (<envar>PTINV</envar>) <remark>or a gridded annual or average-day inventory file (<envar>PNTS</envar>), previously created by <command>Smkinven</command>, in place of the raw inventory file</remark>; the inventory data table (<envar>INVTABLE</envar>); the country, state and county codes file (<envar>COSTCY</envar>); the replacement stack parameters file (<envar>PSTK</envar>); the optional day-specific raw inventory file (<envar>PTDAY</envar>); the optional hour-specific raw inventory file (<envar>PTHOUR</envar>); and for CEM-formatted data, the ORIS facility description file (<envar>ORISDESC</envar>) and the SCC description file (<envar>SCCDESC</envar>). The program outputs an annual and average-day inventory emissions file (<envar>PNTS</envar>); a file listing the inventory SCCs (<envar>PSCC</envar>); an optional day-specific inventory file (<envar>PDAY</envar>); an optional hour-specific inventory file (<envar>PHOUR</envar>); for EMS-95 formatted inputs, an optional temporal profile file (<envar>PTREF_ALT</envar>); and for CEM-formatted inputs, an optional report containing various information about the processed inventory (<envar>REPINVEN</envar>).</para>
 
 <section>
 
@@ -3221,7 +3445,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_smkinven_envar">
 
 <title>Input Environment Variables</title>
 
@@ -3304,7 +3528,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>IMPORT_AVEINV_YN</envar>: [default: Y]</para>
 
-<para>Defines whether to import the annual and average-day inventory data. This is set to N to import day-specific or hour-specific data after Smkinven has previously been run for the annual and average-day data.</para>
+<para>Defines whether to import the annual and average-day inventory data. This is set to N to import day-specific or hour-specific data after <command>Smkinven</command> has previously been run for the annual and average-day data.</para>
 
 <itemizedlist>
 <listitem>
@@ -3423,7 +3647,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>SMK_TMPDIR</envar>: [default: <filename class="directory">.</filename>]</para>
@@ -3563,6 +3787,8 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
@@ -3601,7 +3827,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Smkmerge</command> can use a by-day processing approach, to read in one-day hourly files for each day of the week. When the <envar>MRG_BYDAY</envar> environment variable is set to A, M, P, or any combination of those letters, <command>Smkmerge</command> reads a different logical file name for each day of the week for the hourly emission input files for the indicated sources.</para>
 
-<para>For example, if the <envar>MRG_SOURCE</envar> environment variable is set to AMBP, <command>Smkmerge</command> will expect the following hourly input files: <envar>ATMP</envar>, <envar>BGTS_[S|L]</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar>, for area, biogenic, mobile, and point source types respectively. If, in addition, <envar>MRG_BYDAY</envar> is set to “A”, then the hourly input files expected by <command>Smkmerge</command> for area sources would be the <envar>ATMP_{day}</envar> files <remark>(see Chapter 8 for more details)</remark>. The files for the other source types would remain the same.</para>
+<para>For example, if the <envar>MRG_SOURCE</envar> environment variable is set to AMBP, <command>Smkmerge</command> will expect the following hourly input files: <envar>ATMP</envar>, <envar>BGTS_[S|L]</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar>, for area, biogenic, mobile, and point source types respectively. If, in addition, <envar>MRG_BYDAY</envar> is set to “A”, then the hourly input files expected by <command>Smkmerge</command> for area sources would be the <envar>ATMP_{day}</envar> files. The files for the other source types would remain the same.</para>
 
 <para>The <envar>MRG_BYDAY</envar> option is useful for implementing a Monday-weekday-Saturday-Sunday (MWSS) approach to save processing time for long episodes. This approach is applicable when weekly temporal profiles used by an inventory do not have variation between the five weekdays. In the MWSS approach, Monday is processed separately, because time zone differences across a large domain cause some Sunday emissions for some time zones to be in the Monday file. Additional environment variables other than the defaults in the Assigns file need to be set when this option is applied. <command>Smkmerge</command> will prompt for a different file for each day of the week, but the logical file names for Tuesday through Friday can be defined as the same file when implementing the MWSS approach.</para>
 
@@ -3617,27 +3843,81 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>Individual output files from <command>Smkmerge</command> can be merged using <command>Mrggrid</command> if desired.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-16</remark> shows the input and output files for the <command>Smkmerge</command> program for area sources. The inputs include the inventory file output form <command>Smkinven</command> (<envar>AREA</envar>), the gridding matrix from <command>Grdmat</command> (<envar>AGMAT</envar>), the optional speciation matrix from <command>Spcmat</command> (<envar>ASMAT_L</envar> or <envar>ASMAT_S</envar>), the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>ACMAT</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>ARMAT</envar>), the optional hourly emissions from <command>Temporal</command> (<envar>ATMP</envar>) or hourly emissions for each day of the week (<envar>ATMP_{day}</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>AG[T][S]_L</envar> or <envar>AG[T][S]_S</envar>) and a report file (<envar>REPAG[T][S]_L</envar> or <envar>REPAG[T][S]_S</envar>).</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-17</remark> shows the input and output files for the <command>Smkmerge</command> program for biogenic sources. The inputs include the model-ready emissions file (<envar>BGTS_L</envar> or <envar>BGTS_S</envar>), the optional surrogates file (<envar>BGPRO</envar>), the country, state, and county file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>BGTS_L_O</envar> or <envar>BGTS_S_O</envar>) and a report file (<envar>REPBGTS_L</envar> or <envar>REPBGTS_S</envar>). Note that _O is appended to the output file name to distinguish it from the input file.</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-18</remark> shows the input and output files for the <command>Smkmerge</command> program for mobile sources. The inputs include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the gridding matrix from <command>Grdmat</command> (<envar>MGMAT</envar>), the optional speciation matrix from <command>Spcmat</command> (<envar>MSMAT_L</envar> or <envar>MSMAT_S</envar>), the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>MCMAT</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>MRMAT</envar>), the optional hourly emissions from <command>Temporal</command> (<envar>MTMP</envar>) or hourly emissions for each day of the week (<envar>MTMP_{day}</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state and county codes file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>MG[T][S]_L</envar> or <envar>MG[T][S]_S</envar>) and a report file (<envar>REPMG[T][S]_L</envar> or <envar>REPMG[T][S]_S</envar>).</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-19</remark> shows the input and output files for the <command>Smkmerge</command> program for point sources. The inputs include the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the gridding matrix from <command>Grdmat</command> (<envar>PGMAT</envar>), the optional speciation matrix from <command>Spcmat</command> (<envar>PSMAT_L</envar> or <envar>PSMAT_S</envar>), the optional point sources layer file from <command>Laypoint</command> (<envar>PLAY</envar> or <envar>PLAY_EX</envar>), the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>PCMAT</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>PRMAT</envar>), the optional hourly emissions from <command>Temporal</command> (<envar>PTMP</envar>) or hourly emissions for each day of the week (<envar>PTMP_{day}</envar>), the optional elevated sources file (<envar>PELV</envar>), the optional elevated stack groups file (<envar>STACK_GROUPS</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs data files determined by the inputs and can be include a model-ready emissions file (<envar>PG[T][S][3D]_L</envar> or <envar>PG[T][S][3D]_S</envar>), a PinG file (<envar>PING[T][S][_S][_L]</envar>, an elevated sources file (<envar>ELEV[T]S[_S|_L]</envar>), and a report file (<envar>REPPG[T][S]_L</envar> or <envar>REPPG[T][S]_S</envar>).</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-20</remark> shows the input and output files for the <command>Smkmerge</command> program for all sources. The input and output files are a combination of those found in the previous four figures.</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_smkmerge_area">
+<title><command>Smkmerge</command> input and output files for area sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkmerge_area_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkmerge_area_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkmerge_area" /> shows the input and output files for the <command>Smkmerge</command> program for area sources. The inputs include the inventory file output form <command>Smkinven</command> (<envar>AREA</envar>), the gridding matrix from <command>Grdmat</command> (<envar>AGMAT</envar>), the optional speciation matrix from <command>Spcmat</command> (<envar>ASMAT_L</envar> or <envar>ASMAT_S</envar>), the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>ACMAT</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>ARMAT</envar>), the optional hourly emissions from <command>Temporal</command> (<envar>ATMP</envar>) or hourly emissions for each day of the week (<envar>ATMP_{day}</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>AG[T][S]_L</envar> or <envar>AG[T][S]_S</envar>) and a report file (<envar>REPAG[T][S]_L</envar> or <envar>REPAG[T][S]_S</envar>).</para>
+
+<figure id="fig_programs_smkmerge_biogenic">
+<title><command>Smkmerge</command> input and output files for biogenic sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkmerge_biogenic_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkmerge_biogenic_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkmerge_biogenic" /> shows the input and output files for the <command>Smkmerge</command> program for biogenic sources. The inputs include the model-ready emissions file (<envar>BGTS_L</envar> or <envar>BGTS_S</envar>), the optional surrogates file (<envar>BGPRO</envar>), the country, state, and county file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>BGTS_L_O</envar> or <envar>BGTS_S_O</envar>) and a report file (<envar>REPBGTS_L</envar> or <envar>REPBGTS_S</envar>). Note that _O is appended to the output file name to distinguish it from the input file.</para>
+
+<figure id="fig_programs_smkmerge_mobile">
+<title><command>Smkmerge</command> input and output files for mobile sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkmerge_mobile_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkmerge_mobile_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkmerge_mobile" /> shows the input and output files for the <command>Smkmerge</command> program for mobile sources. The inputs include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the gridding matrix from <command>Grdmat</command> (<envar>MGMAT</envar>), the optional speciation matrix from <command>Spcmat</command> (<envar>MSMAT_L</envar> or <envar>MSMAT_S</envar>), the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>MCMAT</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>MRMAT</envar>), the optional hourly emissions from <command>Temporal</command> (<envar>MTMP</envar>) or hourly emissions for each day of the week (<envar>MTMP_{day}</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state and county codes file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>MG[T][S]_L</envar> or <envar>MG[T][S]_S</envar>) and a report file (<envar>REPMG[T][S]_L</envar> or <envar>REPMG[T][S]_S</envar>).</para>
+
+<figure id="fig_programs_smkmerge_point">
+<title><command>Smkmerge</command> input and output files for point sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkmerge_point_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkmerge_point_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkmerge_point" /> shows the input and output files for the <command>Smkmerge</command> program for point sources. The inputs include the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the gridding matrix from <command>Grdmat</command> (<envar>PGMAT</envar>), the optional speciation matrix from <command>Spcmat</command> (<envar>PSMAT_L</envar> or <envar>PSMAT_S</envar>), the optional point sources layer file from <command>Laypoint</command> (<envar>PLAY</envar> or <envar>PLAY_EX</envar>), the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>PCMAT</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>PRMAT</envar>), the optional hourly emissions from <command>Temporal</command> (<envar>PTMP</envar>) or hourly emissions for each day of the week (<envar>PTMP_{day}</envar>), the optional elevated sources file (<envar>PELV</envar>), the optional elevated stack groups file (<envar>STACK_GROUPS</envar>), the inventory data table (<envar>INVTABLE</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), and the grid description file (<envar>GRIDDESC</envar>). The program outputs data files determined by the inputs and can be include a model-ready emissions file (<envar>PG[T][S][3D]_L</envar> or <envar>PG[T][S][3D]_S</envar>), a PinG file (<envar>PING[T][S][_S][_L]</envar>, an elevated sources file (<envar>ELEV[T]S[_S|_L]</envar>), and a report file (<envar>REPPG[T][S]_L</envar> or <envar>REPPG[T][S]_S</envar>).</para>
+
+<figure id="fig_programs_smkmerge_all">
+<title><command>Smkmerge</command> input and output files for all source categories</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/smkmerge_all_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/smkmerge_all_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_smkmerge_all" /> shows the input and output files for the <command>Smkmerge</command> program for all sources. The input and output files are a combination of those found in the previous four figures.</para>
 
 <section>
 
@@ -4036,17 +4316,17 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </listitem>
 <listitem>
-<para><envar>SMK_AVEDAY_YN</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>SMK_AVEDAY_YN</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 
 <para>NOTE: This setting affects the <command>Smkmerge</command> results only when hourly emissions are not merged. To use hourly average-day emissions in <command>Smkmerge</command>, this variable must be set to Y for the <command>Temporal</command> program, so that average-day emissions will be used in creating the hourly emissions.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_EMLAYS</envar>: See description in <remark>Section 6.7.4</remark></para>
+<para><envar>SMK_EMLAYS</envar>: See description in <xref linkend="sect_programs_laypoint_envar" /></para>
 
 <para>Used to set the default value for <envar>UAM_LAYERS</envar> when the <command>Smkmerge</command> output is to be used in UAM-V elevated-point-source output processing.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_PING_METHOD</envar>: See description in <remark>Section 6.3.4</remark></para>
+<para><envar>SMK_PING_METHOD</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
 
 <para>Creates CMAQ or MAQSIP PinG file or flags PinG sources in UAM-style elevated ASCII file (when the <envar>SMK_ASCIIELEV_YN</envar> environment variable is set to Y).</para>
 </listitem>
@@ -4062,7 +4342,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </itemizedlist>
 
-<para>The rest of the variables in this list are relevant only when the <envar>SMK_ASCIIELEV_YN</envar> environment variable is set to Y. The UAM-style elevated-point-source file referenced in the following descriptions is produced by Smkmerge and used as input to the UAM preprocessor PTSRCE.</para>
+<para>The rest of the variables in this list are relevant only when the <envar>SMK_ASCIIELEV_YN</envar> environment variable is set to Y. The UAM-style elevated-point-source file referenced in the following descriptions is produced by <command>Smkmerge</command> and used as input to the UAM preprocessor PTSRCE.</para>
 
 <itemizedlist>
 <listitem>
@@ -4181,7 +4461,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>The output files produced by <command>Smkmerge</command> are determined by the values of the input environment variables.</para>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -4245,6 +4525,8 @@ Defines whether the program produces a report of emission totals by state.</para
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -4556,11 +4838,25 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><command>Spcmat</command> must be executed before speciated emissions can be produced by <command>Smkmerge</command>.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-21</remark> shows the input and output files for the <command>Spcmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the speciation profiles file (<envar>GSPRO</envar>), the speciation cross-reference file (<envar>GSREF</envar>), the inventory data table (<envar>INVTABLE</envar>), the pollutant conversion file (<envar>GSCNV</envar>) if <envar>POLLUTANT_CONVERSION</envar> = Y, and for mobile sources only, the mobile codes file (<envar>MCODES</envar>) and the mobile emission processes file (<envar>MEPROC</envar>). The program outputs a mole-based speciation matrix file (<envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, or <envar>PSMAT_L</envar>) and a mass-based speciation matrix file (<envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, or <envar>PSMAT_S</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_spcmat">
+<title><command>Spcmat</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/spcmat_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/spcmat_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_spcmat" /> shows the input and output files for the <command>Spcmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the speciation profiles file (<envar>GSPRO</envar>), the speciation cross-reference file (<envar>GSREF</envar>), the inventory data table (<envar>INVTABLE</envar>), the pollutant conversion file (<envar>GSCNV</envar>) if <envar>POLLUTANT_CONVERSION</envar> = Y, and for mobile sources only, the mobile codes file (<envar>MCODES</envar>) and the mobile emission processes file (<envar>MEPROC</envar>). The program outputs a mole-based speciation matrix file (<envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, or <envar>PSMAT_L</envar>) and a mass-based speciation matrix file (<envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, or <envar>PSMAT_S</envar>).</para>
 
 <section>
 
@@ -4639,10 +4935,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </listitem>
 <listitem>
-<para><envar>REPORT_DEFAULTS</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 </itemizedlist>
 
@@ -4653,7 +4949,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -4684,6 +4980,8 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
@@ -4708,7 +5006,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>The <command>Temporal</command> program produces a file with hourly inventory pollutant emissions. Unlike the SMOKE matrices produced by <command>Cntlmat</command>, <command>Grdmat</command>, and <command>Spcmat</command>, the output file from <command>Temporal</command> contains the actual emissions data. For all source categories, it uses temporal profiles, temporal cross-references, and the time zone of each source to create the hourly emissions output file. It can also read in day-specific and hour-specific inventory data in SMOKE format, and it uses the most detailed data it can when multiple types of data are available for the same source. For example, if a source had annual, day-specific, and hour-specific data, <command>Temporal</command> would use the hour-specific emissions. The program can also apply source-specific hourly profiles from the hour-specific data file, and it can override all temporal profiles and use temporally uniform profiles for all sources. For mobile sources, <command>Temporal</command> also reads the emission factors created by <command>Emisfac</command>.</para>
 
-<para><command>Temporal</command> treats the temporal profiles as <emphasis>local</emphasis> profiles. In other words, the profile applied to the source is adjusted based on the difference between the time zone of the source (determined by the <envar>COSTCY</envar> file) and the output time zone (determined by the <envar>OUTZONE</envar> environment variable). SMOKE automatically considers Daylight Saving time when converting from a region’s standard time zone to the output time zone, and SMOKE can exclude regions that never use Daylight Saving time based on the <envar>COSTCY</envar> file. Note that <command>Temporal</command> has been tested for time zones in the Western Hemisphere, but we have not tested it <remark>(and it would likely fail)</remark> for time zones in the Eastern Hemisphere.</para>
+<para><command>Temporal</command> treats the temporal profiles as <emphasis>local</emphasis> profiles. In other words, the profile applied to the source is adjusted based on the difference between the time zone of the source (determined by the <envar>COSTCY</envar> file) and the output time zone (determined by the <envar>OUTZONE</envar> environment variable). SMOKE automatically considers Daylight Saving time when converting from a region’s standard time zone to the output time zone, and SMOKE can exclude regions that never use Daylight Saving time based on the <envar>COSTCY</envar> file. Note that <command>Temporal</command> has been tested for time zones in the Western Hemisphere, but we have not tested it for time zones in the Eastern Hemisphere.</para>
 
 <para>Within the <command>Temporal</command> program, the processing occurs as follows:</para>
 
@@ -4737,7 +5035,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>A special holidays file should be provided so that holidays can receive special treatment. This file specifies which daily profiles should be applied to holidays.</para>
 
-<para>A many-step hierarchy is used in applying the temporal cross-referencing. SMOKE preferentially matches each source to the most specific line in the cross-reference file. When there are missing entries in the cross-reference file, <command>Temporal</command> first looks for cross-reference entries for other species at the same level in the search hierarchy before descending to the next level in the hierarchy. For example, if a source has a temporal cross-reference entry for CO but not for NO<subscript>x</subscript>, Temporal uses the source-specific CO temporal cross reference entry for allocating NO<subscript>x</subscript> from that source in preference to using a default NO<subscript>x</subscript> temporal profile.</para>
+<para>A many-step hierarchy is used in applying the temporal cross-referencing. SMOKE preferentially matches each source to the most specific line in the cross-reference file. When there are missing entries in the cross-reference file, <command>Temporal</command> first looks for cross-reference entries for other species at the same level in the search hierarchy before descending to the next level in the hierarchy. For example, if a source has a temporal cross-reference entry for CO but not for NO<subscript>x</subscript>, <command>Temporal</command> uses the source-specific CO temporal cross reference entry for allocating NO<subscript>x</subscript> from that source in preference to using a default NO<subscript>x</subscript> temporal profile.</para>
 
 <para>For area sources, the available combinations are the following, starting with the most specific. "7-digit SCC" means a 10-digit SCC with the last three digits set to zero.</para>
 
@@ -4955,26 +5253,60 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><command>Temporal</command> must be run before gridded, hour-specific emissions can be produced using the <command>Smkmerge</command> program.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-22</remark> shows the input and output files for the <command>Temporal</command> program for area sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>), the optional day-specific inventory file (<envar>ADAY</envar>) and the optional hour-specific inventory file (<envar>AHOUR</envar>), the temporal profiles file (<envar>ATPRO</envar>), the temporal cross-reference file (<envar>ATREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). The program outputs an hourly emissions file (<envar>ATMP</envar>).</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-23</remark> shows the input and output files for the <command>Temporal</command> program for mobile sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the optional day-specific inventory file (<envar>MDAY</envar>) and the optional hour-specific inventory file (<envar>MHOUR</envar>), the temporal profiles file (<envar>MTPRO</envar>), the temporal cross-reference file (<envar>MTREF</envar>), the mobile emission process file (<envar>MEPROC</envar>), the mobile codes file (<envar>MCODES</envar>), the list of emission factors files output from <command>Emisfac</command> (<envar>MEFLIST</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>) and the ungridding matrix file (<envar>MUMAT</envar>). The program outputs an hourly emissions file (<envar>MTMP</envar>).</para>
-
-<remark>figure</remark>
-
-<para><remark>Figure 6-24</remark> shows the input and output files for the <command>Temporal</command> program for point sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the optional day-specific inventory file (<envar>PDAY</envar>) and the optional hour-specific inventory file (<envar>PHOUR</envar>), the temporal profiles file (<envar>PTPRO</envar>), the temporal cross-reference file (<envar>PTREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). The program outputs an hourly emissions file (<envar>PTMP</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_temporal_area">
+<title><command>Temporal</command> input and output files for area sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/temporal_area_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/temporal_area_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_temporal_area" /> shows the input and output files for the <command>Temporal</command> program for area sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>), the optional day-specific inventory file (<envar>ADAY</envar>) and the optional hour-specific inventory file (<envar>AHOUR</envar>), the temporal profiles file (<envar>ATPRO</envar>), the temporal cross-reference file (<envar>ATREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). The program outputs an hourly emissions file (<envar>ATMP</envar>).</para>
+
+<figure id="fig_programs_temporal_mobile">
+<title><command>Temporal</command> input and output files for mobile sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/temporal_mobile_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/temporal_mobile_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_temporal_mobile" /> shows the input and output files for the <command>Temporal</command> program for mobile sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the optional day-specific inventory file (<envar>MDAY</envar>) and the optional hour-specific inventory file (<envar>MHOUR</envar>), the temporal profiles file (<envar>MTPRO</envar>), the temporal cross-reference file (<envar>MTREF</envar>), the mobile emission process file (<envar>MEPROC</envar>), the mobile codes file (<envar>MCODES</envar>), the list of emission factors files output from <command>Emisfac</command> (<envar>MEFLIST</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>) and the ungridding matrix file (<envar>MUMAT</envar>). The program outputs an hourly emissions file (<envar>MTMP</envar>).</para>
+
+<figure id="fig_programs_temporal_point">
+<title><command>Temporal</command> input and output files for point sources</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/temporal_point_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/temporal_point_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_temporal_point" /> shows the input and output files for the <command>Temporal</command> program for point sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the optional day-specific inventory file (<envar>PDAY</envar>) and the optional hour-specific inventory file (<envar>PHOUR</envar>), the temporal profiles file (<envar>PTPRO</envar>), the temporal cross-reference file (<envar>PTREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). The program outputs an hourly emissions file (<envar>PTMP</envar>).</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5056,13 +5388,13 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <itemizedlist>
 <listitem>
-<para><envar>DAY_SPECIFIC_YN</envar>: See description in <remark>Section 6.13.4</remark></para>
+<para><envar>DAY_SPECIFIC_YN</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>HOUR_SPECIFIC_YN</envar>: See description in <remark>Section 6.13.4</remark></para>
+<para><envar>HOUR_SPECIFIC_YN</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>OUTZONE</envar>: See description in <remark>Section 6.11.4</remark></para>
+<para><envar>OUTZONE</envar>: See description in <xref linkend="sect_programs_premobl_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>RENORM_TPROF</envar>: [default: Y]</para>
@@ -5080,10 +5412,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </listitem>
 <listitem>
-<para><envar>REPORT_DEFAULTS</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>SMK_AVEDAY_YN</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>SMK_AVEDAY_YN</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>SMK_EF_MODEL</envar>: [default: MOBILE6]</para>
@@ -5091,13 +5423,13 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Name of the emission factor model to use. NOTE: At this time only the default value can be used.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_MAXERROR</envar>: See description in <remark>Section 6.13.4</remark></para>
+<para><envar>SMK_MAXERROR</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>SMK_MAXWARNING</envar>: See description in <remark>Section 6.13.4</remark></para>
+<para><envar>SMK_MAXWARNING</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>SMK_SOURCE</envar>: See description in <remark>Section 6.2.4</remark></para>
+<para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>UNIFORM_TPROF_YN</envar>: [default: N]</para>
@@ -5158,7 +5490,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5184,6 +5516,8 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
@@ -5193,8 +5527,6 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Also, the SMOKE prototype permitted pollutant-specific temporal profiles for point and mobile sources, but not for area sources. Starting with SMOKE v1.0, area, mobile, and point sources can all use pollutant-specific temporal profiles.</para>
 
 <para>SMOKE v1.0 and later handle pollutants other than CO, NO<subscript>x</subscript>, and VOC or ROG.</para>
-
-<para><remark>In SMOKE v1.0 and later, all source categories can have day- and hour-specific emissions, whereas the prototype allowed this only for point sources.</remark></para>
 
 </section>
 
@@ -5224,18 +5556,32 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><command>Tmpbeis3</command> must be executed before biogenic emissions can be used in <command>Smkmerge</command>.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-25</remark> shows the input and output files for the <command>Tmpbeis3</command> program. The input files include the gridded, normalized biogenic emissions from <command>Normbeis3</command> (<envar>B3GRD</envar>), a meteorology file containing the latitude and longitude for each grid cell (<envar>GRID_CRO_2D</envar>), the speciation profiles file (<envar>GSPRO</envar>), and the meteorology file containing the temperature, surface pressure and radiation/cloud data (<envar>MET_FILE1</envar>). If <envar>BIOMET_SAME</envar> = N, then a second meteorology file containing the radiation/cloud data is needed (<envar>MET_FILE2</envar>), and if <envar>BIOSW_YN</envar> = Y then an optional gridded, seasonal switch file output from <command>Metscan</command> is required (<envar>BIOSEASON</envar>). The program outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<envar>B3GTS_L</envar>) and tons/hour (<envar>B3GTS_S</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_tmpbeis3">
+<title><command>Tmpbeis3</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/tmpbeis3_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/tmpbeis3_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_tmpbeis3" /> shows the input and output files for the <command>Tmpbeis3</command> program. The input files include the gridded, normalized biogenic emissions from <command>Normbeis3</command> (<envar>B3GRD</envar>), a meteorology file containing the latitude and longitude for each grid cell (<envar>GRID_CRO_2D</envar>), the speciation profiles file (<envar>GSPRO</envar>), and the meteorology file containing the temperature, surface pressure and radiation/cloud data (<envar>MET_FILE1</envar>). If <envar>BIOMET_SAME</envar> = N, then a second meteorology file containing the radiation/cloud data is needed (<envar>MET_FILE2</envar>), and if <envar>BIOSW_YN</envar> = Y then an optional gridded, seasonal switch file output from <command>Metscan</command> is required (<envar>BIOSEASON</envar>). The program outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<envar>B3GTS_L</envar>) and tons/hour (<envar>B3GTS_S</envar>).</para>
 
 <section>
 
 <title>Input Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5324,7 +5670,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </listitem>
 <listitem>
-<para><envar>OUTZONE</envar>: See description in <remark>Section 6.11.4</remark></para>
+<para><envar>OUTZONE</envar>: See description in <xref linkend="sect_programs_premobl_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>PRES_VAR</envar>: [default: PRSFC]</para>
@@ -5396,6 +5742,8 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
+</section>
+
 <section>
 
 <title>Earlier Versions</title>
@@ -5430,11 +5778,25 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><command>Tmpbio</command> must be run before biogenic emissions can be used in <command>Smkmerge</command>.</para>
 
-<remark>figure</remark>
-
-<para><remark>Figure 6-26</remark> shows the input and output files for the <command>Tmpbio</command> program. The input files include the gridded, normalized biogenic emissions from <command>Rawbio</command> (<envar>BGRD</envar> or <envar>BGRDW</envar>), the speciation profiles file (<envar>GSPRO</envar>), a grid description file (<envar>GRIDDESC</envar>), a meteorology file containing the temperature, surface pressure, and possibly radiation/cloud data (<envar>MET_FILE1</envar>), a second meteorology file (<envar>MET_FILE2</envar>) containing the radiation/cloud data if <envar>BIOMET_SAME</envar> = N, an optional meteorology file containing the latitude and longitude for each grid cell (<envar>GRID_CRO_2D</envar>), and, if <envar>BIOSW_YN</envar> = Y, an optional gridded seasonal switch file output from <command>Metscan</command> (<envar>BIOSEASON</envar>). The program outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<envar>BGTS_L</envar>) and tons/hour (<envar>BGTS_S</envar>).</para>
-
 </section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_tmpbio">
+<title><command>Tmpbio</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/tmpbio_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/tmpbio_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_tmpbio" /> shows the input and output files for the <command>Tmpbio</command> program. The input files include the gridded, normalized biogenic emissions from <command>Rawbio</command> (<envar>BGRD</envar> or <envar>BGRDW</envar>), the speciation profiles file (<envar>GSPRO</envar>), a grid description file (<envar>GRIDDESC</envar>), a meteorology file containing the temperature, surface pressure, and possibly radiation/cloud data (<envar>MET_FILE1</envar>), a second meteorology file (<envar>MET_FILE2</envar>) containing the radiation/cloud data if <envar>BIOMET_SAME</envar> = N, an optional meteorology file containing the latitude and longitude for each grid cell (<envar>GRID_CRO_2D</envar>), and, if <envar>BIOSW_YN</envar> = Y, an optional gridded seasonal switch file output from <command>Metscan</command> (<envar>BIOSEASON</envar>). The program outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<envar>BGTS_L</envar>) and tons/hour (<envar>BGTS_S</envar>).</para>
 
 <section>
 
@@ -5537,7 +5899,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Indicates whether to input a gridded seasonal switch file.</para>
 </listitem>
 <listitem>
-<para><envar>OUTZONE</envar>: See description in <remark>Section 6.11.4</remark></para>
+<para><envar>OUTZONE</envar>: See description in <xref linkend="sect_programs_premobl_envar" /></para>
 </listitem>
 <listitem>
 <para><envar>PRES_VAR</envar>: [default: PRSFC]</para>
@@ -5563,7 +5925,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5591,6 +5953,8 @@ Defines whether the program produces a report of emission totals by state.</para
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
