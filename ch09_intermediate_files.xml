@@ -1,9 +1,2327 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<chapter id="intermediate_files">
+<chapter id="ch_intermediate_files">
 
 <title>SMOKE Intermediate Files</title>
 
-<para>In progress</para>
+<section>
+
+<title>Introduction</title>
+
+<para>An intermediate file is one that is output from one SMOKE program and input to another SMOKE program. All other files output from programs are considered output files; these are documented in <xref linkend="ch_output_files" />.</para>
+
+<para>In this chapter, the intermediate files are organized under headings named for the SMOKE programs that create the files; the files are listed alphabetically within each program section. The order of the programs within the chapter is also alphabetical. Please note that some file types have multiple file names, one per source category. For example, the multiplicative control matrix file name is <envar>ACMAT</envar>, <envar>MCMAT</envar>, or <envar>PCMAT</envar>, depending on whether the area, mobile, or point source category is being processed by <command>Cntlmat</command>. In these cases of multiple names for a single file type, the file description is listed one time for all intermediate files.</para>
+
+</section>
+
+<section>
+
+<title><command>Cntlmat</command></title>
+
+<para>The <command>Cntlmat</command> program is responsible for creating the projection and control matrices. <command>Cntlmat</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Multiplicative control matrix: <xref linkend="sect_intmed_ampcmat" /></para>
+</listitem>
+<listitem>
+<para>Projection matrix: <xref linkend="sect_intmed_amppmat" /></para>
+</listitem>
+<listitem>
+<para>Reactivity control matrix: <xref linkend="sect_intmed_amprmat" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_ampcmat">
+
+<title><envar>ACMAT</envar>, <envar>MCMAT</envar>, and <envar>PCMAT</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Grwinven</command>, <command>Smkmerge</command>, and <command>Smkreport</command></para> 
+
+<table>
+<title>I/O API Header for <envar>ACMAT</envar>, <envar>MCMAT</envar>, and <envar>PCMAT</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources in the inventory</entry>
+<entry>NROWS3D from the <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of pollutants that have control factors</entry>
+<entry>The contents of the <envar>GCNTL</envar> file indicate which pollutants will be controlled.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>ACMAT</envar>, <envar>MCMAT</envar>, and <envar>PCMAT</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Name of pollutant 1</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Adjustment factor for pollutant 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of pollutant NVARS3D</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Adjustment factor for pollutant NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_amppmat">
+
+<title><envar>APMAT</envar>, <envar>MPMAT</envar>, and <envar>PPMAT</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Grwinven</command>, <command>Smkmerge</command>, <command>Smkreport</command></para>
+
+<table>
+<title>I/O API Header for <envar>APMAT</envar>, <envar>MPMAT</envar>, and <envar>PPMAT</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources in the inventory</entry>
+<entry>NROWS3D from the <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>APMAT</envar>, <envar>MPMAT</envar>, and <envar>PPMAT</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>pfac</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Projection factor</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_amprmat">
+
+<title><envar>ARMAT</envar>, <envar>MRMAT</envar>, and <envar>PRMAT</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Grwinven</command> and <command>Smkmerge</command></para> 
+
+<table>
+<title>I/O API Header for <envar>ARMAT</envar>, <envar>MRMAT</envar>, and <envar>PRMAT</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of reactivity sources </entry>
+<entry>NSREAC from the GENREACT subroutine</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of reactivity species plus the four base variables</entry>
+<entry>The contents of the <envar>GSPRO</envar> file</entry>
+</row>
+<row>
+<entry>NTHIK3D</entry>
+<entry>The number of SMOKE sources</entry>
+<entry><envar>NSRC</envar> from the SMKINVEN program</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>ARMAT</envar>, <envar>MRMAT</envar>, and <envar>PRMAT</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>SRCID</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Inventory source ID (position)</entry>
+</row>
+<row>
+<entry>REPEMIS</entry>
+<entry>Real</entry>
+<entry>UNITS from the <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+<entry>Reactivity base-year emissions</entry>
+</row>
+<row>
+<entry>PRJFAC</entry>
+<entry>Real </entry>
+<entry>Unitless </entry>
+<entry>Reactivity projection factor</entry>
+</row>
+<row>
+<entry>MKTPEN</entry>
+<entry>Real</entry>
+<entry>Fraction</entry>
+<entry>Reactivity control market penetration</entry>
+</row>
+<row>
+<entry>Name of species 1</entry>
+<entry>Real</entry>
+<entry>g/ton or mol/ton</entry>
+<entry>Inventory pollutant combined with model species name</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of species NVARS3D</entry>
+<entry>Real</entry>
+<entry>g/ton or mol/ton</entry>
+<entry>Inventory pollutant combined with model species name</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Elevpoint</command></title>
+
+<para>The <command>Elevpoint</command> program is responsible for selecting the elevated sources. <command>Elevpoint</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Elevated-point-source identification file: <xref linkend="sect_intmed_pelv" /></para>
+</listitem>
+<listitem>
+<para>Stack groups file: <xref linkend="sect_intmed_stack_groups" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_pelv">
+
+<title><envar>PELV</envar></title>
+
+<para>Type: ASCII - list-formatted</para>
+
+<para>Used by: <command>Laypoint</command>, <command>Smkmerge</command>, and <command>Smkreport</command></para>
+
+<table>
+<title>File columns in <envar>PELV</envar></title>
+<tgroup cols="5">
+<colspec colname="Line" colwidth="1*" />
+<colspec colname="Column" colwidth="1*" />
+<colspec colname="Type" colwidth="1*" />
+<colspec colname="Units" colwidth="1*" />
+<colspec colname="Description" colwidth="4*" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Column</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Integer</entry>
+<entry>Unitless </entry>
+<entry>Source number for elevated source, zero if a PinG source</entry>
+</row>
+<row>
+<entry colname="Column">B</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number for PinG source, zero if simply an elevated source</entry>
+</row>
+<row>
+<entry colname="Column">C</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Group number for source</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_stack_groups">
+
+<title><envar>STACK_GROUPS</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Laypoint</command> and <command>Smkmerge</command></para>
+
+<table>
+<title>I/O API Header for <envar>STACK_GROUPS</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of PinG groups</entry>
+<entry>Determined by the <envar>PELVCONFIG</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>STACK_GROUPS</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>ISTACK</entry>
+<entry>Integer</entry>
+<entry>Unitless </entry>
+<entry>Stack group number</entry>
+</row>
+<row>
+<entry>LATITUDE</entry>
+<entry>Real</entry>
+<entry>degrees</entry>
+<entry>Latitude</entry>
+</row>
+<row>
+<entry>LONGITUDE</entry>
+<entry>Real</entry>
+<entry>degrees</entry>
+<entry>Longitude</entry>
+</row>
+<row>
+<entry>STKDM</entry>
+<entry>Real</entry>
+<entry>m</entry>
+<entry>Inside stack diameter</entry>
+</row>
+<row>
+<entry>STKHT</entry>
+<entry>Real</entry>
+<entry>m</entry>
+<entry>Stack height above ground surface</entry>
+</row>
+<row>
+<entry>STKTK</entry>
+<entry>Real</entry>
+<entry>K</entry>
+<entry>Stack exit temperature</entry>
+</row>
+<row>
+<entry>STKVE</entry>
+<entry>Real</entry>
+<entry>m/s</entry>
+<entry>Stack exit velocity</entry>
+</row>
+<row>
+<entry>STKFLW</entry>
+<entry>Real</entry>
+<entry>m<superscript>3</superscript>/s</entry>
+<entry>Stack exit flow rate</entry>
+</row>
+<row>
+<entry>STKCNT</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Number of stacks in group</entry>
+</row>
+<row>
+<entry>ROW</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Grid row number</entry>
+</row>
+<row>
+<entry>COL</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Grid column number</entry>
+</row>
+<row>
+<entry>XLOCA</entry>
+<entry>Real</entry>
+<entry>Coordinate system projection units</entry>
+<entry>Projection x coordinate</entry>
+</row>
+<row>
+<entry>YLOCA</entry>
+<entry>Real</entry>
+<entry>Coordinate system projection units</entry>
+<entry>Projection y coordinate</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Emisfac</command></title>
+
+<para>The <command>Emisfac</command> program is responsible for generating on-road mobile emission factors. <command>Emisfac</command> creates the following intermediate files.</para>
+
+<itemizedlist>
+<listitem>
+<para><xref linkend="sect_intmed_mobile6" /></para>
+</listitem>
+<listitem>
+<para><xref linkend="sect_intmed_emisfac_files" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_mobile6">
+
+<title>MOBILE6 intermediate files</title>
+
+<para>Type: ASCII</para>
+
+<para>Used by: MOBILE6</para>
+
+<para><command>Emisfac</command> creates a MOBILE6 input file that is read and processing by the MOBILE6 library. MOBILE6 also creates several files while it is running. These files are all placed in the <filename class="directory"><envar>$SMK_M6PATH</envar></filename> directory.</para>
+
+</section>
+
+<section id="sect_intmed_emisfac_files">
+
+<title>Emission factor files</title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Temporal</command></para>
+
+<table>
+<title>I/O API Header for emission factor files</title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of on-road mobile sources using activity data</entry>
+<entry>Determined by the <envar>MOBL</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of emission process and pollutant combinations + 1 (for source IDs)</entry>
+<entry>Determined by the <envar>MEPROC</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>STACK_GROUPS</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>SOURCES</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Inventory source ID</entry>
+</row>
+<row>
+<entry>Name of process/pollutant combination 1</entry>
+<entry>Real</entry>
+<entry>g/mi</entry>
+<entry>Emission factor for this source and process/pollutant 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of process/pollutant combination NVARS3D-1</entry>
+<entry>Real</entry>
+<entry>g/mi</entry>
+<entry>Emission factor for this source and process/pollutant NVARS3D-1</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Grdmat</command></title>
+
+<para>The <command>Grdmat</command> program is responsible for creating the gridding matrix. Grdmat creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Gridding matrix file: <xref linkend="sect_intmed_ampgmat" /></para>
+</listitem>
+<listitem>
+<para>Ungridding matrix file (mobile sources only): <xref linkend="sect_intmed_mumat" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_ampgmat">
+
+<title><envar>AGMAT</envar>, <envar>MGMAT</envar>, and <envar>PGMAT</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Smkmerge</command> and <command>Smkreport</command></para>
+
+<table>
+<title>I/O API Header for <envar>AGMAT</envar>, <envar>MGMAT</envar>, and <envar>PGMAT</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<remark><tbody>
+<row>
+<entry>NCOLS3D</entry>
+<entry>Number of source-cell intersections</entry>
+<entry>Determined by the grid and the sources in the inventory</entry>
+</row>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of cells in the grid</entry>
+<entry>Number of columns times number of rows in the grid</entry>
+</row>
+</tbody></remark>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>AGMAT</envar>, <envar>MGMAT</envar>, and <envar>PGMAT</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<remark><tbody>
+<row>
+<entry>COEFF-INDEX</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Source gridding coefficients</entry>
+</row>
+</tbody></remark>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_mumat">
+
+<title><envar>MUMAT</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Mbsetup</command>, <command>Premobl</command>, and <command>Temporal</command></para>
+
+<para>The ungridding matrix is used to produce county-level meteorology data from gridded files. <remark>Add table here.</remark></para>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Grwinven</command></title>
+
+<para>The <command>Grwinven</command> program is responsible for applying growth and controls to the inventory. <command>Grwinven</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Grown inventory file: <xref linkend="sect_intmed_area_o" /></para>
+</listitem>
+<listitem>
+<para>Grown IDA inventory file: <xref linkend="sect_intmed_arinv_o" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_area_o">
+
+<title><envar>AREA_O</envar>, <envar>MOBL_O</envar> and <envar>PNTS_O</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Emisfac</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Smkmerge</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
+
+<table>
+<title>I/O API Header for <envar>AREA_O</envar>, <envar>MOBL_O</envar>, and <envar>PNTS_O</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources</entry>
+<entry>NROWS3D from the <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of variables in the file</entry>
+<entry>Based on source category</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>AREA_O</envar>, <envar>MOBL_O</envar>, and <envar>PNTS_O</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>IFIP</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>State and county FIPS code</entry>
+</row>
+<row>
+<entry>TZONES</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Time zone for site</entry>
+</row>
+<row>
+<entry>TPFLAG</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Use week, month temporal profiles or not</entry>
+</row>
+<row>
+<entry>INVYR</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Year of inventory for this record</entry>
+</row>
+<row>
+<entry>CELLID</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Cell number</entry>
+</row>
+<row>
+<entry>IRCLAS</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Roadway type (mobile only)</entry>
+</row>
+<row>
+<entry>IVTYPE</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Vehicle type code (mobile only)</entry>
+</row>
+<row>
+<entry>XLOC1</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Longitude at beginning of link (mobile only)</entry>
+</row>
+<row>
+<entry>YLOC1</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Latitude at beginning of link (mobile only)</entry>
+</row>
+<row>
+<entry>XLOC2</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Longitude at end of link (mobile only)</entry>
+</row>
+<row>
+<entry>YLOC2</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Latitude at end of link (mobile only)</entry>
+</row>
+<row>
+<entry>ISIC</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>SIC code (area or point only)</entry>
+</row>
+<row>
+<entry>XLOCA</entry>
+<entry>Real</entry>
+<entry>degrees</entry>
+<entry>Longitude (area or point only)</entry>
+</row>
+<row>
+<entry>YLOCA</entry>
+<entry>Real</entry>
+<entry>degrees</entry>
+<entry>Latitude (area or point only)</entry>
+</row>
+<row>
+<entry>STKHT</entry>
+<entry>Real</entry>
+<entry>m</entry>
+<entry>Stack height (point only)</entry>
+</row>
+<row>
+<entry>STKDM</entry>
+<entry>Real</entry>
+<entry>ms</entry>
+<entry>Stack diameter (point only)</entry>
+</row>
+<row>
+<entry>STKTK</entry>
+<entry>Real</entry>
+<entry>K</entry>
+<entry>Stack exhaust temperature (point only)</entry>
+</row>
+<row>
+<entry>STKVE</entry>
+<entry>Real</entry>
+<entry>m/s</entry>
+<entry>Stack exit velocity (point only)</entry>
+</row>
+<row>
+<entry>Name of pollutant 1></entry>
+<entry>Real</entry>
+<entry>ton/yr</entry>
+<entry>Annual emissions for pollutant 1</entry>
+</row>
+<row>
+<entry>OS_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>ton/day</entry>
+<entry>Ozone season emissions for pollutant 1</entry>
+</row>
+<row>
+<entry>EF_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>SCC units</entry>
+<entry>Emission factor for pollutant 1</entry>
+</row>
+<row>
+<entry>CE_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Control efficiency fraction for pollutant 1</entry>
+</row>
+<row>
+<entry>RE_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule effectiveness fraction for pollutant 1</entry>
+</row>
+<row>
+<entry>RP_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule penetration fraction for pollutant 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of pollutant NVARS3D</entry>
+<entry>Real</entry>
+<entry>ton/yr</entry>
+<entry>Annual emissions for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>OS_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>ton/day</entry>
+<entry>Ozone season emissions for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>EF_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>SCC units</entry>
+<entry>Emission factor for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>CE_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Control efficiency fraction for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>RE_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule effectiveness fraction for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>RP_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule penetration fraction for pollutant NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_arinv_o">
+
+<title><envar>ARINV_O</envar>, <envar>MBINV_O</envar>, <envar>MBINV_AO</envar>, <envar>PTINV_O</envar></title>
+
+<para>Type: ASCII</para>
+
+<para>Used by: <command>Smkinven</command></para>
+
+<para>See <xref linkend="ch_input_files" /> for the formats of the <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar> files.</para>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Laypoint</command></title>
+
+<para>The <command>Laypoint</command> program is responsible for computing layer fractions for point sources. <command>Laypoint</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Layer fractions file: <xref linkend="sect_intmed_play" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_play">
+
+<title><envar>PLAY</envar> and <envar>PLAY_EX</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Smkmerge</command> and <command>Smkreport</command></para>
+
+<table>
+<title>I/O API Header for <envar>PLAY</envar> and <envar>PLAY_EX</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of point sources or number of explicit sources</entry>
+<entry>Number of sources in the <envar>PNTS</envar> file, or number of explicit sources in the <envar>PHOUR</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>PLAY</envar> and <envar>PLAY_EX</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>INDXH</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number (for explicit sources only)</entry>
+</row>
+<row>
+<entry>LFRAC</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of plume emitted into layer</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Mbsetup</command></title>
+
+<para>The <command>Mbsetup</command> program is responsible for creating inputs for the <command>Premobl</command> and <command>Emisfac</command> programs. <command>Mbsetup</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Speed summary file: <xref linkend="sect_intmed_spdsum" /></para>
+</listitem>
+<listitem>
+<para>Time period group files: <xref linkend="sect_intmed_time_group" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_spdsum">
+
+<title><envar>SPDSUM</envar></title>
+
+<para>Type: ASCII - column-specific</para>
+
+<para>Used by: <command>Premobl</command> and <command>Emisfac</command></para>
+
+<table>
+<title>File columns in <envar>SPDSUM</envar></title>
+<tgroup cols="5">
+<colspec colname="Line" colwidth="1*" />
+<colspec colname="Column" colwidth="1*" />
+<colspec colname="Type" colwidth="1*" />
+<colspec colname="Units" colwidth="1*" />
+<colspec colname="Description" colwidth="4*" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Column</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>1-6</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>FIPS code</entry>
+</row>
+<row>
+<entry colname="Column">8</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Road class</entry>
+</row>
+<row>
+<entry colname="Column">10-15</entry>
+<entry>Real</entry>
+<entry>MPH</entry>
+<entry>Speed or speed profile number</entry>
+</row>
+<row>
+<entry colname="Column">17-22</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number with given FIPS, road class, and speed</entry>
+</row>
+<row>
+<entry colname="Column">24-29</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number with given FIPS, road class, and speed</entry>
+</row>
+<row>
+<entry colname="Column">31-36</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number with given FIPS, road class, and speed</entry>
+</row>
+<row>
+<entry colname="Column">38-43</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number with given FIPS, road class, and speed</entry>
+</row>
+<row>
+<entry colname="Column">45-50</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number with given FIPS, road class, and speed</entry>
+</row>
+<row>
+<entry colname="Column">52-57</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number with given FIPS, road class, and speed</entry>
+</row>
+<row>
+<entry colname="Column">59-64</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number with given FIPS, road class, and speed</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>*If line ends with a backward slash (\) then the next line is additional sources with the same FIPS, road class, and speed.</para>
+
+</section>
+
+<section id="sect_intmed_time_group">
+
+<title><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and <envar>EPISODEGROUP</envar></title>
+
+<para>Type: ASCII - list formatted</para>
+
+<para>Used by: <command>Premobl</command> and <command>Emisfac</command></para>
+
+<table>
+<title>File columns in <envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and <envar>EPISODEGROUP</envar></title>
+<tgroup cols="5">
+<colspec colname="Line" colwidth="1*" />
+<colspec colname="Column" colwidth="1*" />
+<colspec colname="Type" colwidth="1*" />
+<colspec colname="Units" colwidth="1*" />
+<colspec colname="Description" colwidth="4*" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Column</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Character</entry>
+<entry>Unitless</entry>
+<entry>Inventory county</entry>
+</row>
+<row>
+<entry colname="Column">B</entry>
+<entry>Character</entry>
+<entry>Unitless</entry>
+<entry>Reference county</entry>
+</row>
+<row>
+<entry colname="Column">C</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Local-to-arterial setting for reference county</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Normbeis3</command></title>
+
+<para>The <command>Normbeis3</command> program is responsible for computing normalized biogenic emissions. <command>Normbeis3</command> creates the following intermediate file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Normalized biogenic emissions file: <xref linkend="sect_intmed_b3grd" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_b3grd">
+
+<title><envar>B3GRD</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Tmpbeis3</command></para>
+
+<table>
+<title>I/O API Header for <envar>B3GRD</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of rows in the grid</entry>
+<entry>NROWS3D from the gridded land use file</entry>
+</row>
+<row>
+<entry>NCOLS3D</entry>
+<entry>Number of columns in the grid</entry>
+<entry>NCOLS3D from the gridded land use file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of biogenic emission species times the number of seasons modeled</entry>
+<entry><filename>B3DIMS3.EXT</filename> include file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>B3GRD</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>AVGISOP&lt;Season (S or W)&gt; </entry>
+<entry>Real</entry>
+<entry>g C/h</entry>
+<entry>Normalized ISOP emissions</entry>
+</row>
+<row>
+<entry>AVGMONO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/h</entry>
+<entry>Normalized MONO emissions</entry>
+</row>
+<row>
+<entry>AVGOVOC&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/h</entry>
+<entry>Normalized OVOC emissions</entry>
+</row>
+<row>
+<entry>AVGNO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g N/h</entry>
+<entry>Normalized NO emissions</entry>
+</row>
+<row>
+<entry>AVGLAI&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>Index</entry>
+<entry>Normalized leaf area index</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Premobl</command></title>
+
+<para>The <command>Premobl</command> program is responsible for preprocessing temperatures for the <command>Emisfac</command> program. <command>Premobl</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para><xref linkend="sect_intmed_hourly_temp" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_hourly_temp">
+
+<title>Hourly temperature profile files</title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Emisfac</command></para>
+
+<table>
+<title>I/O API Header for hourly temperature files</title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of reference counties for this time period group</entry>
+<entry><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and <envar>EPISODEGROUP</envar> files</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in hourly temperature files</title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>COUNTIES</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>FIPS code</entry>
+</row>
+<row>
+<entry>TKCOUNTY</entry>
+<entry>Real</entry>
+<entry>K</entry>
+<entry>Hourly source temperature by county</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Rawbio</command></title>
+
+<para>The <command>Rawbio</command> program is responsible for computing normalized biogenic emissions. <command>Rawbio</command> creates the following intermediate file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Normalized biogenic emissions file: <xref linkend="sect_intmed_bgrd" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_bgrd">
+
+<title><envar>BGRD</envar> (summer) or <envar>BGRDW</envar> (winter)</title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Tmpbio</command></para>
+
+<table>
+<title>I/O API Header for <envar>BGRD</envar> and <envar>BGRDW</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of rows in the grid</entry>
+<entry>NROWS3D from the gridded land use file</entry>
+</row>
+<row>
+<entry>NCOLS3D</entry>
+<entry>Number of columns in the grid</entry>
+<entry>NCOLS3D from the gridded land use file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of biogenic emission species</entry>
+<entry><envar>B3DIMS3.EXT</envar> include file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>BGRD</envar> and <envar>BGRDW</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>AVGISOP&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/hour</entry>
+<entry>Normalized ISOP emissions</entry>
+</row>
+<row>
+<entry>AVGMONO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/hour</entry>
+<entry>Normalized MONO emissions</entry>
+</row>
+<row>
+<entry>AVGOVOC&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/hour</entry>
+<entry>Normalized OVOC emissions</entry>
+</row>
+<row>
+<entry>AVGNO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g N/hour</entry>
+<entry>Normalized NO emissions</entry>
+</row>
+<row>
+<entry>AVGLAI&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>Index</entry>
+<entry>Normalized leaf area index</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Smkinven</command></title>
+
+<para>The <command>Smkinven</command> program is responsible for importing the raw inventory into SMOKE format. <command>Smkinven</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Average inventory file: <xref linkend="sect_intmed_area_mobl_pnts" /></para>
+</listitem>
+<listitem>
+<para>Source description file: <xref linkend="sect_intmed_asrc" /></para>
+</listitem>
+<listitem>
+<para>Period-specific inventory file: <xref linkend="sect_intmed_pday" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_area_mobl_pnts">
+
+<title><envar>AREA</envar>, <envar>MOBL</envar>, and <envar>PNTS</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Emisfac</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Smkmerge</command>, <command>Smkreport</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
+
+<table>
+<title>I/O API Header for <envar>AREA</envar>, <envar>MOBL</envar>, and <envar>PNTS</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources</entry>
+<entry>NROWS3D from the <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of variables in the file</entry>
+<entry>Based on source category</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>AREA</envar>, <envar>MOBL</envar>, and <envar>PNTS</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>IFIP</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>State and county FIPS code</entry>
+</row>
+<row>
+<entry>TZONES</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Time zone for site</entry>
+</row>
+<row>
+<entry>TPFLAG</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Use week, month temporal profiles or not</entry>
+</row>
+<row>
+<entry>INVYR</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Year of inventory for this record</entry>
+</row>
+<row>
+<entry>CELLID</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Cell number</entry>
+</row>
+<row>
+<entry>IRCLAS</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Roadway type (mobile only)</entry>
+</row>
+<row>
+<entry>IVTYPE</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Vehicle type code (mobile only)</entry>
+</row>
+<row>
+<entry>XLOC1</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Longitude at beginning of link (mobile only)</entry>
+</row>
+<row>
+<entry>YLOC1</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Latitude at beginning of link (mobile only)</entry>
+</row>
+<row>
+<entry>XLOC2</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Longitude at end of link (mobile only)</entry>
+</row>
+<row>
+<entry>YLOC2</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Latitude at end of link (mobile only)</entry>
+</row>
+<row>
+<entry>ISIC</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>SIC code (area or point only)</entry>
+</row>
+<row>
+<entry>XLOCA</entry>
+<entry>Real</entry>
+<entry>degrees</entry>
+<entry>Longitude (area or point only)</entry>
+</row>
+<row>
+<entry>YLOCA</entry>
+<entry>Real</entry>
+<entry>degrees</entry>
+<entry>Latitude (area or point only)</entry>
+</row>
+<row>
+<entry>STKHT</entry>
+<entry>Real</entry>
+<entry>m</entry>
+<entry>Stack height (point only)</entry>
+</row>
+<row>
+<entry>STKDM</entry>
+<entry>Real</entry>
+<entry>ms</entry>
+<entry>Stack diameter (point only)</entry>
+</row>
+<row>
+<entry>STKTK</entry>
+<entry>Real</entry>
+<entry>K</entry>
+<entry>Stack exhaust temperature (point only)</entry>
+</row>
+<row>
+<entry>STKVE</entry>
+<entry>Real</entry>
+<entry>m/s</entry>
+<entry>Stack exit velocity (point only)</entry>
+</row>
+<row>
+<entry>Name of pollutant 1></entry>
+<entry>Real</entry>
+<entry>ton/yr</entry>
+<entry>Annual emissions for pollutant 1</entry>
+</row>
+<row>
+<entry>OS_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>ton/day</entry>
+<entry>Ozone season emissions for pollutant 1</entry>
+</row>
+<row>
+<entry>EF_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>SCC units</entry>
+<entry>Emission factor for pollutant 1</entry>
+</row>
+<row>
+<entry>CE_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Control efficiency fraction for pollutant 1</entry>
+</row>
+<row>
+<entry>RE_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule effectiveness fraction for pollutant 1</entry>
+</row>
+<row>
+<entry>RP_&lt;Pollutant name 1&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule penetration fraction for pollutant 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of pollutant NVARS3D</entry>
+<entry>Real</entry>
+<entry>ton/yr</entry>
+<entry>Annual emissions for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>OS_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>ton/day</entry>
+<entry>Ozone season emissions for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>EF_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>SCC units</entry>
+<entry>Emission factor for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>CE_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Control efficiency fraction for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>RE_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule effectiveness fraction for pollutant NVARS3D</entry>
+</row>
+<row>
+<entry>RP_&lt;Pollutant name NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Rule penetration fraction for pollutant NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_asrc">
+
+<title><envar>ASRC</envar>, <envar>MSRC</envar>, and <envar>PSRC</envar></title>
+
+<para>Type: ASCII - list formatted</para>
+
+<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Emisfac</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Smkmerge</command>, <command>Smkreport</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
+
+<table>
+<title>File columns in <envar>ASRC</envar>, <envar>MSRC</envar>, and <envar>PSRC</envar></title>
+<tgroup cols="5">
+<colspec colname="Line" colwidth="1*" />
+<colspec colname="Column" colwidth="1*" />
+<colspec colname="Type" colwidth="1*" />
+<colspec colname="Units" colwidth="1*" />
+<colspec colname="Description" colwidth="4*" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Column</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>A</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Number of columns of data (N)</entry>
+</row>
+<row>
+<entry colname="Column">B</entry>
+<entry>Character</entry>
+<entry>Unitless</entry>
+<entry>Format statement for ASCII data</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>A</entry>
+<entry>Character</entry>
+<entry>Unitless</entry>
+<entry>Description of column 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>N+1</entry>
+<entry>A</entry>
+<entry>Character</entry>
+<entry>Unitless</entry>
+<entry>Description of column N</entry>
+</row>
+<row>
+<entry>(N+2)+</entry>
+<entry>A</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>See column 1 header description</entry>
+</row>
+<row>
+<entry colname="Column">...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Type">Character</entry>
+<entry>Unitless</entry>
+<entry>See column N header description</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_pday">
+
+<title><envar>PDAY</envar> and <envar>PHOUR</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Laypoint</command> and <command>Temporal</command></para>
+
+<table>
+<title>I/O API Header for <envar>PDAY</envar> and <envar>PHOUR</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of period-specific sources</entry>
+<entry><envar>PTDAY</envar> or <envar>PTHOUR</envar> files read in by <command>Smkinven</command></entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of pollutants + 1</entry>
+<entry><envar>PTDAY</envar> or <envar>PTHOUR</envar> files read in by <command>Smkinven</command></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>PDAY</envar> and <envar>PHOUR</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>INDX&lt;D or H&gt;</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Source number</entry>
+</row>
+<row>
+<entry>Name of pollutant 1</entry>
+<entry>Real</entry>
+<entry>ton/h</entry>
+<entry>Period-specific emissions for pollutant 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of pollutant NVARS3D</entry>
+<entry>Real</entry>
+<entry>ton/h</entry>
+<entry>Period-specific emissions for pollutant NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Smkmerge</command></title>
+
+<para>The <command>Smkmerge</command> program is responsible for creating model-ready emissions files. <command>Smkmerge</command> creates the following intermediate file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready emissions file: <xref linkend="sect_intmed_merged" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_merged">
+
+<title><envar>[A|B|M|P|E][G][T][S][3D][_S][_L]</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
+
+<para>These files can be model-ready emissions files by source category or all categories.  See <xref linkend="ch_output_files" /> for format information.</para>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Spcmat</command></title>
+
+<para>The <command>Spcmat</command> program is responsible for creating speciation matrices. <command>Spcmat</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Speciation matrix file (mass-based): <xref linkend="sect_intmed_ampsmat_s" /></para>
+</listitem>
+<listitem>
+<para>Speciation matrix file (mole-based): <xref linkend="sect_intmed_ampsmat_l" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_ampsmat_s">
+
+<title><envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, and <envar>PSMAT_S</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Smkmerge</command> and <command>Smkreport</command></para>
+
+<table>
+<title>I/O API Header for <envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, and <envar>PSMAT_S</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources</entry>
+<entry>Determined by <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of inventory pollutants combine with output species</entry>
+<entry>Determined by the <envar>GSPRO</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, and <envar>PSMAT_S</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>SVAR001</entry>
+<entry>Real</entry>
+<entry>g/ton</entry>
+<entry>Mass-speciation coefficient</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>SVAR&lt;NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>g/ton</entry>
+<entry>Mass-speciation coefficient</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_ampsmat_l">
+
+<title><envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, and <envar>PSMAT_L</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Smkmerge</command> and <command>Smkreport</command></para>
+
+<table>
+<title>I/O API Header for <envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, and <envar>PSMAT_L</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources</entry>
+<entry>Determined by <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of inventory pollutants combine with output species</entry>
+<entry>Determined by the <envar>GSPRO</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, and <envar>PSMAT_L</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>SVAR001</entry>
+<entry>Real</entry>
+<entry>mol/ton</entry>
+<entry>Mole-speciation coefficient</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>SVAR&lt;NVARS3D&gt;</entry>
+<entry>Real</entry>
+<entry>mol/ton</entry>
+<entry>Mole-speciation coefficient</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Temporal</command></title>
+
+<para>The <command>Temporal</command> program is responsible for generating hourly emissions by source. <command>Temporal</command> creates the following intermediate file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Hourly emissions file: <xref linkend="sect_intmed_amptmp" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_amptmp">
+
+<title><envar>ATMP</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Smkmerge</command> and <command>Smkreport</command></para>
+
+<table>
+<title>I/O API Header for <envar>ATMP</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar></title>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources</entry>
+<entry>Determined by <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of inventory pollutants</entry>
+<entry>Determined by <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, and <envar>PSMAT_S</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Name of pollutant 1</entry>
+<entry>Real</entry>
+<entry>ton/h</entry>
+<entry>Hourly emissions for pollutant 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of pollutant NVARS3D</entry>
+<entry>Real</entry>
+<entry>ton/h</entry>
+<entry>Hourly emissions for pollutant NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Tmpbeis3</command></title>
+
+<para>The <command>Tmpbeis3</command> is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbeis3</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready biogenic emissions: <xref linkend="sect_intmed_b3gts" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_b3gts">
+
+<title><envar>B3GTS_L</envar> and <envar>B3GTS_S</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
+
+<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="ch_output_files" /> for format information.</para>
+
+</section>
+
+</section>
+
+<section>
+
+<title><command>Tmpbio</command></title>
+
+<para>The <command>Tmpbio</command> is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbio</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready biogenic emissions: <xref linkend="sect_intmed_bgts" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_bgts">
+
+<title><envar>BGTS_L</envar> and <envar>BGTS_S</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
+
+<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="ch_output_files" /> for format information.</para>
+
+</section>
+
+</section>
 
 </chapter>
