@@ -48,7 +48,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <para>The EDSS Tools library is built on the EDSS framework and contains a variety of routines used for accessing I/O API data and other Models-3 conventions. The main directory for the EDSS Tools library is <filename class="directory"><envar>$EDSS_SUBSYS</envar>/edss_tools</filename>, which is also accessible with the <envar>TOOLS_ROOT</envar> environment variable. The source code for the EDSS Tools library is in the <filename class="directory"><envar>$TOOLS_ROOT</envar>/src</filename> directory and consists of the following source code and Makefiles.</para>
 
 <itemizedlist spacing="compact">
-<listitem><filename><envar>$ETINC</envar>/FLTERR.EXT</filename></listitem>
 <listitem><filename><envar>$ETINC</envar>/IOCNST3.EXT</filename></listitem>
 <listitem><filename><envar>$ETINC</envar>/IOPRVT3.EXT</filename></listitem>
 <listitem><filename><envar>$ETINC</envar>/IOSTRG3.EXT</filename></listitem>
@@ -58,6 +57,7 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <listitem><filename><envar>$ETLSRC</envar>/chkreal.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/dscm3grd.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/dscm3lay.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/flterr.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/fltrneg.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/getcfdsc.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/getfline.f</filename></listitem>
@@ -66,7 +66,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <listitem><filename><envar>$ETLSRC</envar>/getnlist.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/hdrmiss3.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/ioapi_grd_size.f</filename></listitem>
-<listitem><filename><envar>$ETLSRC</envar>/lambert.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/m3mesg.F</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/Makefile</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/Makeit</filename></listitem>
@@ -77,7 +76,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <listitem><filename><envar>$ETLSRC</envar>/padzero.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/parsline.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/polmesg.f</filename></listitem>
-<listitem><filename><envar>$ETLSRC</envar>/promptwhat.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/rd3mask.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/rdsetmask.f</filename></listitem>
 <listitem><filename><envar>$ETLSRC</envar>/unitfac.f</filename></listitem>
@@ -92,7 +90,7 @@ All source code for SMOKE and its associated libraries can be found in the <file
 
 <title>MOBILE6 library</title>
 
-<para>The code for the library version of MOBILE6 is in <filename class="directory"><envar>$SMKROOT</envar>/src/mo6</filename>, also accessible with the <envar>M6_SRC</envar> environment variable. This code is the stand-alone version of MOBILE6.2 with special aggregation code to create the emission factors at the resolution needed by SMOKE. In addition, we have added code to allow MOBILE6 to pass the emission factors back to SMOKE in memory, rather than writing an output file.</para>
+<para>The code for the library version of MOBILE6 is in <filename class="directory"><envar>$SMKROOT</envar>/src/mo6</filename>, also accessible with the <envar>M6_SRC</envar> environment variable. This code is the stand-alone version of MOBILE6.2.03 with special aggregation code to create the emission factors at the resolution needed by SMOKE. In addition, we have added code to allow MOBILE6 to pass the emission factors back to SMOKE in memory, rather than writing an output file. The SMOKE version of MOBILE6 has also been updated to allow lowercase input file names and to look for external input files in the <filename class="directory"><envar>$SMK_M6PATH</envar></filename> directory.</para>
 
 </section>
 
@@ -174,6 +172,11 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <entry><link linkend="sect_programs_mbsetup"><command>Mbsetup</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/mobile</filename></entry>
 <entry><envar>MB_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_metcombine"><command>Metcombine</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
 </row>
 <row>
 <entry><link linkend="sect_utilities_metscan"><command>Metscan</command></link></entry>
@@ -317,7 +320,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <title>EDSS Tools</title>
 
 <itemizedlist spacing="compact">
-<listitem><filename><envar>$ETINC</envar>/FLTERR.EXT</filename></listitem>
 <listitem><filename><envar>$ETINC</envar>/IOCNST3.EXT</filename></listitem>
 <listitem><filename><envar>$ETINC</envar>/IOPRVT3.EXT</filename></listitem>
 <listitem><filename><envar>$ETINC</envar>/IOSTRG3.EXT</filename></listitem>
@@ -332,6 +334,7 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <itemizedlist spacing="compact">
 <listitem><filename><envar>$CL_SRC</envar>/CPKTDAT.EXT</filename></listitem>
 <listitem><filename><envar>$INC</envar>/B3DIMS3.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/B3V12DIMS3.EXT</filename></listitem>
 <listitem><filename><envar>$INC</envar>/BIODIMS3.EXT</filename></listitem>
 <listitem><filename><envar>$INC</envar>/EMCNST3.EXT</filename></listitem>
 <listitem><filename><envar>$INC</envar>/EMPRVT3.EXT</filename></listitem>
