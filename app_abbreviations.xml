@@ -4,6 +4,189 @@
 
 <title>Abbreviations</title>
 
-<para>In progress</para>
+<segmentedlist>
+<?dbhtml list-presentation="table"?>
+<?dbfo list-presentation="table"?>
+
+<segtitle>Abbreviation</segtitle>
+<segtitle>Expansion</segtitle>
+
+<seglistitem><seg>AMS</seg><seg>area and mobile source</seg></seglistitem>
+
+<seglistitem><seg>AQM</seg><seg>air quality model</seg></seglistitem>
+
+<seglistitem><seg>ATP</seg><seg>antitampering program</seg></seglistitem>
+
+<seglistitem><seg>BEIS2</seg><seg>Biogenic Emission Inventory System, version 2</seg></seglistitem>
+
+<seglistitem><seg>BEIS3</seg><seg>Biogenic Emission Inventory System, version 3</seg></seglistitem>
+
+<seglistitem><seg>BELD2</seg><seg>Biogenic Emission Landcover Database, version 2</seg></seglistitem>
+
+<seglistitem><seg>BELD3</seg><seg>Biogenic Emission Landcover Database, version 3</seg></seglistitem>
+
+<seglistitem><seg>CAA</seg><seg>Clean Air Act</seg></seglistitem>
+
+<seglistitem><seg>CAM<subscript>X</subscript></seg><seg>Comprehensive Air Quality Model, with Extensions</seg></seglistitem>
+
+<seglistitem><seg>CB4</seg><seg>Carbon Bond 4</seg></seglistitem>
+
+<seglistitem><seg>CEP</seg><seg>Carolina Environmental Program</seg></seglistitem>
+
+<seglistitem><seg>CEM</seg><seg>Continuous Emissions Monitoring</seg></seglistitem>
+
+<seglistitem><seg>CHIEF</seg><seg>Clearinghouse for Inventories and Emission Factors</seg></seglistitem>
+
+<seglistitem><seg>CMAQ</seg><seg>Community Multiscale Air Quality</seg></seglistitem>
+
+<seglistitem><seg>CMAS</seg><seg>Community Modeling and Analysis System</seg></seglistitem>
+
+<seglistitem><seg>CO</seg><seg>carbon monoxide</seg></seglistitem>
+
+<seglistitem><seg>CTG</seg><seg>control technology guideline</seg></seglistitem>
+
+<seglistitem><seg>DDDYYYY</seg><seg>date in Julian format (3-digit day plus 4-digit year)</seg></seglistitem>
+
+<seglistitem><seg>EDSS</seg><seg>Environment Decision Support System</seg></seglistitem>
+
+<seglistitem><seg>EGU</seg><seg>electric generating utility</seg></seglistitem>
+
+<seglistitem><seg>EMC</seg><seg>Environmental Modeling Center</seg></seglistitem>
+
+<seglistitem><seg>EMS-95</seg><seg>Emissions Modeling System, ’95</seg></seglistitem>
+
+<seglistitem><seg>EPA</seg><seg>U.S. Environmental Protection Agency</seg></seglistitem>
+
+<seglistitem><seg>EPS</seg><seg>Emissions Processor System</seg></seglistitem>
+
+<seglistitem><seg>FIA</seg><seg>Forest Inventory Area</seg></seglistitem>
+
+<seglistitem><seg>FIPS</seg><seg>U.S. Federal Implementation Planning Standards </seg></seglistitem>
+
+<seglistitem><seg>GIS</seg><seg>geographic information system</seg></seglistitem>
+
+<seglistitem><seg>GMT</seg><seg>Greenwich Mean Time</seg></seglistitem>
+
+<seglistitem><seg>GUI</seg><seg>graphical user interface</seg></seglistitem>
+
+<seglistitem><seg>HAP</seg><seg>hazardous air pollutant</seg></seglistitem>
+
+<seglistitem><seg>HHMMSS</seg><seg>hours (2 digits), minutes (2 digits), seconds (2 digits); other forms are HHHMMSS and HHHHMMSS, which differ only in the number of digits in the hours position</seg></seglistitem>
+
+<seglistitem><seg>HPC</seg><seg>high-performance computing</seg></seglistitem>
+
+<seglistitem><seg>IDA</seg><seg>Inventory Data Analyzer</seg></seglistitem>
+
+<seglistitem><seg>I/M</seg><seg>inspection and maintenance</seg></seglistitem>
+
+<seglistitem><seg>I/O</seg><seg>input/output </seg></seglistitem>
+
+<seglistitem><seg>I/O API</seg><seg>Input/Output Applications Programming Interface</seg></seglistitem>
+
+<seglistitem><seg>lat-lon</seg><seg>latitude-longitude</seg></seglistitem>
+
+<seglistitem><seg>LMOS</seg><seg>Lake Michigan Ozone Study</seg></seglistitem>
+
+<seglistitem><seg>MACT</seg><seg>Maximum Achievable Control Technology</seg></seglistitem>
+
+<seglistitem><seg>MAQSIP</seg><seg>Multiscale Air Quality Simulation Platform</seg></seglistitem>
+
+<seglistitem><seg>MCIP</seg><seg>Meteorology-Chemistry Interface Processor</seg></seglistitem>
+
+<seglistitem><seg>MCPL</seg><seg>Meteorology Coupler</seg></seglistitem>
+
+<seglistitem><seg>MIMS</seg><seg>Multimedia Integrated Modeling System</seg></seglistitem>
+
+<seglistitem><seg>MM5</seg><seg>Pennsylvania State University/National Center for Atmospheric Research fifth-generation Mesoscale Model</seg></seglistitem>
+
+<seglistitem><seg>MPS</seg><seg>major point source</seg></seglistitem>
+
+<seglistitem><seg>MEPSE</seg><seg>major elevated point-source emissions (same as PinG) </seg></seglistitem>
+
+<seglistitem><seg>MMDDYYYY</seg><seg>date in Gregorian format (2-digit month plus 2-digit day plus 4-digit year)</seg></seglistitem>
+
+<seglistitem><seg>MWSS</seg><seg>Monday-weekday-Saturday-Sunday</seg></seglistitem>
+
+<seglistitem><seg>NAICS</seg><seg>North American Industrial Classification System</seg></seglistitem>
+
+<seglistitem><seg>NC DENR</seg><seg>North Carolina Department of Environment and Natural Resources</seg></seglistitem>
+
+<seglistitem><seg>NEI</seg><seg>National Emissions Inventory</seg></seglistitem>
+
+<seglistitem><seg>NetCDF</seg><seg>Network Common Data Form</seg></seglistitem>
+
+<seglistitem><seg>NH3</seg><seg>ammonia</seg></seglistitem>
+
+<seglistitem><seg>NonEGU</seg><seg>Non-electric generating utility</seg></seglistitem>
+
+<seglistitem><seg>NOx</seg><seg>nitrogen oxides</seg></seglistitem>
+
+<seglistitem><seg>NTI</seg><seg>National Toxics Inventory</seg></seglistitem>
+
+<seglistitem><seg>OAQPS</seg><seg>Office of Air Quality Planning and Standards</seg></seglistitem>
+
+<seglistitem><seg>ORD</seg><seg>Office of Research and Development</seg></seglistitem>
+
+<seglistitem><seg>ORIS</seg><seg>Office of Regulatory Information Systems</seg></seglistitem>
+
+<seglistitem><seg>ORL</seg><seg>one record per line</seg></seglistitem>
+
+<seglistitem><seg>PAR</seg><seg>photosynthetic active radiation</seg></seglistitem>
+
+<seglistitem><seg>PAH</seg><seg>polynuclear aromatic hydrocarbons</seg></seglistitem>
+
+<seglistitem><seg>PAVE</seg><seg>Package for Analysis and Visualization of Environmental data</seg></seglistitem>
+
+<seglistitem><seg>PinG</seg><seg>plume in grid (same as MEPSE)</seg></seglistitem>
+
+<seglistitem><seg>PM</seg><seg>particulate matter</seg></seglistitem>
+
+<seglistitem><seg>PM10</seg><seg>particulate matter 10 micrometers or smaller in diameter</seg></seglistitem>
+
+<seglistitem><seg>PM2.5</seg><seg>particulate matter 2.5 micrometers or smaller in diameter</seg></seglistitem>
+
+<seglistitem><seg>PMC</seg><seg>particulate matter coarse</seg></seglistitem>
+
+<seglistitem><seg>QA</seg><seg>quality assurance</seg></seglistitem>
+
+<seglistitem><seg>RACT</seg><seg>reasonably available control technology</seg></seglistitem>
+
+<seglistitem><seg>RADM</seg><seg>Regional Acid Deposition Model</seg></seglistitem>
+
+<seglistitem><seg>REMSAD</seg><seg>Regulatory Modeling System for Aerosols and Deposition</seg></seglistitem>
+
+<seglistitem><seg>RFG</seg><seg>reformulated gas</seg></seglistitem>
+
+<seglistitem><seg>RMC</seg><seg>Regional Modeling Center</seg></seglistitem>
+
+<seglistitem><seg>SAPRC</seg><seg>Statewide Air Pollution Research Center</seg></seglistitem>
+
+<seglistitem><seg>SCC</seg><seg>Source Classification Code</seg></seglistitem>
+
+<seglistitem><seg>SIC</seg><seg>Standard Industrial Classification</seg></seglistitem>
+
+<seglistitem><seg>SIP</seg><seg>State Implementation Plan</seg></seglistitem>
+
+<seglistitem><seg>SMOKE</seg><seg>Sparse Matrix Operator Kernel Emissions</seg></seglistitem>
+
+<seglistitem><seg>SO2</seg><seg>sulfur dioxide</seg></seglistitem>
+
+<seglistitem><seg>TOG</seg><seg>total organic gases</seg></seglistitem>
+
+<seglistitem><seg>UAM-AERO</seg><seg>Urban Airshed Model, Aerosols</seg></seglistitem>
+
+<seglistitem><seg>UAM-IV</seg><seg>Urban Airshed Model, version IV</seg></seglistitem>
+
+<seglistitem><seg>UAM-V</seg><seg>Urban Airshed Model, Variable grid</seg></seglistitem>
+
+<seglistitem><seg>UNC</seg><seg>University of North Carolina</seg></seglistitem>
+
+<seglistitem><seg>UTM</seg><seg>Universal Transverse Mercator</seg></seglistitem>
+
+<seglistitem><seg>VMT</seg><seg>vehicle miles traveled</seg></seglistitem>
+
+<seglistitem><seg>VOC</seg><seg>volatile organic compounds</seg></seglistitem>
+
+</segmentedlist>
 
 </appendix>
