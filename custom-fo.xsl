@@ -13,6 +13,14 @@
 <xsl:param name="alignment" select="'left'" />
 <xsl:param name="insert.xref.page.number" select="1" />
 
+<xsl:param name="toc.section.depth" select="1" />
+<xsl:param name="toc.max.depth" select="2" />
+
+<xsl:param name="generate.toc">
+  book     toc,title,figure,table,example,equation
+  chapter  toc
+</xsl:param>
+
 <xsl:template match="remark">
   <fo:inline font-style="italic" color="red">
     <xsl:call-template name="inline.charseq" />
