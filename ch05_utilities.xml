@@ -18,13 +18,13 @@
 
 <para><link linkend="sect_utilities_invsplit"><command>Invsplit</command></link> splits an IDA, SMOKE toxics, or EMS-95 inventory into separate inventories by state, grouping the states as indicated by your inputs.</para>
 
-<para><link linkend="sect_utilities_metscan"><command>Metscan</command></link> reads up to one year's worth of first-layer I/O API meteorology data (whether 2-D or 3-D files) and determine the first and last freeze dates of the year, for use by <command>Tmpbio</command> in setting winter/summer emission factors by day and grid cell.</para>
+<para><link linkend="sect_utilities_metscan"><command>Metscan</command></link> reads up to one year&rsquo;s worth of first-layer I/O API meteorology data (whether 2-D or 3-D files) and determine the first and last freeze dates of the year, for use by <command>Tmpbio</command> in setting winter/summer emission factors by day and grid cell.</para>
 
 <para><link linkend="sect_utilities_pktreduc"><command>Pktreduc</command></link> reduces the size of /PROJECTION/ packets, but keeps the same information by identifying and implementing state defaults where none already exist in the file.</para>
 
 <para><link linkend="sect_utilities_smk2emis"><command>Smk2emis</command></link> converts SMOKE netCDF files into a UAM-, REMSAD-, or CAM<subscript>X</subscript>-ready emissions file.</para>
 
-<para><link linkend="sect_utilities_surgtool"><command>Surgtool</command></link> inputs SMOKE-formatted gridding surrogates for a "fine" input grid and outputs a surrogate file for a "coarse" output grid. It produces approximate "coarse" grid surrogates, the accuracy of which depends on how fine the resolution of the input grid is relative to that of the output grid.</para>
+<para><link linkend="sect_utilities_surgtool"><command>Surgtool</command></link> inputs SMOKE-formatted gridding surrogates for a <quote>fine</quote> input grid and outputs a surrogate file for a <quote>coarse</quote> output grid. It produces approximate <quote>coarse</quote> grid surrogates, the accuracy of which depends on how fine the resolution of the input grid is relative to that of the output grid.</para>
 
 <para><link linkend="sect_utilities_uam2ncf"><command>Uam2ncf</command></link> converts UAM-ready emissions files into I/O API format.</para>
 
@@ -272,9 +272,9 @@
 
 <title>Description</title>
 
-<para>The <command>Geofac</command> program provides a means for adjusting emissions by grid cell after SMOKE has already created model-ready inputs. For example, the program could be used to zero emissions from all grid cells that intersect a certain state, which would be a rough approximation of removing that state's inventory from the model-ready files. Although it is more accurate to modify the emissions using the <command>Cntlmat</command> program, that approach takes longer and is possible only if the SMOKE input files used to create the model ready emissions are still available. <command>Geofac</command> is useful in situations where speed and simplicity are more important than the accuracy of the emissions, or when only the gridded model-ready inputs are available and the inventories used to create them are not.</para>
+<para>The <command>Geofac</command> program provides a means for adjusting emissions by grid cell after SMOKE has already created model-ready inputs. For example, the program could be used to zero emissions from all grid cells that intersect a certain state, which would be a rough approximation of removing that state&rsquo;s inventory from the model-ready files. Although it is more accurate to modify the emissions using the <command>Cntlmat</command> program, that approach takes longer and is possible only if the SMOKE input files used to create the model ready emissions are still available. <command>Geofac</command> is useful in situations where speed and simplicity are more important than the accuracy of the emissions, or when only the gridded model-ready inputs are available and the inventories used to create them are not.</para>
 
-<para><command>Geofac</command> reads in a gridded 2-D or 3-D SMOKE emissions file (output from the <command>Smkmerge</command> program) and multiplies the emissions with a user-supplied adjustment factor for each individual species in the emissions file. The factors are assigned by grid-cell regions, which are defined by the input "mask" file. Each grid cell either receives the factors or it does not (the mask is simply an on-off switch). The resulting hourly, gridded, speciated emissions data are output to a new I/O API file with the same spatial and temporal resolution and the same model species with different values.</para>
+<para><command>Geofac</command> reads in a gridded 2-D or 3-D SMOKE emissions file (output from the <command>Smkmerge</command> program) and multiplies the emissions with a user-supplied adjustment factor for each individual species in the emissions file. The factors are assigned by grid-cell regions, which are defined by the input <quote>mask</quote> file. Each grid cell either receives the factors or it does not (the mask is simply an on-off switch). The resulting hourly, gridded, speciated emissions data are output to a new I/O API file with the same spatial and temporal resolution and the same model species with different values.</para>
 
 </section>
 
@@ -503,7 +503,7 @@ PAR             0.6</programlisting></entry>
 
 <para><command>Metscan</command> reads in a single (often annual) temperature I/O API meteorology data file (created from either the <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar> files) and determines the first freeze date and last freeze date of a year, by grid cell. It outputs a gridded file with a daily (24-hour) time step that contains a single variable. For each grid cell, that variable has a value of 0 (zero) when the date being modeled indicates that the cell is experiencing winter conditions; otherwise it has a value of 1, indicating summer conditions. The program can be set to run in the Northern Hemisphere or in the Southern Hemisphere (it will not work on global meteorology datasets). In the Northern Hemisphere, the first freeze date in the fall marks the start of winter, and the last freeze date in the spring marks the end of winter; all other days are considered summer days. The seasons are reversed in the Southern Hemisphere, and the program accommodates this accordingly.</para>
 
-<para>Both the BEIS2 and BEIS3 models operate using the assumption of either winter or summer emission factors. There are no spring or fall factors available, which is why this program is limited to the choice of summer or winter. The use of the freeze date to determine summer or winter emission factors is based on EPA's recommendation.</para>
+<para>Both the BEIS2 and BEIS3 models operate using the assumption of either winter or summer emission factors. There are no spring or fall factors available, which is why this program is limited to the choice of summer or winter. The use of the freeze date to determine summer or winter emission factors is based on EPA&rsquo;s recommendation.</para>
 
 <para>The program reads in the name of the temperature variable as an option, so that the ground temperature, 1.5-meter temperature, or 10-meter temperature can be used from the <envar>MET_CRO_2D</envar> file, or the layer-1 temperature can be used from the <envar>MET_CRO_3D</envar> file. See the <envar>TMPR_VAR</envar> option below for more information on the names of the temperature variables that are acceptable.</para>
 
@@ -604,7 +604,7 @@ PAR             0.6</programlisting></entry>
 <row>
 <entry><envar>BIOSEASON</envar></entry>
 <entry>I/O API NetCDF</entry>
-<entry>For each grid cell, contains 0 for winter dates and 1 for summer (nonwinter) dates. The file's duration will be as long as that of the input meteorology file you provide.</entry>
+<entry>For each grid cell, contains 0 for winter dates and 1 for summer (nonwinter) dates. The file&rsquo;s duration will be as long as that of the input meteorology file you provide.</entry>
 </row>
 <row>
 <entry><envar>LOGFILE</envar></entry>
@@ -732,7 +732,7 @@ PAR             0.6</programlisting></entry>
 
 <title>Description</title>
 
-<para>The <command>Smk2emis</command> program converts SMOKE I/O API gridded, mole-speciated, hourly emissions into the Fortran-binary format used for 2-D emissions by UAM, CAM<subscript>X</subscript>, and REMSAD. Files of this format use the UAM keyword “EMISSIONS”. The SMOKE user is responsible for preparing the I/O API inputs with the appropriate chemical species, grid structures, time steps, and units for use in whatever model will be using the results of <command>Smk2emis</command>.</para>
+<para>The <command>Smk2emis</command> program converts SMOKE I/O API gridded, mole-speciated, hourly emissions into the Fortran-binary format used for 2-D emissions by UAM, CAM<subscript>X</subscript>, and REMSAD. Files of this format use the UAM keyword <quote>EMISSIONS</quote>. The SMOKE user is responsible for preparing the I/O API inputs with the appropriate chemical species, grid structures, time steps, and units for use in whatever model will be using the results of <command>Smk2emis</command>.</para>
 
 </section>
 
@@ -791,12 +791,12 @@ PAR             0.6</programlisting></entry>
 <listitem>
 <para><envar>FLABEL</envar>: [default: EMISSIONS (currently the only working option)]</para>
 
-<para>Defines what type of UAM/REMSAD/CAM<subscript>X</subscript> file to output. This setting cannot be adjusted by the user, because the current version of <command>Smk2emis</command> can generate only the “EMISSIONS” file.</para>
+<para>Defines what type of UAM/REMSAD/CAM<subscript>X</subscript> file to output. This setting cannot be adjusted by the user, because the current version of <command>Smk2emis</command> can generate only the <quote>EMISSIONS</quote> file.</para>
 </listitem>
 <listitem>
 <para><envar>SMK2EMIS_VMAP_YN</envar>: [default: N]</para>
 
-<para>Controls whether the name remapping file will be read in, to cause <command>Smk2emis</command> to output different variable names than are in the input file. This is needed for using UAM-AERO, which requires symbols in the variable names (such as “.”, “+”, and “-“) that are not permitted in I/O API file variable names.</para>
+<para>Controls whether the name remapping file will be read in, to cause <command>Smk2emis</command> to output different variable names than are in the input file. This is needed for using UAM-AERO, which requires symbols in the variable names (such as <quote>.</quote>, <quote>+</quote>, and <quote>-</quote>) that are not permitted in I/O API file variable names.</para>
 
 <itemizedlist>
 <listitem>
@@ -831,7 +831,7 @@ PAR             0.6</programlisting></entry>
 </listitem>
 </itemizedlist>
 
-<para>In <command>Smk2emis</command>, this variable controls the name of the input NetCDF logical file and the name of the output binary logical file. Unlike in most other SMOKE programs, for this program <envar>SMK_SOURCE</envar> can be set to “E” to indicate that the “every” source category merged file (<envar>EGTS_L</envar>) should be converted from I/O API to Fortran-binary format.</para>
+<para>In <command>Smk2emis</command>, this variable controls the name of the input NetCDF logical file and the name of the output binary logical file. Unlike in most other SMOKE programs, for this program <envar>SMK_SOURCE</envar> can be set to <quote>E</quote> to indicate that the <quote>every</quote> source category merged file (<envar>EGTS_L</envar>) should be converted from I/O API to Fortran-binary format.</para>
 </listitem>
 <listitem>
 <para><envar>UTM_ZONE</envar>: [default: -9]</para>
@@ -1017,7 +1017,7 @@ PAR             0.6</programlisting></entry>
 
 <title>Description</title>
 
-<para>The <command>Surgtool</command> program inputs SMOKE-formatted gridding surrogates for a “fine” input grid and a grid definition for a “coarse” output grid.  It produces an approximate “coarse” grid surrogates file, the accuracy of which depends on how fine the resolution of the input grid is relative to that of the output grid.</para>
+<para>The <command>Surgtool</command> program inputs SMOKE-formatted gridding surrogates for a <quote>fine</quote> input grid and a grid definition for a <quote>coarse</quote> output grid.  It produces an approximate <quote>coarse</quote> grid surrogates file, the accuracy of which depends on how fine the resolution of the input grid is relative to that of the output grid.</para>
 
 <para>The program requires that the input and output grids use a lat-lon, Lambert Conformal, or UTM map projection. <command>Surgtool</command> can also perform Lambert-to-Lambert and UTM zone-to-zone transformations. In addition, the program requires that the input grid resolution be much finer than the output grid resolution (at least three times finer is recommended, though no specific limitation is given by the code). <command>Surgtool</command> supports SMOKE-formatted surrogate coefficient files only.</para>
 

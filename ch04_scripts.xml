@@ -8,7 +8,7 @@
 
 <title>Introduction</title>
 
-<para>In this chapter, we provide information about using the UNIX scripts that come with SMOKE to run the default cases and adapting the scripts to run any case. There are several features of these scripts that specifically support version 1.5 of SMOKE, and using scripts developed for earlier versions of SMOKE will not work without adaptations. We provide a section in this document that explains what changes need to be made to users' existing scripts to allow them to work with SMOKE. Alternatively, current users can adapt the new sample scripts to their case. New users are advised to create their scripts based on the sample scripts, following the instructions included in <xref linkend="sect_scripts_how_use_smoke" /> this chapter.</para>
+<para>In this chapter, we provide information about using the UNIX scripts that come with SMOKE to run the default cases and adapting the scripts to run any case. There are several features of these scripts that specifically support version 1.5 of SMOKE, and using scripts developed for earlier versions of SMOKE will not work without adaptations. We provide a section in this document that explains what changes need to be made to users&rsquo; existing scripts to allow them to work with SMOKE. Alternatively, current users can adapt the new sample scripts to their case. New users are advised to create their scripts based on the sample scripts, following the instructions included in <xref linkend="sect_scripts_how_use_smoke" /> this chapter.</para>
 
 <para>For all SMOKE users, a critical file to use and know about is the Assigns file. If you have followed the SMOKE installation instructions, then your Assigns file will be located in the directory: <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smokev1/assigns</filename> where the <envar>EDSS_ROOT</envar> directory is set in your <filename>.cshrc</filename> file in your home directory, during the SMOKE installation process.</para>
 
@@ -47,7 +47,7 @@
 </listitem>
 </itemizedlist>
 
-<para>This case has the following major features. It runs for July 9th and 10th, 1996 on a 36-km Lambert Conformal grid over North Carolina. The spatial extent of this case has been limited to provide a relatively fast test case<comment>, and the domain is a subdomain of EPA's national grid used in the 1996 NEI case described in <xref linkend="sect_scripts_nei_case" /></comment>. The case includes toxics processing for stationary area, nonroad mobile, on-road mobile, and point sources.</para>
+<para>This case has the following major features. It runs for July 9th and 10th, 1996 on a 36-km Lambert Conformal grid over North Carolina. The spatial extent of this case has been limited to provide a relatively fast test case<comment>, and the domain is a subdomain of EPA&rsquo;s national grid used in the 1996 NEI case described in <xref linkend="sect_scripts_nei_case" /></comment>. The case includes toxics processing for stationary area, nonroad mobile, on-road mobile, and point sources.</para>
 
 <figure id="fig_scripts_nctox_domain">
 <title>nctox domain</title>
@@ -78,7 +78,7 @@
 <para>Eventually, we will update the case with all 1999 NEI data, but these data were not available in SMOKE input format in time for the version 2.0 release. We also intend to provide BELD3 scripts for this case, but have not yet completed this work (though the national BELD3 data are available in the installation). Note that these inventories use only North Carolina records; therefore, regions that are not in North Carolina will have zero anthropogenic emissions.</para>
 </comment>
 
-<para>For area, mobile, and point sources, this case uses toxics inventories for ozone modeling. The VOC model species for the current CB4 mechanism are based in part on the toxic inventory. SMOKE resolves the duplicate VOC mass caused by combining VOC emissions with toxic VOC emissions by subtracting the toxic VOC mass from the VOC mass and computing a NONHAPVOC emissions value. This is the "integrate" approach for VOC emissions, described in <xref linkend="sect_concepts_combine_toxics" />. The speciation profiles provided with this version of SMOKE include profiles that map the toxics VOC and NONHAPVOC pollutants to current CB4 species. Choices for speciation profiles in this version of SMOKE are listed in <xref linkend="sect_scripts_change_speciation" />.</para>
+<para>For area, mobile, and point sources, this case uses toxics inventories for ozone modeling. The VOC model species for the current CB4 mechanism are based in part on the toxic inventory. SMOKE resolves the duplicate VOC mass caused by combining VOC emissions with toxic VOC emissions by subtracting the toxic VOC mass from the VOC mass and computing a NONHAPVOC emissions value. This is the <quote>integrate</quote> approach for VOC emissions, described in <xref linkend="sect_concepts_combine_toxics" />. The speciation profiles provided with this version of SMOKE include profiles that map the toxics VOC and NONHAPVOC pollutants to current CB4 species. Choices for speciation profiles in this version of SMOKE are listed in <xref linkend="sect_scripts_change_speciation" />.</para>
 
 <para>In addition to the inventory data listed above, the parameters of the case are the following:</para>
 
@@ -256,7 +256,7 @@
 <listitem>
 <para><emphasis role="bold">Merge for base case:</emphasis></para>
 
-<para><filename>smk_mrgall_nctox.run</filename> - This script runs <command>Mrggrid</command> for combining all source categories' base case emissions into a single CMAQ-ready, 3-dimensional input file for the current CB4 mechanism with PM species.</para>
+<para><filename>smk_mrgall_nctox.run</filename> - This script runs <command>Mrggrid</command> for combining all source categories&rsquo; base case emissions into a single CMAQ-ready, 3-dimensional input file for the current CB4 mechanism with PM species.</para>
 </listitem>
 
 <listitem>
@@ -286,7 +286,7 @@
 <listitem>
 <para><emphasis role="bold">Merge for 2018 emissions:</emphasis></para>
 
-<para><filename>smk_mrgall_nctox_18.csh</filename> - This script runs <command>Mrggrid</command> for combining all source categories' 2018 emissions into a single CMAQ-ready, 3-dimensional input file for the current CB4 mechanism with PM species.</para>
+<para><filename>smk_mrgall_nctox_18.csh</filename> - This script runs <command>Mrggrid</command> for combining all source categories&rsquo; 2018 emissions into a single CMAQ-ready, 3-dimensional input file for the current CB4 mechanism with PM species.</para>
 </listitem>
 </itemizedlist>
 
@@ -299,7 +299,7 @@
 <listitem>
 <para><filename>emisfac_run.csh</filename>: Runs the <command>Emisfac</command> program.</para>
 
-<para>Creates the <envar>M6LIST</envar> file by assuming that all of the files in the <filename class="directory"><envar>$MBDAT</envar>/m6_<envar>$EF_YEAR</envar></filename> or <filename class="directory"><envar>$MBDAT</envar>/mb_<envar>${EF_YEAR}</envar>_<envar>$CNTLCASE</envar></filename> directory with a ".in" extension should be included in the list. See <xref linkend="sect_scripts_use_mobile6" /> for more information about how the input file name for MOBILE6 input files is determined.</para>
+<para>Creates the <envar>M6LIST</envar> file by assuming that all of the files in the <filename class="directory"><envar>$MBDAT</envar>/m6_<envar>$EF_YEAR</envar></filename> or <filename class="directory"><envar>$MBDAT</envar>/mb_<envar>${EF_YEAR}</envar>_<envar>$CNTLCASE</envar></filename> directory with a <quote>.in</quote> extension should be included in the list. See <xref linkend="sect_scripts_use_mobile6" /> for more information about how the input file name for MOBILE6 input files is determined.</para>
 </listitem>
 <listitem>
 <para><filename>make_invdir.csh</filename>: Sets the <envar>INVNAME1</envar> and <envar>INVNAME2</envar> settings that <command>Smkinven</command> uses for creating the map-formatted inventory intermediate files.</para>
@@ -321,7 +321,7 @@
 
 <para>Creates the <envar>METLIST</envar> and <envar>RADLIST</envar> files for <command>Tmpbio</command> by listing <envar>$MET_FILE1</envar> to <envar>METLIST</envar> and <envar>$MET_FILE2</envar> to <envar>RADLIST</envar>. <envar>MET_FILE1</envar> and <envar>MET_FILE2</envar> are set in the Assigns file.</para>
 
-<para>Determines which speciation matrix is needed for <command>Smkmerge</command>, based on the requested units. If the <envar>MRG_GRDOUT_UNIT</envar> setting contains the string "mole" then the molar speciation matrix and molar gridded, hourly biogenic emissions are set to be used by <command>Smkmerge</command>.</para>
+<para>Determines which speciation matrix is needed for <command>Smkmerge</command>, based on the requested units. If the <envar>MRG_GRDOUT_UNIT</envar> setting contains the string <quote>mole</quote> then the molar speciation matrix and molar gridded, hourly biogenic emissions are set to be used by <command>Smkmerge</command>.</para>
 
 <para>Creates the <envar>FILELIST</envar> file for <command>Mrggrid</command> from the <envar>MRGFILES</envar> setting in the calling merge run script.</para>
 </listitem>
@@ -344,7 +344,7 @@
 <para><envar>AUTO_DELETE</envar>: [Y | N] When set to Y, will delete all SMOKE intermediate and output I/O API files automatically. It will not delete intermediate and output ASCII files or reports.</para>
 </listitem>
 <listitem>
-<para><envar>AUTO_DELETE_LOG</envar>: [Y | N] When set to Y, SMOKE log files will be automatically deleted. Otherwise, the files will be automatically renamed by appending a number to the end. The first time the a log file needs to be overwritten, but <envar>AUTO_DELETE_LOG</envar> is N, the file will be renamed to a file name with an "_1" appended to the original name. If the same file needs to be moved on a subsequent rerun and the "_1" file is already there, then a "_2" file will be created.</para>
+<para><envar>AUTO_DELETE_LOG</envar>: [Y | N] When set to Y, SMOKE log files will be automatically deleted. Otherwise, the files will be automatically renamed by appending a number to the end. The first time the a log file needs to be overwritten, but <envar>AUTO_DELETE_LOG</envar> is N, the file will be renamed to a file name with an <quote>_1</quote> appended to the original name. If the same file needs to be moved on a subsequent rerun and the <quote>_1</quote> file is already there, then a <quote>_2</quote> file will be created.</para>
 </listitem>
 <listitem>
 <para><envar>CNTLCASE</envar>: When this is defined to a name of the control case and the <envar>SMK_CONTROL_YN</envar> setting is Y, the following changes are made to the naming environment variables by the <filename><envar>$ASSIGNS</envar>/set_case.scr file</filename>:</para>
@@ -396,10 +396,10 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para><envar>INVTABLE_OVERRIDE</envar>: Sets a file name for the <envar>INVTABLE</envar> file in the Assigns file that overrides whatever value is actually inside the Assigns file. The Assigns file invokes the override mechanism when this environment variable is defined, so to <emphasis>not</emphasis> use this scripting feature, the variable must <emphasis>not</emphasis> be defined. <emphasis role="bold">In other words, it is not acceptable to set this to a blank value.</emphasis></para>
 </listitem>
 <listitem>
-<para><envar>MRG_GRDOUT_UNIT</envar>: While this setting is primarily a setting for the <command>Smkmerge</command> program, it is also used by the SMOKE scripts to determine whether <command>Smkmerge</command> should use mole-based or mass-based speciation matrices and biogenic model-ready files. When the variable is set with the first four letters to "mole", for example moles/hr, mole/s, or moles/day, the <command>Smkmerge</command> program will be provided by the scripts the correct input files. The implementation of this feature currently means that units of "gm mole" will not work properly.</para>
+<para><envar>MRG_GRDOUT_UNIT</envar>: While this setting is primarily a setting for the <command>Smkmerge</command> program, it is also used by the SMOKE scripts to determine whether <command>Smkmerge</command> should use mole-based or mass-based speciation matrices and biogenic model-ready files. When the variable is set with the first four letters to <quote>mole</quote>, for example moles/hr, mole/s, or moles/day, the <command>Smkmerge</command> program will be provided by the scripts the correct input files. The implementation of this feature currently means that units of <quote>gm mole</quote> will not work properly.</para>
 </listitem>
 <listitem>
-<para><envar>NONROAD</envar>: [Y | N] When set to Y, the Assigns file will automatically rename all of the SMOKE area-source intermediate and output files using the "n" prefix on file names instead of the "a" prefix. For example, the <envar>ATMP</envar> file is set to <filename><envar>$SCENARIO</envar>/ntmp.ncf</filename> instead of <filename><envar>$SCENARIO</envar>/atmp.ncf</filename>. Also, the <envar>AREA</envar> file coming out of <command>Smkinven</command> changes to be a different name and use a different map-file directory.</para>
+<para><envar>NONROAD</envar>: [Y | N] When set to Y, the Assigns file will automatically rename all of the SMOKE area-source intermediate and output files using the <quote>n</quote> prefix on file names instead of the <quote>a</quote> prefix. For example, the <envar>ATMP</envar> file is set to <filename><envar>$SCENARIO</envar>/ntmp.ncf</filename> instead of <filename><envar>$SCENARIO</envar>/atmp.ncf</filename>. Also, the <envar>AREA</envar> file coming out of <command>Smkinven</command> changes to be a different name and use a different map-file directory.</para>
 </listitem>
 <listitem>
 <para><envar>PROMPTFLAG</envar>: [Y | N] When set to Y, users will be prompted for all SMOKE file names. This option should not be set to Y for non-interactive processing. In fact, there is little need for this to ever be set to Y.</para>
@@ -412,8 +412,6 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 <listitem>
 <para><envar>RUN_PART1</envar>, <envar>RUN_PART2</envar>, <envar>RUN_PART3</envar>, <envar>RUN_PART4</envar>: These settings should not have to be changed by most users. They are included for the convenience of those who want to more easily rearrange their SMOKE processing. Each source category has its own parts for processing as follows:</para>
-</listitem>
-</itemizedlist>
 
 <informaltable>
 <tgroup cols="5">
@@ -463,8 +461,8 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 </tgroup>
 </informaltable>
+</listitem>
 
-<itemizedlist>
 <listitem>
 <para><envar>RUN_&lt;Program Name&gt;</envar>: [Y | N] The collection of <envar>RUN_&lt;Program Name&gt;</envar> variables control whether a program is going to be run during a given script run. These can be set to N if the program is not needed for some reason (e.g., the REMSAD model does not need the <command>Laypoint</command> program run). How these settings should be set is described in <xref linkend="sect_scripts_change_programs" />.</para>
 </listitem>
@@ -823,7 +821,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </row>
 <row>
 <entry><envar>IOAPI_GRIDNAME_1</envar></entry>
-<entry>The selected grid. Controls which grid will be selected by the <command>Grdmat</command> program from the <envar>GRIDDESC</envar> file. Users should coordinate this setting with the <envar>GRID</envar> setting from <xref linkend="tbl_scripts_variables_files" />, which is used for naming files. This setting must match the grid names in the gridded land use and spatial surrogates files' headers. </entry>
+<entry>The selected grid. Controls which grid will be selected by the <command>Grdmat</command> program from the <envar>GRIDDESC</envar> file. Users should coordinate this setting with the <envar>GRID</envar> setting from <xref linkend="tbl_scripts_variables_files" />, which is used for naming files. This setting must match the grid names in the gridded land use and spatial surrogates files&rsquo; headers. </entry>
 </row>
 
 </tbody>
@@ -924,7 +922,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Collect or create inventories in correct formats.</para>
 
-<para>Inventory files for area sources are usually named starting with "arinv," because <envar>ARINV</envar> is the logical file name (environment variable) that <command>Smkinven</command> uses to read the file. The formats available for area/non-point sources are:</para>
+<para>Inventory files for area sources are usually named starting with <quote>arinv</quote>, because <envar>ARINV</envar> is the logical file name (environment variable) that <command>Smkinven</command> uses to read the file. The formats available for area/non-point sources are:</para>
 
 <orderedlist>
 <listitem>
@@ -975,7 +973,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>For EMS-95 format, this header does not apply. The pollutants are listed by 5-character names in the format on each line of the file.</para>
 </listitem>
 <listitem>
-<para>Check for additional "headers" in the file. The IDA format permits multiple header sections in a single IDA file. Search for the "#" symbol to see if there are other header lines and to ensure that any additional header lines are correct. It is acceptable to have different years, countries, and pollutants in different sections of the file.</para>
+<para>Check for additional <quote>headers</quote> in the file. The IDA format permits multiple header sections in a single IDA file. Search for the <quote>#</quote> symbol to see if there are other header lines and to ensure that any additional header lines are correct. It is acceptable to have different years, countries, and pollutants in different sections of the file.</para>
 </listitem>
 </orderedlist>
 
@@ -1033,7 +1031,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>See <xref linkend="sect_scripts_area_invs" /> for issues relating to stationary area / non-point sources. These are the same issues as for nonroad mobile sources.</para>
 </listitem>
 <listitem>
-<para>If you need to process nonroad mobile separately from stationary area/non-point sources because of recommendations in <xref linkend="sect_scripts_area_invs" />, you must separate the stationary area/non-point and nonroad mobile sources to two separate files if they are not already separated. There is no SMOKE utility to do this, but the UNIX <command>grep</command> command can be used to search for all SCCs in the nonroad mobile inventory; for example, all SCCs starting with "22".</para>
+<para>If you need to process nonroad mobile separately from stationary area/non-point sources because of recommendations in <xref linkend="sect_scripts_area_invs" />, you must separate the stationary area/non-point and nonroad mobile sources to two separate files if they are not already separated. There is no SMOKE utility to do this, but the UNIX <command>grep</command> command can be used to search for all SCCs in the nonroad mobile inventory; for example, all SCCs starting with <quote>22</quote>.</para>
 </listitem>
 </itemizedlist>
 
@@ -1060,7 +1058,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Collect or create inventories in correct formats.</para>
 
-<para>Inventory files for nonroad sources are usually named starting with "nrinv," because the Assigns file uses the <envar>NRINV</envar> environment variable to set the <envar>ARINV</envar> logical file name (environment variable) that <command>Smkinven</command> uses to read the file. The list of available formats for nonroad mobile sources is:</para>
+<para>Inventory files for nonroad sources are usually named starting with <quote>nrinv</quote>, because the Assigns file uses the <envar>NRINV</envar> environment variable to set the <envar>ARINV</envar> logical file name (environment variable) that <command>Smkinven</command> uses to read the file. The list of available formats for nonroad mobile sources is:</para>
 
 <orderedlist>
 <listitem>
@@ -1134,7 +1132,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>If you have VMT data, it must be in IDA activity format or EMS-95 format.</para>
 </listitem>
 <listitem>
-<para>EMS-95 format requires a <envar>VMTMIX</envar> file as well. SMOKE's <envar>VMTMIX</envar> file cannot be hour-specific as can the file for EMS-95. The <envar>VMTMIX</envar> file includes a space-delimited format and fixed-column format.</para>
+<para>EMS-95 format requires a <envar>VMTMIX</envar> file as well. SMOKE&rsquo;s <envar>VMTMIX</envar> file cannot be hour-specific as can the file for EMS-95. The <envar>VMTMIX</envar> file includes a space-delimited format and fixed-column format.</para>
 </listitem>
 <listitem>
 <para>The IDA activity format can be used when computing toxic emissions using MOBILE6.</para>
@@ -1197,7 +1195,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Collect or create inventories in correct formats.</para>
 
-<para>Inventory files for on-road mobile sources are usually named starting with "mbinv," because <command>Smkinven</command> uses the <envar>MBINV</envar> logical file name (environment variable) to read the file. The list of available formats for on-road mobile sources is:</para>
+<para>Inventory files for on-road mobile sources are usually named starting with <quote>mbinv</quote>, because <command>Smkinven</command> uses the <envar>MBINV</envar> logical file name (environment variable) to read the file. The list of available formats for on-road mobile sources is:</para>
 
 <orderedlist>
 <listitem>
@@ -1596,7 +1594,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Set the <envar>SMKINVEN_FORMULA</envar> setting to compute any pollutant from two other pollutants.</para>
 
-<para>This is most commonly used to compute coarse particulates (PMC) from PM<subscript>10</subscript> and PM<subscript>2.5</subscript> using the setting "PMC = PM10 - PM2_5".</para>
+<para>This is most commonly used to compute coarse particulates (PMC) from PM<subscript>10</subscript> and PM<subscript>2.5</subscript> using the setting <quote>PMC = PM10 - PM2_5</quote>.</para>
 </listitem>
 <listitem>
 <para>Set the <envar>WEST_HSPHERE</envar> setting to reset any positive longitude values that are intended for the Western hemisphere to a negative value.</para>
@@ -1631,7 +1629,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>Two approaches are available in SMOKE to resolve this situation. In the first approach, one can set SMOKE to run using the average-day data, and in the second approach, set to use the annual data. These lists describe these two approaches:</para>
 
-<para>Run all sources using "annual" data</para>
+<para>Run all sources using <quote>annual</quote> data</para>
 
 <orderedlist>
 <listitem>
@@ -1711,7 +1709,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Decide whether you want to use the same setting or different settings for <envar>ABASE</envar>, <envar>MBASE</envar>, <envar>PBASE</envar>, and <envar>EBASE</envar> in the Assigns file.</para>
 
-<para>If these are the same, the directory structure will be the "basic" configuration, and if these are different, the structure will be the "advanced" configuration; both configurations are described in <xref linkend="ch_dirs_files" />.</para>
+<para>If these are the same, the directory structure will be the <quote>basic</quote> configuration, and if these are different, the structure will be the <quote>advanced</quote> configuration; both configurations are described in <xref linkend="ch_dirs_files" />.</para>
 
 <orderedlist>
 <listitem>
@@ -1750,7 +1748,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <title>Change which programs are run</title>
 
-<para>The default SMOKE scripts each have several <envar>RUN_&lt;Program&gt;</envar> settings, where the program names fill in the <envar>&lt;Program&gt;</envar> placeholder. For example, the <envar>RUN_&lt;Program&gt;</envar> setting that controls the <command>Smkinven</command> program is <envar>RUN_SMKINVEN</envar>. In the scripts, each <envar>RUN_&lt;Program&gt;</envar> setting can be set to either Y for "yes" and N for "no". When a <envar>RUN_&lt;Program&gt;</envar> setting is set to Y, the script will try to run the program associated with the <envar>RUN_&lt;Program&gt;</envar> setting. For example, when <envar>RUN_SMKINVEN</envar> is set to Y in the script, running the script will cause the <command>Smkinven</command> program to run.</para>
+<para>The default SMOKE scripts each have several <envar>RUN_&lt;Program&gt;</envar> settings, where the program names fill in the <envar>&lt;Program&gt;</envar> placeholder. For example, the <envar>RUN_&lt;Program&gt;</envar> setting that controls the <command>Smkinven</command> program is <envar>RUN_SMKINVEN</envar>. In the scripts, each <envar>RUN_&lt;Program&gt;</envar> setting can be set to either Y for <quote>yes</quote> and N for <quote>no</quote>. When a <envar>RUN_&lt;Program&gt;</envar> setting is set to Y, the script will try to run the program associated with the <envar>RUN_&lt;Program&gt;</envar> setting. For example, when <envar>RUN_SMKINVEN</envar> is set to Y in the script, running the script will cause the <command>Smkinven</command> program to run.</para>
 
 <para><xref linkend="tbl_scripts_run_programs" /> is the full list of <envar>RUN_&lt;Program&gt;</envar> settings available and the situations in which each needs to be run.</para>
 
@@ -1936,7 +1934,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Change  the <envar>IOAPI_GRIDNAME_1</envar> variable in the Assigns file to the name of the grid entered or found in step 1.</para>
 
-<para>As noted in step 2, the name selected should have some relationship to the <envar>GRID</envar> environment variable. For example, if the <envar>IOAPI_GRIDNAME_1</envar> setting is "US36_120X90", the <envar>GRID</envar> setting might be "us36".</para>
+<para>As noted in step 2, the name selected should have some relationship to the <envar>GRID</envar> environment variable. For example, if the <envar>IOAPI_GRIDNAME_1</envar> setting is <quote>US36_120X90</quote>, the <envar>GRID</envar> setting might be <quote>us36</quote>.</para>
 </listitem>
 <listitem>
 <para>Update the run scripts to use the Assigns file for the new grid.</para>
@@ -1973,7 +1971,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>In addition to the surrogate file, it is important to create a surrogate description file (<envar>SRGDESC</envar>). This is simply a file that lists the surrogate codes and their descriptions. Since the surrogate file itself does not currently have descriptive text that indicate what the surrogate codes mean, the surrogate description file is the only way users have of knowing to what data the codes in the surrogate file refer.</para>
 
-<para>The same surrogate file can be used for <envar>AGPRO</envar>, <envar>BGPRO</envar>, and <envar>MGPRO</envar>. This is the default SMOKE configuration, and is accomplished by having the same physical file name assigned to the three logical file names. Please see <xref linkend="ch_input_files" /> for more information on these files. The <envar>BGPRO</envar> file must include only the "county area" spatial surrogate, and is used for estimating county-total emissions from gridded emissions.</para>
+<para>The same surrogate file can be used for <envar>AGPRO</envar>, <envar>BGPRO</envar>, and <envar>MGPRO</envar>. This is the default SMOKE configuration, and is accomplished by having the same physical file name assigned to the three logical file names. Please see <xref linkend="ch_input_files" /> for more information on these files. The <envar>BGPRO</envar> file must include only the <quote>county area</quote> spatial surrogate, and is used for estimating county-total emissions from gridded emissions.</para>
 
 <para>The spatial surrogate file(s) should be installed in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory, since the file is likely to be shared by many SMOKE runs and source categories. The surrogate description file should be stored in <filename class="directory"><envar>$GE_DAT</envar></filename> as well. It is useful to name both files to include the <envar>GRID</envar> environment variable for easier identification.</para>
 </listitem>
@@ -1982,9 +1980,9 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>A default spatial cross-reference file (<envar>AGREF</envar> and <envar>MGREF</envar>) is provided with SMOKE that can be used for most inventories as long as the spatial surrogate codes in the new surrogate file match the codes in the default surrogate file, which are provided in the <envar>SRGDESC</envar> file described in <xref linkend="ch_dirs_files" />. If the codes match then the only concern will be whether the surrogate assignments are acceptable. By default, the same file is used for both the <envar>AGREF</envar> and <envar>MGREF</envar> files, which is accomplished by using the same physical file name in the Assigns file for both logical file names. The files can be the same file or two different files, at the discretion of the user - usually one file is more convenient unless different default settings (SCC=0) are needed, or unless the data all already available as two separate files.</para>
 
-<para>When <command>Smkinven</command> imports an area, non-road mobile, or on-road mobile inventory, a list of SCCs is created (logical file name <envar>ASCC</envar>, <envar>NSCC</envar>, or <envar>MSCC</envar>). After importing the data but before running spatial allocation, it is wise to examine the list of SCCs included in this file and compare it with the list in the default spatial cross-reference files. This comparison can be accomplished manually or using the <command>Smkreport</command> program with a report that includes the surrogate codes assigned to each SCC (see <xref linkend="ch_quality_assurance" />). The <command>Smkreport</command> results will list all of the surrogate assignments by SCC and the emissions associated with each, with which users may evaluate if any SCCs were included in the inventory but not in the default SMOKE file. The default spatial cross-reference files (<envar>AGREF</envar> and <envar>MGREF</envar>) can be updated with any new assignments or to include SCCs that are in the user's inventory but not in the default files.</para>
+<para>When <command>Smkinven</command> imports an area, non-road mobile, or on-road mobile inventory, a list of SCCs is created (logical file name <envar>ASCC</envar>, <envar>NSCC</envar>, or <envar>MSCC</envar>). After importing the data but before running spatial allocation, it is wise to examine the list of SCCs included in this file and compare it with the list in the default spatial cross-reference files. This comparison can be accomplished manually or using the <command>Smkreport</command> program with a report that includes the surrogate codes assigned to each SCC (see <xref linkend="ch_quality_assurance" />). The <command>Smkreport</command> results will list all of the surrogate assignments by SCC and the emissions associated with each, with which users may evaluate if any SCCs were included in the inventory but not in the default SMOKE file. The default spatial cross-reference files (<envar>AGREF</envar> and <envar>MGREF</envar>) can be updated with any new assignments or to include SCCs that are in the user&rsquo;s inventory but not in the default files.</para>
 
-<para>If a new surrogates file uses surrogate codes that are different from the default codes, then new spatial surrogate cross-reference files need to be created. These can be created by copying and editing the existing files to replace the default surrogate codes with the new codes. For example, the current code for population is 8. If the new code for population is 1, then all of the "8" surrogate codes in the file would need to be replaced with "1"s. These replacements must be made carefully because the current file also uses "1" for the agriculture surrogate, so if global search and replace is performed, one must be careful to change what one intends to change. It is much easier to simply use the codes that are already in use in any new surrogates file, or modify the surrogate file to use those codes.</para>
+<para>If a new surrogates file uses surrogate codes that are different from the default codes, then new spatial surrogate cross-reference files need to be created. These can be created by copying and editing the existing files to replace the default surrogate codes with the new codes. For example, the current code for population is 8. If the new code for population is 1, then all of the <quote>8</quote> surrogate codes in the file would need to be replaced with <quote>1</quote>s. These replacements must be made carefully because the current file also uses <quote>1</quote> for the agriculture surrogate, so if global search and replace is performed, one must be careful to change what one intends to change. It is much easier to simply use the codes that are already in use in any new surrogates file, or modify the surrogate file to use those codes.</para>
 
 <para>The spatial cross-reference file(s) should be installed in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory, since the file is likely to be shared by many SMOKE runs and source categories. It is useful to name the file(s) to include the <envar>GRID</envar> environment variable for easier identification as association with the surrogate file(s) with which it works.</para>
 </listitem>
@@ -2009,7 +2007,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Optionally create the <envar>BIOSEASON</envar> file</para>
 
-<para>If you are modeling biogenic emissions with SMOKE for an episode and grid that covers both winter and summer seasons, then the best modeling approach is to create a <envar>BIOSEASON</envar> file from the meteorology data for input to <command>Tmpbio</command> or <command>Tmpbeis3</command>. This file indicates which grid cells and days are during "winter" and which are during "summer", to allow <command>Tmpbio</command> or <command>Tmpbeis3</command> to apply the winter or summer emission factor for the correct cells and days. Summer is defined for biogenic modeling in the Northern Hemisphere as the period after the last freeze and before the first freeze in each grid cell. This file may not apply to some episodes or regions which do not experience freezing temperatures, and in those cases, users may run <command>Tmpbio</command> or <command>Tmpbeis3</command> without this file.</para>
+<para>If you are modeling biogenic emissions with SMOKE for an episode and grid that covers both winter and summer seasons, then the best modeling approach is to create a <envar>BIOSEASON</envar> file from the meteorology data for input to <command>Tmpbio</command> or <command>Tmpbeis3</command>. This file indicates which grid cells and days are during <quote>winter</quote> and which are during <quote>summer</quote>, to allow <command>Tmpbio</command> or <command>Tmpbeis3</command> to apply the winter or summer emission factor for the correct cells and days. Summer is defined for biogenic modeling in the Northern Hemisphere as the period after the last freeze and before the first freeze in each grid cell. This file may not apply to some episodes or regions which do not experience freezing temperatures, and in those cases, users may run <command>Tmpbio</command> or <command>Tmpbeis3</command> without this file.</para>
 </listitem>
 <listitem>
 <para>Set the fallback surrogate in the run scripts for area/non-point, nonroad mobile, and on-road mobile sources.</para>
@@ -2073,8 +2071,6 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Set the <envar>SPC</envar> setting in the Assigns file.</para>
 
 <para>The <envar>SPC</envar> setting in the Assigns file controls which chemical mechanism is used by the scripts and SMOKE programs. Depending on what source categories you are modeling, the air quality model that you are using, and the chemical mechanism for that air quality model, choose the correct setting from <envar>SPC</envar> from <xref linkend="tbl_scripts_spc_settings" />. Use the descriptions below the table to decide if the <envar>SPC</envar> setting will work for your case. See the default data files described in <xref linkend="ch_scripts" /> for the actual file names that will be used for each source category. Where different files are needed for different source categories, the Assigns file will automatically detect this and set the <envar>GSPRO</envar> and <envar>GSREF</envar> files accordingly.</para>
-</listitem>
-</orderedlist>
 
 <table id="tbl_scripts_spc_settings">
 <title>Valid <envar>SPC</envar> settings</title>
@@ -2294,7 +2290,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <itemizedlist>
 <listitem>
-<para>Use for CMAQ modeling only with both criteria and toxics inventories for the "toxics-CB4 version 1" chemical mechanism. This works for all source categories, including BEIS2 and BEIS3 modeling. The <envar>GSPRO</envar> and <envar>GSREF</envar> files are different for on-road mobile sources, and the <envar>GSREF</envar> file is different for the point sources.</para>
+<para>Use for CMAQ modeling only with both criteria and toxics inventories for the <quote>toxics-CB4 version 1</quote> chemical mechanism. This works for all source categories, including BEIS2 and BEIS3 modeling. The <envar>GSPRO</envar> and <envar>GSREF</envar> files are different for on-road mobile sources, and the <envar>GSREF</envar> file is different for the point sources.</para>
 </listitem>
 </itemizedlist>
 
@@ -2350,12 +2346,12 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 </listitem>
 </itemizedlist>
+</listitem>
 
-<orderedlist continuation="continues">
 <listitem>
 <para>Determine whether VOC-to-TOG or ROG-to-TOG is needed and set script accordingly.</para>
 
-<para>If your inventory contains the pollutant VOC or ROG and you are modeling for CMAQ, MAQSIP, UAM, or CAM<subscript>X</subscript>, then you will need to use SMOKE's <envar>GSCNV</envar> file to convert the VOC or ROG mass to TOG mass.</para>
+<para>If your inventory contains the pollutant VOC or ROG and you are modeling for CMAQ, MAQSIP, UAM, or CAM<subscript>X</subscript>, then you will need to use SMOKE&rsquo;s <envar>GSCNV</envar> file to convert the VOC or ROG mass to TOG mass.</para>
 
 <para>The SMOKE <command>Spcmat</command> program will use the <envar>GSCNV</envar> file if the <envar>POLLUTANT_CONVERSION</envar> setting in the script is Y. This is the default configuration for the CMAQ run scripts.</para>
 
@@ -2369,7 +2365,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <orderedlist>
 <listitem>
-<para>The pollutant has one or more entries in the <envar>GSREF</envar> file. In some cases, you may have to add entries. For example, not all <envar>GSREF</envar> files have "ROG" entries, but these can easily be added simply by copying the VOC assignments and changing the VOC label to ROG.</para>
+<para>The pollutant has one or more entries in the <envar>GSREF</envar> file. In some cases, you may have to add entries. For example, not all <envar>GSREF</envar> files have <quote>ROG</quote> entries, but these can easily be added simply by copying the VOC assignments and changing the VOC label to ROG.</para>
 </listitem>
 <listitem>
 <para>For CMAQ, UAM, and CAM<subscript>X</subscript> and the pollutant is VOC or ROG, check that the TOG profiles are in the <envar>GSPRO</envar> file.</para>
@@ -2422,7 +2418,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>If you need to create a new <envar>GSREF</envar> from scratch, you will need to ensure that all of the SCCs and all of the pollutants in the inventory have profile assignments. Any pollutant in the inventory that is not included in the <envar>GSREF</envar> file will be dropped from modeling. Any SCC that is not included will be assigned the default profile, which is the profile assigned to SCC = 0.</para>
 
-<para>Name the <envar>GSREF</envar> file using a similar approach as for the <envar>GSPRO</envar> file, but use the "gsref" prefix instead of the "gspro" prefix. Therefore, the default file for that chemical mechanism (the one that applies to the most source categories) should be named <filename>gsref.<envar>$SPC</envar>.txt</filename>. Any source-category-specific files should use the names as follows:</para>
+<para>Name the <envar>GSREF</envar> file using a similar approach as for the <envar>GSPRO</envar> file, but use the <quote>gsref</quote> prefix instead of the <quote>gspro</quote> prefix. Therefore, the default file for that chemical mechanism (the one that applies to the most source categories) should be named <filename>gsref.<envar>$SPC</envar>.txt</filename>. Any source-category-specific files should use the names as follows:</para>
 
 <itemizedlist>
 <listitem>
@@ -2722,7 +2718,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>At line 120 of file, reset <envar>SMK_CONTROL_YN</envar> to Y</para>
 </listitem>
 <listitem>
-<para>To run <command>Smkmerge</command> for reactivity controls, add the <envar>MRG_CTLMAT_REAC</envar> option to the <command>Smkmerge</command> options and set to "A","M", "P" or some combination of those letters to indicate whether you want it to use the reactivity matrix for area (including nonroad), on-road mobile, or point sources.</para>
+<para>To run <command>Smkmerge</command> for reactivity controls, add the <envar>MRG_CTLMAT_REAC</envar> option to the <command>Smkmerge</command> options and set to <quote>A</quote>, <quote>M</quote>, <quote>P</quote> or some combination of those letters to indicate whether you want it to use the reactivity matrix for area (including nonroad), on-road mobile, or point sources.</para>
 </listitem>
 </itemizedlist>
 
@@ -2762,10 +2758,10 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>At line 120 of file, reset <envar>SMK_CONTROL_YN</envar> to N</para>
 </listitem>
 <listitem>
-<para>To run <command>Smkmerge</command> for multiplicative controls, add the <envar>MRG_CTLMAT_MULT</envar> setting to <command>Smkmerge</command> options and set to "A","M", "P" or some combination of those letters to indicate whether you want it to use the multiplicative control matrix for area (including nonroad), on-road mobile, or point sources.</para>
+<para>To run <command>Smkmerge</command> for multiplicative controls, add the <envar>MRG_CTLMAT_MULT</envar> setting to <command>Smkmerge</command> options and set to <quote>A</quote>, <quote>M</quote>, <quote>P</quote> or some combination of those letters to indicate whether you want it to use the multiplicative control matrix for area (including nonroad), on-road mobile, or point sources.</para>
 </listitem>
 <listitem>
-<para>To run <command>Smkmerge</command> for reactivity controls, add the <envar>MRG_CTLMAT_REAC</envar> setting to the <command>Smkmerge</command> options and set to "A","M", "P" or some combination of those letters to indicate whether you want it to use the reactivity control matrix for area (including nonroad), on-road mobile, or point sources.</para>
+<para>To run <command>Smkmerge</command> for reactivity controls, add the <envar>MRG_CTLMAT_REAC</envar> setting to the <command>Smkmerge</command> options and set to <quote>A</quote>, <quote>M</quote>, <quote>P</quote> or some combination of those letters to indicate whether you want it to use the reactivity control matrix for area (including nonroad), on-road mobile, or point sources.</para>
 </listitem>
 </itemizedlist>
 
@@ -2848,7 +2844,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <itemizedlist>
 <listitem>
-<para>The <envar>MEPROC</envar> file must have all of the same process-pollutant combinations (e.g., EXR__CO) as are indicated by the MOBILE6 inputs. The MOBILE6 manual explains which pollutants are associated with which processes, except for user-defined pollutants based on the MOBILE6 "ADDITIONAL HAPS" command.</para>
+<para>The <envar>MEPROC</envar> file must have all of the same process-pollutant combinations (e.g., EXR__CO) as are indicated by the MOBILE6 inputs. The MOBILE6 manual explains which pollutants are associated with which processes, except for user-defined pollutants based on the MOBILE6 <quote>ADDITIONAL HAPS</quote> command.</para>
 
 <para>For HAPS using the RATIOVOC command, the user has to define whether the emission factor is associated with exhaust (EXH) or evaporative (EVAP) processes. If the emission type is EXH, we could potentially have EXR and EXS emissions. With an emission type of EVAP, the corresponding SMOKE emission processes are HOT, DNL, RST, EVR, CRC, and RFL.</para>
 
@@ -2868,7 +2864,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>All pollutants in the <envar>MEPROC</envar> file must have the correct MOBILE6 input commands so that they will be created. Please refer to the MOBILE6 manual for details about which commands are needed for each pollutant.</para>
 </listitem>
 <listitem>
-<para>All process-pollutant combinations in the <envar>MEPROC</envar> file must also be included in the <envar>GSREF</envar> file. The format for the "pollutant" entry in the <envar>GSREF</envar> is &lt;emission process&gt;__&lt;pollutant&gt;. Note that the joiner between &lt;emission process&gt; and &lt;pollutant&gt; is a double underscore. <emphasis role="bold">A single underscore will prevent the processing from working properly.</emphasis> For example, running exhaust ammonia must be included as EXR__NH3.</para>
+<para>All process-pollutant combinations in the <envar>MEPROC</envar> file must also be included in the <envar>GSREF</envar> file. The format for the <quote>pollutant</quote> entry in the <envar>GSREF</envar> is &lt;emission process&gt;__&lt;pollutant&gt;. Note that the joiner between &lt;emission process&gt; and &lt;pollutant&gt; is a double underscore. <emphasis role="bold">A single underscore will prevent the processing from working properly.</emphasis> For example, running exhaust ammonia must be included as EXR__NH3.</para>
 </listitem>
 <listitem>
 <para>For the speciation profiles named in the <envar>GSREF</envar> file for each process-pollutant combination, the correct profile-pollutant combinations must be included in the <envar>GSPRO</envar> file. For example, if the <envar>GSREF</envar> file indicates that EXR__ACENAPHT25 should use profile 0000A for all SCCs, then the <envar>GSPRO</envar> file should have profile 0000A with pollutant ACENAPHT25.</para>
@@ -2912,7 +2908,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <title>Changing spatial or temporal averaging</title>
 
-<para>You may want to change the spatial or temporal averaging to improve the detail of the modeling effort (increasing the processing time) or to decrease the processing time (reducing the detail of the modeling). The <envar>MVREF</envar> file must be changed using the file format described in <xref linkend="ch_input_files" /> to select the spatial or temperature averaging approach. As explained in the file format, the spatial approach can be "by county" or "by reference county," and the temporal averaging can be day-specific (no averaging), weekly averaging, monthly averaging, or episodic averaging.</para>
+<para>You may want to change the spatial or temporal averaging to improve the detail of the modeling effort (increasing the processing time) or to decrease the processing time (reducing the detail of the modeling). The <envar>MVREF</envar> file must be changed using the file format described in <xref linkend="ch_input_files" /> to select the spatial or temperature averaging approach. As explained in the file format, the spatial approach can be <quote>by county</quote> or <quote>by reference county</quote>, and the temporal averaging can be day-specific (no averaging), weekly averaging, monthly averaging, or episodic averaging.</para>
 
 <para>If you are using multiple temperature averaging resolutions in the same run, you must also modify your on-road mobile script to use multiple calls to the <filename>emisfac_run.csh</filename> helper script. The excerpt from the on-road mobile sample script <filename>smk_mb_nctox.csh</filename> below is where the script must be changed to include additional calls to <filename>emisfac_run.csh</filename> for all four temperature averaging approaches.</para>
 
@@ -2950,7 +2946,7 @@ endif</programlisting>
 
 <orderedlist>
 <listitem>
-<para>Prepare to name files using a ".in" extension on all files. Ensure that the ".in" extension is lower case.</para>
+<para>Prepare to name files using a <quote>.in</quote> extension on all files. Ensure that the <quote>.in</quote> extension is lower case.</para>
 </listitem>
 <listitem>
 <para>Create MOBILE6 inputs as per MOBILE6 instruction manual and the following additional constraints placed by SMOKE.</para>
@@ -3187,7 +3183,7 @@ endif</programlisting>
 
 <title>Changing the dates, times, and duration of model-ready SMOKE emissions files</title>
 
-<para>The run length is the time period for which each program that uses temporal process will be run. Sometimes these periods are called the "chunks" of processing, as in "the episode is being processed in 'chunks.' This period will determine the length of all of the hourly SMOKE intermediate files including <envar>ATMP</envar>, <envar>MTMP</envar>, <envar>PTMP</envar>, <envar>PLAY</envar>, and all model-ready outputs from <command>Smkmerge</command>. To change the run length, the following steps must be taken.</para>
+<para>The run length is the time period for which each program that uses temporal process will be run. Sometimes these periods are called the <quote>chunks</quote> of processing, as in the episode is being processed in <quote>chunks</quote>. This period will determine the length of all of the hourly SMOKE intermediate files including <envar>ATMP</envar>, <envar>MTMP</envar>, <envar>PTMP</envar>, <envar>PLAY</envar>, and all model-ready outputs from <command>Smkmerge</command>. To change the run length, the following steps must be taken.</para>
 
 <orderedlist>
 <listitem>
@@ -3466,7 +3462,7 @@ endif</programlisting>
 <para>If you are using SMOKE for on-road mobile sources including running MOBILE6 from SMOKE, then you need to include a temperature variable, as described in <xref linkend="ch_input_files" /> for on-road mobile sources.</para>
 </listitem>
 <listitem>
-<para>If you are running CMAQ or MAQSIP and SMOKE's point source emissions, then you need the variables listed in <xref linkend="ch_input_files" /> for point sources, so that SMOKE can compute plume rise.</para>
+<para>If you are running CMAQ or MAQSIP and SMOKE&rsquo;s point source emissions, then you need the variables listed in <xref linkend="ch_input_files" /> for point sources, so that SMOKE can compute plume rise.</para>
 </listitem>
 </itemizedlist>
 </comment>
@@ -3475,7 +3471,7 @@ endif</programlisting>
 <listitem>
 <para>Ensure meteorology data cover the correct time period</para>
 
-<para>In general, the meteorology data need to cover the same time period as the episode that you are modeling. The only exception to this is for on-road mobile sources using MOBILE6. MOBILE6 computes 24-hours of emission factors at a time, and the 24 hours are from 6AM local time to 5AM local time the following day. SMOKE's <command>Premobl</command> program converts the gridded, hourly meteorology that is in a single time zone (usually GMT) into hourly meteorology for each MOBILE6 run in local time. This can cause <command>Premobl</command> to process hours of temperature data that are not actually in the episode in an attempt to meet MOBILE6's 6 AM to 5 AM requirement. A similar problem can happen at the end of an episode. These problems cause <command>Premobl</command> to end with an error.</para>
+<para>In general, the meteorology data need to cover the same time period as the episode that you are modeling. The only exception to this is for on-road mobile sources using MOBILE6. MOBILE6 computes 24-hours of emission factors at a time, and the 24 hours are from 6AM local time to 5AM local time the following day. SMOKE&rsquo;s <command>Premobl</command> program converts the gridded, hourly meteorology that is in a single time zone (usually GMT) into hourly meteorology for each MOBILE6 run in local time. This can cause <command>Premobl</command> to process hours of temperature data that are not actually in the episode in an attempt to meet MOBILE6&rsquo;s 6 AM to 5 AM requirement. A similar problem can happen at the end of an episode. These problems cause <command>Premobl</command> to end with an error.</para>
 
 <para>If <command>Premobl</command> complains about missing meteorology data in this way and the meteorology data are not available, the following approach can be used to copy extra data to the beginning of your first episode day and to the end of your last episode day. These instructions require that you first install the I/O API utilities <command>m3tshift</command> and <command>m3xtract</command> and that you have added the path of these utilities to your <envar>$path</envar> shell variable. This variable includes paths for all executables and is set in the UNIX <filename>.cshrc</filename> file in your home directory. To add the <command>m3tshift</command> directory to your path, you can modify your <filename>.cshrc</filename> file to include the following command.</para>
 
@@ -3487,7 +3483,7 @@ endif</programlisting>
 
 <orderedlist>
 <listitem>
-<para>At the UNIX prompt, type the following commands. The ">" symbol represents the UNIX prompt.</para>
+<para>At the UNIX prompt, type the following commands. The <quote>&gt;</quote> symbol represents the UNIX prompt.</para>
 
 <para><prompt>&gt;</prompt> <userinput><command>setenv</command> <envar>INFILE</envar> <replaceable>&lt;file name of existing 1st day of meteorology&gt;</replaceable></userinput></para>
 
@@ -3807,17 +3803,15 @@ endif</programlisting>
 <listitem>
 <para>Customize the names of the output report files and <command>Smkreport</command> log files.</para>
 
-<para>The default SMOKE run scripts will name the log files and report output files with preset names. If you set the <envar>QA_LABEL</envar> setting, the reports and log file names will then include the value of that setting. For example, if the default report name were <filename>a.state.nei99.rpt</filename> and <envar>QA_LABEL</envar> were set to "run1", the new report name would be <filename>a.state.nei99.run1.rpt</filename>. The "run1" in <envar>QA_LABEL</envar> is inserted before the final "rpt" extension.</para>
+<para>The default SMOKE run scripts will name the log files and report output files with preset names. If you set the <envar>QA_LABEL</envar> setting, the reports and log file names will then include the value of that setting. For example, if the default report name were <filename>a.state.nei99.rpt</filename> and <envar>QA_LABEL</envar> were set to <quote>run1</quote>, the new report name would be <filename>a.state.nei99.run1.rpt</filename>. The <quote>run1</quote> in <envar>QA_LABEL</envar> is inserted before the final <quote>rpt</quote> extension.</para>
 </listitem>
 <listitem>
 <para>Select from one of the default settings for <envar>QA_TYPE</envar></para>
 
 <para>The default <envar>QA_TYPE</envar> settings allow users to run <command>Smkreport</command> with the default <envar>REPCONFIG</envar> files. These files are located in the <filename class="directory"><envar>$OTHER</envar></filename> directory, documented in <xref linkend="ch_dirs_files" />. Each source category has its own valid <envar>QA_TYPE</envar> settings, and each of these settings causes certain reports to be created. <xref linkend="tbl_scripts_qa_type" /> indicates which <envar>QA_TYPE</envar> setting can be used in which case, and the <envar>REPCONFIG</envar> files that will be used.</para>
-</listitem>
-</orderedlist>
 
 <table id="tbl_scripts_qa_type">
-<title><envar>QA_TYPE</envar> settings with associated source categories and default <envar>REPCONFIG</envar> files.</title>
+<title><envar>QA_TYPE</envar> settings with associated source categories and default <envar>REPCONFIG</envar> files</title>
 
 <tgroup cols="3">
 <colspec colwidth="1*" />
@@ -3906,19 +3900,18 @@ endif</programlisting>
 <entry>See step (3) below.</entry>
 </row>
 </tbody>
-
 </tgroup>
 </table>
 
-<para>The helper script <filename>qa_run.csh</filename> is responsible for selecting the correct <envar>REPCONFIG</envar> file based on the <envar>QA_TYPE</envar> setting, and these settings need not be changed. If users wish to implement a different configuration, the "custom" value of <envar>QA_TYPE</envar> should be able to meet those needs without any changes to <filename>qa_run.csh</filename>. Copying the <envar>REPCONFIG</envar> files from the default files to your case and changing them changes the default reports that are generated by SMOKE for your case.</para>
+<para>The helper script <filename>qa_run.csh</filename> is responsible for selecting the correct <envar>REPCONFIG</envar> file based on the <envar>QA_TYPE</envar> setting, and these settings need not be changed. If users wish to implement a different configuration, the <quote>custom</quote> value of <envar>QA_TYPE</envar> should be able to meet those needs without any changes to <filename>qa_run.csh</filename>. Copying the <envar>REPCONFIG</envar> files from the default files to your case and changing them changes the default reports that are generated by SMOKE for your case.</para>
 
 <para>Users can examine these <envar>REPCONFIG</envar> files along with the documentation in <xref linkend="ch_quality_assurance" /> to determine the reports that will be generated by each. These reports are also generated during the SMOKE installation and test case run, and can provide examples for understanding which reports will be written.</para>
+</listitem>
 
-<orderedlist continuation="continues">
 <listitem>
-<para>Using the "custom" setting</para>
+<para>Using the <quote>custom</quote> setting</para>
 
-<para>If <envar>QA_TYPE</envar> is set to "custom", then the <filename>qa_run.csh</filename> script expects that users will set the correct <envar>REPORT*</envar> environment variables in the main body of their run script. The <envar>REPORT*</envar> environment variables are typically used as the logical file names for <command>Smkreport</command>, those environment variables used are themselves configurable in the <envar>REPCONFIG</envar> file. The physical file names can also be set in the <envar>REPCONFIG</envar> file directly, instead of relying on the scripts to contain environment variable settings. These options are explained in greater detail in <xref linkend="ch_quality_assurance" />.</para>
+<para>If <envar>QA_TYPE</envar> is set to <quote>custom</quote>, then the <filename>qa_run.csh</filename> script expects that users will set the correct <envar>REPORT*</envar> environment variables in the main body of their run script. The <envar>REPORT*</envar> environment variables are typically used as the logical file names for <command>Smkreport</command>, those environment variables used are themselves configurable in the <envar>REPCONFIG</envar> file. The physical file names can also be set in the <envar>REPCONFIG</envar> file directly, instead of relying on the scripts to contain environment variable settings. These options are explained in greater detail in <xref linkend="ch_quality_assurance" />.</para>
 </listitem>
 </orderedlist>
 
