@@ -218,6 +218,21 @@
 
 <para>This variable is the same one used to control the <command>Smkmerge</command> output units. For <command>Smkreport</command>, it controls which ASCII elevated file to use, when the ASCIIELEV instruction is included in the <envar>REPCONFIG</envar> file. If the first letter of this setting is an <quote>m</quote> (for mole), then <command>Smkreport</command> opens the <envar>ELEVTS_L</envar> file to use in the report; otherwise, <command>Smkreport</command> opens and uses the <envar>ELEVTS_S</envar> file. This setting does not do anything to the behavior of <command>Smkreport</command> unless the ASCIIELEV setting is included in the <envar>REPCONFIG</envar> file. The default setting of <envar>MRG_GRDOUT_UNIT</envar> results in the <envar>ELEVTS_S</envar> file being used by <command>Smkreport</command>.</para>
 </listitem>
+
+<listitem>
+<para><envar>REPORT_ZERO_VALUES</envar>: [default: N]</para>
+
+<para>Determines if <command>Smkreport</command> should keep report entries whose data values are all zero</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Print entries whose values are zero</para>
+</listitem>
+<listitem>
+<para>N: Do not print entries whose values are zero</para>
+</listitem>
+</itemizedlist>
+
 </itemizedlist>
 
 </section>
