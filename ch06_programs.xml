@@ -74,7 +74,7 @@
 
 <itemizedlist>
 <listitem>
-<para>Growth matrix - This contains past- or future-year growth factors for all sources. <remark>If desired, <command>Cntlmat</command> can grow multiple inventory years to a single modeling year. The /PROJECTION/ packet contains the year for which the growth factors apply and contains both a "to year" and a "from year". Using a series of these packets, inventory records from different years can be grown to a single year. <command>Cntlmat</command> supports multiple-year growth for area, mobile, and point sources.</remark></para>
+<para>Growth matrix - This contains past- or future-year growth factors for all sources. <comment>If desired, <command>Cntlmat</command> can grow multiple inventory years to a single modeling year. The /PROJECTION/ packet contains the year for which the growth factors apply and contains both a "to year" and a "from year". Using a series of these packets, inventory records from different years can be grown to a single year. <command>Cntlmat</command> supports multiple-year growth for area, mobile, and point sources.</comment></para>
 </listitem>
 <listitem>
 <para>Multiplicative control matrix - This matrix contains the combination of various types ofcontrols typically used in emissions processing: CTG, MACT, RACT, control efficiency, rule effectiveness, rule penetration, allowable emissions, and caps. The logic used when applying this matrix is described below this bulleted list. </para>
@@ -817,7 +817,7 @@
 
 <listitem>
 <para><envar>SMK_TMPDIR</envar>: [default: "."]</para>
-<para>Sets the path for writing the temporary files needed when processing the /CONTROL/ packet (from the <envar>GCNTL</envar> file).</para>
+<para>Sets the path for writing the temporary files needed when processing the /ALLOWABLE/, /CONTROL/, /CTG/, /EMS_CONTROL/, /MACT/, and/or /PROJECTION/ packets (from the <envar>GCNTL</envar> file).</para>
 </listitem>
 
 <listitem>
@@ -1136,6 +1136,22 @@ H<subscript>S</subscript> = Physical stack height (m)
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>G_RUNLEN</envar>: [default: 240000]</para>
+<para>Simulation length (HHMMSS)</para>
+</listitem>
+<listitem>
+<para><envar>G_STDATE</envar>: [default: 0]</para>
+<para>Starting date of simulation (YYYYDDD)</para>
+</listitem>
+<listitem>
+<para><envar>G_STTIME</envar>: [default: 0]</para>
+<para>Starting time of simulation (HHMMSS)</para>
+</listitem>
+<listitem>
+<para><envar>G_TSTEP</envar>: [default: 10000]</para>
+<para>Time step (HHMMSS), only 10000 is allowed</para>
+</listitem>
 <listitem>
 <para><envar>SMK_ELEV_METHOD</envar>: [default: 0]</para>
 
@@ -1612,7 +1628,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Using the MIMS Spatial Allocation Tool.</para>
 </listitem>
 <listitem>
-<para>Extracting surrogate data from a larger gridding surrogates file. <remark>A number of efforts are underway to create surrogates at 4-km resolution for the entire U.S.</remark> To use these data, you must adopt for your modeling the grid projection used to create the gridding surrogates.</para>
+<para>Extracting surrogate data from a larger gridding surrogates file. National 4-km surrogates are available from the EPA at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html" />. To use these data for your modeling, you must use the same grid projection as was used to create the gridding surrogates.</para>
 </listitem>
 </itemizedlist>
 
@@ -1758,6 +1774,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<comment>
 <listitem>
 <para><envar>GRDMAT_ADJUST</envar>: [default: N]</para>
 
@@ -1773,6 +1790,9 @@ F<subscript>ef</subscript> = freeway emission factor
 </itemizedlist>
 
 </listitem>
+</comment>
+
+<comment>
 <listitem>
 <para><envar>GRDMAT_LINKDEFS</envar>: [default: N]</para>
 
@@ -1788,6 +1808,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </itemizedlist>
 
 </listitem>
+</comment>
+
 <listitem>
 <para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
@@ -3093,7 +3115,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The default surrogate code for all of these land coverage categories is 60, which is the EPA Models-3 area surrogate code. If surrogate data exist for these specific land coverage categories, better results may be achieved by careful choice of surrogate mapping.</para>
 
-<para>Gridded land use can be created using GIS software (such as ArcInfo) by someone with expertise in generating gridding surrogates. The <command>Beld3to2</command> utility can create gridded land use from BELD3 data (see <xref linkend="sect_utilities_beld3to2" />). <remark>Another tool that can be used to generate gridded land use data is the SMOKE Tool in Models-3 (see the Models-3 documentation).</remark></para>
+<para>Gridded land use can be created using GIS software (such as ArcInfo) by someone with expertise in generating gridding surrogates. The <command>Beld3to2</command> utility can create gridded land use from BELD3 data (see <xref linkend="sect_utilities_beld3to2" />). <comment>Another tool that can be used to generate gridded land use data is the SMOKE Tool in Models-3 (see the Models-3 documentation).</comment></para>
 
 </section>
 
@@ -3342,7 +3364,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
-<para><remark>When using CEM data, the default CEM files provided with SMOKE are for the whole U.S. and a whole year. Because this file takes a long time to read in, you are encouraged to preprocess these data to pare them down to the dates and/or sources in the domain. However, SMOKE can do this if you do not. The dates can be extracted with the DATERANGE header in the <envar>PTHOUR</envar> file (see <envar>PTHOUR</envar> file documentation).</remark> The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the modeling grid) and/or by the <command>Grdmat</command> program, which will remove sources outside the grid from the model-ready results.</para>
+<para>When using CEM data, the default CEM files provided with SMOKE are for the whole U.S. and a whole year. Because this file takes a long time to read in, you are encouraged to preprocess these data to pare them down to the dates and/or sources in the domain. <comment>However, SMOKE can do this if you do not. The dates can be extracted with the DATERANGE header in the <envar>PTHOUR</envar> file (see <envar>PTHOUR</envar> file documentation).</comment> The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the modeling grid) and/or by the <command>Grdmat</command> program, which will remove sources outside the grid from the model-ready results.</para>
 
 <para>If new sources are added to the input files or sources are removed, <command>Smkinven</command> must be rerun for that type of source. However, <command>Smkinven</command> does not need to be rerun when processing additional control scenarios, growth projections, speciation profiles, or modeling grids.</para>
 
@@ -4255,6 +4277,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </itemizedlist>
 
 </listitem>
+
+<comment>
 <listitem>
 <para><envar>MRG_REPINV_YN</envar>: [default: Y]</para>
 
@@ -4270,6 +4294,9 @@ F<subscript>ef</subscript> = freeway emission factor
 </itemizedlist>
 
 </listitem>
+</comment>
+
+<comment>
 <listitem>
 <para><envar>MRG_REPSPC_YN</envar>: [default: Y]</para>
 
@@ -4285,6 +4312,8 @@ F<subscript>ef</subscript> = freeway emission factor
 </itemizedlist>
 
 </listitem>
+</comment>
+
 <listitem>
 <para><envar>MRG_REPSTA_YN</envar>: [default: N]
 Defines whether the program produces a report of emission totals by state.</para>
@@ -5716,7 +5745,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <itemizedlist>
 <listitem>
-<para>1: Use RGND or RSD (solar radiation reaching the ground) from MM5 to calculate PAR. <remark>No other options are supported at this time.</remark></para>
+<para>1: Use RGND or RSD (solar radiation reaching the ground) from MM5 to calculate PAR. No other options are supported at this time.</para>
 </listitem>
 </itemizedlist>
 

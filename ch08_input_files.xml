@@ -1395,7 +1395,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>INVYEAR packet for EMS-95 format</title>
 
-<para><remark>When using EMS-95 inventories, the <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar> files are usually a list file (see <xref linkend="sect_input_inventory_list" />) that lists individual inventory files in EMS-95 format.</remark> This list file must contain one or more INVYEAR packets. This packet acts as a switch that sets the inventory year for the files, each of which will get the year designated by the packet until another INVYEAR packet appears in the file. In this way, multiple years of inventory data can be combined into one SMOKE inventory. The format of the INVYEAR packet is INVYEAR &lt;four-digit year&gt; and is shown in the example below.</para>
+<para>When using EMS-95 inventories, the <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar> files are usually a list file (see <xref linkend="sect_input_inventory_list" />) that lists individual inventory files in EMS-95 format. This list file must contain one or more INVYEAR packets. This packet acts as a switch that sets the inventory year for the files, each of which will get the year designated by the packet until another INVYEAR packet appears in the file. In this way, multiple years of inventory data can be combined into one SMOKE inventory. The format of the INVYEAR packet is INVYEAR &lt;four-digit year&gt; and is shown in the example below.</para>
 
 <programlisting>#LIST EMS-95
 INVYEAR 1996
@@ -2553,7 +2553,7 @@ INVYEAR 1996
 
 <para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95 or IDA format. In addition, these files can have a #COUNTRY entry as the first line of the file to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which correpsonds to the United States in the default <envar>COSTCY</envar> file).</para>
 
-<para>SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file, and that the user has matched the sources between the annual data inventory and the day-specific data. <remark>See the documentation for the <envar>PTHOUR</envar> file for additional information on how to use this file with IDA annual inventories.</remark></para>
+<para>SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file, and that the user has matched the sources between the annual data inventory and the day-specific data. <comment>See the documentation for the <envar>PTHOUR</envar> file for additional information on how to use this file with IDA annual inventories.</comment></para>
 
 <table id="tbl_input_ptday">
 <title>Format for individual day-specific data files</title>
@@ -2842,7 +2842,7 @@ INVYEAR 1996
 
 <title>CEM hour-specific format</title>
 
-<para>The CEM hour-specific format can only be used with IDA-formatted annual inventory files. SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the IDA-formatted annual inventory. <remark>Note that the DATERANGE header can be used in the list file (not the individual CEM files) to limit the dates read from the individual CEM files.</remark> The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
+<para>The CEM hour-specific format can only be used with IDA-formatted annual inventory files. SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the IDA-formatted annual inventory. <comment>Note that the DATERANGE header can be used in the list file (not the individual CEM files) to limit the dates read from the individual CEM files.</comment> The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
 
 <table id="tbl_input_pthour_cem">
 <title>CEM Format for individual hour-specific data files</title>
@@ -3358,7 +3358,7 @@ INVYEAR 1995
 
 <title>Format for EMS-95 <filename>device.pt</filename> file(s)</title>
 
-<para>The format of the <filename>device.pt</filename> file is column-specific and is shown in <xref linkend="tbl_input_ptinv_ems_device" />. The columns listed are only those that are used by SMOKE. <remark>These files <emphasis>cannot</emphasis> have a #COUNTRY entry. The default country code is 0 for the United States.</remark></para>
+<para>The format of the <filename>device.pt</filename> file is column-specific and is shown in <xref linkend="tbl_input_ptinv_ems_device" />. The columns listed are only those that are used by SMOKE. <comment>These files <emphasis>cannot</emphasis> have a #COUNTRY entry. The default country code is 0 for the United States.</comment></para>
 
 <table id="tbl_input_ptinv_ems_device">
 <title>EMS-95 Format for <filename>device.pt</filename></title>
@@ -5180,7 +5180,7 @@ INVYEAR 1995
 
 <itemizedlist>
 <listitem>
-<para>The speciation profile number is matched with the number in the <envar>GSREF</envar> file. This "number" is treated as a character string, so leading zeros must be the same in both the <envar>GSPRO</envar> and <envar>GSREF</envar> files. For BEIS3 modeling, you must use profile "BV309" in order to properly speciate for CB-IV modeling.  <remark>There are also BEIS3 speciation profiles for the RADM2 and SAPRC99 chemical mechanisms in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory.</remark></para>
+<para>The speciation profile number is matched with the number in the <envar>GSREF</envar> file. This "number" is treated as a character string, so leading zeros must be the same in both the <envar>GSPRO</envar> and <envar>GSREF</envar> files. For BEIS3 modeling, you must use profile "BV309" in order to properly speciate for CB-IV modeling.  There are also BEIS3 speciation profiles for the RADM2 and SAPRC99 chemical mechanisms in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory.</para>
 </listitem>
 <listitem>
 <para>The pollutant ID must match the pollutant names in the SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>). These names are set by the #POLID or #DATA headers in the <command>Smkinven</command> input files.</para>
@@ -5421,7 +5421,7 @@ INVYEAR 1995
 </listitem>
 </itemizedlist>
 
-<para>The formats for these packets are described in the section below. <remark>The growth formats have been designed to handle multiple year-to-year growth.</remark> Only the /EMS_CONTROL/ packet use a column-specific format; all other packets are list-directed.</para>
+<para>The formats for these packets are described in the section below. <comment>The growth formats have been designed to handle multiple year-to-year growth.</comment> Only the /EMS_CONTROL/ packet use a column-specific format; all other packets are list-directed.</para>
 
 <section id="sect_input_gcntl_allowable">
 
@@ -7031,7 +7031,7 @@ VMT RFL TOG
 
 <programlisting>HT  +/-  2.0</programlisting>
 
-<para>The fact that sources are grouped by facility is implicit to the <command>Elevpoint</command> program, since we assumed when creating <command>Elevpoint</command> that grouping at a coarser level of detail was not desirable. The packet supports boolean OR and AND conditions. Each separate line of the packet is an OR condition. The AND conditions must appear on a single line. Any number of lines are permitted in this packet, as are any number of AND conditions or AND/OR combinations.</para>
+<para>The fact that sources are grouped by facility is implicit to the <command>Elevpoint</command> program, since we assumed when creating <command>Elevpoint</command> that grouping at a coarser level of detail was not desirable. The packet supports boolean OR and AND conditions. Each separate line of the packet is an OR condition. The AND conditions must appear on a single line. Any number of lines are permitted in this packet, as are any number of AND conditions or AND/OR combinations. However, each line has a maximum length of 300 characters.</para>
 
 <para>The following example will help illustrate. To indicate that one group should consist of sources with stack heights within &plusmn;2 meters that also have diameters within &plusmn;1 meter, and that a second group should consist of sources with exit velocities below 10 m/s, the packet would be:</para>
 
