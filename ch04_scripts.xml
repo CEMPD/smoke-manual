@@ -30,7 +30,7 @@
 
 <para>SMOKE includes two test cases. The nctox case provides examples of running with criteria and toxics inventories. The nei96 case has not been fully integrated with the SMOKE 2.0 release in terms of testing and updated scripts, <remark>but the data files can still be downloaded from the SMOKE download web site.</remark></para>
 
-<section>
+<section id="sect_scripts_nctox_case">
 
 <title>nctox case</title>
 
@@ -165,7 +165,7 @@
 
 </section>
 
-<section>
+<section id="sect_scripts_assigns_files">
 
 <title>Assigns files</title>
 
@@ -553,13 +553,13 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 </section>
 
-<section>
+<section id="sect_scripts_run_default">
 
 <title>Running SMOKE default cases</title>
 
 <para>As mentioned in <xref linkend="sect_scripts_introduction" />, the first step in working with SMOKE is invoking the Assigns file. In this section, we will go beyond that first step to actually running the scripts. In the first section, we describe how to run the nctox case, previously described. But first, we will review the essential steps for running SMOKE each and every time you start to work with the SMOKE system.</para>
 
-<para>First, the <envar>EDSS_ROOT</envar> environment variable needs to be defined. In <xref linkend="sect_install_installing_smoke" />, we explain that you can configure your UNIX system to set this automatically each time you log into your computer. If you have not done that, then you will need to set the <envar>EDSS_ROOT</envar> variable manually before invoking an Assigns file:</para>
+<para>First, the <envar>EDSS_ROOT</envar> environment variable needs to be defined. In <xref linkend="sect_install_install" />, we explain that you can configure your UNIX system to set this automatically each time you log into your computer. If you have not done that, then you will need to set the <envar>EDSS_ROOT</envar> variable manually before invoking an Assigns file:</para>
 
 <para><userinput><command>setenv</command> <envar>EDSS_ROOT</envar> <replaceable>&lt;directory in which you installed SMOKE&gt;</replaceable></userinput></para>
 
@@ -827,7 +827,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <title>Use new inventory data</title>
 
-<para>This section describes what steps are necessary to take when using new inventory data for anthropogenic sources. For information on biogenic sources, see <xref linkend="sect_scripts_use_beis2" /> and <xref linkend="sect_scripts_use_beis3" />. For more information about the details of each source category (e.g., what is the difference between using MOBILE6 emission factors or precomputed on-road mobile emissions), see <xref linkend="ch_concepts" />.</para>
+<para>This section describes what steps are necessary to take when using new inventory data for anthropogenic sources. For information on biogenic sources, see <xref linkend="sect_scripts_use_beis2" /> and <xref linkend="sect_scripts_use_beis3" />. For more information about the details of each source category (e.g., what is the difference between using MOBILE6 emission factors or precomputed on-road mobile emissions), see <xref linkend="sect_concepts_summary_source_processing" />.</para>
 
 <para>Because this section is so spread out, we provide a small section guide here. This section includes the following subsections:</para>
 
@@ -937,10 +937,10 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <orderedlist>
 <listitem>
-<para>File format header: Make sure that the first line of the list-formatted or individual files start with the #LIST (in list-formatted only), #IDA, #EMS-95, or #TOXICS NONPOINT.</para>
+<para>File format header: Make sure that the first line of the list-formatted or individual files start with the #LIST (in list-formatted only), #IDA, #EMS-95, or #TOXICS NONPOINT (see <xref linkend="sect_input_inventory_format" />).</para>
 </listitem>
 <listitem>
-<para>File type (#TYPE header): The type is important because it helps SMOKE determine the file format (e.g., whether IDA point or IDA on-road activity). Make sure that the header has been set according to the directions in <xref linkend="ch_input_files" />.</para>
+<para>File type (#TYPE header): The type is important because it helps SMOKE determine the file format (e.g., whether IDA point or IDA on-road activity). Make sure that the header has been set according to the directions in <xref linkend="sect_input_inventory_header" />.</para>
 </listitem>
 <listitem>
 <para>Country (#COUNTRY header): Make sure that this head has been used and that the country name used in this header matches the name in the country section of the <envar>COSTCY</envar> file.</para>
@@ -1209,7 +1209,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Please refer to the documentation in step (3) of the area/non-point steps in <xref linkend="sect_scripts_area_invs" />.</para>
 </listitem>
 <listitem>
-<para>For IDA activity format, make sure that the #UNITS header is being used to set the units of the activity fields. Please refer to the format descriptions in <xref linkend="ch_input_files" /> for more information.</para>
+<para>For IDA activity format, make sure that the #UNITS header is being used to set the units of the activity fields. Please refer to <xref linkend="sect_input_inventory_header" /> for more information.</para>
 </listitem>
 </orderedlist>
 
@@ -1224,7 +1224,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Install other mobile-specific files in inventory directories.</para>
 
-<para>The following mobile-specific files must also be installed in the <envar>MBDAT</envar> directory. These files can usually be copied from the default files provided with the SMOKE installation. The formats and additional discussion about the contents of these files can be found in <xref linkend="ch_input_files" />. These files are:</para>
+<para>The following mobile-specific files must also be installed in the <envar>MBDAT</envar> directory. These files can usually be copied from the default files provided with the SMOKE installation. The formats and additional discussion about the contents of these files can be found in <xref linkend="sect_input_source_mobile" />. These files are:</para>
 
 <itemizedlist>
 <listitem>
@@ -1253,7 +1253,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 
 <listitem>
-<para>If using EMS-95 input format, set the <envar>SMK_VMTMIX_FIXFMT</envar> setting to be consistent with the format used for the <envar>VMTMIX</envar> file. See the <command>Smkinven</command> program documentation (<xref linkend="ch_programs" />) and <envar>VMTMIX</envar> file formats (<xref linkend="ch_input_files" />) for more information.</para>
+<para>If using EMS-95 input format, set the <envar>SMK_VMTMIX_FIXFMT</envar> setting to be consistent with the format used for the <envar>VMTMIX</envar> file. See the <xref linkend="sect_programs_smkinven" /> and <xref linkend="sect_input_vmtmix" /> for more information.</para>
 </listitem>
 
 <listitem>
@@ -1367,7 +1367,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 
 <listitem>
-<para><envar>VELOC_RECALC</envar> <remark>Missing text - see description of Smkinven in <xref linkend="ch_programs" /></remark></para>
+<para><envar>VELOC_RECALC</envar> <remark>Missing text - see <xref linkend="sect_programs_smkinven" /></remark></para>
 </listitem>
 
 <listitem>
@@ -1393,22 +1393,22 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <orderedlist>
 <listitem>
-<para>For day-specific emissions data, create the list-formatted <envar>PTDAY</envar> file and one or more files with day-specific emissions in the format provided in <xref linkend="ch_input_files" />. The format requires that a list-formatted file be used to point to the actual data files, even if a single data file with emissions data is used.</para>
+<para>For day-specific emissions data, create the list-formatted <envar>PTDAY</envar> file and one or more files with day-specific emissions in the format provided in <xref linkend="sect_input_ptday" />. The format requires that a list-formatted file be used to point to the actual data files, even if a single data file with emissions data is used.</para>
 </listitem>
 <listitem>
 <para>For day-specific emissions data, the daily total should ideally be based on the same time zone as is being modeled by SMOKE. SMOKE needs to use the same output time zone (set with the <envar>OUTZONE</envar> setting) as is used in the meteorology data that will be input to the air quality model. For example, if the time zone being modeled by SMOKE were GMT, then ideally the daily total emissions would be from 0 GMT to 23 GMT for each day.</para>
 </listitem>
 <listitem>
-<para>For hour-specific emissions data that is <emphasis>not</emphasis> CEM data, create the list-formatted <envar>PTHOUR</envar> file and one or more files with hour-specific emissions in the format provided in <xref linkend="ch_input_files" />. The format requires that a list-formatted file be used to point to the actual data files, even if a single data file with emissions data is used.</para>
+<para>For hour-specific emissions data that is <emphasis>not</emphasis> CEM data, create the list-formatted <envar>PTHOUR</envar> file and one or more files with hour-specific emissions in the format provided in <xref linkend="sect_input_pthour" />. The format requires that a list-formatted file be used to point to the actual data files, even if a single data file with emissions data is used.</para>
 </listitem>
 <listitem>
 <para>If using CEM data, the data files for 1995 through 2000 are available with SMOKE. A list-formatted <envar>PTHOUR</envar> file must be created to list the one or more CEM data files that will be input. To speed processing, the DATERANGE setting can be used in the list-formatted <envar>PTHOUR</envar> file to cause SMOKE to skip the dates in the CEM files that are not needed. When using this format, the annual inventory file must be provided in IDA format, so that SMOKE can assign stack parameters and other information from the IDA file based on the ORIS ID and the Boiler IDs that are used to match the CEM records to the IDA inventory.</para>
 </listitem>
 <listitem>
-<para>If using hourly precomputed plume rise (e.g., for fire data), the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, as described in the file format documentation in <xref linkend="ch_input_files" />. The allowable data includes the fraction of the plume in layer 1, the plume bottom height, and the plume top height.</para>
+<para>If using hourly precomputed plume rise (e.g., for fire data), the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, <remark>as described in the file format documentation in <xref linkend="sect_input_pthour" /></remark>. The allowable data includes the fraction of the plume in layer 1, the plume bottom height, and the plume top height.</para>
 </listitem>
 <listitem>
-<para>If using hourly stack exit temperature, velocity, or flow rates, the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, as described in the file format documentation in <xref linkend="ch_input_files" />.</para>
+<para>If using hourly stack exit temperature, velocity, or flow rates, the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, as described in the file format documentation in <xref linkend="sect_input_pthour" />.</para>
 </listitem>
 </orderedlist>
 
@@ -1567,7 +1567,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Double check that the correct Assigns file (e.g., the one with the correct <envar>$INVID</envar> setting) is used by the run scripts for your case.</para>
 </listitem>
 <listitem>
-<para>Set the <envar>RAW_DUP_CHECK</envar> setting to Y if you want <command>Smkinven</command> to give an error if any duplicate entries are found in the inventory. See the <command>Smkinven</command> program documentation in <xref linkend="ch_programs" /> for more information.</para>
+<para>Set the <envar>RAW_DUP_CHECK</envar> setting to Y if you want <command>Smkinven</command> to give an error if any duplicate entries are found in the inventory. See <xref linkend="sect_programs_smkinven" /> for more information.</para>
 </listitem>
 <listitem>
 <para>Set the <envar>SMKINVEN_FORMULA</envar> setting to compute any pollutant from two other pollutants.</para>
@@ -1578,9 +1578,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Set the <envar>WEST_HSPHERE</envar> setting to reset any positive longitude values that are intended for the Western hemisphere to a negative value.</para>
 </listitem>
 <listitem>
-<para>Set the <envar>WKDAY_NORMALIZE</envar> setting to account for the desired weekday normalization approach to be used for hourly emissions.</para>
-
-<para>See the <envar>Smkinven</envar> program documentation in <xref linkend="ch_programs" /> for more information.</para>
+<para>Set the <envar>WKDAY_NORMALIZE</envar> setting to account for the desired weekday normalization approach to be used for hourly emissions. See <xref linkend="sect_programs_smkinven" /> for more information.</para>
 </listitem>
 <listitem>
 <para>Set the <envar>SMK_NHAPEXCLUDE_YN</envar> setting to Y to read the <envar>NHAPEXCLUDE</envar> file.</para>
@@ -1670,7 +1668,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <title>Set fallback stack paramaters</title>
 
-<para>The <command>Smkinven</command> program allows you to fill in stack parameters for sources that do not have any. The details of how this is done are described in <xref linkend="ch_programs" /> with the <command>Smkinven</command> documentation. To change the defaults, the <envar>PSTK</envar> input file to <command>Smkinven</command> must be edited to use different stack parameters and/or include different state/county and SCC codes.</para>
+<para>The <command>Smkinven</command> program allows you to fill in stack parameters for sources that do not have any. The details of how this is done are described in <xref linkend="sect_concepts_check_stack_params" />.  To change the defaults, the <envar>PSTK</envar> input file to <command>Smkinven</command> must be edited to use different stack parameters and/or include different state/county and SCC codes.</para>
 
 <para>To discover what if any default stack parameters are being used for your SMOKE processing, review the <command>Smkinven</command> log file, which will contain warnings about all stack parameters that were filled in and changed from the inventory values.</para>
 
