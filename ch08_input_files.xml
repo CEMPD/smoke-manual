@@ -4937,11 +4937,11 @@ INVYEAR 1995
 <entry>Monthly temporal profile code (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">7-9</entry>
+<entry colname="Position">6-9</entry>
 <entry>Temporal weight for January (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">11-13</entry>
+<entry colname="Position">10-13</entry>
 <entry>Temporal weight for February (Integer)</entry>
 </row>
 <row>
@@ -4949,7 +4949,7 @@ INVYEAR 1995
 <entry>...</entry>
 </row>
 <row>
-<entry colname="Position">51-53</entry>
+<entry colname="Position">50-53</entry>
 <entry>Temporal weight for December (Integer)</entry>
 </row>
 <row>
@@ -4977,11 +4977,11 @@ INVYEAR 1995
 <entry>Weekly temporal profile code (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">7-9</entry>
+<entry colname="Position">6-9</entry>
 <entry>Temporal weight for Monday (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">11-13</entry>
+<entry colname="Position">10-13</entry>
 <entry>Temporal weight for Tuesday (Integer)</entry>
 </row>
 <row>
@@ -4989,7 +4989,7 @@ INVYEAR 1995
 <entry>...</entry>
 </row>
 <row>
-<entry colname="Position">31-33</entry>
+<entry colname="Position">30-33</entry>
 <entry>Temporal weight for Sunday (Integer)</entry>
 </row>
 <row>
@@ -5017,11 +5017,11 @@ INVYEAR 1995
 <entry>Diurnal temporal profile code (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">7-9</entry>
+<entry colname="Position">6-9</entry>
 <entry>Temporal weight for hour beginning 0000 (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">11-13</entry>
+<entry colname="Position">10-13</entry>
 <entry>Temporal weight for hour beginning 0100 (Integer)</entry>
 </row>
 <row>
@@ -5029,7 +5029,7 @@ INVYEAR 1995
 <entry>...</entry>
 </row>
 <row>
-<entry colname="Position">99-101</entry>
+<entry colname="Position">98-101</entry>
 <entry>Temporal weight for hour beginning 2300 (Integer)</entry>
 </row>
 <row>
