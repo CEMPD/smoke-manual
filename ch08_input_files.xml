@@ -541,7 +541,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry><emphasis role="bold"><envar>GCNTL</envar></emphasis>: projection and/or control instructions</entry>
+<entry><emphasis role="bold"><envar>GCNTL</envar></emphasis>: growth and/or control instructions</entry>
 <entry>
 <simplelist>
 <member>A&nbsp;(stationary)</member>
@@ -5412,14 +5412,14 @@ INVYEAR 1995
 <para>/MACT/ contains settings to support the primary MACT controls needed for toxics processing. Contributes to the multiplicative control matrix. <xref linkend="sect_input_gcntl_mact" /></para>
 </listitem>
 <listitem>
-<para>/PROJECTION/ contains settings to permit growth of emission values into the past or future. Creates a projection matrix for each pollutant and/or activity. <xref linkend="sect_input_gcntl_projection" /></para>
+<para>/PROJECTION/ contains settings to permit growth of emission values into the past or future. Creates a growth matrix for each pollutant and/or activity. <xref linkend="sect_input_gcntl_projection" /></para>
 </listitem>
 <listitem>
 <para>/REACTIVITY/ contains settings needed for reactivity-based controls. Creates the reactivity control matrix. <xref linkend="sect_input_gcntl_reactivity" /></para>
 </listitem>
 </itemizedlist>
 
-<para>The formats for these packets are described in the section below. <remark>The projection formats have been designed to handle multiple year-to-year projections.</remark> Only the /EMS_CONTROL/ packet use a column-specific format; all other packets are list-directed.</para>
+<para>The formats for these packets are described in the section below. <remark>The growth formats have been designed to handle multiple year-to-year growth.</remark> Only the /EMS_CONTROL/ packet use a column-specific format; all other packets are list-directed.</para>
 
 <section id="sect_input_gcntl_allowable">
 
@@ -5959,7 +5959,7 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Pollutant ID, or -9 if not a pollutant-specific projection</entry>
+<entry>Pollutant ID, or -9 if not a pollutant-specific entry</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
@@ -7751,7 +7751,7 @@ SOURCE > 100 AND SOURCE < 200
 <para>Activity: A "Y" should be entered if the inventory data name is a type of activity instead of emissions. Any other values will be treated as an "N".</para>
 </listitem>
 <listitem>
-<para>NTI: Code identifying a HAP on the Clean Air Act HAP list (list of 188 HAPs). Not currently used by SMOKE; will be used in the future for projecting HAP emissions to future years.</para>
+<para>NTI: Code identifying a HAP on the Clean Air Act HAP list (list of 188 HAPs). Not currently used by SMOKE; will be used in the future for growing HAP emissions to future years.</para>
 </listitem>
 <listitem>
 <para>Units: The units to store the data in the SMOKE intermediate files. This should be "tons/year" for emissions values, "miles/year" for VMT, and "miles/hr" for speed. Although this is provided as an input field to allow possible future changes, these values should <emphasis>not</emphasis> be changed by the user and are unrelated to the units of the emissions in the input files.</para>

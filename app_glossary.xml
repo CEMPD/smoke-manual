@@ -41,7 +41,7 @@
 <glossentry>
 <glossterm>Base year</glossterm>
 <glossdef>
-<para>Year for which an air quality modeling episode will be evaluated for model performance. Air quality modeling typically involves modeling a base year and comparing the model run to observational data. Once the meteorology and emissions data in the base year have been improved enough for adequate model performance, the emissions are projected to a future year and the model is run in the future with and without a control strategy.</para>
+<para>Year for which an air quality modeling episode will be evaluated for model performance. Air quality modeling typically involves modeling a base year and comparing the model run to observational data. Once the meteorology and emissions data in the base year have been improved enough for adequate model performance, the emissions are grown to a future year and the model is run in the future with and without a control strategy.</para>
 </glossdef>
 </glossentry>
 
@@ -127,7 +127,7 @@
 <glossentry>
 <glossterm>Emissions processing</glossterm>
 <glossdef>
-<para>Converting the resolution of emissions inventories (e.g. area, biogenic, mobile, and point sources) to the resolution needed by an air quality model (e.g., hourly, grid-cell, data of model species). It may also include projecting data from one year to another year and applying emissions controls on the inventory. This process requires a large number of supplementary data files include gridding surrogates, cross-reference files, and factor profiles for chemical speciation and temporal allocation. It includes combining all source categories and ensuring that the emissions are in the format needed by a specific air quality model. Emissions processing typically includes quality assurance to increase user confidence that the data were converted as intended.</para>
+<para>Converting the resolution of emissions inventories (e.g. area, biogenic, mobile, and point sources) to the resolution needed by an air quality model (e.g., hourly, grid-cell, data of model species). It may also include growing data from one year to another year and applying emissions controls on the inventory. This process requires a large number of supplementary data files include gridding surrogates, cross-reference files, and factor profiles for chemical speciation and temporal allocation. It includes combining all source categories and ensuring that the emissions are in the format needed by a specific air quality model. Emissions processing typically includes quality assurance to increase user confidence that the data were converted as intended.</para>
 </glossdef>
 </glossentry>
 

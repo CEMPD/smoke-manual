@@ -703,7 +703,7 @@
 
 <para>If the <envar>GCNTL</envar> file contains /MACT/, /CONTROL/ or /EMS_CONTROL/, /CTG/, and/or /ALLOWABLE/ packets, <command>Cntlmat</command> outputs a multiplicative control matrix file (<envar>ACMAT</envar>, <envar>MCMAT</envar>, or <envar>PCMAT</envar>), a report of multiplicative controls (<envar>ACREP</envar>, <envar>MCREP</envar>, or <envar>PCREP</envar>), and a report of all multiplicative controls applied to the inventory (<envar>ACSUMREP</envar>, <envar>MCSUMREP</envar>, or <envar>PCSUMREP</envar>). <command>Cntlmat</command> also outputs a warning file (<envar>ACTLWARN</envar>, <envar>MCTLWARN</envar>, or <envar>PCTLWARN</envar>) regardless of which packets are used.</para>
 
-<para>If the <envar>GCNTL</envar> file contains a /PROJECTION/ packet, <command>Cntlmat</command> outputs a projection matrix file (<envar>APMAT</envar>, <envar>MPMAT</envar>, or <envar>PPMAT</envar>) and a projection report (<envar>APROJREP</envar>, <envar>MPROJREP</envar>, or <envar>PPROJREP</envar>).</para>
+<para>If the <envar>GCNTL</envar> file contains a /PROJECTION/ packet, <command>Cntlmat</command> outputs a growth matrix file (<envar>APMAT</envar>, <envar>MPMAT</envar>, or <envar>PPMAT</envar>) and a growth report (<envar>APROJREP</envar>, <envar>MPROJREP</envar>, or <envar>PPROJREP</envar>).</para>
 
 <para>If the <envar>GCNTL</envar> file contains a /REACTIVITY/ packet, <command>Cntlmat</command> outputs mole and mass-based reactivity matrix files (either <envar>ARMAT_L</envar> and <envar>ARMAT_S</envar>, <envar>MRMAT_L</envar> and <envar>MRMAT_S</envar>, or <envar>PRMAT_L</envar> and <envar>PRMAT_S</envar>), a reactivity matrix supplement file (<envar>ARSUP</envar>, <envar>MRSUP</envar>, or <envar>PRSUP</envar>), and a report of reactivity controls (<envar>AREACREP</envar>, <envar>MREACREP</envar>, or <envar>PREACREP</envar>). Finally, <command>Cntlmat</command> writes the <envar>LOGFILE</envar> detailing the program's execution.</para>
 
@@ -754,7 +754,7 @@
 <itemizedlist>
 <listitem>
 <para><envar>PROJECTION_YR_SPEC:</envar> [default: Y]</para>
-<para>Sets whether or not entries in the projection packet are in year-specific format.</para>
+<para>Sets whether or not entries in the /PROJECTION/ packet are in year-specific format.</para>
     <itemizedlist>
     <listitem>
     <para>Y: Year-specific format in use</para>
@@ -924,7 +924,7 @@
 
 <title>Earlier Versions</title>
 
-<para>The SMOKE prototype used separate programs for each type of source. These programs were CTLAMAT for area sources and CTLPMAT for point sources. A version of the control/projection program was not previously available for mobile sources.</para>
+<para>The SMOKE prototype used separate programs for each type of source. These programs were CTLAMAT for area sources and CTLPMAT for point sources. A version of the control/growth program was not previously available for mobile sources.</para>
 
 <para><command>Cntlmat</command> for SMOKE v1.2 did not have an operational reporting capability. The /MACT/ packet and updated /CONTROL/ and /PROJECTION/ packets were added in SMOKE v2.0.</para>
 
@@ -1981,7 +1981,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>SMK_NUM_CTLMAT</envar>: [default: 1]</para>
 
-<para>Number of control and/or projection matrices to import and apply to the inventory.</para>
+<para>Number of control and/or growth matrices to import and apply to the inventory.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_TMPPATH</envar>: [default: <filename class="directory">.</filename>]</para>
