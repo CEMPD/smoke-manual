@@ -7583,8 +7583,10 @@ VMT RFL TOG
 <entry><para>Setting for local roads</para>
 
 <itemizedlist spacing="compact">
-<listitem>1 - model local roads using MOBILE6 local road type (uses default average speed)</listitem>
-<listitem>2 - model local roads using MOBILE6 arterial road type with speeds from mobile inventory</listitem>
+<listitem>1 - model both rural and urban local roads using MOBILE6 local road type (uses default average speed)</listitem>
+<listitem>2 - model both rural and urban local roads using MOBILE6 arterial road type with speeds from mobile inventory</listitem>
+<listitem>3 - model rural local roads using MOBILE6 arterial road type and urban local roads using MOBILE6 local road type</listitem>
+<listitem>4 - model rural local roads using MOBILE6 local road type and urban local roads using MOBILE6 arterial road type</listitem>
 </itemizedlist>
 
 </entry>
