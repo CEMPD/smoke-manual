@@ -67,6 +67,11 @@
 
 <informaltable>
 <tgroup cols="4">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="10*" />
+<colspec colwidth="52*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -149,9 +154,8 @@
 <entry>P</entry>
 <entry>Elevated point-source file written by <command>Smkmerge</command> for REMSAD, UAM, and CAM<subscript>X</subscript> modeling. See <envar>MRG_GRDOUT_UNIT</envar> environment variable setting in <xref linkend="sect_qa_smkreport_envar" />.</entry>
 </row>
-<comment>Add entry for GRIDDESC</comment>
 <row>
-<entry><envar>G_GRIDPATH</envar></entry>
+<entry><envar>GRIDDESC</envar></entry>
 <entry>ASCII</entry>
 <entry>A, M, P</entry>
 <entry>Contains description of the modeling grid</entry>
@@ -218,6 +222,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
