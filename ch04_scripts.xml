@@ -26,9 +26,11 @@
 
 <section>
 
-<title>Example cases descriptions</title>
+<title>Example case description</title>
 
+<comment>
 <para>SMOKE includes two test cases. The nctox case provides examples of running with criteria and toxics inventories. The nei96 case has not been fully integrated with the SMOKE 2.0 release in terms of testing and updated scripts, <remark>but the data files can still be downloaded from the SMOKE download web site.</remark></para>
+</comment>
 
 <section id="sect_scripts_nctox_case">
 
@@ -45,7 +47,7 @@
 </listitem>
 </itemizedlist>
 
-<para>This case has the following major features. It runs for July 9th and 10th, 1996 on a 36-km Lambert Conformal grid over North Carolina. The spatial extent of this case has been limited to provide a relatively fast test case, and the domain is a subdomain of EPA's national grid used in the 1996 NEI case described in <xref linkend="sect_scripts_nei_case" />. The case includes toxics processing for nonroad mobile and on-road mobile sources, which are the only source categories currently supported for toxics by SMOKE.</para>
+<para>This case has the following major features. It runs for July 9th and 10th, 1996 on a 36-km Lambert Conformal grid over North Carolina. The spatial extent of this case has been limited to provide a relatively fast test case<comment>, and the domain is a subdomain of EPA's national grid used in the 1996 NEI case described in <xref linkend="sect_scripts_nei_case" /></comment>. The case includes toxics processing for stationary area, nonroad mobile, on-road mobile, and point sources.</para>
 
 <figure id="fig_scripts_nctox_domain">
 <title>nctox domain</title>
@@ -62,19 +64,21 @@
 
 <para>At this time, the case uses North Carolina records <emphasis>only</emphasis> from the following inventory data:</para>
 
-<para><emphasis role="bold">stationary area sources:</emphasis> 1996 NEI version 3.11 for CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript></para>
+<para><emphasis role="bold">stationary area sources:</emphasis> 1996 NEI version 3.11 for CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript>; 1999 NEI version 3 draft for toxics inventory</para>
 
 <para><emphasis role="bold">nonroad mobile sources:</emphasis> 1996 NEI version 3.11 for CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript>; 1999 NEI version 3 draft for toxics inventory</para>
 
 <para><emphasis role="bold">on-road mobile sources:</emphasis> 1999 VMT (version 2 criteria) and speed for all pollutants</para>
 
-<para><emphasis role="bold">point sources:</emphasis> 1996 NEI version 3.11 for CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript></para>
+<para><emphasis role="bold">point sources:</emphasis> 1996 NEI version 3.11 for CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript>; 1999 NEI version 3 draft for toxics inventory</para>
 
 <para><emphasis role="bold">biogenic sources:</emphasis> BELD2 data running using BEIS2 (for entire grid, even those cells that are not in North Carolina)</para>
 
+<comment>
 <para>Eventually, we will update the case with all 1999 NEI data, but these data were not available in SMOKE input format in time for the version 2.0 release. We also intend to provide BELD3 scripts for this case, but have not yet completed this work (though the national BELD3 data are available in the installation). Note that these inventories use only North Carolina records; therefore, regions that are not in North Carolina will have zero anthropogenic emissions.</para>
+</comment>
 
-<para>For on-road and nonroad mobile sources, this case uses toxics inventories for ozone modeling. The VOC model species for the current CB4 mechanism are based in part on the toxic inventory. SMOKE resolves the duplicate VOC mass caused by combining VOC emissions with toxic VOC emissions by subtracting the toxic VOC mass from the VOC mass and computing a NONHAPVOC emissions value. This is the "integrate" approach for VOC emissions, described in <xref linkend="sect_concepts_combine_toxics" />. The speciation profiles provided with this version of SMOKE include profiles that map the toxics VOC and NONHAPVOC pollutants to current CB4 species. Choices for speciation profiles in this version of SMOKE are listed in <xref linkend="sect_scripts_change_speciation" />.</para>
+<para>For area, mobile, and point sources, this case uses toxics inventories for ozone modeling. The VOC model species for the current CB4 mechanism are based in part on the toxic inventory. SMOKE resolves the duplicate VOC mass caused by combining VOC emissions with toxic VOC emissions by subtracting the toxic VOC mass from the VOC mass and computing a NONHAPVOC emissions value. This is the "integrate" approach for VOC emissions, described in <xref linkend="sect_concepts_combine_toxics" />. The speciation profiles provided with this version of SMOKE include profiles that map the toxics VOC and NONHAPVOC pollutants to current CB4 species. Choices for speciation profiles in this version of SMOKE are listed in <xref linkend="sect_scripts_change_speciation" />.</para>
 
 <para>In addition to the inventory data listed above, the parameters of the case are the following:</para>
 
@@ -120,6 +124,7 @@
 
 </section>
 
+<comment>
 <section id="sect_scripts_nei_case">
 
 <title>1996 NEI case (net96)</title>
@@ -146,6 +151,7 @@
 <para>The pollutants available in the NEI are CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript>. SMOKE computes PMC from the PM<subscript>10</subscript> and PM<subscript>2.5</subscript> values, which is set as an option to the <command>Smkinven</command> program in the scripts. All inventory inputs are in IDA format. More will be added to describe this case once it has been integrated with version 1.5 of SMOKE.</para>
 
 </section>
+</comment>
 
 </section>
 
@@ -462,9 +468,13 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para><envar>RUN_&lt;Program Name&gt;</envar>: [Y | N] The collection of <envar>RUN_&lt;Program Name&gt;</envar> variables control whether a program is going to be run during a given script run. These can be set to N if the program is not needed for some reason (e.g., the REMSAD model does not need the <command>Laypoint</command> program run). How these settings should be set is described in <xref linkend="sect_scripts_change_programs" />.</para>
 </listitem>
+
+<comment>
 <listitem>
 <para><envar>SMK_CONTROL_YN</envar>: [Y | N] <remark>Missing text</remark><comment>be sure to mention <envar>FYIOP</envar></comment></para>
 </listitem>
+</comment>
+
 <listitem>
 <para><envar>SMK_FUTURE_YN</envar>: [Y | N] When set to Y, the file names and output directories are changed to use the <envar>FYEAR</envar> variable setting in the names. See the <envar>FYEAR</envar> documentation for more information on how the naming variables are set. This setting is needed only in scripts for processing future-year cases.</para>
 </listitem>
@@ -894,9 +904,13 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>If using both criteria and toxics data and wish to have the full functionality of SMOKE for both inventories, you must use the IDA format for criteria inventories and the SMOKE ORL format for toxics inventories. You also must use a list file to list both inventory files (criteria and toxics) for SMOKE to combine.</para>
 </listitem>
+
+<comment>
 <listitem>
 <para><remark>It is possible to use the SMOKE ORL format for criteria inventories, but you will not be able to integrate your VOC emissions in this case. (See <xref linkend="sect_concepts_combine_toxics" />.)</remark>.</para>
 </listitem>
+</comment>
+
 <listitem>
 <para>It is possible to use any format for any type of data, provided that the fields that you want to use for cross-reference assignments are available in the format you select. For example, if you want to use MACT-based assignments for controls, you must use the SMOKE ORL format for area/non-point sources, since it is the only format available that includes MACT code as a source attribute.</para>
 </listitem>
@@ -920,7 +934,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>IDA format. This format is most appropriate for criteria inventories for stationary area and nonroad mobile sources.</para>
 </listitem>
 <listitem>
-<para>SMOKE ORL format. This format is most appropriate for non-point toxics inventories, but also can be used for any inventory data <remark>unless you are using SMOKE to integrate criteria and toxics VOC, in which case the IDA is needed for criteria and the SMOKE ORL for toxics</remark>.</para>
+<para>SMOKE ORL format. This format is most appropriate for non-point toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
 <para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format.</para>
@@ -946,7 +960,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Country (#COUNTRY header): Make sure that this head has been used and that the country name used in this header matches the name in the country section of the <envar>COSTCY</envar> file.</para>
 </listitem>
 <listitem>
-<para>Inventory year (#YEAR). For IDA and SMOKE ORL formats, make sure that the inventory year is accurately reflected in the header. This is the only way SMOKE knows what year the data is for. <remark>If the year is not the same for all of your inventory files and you want to make them the same, you will have to use the inventory growth, which is described in <xref linkend="sect_scripts_use_projection" />.</remark> If this year is not a base year but a future-year, make sure to follow the additional instructions in <xref linkend="sect_scripts_future_invs" />.</para>
+<para>Inventory year (#YEAR). For IDA and SMOKE ORL formats, make sure that the inventory year is accurately reflected in the header. This is the only way SMOKE knows what year the data is for. <comment>If the year is not the same for all of your inventory files and you want to make them the same, you will have to use the inventory growth, which is described in <xref linkend="sect_scripts_use_projection" />.</comment> If this year is not a base year but a future-year, make sure to follow the additional instructions in <xref linkend="sect_scripts_future_invs" />.</para>
 
 <para>For EMS-95 format, this header does not apply. Instead, use the /INVYEAR/ packet in the list file.</para>
 </listitem>
@@ -1056,7 +1070,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>IDA format. This format is most appropriate for criteria inventories.</para>
 </listitem>
 <listitem>
-<para>SMOKE ORL format. This format is most appropriate for toxics inventories, but also can be used for any inventory data <remark>unless you are using SMOKE to integrate criteria and toxics VOC, in which case the IDA is needed for criteria and the SMOKE ORL for toxics.</remark></para>
+<para>SMOKE ORL format. This format is most appropriate for toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
 <para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format.</para>
@@ -1158,7 +1172,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>We recommend using the IDA format for criteria emissions inventories.</para>
 </listitem>
 <listitem>
-<para>If using both VMT and emissions, you <emphasis>must</emphasis> use a list-format to import the two separate inventories together. <remark>Also, it is important to make sure that the same sources appear in both inventories. This can be done outside of SMOKE before importing the inventory, or with <command>Smkreport</command>, after importing the inventories. After import, both VMT and emissions should appear in a report by source.</remark></para>
+<para>If using both VMT and emissions, you <emphasis>must</emphasis> use a list-format to import the two separate inventories together. <comment>Also, it is important to make sure that the same sources appear in both inventories. This can be done outside of SMOKE before importing the inventory, or with <command>Smkreport</command>, after importing the inventories. After import, both VMT and emissions should appear in a report by source.</comment></para>
 </listitem>
 <listitem>
 <para>We recommend using the SMOKE ORL format for toxics inventories.</para>
@@ -1166,9 +1180,13 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>If using both criteria and toxics data and wish to have the full functionality of SMOKE for both inventories, you must use the IDA format for criteria inventories and the SMOKE ORL format for toxics inventories. You also must use a list file to list both inventory files (criteria and toxics) for SMOKE to combine.</para>
 </listitem>
+
+<comment>
 <listitem>
 <para><remark>It is possible to use the SMOKE ORL format for criteria inventories, but you will not be able to integrate your VOC emissions in this case (<xref linkend="sect_concepts_combine_toxics" /> explains VOC integration).</remark></para>
 </listitem>
+</comment>
+
 </itemizedlist>
 
 </listitem>
@@ -1192,7 +1210,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>IDA emissions format. This format is most appropriate for criteria emissions inventories.</para>
 </listitem>
 <listitem>
-<para>SMOKE ORL format. This format is most appropriate for toxics inventories, but also can be used for any inventory data <remark>unless you are using SMOKE to integrate criteria and toxics VOC, in which case the IDA is needed for criteria and the SMOKE toxics for toxics.</remark></para>
+<para>SMOKE ORL format. This format is most appropriate for toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
 <para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format. Inventory files in this format will also require the <envar>VMTMIX</envar> file to be created or provided.</para>
@@ -1319,9 +1337,13 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>If using both criteria and toxics data and wish to have the full functionality of SMOKE for both inventories, you must use the IDA format for criteria inventories and the SMOKE toxics format for toxics inventories. You also must use a list file to list both inventory files (criteria and toxics) for SMOKE to combine.</para>
 </listitem>
+
+<comment>
 <listitem>
 <para><remark>It is possible to use the SMOKE toxics format for criteria inventories, but you will not be able to integrate your VOC emissions in this case (<xref linkend="sect_concepts_combine_toxics" /> explains VOC integration).</remark></para>
 </listitem>
+</comment>
+
 <listitem>
 <para>Hour-specific or day-specific data (including plume-rise data) are covered in <xref linkend="sect_scripts_hour_day_invs" />.</para>
 </listitem>
@@ -1342,7 +1364,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>IDA format. This format is most appropriate for criteria inventories for point sources.</para>
 </listitem>
 <listitem>
-<para>SMOKE ORL format. This format is most appropriate for point toxics inventories, but also can be used for any inventory data <remark>unless you are using SMOKE to integrate criteria and toxics VOC, in which case the IDA is needed for criteria and the SMOKE ORL for toxics</remark>.</para>
+<para>SMOKE ORL format. This format is most appropriate for point toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
 <para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format.</para>
@@ -1366,9 +1388,11 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Ensure the Assigns file has the <envar>PTINV</envar> variable set to the <envar>PTINV</envar> file name for your point-source inventory file.</para>
 </listitem>
 
+<comment>
 <listitem>
 <para><envar>VELOC_RECALC</envar> <remark>Missing text - see <xref linkend="sect_programs_smkinven" /></remark></para>
 </listitem>
+</comment>
 
 <listitem>
 <para>For hour-specific and day-specific data, including fire data, see <xref linkend="sect_scripts_hour_day_invs" />.</para>
@@ -1405,7 +1429,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>If using CEM data, the data files for 1995 through 2000 are available with SMOKE. A list file <envar>PTHOUR</envar> must be created to list the one or more CEM data files that will be input. To speed processing, the DATERANGE setting can be used in the list file <envar>PTHOUR</envar> to cause SMOKE to skip the dates in the CEM files that are not needed. When using this format, the annual inventory file must be provided in IDA format, so that SMOKE can assign stack parameters and other information from the IDA file based on the ORIS ID and the Boiler IDs that are used to match the CEM records to the IDA inventory.</para>
 </listitem>
 <listitem>
-<para>If using hourly precomputed plume rise (e.g., for fire data), the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, <remark>as described in the file format documentation in <xref linkend="sect_input_pthour" /></remark>. The allowable data includes the fraction of the plume in layer 1, the plume bottom height, and the plume top height.</para>
+<para>If using hourly precomputed plume rise (e.g., for fire data), the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided<comment>, as described in the file format documentation in <xref linkend="sect_input_pthour" /></comment>. The allowable data includes the fraction of the plume in layer 1, the plume bottom height, and the plume top height.</para>
 </listitem>
 <listitem>
 <para>If using hourly stack exit temperature, velocity, or flow rates, the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, as described in the file format documentation in <xref linkend="sect_input_pthour" />.</para>
@@ -1939,7 +1963,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>The spatial surrogates file (<envar>AGPRO</envar>, <envar>BGPRO</envar>, and <envar>MGPRO</envar>) is one of the most difficult inputs to create for SMOKE. The gridded data in the file must match the definition in the <envar>GRIDDESC</envar> file for the grid selected using the <envar>IOAPI_GRIDNAME_1</envar> variable.</para>
 
-<para>The best approach to creating this file is to obtain it from someone else who has created surrogates for your domain. <remark>For example, EPA recently created a 4-km national spatial surrogates file.</remark> Of course, using a national file has its limitations if your domain happens to be far away from the center of the U.S., since the map projection for the surrogates is more distorted further away from the center of the projection. However, for most users, this distortion will be a small price to pay for having readily available spatial surrogates.</para>
+<para>The best approach to creating this file is to obtain it from someone else who has created surrogates for your domain. For example, EPA has created 4-km national spatial surrogates available at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html" />. Of course, using a national file has its limitations if your domain happens to be far away from the center of the U.S. since the map projection for the surrogates is more distorted further away from the center of the projection. However, for most users, this distortion will be a small price to pay for having readily available spatial surrogates.</para>
 
 <para>The second best approach to creating this file is to use the MIMS Spatial Allocator (MSA). This tool can create SMOKE-ready surrogates using GIS shape files, which are provided with the tool for 15 surrogates. Please refer to the web site <ulink url="http://www.epa.gov/asmdnerl/mims/software/spatial_allocator.html" /> for more information.</para>
 
@@ -2320,7 +2344,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Create and install the <envar>GSPRO</envar> file.</para>
 
-<para>If only a few changes will be made to a <envar>GSPRO</envar> file (like adding some more toxic species for REMSAD), you can simply copy an existing <envar>GSPRO</envar> file to a new file. If more extensive changes are needed to create a new mechanism, currently, there is no utility for creating a <envar>GSPRO</envar> file in SMOKE. <remark>There is a system in development that will be available in early 2004. For now, users must use the file format in <xref linkend="ch_input_files" /> and a high degree of expertise to develop new <envar>GSPRO</envar> files.</remark></para>
+<para>If only a few changes will be made to a <envar>GSPRO</envar> file (like adding some more toxic species for REMSAD), you can simply copy an existing <envar>GSPRO</envar> file to a new file. If more extensive changes are needed to create a new mechanism, currently, there is no utility for creating a <envar>GSPRO</envar> file in SMOKE. <comment>There is a system in development that will be available in early 2004.</comment> For now, users must use the file format in <xref linkend="ch_input_files" /> and a high degree of expertise to develop new <envar>GSPRO</envar> files.</para>
 
 <para>Install the <envar>GSPRO</envar> file in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory. For the default <envar>GSPRO</envar> file for that chemical mechanism (i.e., the one that applies to the most source categories), name the file <filename>gspro.<envar>$SPC</envar>.txt</filename>. If your speciation profile is specific to a certain source category, name the <envar>GSPRO</envar> file as follows:</para>
 
@@ -2641,7 +2665,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Set <envar>CNTLCASE</envar> to the control strategy name that you want for the control case.</para>
 </listitem>
 <listitem>
-<para><remark>At line 120 of file,</remark> reset <envar>SMK_CONTROL_YN</envar> to Y</para>
+<para>At line 120 of file, reset <envar>SMK_CONTROL_YN</envar> to Y</para>
 </listitem>
 <listitem>
 <para>To run <command>Smkmerge</command> for reactivity controls, add the <envar>MRG_CTLMAT_REAC</envar> option to the <command>Smkmerge</command> options and set to "A","M", "P" or some combination of those letters to indicate whether you want it to use the reactivity matrix for area (including nonroad), on-road mobile, or point sources.</para>
@@ -2681,7 +2705,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Set <envar>CNTLCASE</envar> to the control strategy name that you want for the control case.</para>
 </listitem>
 <listitem>
-<para><remark>At line 120 of file,</remark> reset <envar>SMK_CONTROL_YN</envar> to N</para>
+<para>At line 120 of file, reset <envar>SMK_CONTROL_YN</envar> to N</para>
 </listitem>
 <listitem>
 <para>To run <command>Smkmerge</command> for multiplicative controls, add the <envar>MRG_CTLMAT_MULT</envar> setting to <command>Smkmerge</command> options and set to "A","M", "P" or some combination of those letters to indicate whether you want it to use the multiplicative control matrix for area (including nonroad), on-road mobile, or point sources.</para>
@@ -2945,15 +2969,25 @@ endif</programlisting>
 <listitem>
 <para><xref linkend="sect_scripts_duration_output" /></para>
 </listitem>
+
+<comment>
 <listitem>
 <para><xref linkend="sect_scripts_use_average_day" /></para>
 </listitem>
+</comment>
+
+<comment>
 <listitem>
 <para><xref linkend="sect_scripts_change_outzone" /></para>
 </listitem>
+</comment>
+
+<comment>
 <listitem>
 <para><xref linkend="sect_scripts_mwss_approach" /></para>
 </listitem>
+</comment>
+
 <listitem>
 <para><xref linkend="sect_scripts_change_holidays" /></para>
 </listitem>
@@ -3140,6 +3174,7 @@ endif</programlisting>
 
 </section>
 
+<comment>
 <section id="sect_scripts_use_average_day">
 
 <title>Using average-day emissions values</title>
@@ -3149,7 +3184,9 @@ endif</programlisting>
 <remark>Missing text - see <xref linkend="sect_scripts_average_day_invs" /></remark>
 
 </section>
+</comment>
 
+<comment>
 <section id="sect_scripts_change_outzone">
 
 <title>Changing the output time zone</title>
@@ -3159,7 +3196,9 @@ endif</programlisting>
 <remark>Missing text - see <xref linkend="sect_concepts_time_zones" /></remark>
 
 </section>
+</comment>
 
+<comment>
 <section id="sect_scripts_mwss_approach">
 
 <title>Monday, weekday, Saturday, Sunday approach</title>
@@ -3169,6 +3208,7 @@ endif</programlisting>
 <remark>Missing text - see <xref linkend="sect_concepts_mwss_processing" /></remark>
 
 </section>
+</comment>
 
 <section id="sect_scripts_change_holidays">
 
@@ -3361,6 +3401,7 @@ endif</programlisting>
 <listitem>
 <para>Ensure required variables are included in meteorology data</para>
 
+<comment>
 <para><remark><xref linkend="ch_input_files" /> includes a section on meteorology inputs and the variables that are required when using meteorology data for biogenic, on-road mobile, and point sources. Using the list below, determine the source categories for which you will need meteorology data. Then using <xref linkend="ch_input_files" /> determine which variables you must include in your meteorology files for SMOKE.</remark></para>
 
 <itemizedlist>
@@ -3374,6 +3415,7 @@ endif</programlisting>
 <para>If you are running CMAQ or MAQSIP and SMOKE's point source emissions, then you need the variables listed in <xref linkend="ch_input_files" /> for point sources, so that SMOKE can compute plume rise.</para>
 </listitem>
 </itemizedlist>
+</comment>
 
 </listitem>
 <listitem>
@@ -3683,7 +3725,7 @@ endif</programlisting>
 <listitem>
 <para>Resolve all errors and warnings in all log files.</para>
 
-<para><xref linkend="ch_errors" /> includes possible errors and warnings generated by the SMOKE programs and provides guidance on how to handle them.</para>
+<comment><para><xref linkend="ch_errors" /> includes possible errors and warnings generated by the SMOKE programs and provides guidance on how to handle them.</para></comment>
 </listitem>
 <listitem>
 <para>Compare SMOKE output emissions to inventory total emissions at each stage of SMOKE processing to ensure emissions have not been erroneously lost or added.</para>
