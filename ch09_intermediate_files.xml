@@ -212,7 +212,7 @@
 <row>
 <entry>NTHIK3D</entry>
 <entry>The number of SMOKE sources</entry>
-<entry><envar>NSRC</envar> from the SMKINVEN program</entry>
+<entry><envar>NSRC</envar> from the <command>Smkinven</command> program</entry>
 </row>
 </tbody>
 </tgroup>
@@ -610,7 +610,7 @@
 
 <title><command>Grdmat</command></title>
 
-<para>The <command>Grdmat</command> program is responsible for creating the gridding matrix. Grdmat creates the following intermediate files:</para>
+<para>The <command>Grdmat</command> program is responsible for creating the gridding matrix. <command>Grdmat</command> creates the following intermediate files:</para>
 
 <itemizedlist>
 <listitem>

@@ -2314,7 +2314,7 @@ Additional data</programlisting>
 
 <title>Set the base year</title>
 
-<para>Smkinven imports all data and then sets the inventory base year in the file as the year that has the most data values. The year of the inventories is set using the #YEAR header for IDA and SMOKE ORL inputs, or the /INVYEAR/ packet for EMS-95 input files (see <xref linkend="sect_input_inventory" /> for more information on this header and packet). Usually, the year of the data is the same for all sources, so you will know what <command>Smkinven</command> will assume is the base year. However, if multiple inventory years are provided, <command>Smkinven</command> will set it using the year that is associated with the largest number of sources.</para>
+<para><command>Smkinven</command> imports all data and then sets the inventory base year in the file as the year that has the most data values. The year of the inventories is set using the #YEAR header for IDA and SMOKE ORL inputs, or the /INVYEAR/ packet for EMS-95 input files (see <xref linkend="sect_input_inventory" /> for more information on this header and packet). Usually, the year of the data is the same for all sources, so you will know what <command>Smkinven</command> will assume is the base year. However, if multiple inventory years are provided, <command>Smkinven</command> will set it using the year that is associated with the largest number of sources.</para>
 
 <para>If you provide a future-year inventory to SMOKE, you must override the base-year setting obtained from the values given by the #YEAR header or the /INVYEAR/ packet. This is accomplished with the <envar>SMK_BASEYR_OVERRIDE</envar> setting. This is necessary so that later SMOKE steps will be able to verify that the episode year is consistent with the base year.</para>
 
@@ -2911,7 +2911,7 @@ Additional data</programlisting>
 </mediaobject>
 </figure>
 
-<para>Grwinven combines the intermediate inventory files with one or more growth matrices to create a new intermediate inventory file with the same structure as the original file but with a future (or past) year stored in the header of this file.</para>
+<para><command>Grwinven</command> combines the intermediate inventory files with one or more growth matrices to create a new intermediate inventory file with the same structure as the original file but with a future (or past) year stored in the header of this file.</para>
 
 <para>In growth processing, the <command>Cntlmat</command> program addresses the following emissions processing needs when creating the growth matrix:</para>
 
@@ -2978,7 +2978,7 @@ Additional data</programlisting>
 
 <para>The <command>Grwinven</command> program applies the growth factors to the inventory pollutants by simply multiplying the growth matrices for the pollutants with the annual and average-day emission values. It reads in the SMOKE intermediate inventory file and up to 80 growth matrices, then applies the growth factors from all growth matrices to the appropriate pollutants. If a growth matrix has the "pfac" variable, <command>Grwinven</command> applies the factors to all pollutants in the inventory; if instead the matrix has pollutant-specific entries, the factors are applied by matching the pollutants between the matrix and the inventory.</para>
 
-<para>As is further described in <xref linkend="sect_concepts_control_processing" />, Grwinven can also apply the control matrix at the same time it applies the growth matrix, and the total number of growth and control matrices that can be applied in one run is 80. The <command>Grwinven</command> program's growth processing features cannot be applied to a SMOKE intermediate file that <command>Grwinven</command> has created, because of the /FYEAR/ header element described in the next section.</para>
+<para>As is further described in <xref linkend="sect_concepts_control_processing" />, <command>Grwinven</command> can also apply the control matrix at the same time it applies the growth matrix, and the total number of growth and control matrices that can be applied in one run is 80. The <command>Grwinven</command> program's growth processing features cannot be applied to a SMOKE intermediate file that <command>Grwinven</command> has created, because of the /FYEAR/ header element described in the next section.</para>
 
 </section>
 
@@ -3077,7 +3077,7 @@ Additional data</programlisting>
 
 <title>Creating the multiplicative control matrix</title>
 
-<para>Cntlmat creates the multiplicative control matrix based on the information contained in the /MACT/, /CONTROL/, /EMS_CONTROL/, /CTG/, and /ALLOWABLE/ packets. The specific details of how these packets interact and how the control factors are calculated is described in the <command>Cntlmat</command> section of <xref linkend="sect_programs_cntlmat" />. Once the control factors have been calculated, <command>Cntlmat</command> writes a multiplicative control matrix file that contains one column of control factors for each pollutant; each row in the matrix represents a source. The names of the columns are the same as the names of the pollutants from the SMOKE inventory file, so that either the <command>Grwinven</command> or the <command>Smkmerge</command> program knows which control column to apply to which inventory pollutant.</para>
+<para><command>Cntlmat</command> creates the multiplicative control matrix based on the information contained in the /MACT/, /CONTROL/, /EMS_CONTROL/, /CTG/, and /ALLOWABLE/ packets. The specific details of how these packets interact and how the control factors are calculated is described in the <command>Cntlmat</command> section of <xref linkend="sect_programs_cntlmat" />. Once the control factors have been calculated, <command>Cntlmat</command> writes a multiplicative control matrix file that contains one column of control factors for each pollutant; each row in the matrix represents a source. The names of the columns are the same as the names of the pollutants from the SMOKE inventory file, so that either the <command>Grwinven</command> or the <command>Smkmerge</command> program knows which control column to apply to which inventory pollutant.</para>
 
 </section>
 
@@ -3135,7 +3135,7 @@ Additional data</programlisting>
 
 <para>After applying the control factors to the SMOKE intermediate inventory file, the <command>Grwinven</command> program writes a new SMOKE intermediate inventory file that contains the new, controlled emissions. <command>Grwinven</command> writes only the I/O API part of the inventory and not the ASCII part, because the ASCII part that contains the state/county codes, SCCs, and other character strings does not change between the base and future or past year. All of the sources in the base and controlled inventory files are the same; the difference is in their emissions values.</para>
 
-<para>Grwinven can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad SMOKE ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format when these formats were used to create the SMOKE intermediate inventory file.</para>
+<para><command>Grwinven</command> can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad SMOKE ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format when these formats were used to create the SMOKE intermediate inventory file.</para>
 
 </section>
 
@@ -3502,7 +3502,7 @@ Additional data</programlisting>
 
 <para>Many processing steps in SMOKE are independent of one another; for example, chemical speciation and temporal allocation can change without affecting one another. This independence means that when one step changes, another step does not need to be rerun in many cases. However, because <command>Smkmerge</command> combines the data from all of these processing steps to create the model-ready emissions, if one of the earlier steps changes, then the merging step must also be rerun. This includes rerunning <command>Smkmerge</command> to generate model-ready files, and if the <command>Mrggrid</command> program was used, also rerunning that to merge data from multiple source categories together.</para>
 
-<para>Smkmerge also has the ability to input hourly emissions by day of the week and reuse days that are the same. For example, it can input separate hourly emissions files for Monday, a weekday, Saturday, and Sunday, and use these four files to generate model-ready emissions for every day in an entire month. This is accomplished using the <envar>MRG_BYDAY</envar> SMOKE option, described further in <xref linkend="sect_programs_smkmerge" />. Special treatment can also be given to holidays in this case, since users generally wish to model holidays differently than other days. <xref linkend="sect_scripts_mwss_approach" /> explains more about how to configure scripts for processing with a Monday, weekday, Saturday, and Sunday approach.</para>
+<para><command>Smkmerge</command> also has the ability to input hourly emissions by day of the week and reuse days that are the same. For example, it can input separate hourly emissions files for Monday, a weekday, Saturday, and Sunday, and use these four files to generate model-ready emissions for every day in an entire month. This is accomplished using the <envar>MRG_BYDAY</envar> SMOKE option, described further in <xref linkend="sect_programs_smkmerge" />. Special treatment can also be given to holidays in this case, since users generally wish to model holidays differently than other days. <xref linkend="sect_scripts_mwss_approach" /> explains more about how to configure scripts for processing with a Monday, weekday, Saturday, and Sunday approach.</para>
 
 </section>
 

@@ -321,7 +321,7 @@
 
 <para>Creates the <envar>METLIST</envar> and <envar>RADLIST</envar> files for <command>Tmpbio</command> by listing <envar>$MET_FILE1</envar> to <envar>METLIST</envar> and <envar>$MET_FILE2</envar> to <envar>RADLIST</envar>. <envar>MET_FILE1</envar> and <envar>MET_FILE2</envar> are set in the Assigns file.</para>
 
-<para>Determines which speciation matrix is needed for Smkmerge, based on the requested units. If the <envar>MRG_GRDOUT_UNIT</envar> setting contains the string "mole" then the molar speciation matrix and molar gridded, hourly biogenic emissions are set to be used by <command>Smkmerge</command>.</para>
+<para>Determines which speciation matrix is needed for <command>Smkmerge</command>, based on the requested units. If the <envar>MRG_GRDOUT_UNIT</envar> setting contains the string "mole" then the molar speciation matrix and molar gridded, hourly biogenic emissions are set to be used by <command>Smkmerge</command>.</para>
 
 <para>Creates the <envar>FILELIST</envar> file for <command>Mrggrid</command> from the <envar>MRGFILES</envar> setting in the calling merge run script.</para>
 </listitem>
@@ -1197,7 +1197,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Collect or create inventories in correct formats.</para>
 
-<para>Inventory files for on-road mobile sources are usually named starting with "mbinv," because Smkinven uses the <envar>MBINV</envar> logical file name (environment variable) to read the file. The list of available formats for on-road mobile sources is:</para>
+<para>Inventory files for on-road mobile sources are usually named starting with "mbinv," because <command>Smkinven</command> uses the <envar>MBINV</envar> logical file name (environment variable) to read the file. The list of available formats for on-road mobile sources is:</para>
 
 <orderedlist>
 <listitem>
@@ -1463,7 +1463,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>If using hourly data, make sure the <envar>OUTZONE</envar> setting is consistent with what will be used for other SMOKE processing steps.</para>
 
-<para>The default SMOKE scripts make it difficult to not use the same <envar>OUTZONE</envar> setting for all processing steps. Nevertheless, the user is responsible for ensuring that the same setting is used for all SMOKE processing steps, including import of hourly inventories. The <envar>OUTZONE</envar> setting will affect the hourly inventory import because the hourly emissions will be adjusted by Smkinven from the local time zones in the <envar>PTHOUR</envar> input files to the output time zone set by <envar>OUTZONE</envar> to create the <envar>PHOUR</envar> intermediate file.</para>
+<para>The default SMOKE scripts make it difficult to not use the same <envar>OUTZONE</envar> setting for all processing steps. Nevertheless, the user is responsible for ensuring that the same setting is used for all SMOKE processing steps, including import of hourly inventories. The <envar>OUTZONE</envar> setting will affect the hourly inventory import because the hourly emissions will be adjusted by <command>Smkinven</command> from the local time zones in the <envar>PTHOUR</envar> input files to the output time zone set by <envar>OUTZONE</envar> to create the <envar>PHOUR</envar> intermediate file.</para>
 </listitem>
 
 <listitem>
@@ -3548,7 +3548,7 @@ endif</programlisting>
 
 <title>Model for CMAQ and MAQSIP</title>
 
-<para>In this section, we attempt to give a basic outline of the considerations for script reconfiguration needed for SMOKE output for the CMAQ and MAQSIP models. All models require Smkmerge to be configured for outputting gridded data, with speciation, and with hourly emissions. The following configurations are needed when modeling for CMAQ and MAQSIP.</para>
+<para>In this section, we attempt to give a basic outline of the considerations for script reconfiguration needed for SMOKE output for the CMAQ and MAQSIP models. All models require <command>Smkmerge</command> to be configured for outputting gridded data, with speciation, and with hourly emissions. The following configurations are needed when modeling for CMAQ and MAQSIP.</para>
 
 <orderedlist>
 <listitem>
