@@ -226,7 +226,7 @@
 <glossentry>
 <glossterm>Latitude/longitude (lat/lon)</glossterm>
 <glossdef>
-<para>A spherical reference system used to measure locations on the Earth's surface. Latitude and longitude are angles measured from the Earth's center to locations on the Earth's surface. Latitude measures angles in a north-south direction. Longitude measures angles in the east-west direction. In SMOKE, lat/lon refers to a map projection.</para>
+<para>A spherical reference system used to measure locations on the Earth&rsquo;s surface. Latitude and longitude are angles measured from the Earth&rsquo;s center to locations on the Earth&rsquo;s surface. Latitude measures angles in a north-south direction. Longitude measures angles in the east-west direction. In SMOKE, lat/lon refers to a map projection.</para>
 </glossdef>
 </glossentry>
 
@@ -264,7 +264,7 @@
 <glossentry id="glossary_map_projection">
 <glossterm>Map projection</glossterm>
 <glossdef>
-<para>A mathematical model that transforms the locations of features on the Earth's surface to locations on a two-dimensional surface. Because the Earth is three-dimensional, some method must be used to depict a map in two dimensions. Some projections preserve shape; others preserve accuracy of area, distance, or direction. Map projections project the Earth's surface onto a flat plane. However, any such representation distorts some parameter of the Earth's surface be it distance, area, shape, or direction.</para>
+<para>A mathematical model that transforms the locations of features on the Earth&rsquo;s surface to locations on a two-dimensional surface. Because the Earth is three-dimensional, some method must be used to depict a map in two dimensions. Some projections preserve shape; others preserve accuracy of area, distance, or direction. Map projections project the Earth&rsquo;s surface onto a flat plane. However, any such representation distorts some parameter of the Earth&rsquo;s surface be it distance, area, shape, or direction.</para>
 </glossdef>
 </glossentry>
 
@@ -499,7 +499,7 @@
 <glossentry id="glossary_universal_transverse_mercator">
 <glossterm>Universal Transverse Mercator</glossterm>
 <glossdef>
-<para>Military grid projection based on the transverse Mercator projection, applied to maps of the Earth's surface extending from the Equator to 84 degrees north and 80 degress south latitudes.</para>
+<para>Military grid projection based on the transverse Mercator projection, applied to maps of the Earth&rsquo;s surface extending from the Equator to 84 degrees north and 80 degress south latitudes.</para>
 </glossdef>
 </glossentry>
 
