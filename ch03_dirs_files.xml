@@ -28,7 +28,7 @@
 
 <title>Example Assigns file</title>
 
-<para>Before we can proceed with describing the scripts, we need to introduce the Assigns file. Detailed documentation on this file is provided in <xref linkend="ch_scripts" />. For the purposes of the discussion here, we provide an example Assigns file to help clarify what it is. Because this file is quite lengthy, we have only included excerpts. In this subsection, the Assigns file is simply a set of <command>setenv</command> UNIX commands and calls to helper scripts.</para>
+<para>Before we can proceed with describing the scripts, we need to introduce the Assigns file. Detailed documentation on this file is provided in <xref linkend="sect_scripts_assigns_files" />. For the purposes of the discussion here, we provide an example Assigns file to help clarify what it is. Because this file is quite lengthy, we have only included excerpts. In this subsection, the Assigns file is simply a set of <command>setenv</command> UNIX commands and calls to helper scripts.</para>
 
 <para>The arrangement within the default Assigns file provided with SMOKE is:</para>
 
@@ -518,10 +518,10 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$MSCEN</envar>/static/m6</filename>: For MOBILE6 modeling only, this directory must contain the ancillary MOBILE6 inputs needed for running MOBILE6. <xref linkend="ch_scripts" /> contains a description of the files that are required and their dependencies on MOBILE6 commands. Some files are needed only when certain MOBILE6 input commands are used.</para>
+<para><filename class="directory">data/run_<envar>$MSCEN</envar>/static/m6</filename>: For MOBILE6 modeling only, this directory must contain the ancillary MOBILE6 inputs needed for running MOBILE6. <xref linkend="sect_scripts_use_mobile6" /> contains a description of the files that are required and their dependencies on MOBILE6 commands. Some files are needed only when certain MOBILE6 input commands are used.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">data/met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-road mobile sources with MOBILE6 using gridded, hourly meteorology data; or (3) point sources for the CMAQ or MAQSIP models. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ's MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats. See <xref linkend="ch_input_files" /> for more information about the meteorology data needed by SMOKE.</para>
+<para><filename class="directory">data/met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-road mobile sources with MOBILE6 using gridded, hourly meteorology data; or (3) point sources for the CMAQ or MAQSIP models. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ's MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats. See <xref linkend="sect_input_meteorology" /> for more information about the meteorology data needed by SMOKE.</para>
 </listitem>
 </itemizedlist>
 
@@ -885,7 +885,7 @@ source $ASSIGNS/set_dirs.scr
 
 <title>Locations of reports</title>
 
-<para>The report output directory names follow the same paradigm as the intermediate and model-ready output directory names. "Reports" as defined for this directory structure are the files output from the <command>Smkreport</command> and <command>Smkmerge</command> programs and the <envar>REPINVEN</envar> report from <command>Smkinven</command>. More information on <command>Smkinven</command> and <command>Smkmerge</command> can be found in <xref linkend="ch_programs" />, while <command>Smkreport</command> is discussed in <xref linkend="ch_quality_assurance" />.</para>
+<para>The report output directory names follow the same paradigm as the intermediate and model-ready output directory names. "Reports" as defined for this directory structure are the files output from the <command>Smkreport</command> and <command>Smkmerge</command> programs and the <envar>REPINVEN</envar> report from <command>Smkinven</command>. More information on <command>Smkinven</command> and <command>Smkmerge</command> can be found in <xref linkend="sect_programs_smkinven" /> and <xref linkend="sect_programs_smkmerge" />, while <command>Smkreport</command> is discussed in <xref linkend="sect_qa_smkreport" />.</para>
 
 <para>As shown in <xref linkend="fig_dirs_files_base" />, the two main report directories for the basic configuration are the <filename class="directory">data/reports/<envar>$ESCEN</envar>/static</filename> and <filename class="directory">data/reports/<envar>$ESCEN</envar>/scenario</filename> directories. The former directory is for time-independent reports, and the latter is for time-dependent reports. Because the <envar>BSCEN</envar> variable is usually different from the <envar>ESCEN</envar> variable, a different report directory is available for the biogenic emissions: <filename class="directory">data/reports/<envar>$BSCEN</envar>/scenario</filename>, which contains the only biogenic reports available (created by the <command>Smkmerge</command> program).</para>
 
