@@ -10,5 +10,16 @@
 <xsl:param name="chunk.fast" select="1" />
 <xsl:param name="base.dir" select="'../html/'" />
 <xsl:param name="html.stylesheet" select="'manual.css'" />
+<xsl:param name="chunk.section.depth" select="'2'" />
+
+<xsl:param name="generate.section.toc.level" select="'7'" />
+<xsl:param name="toc.section.depth" select="'7'" />
+<xsl:param name="toc.max.depth" select="'1'" />
+
+<xsl:param name="generate.toc">
+  book     toc,title,figure,table,example,equation
+  chapter  toc
+  section  toc
+</xsl:param>
 
 </xsl:stylesheet>
