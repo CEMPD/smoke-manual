@@ -170,11 +170,11 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">netcdf</filename>: A placeholder location for the NetCDF library object files. When compiling SMOKE, the makefiles look here for the NetCDF library, but the actual library can be linked to the main NetCDF installation, which can be elsewhere on your computer. Please see <xref linkend="ch_installation" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">smokev1</filename>: This is the main SMOKE directory. It contains the Assigns files (one per modeling case), <remark>SMOKE documentation,</remark> SMOKE source code, makefiles, scripts, and executables.</para>
+<para><filename class="directory">smokev1</filename>: This is the main SMOKE directory. It contains the Assigns files (one per modeling case), <comment>SMOKE documentation,</comment> SMOKE source code, makefiles, scripts, and executables.</para>
 </listitem>
 </itemizedlist>
 
-<para><xref linkend="fig_dirs_subdirs_main" /> shows the subdirectories inside the main SMOKE directory, <filename class="directory">smokev1</filename>; these are all creating during the installation of SMOKE (<xref linkend="ch_installation" />). These subdirectories contain the Assigns files, <remark>SMOKE user documentation</remark>, source code and makefiles, scripts, and executables.</para>
+<para><xref linkend="fig_dirs_subdirs_main" /> shows the subdirectories inside the main SMOKE directory, <filename class="directory">smokev1</filename>; these are all creating during the installation of SMOKE (<xref linkend="ch_installation" />). These subdirectories contain the Assigns files, <comment>SMOKE user documentation,</comment> source code and makefiles, scripts, and executables.</para>
 
 <figure id="fig_dirs_subdirs_main">
 <title>Subdirectories of the main SMOKE directory</title>
@@ -196,7 +196,7 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">assigns</filename>: Contains the Assigns files and all helper scripts for the Assigns files.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">doc</filename>: Contains the <remark>SMOKE user documentation and</remark> files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked properly.</para>
+<para><filename class="directory">doc</filename>: Contains the SMOKE user documentation <remark>(not included with SMOKE v2.0)</remark> and files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked properly.</para>
 </listitem>
 <listitem>
 <para><filename class="directory"><envar>$EDSS_EXE</envar></filename>: This directory contains the executables for your particular system. Different directory names apply to different platforms (e.g., <filename class="directory">Linux2_x86ifc</filename>, <filename class="directory">IRIXn32f90</filename>, <filename class="directory">SunOS5f90</filename>). For more information about the various platforms for which SMOKE is available, see <xref linkend="ch_installation" />.</para>
@@ -1201,50 +1201,50 @@ source $ASSIGNS/set_dirs.scr
 </tgroup>
 </table>
 
-<para>The last type of ancillary files we discuss in this section are speciation profile files and speciation cross-reference files .There are many speciation files that are needed for SMOKE because of the large number of models and chemical mechanisms that SMOKE supports. <xref linkend="tbl_dirs_spec_files" /> summarizes these files and the many components that they have. The letters in the cells within the "Description" column indicate which major components are included by the <envar>GSPRO</envar> and <envar>GSREF</envar> files. These cells need supporting explanations, which are provided in the bulleted list below.</para>
+<para>The last type of ancillary files we discuss in this section are speciation profile files and speciation cross-reference files. There are many speciation files that are needed for SMOKE because of the large number of models and chemical mechanisms that SMOKE supports. <xref linkend="tbl_dirs_spec_files" /> summarizes these files and the many components that they have. The letters in the cells within the "Description" column indicate which major components are included by the <envar>GSPRO</envar> and <envar>GSREF</envar> files. These cells need supporting explanations, which are provided in the bulleted list below.</para>
 
 <itemizedlist>
 <listitem>
-<para><emphasis role="bold">Profile 0000:</emphasis> Contains pass-through profiles for CO, NH<subscript>3</subscript>, SO<subscript>2</subscript>, and PMC; also splits NO<subscript>x</subscript> into 90% NO and 10% NO<subscript>2</subscript>. Includes the profile for BEIS2 speciation, including creating TERPB from TERP for CMAQ files that use this profile.</para>
+<para><emphasis role="bold">I - Profile 0000:</emphasis> Contains pass-through profiles for CO, NH<subscript>3</subscript>, SO<subscript>2</subscript>, and PMC; also splits NO<subscript>x</subscript> into 90% NO and 10% NO<subscript>2</subscript>. Includes the profile for BEIS2 speciation, including creating TERPB from TERP for CMAQ files that use this profile.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">BEIS3:</emphasis> Includes the BEIS3 profiles prepared by Tom Pierce at EPA/ORD. The biogenic-only speciation profile files are not associated with a speciation cross-reference file because biogenic processing uses only one profile and does not need a speciation cross-reference file.</para>
+<para><emphasis role="bold">II - BEIS3:</emphasis> Includes the BEIS3 profiles prepared by Tom Pierce at EPA/ORD. The biogenic-only speciation profile files are not associated with a speciation cross-reference file because biogenic processing uses only one profile and does not need a speciation cross-reference file.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">CMAQ CB4:</emphasis> Includes TOG profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" />. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
+<para><emphasis role="bold">III - CMAQ CB4:</emphasis> Includes TOG profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" />. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">CMAQ PM:</emphasis> Includes PM2.5 profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" /></para>
+<para><emphasis role="bold">IV - CMAQ PM:</emphasis> Includes PM2.5 profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" /></para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">CMAQ CB4tx1:</emphasis> CMAQ CB4 toxics (version 1) TOG profiles and VOC SCC assignments to be used when integrating toxics VOC with criteria inventory for on-road mobile sources. Because changes are being made to the research version 1 of CB4 toxics, it is expected that users will have to create new CB4 toxics profiles for all source categories. TOG profiles are labeled with profile codes ending in "A" to identify them as different from standard profiles. They were developed by Jerry Gipson at EPA/ORD and can be used only for the "no-integrate" case, to drop mass of acetaldehyde, 1,3-butadiene, formaldehyde, and acrolein (all explicit CMAQ toxics). Benzene is mapped to both CB4 species (PAR and NR) and to special BENZENE species, which doubles the mass of benzene output by SMOKE. Added to file by Marc Houyoux, MCNC. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
+<para><emphasis role="bold">V - CMAQ CB4tx1:</emphasis> CMAQ CB4 toxics (version 1) TOG profiles and VOC SCC assignments to be used when integrating toxics VOC with criteria inventory for on-road mobile sources. Because changes are being made to the research version 1 of CB4 toxics, it is expected that users will have to create new CB4 toxics profiles for all source categories. TOG profiles are labeled with profile codes ending in "A" to identify them as different from standard profiles. They were developed by Jerry Gipson at EPA/ORD and can be used only for the "no-integrate" case, to drop mass of acetaldehyde, 1,3-butadiene, formaldehyde, and acrolein (all explicit CMAQ toxics). Benzene is mapped to both CB4 species (PAR and NR) and to special BENZENE species, which doubles the mass of benzene output by SMOKE. Added to file by Marc Houyoux, MCNC. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">Toxics:</emphasis> Includes toxics mapped to CB4 species using profile 0000. Developed by Jerry Gipson at EPA/ORD. Added to file by Marc Houyoux, MCNC.</para>
+<para><emphasis role="bold">VI - Toxics:</emphasis> Includes toxics mapped to CB4 species using profile 0000. Developed by Jerry Gipson at EPA/ORD. Added to file by Marc Houyoux, MCNC.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">RADM:</emphasis> RADM2 TOG profiles and VOC SCC assignments (which are the same as assignments for CB4), origin unknown. Cannot be used with the toxics inventories.</para>
+<para><emphasis role="bold">VII - RADM:</emphasis> RADM2 TOG profiles and VOC SCC assignments (which are the same as assignments for CB4), origin unknown. Cannot be used with the toxics inventories.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">SAPRC99:</emphasis> All TOG speciation profiles for the SAPRC99 mechanism. TOG profiles provided by EPA/ORD, circa 2001. Never tested by MCNC or CEP for SMOKE release. Cannot be used with the toxics inventories.</para>
+<para><emphasis role="bold">VIII - SAPRC99:</emphasis> All TOG speciation profiles for the SAPRC99 mechanism. TOG profiles provided by EPA/ORD, circa 2001. Never tested by MCNC or CEP for SMOKE release. Cannot be used with the toxics inventories.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">REMSAD6:</emphasis> REMSAD version 6 PM<subscript>2.5</subscript> speciation profiles from ENVIRON and EPA. The PM<subscript>2.5</subscript> profiles are the same as those for CMAQ except that they use different species names. Cannot be used with the toxics inventories. VOC profiles pass through VOC using average molecular weight of 16, as needed by REMSAD version 6.</para>
+<para><emphasis role="bold">IX - REMSAD6:</emphasis> REMSAD version 6 PM<subscript>2.5</subscript> speciation profiles from ENVIRON and EPA. The PM<subscript>2.5</subscript> profiles are the same as those for CMAQ except that they use different species names. Cannot be used with the toxics inventories. VOC profiles pass through VOC using average molecular weight of 16, as needed by REMSAD version 6.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">REMSAD7:</emphasis> Created by CEP July 11, 2003. VOC profiles created from CMAQ TOG profiles as described in header for XYL and TOL (used for REMSAD SOA computation only). These are actual VOC profiles and therefore do not require the VOC-to-TOG conversion. VOC-to-CARB profiles added based on CARB = 0.03 x VOC. Also contains pass-through profile for cadmium (CD). PM<subscript>2.5</subscript> profiles are the same as those in the REMSAD6 file, which are the same profiles as for CMAQ, but they use different species names.</para>
+<para><emphasis role="bold">X - REMSAD7:</emphasis> Created by CEP July 11, 2003. VOC profiles created from CMAQ TOG profiles as described in header for XYL and TOL (used for REMSAD SOA computation only). These are actual VOC profiles and therefore do not require the VOC-to-TOG conversion. VOC-to-CARB profiles added based on CARB = 0.03 x VOC. Also contains pass-through profile for cadmium (CD). PM<subscript>2.5</subscript> profiles are the same as those in the REMSAD6 file, which are the same profiles as for CMAQ, but they use different species names.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">SO2-SULF:</emphasis> Includes point-source SO<subscript>2</subscript> profiles for creating a SULF species from SO<subscript>2</subscript>; mass is intentionally not conserved (SULF mass is added to SO<subscript>2</subscript> mass). Profiles from Ron Ryan, EPA/OAQPS, 2001.</para>
+<para><emphasis role="bold">XI - SO2-SULF:</emphasis> Includes point-source SO<subscript>2</subscript> profiles for creating a SULF species from SO<subscript>2</subscript>; mass is intentionally not conserved (SULF mass is added to SO<subscript>2</subscript> mass). Profiles from Ron Ryan, EPA/OAQPS, 2001.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">HG:</emphasis> Mercury profiles and assignments created by Marc Houyoux, CEP, based on data provided in 2003 by Madeleine Strum, EPA/OAQPS. These HG profiles are based on 1996 inventory and need to be updated to account for new MACT codes and updated data. For REMSAD, molecular weight for HG species set to 201 as per REMSAD documentation, which is not the same as CMAQ HG. A different default mercury profile is used for point sources than for nonpoint sources. For on-road mobile, a single mercury profile that maps HGSUM to the mercury model species is included.</para>
+<para><emphasis role="bold">XII - HG:</emphasis> Mercury profiles and assignments created by Marc Houyoux, CEP, based on data provided in 2003 by Madeleine Strum, EPA/OAQPS. These HG profiles are based on 1996 inventory and need to be updated to account for new MACT codes and updated data. For REMSAD, molecular weight for HG species set to 201 as per REMSAD documentation, which is not the same as CMAQ HG. A different default mercury profile is used for point sources than for nonpoint sources. For on-road mobile, a single mercury profile that maps HGSUM to the mercury model species is included.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">MOBILE6:</emphasis> Includes MOBILE6 profiles as per EPA/OTAQ, 2002. These include process-specific assignments needed for both MOBILE5 and MOBILE6 emission processes (e.g., exhaust starting, evaporative).</para>
+<para><emphasis role="bold">XIII - MOBILE6:</emphasis> Includes MOBILE6 profiles as per EPA/OTAQ, 2002. These include process-specific assignments needed for both MOBILE5 and MOBILE6 emission processes (e.g., exhaust starting, evaporative).</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">NONHAP:</emphasis> Includes NONHAPTOG and NONHAPVOC profiles and toxic pollutant profiles created by Jerry Gipson, EPA/ORD, and added to file by Marc Houyoux, MCNC. Uses NONHAPVOC/NONHAPTOG definitions from EPA, 2002. Extra pollutants included erroneously for nonroad-mobile sources: CHLOROBENZN, METHANOL, MEK, and PHENOL. Mass for these pollutants has been dropped from NONHAPVOC/NONHAPTOG profiles when it should not have been (the profiles still conserve mass because they were normalized after removing the appropriate HAPs, it is simply that none of the mass pertains to the above pollutants; this error is expected to be very small since the above pollutants account for less than 1% of the TOG for nonroad mobile sources).</para>
+<para><emphasis role="bold">XIV - NONHAP:</emphasis> Includes NONHAPTOG and NONHAPVOC profiles and toxic pollutant profiles created by Jerry Gipson, EPA/ORD, and added to file by Marc Houyoux, MCNC. Uses NONHAPVOC/NONHAPTOG definitions from EPA, 2002. Extra pollutants included erroneously for nonroad-mobile sources: CHLOROBENZN, METHANOL, MEK, and PHENOL. Mass for these pollutants has been dropped from NONHAPVOC/NONHAPTOG profiles when it should not have been (the profiles still conserve mass because they were normalized after removing the appropriate HAPs, it is simply that none of the mass pertains to the above pollutants; this error is expected to be very small since the above pollutants account for less than 1% of the TOG for nonroad mobile sources).</para>
 </listitem>
 </itemizedlist>
 
@@ -1274,6 +1274,7 @@ source $ASSIGNS/set_dirs.scr
 <entry namest="Profile 0000" nameend="NONHAP" align="center">Description*</entry>
 </row>
 
+<comment>
 <row>
 <entry rotate="1">Profile 0000</entry>
 <entry rotate="1">BEIS3</entry>
@@ -1290,6 +1291,25 @@ source $ASSIGNS/set_dirs.scr
 <entry rotate="1">MOBILE6</entry>
 <entry rotate="1">NONHAP</entry>
 </row>
+</comment>
+
+<row>
+<entry>I</entry>
+<entry>II</entry>
+<entry>III</entry>
+<entry>IV</entry>
+<entry>V</entry>
+<entry>VI</entry>
+<entry>VII</entry>
+<entry>VIII</entry>
+<entry>IX</entry>
+<entry>X</entry>
+<entry>XI</entry>
+<entry>XII</entry>
+<entry>XIII</entry>
+<entry>XIV</entry>
+</row>
+
 </thead>
 
 <tbody>
