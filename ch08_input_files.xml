@@ -8,7 +8,7 @@
 
 <title>Overview</title>
 
-<para>This chapter contains format information for all input files used by SMOKE. <xref linkend="ch_intermediate_files" /> and <xref linkend="ch_output_files" /> provide documentation on SMOKE's intermediate and output file formats.</para>
+<para>This chapter contains format information for all input files used by SMOKE. <xref linkend="ch_intermediate_files" /> and <xref linkend="ch_output_files" /> provide documentation on SMOKE&rsquo;s intermediate and output file formats.</para>
 
 In this overview section, we first provide a few important notes about file formats (<xref linkend="sect_input_file_formats" />, and then discuss where to put SMOKE input files (<xref linkend="sect_input_file_locations" />). <xref linkend="sect_input_file_list" /> summarizes all the input files needed by SMOKE, organized by function. <xref linkend="sect_input_nctox_case" /> provides a list, organized by SMOKE program, of all the default input files provided with the nctox sample case, which is described in <xref linkend="sect_scripts_nctox_case" />.
 
@@ -50,11 +50,11 @@ In this overview section, we first provide a few important notes about file form
 
 <itemizedlist>
 <listitem>
-<para>In the tables used to describe the file format for each file, the "Position" column lists either letters or numbers.</para>
+<para>In the tables used to describe the file format for each file, the <quote>Position</quote> column lists either letters or numbers.</para>
 
-<para>When there are letters in the "Position" column, this indicates that the file must be <link linkend="sect_concepts_list_directed">list-directed</link>, and therefore the fields on each line need to be delimited by a space, comma, or semicolon. If there are fields that have embedded spaces, commas, or semicolons in a list-directed file, these entries must be surrounded by single or double quotation marks to prevent SMOKE from treating those characters as delimiters.</para>
+<para>When there are letters in the <quote>Position</quote> column, this indicates that the file must be <link linkend="sect_concepts_list_directed">list-directed</link>, and therefore the fields on each line need to be delimited by a space, comma, or semicolon. If there are fields that have embedded spaces, commas, or semicolons in a list-directed file, these entries must be surrounded by single or double quotation marks to prevent SMOKE from treating those characters as delimiters.</para>
 
-<para>When there are numbers in the "Position" column, this indicates that the file is <link linkend="sect_concepts_column_specific">column-specific</link>, which means that the entry must be placed exactly within the columns listed.</para>
+<para>When there are numbers in the <quote>Position</quote> column, this indicates that the file is <link linkend="sect_concepts_column_specific">column-specific</link>, which means that the entry must be placed exactly within the columns listed.</para>
 </listitem>
 
 <listitem>
@@ -72,7 +72,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Where to put SMOKE input files</title>
 
-<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE version 2.0, we have reduced the number of places in which you need to keep your raw input files. <xref linkend="sect_input_nctox_case" /> lists the all of the input directories for the files used in the example "nctox" case. In that section, we also define the path names relative to the <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory, which is the directory in which you install SMOKE (and is different for every installation). In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
+<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE version 2.0, we have reduced the number of places in which you need to keep your raw input files. <xref linkend="sect_input_nctox_case" /> lists the all of the input directories for the files used in the example <quote>nctox</quote> case. In that section, we also define the path names relative to the <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory, which is the directory in which you install SMOKE (and is different for every installation). In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
 
 <para>In summary, SMOKE input files must go into a handful of directories (see <xref linkend="sect_input_nctox_case" />). Multiple directories are needed because in some cases (such as speciation profiles and meteorology data), the data are to be shared across multiple runs. In other cases (such as inventory data), the data are specific to a case and should be stored independently to prevent corrupting other modeling runs. To change the directories used for input (or any other) files in SMOKE, you must modify the Assigns file as described in <xref linkend="sect_dirs_change_directory" />.</para>
 
@@ -105,13 +105,13 @@ In this overview section, we first provide a few important notes about file form
 <remark>
 <itemizedlist>
 <listitem>
-<para>An "X" in column "CNV" indicates that there is a SMOKE converter (either a Fortran program, SAS program, script, or Excel spreadsheet) to create the file.</para>
+<para>An <quote>X</quote> in column <quote>CNV</quote> indicates that there is a SMOKE converter (either a Fortran program, SAS program, script, or Excel spreadsheet) to create the file.</para>
 </listitem>
 <listitem>
-<para>An "X" in column "ST" indicates that the SMOKE Tool in Models-3 can prepare the file.</para>
+<para>An <quote>X</quote> in column <quote>ST</quote> indicates that the SMOKE Tool in Models-3 can prepare the file.</para>
 </listitem>
 <listitem>
-<para>An entry in column "Other" indicates that there is another method available to create the file, or that the file is resident in the installation, in which case it is not likely to need modification for most users.</para>
+<para>An entry in column <quote>Other</quote> indicates that there is another method available to create the file, or that the file is resident in the installation, in which case it is not likely to need modification for most users.</para>
 </listitem>
 </itemizedlist>
 </remark>
@@ -789,7 +789,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -800,9 +800,9 @@ In this overview section, we first provide a few important notes about file form
 <entry><emphasis role="bold"><envar>GCNTL</envar></emphasis>: growth and/or control instructions</entry>
 <entry>
 <simplelist>
-<member>A&nbsp;(stationary)</member>
-<member>A&nbsp;(nonroad)</member>
-<member>M&nbsp;(on-road)</member>
+<member>A (stationary)</member>
+<member>A (nonroad)</member>
+<member>M (on-road)</member>
 <member>P</member>
 </simplelist>
 </entry>
@@ -851,7 +851,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -898,7 +898,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -965,7 +965,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1030,7 +1030,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1065,7 +1065,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1139,7 +1139,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1180,7 +1180,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1215,7 +1215,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1268,7 +1268,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1303,7 +1303,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1361,7 +1361,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1396,7 +1396,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
 <simplelist>
-<member>A,&nbsp;P</member>
+<member>A, P</member>
 <member>M</member>
 </simplelist>
 </entry>
@@ -1424,8 +1424,8 @@ In this overview section, we first provide a few important notes about file form
 <entry><envar>NHAPEXCLUDE</envar>: exclusions from NONHAP calculation</entry>
 <entry>
 <simplelist>
-<member>A&nbsp;(nonroad),&nbsp;M</member>
-<member>A&nbsp;(stationary),&nbsp;P</member>
+<member>A (nonroad), M</member>
+<member>A (stationary), P</member>
 </simplelist>
 </entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
@@ -1500,7 +1500,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1523,7 +1523,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
 <simplelist>
-<member>A,&nbsp;P</member>
+<member>A, P</member>
 <member>M</member>
 </simplelist>
 </entry>
@@ -1557,7 +1557,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1575,7 +1575,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>
 <simplelist>
 <member>M</member>
-<member>A,&nbsp;P</member>
+<member>A, P</member>
 </simplelist>
 </entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
@@ -1596,7 +1596,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
 <simplelist>
-<member>A,&nbsp;P</member>
+<member>A, P</member>
 <member>M</member>
 </simplelist>
 </entry>
@@ -1642,7 +1642,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1677,7 +1677,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
 <simplelist>
-<member>A,&nbsp;P</member>
+<member>A, P</member>
 <member>M</member>
 </simplelist>
 </entry>
@@ -1753,7 +1753,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1788,7 +1788,7 @@ In this overview section, we first provide a few important notes about file form
 <thead>
 <row>
 <entry>Logical file name and description</entry>
-<entry>Source categories</entry>
+<entry>Source category</entry>
 <entry>Path</entry>
 <entry>Physical file name</entry>
 </row>
@@ -1913,7 +1913,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Inventory list files</title>
 
-<para>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and other information) or they can contain a list of file names with full paths (i.e. <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename>); in the latter case, we call the file a "list file". When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into one inventory. This is useful when the individual inventories are in different formats; for example, criteria emissions are typically in IDA format, while the ORL format is used for toxics emissions. You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this will be noted in the format descriptions.</para>
+<para>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and other information) or they can contain a list of file names with full paths (i.e. <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename>); in the latter case, we call the file a <quote>list file</quote>. When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into one inventory. This is useful when the individual inventories are in different formats; for example, criteria emissions are typically in IDA format, while the ORL format is used for toxics emissions. You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this will be noted in the format descriptions.</para>
 
 <para>An inventory list file can be created using the UNIX <command>ls</command>. The following command will create the <envar>ARINV</envar> file containing a list of all files starting with <filename>arinv</filename> in the <filename class="directory"><envar>$ARDAT</envar></filename> directory, complete with full paths.</para>
 
@@ -1959,7 +1959,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Required and optional fields</title>
 
-<para>Inventory files can include both required and optional fields. In the format tables for each file, required fields are labeled "required"; optional fields are labeled either "recommended", "optional", or "not used by SMOKE". For column-specific file formats, you may leave blank the fields that are optional. List-directed files, on the other hand, must have a default value (usually -9) for these fields.</para>
+<para>Inventory files can include both required and optional fields. In the format tables for each file, required fields are labeled <quote>required</quote>; optional fields are labeled either <quote>recommended</quote>, <quote>optional</quote>, or <quote>not used by SMOKE</quote>. For column-specific file formats, you may leave blank the fields that are optional. List-directed files, on the other hand, must have a default value (usually -9) for these fields.</para>
 
 </section>
 
@@ -2006,7 +2006,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#TYPE</entry>
 <entry>File type</entry>
-<entry>First nonblank character after #TYPE to the last character of the line. For on-road mobile activity data, the word "activity" must appear in this header entry; otherwise, SMOKE assumes that the file contains emissions data.</entry>
+<entry>First nonblank character after #TYPE to the last character of the line. For on-road mobile activity data, the word <quote>activity</quote> must appear in this header entry; otherwise, SMOKE assumes that the file contains emissions data.</entry>
 </row>
 <row>
 <entry>#COUNTRY</entry>
@@ -2026,12 +2026,12 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
-<entry>Only used for IDA-format files. Defines the pollutants for which emissions data is provided; "data1" in the ID of the first pollutant, "data2" is the ID of the second pollutant, and so on.</entry>
+<entry>Only used for IDA-format files. Defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</entry>
 </row>
 <row>
 <entry>#UNITS</entry>
 <entry>units1 units2 ... units <emphasis>n</emphasis></entry>
-<entry>Only used for on-road mobile activity data in IDA format. Defines the units associated with the activity data; "units1" are the units for "data1", "units2" are the units for "data2", and so on. Not used for emissions data because the units are built into the file formats.</entry>
+<entry>Only used for on-road mobile activity data in IDA format. Defines the units associated with the activity data; <quote>units1</quote> are the units for <quote>data1</quote>, <quote>units2</quote> are the units for <quote>data2</quote>, and so on. Not used for emissions data because the units are built into the file formats.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -2570,7 +2570,7 @@ INVYEAR 1996
 <entry>Area within the county devoted to this land use subtype</entry>
 </row>
 <row>
-<entry namest="Line" nameend="Description">Repeat lines 2 and 3+ for each of the other land use types: urban forest, agriculture, and "other".</entry>
+<entry namest="Line" nameend="Description">Repeat lines 2 and 3+ for each of the other land use types: urban forest, agriculture, and <quote>other</quote>.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -2616,7 +2616,7 @@ INVYEAR 1996
 <member>Introduction</member>
 <member>Grid Definition</member>
 <member>File Description</member>
-<member>A list of "VEGID" names and descriptions, formatted "(1X, A4, 3X, A)"</member>
+<member>A list of <quote>VEGID</quote> names and descriptions, formatted <quote>(1X, A4, 3X, A)</quote></member>
 <member>Notes on VEGID</member>
 <member>Source of Data</member>
 <member>Version</member>
@@ -2646,7 +2646,7 @@ INVYEAR 1996
 <entry>Cell area in hectares (Real)</entry>
 </row>
 <row>
-<entry namest="Line" nameend="Description">For a given cell, repeat the following for each land use type (rural forest, urban forest, agriculture, or "other")</entry>
+<entry namest="Line" nameend="Description">For a given cell, repeat the following for each land use type (rural forest, urban forest, agriculture, or <quote>other</quote>)</entry>
 </row>
 <row>
 <entry>4+</entry>
@@ -3352,7 +3352,7 @@ INVYEAR 1996
 
 <para>DATERANGE  0710  0712</para>
 
-<para>The year is implied by the data themselves; note that the files can only contain data for a single year. As an alternative to using the DATERANGE packet, you can manually break the year up into smaller periods in separate files, and only list the files of interest in the <envar>PTHOUR</envar> file. Note that reading in the whole year of data and extracting just a few days will take much more time than manually editing the file to contain just the days of interest. Also note that if you choose the manual editing option, you must select days that fully cover the modeling episode after accounting for time zone differences between the facility's time zone and the modeling time zone (set by the <envar>OUTZONE</envar> option).</para>
+<para>The year is implied by the data themselves; note that the files can only contain data for a single year. As an alternative to using the DATERANGE packet, you can manually break the year up into smaller periods in separate files, and only list the files of interest in the <envar>PTHOUR</envar> file. Note that reading in the whole year of data and extracting just a few days will take much more time than manually editing the file to contain just the days of interest. Also note that if you choose the manual editing option, you must select days that fully cover the modeling episode after accounting for time zone differences between the facility&rsquo;s time zone and the modeling time zone (set by the <envar>OUTZONE</envar> option).</para>
 
 </section>
 
@@ -3878,7 +3878,7 @@ INVYEAR 1996
 <entry>249-249</entry>
 <entry>OFFSHORE</entry>
 <entry>Char</entry>
-<entry>Offshore Flag (fill in with "X" if source is offshore), (not used by SMOKE)</entry>
+<entry>Offshore Flag (fill in with <quote>X</quote> if source is offshore), (not used by SMOKE)</entry>
 </row>
 <row>
 <entry>250-262</entry>
@@ -4398,12 +4398,12 @@ INVYEAR 1995
 <row>
 <entry>72-80 </entry>
 <entry>Real</entry>
-<entry>UTM easting of stack (m) (default is plant's value) (optional; SMOKE will use value from facility file)</entry>
+<entry>UTM easting of stack (m) (default is plant&rsquo;s value) (optional; SMOKE will use value from facility file)</entry>
 </row>
 <row>
 <entry>81-89 </entry>
 <entry>Real</entry>
-<entry>UTM northing of stack (m) (default is plant's value) (optional; SMOKE will use value from facility file)</entry>
+<entry>UTM northing of stack (m) (default is plant&rsquo;s value) (optional; SMOKE will use value from facility file)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -4902,7 +4902,7 @@ INVYEAR 1995
 
 <comment>check on /DIURNAL MONDAY/, /DIURNAL TUESDAY/, etc. packets, as mentioned in chapter 2</comment>
 
-<para>The weekend diurnal temporal factors are optional. If the monthly factors are not used because all of the inventory emissions are supplied as "per day" emissions, at least one monthly profile is still needed, to prevent an error message. The file format is column-specific and shown in <xref linkend="tbl_input_amptpro" />. All three source categories use the same file format, and they can share the same file.</para>
+<para>The weekend diurnal temporal factors are optional. If the monthly factors are not used because all of the inventory emissions are supplied as <quote>per day</quote> emissions, at least one monthly profile is still needed, to prevent an error message. The file format is column-specific and shown in <xref linkend="tbl_input_amptpro" />. All three source categories use the same file format, and they can share the same file.</para>
 
 <table id="tbl_input_amptpro">
 <title>Format for <envar>ATPRO</envar>, <envar>MTPRO</envar>, and <envar>PTPRO</envar></title>
@@ -5074,7 +5074,7 @@ INVYEAR 1995
 
 <para>The <envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar> files contain the area-, mobile-, and point-source cross-reference records for assigning the temporal profiles to the sources. If needed, the same file can be used for area-, mobile-, or point-source categories, but more fields are used for mobile than for area, and more fields are used for point than for mobile. <xref linkend="sect_programs_temporal" /> provides a list of the matching hierarchies that SMOKE uses when applying the file to an inventory. <remark>If a field is blank, it must be set to -9.</remark></para>
 
-<para>The pollutant field allows you to assign a different temporal profile for each pollutant associated with a given source. This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you can put a "-9" in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.</para>
+<para>The pollutant field allows you to assign a different temporal profile for each pollutant associated with a given source. This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you can put a <quote>-9</quote> in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.</para>
 
 <para>The country/state/county code is defined as follows:</para>
 
@@ -5369,7 +5369,7 @@ INVYEAR 1995
 </listitem>
 </itemizedlist>
 
-<comment>check on EPA's 4-km national surrogates</comment>
+<comment>check on EPA&rsquo;s 4-km national surrogates</comment>
 
 <section id="sect_input_amgpro">
 
@@ -5436,9 +5436,9 @@ INVYEAR 1995
 <entry><para>Projection types:</para>
 
 <itemizedlist spacing="compact">
-<listitem>Latitude-Longitude: "LAT-LON" or "LATGRD3"</listitem>
-<listitem>Lambert Conformal: "LAMBERT" or "LAMGRD3"</listitem>
-<listitem>UTM: "UTM" or "UTMGRD3"</listitem>
+<listitem>Latitude-Longitude: <quote>LAT-LON</quote> or <quote>LATGRD3</quote></listitem>
+<listitem>Lambert Conformal: <quote>LAMBERT</quote> or <quote>LAMGRD3</quote></listitem>
+<listitem>UTM: <quote>UTM</quote> or <quote>UTMGRD3</quote></listitem>
 </itemizedlist>
 
 </entry>
@@ -5659,13 +5659,13 @@ INVYEAR 1995
 
 <itemizedlist>
 <listitem>
-<para>Latitude-longitude grids: "LAT-LON" or "LATGRD3"</para>
+<para>Latitude-longitude grids: <quote>LAT-LON</quote> or <quote>LATGRD3</quote></para>
 </listitem>
 <listitem>
-<para>Lambert grids: "LAMBERT" or "LATGRD3"</para>
+<para>Lambert grids: <quote>LAMBERT</quote> or <quote>LATGRD3</quote></para>
 </listitem>
 <listitem>
-<para>UTM grids: "UTM" or "UTMGRD3"</para>
+<para>UTM grids: <quote>UTM</quote> or <quote>UTMGRD3</quote></para>
 </listitem>
 </itemizedlist>
 
@@ -5842,7 +5842,7 @@ INVYEAR 1995
 
 <title><envar>GSPRO</envar>: Speciation profile file</title>
 
-<para>The speciation profile file, <envar>GSPRO</envar>, contains the factors that are used to separate aggregated inventory pollutant emissions totals into emissions of model species required by the AQM. In traditional ozone air quality modeling, this file contained split factors only for VOC. In SMOKE, all inventory pollutants need to be represented in this file, even if it is only to indicate that a pollutant is not split into any model species (e.g., CO emissions would have a "split factor" of 1.0). The format of the <envar>GSPRO</envar> file is shown in <xref linkend="tbl_input_gspro" />.</para>
+<para>The speciation profile file, <envar>GSPRO</envar>, contains the factors that are used to separate aggregated inventory pollutant emissions totals into emissions of model species required by the AQM. In traditional ozone air quality modeling, this file contained split factors only for VOC. In SMOKE, all inventory pollutants need to be represented in this file, even if it is only to indicate that a pollutant is not split into any model species (e.g., CO emissions would have a <quote>split factor</quote> of 1.0). The format of the <envar>GSPRO</envar> file is shown in <xref linkend="tbl_input_gspro" />.</para>
 
 <table id="tbl_input_gspro">
 <title>Format for <envar>GSPRO</envar></title>
@@ -5894,7 +5894,7 @@ INVYEAR 1995
 
 <itemizedlist>
 <listitem>
-<para>The speciation profile number is matched with the number in the <envar>GSREF</envar> file. This "number" is treated as a character string, so leading zeros must be the same in both the <envar>GSPRO</envar> and <envar>GSREF</envar> files. For BEIS3 modeling, you must use profile "BV309" in order to properly speciate for CB-IV modeling.  There are also BEIS3 speciation profiles for the RADM2 and SAPRC99 chemical mechanisms in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory.</para>
+<para>The speciation profile number is matched with the number in the <envar>GSREF</envar> file. This <quote>number</quote> is treated as a character string, so leading zeros must be the same in both the <envar>GSPRO</envar> and <envar>GSREF</envar> files. For BEIS3 modeling, you must use profile <quote>BV309</quote> in order to properly speciate for CB-IV modeling.  There are also BEIS3 speciation profiles for the RADM2 and SAPRC99 chemical mechanisms in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory.</para>
 </listitem>
 <listitem>
 <para>The pollutant ID must match the pollutant names in the SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>). These names are set by the #POLID or #DATA headers in the <command>Smkinven</command> input files.</para>
@@ -6184,11 +6184,11 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Allowable emissions cap value [tons/day] (Real) (required if no "replace" emissions are given)</entry>
+<entry>Allowable emissions cap value [tons/day] (Real) (required if no <quote>replace</quote> emissions are given)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Allowable emissions replacement value [tons/day] (Real) (required if no "cap" emissions are given)</entry>
+<entry>Allowable emissions replacement value [tons/day] (Real) (required if no <quote>cap</quote> emissions are given)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
@@ -7709,7 +7709,7 @@ VMT RFL TOG
 
 <title><envar>PELVCONFIG</envar>: Elevated source selection file</title>
 
-<para>The <envar>PELVCONFIG</envar> is optionally used by the <command>Elevpoint</command> program. It permits users to provide SMOKE criteria for grouping stacks and for selecting elevated and PinG point sources. "Stack groups" are groups of stacks from the same facility that are treated by SMOKE and the AQM as a single stack when computing plume rise and/or processing the stack as a PinG source. They have the effect of reducing the number of elevated and PinG stacks which makes for faster processing, particularly in the case of PinG sources in the AQM. Users can specify stack groups regardless of whether elevated or PinG sources are also being specified.</para>
+<para>The <envar>PELVCONFIG</envar> is optionally used by the <command>Elevpoint</command> program. It permits users to provide SMOKE criteria for grouping stacks and for selecting elevated and PinG point sources. <quote>Stack groups</quote> are groups of stacks from the same facility that are treated by SMOKE and the AQM as a single stack when computing plume rise and/or processing the stack as a PinG source. They have the effect of reducing the number of elevated and PinG stacks which makes for faster processing, particularly in the case of PinG sources in the AQM. Users can specify stack groups regardless of whether elevated or PinG sources are also being specified.</para>
 
 <para>All emissions in a stack group are summed for the purposes of comparing against the elevated source criteria and PinG source criteria. In short, the grouped sources are treated as a single source for all SMOKE features regarding elevated source selection and special outputs. The grouped sources can still have different temporal profiles and chemical speciation profiles. For more information on how the emissions are computed for source selection, see <xref linkend="sect_programs_elevpoint" />.</para>
 
@@ -7880,10 +7880,10 @@ VE  <  10.
 <para>SOURCE: Source number from the intermediate inventory file output by <command>Smkinven</command>. This variable permits selection of specific SMOKE sources as PinG sources.</para>
 </listitem>
 <listitem>
-<para>PLANT: Plant ID code from the intermediate inventory file output by <command>Smkinven</command>. The "PLANT" variable can only be paired with the "IS" criterion type (below); no other criterion types (such as "&lt;" or "=") are permitted. It is recommended that this variable be used in addition to the FIPS variable (below) to allow selection of all records at specific plants. It can also be combined with stack parameter variables.</para>
+<para>PLANT: Plant ID code from the intermediate inventory file output by <command>Smkinven</command>. The <quote>PLANT</quote> variable can only be paired with the <quote>IS</quote> criterion type (below); no other criterion types (such as <quote>&lt;</quote> or <quote>=</quote>) are permitted. It is recommended that this variable be used in addition to the FIPS variable (below) to allow selection of all records at specific plants. It can also be combined with stack parameter variables.</para>
 </listitem>
 <listitem>
-<para>FIPS: Country/state/county region code. This can be used with the "PLANT" variable or other variables to specific PinG sources by region. It is not recommended that this variable be used alone for specifying PinG sources, because that would result in insignificant sources being prepared for the AQM as PinG sources. It does not make sense to process such sources as PinG sources in AQMs.</para>
+<para>FIPS: Country/state/county region code. This can be used with the <quote>PLANT</quote> variable or other variables to specific PinG sources by region. It is not recommended that this variable be used alone for specifying PinG sources, because that would result in insignificant sources being prepared for the AQM as PinG sources. It does not make sense to process such sources as PinG sources in AQMs.</para>
 </listitem>
 </itemizedlist>
 
@@ -7900,7 +7900,7 @@ VE  <  10.
 <para>TOP: This criterion type permits users to select sources with the largest values of the variable given. The &lt;value for criterion&gt; is the number of sources that will be selected based on the value given. This criterion type is permitted only when using a pollutant name as the &lt;variable&gt;.</para>
 </listitem>
 <listitem>
-<para>IS: This criterion type must be used to assign a value to the "PLANT" variable.</para>
+<para>IS: This criterion type must be used to assign a value to the <quote>PLANT</quote> variable.</para>
 </listitem>
 </itemizedlist>
 
@@ -7941,7 +7941,7 @@ NOX > 500.
 </listitem>
 </itemizedlist>
 
-<para>All of the source selection criteria for elevated sources are the same as the PinG selection criteria at this time (see <xref linkend="sect_input_pelvconfig_ping" />). To use the "cutoff" method for UAM-style processing, only the "RISE" variable should be used; the packet should not contain any other selection criteria. The "cutoff" method  is the traditional approach for elevated-source selection for UAM, UAM-V, REMSAD, and CAM<subscript>X</subscript>; you can decide if you want to use this traditional approach or a more complex set of criteria.</para>
+<para>All of the source selection criteria for elevated sources are the same as the PinG selection criteria at this time (see <xref linkend="sect_input_pelvconfig_ping" />). To use the <quote>cutoff</quote> method for UAM-style processing, only the <quote>RISE</quote> variable should be used; the packet should not contain any other selection criteria. The <quote>cutoff</quote> method  is the traditional approach for elevated-source selection for UAM, UAM-V, REMSAD, and CAM<subscript>X</subscript>; you can decide if you want to use this traditional approach or a more complex set of criteria.</para>
 
 <para>The following example illustrates using all of the different source selection variables and criterion types listed in the previous sections.</para>
 
@@ -7963,7 +7963,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>PSTK</envar>: Point source stack replacement parameters file</title>
 
-<para>The <envar>PSTK</envar> file is an ASCII file that contains the replacement stack parameters that <command>Smkinven</command> uses when stack parameters are missing from the inventory. The format of the file permits stack parameters to be replaced based on the point sources' country/state/county code and SCC and is shown in <xref linkend="tbl_input_pstk" />.</para>
+<para>The <envar>PSTK</envar> file is an ASCII file that contains the replacement stack parameters that <command>Smkinven</command> uses when stack parameters are missing from the inventory. The format of the file permits stack parameters to be replaced based on the point sources&rsquo; country/state/county code and SCC and is shown in <xref linkend="tbl_input_pstk" />.</para>
 
 <table id="tbl_input_pstk">
 <title>Format for <envar>PSTK</envar></title>
@@ -8488,7 +8488,7 @@ SOURCE > 100 AND SOURCE < 200
 <para>Inventory data name: Unique name for pollutant or activity that will be stored and processed by SMOKE. Because of I/O API restrictions, these names can only include alphanumeric characters and underscores, and the first character must be a letter. In addition, because SMOKE uses double-underscore as a separator when appending to variable names, no double-underscores are permitted in these names.</para>
 </listitem>
 <listitem>
-<para>CAS number: This code represents the pollutant that is provided in the inventory file input into SMOKE.  It is named the "pollutant code" in the NIF 2.0 format, but we call it "CAS number" to distinguish it from a SMOKE pollutant, and because this number actually is a CAS number when the pollutant contained in the inventory has a valid CAS number.</para>
+<para>CAS number: This code represents the pollutant that is provided in the inventory file input into SMOKE.  It is named the <quote>pollutant code</quote> in the NIF 2.0 format, but we call it <quote>CAS number</quote> to distinguish it from a SMOKE pollutant, and because this number actually is a CAS number when the pollutant contained in the inventory has a valid CAS number.</para>
 </listitem>
 <listitem>
 <para>SAROAD code: The SAROAD code is used by SMOKE only for reporting purposes, since the inventory data name is used by SMOKE for assignments of profiles processing.</para>
@@ -8503,22 +8503,22 @@ SOURCE > 100 AND SOURCE < 200
 <para>Factor: The adjustment factor to use in splitting the emissions associated with a CAS number into different inventory data names, or reducing the mass of a metal compound associated with a CAS number to account for the metal mass only.</para>
 </listitem>
 <listitem>
-<para>VOC or TOG component: A "V" should be entered if the CAS number is part of VOC emissions or TOG emissions. A "T" should be entered if the CAS number is part of TOG emissions only. An "N" should be entered if the CAS number is part of neither VOC or TOG. Any other value other than "V" or "T" will be treated as an "N".</para>
+<para>VOC or TOG component: A <quote>V</quote> should be entered if the CAS number is part of VOC emissions or TOG emissions. A <quote>T</quote> should be entered if the CAS number is part of TOG emissions only. An <quote>N</quote> should be entered if the CAS number is part of neither VOC or TOG. Any other value other than <quote>V</quote> or <quote>T</quote> will be treated as an <quote>N</quote>.</para>
 </listitem>
 <listitem>
-<para>Model species: A "Y" should be entered if the pollutant is also a VOC model species for the AQM being targeted for the run. Any other values will be treated as an "N".</para>
+<para>Model species: A <quote>Y</quote> should be entered if the pollutant is also a VOC model species for the AQM being targeted for the run. Any other values will be treated as an <quote>N</quote>.</para>
 </listitem>
 <listitem>
-<para>Explicit in mechanism: A "Y" should be entered if (1) the pollutant is a VOC species (the model-species column must be "Y" as well), and (2) that model-species is explicitly treated in the AQM's chemical mechanism. The pollutant can be an explicit species in the chemical mechanism only when the <envar>GSPRO</envar> file definitions of the lumped VOC species have been adjusted to account for the pollutants/species that are explicit in the mechanism. The current explicit-in-mechanism species being used in the toxics CB4 mechanism for CMAQ are formaldehyde, acetaldheyde, acrolein and 1,3 butadiene.</para>
+<para>Explicit in mechanism: A <quote>Y</quote> should be entered if (1) the pollutant is a VOC species (the model-species column must be <quote>Y</quote> as well), and (2) that model-species is explicitly treated in the AQM&rsquo;s chemical mechanism. The pollutant can be an explicit species in the chemical mechanism only when the <envar>GSPRO</envar> file definitions of the lumped VOC species have been adjusted to account for the pollutants/species that are explicit in the mechanism. The current explicit-in-mechanism species being used in the toxics CB4 mechanism for CMAQ are formaldehyde, acetaldheyde, acrolein and 1,3 butadiene.</para>
 </listitem>
 <listitem>
-<para>Activity: A "Y" should be entered if the inventory data name is a type of activity instead of emissions. Any other values will be treated as an "N".</para>
+<para>Activity: A <quote>Y</quote> should be entered if the inventory data name is a type of activity instead of emissions. Any other values will be treated as an <quote>N</quote>.</para>
 </listitem>
 <listitem>
 <para>NTI: Code identifying a HAP on the Clean Air Act HAP list (list of 188 HAPs). Not currently used by SMOKE; will be used in the future for growing HAP emissions to future years.</para>
 </listitem>
 <listitem>
-<para>Units: The units to store the data in the SMOKE intermediate files. This should be "tons/year" for emissions values, "miles/year" for VMT, and "miles/hr" for speed. Although this is provided as an input field to allow possible future changes, these values should <emphasis>not</emphasis> be changed by the user and are unrelated to the units of the emissions in the input files.</para>
+<para>Units: The units to store the data in the SMOKE intermediate files. This should be <quote>tons/year</quote> for emissions values, <quote>miles/year</quote> for VMT, and <quote>miles/hr</quote> for speed. Although this is provided as an input field to allow possible future changes, these values should <emphasis>not</emphasis> be changed by the user and are unrelated to the units of the emissions in the input files.</para>
 </listitem>
 <listitem>
 <para>Inventory data descriptions: This is the description of the inventory data name listed in columns 1-11.</para>
@@ -8720,7 +8720,7 @@ SOURCE > 100 AND SOURCE < 200
 </listitem>
 </itemizedlist>
 
-<para>This file should not include any descriptions that have the pipe symbol ("|"), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>SCCDESC</envar> file is shown in <xref linkend="tbl_input_sccdesc" />.</para>
+<para>This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>SCCDESC</envar> file is shown in <xref linkend="tbl_input_sccdesc" />.</para>
 
 <table id="tbl_input_sccdesc">
 <title>Format for <envar>SCCDESC</envar></title>
@@ -8758,7 +8758,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>VNAMMAP</envar>: Variable name mapping file</title>
 
-<para>This file is used to rename variables output from <command>Smk2emis</command>, which converts the I/O API format to the 2-D-UAM "EMISSIONS" file format. The <envar>VNAMMAP</envar> file lists the SMOKE variable names and the variable names to be output from <command>Smk2emis</command>. It is needed for SMOKE support of UAM-AERO, which requires variable names that cannot be supported by the I/O API format. More information on <command>Smk2emis</command> is provided in <xref linkend="sect_utilities_smk2emis" />.</para>
+<para>This file is used to rename variables output from <command>Smk2emis</command>, which converts the I/O API format to the 2-D-UAM <quote>EMISSIONS</quote> file format. The <envar>VNAMMAP</envar> file lists the SMOKE variable names and the variable names to be output from <command>Smk2emis</command>. It is needed for SMOKE support of UAM-AERO, which requires variable names that cannot be supported by the I/O API format. More information on <command>Smk2emis</command> is provided in <xref linkend="sect_utilities_smk2emis" />.</para>
 
 <para>The format of the <envar>VNAMMAP</envar> file is shown in <xref linkend="tbl_input_vnammap" />.</para>
 
@@ -8786,7 +8786,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry><command>Smk2emis</command> output name to be written to the UAM "EMISSIONS" file binary format</entry>
+<entry><command>Smk2emis</command> output name to be written to the UAM <quote>EMISSIONS</quote> file binary format</entry>
 </row>
 </tbody>
 </tgroup>
