@@ -10,13 +10,13 @@
 
 <para>In this chapter, we provide information about using the UNIX scripts that come with SMOKE to run the default cases and adapting the scripts to run any case. There are several features of these scripts that specifically support version 1.5 of SMOKE, and using scripts developed for earlier versions of SMOKE will not work without adaptations. We provide a section in this document that explains what changes need to be made to users&rsquo; existing scripts to allow them to work with SMOKE. Alternatively, current users can adapt the new sample scripts to their case. New users are advised to create their scripts based on the sample scripts, following the instructions included in <xref linkend="sect_scripts_how_use_smoke" /> this chapter.</para>
 
-<para>For all SMOKE users, a critical file to use and know about is the Assigns file. If you have followed the SMOKE installation instructions, then your Assigns file will be located in the directory: <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smokev1/assigns</filename> where the <envar>EDSS_ROOT</envar> directory is set in your <filename>.cshrc</filename> file in your home directory, during the SMOKE installation process.</para>
+<para>For all SMOKE users, a critical file to use and know about is the Assigns file. If you have followed the SMOKE installation instructions, then your Assigns file will be located in the directory: <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename> where the <envar>EDSS_ROOT</envar> directory is set in your <filename>.cshrc</filename> file in your home directory, during the SMOKE installation process.</para>
 
 <para><emphasis role="bold">When using SMOKE, the first thing that you should do is go to the Assigns directory and invoke the Assigns file for the case that you will be working with. This step needs to be taken in every UNIX window from which you intend to run SMOKE.</emphasis></para>
 
 <para>To invoke the Assigns file, use the following commands:</para>
 
-<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smokev1/assigns</filename></userinput> <emphasis>(this changes to the correct directory)</emphasis></para>
+<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename></userinput> <emphasis>(this changes to the correct directory)</emphasis></para>
 
 <para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb4p25.us36-nc</filename></userinput> <emphasis>(this invokes the default assigns file)</emphasis></para>
 
@@ -540,7 +540,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 </itemizedlist>
 
-<para>The features of the new scripts that are needed when adapting old scripts to run with SMOKE version 1.5 are as follows:</para>
+<para>The features of the new scripts that are needed when adapting old scripts to run with SMOKE v1.5 and later are as follows:</para>
 
 <itemizedlist>
 <listitem>
@@ -577,23 +577,63 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <title>nctox case</title>
 
-<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smokev1/assigns</filename></userinput> <emphasis>(change to assigns directory)</emphasis></para>
+<section>
 
-<para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb4p25_wtox.us36-nc</filename></userinput> <emphasis>(setup for nctox case)</emphasis></para>
+<title>Source the nctox Assigns file</title>
 
-<para><userinput><command>cd</command> <filename class="directory"><envar>$SCRIPTS</envar>/run</filename></userinput> <emphasis>(change to scripts run directory)</emphasis></para>
+<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename></userinput> <emphasis>(change to the assigns directory)</emphasis></para>
 
-<para><userinput><filename>smk_ar_nctox.csh</filename></userinput> <emphasis>(invoke stationary area run script)</emphasis></para>
+<para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb4p25_wtox.us36-nc</filename></userinput> <emphasis>(set up for the nctox case)</emphasis></para>
 
-<para><userinput><filename>smk_bg_nctox.csh</filename></userinput> <emphasis>(invoke BEIS2 biogenic run script)</emphasis></para>
+</section>
 
-<para><userinput><filename>smk_nr_nctox.csh</filename></userinput> <emphasis>(invoke nonroad mobile run script)</emphasis></para>
+<section>
 
-<para><userinput><filename>smk_pt_nctox.csh</filename></userinput> <emphasis>(invoke point run script)</emphasis></para>
+<title>Run the base-year nctox scripts</title>
 
-<para><userinput><filename>smk_mb_nctox.csh</filename></userinput> <emphasis>(invoke on-road mobile run script)</emphasis></para>
+<para><userinput><command>cd</command> <filename class="directory"><envar>$SCRIPTS</envar>/run</filename></userinput> <emphasis>(change to the run scripts directory)</emphasis></para>
 
-<para><userinput><filename>smk_mrgall_nctox.csh</filename></userinput> <emphasis>(invoke all-sources merge script)</emphasis></para>
+<para><userinput><filename>smk_ar_nctox.csh</filename></userinput> <emphasis>(invoke the stationary area run script)</emphasis></para>
+
+<para><userinput><filename>smk_bg_nctox.csh</filename></userinput> <emphasis>(invoke the BEIS2 biogenic run script)</emphasis></para>
+
+<para><userinput><filename>smk_bg_nctox_beis3.csh</filename></userinput> <emphasis>(invoke the BEIS3 biogenic run script)</emphasis></para>
+
+<para><userinput><filename>smk_mb_nctox.csh</filename></userinput> <emphasis>(invoke the on-road mobile run script)</emphasis></para>
+
+<para><userinput><filename>smk_nr_nctox.csh</filename></userinput> <emphasis>(invoke the nonroad mobile run script)</emphasis></para>
+
+<para><userinput><filename>smk_pt_nctox.csh</filename></userinput> <emphasis>(invoke the point run script)</emphasis></para>
+
+<para><userinput><filename>smk_mrgall_nctox.csh</filename></userinput> <emphasis>(invoke the all-sources merge script)</emphasis></para>
+
+</section>
+
+<section>
+
+<title>Run the future-year nctox scripts</title>
+
+<para><userinput><filename>smk_ar_nctox_18.csh</filename></userinput> <emphasis>(invoke the 2018 stationary area run script)</emphasis></para>
+
+<para><userinput><filename>smk_mb_nctox_18.csh</filename></userinput> <emphasis>(invoke the 2018 on-road mobile run script)</emphasis></para>
+
+<para><userinput><filename>smk_nr_nctox_18.csh</filename></userinput> <emphasis>(invoke the 2018 nonroad mobile run script)</emphasis></para>
+
+<para><userinput><filename>smk_pt_nctox_18.csh</filename></userinput> <emphasis>(invoke the 2018 point run script)</emphasis></para>
+
+<para><userinput><filename>smk_mrgall_nctox_18.csh</filename></userinput> <emphasis>(invoke the 2018 all-sources merge script)</emphasis></para>
+
+</section>
+
+<section>
+
+<title>Check your results against the distributed nctox files</title>
+
+<para><userinput><command>cd</command> <filename class="directory"><envar>$SCRIPTS</envar>/install</filename></userinput> <emphasis>(change to the install scripts directory)</emphasis></para>
+
+<para><userinput><filename>check_smk_install</filename></userinput> <emphasis>(invoke the installation check script)</emphasis></para>
+
+</section>
 
 </section>
 
