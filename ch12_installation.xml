@@ -20,25 +20,19 @@
 
 <orderedlist>
 <listitem>
-<para>Go to the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>, then click on <quote>SMOKE</quote>.</para>
+<para>Go to the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>.</para>
 </listitem>
 <listitem>
-<para>Click on <quote>Register to download SMOKE</quote>.</para>
+<para>Click on <quote>REGISTER TO DOWNLOAD</quote> link.</para>
 </listitem>
 <listitem>
 <para>Complete the registration form, then click <quote>Submit</quote>.</para>
 </listitem>
 <listitem>
-<para>You will be sent to the CMAS Model Clearinghouse download page. Click <quote>SMOKE</quote>.</para>
+<para>You will be sent to the CMAS Download Center. Click the <quote>Download SMOKE</quote> link.</para>
 </listitem>
 <listitem>
-<para>Download the SMOKE default data file (<filename>smoke.nctox.data.tar.gz</filename>).</para>
-</listitem>
-<listitem>
-<para>Download the installation script (<filename>smoke_install.csh</filename>).</para>
-</listitem>
-<listitem>
-<para>Download at least one of the operating-system-specific files (e.g., <filename>smoke.IRIXn32f90.tar.gz</filename>, <filename>smoke.Linux2_x86ifc.tar.gz</filename>). Save this file in the same directory as the data file.</para>
+<para>Download the SMOKE default data file (<filename>smoke.nctox.data.tar.gz</filename>), the installation script (<filename>smoke_install.csh</filename>), and the source code and executables (<filename>smoke.Linux2_x86pg.tar.gz</filename>). Save these files all in the same directory.</para>
 </listitem>
 </orderedlist>
 
@@ -63,12 +57,12 @@
 <para><userinput><command>setenv</command> <envar>EDSS_ROOT</envar> <replaceable>&lt;your selected directory for SMOKE installation&gt;</replaceable></userinput></para>
 </listitem>
 <listitem>
-<para>Make sure your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory exists, by typing at the command line:</para>
+<para>Make sure your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory exists by typing at the command line:</para>
 
 <para><userinput><command>mkdir -p</command> <filename class="directory"><envar>$EDSS_ROOT</envar></filename></userinput></para>
 </listitem>
 <listitem>
-<para>Go to the directory in which you have downloaded the SMOKE installation files.</para>
+<para>Go to the directory in which you have saved the SMOKE installation files.</para>
 </listitem>
 <listitem>
 <para>Type the following at the command line:</para>
@@ -95,7 +89,7 @@
 </listitem>
 </orderedlist>
 
-<para>Now you are ready to run the SMOKE test case. Running SMOKE is described in <xref linkend="ch_scripts" />, which discusses using SMOKE scripts. Please refer to <xref linkend="sect_scripts_run_default" /> for instructions on running the default scripts for the nctox case. The current SMOKE documentation can be found online at <ulink url="http://www.cep.unc.edu/empd/products/smoke/" />.</para>
+<para>Now you are ready to run the SMOKE nctox case. Running SMOKE is described in <xref linkend="ch_scripts" />, which discusses using SMOKE scripts. Please refer to <xref linkend="sect_scripts_run_default" /> for instructions on running the default scripts for the nctox case. The current SMOKE documentation can be found online at <ulink url="http://www.cep.unc.edu/empd/products/smoke/" />.</para>
 
 </section>
 
@@ -107,7 +101,7 @@
 
 <itemizedlist>
 <listitem>
-<para>Install SMOKE as described above.</para>
+<para>Install SMOKE as described in <xref linkend="sect_install_install" />.</para>
 </listitem>
 <listitem>
 <para>If needed, update the file <filename><envar>$EDSS_ROOT</envar>/scripts/platform</filename> to have the compiler options for your operating system. To decide whether you need to update this file, enter the following commands from the UNIX prompt:</para>
@@ -120,7 +114,9 @@
 
 <para><userinput><command>echo</command> <envar>$EDSS_OS</envar></userinput></para>
 
-<para>If the value that comes back from this command is not listed as a <quote>case</quote> in the <filename>platform</filename> file in lines 45-71, then you need to update the <filename>platform</filename> file to have your case in lines 45-71, and you need to update for your case in the section composed of lines 75-128. You will also need to determine which compiler options are needed on your system for maximum optimization (like the -O3 option), whether any options are needed for portable executables (like -static), or whether any options are needed for extra memory allocation (like -bmaxdata:0X20000000 on AIX systems). This will vary depending on platform and compiler; please consult your compiler documentation for exact settings.</para>
+<para>If the value that comes back from this command is not listed as a <quote>case</quote> in the <filename>platform</filename> file in lines 46-72, then you need to update the <filename>platform</filename> file to have your case in lines 46-72, and you need to update for your case in the section composed of lines 76-130.</para>
+
+<para>You will also need to determine which compiler options are needed on your system for maximum optimization (like the -O3 option), whether any options are needed for portable executables (like -static), or whether any options are needed for extra memory allocation (like -bmaxdata:0X20000000 on AIX systems). This will vary depending on platform and compiler; please consult your compiler documentation for exact settings.</para>
 </listitem>
 <listitem>
 <para>Once the <filename>platform</filename> file has been updated, enter the following commands from the UNIX prompt:</para>
@@ -132,12 +128,13 @@
 <para>This sets the <envar>EDSS_EXE</envar> environment variable needed in the next steps.</para>
 </listitem>
 <listitem>
-<para>Collect or create the I/O API library version 2.1 for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/libioapi.a</filename></para>
+<para>Compile the I/O API library version 2.2 for your platform using the source code in <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi</filename>. For more information about compiling the I/O API library, see the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink>. Make sure that your library file is created as
+<filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/libioapi.a</filename>.</para>
 
-<para>You will also need one of the I/O API Tools programs, <command>datshift</command>. Install it as <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/datshift</filename></para>
+<para>You will also need one of the I/O API Tools programs, <command>datshift</command>. The source code for these programs is located in <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/Tools</filename>. After compiling, make sure the executable is located at <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/datshift</filename></para>
 </listitem>
 <listitem>
-<para>Collect or create the NetCDF library version 3.5 or higher for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/netcdf/bin/<envar>$EDSS_EXE</envar>/libnetcdf.a</filename></para>
+<para>Collect or create the NetCDF library version 3.5.1 for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/netcdf/bin/<envar>$EDSS_EXE</envar>/libnetcdf.a</filename></para>
 </listitem>
 <listitem>
 <para>If needed, update the files</para>
