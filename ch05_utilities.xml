@@ -30,7 +30,7 @@
 
 </section>
 
-<section>
+<section id="sect_utilities_beld3to2">
 
 <title><command>Beld3to2</command></title>
 
@@ -120,7 +120,7 @@
 
 </section>
 
-<section>
+<section id="sect_utilities_extractida">
 
 <title><command>Extractida</command></title>
 
@@ -196,7 +196,7 @@
 
 </section>
 
-<section>
+<section id="sect_utilities_geofac">
 
 <title><command>Geofac</command></title>
 
@@ -280,7 +280,7 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
-<section>
+<section id="sect_utilities_invsplit">
 
 <title><command>Invsplit</command></title>
 
@@ -360,7 +360,7 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
-<section>
+<section id="sect_utilities_metscan">
 
 <title><command>Metscan</command></title>
 
@@ -457,7 +457,7 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
-<section>
+<section id="sect_utilities_pktreduc">
 
 <title><command>Pktreduc</command></title>
 
@@ -529,7 +529,7 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
-<section>
+<section id="sect_utilities_smk2emis">
 
 <title><command>Smk2emis</command></title>
 
@@ -780,7 +780,7 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
-<section>
+<section  id="sect_utilities_surgtool">
 
 <title><command>Surgtool</command></title>
 
@@ -862,7 +862,7 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
-<section>
+<section id="sect_utilities_uam2ncf">
 
 <title><command>Uam2ncf</command></title>
 

@@ -60,7 +60,7 @@
 
 </section>
 
-<section>
+<section id="sect_programs_cntlmat">
 
 <title><command>Cntlmat</command></title>
 
@@ -920,7 +920,7 @@
 
 </section>
 
-<section>
+<section id="sect_programs_elevpoint">
 
 <title><command>Elevpoint</command></title>
 
@@ -1214,7 +1214,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 </section>
 
-<section>
+<section id="sect_programs_emisfac">
 
 <title><command>Emisfac</command></title>
 
@@ -1562,7 +1562,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_grdmat">
 
 <title><command>Grdmat</command></title>
 
@@ -1835,7 +1835,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_grwinven">
 
 <title><command>Grwinven</command></title>
 
@@ -2008,7 +2008,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_laypoint">
 
 <title><command>Laypoint</command></title>
 
@@ -2243,7 +2243,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_mbsetup">
 
 <title><command>Mbsetup</command></title>
 
@@ -2423,7 +2423,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_mrggrid">
 
 <title><command>Mrggrid</command></title>
 
@@ -2544,7 +2544,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_normbeis3">
 
 <title><command>Normbeis3</command></title>
 
@@ -2680,7 +2680,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_premobl">
 
 <title><command>Premobl</command></title>
 
@@ -2987,7 +2987,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_rawbio">
 
 <title><command>Rawbio</command></title>
 
@@ -3228,7 +3228,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_smkinven">
 
 <title><command>Smkinven</command></title>
 
@@ -3287,7 +3287,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>By default, <command>Smkinven</command> will fill in missing average-day data with annual data when possible. To fill in missing annual data with average-day data, use the <envar>FILL_ANNUAL</envar> setting.</para>
 
-<comment>list default stack parameters</comment>
+<comment>list default stack parameters and give details about how the filling in is done - this is described in chapter 2 sect_concepts_check_stack_params</comment>
 
 </section>
 
@@ -3805,7 +3805,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<section>
+<section id="sect_programs_smkmerge">
 
 <title><command>Smkmerge</command></title>
 
@@ -4540,7 +4540,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<section>
+<section id="sect_programs_spcmat">
 
 <title><command>Spcmat</command></title>
 
@@ -4994,7 +4994,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<section>
+<section id="sect_programs_temporal">
 
 <title><command>Temporal</command></title>
 
@@ -5532,7 +5532,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<section>
+<section id="sect_programs_tmpbeis3">
 
 <title><command>Tmpbeis3</command></title>
 
@@ -5754,7 +5754,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<section>
+<section id="sect_programs_tmpbio">
 
 <title><command>Tmpbio</command></title>
 
