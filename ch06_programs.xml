@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<chapter id="programs">
+<chapter id="ch_programs">
 
 <title>SMOKE Core Programs</title>
 
@@ -60,7 +60,7 @@
 
 <para><emphasis>Processing categories:</emphasis> area, mobile, point</para>
 
-<para>The <command>Cntlmat</command> program uses control packets to create a growth matrix, and/or a multiplicative control matrix, and/or a reactivity control matrix. <command>Cntlmat</command> allows seven different control packet types: /MACT/, /CONTROL/, /EMS_CONTROL/, /CTG/, /ALLOWABLE/, /REACTIVITY/, and /PROJECTION/. The format of each packet type is discussed in the section on the <envar>GCNTL</envar> input file <remark>in Chapter 8</remark>.</para>
+<para>The <command>Cntlmat</command> program uses control packets to create a growth matrix, and/or a multiplicative control matrix, and/or a reactivity control matrix. <command>Cntlmat</command> allows seven different control packet types: /MACT/, /CONTROL/, /EMS_CONTROL/, /CTG/, /ALLOWABLE/, /REACTIVITY/, and /PROJECTION/. The format of each packet type is discussed in the section on the <envar>GCNTL</envar> input file in <xref linkend="ch_input_files" />.</para>
 
 <itemizedlist>
 <listitem>
@@ -904,7 +904,7 @@
 
 <para>The <command>Elevpoint</command> program is used to select elevated point sources and to prepare certain input files for special elevated source or PinG processing. <command>Elevpoint</command> selects the major point source (MPS) and major elevated point source emissions (MEPSE) records using a variety of criteria, such as stack parameters, emissions, and analytical plume rise calculations. (Note that MEPSE is another name for a PinG source.)</para>
 
-<para><command>Elevpoint</command> distinguishes PinG sources from non-PinG elevated sources based on emission thresholds, highest day-specific emissions rank compared to other sources, analytical plume rise, and/or stack parameters such as height. <command>Elevpoint</command> flags sources as either elevated or PinG based on instructions given in an input configuration file, the <envar>PELVCONFIG</envar> file. <command>Elevpoint</command> also permits grouping of stacks at the same facility if the stack parameters are similar, within tolerances you specify with the <envar>PELVCONFIG</envar> file; the result is call a "stack group". For more information on selecting and grouping elevated and PinG sources, refer to the <envar>PELVCONFIG</envar> file documentation <remark>in Chapter 8</remark>.</para>
+<para><command>Elevpoint</command> distinguishes PinG sources from non-PinG elevated sources based on emission thresholds, highest day-specific emissions rank compared to other sources, analytical plume rise, and/or stack parameters such as height. <command>Elevpoint</command> flags sources as either elevated or PinG based on instructions given in an input configuration file, the <envar>PELVCONFIG</envar> file. <command>Elevpoint</command> also permits grouping of stacks at the same facility if the stack parameters are similar, within tolerances you specify with the <envar>PELVCONFIG</envar> file; the result is call a "stack group". For more information on selecting and grouping elevated and PinG sources, refer to the <envar>PELVCONFIG</envar> file documentation in <xref linkend="ch_input_files" />.</para>
 
 <para><command>Elevpoint</command> can also be used to calculate plume rise using the "cutoff" method. This is the method traditionally used to prepare input files to the air quality models UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript>, which require a separate model-ready input file containing emissions for elevated point sources. Below, we refer to this path as the "UAM style" of emissions processing.</para>
 
