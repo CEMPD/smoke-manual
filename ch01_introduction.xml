@@ -156,14 +156,14 @@
 </listitem>
 </itemizedlist>
 
-<remark>
+<comment>
 <para>The authors anticipate that the following feature will be available in the near future:</para>
 <itemizedlist>
 <listitem>
 <para>A speciation inputs preprocessor, to permit users to construct their own chemical mechanisms and to support the dynamic Statewide Air Pollution Research Center (SAPRC) chemical mechanism. This work is being funded by the American Chemistry Council.</para>
 </listitem>
 </itemizedlist>
-</remark>
+</comment>
 
 </section>
 
@@ -171,7 +171,7 @@
 
 <title>How to Use this Manual</title>
 
-<para>This document is the most complete reference available on SMOKE. It is available both as an HTML document and PDF document (including page numbers) from the <ulink url="http://www.cep.unc.edu/empd/products/smoke/SMOKEDOCS.shtml">SMOKE documentation</ulink> page.</para>
+<para>This document is the most complete reference available on SMOKE. It is available both as a set of HTML pages and PDF document (including page numbers) at <ulink url="http://www.cep.unc.edu/empd/products/smoke/version2.1/" />.</para>
 
 <comment>
 <para>The document's overall table of contents shows all chapter topics and subtopics, while each chapter includes its own table of contents (without page numbers) at the head of the chapter. In the online version of the manual, the table of contents and the chapter contents use hyperlinks to facilitate navigation of the document.</para>
@@ -205,7 +205,7 @@
 
 <para><emphasis role="bold">Check that SMOKE has run properly:</emphasis></para>
 
-<para><xref linkend="sect_qa_methods" /> includes a list of steps regarding how to verify that SMOKE has run properly. This chapter also includes instructions on running the quality assurance (QA) features of SMOKE and documentation on the reporting control file (<xref linkend="sect_qa_repconfig" />) needed for configuring different types of reports for quality assurance. <xref linkend="ch_errors" /> includes SMOKE errors and warnings associated with each program, with explanations about what one might do to correct problems.</para>
+<para><xref linkend="sect_qa_methods" /> includes a list of steps regarding how to verify that SMOKE has run properly. This chapter also includes instructions on running the quality assurance (QA) features of SMOKE and documentation on the reporting control file (<xref linkend="sect_qa_repconfig" />) needed for configuring different types of reports for quality assurance. <comment><xref linkend="ch_errors" /> includes SMOKE errors and warnings associated with each program, with explanations about what one might do to correct problems.</comment></para>
 
 <para><emphasis role="bold">Understand the operations that SMOKE is performing:</emphasis></para>
 
