@@ -10,7 +10,7 @@
 
 <para>This chapter contains format information for all input files used by SMOKE. <xref linkend="ch_intermediate_files" /> and <xref linkend="ch_output_files" /> provide documentation on SMOKE's intermediate and output file formats.</para>
 
-In this overview section, we first provide a few important notes about file formats (<xref linkend="sect_input_file_formats" />, and then discuss where to put SMOKE input files (<xref linkend="sect_input_file_locations" />). <xref linkend="sect_input_file_list" /> summarizes all the input files needed by SMOKE, organized by source category. <xref linkend="sect_input_nctox_case" /> provides a list, organized by SMOKE program, of all the default input files provided with the nctox sample case, which is described in <xref linkend="sect_scripts_nctox_case" />.
+In this overview section, we first provide a few important notes about file formats (<xref linkend="sect_input_file_formats" />, and then discuss where to put SMOKE input files (<xref linkend="sect_input_file_locations" />). <xref linkend="sect_input_file_list" /> summarizes all the input files needed by SMOKE, organized by function. <xref linkend="sect_input_nctox_case" /> provides a list, organized by SMOKE program, of all the default input files provided with the nctox sample case, which is described in <xref linkend="sect_scripts_nctox_case" />.
 
 <para>The remaining sections in this chapter are broken down as follows:</para>
 
@@ -72,9 +72,9 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Where to put SMOKE input files</title>
 
-<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE version 2.0, we have reduced the number of places in which you need to keep your raw input files. <xref linkend="tbl_input_nctox_files" /> lists the all of the input directories for the files used in the example "nctox" case. Below the table, the path names are defined relative to the <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory, which is the directory in which you install SMOKE (and is different for every installation). The table is a good reference for understanding where the files should be placed. In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
+<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE version 2.0, we have reduced the number of places in which you need to keep your raw input files. <xref linkend="sect_input_nctox_case" /> lists the all of the input directories for the files used in the example "nctox" case. In that section, we also define the path names relative to the <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory, which is the directory in which you install SMOKE (and is different for every installation). In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
 
-<para>In summary, SMOKE input files must go into a handful of directories (see the text below <xref linkend="tbl_input_nctox_files" />). Multiple directories are needed because in some cases (such as speciation profiles and meteorology data), the data are to be shared across multiple runs. In other cases (such as inventory data), the data are specific to a case and should be stored independently to prevent corrupting other modeling runs. To change the directories used for input (or any other) files in SMOKE, you must modify the Assigns file as described in <xref linkend="sect_dirs_change_directory" />.</para>
+<para>In summary, SMOKE input files must go into a handful of directories (see <xref linkend="sect_input_nctox_case" />). Multiple directories are needed because in some cases (such as speciation profiles and meteorology data), the data are to be shared across multiple runs. In other cases (such as inventory data), the data are specific to a case and should be stored independently to prevent corrupting other modeling runs. To change the directories used for input (or any other) files in SMOKE, you must modify the Assigns file as described in <xref linkend="sect_dirs_change_directory" />.</para>
 
 </section>
 
@@ -82,7 +82,23 @@ In this overview section, we first provide a few important notes about file form
 
 <title>SMOKE input file list</title>
 
-<para>In <xref linkend="tbl_input_file_list" />, we list all of the raw input files to SMOKE. The files are grouped by functional type: inventory, temporal allocation, spatial allocation (gridding), speciation, growth and controls, merging, meteorology, source-specific, and other. Within each group, the files are presented in alphabetical order. When a file is optional, this is noted in the description column of the table. </para>
+<para>In this section, we list all of the raw input files to SMOKE. The files are grouped into tables by functional type:</para>
+
+<itemizedlist spacing="compact">
+<listitem><xref linkend="tbl_input_inventory_files" /></listitem>
+<listitem><xref linkend="tbl_input_temporal_files" /></listitem>
+<listitem><xref linkend="tbl_input_spatial_files" /></listitem>
+<listitem><xref linkend="tbl_input_chemical_files" /></listitem>
+<listitem><xref linkend="tbl_input_projection_files" /></listitem>
+<listitem><xref linkend="tbl_input_merging_files" /></listitem>
+<listitem><xref linkend="tbl_input_meteorology_files" /></listitem>
+<listitem><xref linkend="tbl_input_biogenic_files" /></listitem>
+<listitem><xref linkend="tbl_input_mobile_files" /></listitem>
+<listitem><xref linkend="tbl_input_point_files" /></listitem>
+<listitem><xref linkend="tbl_input_other_files" /></listitem>
+</itemizedlist>
+
+<para>Within each table, the files are listed in alphabetical order. When a file is optional, this is noted in the description column of the table.</para>
 
 <para>All of the ASCII files could conceivably be prepared manually. However, the last three table columns indicate other options you can use to prepare the files.</para>
 
@@ -100,17 +116,17 @@ In this overview section, we first provide a few important notes about file form
 </itemizedlist>
 </remark>
 
-<table id="tbl_input_file_list">
+<table id="tbl_input_inventory_files">
 
-<title>List of all SMOKE input files</title>
+<title>Inventory Files</title>
 
 <tgroup cols="6">
-<colspec colname="Name" />
-<colspec colname="Source" />
-<colspec colname="Description" />
-<colspec colname="CNV" />
-<colspec colname="ST" />
-<colspec colname="Other" />
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
 
 <thead>
 <row>
@@ -124,11 +140,6 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
-
-<row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Inventory Files</emphasis></entry>
-</row>
-
 <row>
 <entry><link linkend="sect_input_arinv"><envar>ARINV</envar></link> (<command>Smkinven</command>)</entry>
 <entry>A</entry>
@@ -178,11 +189,34 @@ In this overview section, we first provide a few important notes about file form
 <entry>M</entry>
 <entry>Mobile source vehicle mix for EMS-95 files (<envar>$MBDAT</envar> directory)</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_temporal_files">
+
+<title>Temporal Allocation Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Temporal Allocation Input Files</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_amptpro"><envar>[A|M|P]TPRO</envar></link> (<command>Temporal</command>)</entry>
 <entry>A, M, P</entry>
@@ -204,11 +238,34 @@ In this overview section, we first provide a few important notes about file form
 <entry>Holidays file (<envar>$GE_DAT</envar> directory)</entry>
 <entry colname="Other">Resident</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_spatial_files">
+
+<title>Spatial Allocation Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Spatial Allocation Input Files</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_amgpro"><envar>[A|M]GPRO</envar></link> (<command>Grdmat</command>, <command>Surgtool</command>)</entry>
 <entry>A, M</entry>
@@ -237,23 +294,46 @@ In this overview section, we first provide a few important notes about file form
 <entry colname="ST">X</entry>
 <entry>U.S. 36-km resident</entry>
 </row>
-<row>
+<!--<row>
 <entry><link linkend="sect_input_gridpath"><envar>G_GRIDPATH</envar></link> (<command>Grdmat</command>, <command>Elevpoint</command>, <command>Smkmerge</command>)</entry>
 <entry>A, B, M, P</entry>
 <entry>Grid and grid projection information (<envar>$BASDIR</envar> directory)</entry>
 <entry colname="Other">M3 Study Planner</entry>
-</row>
+</row>-->
 <row>
 <entry><link linkend="sect_input_griddesc"><envar>GRIDDESC</envar></link> <comment>(add programs)</comment></entry>
 <entry>A, B, M, P</entry>
 <entry>Grid descriptions (<envar>$BASDIR</envar> directory)</entry>
 <entry colname="Other">Resident</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_chemical_files">
+
+<title>Chemical Speciation Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Chemical Speciation Input Files</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_gscnv"><envar>GSCNV</envar></link> (<command>Spcmat</command>)</entry>
 <entry>A, M, P</entry>
@@ -274,11 +354,34 @@ In this overview section, we first provide a few important notes about file form
 <entry>X</entry>
 <entry>NEI resident</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_projection_files">
+
+<title>Growth and Controls Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Growth and Controls Input Files</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_gcntl"><envar>GCNTL</envar></link> (<command>Cntlmat</command>, <command>Pktreduc</command>)</entry>
 <entry>A, M, P</entry>
@@ -286,21 +389,68 @@ In this overview section, we first provide a few important notes about file form
 <entry colname="ST">X</entry>
 <entry>User</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_merging_files">
+
+<title>Special Merging Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Special Merging Input Files</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_filelist"><envar>FILELIST</envar></link> (<command>Mrggrid</command>)</entry>
 <entry>A, B, M, P</entry>
 <entry>List of gridded 2-D and/or 3-D files to be merged (<filename class="directory"><envar>$SCRIPTS</envar>/run</filename> directory)</entry>
 <entry colname="Other">User</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_meteorology_files">
+
+<title>Meteorology Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Meteorology Input Files</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
+
+<tbody>
 
 <comment>make sections for GRID_CRO_2D, GRID_CRO_3D, MET_CRO_2D, MET_CRO_3D, and MET_DOT_3D - need to include what variables are needed</comment>
 
@@ -346,14 +496,34 @@ In this overview section, we first provide a few important notes about file form
 <entry>Listing of meteorology files containing radiation data (<envar>$STATIC</envar> directory)</entry>
 <entry colname="Other">User</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
-<row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Source-specific Input Files</emphasis></entry>
-</row>
+<table id="tbl_input_biogenic_files">
 
+<title>Biogenic-Specific Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis>Biogenic</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
+
+<tbody>
 <row>
 <entry><link linkend="sect_input_b3fac"><envar>B3FAC</envar></link> (<command>Normbeis3</command>)</entry>
 <entry>B</entry>
@@ -378,11 +548,34 @@ In this overview section, we first provide a few important notes about file form
 <entry>Bioseason switch file (<envar>$GE_DAT</envar> directory)</entry>
 <entry colname="ST">X</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_mobile_files">
+
+<title>Mobile-Specific Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis>Mobile</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_m6list"><envar>M6LIST</envar></link> (<command>Emisfac</command>)</entry>
 <entry>M</entry>
@@ -431,11 +624,34 @@ In this overview section, we first provide a few important notes about file form
 <entry>Hourly speed cross-reference (<envar>$MBDAT</envar> directory)</entry>
 <entry colname="Other">User</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_point_files">
+
+<title>Point-Specific Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis>Point</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_pelvconfig"><envar>PELVCONFIG</envar></link> (<command>Elevpoint</command>)</entry>
 <entry>P</entry>
@@ -454,11 +670,34 @@ In this overview section, we first provide a few important notes about file form
 <entry>List of <envar>PTMP</envar> files for <command>Elevpoint</command> to use to compute maximum daily emissions (<envar>$PTDAT</envar> directory)</entry>
 <entry colname="Other">User</entry>
 </row>
+</tbody>
+</tgroup>
+</table>
 
+<table id="tbl_input_other_files">
+
+<title>Other Support Input Files</title>
+
+<tgroup cols="6">
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="10*" colname="Source" />
+<colspec colwidth="40*" colname="Description" />
+<colspec colwidth="5*" colname="CNV" />
+<colspec colwidth="5*" colname="ST" />
+<colspec colwidth="15*" colname="Other" />
+
+<thead>
 <row>
-<entry namest="Name" nameend="Other"><emphasis role="bold">Other Support Input Files</emphasis></entry>
+<entry>Logical File Name with (Program)</entry>
+<entry>Source Category</entry>
+<entry>File Description and (Location)</entry>
+<entry>CNV</entry>
+<entry>ST</entry>
+<entry>Other</entry>
 </row>
+</thead>
 
+<tbody>
 <row>
 <entry><link linkend="sect_input_artopnt"><envar>ARTOPNT</envar></link> (<command>Smkinven</command>)</entry>
 <entry>A</entry>
@@ -501,7 +740,6 @@ In this overview section, we first provide a few important notes about file form
 <entry>Species name mapping file for <command>Smk2emis</command> (<envar>$GE_DAT</envar> directory)</entry>
 <entry colname="Other">User</entry>
 </row>
-
 </tbody>
 </tgroup>
 </table>
@@ -512,19 +750,41 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Input files for SMOKE nctox case</title>
 
-<para><xref linkend="tbl_input_nctox_files" /> summarizes the SMOKE input files for the nctox sample case provided with SMOKE for processing ozone, PM, and toxics pollutants. You can adapt this list to keep track of the raw input files needed for your cases, and to help you understand all the files that need to be prepared for input to SMOKE. <xref linkend="sect_scripts_nctox_case" /> is a description of the nctox case in more detail. The documentation in <xref linkend="sect_scripts_how_use_smoke" /> describes which input files need to be changed for adapting the default scripts to a particular case.</para>
+<para>In this section, we summarize the SMOKE input files for the nctox sample case provided with SMOKE for processing ozone, PM, and toxics pollutants. You can adapt these tables to keep track of the raw input files needed for your cases, and to help you understand all the files that need to be prepared for input to SMOKE. <xref linkend="sect_scripts_nctox_case" /> is a description of the nctox case in more detail. The documentation in <xref linkend="sect_scripts_how_use_smoke" /> describes which input files need to be changed for adapting the default scripts to a particular case.</para>
 
-<para>In <xref linkend="tbl_input_nctox_files" />, we list the raw SMOKE input files by program, with the programs listed in alphabetical order. These are the files that would have to be created by the user or provided by SMOKE, and most cannot be created with a SMOKE utility (exceptions are noted in the table). Those files that are typically prepared by the users are listed with their logical file names in bold, while the files that users do not usually change fro the defaults are not. Intermediate files (those output by one program and input to another) are not included in the list, but can be found with the program-specific documentation in <xref linkend="ch_programs" /> and in the intermediate file documentation in <xref linkend="ch_intermediate_files" />. The files that are shared among several programs are listed with each program for which they are used (i.e. listed multiple times), and noted with an asterisk adjacent to the logical file name. The file paths are listed using the path logical names, the definitions for which are available below the table.</para>
+<para>We list the raw SMOKE input files by program, with the programs listed in alphabetical order:</para>
 
-<table id="tbl_input_nctox_files">
+<itemizedlist spacing="compact">
+<listitem><xref linkend="tbl_input_nctox_cntlmat_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_elevpoint_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_emisfac_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_grdmat_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_grwinven_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_laypoint_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_mbsetup_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_mrggrid_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_normbeis3_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_premobl_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_rawbio_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_smkinven_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_smkmerge_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_spcmat_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_temporal_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_tmpbeis3_files" /></listitem>
+<listitem><xref linkend="tbl_input_nctox_tmpbio_files" /></listitem>
+</itemizedlist>
 
-<title>SMOKE raw input files for the nctox case</title>
+<para>The files listed are the files that would have to be created by the user or provided by SMOKE, and most cannot be created with a SMOKE utility (exceptions are noted in the tables). Those files that are typically prepared by the users are listed with their logical file names in bold, while the files that users do not usually change fro the defaults are not. Intermediate files (those output by one program and input to another) are not included in the list, but can be found with the program-specific documentation in <xref linkend="ch_programs" /> and in the intermediate file documentation in <xref linkend="ch_intermediate_files" />. The files that are shared among several programs are listed with each program for which they are used (i.e. listed multiple times), and noted with an asterisk adjacent to the logical file name. The file paths are listed using the path logical names, the definitions for which are available below the tables.</para>
+
+<table id="tbl_input_nctox_cntlmat_files">
+
+<title><command>Cntlmat</command> input files for nctox case</title>
 
 <tgroup cols="4">
-<colspec colname="Logical" />
-<colspec colname="Source" />
-<colspec colname="Path" />
-<colspec colname="Physical" />
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
 
 <thead>
 <row>
@@ -536,10 +796,6 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
-<row>
-<entry namest="Logical" nameend="Physical"><command>Cntlmat</command></entry>
-</row>
-
 <row>
 <entry><emphasis role="bold"><envar>GCNTL</envar></emphasis>: growth and/or control instructions</entry>
 <entry>
@@ -575,9 +831,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Elevpoint</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_elevpoint_files">
+
+<title><command>Elevpoint</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>GRIDDESC</envar></emphasis>*: grid descriptions</entry>
 <entry>P</entry>
@@ -598,9 +878,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Emisfac</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_emisfac_files">
+
+<title><command>Emisfac</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>M</entry>
@@ -641,9 +945,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Grdmat</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_grdmat_files">
+
+<title><command>Grdmat</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>AGPRO</envar></emphasis>: gridding surrogates</entry>
 <entry>A</entry>
@@ -682,9 +1010,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Grwinven</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_grwinven_files">
+
+<title><command>Grwinven</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><envar>COSTCY</envar>*: country, state, and county names</entry>
 <entry>A, M, P</entry>
@@ -693,9 +1045,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Laypoint</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_laypoint_files">
+
+<title><command>Laypoint</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>GRID_CRO_3D</envar></emphasis>: 3-d cross-point grid data</entry>
 <entry>P</entry>
@@ -743,9 +1119,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Mbsetup</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_mbsetup_files">
+
+<title><command>Mbsetup</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>MCREF</envar></emphasis>: county cross-reference</entry>
 <entry>M</entry>
@@ -760,9 +1160,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Mrggrid</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_mrggrid_files">
+
+<title><command>Mrggrid</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>FILELIST</envar></emphasis>: list of logical file names to merge</entry>
 <entry>All</entry>
@@ -771,9 +1195,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Normbeis3</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_normbeis3_files">
+
+<title><command>Normbeis3</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>B3FAC</envar></emphasis>: BEIS3 emissions factors</entry>
 <entry>B</entry>
@@ -800,9 +1248,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Premobl</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_premobl_files">
+
+<title><command>Premobl</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>METLIST</envar></emphasis>: temperature file list</entry>
 <entry>M</entry>
@@ -811,9 +1283,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Rawbio</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_rawbio_files">
+
+<title><command>Rawbio</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><envar>BCUSE</envar>: county land use</entry>
 <entry>B</entry>
@@ -845,9 +1341,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Smkinven</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_smkinven_files">
+
+<title><command>Smkinven</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>ARINV</envar></emphasis> (area): stationary area/nonpoint inventory (or list of inventories)</entry>
 <entry>A</entry>
@@ -960,9 +1480,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Smkmerge</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_smkmerge_files">
+
+<title><command>Smkmerge</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>BGPRO</envar></emphasis>: spatial surrogates with cell-area surrogate</entry>
 <entry>B</entry>
@@ -993,9 +1537,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Spcmat</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_spcmat_files">
+
+<title><command>Spcmat</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><envar>GSCNV</envar>: pollutant-to-pollutant conversion</entry>
 <entry>A, M, P</entry>
@@ -1054,9 +1622,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Temporal</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_temporal_files">
+
+<title><command>Temporal</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><envar>ATPRO</envar>: Temporal profiles</entry>
 <entry>A</entry>
@@ -1141,9 +1733,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Tmpbeis3</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_tmpbeis3_files">
+
+<title><command>Tmpbeis3</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry>Same raw inputs as <command>Tmpbio</command> program, documented below</entry>
 <entry>See <command>Tmpbio</command></entry>
@@ -1152,9 +1768,33 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical"><command>Tmpbio</command></entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_nctox_tmpbio_files">
+
+<title><command>Tmpbio</command> input files for nctox case</title>
+
+<tgroup cols="4">
+<colspec colwidth="30*" colname="Logical" />
+<colspec colwidth="15*" colname="Source" />
+<colspec colwidth="25*" colname="Path" />
+<colspec colwidth="30*" colname="Physical" />
+
+<thead>
+<row>
+<entry>Logical file name and description</entry>
+<entry>Source categories</entry>
+<entry>Path</entry>
+<entry>Physical file name</entry>
+</row>
+</thead>
+
+<tbody>
 <row>
 <entry><emphasis role="bold"><envar>BIOSEASON</envar></emphasis>: Winter/summer designation by cell and day</entry>
 <entry>B</entry>
@@ -1187,14 +1827,14 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate the the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
 </tbody>
 </tgroup>
 </table>
 
-<para>As you can see from <xref linkend="tbl_input_nctox_files" />, there are several directories for raw SMOKE inputs. These are:</para>
+<para>There are several directories that contain the raw SMOKE inputs. These are:</para>
 
 <itemizedlist>
 <listitem>
@@ -1337,7 +1977,11 @@ In this overview section, we first provide a few important notes about file form
 
 <table id="tbl_input_inventory_header">
 <title>Inventory header commands for IDA and ORL formats</title>
+
 <tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="22*" />
+<colspec colwidth="53*" />
 
 <thead>
 <row>
@@ -1349,7 +1993,13 @@ In this overview section, we first provide a few important notes about file form
 
 <tbody>
 <row>
-<entry>#IDA, #TOXICS, or #TOXICS NONPOINT</entry>
+<entry>
+<simplelist>
+<member>#IDA</member>
+<member>#TOXICS</member>
+<member>#TOXICS NONPOINT</member>
+</simplelist>
+</entry>
 <entry>N/A</entry>
 <entry>N/A</entry>
 </row>
@@ -1431,10 +2081,10 @@ INVYEAR 1996
 <title>IDA Format for <envar>ARINV</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Position" />
-<colspec colname="Name" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -1591,6 +2241,10 @@ INVYEAR 1996
 <title>EMS-95 Format for <envar>ARINV</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -1677,10 +2331,10 @@ INVYEAR 1996
 <title>ORL Nonpoint Format for <envar>ARINV</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Position" />
-<colspec colname="Name" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -1786,10 +2440,10 @@ INVYEAR 1996
 <title>ORL Nonroad Format for <envar>ARINV</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Position" />
-<colspec colname="Name" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -1875,9 +2529,9 @@ INVYEAR 1996
 <title>Format for <envar>BCUSE</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -1934,9 +2588,9 @@ INVYEAR 1996
 <title>Format for <envar>BGUSE</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -2060,6 +2714,11 @@ INVYEAR 1996
 <title>IDA Activity Data Format for <envar>MBINV</envar></title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -2134,6 +2793,11 @@ INVYEAR 1996
 <title>IDA Emissions Data Format for <envar>MBINV</envar></title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -2240,10 +2904,10 @@ INVYEAR 1996
 <title>EMS-95 Nonlink Column-specific Format for <envar>MBINV</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -2309,10 +2973,10 @@ INVYEAR 1996
 <title>EMS-95 Nonlink List-directed Format for <envar>MBINV</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -2381,10 +3045,10 @@ INVYEAR 1996
 <title>EMS-95 Link Format for <envar>MBINV</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -2493,6 +3157,11 @@ INVYEAR 1996
 <title>ORL Format for <envar>MBINV</envar></title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -2559,6 +3228,11 @@ INVYEAR 1996
 <title>Format for individual day-specific data files</title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -2714,6 +3388,11 @@ INVYEAR 1996
 <title>EMS-95 Format for individual hour-specific files</title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -2848,6 +3527,11 @@ INVYEAR 1996
 <title>CEM Format for individual hour-specific data files</title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -2959,10 +3643,10 @@ INVYEAR 1996
 <title>IDA Format for <envar>PTINV</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Position" />
-<colspec colname="Name" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -3364,6 +4048,10 @@ INVYEAR 1995
 <title>EMS-95 Format for <filename>device.pt</filename></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -3429,6 +4117,10 @@ INVYEAR 1995
 <title>EMS-95 Format for <filename>emission.pt</filename></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -3483,7 +4175,7 @@ INVYEAR 1995
 <entry>Char</entry>
 <entry><para>Temporal basis (required)</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>AA = annual emissions</listitem>
 <listitem>AD = daily emissions with weekday normalizer</listitem>
 <listitem>DS = day-specific emissions</listitem>
@@ -3512,6 +4204,10 @@ INVYEAR 1995
 <title>EMS-95 Format for <filename>facility.pt</filename></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -3577,6 +4273,10 @@ INVYEAR 1995
 <title>EMS-95 Format for <filename>process.pt</filename></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -3637,6 +4337,10 @@ INVYEAR 1995
 <title>EMS-95 Format for <filename>stack.pt</filename></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -3727,6 +4431,11 @@ INVYEAR 1995
 <title>ORL Format for <envar>PTINV</envar></title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -3785,7 +4494,7 @@ INVYEAR 1995
 <entry>Char</entry>
 <entry><para>Emissions release point type (2 characters maximum); indicates type of stack (not used by SMOKE)</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>01 = fugitive</listitem>
 <listitem>02 = vertical stack</listitem>
 <listitem>03 = horizontal stack</listitem>
@@ -3802,7 +4511,7 @@ INVYEAR 1995
 <entry>Char</entry>
 <entry><para>Source type (2 characters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>01 = major</listitem>
 <listitem>02 = Section 12 area source</listitem>
 </itemizedlist>
@@ -3863,7 +4572,7 @@ INVYEAR 1995
 <entry>Char</entry>
 <entry><para>Coordinate system type (1 character maximum) (required)</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>U = Universal Transverse Mercator</listitem>
 <listitem>L = Latitude/longitude</listitem>
 </itemizedlist>
@@ -3876,7 +4585,7 @@ INVYEAR 1995
 <entry>Real</entry>
 <entry><para>X location (required)</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>If CTYPE = U, Easting value (meters)</listitem>
 <listitem>If CTYPE = L, Longitude (decimal degrees)</listitem>
 </itemizedlist>
@@ -3889,7 +4598,7 @@ INVYEAR 1995
 <entry>Real</entry>
 <entry><para>Y location (required)</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>If CTYPE = U, Northing value (meters)</listitem>
 <listitem>If CTYPE = L, Latitude (decimal degrees)</listitem>
 </itemizedlist>
@@ -3976,10 +4685,10 @@ INVYEAR 1995
 <title>EMS-95 Column-specific Format for <envar>VMTMIX</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -4079,10 +4788,10 @@ INVYEAR 1995
 <title>EMS-95 List-directed Format for <envar>VMTMIX</envar></title>
 
 <tgroup cols="4">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Type" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -4199,9 +4908,9 @@ INVYEAR 1995
 <title>Format for <envar>ATPRO</envar>, <envar>MTPRO</envar>, and <envar>PTPRO</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -4386,9 +5095,9 @@ INVYEAR 1995
 <title>Format for <envar>ATREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -4440,9 +5149,9 @@ INVYEAR 1995
 <title>Format for <envar>MTREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -4498,9 +5207,9 @@ INVYEAR 1995
 <title>Format for <envar>PTREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -4598,9 +5307,9 @@ INVYEAR 1995
 <title>Format for <envar>HOLIDAYS</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -4672,9 +5381,9 @@ INVYEAR 1995
 <title>Format for <envar>AGPRO</envar> and <envar>MGPRO</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -4795,9 +5504,9 @@ INVYEAR 1995
 <title>Format for <envar>AGREF</envar> and <envar>MGREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -4878,6 +5587,7 @@ INVYEAR 1995
 
 </section>
 
+<!--
 <section id="sect_input_gridpath">
 
 <title><envar>G_GRIDPATH</envar>: Grids and grid projection information</title>
@@ -4890,9 +5600,9 @@ INVYEAR 1995
 <title>Format for <envar>G_GRIDPATH</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5040,6 +5750,7 @@ INVYEAR 1995
 </itemizedlist>
 
 </section>
+-->
 
 <section id="sect_input_griddesc">
 
@@ -5047,7 +5758,10 @@ INVYEAR 1995
 
 <comment>maybe put GRIDDESC info here, rather than linking to I/O API</comment>
 
+<!--
 <para>Like the <envar>G_GRIDPATH</envar> file, the <envar>GRIDDESC</envar> file is used to provide grid and projection information to SMOKE. However, the <envar>GRIDDESC</envar> file is more flexible in that it can contain data for many different projections and many different grids. We recommend that the <envar>GRIDDESC</envar> file be used for all new SMOKE runs. The format of the <envar>GRIDDESC</envar> file is available in the I/O API documentation at <ulink url="http://www.baronams.com/products/ioapi/GRIDDESC.html" />.</para>
+-->
+<para>The <envar>GRIDDESC</envar> file is used to provide grid and projection information to SMOKE and can contain data for many different projections and many different grids. The format of the <envar>GRIDDESC</envar> file is available in the I/O API documentation at <ulink url="http://www.baronams.com/products/ioapi/GRIDDESC.html" />.</para>
 
 </section>
 
@@ -5071,9 +5785,9 @@ INVYEAR 1995
 <title>Format for <envar>GSCNV</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5102,12 +5816,12 @@ INVYEAR 1995
 <entry colname="Position">8-17</entry>
 <entry>
 
-<itemizedlist spacing="compact">
-<listitem>Area: 10-digit SCC (full SCC is needed) (Character)</listitem>
-<listitem>Mobile: 10-digit SCC (full SCC is needed) (Character)</listitem>
-<listitem>Point: 8-digit SCC (full SCC is needed) (Character)</listitem>
-<listitem>Zero if entry is not SCC-specific</listitem>
-</itemizedlist>
+<simplelist>
+<member>Area: 10-digit SCC (full SCC is needed) (Character)</member>
+<member>Mobile: 10-digit SCC (full SCC is needed) (Character)</member>
+<member>Point: 8-digit SCC (full SCC is needed) (Character)</member>
+<member>Zero if entry is not SCC-specific</member>
+</simplelist>
 
 </entry>
 </row>
@@ -5134,9 +5848,9 @@ INVYEAR 1995
 <title>Format for <envar>GSPRO</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5217,9 +5931,9 @@ INVYEAR 1995
 <title>Format for area- and mobile-source <envar>GSREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5235,11 +5949,11 @@ INVYEAR 1995
 <entry>A</entry>
 <entry>
 
-<itemizedlist spacing="compact">
-<listitem>Area: 10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character)</listitem>
-<listitem>Mobile: 10-digit SCC code (Character)</listitem>
-<listitem>Set to zero if cross-reference entry is not SCC-specific</listitem>
-</itemizedlist>
+<simplelist>
+<member>Area: 10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character)</member>
+<member>Mobile: 10-digit SCC code (Character)</member>
+<member>Set to zero if cross-reference entry is not SCC-specific</member>
+</simplelist>
 
 </entry>
 </row>
@@ -5287,9 +6001,9 @@ INVYEAR 1995
 <title>Format for point-source <envar>GSREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5313,7 +6027,7 @@ INVYEAR 1995
 <entry colname="Position">C</entry>
 <entry><para>Number of point source characteristic in addition to plant ID (if SCC is a part of the source definition); zero otherwise.</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>IDA and ORL inventories: 4</listitem>
 <listitem>EMS-95 inventories: 0</listitem>
 </itemizedlist>
@@ -5433,9 +6147,9 @@ INVYEAR 1995
 <title>Format for /ALLOWABLE/ packet in <envar>GCNTL</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5527,9 +6241,9 @@ INVYEAR 1995
 <title>Format for /CONTROL/ packet in <envar>GCNTL</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5649,9 +6363,9 @@ INVYEAR 1995
 <title>Format for /CTG/ packet in <envar>GCNTL</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5732,9 +6446,9 @@ INVYEAR 1995
 <title>Format for /EMS_CONTROL/ packet in <envar>GCNTL</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5852,9 +6566,9 @@ INVYEAR 1995
 <title>Format for /MACT/ packet in <envar>GCNTL</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -5939,9 +6653,9 @@ INVYEAR 1995
 <title>Format for /PROJECTION/ packet in <envar>GCTNL</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6003,9 +6717,9 @@ INVYEAR 1995
 <title>Format for /REACTIVITY/ packet in <envar>GCNTL</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6111,6 +6825,10 @@ INVYEAR 1995
 <title>Format for <envar>FILELIST</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
 <thead>
 <row>
 <entry>Line</entry>
@@ -6151,6 +6869,10 @@ INVYEAR 1995
 <title>Format for <envar>METLIST</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
 <thead>
 <row>
 <entry>Line</entry>
@@ -6181,6 +6903,10 @@ INVYEAR 1995
 <title>Format for <envar>RADLIST</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
 <thead>
 <row>
 <entry>Line</entry>
@@ -6205,7 +6931,7 @@ INVYEAR 1995
 
 <section id="sect_input_source_specific">
 
-<title>Source-specific files</title>
+<title>Source-Specific files</title>
 
 <section id="sect_input_source_biogenics">
 
@@ -6221,9 +6947,9 @@ INVYEAR 1995
 <title>Format for <envar>B3FAC</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6287,9 +7013,9 @@ INVYEAR 1995
 <title>Format for <envar>B3XRF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6329,9 +7055,9 @@ INVYEAR 1995
 <title>Format for <envar>BFAC</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6397,6 +7123,10 @@ INVYEAR 1995
 <title>Format for <envar>M6LIST</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
 <thead>
 <row>
 <entry>Line</entry>
@@ -6430,7 +7160,7 @@ INVYEAR 1995
 
 <para>A MOBILE6 input scenario file must be provided for each reference county in the <envar>MCREF</envar> file. These files follow the same format as MOBILE6 input files; all commands are allowed except for the following:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>AGGREGATED OUTPUT</listitem>
 <listitem>AIR TOXICS</listitem>
 <listitem>DAILY OUTPUT</listitem>
@@ -6493,9 +7223,9 @@ OXYGENATE          : MTBE  15.1  0.50
 <title>Format for <envar>MCODES</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6647,9 +7377,9 @@ LDGT   0106   N
 <title>Format for <envar>MCREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6710,6 +7440,10 @@ LDGT   0106   N
 <title>Format for <envar>MEFLIST</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
 <thead>
 <row>
 <entry>Line</entry>
@@ -6740,9 +7474,9 @@ LDGT   0106   N
 <title>Format for <envar>MEPROC</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6797,9 +7531,9 @@ VMT RFL TOG
 <title>Format for <envar>MVREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6883,9 +7617,9 @@ VMT RFL TOG
 <title>Format for <envar>SPDPRO</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -6933,9 +7667,9 @@ VMT RFL TOG
 <title>Format for <envar>SPDREF</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -7235,9 +7969,9 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>PSTK</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -7289,6 +8023,10 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>PTMPLIST</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
 <thead>
 <row>
 <entry>Line</entry>
@@ -7335,6 +8073,11 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>ARTOPNT</envar></title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -7429,9 +8172,9 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>COSTCY</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -7484,7 +8227,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">32-34</entry>
-<entry>Standard (non-Daylight-Saving) state time zone; see <xref linkend="sect_input_costcy_zones" /> for valid time zones (Character) (optional)</entry>
+<entry>Standard (non-Daylight-Saving) state time zone; see <xref linkend="tbl_input_costcy_zones" /> for valid time zones (Character) (optional)</entry>
 </row>
 <row>
 <entry>5</entry>
@@ -7522,7 +8265,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">40-42</entry>
-<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="sect_input_costcy_zones" /> for valid time zones (Character)</entry>
+<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="tbl_input_costcy_zones" /> for valid time zones (Character)</entry>
 </row>
 <row>
 <entry colname="Position">43</entry>
@@ -7564,10 +8307,14 @@ SOURCE > 100 AND SOURCE < 200
 </tgroup>
 </table>
 
-<table id="sect_input_costcy_zones">
+<table id="tbl_input_costcy_zones">
 <title>Valid <envar>COSTCY</envar> time zones</title> 
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
 <thead>
 <row>
 <entry>GMT</entry>
@@ -7647,6 +8394,10 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>INVTABLE</envar></title>
 
 <tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="65*" />
+<colspec colwidth="20*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -7791,6 +8542,11 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>NHAPEXCLUDE</envar></title>
 
 <tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
 <thead>
 <row>
 <entry>Position</entry>
@@ -7876,9 +8632,9 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>ORISDESC</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -7970,9 +8726,9 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>SCCDESC</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
@@ -8010,9 +8766,9 @@ SOURCE > 100 AND SOURCE < 200
 <title>Format for <envar>VNAMMAP</envar></title>
 
 <tgroup cols="3">
-<colspec colname="Line" />
-<colspec colname="Position" />
-<colspec colname="Description" />
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
