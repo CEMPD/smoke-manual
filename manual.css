@@ -12,6 +12,11 @@ TH, TD {
   border: 1px solid black;
 }
 
+TABLE.simplelist TH, TABLE.simplelist TD {
+  padding: 0;
+  border: 0;
+}
+
 DIV.navfooter TD, DIV.navfooter TH, DIV.navheader TD, DIV.navheader TH {
   padding: 0;
   border: none;
