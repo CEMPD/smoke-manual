@@ -1952,6 +1952,7 @@ INVYEAR 1996
 <entry>A</entry>
 <entry>#GRID header (see <envar>AGPRO</envar> and <envar>MGPRO</envar>) (required)</entry>
 </row>
+<comment>
 <row>
 <entry>optional</entry>
 <entry>A</entry>
@@ -1973,6 +1974,7 @@ INVYEAR 1996
 <entry>A</entry>
 <entry>ENDHEADER (this text is required even if there is no header)</entry>
 </row>
+</comment>
 <row>
 <entry namest="Line" nameend="Description">Repeat the following for each cell</entry>
 </row>
@@ -3534,11 +3536,11 @@ INVYEAR 1995
 <entry>Char</entry>
 <entry>Facility ID (required)</entry>
 </row>
-<row>
+<comment><row>
 <entry>21-24 </entry>
 <entry>Int</entry>
 <entry>SIC (required)</entry>
-</row>
+</row></comment>
 <row>
 <entry>25-33 </entry>
 <entry>Real</entry>
@@ -3692,7 +3694,7 @@ INVYEAR 1995
 <row>
 <entry>72-80 </entry>
 <entry>Real</entry>
-<entry>UTM easting of stack (m) (default is plant's value) (optional; SMOKE will value from facility file)</entry>
+<entry>UTM easting of stack (m) (default is plant's value) (optional; SMOKE will use value from facility file)</entry>
 </row>
 <row>
 <entry>81-89 </entry>
@@ -3743,7 +3745,7 @@ INVYEAR 1995
 </row>
 <row>
 <entry>B</entry>
-<entry>PLANDID</entry>
+<entry>PLANTID</entry>
 <entry>Char</entry>
 <entry>Plant Identification Code (15 characters maximum) (required; this is the same as the State Facility Identifier in the NIF)</entry>
 </row>
@@ -3876,7 +3878,7 @@ INVYEAR 1995
 
 <itemizedlist>
 <listitem>If CTYPE = U, Easting value (meters)</listitem>
-<listitem>If CTYPE = L, Latitude (decimal degrees)</listitem>
+<listitem>If CTYPE = L, Longitude (decimal degrees)</listitem>
 </itemizedlist>
 
 </entry>
@@ -3889,7 +3891,7 @@ INVYEAR 1995
 
 <itemizedlist>
 <listitem>If CTYPE = U, Northing value (meters)</listitem>
-<listitem>If CTYPE = L, Longitude (decimal degrees)</listitem>
+<listitem>If CTYPE = L, Latitude (decimal degrees)</listitem>
 </itemizedlist>
 
 </entry>
@@ -5891,18 +5893,29 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Pollutant ID, or -9 if not a pollutant-specific control (Character)</entry>
+<entry><para>Application control flag (Character)</para>
+
+<itemizedlist spacing="compact">
+<listitem>Y = control should be applied to inventory</listitem>
+<listitem>N = control will not be used</listitem>
+</itemizedlist>
+
+</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
+<entry>Pollutant ID, or -9 if not a pollutant-specific control (Character)</entry>
+</row>
+<row>
+<entry colname="Position">F</entry>
 <entry>Control efficiency of existing sources (value should be 0-100) (Real)</entry>
 </row>
 <row>
-<entry colname="Position">F</entry>
+<entry colname="Position">G</entry>
 <entry>Control efficiency of new sources (value should be 0-100) (Real)</entry>
 </row>
 <row>
-<entry colname="Position">F</entry>
+<entry colname="Position">H</entry>
 <entry>Fraction of new and existing sources (value should be 0-100) (Real)</entry>
 </row>
 <row>
