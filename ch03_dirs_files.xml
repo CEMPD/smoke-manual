@@ -206,7 +206,7 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">scripts/install</filename>: Script to install SMOKE and script to check installation</para>
+<para><filename class="directory">scripts/install</filename>: Scripts to install SMOKE and check the installation</para>
 </listitem>
 <listitem>
 <para><filename class="directory">scripts/make</filename>: Scripts for compiling SMOKE</para>
@@ -305,7 +305,7 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/ge_dat</filename>: This directory contains the cross-reference files, profile files, spatial surrogates, and other files that are likely to be shared among multiple cases of processing inventories with SMOKE. You will be able to use the default files provided with SMOKE for many of these files. The file that is most likely to require changes is the spatial surrogates file, to customize it for the grid you wish to model. The logical file names for files included in this directory are listed here; many physical files could be available in the <filename class="directory">ge_dat</filename> directory for each file type. For example, you may have dozens of surrogate files for different modeling grids and several speciation profiles for different model-mechanism combinations. More detailed descriptions of these files are in <xref linkend="ch_input_files" />.</para>
+<para><filename class="directory">ge_dat</filename>: This directory contains the cross-reference files, profile files, spatial surrogates, and other files that are likely to be shared among multiple cases of processing inventories with SMOKE. You will be able to use the default files provided with SMOKE for many of these files. The file that is most likely to require changes is the spatial surrogates file, to customize it for the grid you wish to model. The logical file names for files included in this directory are listed here; many physical files could be available in the <filename class="directory">ge_dat</filename> directory for each file type. For example, you may have dozens of surrogate files for different modeling grids and several speciation profiles for different model-mechanism combinations. More detailed descriptions of these files are in <xref linkend="ch_input_files" />.</para>
 
 <itemizedlist>
 <listitem>
@@ -376,7 +376,7 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory">data/inventory</filename>: The location of all inventory files for each inventory case (as defined by the <envar>$INVID</envar> environment variable in an Assigns file), land use data, and other data.</para>
+<para><filename class="directory">inventory</filename>: The location of all inventory files for each inventory case (as defined by the <envar>$INVID</envar> environment variable in an Assigns file), land use data, and other data.</para>
 
 <itemizedlist>
 <listitem>
@@ -483,11 +483,11 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>PTDAY</envar> (raw day-specific point-source inventory file). If this optional file is a list-formatted file, which is typically the case, the files listed within it should also be included in this directory.</para>
+<para><envar>PTDAY</envar> (raw day-specific point-source inventory file). If this optional file is a list file, which is typically the case, the files listed within it should also be included in this directory.</para>
 </listitem>
 
 <listitem>
-<para><envar>PTHOUR</envar> (raw hour-specific point-source inventory file). If this optional file is a list-formatted file, which is typically the case, the files listed within it should also be included in this directory.</para>
+<para><envar>PTHOUR</envar> (raw hour-specific point-source inventory file). If this optional file is a list file, which is typically the case, the files listed within it should also be included in this directory.</para>
 </listitem>
 
 <listitem>
@@ -504,10 +504,10 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<listitem>
 <para><envar>ARTOPNT</envar> (area-to-point file). Contains the area-to-point assignments by SCC with the point locations for each county in which a SMOKE area source will be assigned to point locations.</para>
 </listitem>
 
+<listitem>
 <para><envar>INVTABLE</envar> (inventory table file). Contains a list of the valid inventory pollutants and whether or not emissions associated with each pollutant should be kept when reading the inventory files, among other purposes.</para>
 </listitem>
 
@@ -525,10 +525,10 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory">data/met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-road mobile sources with MOBILE6 using gridded, hourly meteorology data; or (3) point sources for the CMAQ or MAQSIP models. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ's MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats. See <xref linkend="sect_input_meteorology" /> for more information about the meteorology data needed by SMOKE.</para>
+<para><filename class="directory">met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-road mobile sources with MOBILE6 using gridded, hourly meteorology data; or (3) point sources for the CMAQ or MAQSIP models. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ's MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats. See <xref linkend="sect_input_meteorology" /> for more information about the meteorology data needed by SMOKE.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$MSCEN</envar>/static/m6</filename>: For MOBILE6 modeling only, this directory must contain the ancillary MOBILE6 inputs needed for running MOBILE6. <xref linkend="sect_scripts_use_mobile6" /> contains a description of the files that are required and their dependencies on MOBILE6 commands. Some files are needed only when certain MOBILE6 input commands are used.</para>
+<para><filename class="directory">run_<envar>$MSCEN</envar>/static/m6</filename>: For MOBILE6 modeling only, this directory must contain the ancillary MOBILE6 inputs needed for running MOBILE6. <xref linkend="sect_scripts_use_mobile6" /> contains a description of the files that are required and their dependencies on MOBILE6 commands. Some files are needed only when certain MOBILE6 input commands are used.</para>
 </listitem>
 </itemizedlist>
 
@@ -565,7 +565,7 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/inventory/<envar>$INVEN</envar></filename>: This directory contains the SMOKE intermediate inventory files, including the directories associated with them. These files are the outputs from <command>Smkinven</command>, and are map-formatted (see below for more information). The subdirectories <filename class="directory">area_dat</filename>, <filename class="directory">mobl_dat</filename>, <filename class="directory">nroad_dat</filename>, and <filename class="directory">pnts_dat</filename> contain the files that store the emissions values for each pollutant in the inventory. The intermediate files in this directory include:</para>
+<para><filename class="directory">inventory/<envar>$INVEN</envar></filename>: This directory contains the SMOKE intermediate inventory files, including the directories associated with them. These files are the outputs from <command>Smkinven</command>, and are map-formatted (see below for more information). The subdirectories <filename class="directory">area_dat</filename>, <filename class="directory">mobl_dat</filename>, <filename class="directory">nroad_dat</filename>, and <filename class="directory">pnts_dat</filename> contain the files that store the emissions values for each pollutant in the inventory. The intermediate files in this directory include:</para>
 
 <itemizedlist>
 <listitem>
@@ -605,7 +605,7 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$REPORTS</envar></filename>: Discussed in <xref linkend="sect_dirs_location_report_files" /></para>
+<para><filename class="directory">reports</filename>: Discussed in <xref linkend="sect_dirs_location_report_files" /></para>
 </listitem>
 <listitem>
 <para><filename class="directory">run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>: Contains the hourly, gridded, speciated biogenic emissions files. These are listed in this subsection for intermediate files because in some cases these are not ready for the AQM, because the units need to be converted. Specifically, the files written to this directory by the <command>Tmpbeis3</command> and <command>Tmpbio</command> programs have units of moles/hr and tons/hr, but the CMAQ model needs data in units of moles/s.</para>
@@ -793,7 +793,7 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>:</para>
+<para><filename class="directory">run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>:</para>
 
 <itemizedlist>
 <listitem>
@@ -815,7 +815,7 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>/output/merge</filename>:</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>/output/merge</filename>:</para>
 
 <itemizedlist>
 <listitem>
@@ -841,8 +841,11 @@ source $ASSIGNS/set_dirs.scr
 
 <para><envar>ELEVTS_L</envar>: ASCII elevated-point-source stack parameters and hourly, speciated emissions (from <command>Smkmerge</command>).</para>
 </listitem>
+</itemizedlist>
+
+</listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>/output/<envar>$SPC</envar></filename>:</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>/output/<envar>$SPC</envar></filename>:</para>
 
 <itemizedlist>
 <listitem>
@@ -869,9 +872,6 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 </itemizedlist>
 
-</listitem>
-</itemizedlist>
-
 </section>
 
 <section>
@@ -884,10 +884,10 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$fyr2</envar> field included in the path name. The files are the same as those in the base case, but with future-year emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$fyr2</envar> field included in the path name. The files are the same as those in the base case, but with future-year emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 </itemizedlist>
 
@@ -895,10 +895,10 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$CNTLCASE</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>_<envar>$CNTLCASE</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$CNTLCASE</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$CNTLCASE</envar> field included in the path name. The files are the same as those in the base case, but with controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>_<envar>$CNTLCASE</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$CNTLCASE</envar> field included in the path name. The files are the same as those in the base case, but with controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 </itemizedlist>
 
@@ -906,10 +906,10 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>_<envar>$CNTLCASE</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year, controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>_<envar>$CNTLCASE</envar>/output/merge</filename>: Final model-ready output files. The files are the same as those in the base case, but with future-year, controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">data/run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>_<envar>$CNTLCASE</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$fyr2</envar> and <envar>$CNTLCASE</envar> fields included in the path name. The files are the same as those in the base case, but with future-year, controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
+<para><filename class="directory">run_<envar>$ESCEN</envar>_<envar>$fyr2</envar>_<envar>$CNTLCASE</envar>/output/<envar>$SPC</envar></filename>: Source-category hourly, gridded, speciated files. In the advanced configuration, the <envar>$ASCEN</envar>, <envar>$MSCEN</envar>, or <envar>$PSCEN</envar> values could be different from the <envar>$ESCEN</envar> value, resulting in separate directories (as shown in <xref linkend="fig_dirs_files_advanced" />, but with the <envar>$fyr2</envar> and <envar>$CNTLCASE</envar> fields included in the path name. The files are the same as those in the base case, but with future-year, controlled emissions; see <xref linkend="sect_dirs_location_output_base" /> for more information.</para>
 </listitem>
 </itemizedlist>
 
