@@ -196,6 +196,12 @@
 <entry>A, M, P</entry>
 <entry>SCC descriptions</entry>
 </row>
+<row>
+<entry><envar>SICDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>A, M, P</entry>
+<entry>SIC descriptions</entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -614,15 +620,20 @@
 <para>When the <quote>NAME</quote> option on the BY SCC10 instruction is included, the column delimiter default is automatically changed from a semi-colon to a pipe symbol (<quote>|</quote>). This is because the SCC descriptions include semi-colons, commas, and colons, causing some spreadsheet programs (e.g. Microsoft Excel) to not read in the report cleanly. Also, the SCC name is enclosed in double quotes, which can help with the delimiter issue. If the /DELIMITER/ instruction (discussed in <xref linkend="sect_qa_repconfig_delimiter" />) is used, the user-specified delimiter is included in all subsequent reports, regardless of whether the BY SCC10 instruction with the NAME option is set in the <envar>REPCONFIG</envar> file.</para>
 </listitem>
 <listitem>
+<para>SIC [NAME]: Records are printed by SIC totals.</para>
+
+<para>When the <quote>NAME</quote> option is included, the SIC name will be included in the report. Otherwise, only the SIC code will be included. As with the BY SCC10 NAME instruction, the BY SIC NAME instruction will change the column delimiter from a semi-colon to the pipe symbol (<quote>|</quote>). The SIC name will also be enclosed in double quotes.</para>
+</listitem>
+<listitem>
 <para>SOURCE [STACKPARM] [NAME]: Records are printed by source totals. Source characteristics are printed as well:</para>
 
 <itemizedlist>
-<listitem>Point: country/state/county code, plant ID, stack ID, point ID, segment ID, and SCC</listitem>
+<listitem>Point: country/state/county code, plant ID, stack ID, point ID, segment ID, SCC, and SIC</listitem>
 <listitem>Area: country/state/county code and SCC</listitem>
 <listitem>Mobile: country/state/county code, road type code, vehicle type code, link ID, and SCC</listitem>
 </itemizedlist>
  
-<para>For area and mobile source, the SCC descriptions will automatically be included in the report. This is the same as adding the <quote>BY SCC10 NAME</quote> instruction to the report instructions. There is no way to turn off this feature.</para>
+<para>For area and mobile sources, the SCC descriptions will automatically be included in the report. This is the same as adding the <quote>BY SCC10 NAME</quote> instruction to the report instructions. There is no way to turn off this feature.</para>
 
 <para>For point sources, STACKPARM can be appended to the option to also output the stack parameters (height, diameter, exit velocity, exit temperature). Also for point sources, NAME can be appended to the option to get the facility names in the output file.</para>
 </listitem>
@@ -633,14 +644,14 @@
 <para>SRGCODE [FALLBACK]: Records are printed by surrogate codes assigned to sources by the gridding cross-reference file. If no option is used, both primary and fallback surrogate codes are included in the output report. If the FALLBACK option is used, only the fallback surrogate codes are included in the output report, and a zero is used for all records that did not use a fallback surrogate (i.e., their primary surrogate did not cause emissions to go to zero). This BY option does not imply the GRIDDING instruction (see below); therefore, it can be used without applying the gridding matrix in the report. A value of -9 is used for fallback surrogate IDs in the resulting report.</para>
 </listitem>
 <listitem>
-<para>STATE [NAME]: Records are printed by state totals. This option invokes the use of the COSTCY file. NAME can be appended to the option to additionally output the state name instead of only the state number.</para>
+<para>STATE [NAME]: Records are printed by state totals. This option invokes the use of the <envar>COSTCY</envar> file. NAME can be appended to the option to additionally output the state name instead of only the state number.</para>
 </listitem>
 <listitem>
 <para>WEKCODE: Records are printed by weekly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant. Note that this option spelling is <emphasis>not</emphasis> WEEKCODE.</para>
 </listitem>
 </itemizedlist>
 
-<para>The most detailed BY instruction will determine the resolution of the emissions and activity totals. For example, the COUNTRY, STATE, and COUNTY options can be used in the same report to affect the column headers, but the data output will not be different because the emissions totals will be at the finest resolution specified. In other words, if the instructs are to report BY COUNTY and BY STATE, the emission totals in that report will be by county, and the BY STATE instruction will merely add the state name to the columns printed. Another example is that the BY SCC10 instruction will override the resolution of BY ROADCLASS.</para>
+<para>The most detailed BY instruction will determine the resolution of the emissions and activity totals. For example, the COUNTRY, STATE, and COUNTY options can be used in the same report to affect the column headers, but the data output will not be different because the emissions totals will be at the finest resolution specified. In other words, if the instructs are to report BY COUNTY and BY STATE, the emission totals in that report will be by county, and the BY STATE instruction will merely add the state code to the columns printed. Another example is that the BY SCC10 instruction will override the resolution of BY ROADCLASS.</para>
 
 <para>Future versions of the BY command may support the following options, if a need for them is identified by SMOKE users:</para>
 
@@ -656,9 +667,6 @@
 </listitem>
 <listitem>
 <para>VTYPE: For mobile sources only, records are printed as vehicle-type totals.</para>
-</listitem>
-<listitem>
-<para>SIC: For point sources only, records are printed as Standard Industrial Code (SIC) totals.</para>
 </listitem>
 <listitem>
 <para>GROUP &lt;option&gt;: Records are printed based on the user-defined groups, with the following options:</para>
@@ -823,7 +831,7 @@
 
 <para>SELECT DATA S-VOC</para>
 
-<para><emphasis>Note that <command>Smkreport</command> does not determine whether the summation makes sense, and does not correct for species molecular weights.</emphasis> You must ensure that your data requestions make sense.</para>
+<para><emphasis>Note that <command>Smkreport</command> does not determine whether the summation makes sense, and does not correct for species molecular weights.</emphasis> You must ensure that the data you request makes sense.</para>
 
 <para>Also note that the maximum number of characters that can be read on anly line in this file is 300. This can limit the number of pollutants that you can specifically request in a SELECT DATA statement.</para>
 </listitem>
@@ -1179,7 +1187,7 @@ METADATA
 <para>The BY COUNTRY, BY STATE, and BY COUNTY instructions, which output the country, state, and county codes, and optionally the country, state, and county names, respectively (if NAME is included at the end of the instruction).</para>
 </listitem>
 <listitem>
-<para>The BY SOURCE instruction, which outputs columns for all source characteristics (point sources: country/state/county, plant, char1, char2, char3, char4, char5; area sources: country/state/county, SCC; mobile sources: country/state/county, road class, vehicle type, SCC). For point sources, the BY SOURCE instruction can also output four additional columns for stack parameters, and another additional column for facility name.</para>
+<para>The BY SOURCE instruction, which outputs columns for all source characteristics (point sources: country/state/county, plant, char1, char2, char3, char4, char5, SIC; area sources: country/state/county, SCC; mobile sources: country/state/county, road class, vehicle type, SCC). For point sources, the BY SOURCE instruction can also output four additional columns for stack parameters, and another additional column for facility name.</para>
 </listitem>
 </itemizedlist>
 
@@ -1193,7 +1201,7 @@ METADATA
 
 <title>Column delimiters</title>
 
-<para>The default column delimiter in most cases is a semicolon (;). However, if you select the <quote>BY SCC10 NAME</quote> instruction, the SCC description will be included in the report and the default delimiter will be a pipe symbol (|). This is because the SCC descriptions can include semicolons. In either case, you can use the /DELIMITER/ packet to manually set your choice of delimiter, if desired.</para>
+<para>The default column delimiter in most cases is a semicolon (;). However, if you select the <quote>BY SCC10 NAME</quote> or <quote>BY SIC NAME</quote > instruction, the SCC or SIC description will be included in the report and the default delimiter will be a pipe symbol (|). This is because the SCC and SIC descriptions can include semicolons. In either case, you can use the /DELIMITER/ packet to manually set your choice of delimiter, if desired.</para>
 
 </section>
 
@@ -1215,6 +1223,7 @@ METADATA
 <listitem>State (value is name; optional when country, state, and county code is output)</listitem>
 <listitem>County (value is name; optional when country, state, and county code is output)</listitem>
 <listitem>SCC (10-character values, with 2 leading zeros for 8-character SCCs)</listitem>
+<listitem>SIC (4-character values)</listitem>
 <listitem>Primary Srg (primary surrogate ID code; for area or mobile sources only)</listitem>
 <listitem>Fallbk Srg (fallback surrogate ID code; for area or mobile sources only)</listitem>
 <listitem>Monthly Prf (monthly temporal profile code)</listitem>
@@ -1233,7 +1242,8 @@ METADATA
 <listitem>Stk Vel (stack exit velocity; for point sources only)</listitem>
 <listitem>Elevstat (E= elevated, P= Plume-in-grid, L= low-level; for point sources only)</listitem>
 <listitem>Plt Name (facility name with quotes around it; for point sources only)</listitem>
-<listitem>SCC Description (quotes around it)</listitem>
+<listitem>SCC Description (in quotes)</listitem>
+<listitem>SIC Description (in quotes)</listitem>
 </itemizedlist>
 
 </section>
@@ -1242,7 +1252,7 @@ METADATA
 
 <title>Header units</title>
 
-<para>The units used in the header for each column depend on (1) the units in the input files, (2) the units set as output units in the report instructions, and (3) any normalization used. <command>Smkreport</command> starts with the units obtained from the input files and application of any matrices of interest. Then all unit conversions that can be made, are made. The conversions are done separately on the numerator and the denominator, but one or both of the conversions will not be done if <command>Smkreport</command> has not been configured for the conversions. If this is the case, a note will appear to this effect in the log file. Last, the units are converted to 1/m<subscript>2</subscript> if the NORMALIZE CELLAREA instruction has been given.</para>
+<para>The units used in the header for each column depend on (1) the units in the input files, (2) the units set as output units in the report instructions, and (3) any normalization used. <command>Smkreport</command> starts with the units obtained from the input files and application of any matrices of interest. Then all unit conversions that can be made, are made. The conversions are done separately on the numerator and the denominator, but one or both of the conversions will not be done if <command>Smkreport</command> has not been configured for the conversions. If this is the case, a note will appear to this effect in the log file. Last, the units are converted to 1/m<superscript>2</superscript> if the NORMALIZE CELLAREA instruction has been given.</para>
 
 <para>Below the header units, a line of minus signs will appear in the reports.</para>
 
