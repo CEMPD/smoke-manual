@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<appendix id="app_glossary">
+<glossary id="app_glossary">
 
-<title>Glossary</title>
-
-<glossary>
+<title>Appendix A. Glossary</title>
 
 <glossdiv>
 <title>A</title>
@@ -294,7 +292,7 @@
 <glossentry id="glossary_model_grid">
 <glossterm>Model grid</glossterm>
 <glossdef>
-<para>A 2-d grid based on a map projection, defined by starting coordinates, number of grid cells in each direction, and the physical size of the grid cells. <remark>The example below shows a model grid with 81 cells (columns) in the x-direction and 75-cells (rows) in the y-direction. Each large grid in the diagram at right represents 10 36-km grid cells using a Lambert map projection.</remark></para>
+<para>A 2-d grid based on a map projection, defined by starting coordinates, number of grid cells in each direction, and the physical size of the grid cells. <comment>The example below shows a model grid with 81 cells (columns) in the x-direction and 75-cells (rows) in the y-direction. Each large grid in the diagram at right represents 10 36-km grid cells using a Lambert map projection.</comment></para>
 </glossdef>
 </glossentry>
 
@@ -508,5 +506,3 @@
 </glossdiv>
 
 </glossary>
-
-</appendix>
