@@ -8,7 +8,7 @@
 
 <title>Introduction</title>
 
-<para>In this chapter, we provide information about using the UNIX scripts that come with SMOKE to run the default cases and adapting the scripts to run any case. There are several features of these scripts that specifically support version 1.5 of SMOKE, and using scripts developed for earlier versions of SMOKE will not work without adaptations. We provide a section in this document that explains what changes need to be made to users&rsquo; existing scripts to allow them to work with SMOKE. Alternatively, current users can adapt the new sample scripts to their case. New users are advised to create their scripts based on the sample scripts, following the instructions included in <xref linkend="sect_scripts_how_use_smoke" /> this chapter.</para>
+<para>In this chapter, we provide information about using the UNIX scripts that come with SMOKE to run the default cases and adapting the scripts to run any case. There are several features of these scripts that specifically support SMOKE v1.5 and later, and using scripts developed for earlier versions of SMOKE will not work without adaptations. We provide a section in this document that explains what changes need to be made to users&rsquo; existing scripts to allow them to work with SMOKE. Alternatively, current users can adapt the new sample scripts to their case. New users are advised to create their scripts based on the sample scripts, following the instructions included in <xref linkend="sect_scripts_how_use_smoke" /> this chapter.</para>
 
 <para>For all SMOKE users, a critical file to use and know about is the Assigns file. If you have followed the SMOKE installation instructions, then your Assigns file will be located in the directory: <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename> where the <envar>EDSS_ROOT</envar> directory is set in your <filename>.cshrc</filename> file in your home directory, during the SMOKE installation process.</para>
 
@@ -290,7 +290,7 @@
 </listitem>
 </itemizedlist>
 
-<para>In addition, there are a number of helper scripts. The only one that users may want to change is the qa_run.scr script to add configurations for reporting. The helper scripts are:</para>
+<para>In addition, there are a number of helper scripts. The only one that users may want to change is the <filename>qa_run.scr</filename> script to add configurations for reporting. The helper scripts are:</para>
 
 <itemizedlist>
 <listitem>
@@ -305,6 +305,9 @@
 <para><filename>make_invdir.csh</filename>: Sets the <envar>INVNAME1</envar> and <envar>INVNAME2</envar> settings that <command>Smkinven</command> uses for creating the map-formatted inventory intermediate files.</para>
 </listitem>
 <listitem>
+<para><filename>metcombine.csh</filename>: Runs the utility program <command>Metcombine</command> to combine the <filename>METCRO2D*</filename> and <filename>METCRO3D*</filename> files in the <filename class="directory"><envar>$METDAT</envar></filename> directory. This script creates files named <filename>METCOMBO*</filename> in the <filename class="directory"><envar>$METDAT</envar></filename> directory.</para>
+</listitem>
+<listitem>
 <para><filename>movelog.csh</filename>: Deletes or renames the log files, depending on the <envar>AUTO_DELETE_LOG</envar> setting.</para>
 </listitem>
 <listitem>
@@ -313,7 +316,7 @@
 <listitem>
 <para><filename>smk_run.csh</filename>: Runs the following SMOKE programs: <command>Smkinven</command>, <command>Rawbio</command> (for both winter and summer runs), <command>Normbeis3</command>, <command>Spcmat</command>, <command>Grdmat</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Metscan</command>, <command>Temporal</command>, <command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Smkmerge</command>, <command>Mrggrid</command>, and <command>Smk2emis</command>.</para>
 
-<para>Creates <envar>METLIST</envar> file for <command>Premobl</command> by assuming all files in the <filename class="directory"><envar>$METDAT</envar></filename> directory with names <filename>METCRO2D*</filename> should be included in the list. <emphasis role="bold">Note that this helper script must be changed if the temperature variable you want to use for on-road mobile processing is not in the <filename>METCRO2D</filename> file.</emphasis></para>
+<para>Creates <envar>METLIST</envar> file for <command>Premobl</command> by assuming all files in the <filename class="directory"><envar>$METDAT</envar></filename> directory with names <filename>METCOMBO*</filename> should be included in the list. <emphasis role="bold">Note that this helper script must be changed if the meteorology variables you want to use for on-road mobile processing are not in the <filename>METCOMBO</filename> files.</emphasis></para>
 
 <para>Creates <envar>MEFLIST</envar> file for <command>Temporal</command> by assuming all files in the <filename class="directory"><envar>$SMK_EMISPATH</envar></filename> directory that have names following the pattern <filename>emisfacs*ncf</filename> should be included in the list. These are the default names of emission factor files written out from <command>Emisfac</command>.</para>
 
