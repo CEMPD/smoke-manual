@@ -676,7 +676,7 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, <envar>EPISODEGROUP</envar>: The temperature temporal averaging groups for on-road mobile sources and MOBILE6 processing.</para>
+<para><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, <envar>EPISODEGROUP</envar>: The temporal averaging groups for on-road mobile sources and MOBILE6 processing.</para>
 </listitem>
 
 <listitem>

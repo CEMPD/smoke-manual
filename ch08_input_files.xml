@@ -1276,7 +1276,7 @@ In this overview section, we first provide a few important notes about file form
 
 <tbody>
 <row>
-<entry><emphasis role="bold"><envar>METLIST</envar></emphasis>: temperature file list</entry>
+<entry><emphasis role="bold"><envar>METLIST</envar></emphasis>: meteorology file list</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
 <entry><filename>metlist.premobl.txt</filename> (This list will include the paths of the 2-D [<envar>MET_CRO_2D</envar>] or 3-D [<envar>MET_CRO_3D</envar>] meteorology files for the entire modeling episode and is generated automatically by default run script.)</entry>
@@ -6864,7 +6864,7 @@ INVYEAR 1995
 
 <title><envar>METLIST</envar>: List of meteorology files</title>
 
-<para>The <envar>METLIST</envar> file is used to provide the file names of available temperature files to the <command>Tmpbio</command> and <command>Premobl</command> programs. <command>Premobl</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. If <command>Tmpbio</command> is being run for a period longer than the individual meteorology files, the <envar>METLIST</envar> file is used to combine multiple meteorology files so that <command>Tmpbio</command> can find the data it needs. The meteorology files provided to <command>Premobl</command> and <command>Tmpbio</command> must cover the desired episode and contain the requested temperature variables. In the default SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
+<para>The <envar>METLIST</envar> file is used to provide the file names of available meteorology files to the <command>Tmpbio</command> and <command>Premobl</command> programs. <command>Premobl</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. If <command>Tmpbio</command> is being run for a period longer than the individual meteorology files, the <envar>METLIST</envar> file is used to combine multiple meteorology files so that <command>Tmpbio</command> can find the data it needs. The meteorology files provided to <command>Premobl</command> and <command>Tmpbio</command> must cover the desired episode and contain the requested variables. In the default SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
 
 <table id="tbl_input_metlist">
 <title>Format for <envar>METLIST</envar></title>
@@ -7555,24 +7555,24 @@ VMT RFL TOG
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry><para>Setting for spatial averaging of temperatures</para>
+<entry><para>Setting for spatial averaging of meteorology data</para>
 
 <itemizedlist spacing="compact">
-<listitem>1 - temperatures are county specific</listitem>
-<listitem>2 - temperatures are averaged over all counties sharing a reference county</listitem>
+<listitem>1 - data are county specific</listitem>
+<listitem>2 - data are averaged over all counties sharing a reference county</listitem>
 </itemizedlist>
 
 </entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry><para>Setting for temporal averaging of temperatures</para>
+<entry><para>Setting for temporal averaging of meteorology data</para>
 
 <itemizedlist spacing="compact">
-<listitem>1 - no averaging; create hourly temperatures for each day</listitem>
-<listitem>2 - average temperatures over weeks</listitem>
-<listitem>3 - average temperatures over months</listitem>
-<listitem>4 - average temperatures over entire episode</listitem>
+<listitem>1 - no averaging; create hourly profiles for each day</listitem>
+<listitem>2 - average data over weeks</listitem>
+<listitem>3 - average data over months</listitem>
+<listitem>4 - average data over entire episode</listitem>
 </itemizedlist>
 
 </entry>

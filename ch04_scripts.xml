@@ -105,14 +105,14 @@
 <para><emphasis role="bold">MOBILE6 inputs (on-road only):</emphasis> A single MOBILE6 scenario is used for this case for all counties in NC (though this is not the standard configuration, it runs faster for use as an installation test case).</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">Temperature handling for on-road MOBILE6 setup:</emphasis></para>
+<para><emphasis role="bold">Meteorology handling for on-road MOBILE6 setup:</emphasis></para>
 
 <itemizedlist>
 <listitem>
-<para><emphasis role="bold">Spatial:</emphasis> The average 24-hour temperature profile run in MOBILE6 is averaged over all counties in NC. This is not the most detailed approach available in SMOKE, but it helps the case run faster.</para>
+<para><emphasis role="bold">Spatial:</emphasis> The average 24-hour temperature and humidity profile run in MOBILE6 is averaged over all counties in NC. This is not the most detailed approach available in SMOKE, but it helps the case run faster.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">Temporal:</emphasis> The average 24-hour temperature profile run in MOBILE6 is averaged over both days in the episode.</para>
+<para><emphasis role="bold">Temporal:</emphasis> The average 24-hour temperature and humidity profile run in MOBILE6 is averaged over both days in the episode.</para>
 </listitem>
 </itemizedlist>
 
@@ -244,7 +244,7 @@
 <listitem>
 <para><emphasis role="bold">On-road mobile VMT to produce ozone, PM, and toxics inventories base case:</emphasis></para>
 
-<para><filename>smk_mb_nctox.run</filename> - This script runs <command>Smkinven</command> (for VMT import), <command>Spcmat</command>, <command>Grdmat</command>, <command>Mbsetup</command> (MOBILE6 setup), <command>Premobl</command> (for temperature preprocessing), <command>Emisfac</command> (for emission factor generation with MOBILE6), <command>Temporal</command> (for combining hourly temperatures, emission factors, and VMT to create hourly emissions), <command>Smkmerge</command>, and <command>Smkreport</command>.</para>
+<para><filename>smk_mb_nctox.run</filename> - This script runs <command>Smkinven</command> (for VMT import), <command>Spcmat</command>, <command>Grdmat</command>, <command>Mbsetup</command> (MOBILE6 setup), <command>Premobl</command> (for meteorology preprocessing), <command>Emisfac</command> (for emission factor generation with MOBILE6), <command>Temporal</command> (for combining hourly temperature and humidity data, emission factors, and VMT to create hourly emissions), <command>Smkmerge</command>, and <command>Smkreport</command>.</para>
 </listitem>
 
 <listitem>
@@ -390,7 +390,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>This setting is also used for automatic naming of the <envar>GCNTL</envar> file input to <command>Cntlmat</command>. See <xref linkend="sect_scripts_use_projection" />.</para>
 </listitem>
 <listitem>
-<para><envar>GROUP_TYPE</envar>: [ daily | weekly | monthly | episode ] Controls which temperature averaging files will be used for a run of the <command>Emisfac</command> program. This can be used in the on-road mobile source scripts only.</para>
+<para><envar>GROUP_TYPE</envar>: [ daily | weekly | monthly | episode ] Controls which meteorology averaging files will be used for a run of the <command>Emisfac</command> program. This can be used in the on-road mobile source scripts only.</para>
 </listitem>
 <listitem>
 <para><envar>G_STDATE_ADVANCE</envar>: The value should be set to the number of days for 1 run of the <command>Temporal</command>, <command>Laypoint</command>, and <command>Smkmerge</command> programs. The default scripts have this set by the <envar>NDAYS</envar> environment variable in the Assigns file. When this value is set, the Assigns file will automatically increment the <envar>ESDATE</envar> and <envar>G_STDATE</envar> environment variables (that control SMOKE file names and time-dependent programs, respectively) to the next day. This feature is unable to cross from one year to the next.</para>
@@ -1836,7 +1836,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </row>
 <row>
 <entry><envar>RUN_PREMOBL</envar></entry>
-<entry>Preprocess hourly, gridded temperature data for use with MOBILE6 for on-road mobile sources.</entry>
+<entry>Preprocess hourly, gridded meteorology data for use with MOBILE6 for on-road mobile sources.</entry>
 </row>
 <row>
 <entry><envar>RUN_EMISFAC</envar></entry>
@@ -2951,11 +2951,11 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <title>Changing spatial or temporal averaging</title>
 
-<para>You may want to change the spatial or temporal averaging to improve the detail of the modeling effort (increasing the processing time) or to decrease the processing time (reducing the detail of the modeling). The <envar>MVREF</envar> file must be changed using the file format described in <xref linkend="ch_input_files" /> to select the spatial or temperature averaging approach. As explained in the file format, the spatial approach can be <quote>by county</quote> or <quote>by reference county</quote>, and the temporal averaging can be day-specific (no averaging), weekly averaging, monthly averaging, or episodic averaging.</para>
+<para>You may want to change the spatial or temporal averaging to improve the detail of the modeling effort (increasing the processing time) or to decrease the processing time (reducing the detail of the modeling). The <envar>MVREF</envar> file must be changed using the file format described in <xref linkend="ch_input_files" /> to select the spatial or temporal averaging approach. As explained in the file format, the spatial approach can be <quote>by county</quote> or <quote>by reference county</quote>, and the temporal averaging can be day-specific (no averaging), weekly averaging, monthly averaging, or episodic averaging.</para>
 
-<para>If you are using multiple temperature averaging resolutions in the same run, you must also modify your on-road mobile script to use multiple calls to the <filename>emisfac_run.csh</filename> helper script. The excerpt from the on-road mobile sample script <filename>smk_mb_nctox.csh</filename> below is where the script must be changed to include additional calls to <filename>emisfac_run.csh</filename> for all four temperature averaging approaches.</para>
+<para>If you are using multiple meteorology averaging resolutions in the same run, you must also modify your on-road mobile script to use multiple calls to the <filename>emisfac_run.csh</filename> helper script. The excerpt from the on-road mobile sample script <filename>smk_mb_nctox.csh</filename> below is where the script must be changed to include additional calls to <filename>emisfac_run.csh</filename> for all four averaging approaches.</para>
 
-<programlisting>## Run emisfac for cases needed by temperature choices in MVREF file
+<programlisting>## Run emisfac for cases needed by averaging choices in MVREF file
 #
 foreach group ( episode )    # can include ( daily weekly monthly episode )
   setenv GROUP_TYPE $group
@@ -3502,7 +3502,7 @@ endif</programlisting>
 <para>If you are using SMOKE for biogenic emissions, then your meteorology files need to include the variables listed in <xref linkend="ch_input_files" /> for biogenic sources.</para>
 </listitem>
 <listitem>
-<para>If you are using SMOKE for on-road mobile sources including running MOBILE6 from SMOKE, then you need to include a temperature variable, as described in <xref linkend="ch_input_files" /> for on-road mobile sources.</para>
+<para>If you are using SMOKE for on-road mobile sources including running MOBILE6 from SMOKE, then you need to include a temperature, pressure, and mixing ratio variable, as described in <xref linkend="ch_input_files" /> for on-road mobile sources.</para>
 </listitem>
 <listitem>
 <para>If you are running CMAQ or MAQSIP and SMOKE&rsquo;s point source emissions, then you need the variables listed in <xref linkend="ch_input_files" /> for point sources, so that SMOKE can compute plume rise.</para>
@@ -3514,7 +3514,7 @@ endif</programlisting>
 <listitem>
 <para>Ensure meteorology data cover the correct time period</para>
 
-<para>In general, the meteorology data need to cover the same time period as the episode that you are modeling. The only exception to this is for on-road mobile sources using MOBILE6. MOBILE6 computes 24-hours of emission factors at a time, and the 24 hours are from 6AM local time to 5AM local time the following day. SMOKE&rsquo;s <command>Premobl</command> program converts the gridded, hourly meteorology that is in a single time zone (usually GMT) into hourly meteorology for each MOBILE6 run in local time. This can cause <command>Premobl</command> to process hours of temperature data that are not actually in the episode in an attempt to meet MOBILE6&rsquo;s 6 AM to 5 AM requirement. A similar problem can happen at the end of an episode. These problems cause <command>Premobl</command> to end with an error.</para>
+<para>In general, the meteorology data need to cover the same time period as the episode that you are modeling. The only exception to this is for on-road mobile sources using MOBILE6. MOBILE6 computes 24-hours of emission factors at a time, and the 24 hours are from 6AM local time to 5AM local time the following day. SMOKE&rsquo;s <command>Premobl</command> program converts the gridded, hourly meteorology that is in a single time zone (usually GMT) into hourly meteorology for each MOBILE6 run in local time. This can cause <command>Premobl</command> to process hours of meteorology data that are not actually in the episode in an attempt to meet MOBILE6&rsquo;s 6 AM to 5 AM requirement. A similar problem can happen at the end of an episode. These problems cause <command>Premobl</command> to end with an error.</para>
 
 <para>If <command>Premobl</command> complains about missing meteorology data in this way and the meteorology data are not available, the following approach can be used to copy extra data to the beginning of your first episode day and to the end of your last episode day. These instructions require that you first install the I/O API utilities <command>m3tshift</command> and <command>m3xtract</command> and that you have added the path of these utilities to your <envar>$path</envar> shell variable. This variable includes paths for all executables and is set in the UNIX <filename>.cshrc</filename> file in your home directory. To add the <command>m3tshift</command> directory to your path, you can modify your <filename>.cshrc</filename> file to include the following command.</para>
 

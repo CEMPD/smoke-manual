@@ -1349,7 +1349,7 @@
 
 <title><command>Premobl</command></title>
 
-<para>The <command>Premobl</command> program is responsible for preprocessing temperatures for the <command>Emisfac</command> program. <command>Premobl</command> creates the following intermediate files:</para>
+<para>The <command>Premobl</command> program is responsible for preprocessing meteorology data for the <command>Emisfac</command> program. <command>Premobl</command> creates the following intermediate files:</para>
 
 <itemizedlist>
 <listitem>
@@ -1359,7 +1359,7 @@
 
 <section id="sect_intmed_hourly_temp">
 
-<title>Hourly temperature profile files</title>
+<title>Hourly meterology profile files</title>
 
 <para>Type: I/O API NetCDF - adapted gridded format</para>
 
@@ -1391,7 +1391,7 @@
 </table>
 
 <table>
-<title>Variables in hourly temperature files</title>
+<title>Variables in hourly meteorology files</title>
 <tgroup cols="4">
 <colspec colwidth="25*" />
 <colspec colwidth="15*" />
@@ -1418,7 +1418,19 @@
 <entry>TKCOUNTY</entry>
 <entry>Real</entry>
 <entry>K</entry>
-<entry>Hourly source temperature by county</entry>
+<entry>Hourly temperature by county</entry>
+</row>
+<row>
+<entry>QVCOUNTY</entry>
+<entry>Real</entry>
+<entry>kg/kg</entry>
+<entry>Hourly water vapor mixing ratio by county</entry>
+</row>
+<row>
+<entry>BPCOUNTY</entry>
+<entry>Real</entry>
+<entry>Pa</entry>
+<entry>Hourly barometric pressure by county</entry>
 </row>
 </tbody>
 </tgroup>

@@ -1321,7 +1321,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <para><emphasis>Processing categories:</emphasis> mobile</para>
 
-<para>The <command>Emisfac</command> program drives EPA&rsquo;s Office of Transportation and Air Quality MOBILE model (version 6.2) to generate emission factors representing several different emission processes. The program drives MOBILE6 by supplying 24-hour temperature profiles and county-specific MOBILE6 input files. Using multiple calls to MOBILE6, <command>Emisfac</command> uses the specified temperatures and inputs to create emission factors for all sources. Having <command>Emisfac</command> execute MOBILE6 allows very complex combinations of emission factors to be generated in a relatively short period of time.</para>
+<para>The <command>Emisfac</command> program drives EPA&rsquo;s Office of Transportation and Air Quality MOBILE model (version 6.2) to generate emission factors representing several different emission processes. The program drives MOBILE6 by supplying 24-hour temperature and humidity profiles and county-specific MOBILE6 input files. Using multiple calls to MOBILE6, <command>Emisfac</command> uses the inputs to create emission factors for all sources. Having <command>Emisfac</command> execute MOBILE6 allows very complex combinations of emission factors to be generated in a relatively short period of time.</para>
 
 <section>
 
@@ -1415,9 +1415,9 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_emisfac" /> shows the input and output files for the <command>Emisfac</command> program. The input files used depend on the <envar>GROUP_TYPE</envar> setting. <envar>GROUP_TYPE</envar> can be set to daily, weekly, monthly, or episode; these settings correspond to the input files <envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, or <envar>EPISODEGROUP</envar>. <command>Emisfac</command> uses the hourly temperature file <envar>HOURLYT</envar> as the first day of temperature data; it continues processing using the additional hourly temperature files output from <command>Premobl</command>. Other input files are the inventory data table (<envar>INVTABLE</envar>), a file listing the MOBILE6 scenario files (<envar>M6LIST</envar>), the mobile emission processes file (<envar>MEPROC</envar>), the mobile-source inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), a speed profiles file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y), and a speed summary file output by <command>Mbsetup</command> (<envar>SPDSUM</envar>).</para> 
+<para><xref linkend="fig_programs_emisfac" /> shows the input and output files for the <command>Emisfac</command> program. The input files used depend on the <envar>GROUP_TYPE</envar> setting. <envar>GROUP_TYPE</envar> can be set to daily, weekly, monthly, or episode; these settings correspond to the input files <envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, or <envar>EPISODEGROUP</envar>. <command>Emisfac</command> uses the hourly meteorology file <envar>HOURLYT</envar> as the first day of meteorology data; it continues processing using the additional hourly meteorology files output from <command>Premobl</command>. Other input files are the inventory data table (<envar>INVTABLE</envar>), a file listing the MOBILE6 scenario files (<envar>M6LIST</envar>), the mobile emission processes file (<envar>MEPROC</envar>), the mobile-source inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), a speed profiles file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y), and a speed summary file output by <command>Mbsetup</command> (<envar>SPDSUM</envar>).</para> 
 
-<para><command>Emisfac</command> outputs hourly emission factors corresponding to each hourly temperature file that it processed. The program also creates a <envar>LOGFILE</envar> and outputs several intermediate files from the MOBILE6 processing.</para>
+<para><command>Emisfac</command> outputs hourly emission factors corresponding to each hourly meteorology file that it processed. The program also creates a <envar>LOGFILE</envar> and outputs several intermediate files from the MOBILE6 processing.</para>
 
 <section>
 
@@ -1441,22 +1441,22 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>DAILYGROUP</envar> (optional)*</entry>
 <entry>ASCII</entry>
-<entry>List of counties using day-average temperatures, produced by <command>Mbsetup</command></entry>
+<entry>List of counties using day-average meteorology data, produced by <command>Mbsetup</command></entry>
 </row>
 <row>
 <entry><envar>EPISODEGROUP</envar> (optional)*</entry>
 <entry>ASCII</entry>
-<entry>List of counties using episode-average temperatures, produced by <command>Mbsetup</command></entry>
+<entry>List of counties using episode-average meteorology data, produced by <command>Mbsetup</command></entry>
 </row>
 <row>
 <entry><envar>HOURLYT</envar></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Initial hourly temperature file produced by <command>Premobl</command>; assumed to match <envar>GROUP_TYPE</envar> environment variable</entry>
+<entry>Initial hourly meteorology file produced by <command>Premobl</command>; assumed to match <envar>GROUP_TYPE</envar> environment variable</entry>
 </row>
 <row>
 <entry><filename>{<envar>GROUP_TYPE</envar>}.{date}.ncf</filename></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Hourly temperature files subsequent to the <envar>HOURLYT</envar> file</entry>
+<entry>Hourly meteorology files subsequent to the <envar>HOURLYT</envar> file</entry>
 </row>
 <row>
 <entry><envar>INVTABLE</envar></entry>
@@ -1481,7 +1481,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>MONTHLYGROUP</envar> (optional)*</entry>
 <entry>ASCII</entry>
-<entry>List of counties using month-average temperatures, produced by <command>Mbsetup</command></entry>
+<entry>List of counties using month-average meteorology data, produced by <command>Mbsetup</command></entry>
 </row>
 <row>
 <entry><envar>SPDPRO</envar> (optional)</entry>
@@ -1496,7 +1496,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>WEEKLYGROUP</envar> (optional)*</entry>
 <entry>ASCII</entry>
-<entry>List of counties using week-average temperatures, produced by <command>Mbsetup</command></entry>
+<entry>List of counties using week-average meteorology data, produced by <command>Mbsetup</command></entry>
 </row>
 </tbody>
 </tgroup>
@@ -1572,6 +1572,21 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Sets the type of hydrocarbon pollutant to generate from MOBILE6. Valid values are THC, NMHC, VOC, TOG, and NMOG.</para>
 </listitem>
 <listitem>
+<para><envar>REPLACE_HUMIDITY</envar>: [default: Y]</para>
+
+<para>Defines whether to replace the humidity data in the MOBILE6 scenario files with those calculated in <command>Premobl</command>.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Replace humidity data; <command>Emisfac</command> will comment out any RELATIVE HUMIDITY, ABSOLUTE HUMIDITY, and BAROMETRIC PRES commands it finds in the MOBILE6 scenario files and insert the RELATIVE HUMIDITY and BAROMETRIC PRES commands with the appropriate data calculated by <command>Premobl</command>.</para>
+</listitem>
+<listitem>
+<para>N: Use original humidity values from MOBILE6 scenario files</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
 <para><envar>REPLACE_TEMPERATURES</envar>: [default: Y]</para>
 
 <para>Defines whether to replace the temperatures in the MOBILE6 scenario files with those calculated in <command>Premobl</command>.</para>
@@ -1599,7 +1614,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>SMK_METPATH</envar>: [default: <filename class="directory">.</filename>]</para>
 
-<para>Directory for the hourly temperature files.</para>
+<para>Directory for the hourly meteorology files.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
@@ -1650,7 +1665,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><filename>emisfacs.<envar>${GROUP_TYPE}</envar>.{date}.ncf</filename></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Hourly emission factors corresponding to the hourly temperature files, located in the <envar>SMK_EMISPATH</envar> directory</entry>
+<entry>Hourly emission factors corresponding to the hourly meteorology files, located in the <envar>SMK_EMISPATH</envar> directory</entry>
 </row>
 <row>
 <entry>LOGFILE</entry>
@@ -1769,7 +1784,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 </orderedlist>
 
-<para>For mobile sources only, <command>Grdmat</command> outputs both a gridding matrix and a second file called an <quote>ungridding</quote> matrix. This ungridding matrix is used by <command>Mbsetup</command> and <command>Temporal</command> to determine which sources are within the grid, and by <command>Premobl</command> to compute county-based temperatures from the gridded temperature data inputs. The ungridding matrix is calculated as the ratio of VMT in a given grid cell to the total amount of VMT in the county. For link-based sources, the ratio is the amount of VMT in the grid cell to the total VMT for that link. This results in nonlink sources within a county using the same weighting factors across grid cells, while link sources have different factors. <remark>Note that at this time, <command>Premobl</command> cannot use link-based temperature data.</remark></para>
+<para>For mobile sources only, <command>Grdmat</command> outputs both a gridding matrix and a second file called an <quote>ungridding</quote> matrix. This ungridding matrix is used by <command>Mbsetup</command> and <command>Temporal</command> to determine which sources are within the grid, and by <command>Premobl</command> to compute county-based data from the gridded meteorology inputs. The ungridding matrix is calculated as the ratio of VMT in a given grid cell to the total amount of VMT in the county. For link-based sources, the ratio is the amount of VMT in the grid cell to the total VMT for that link. This results in nonlink sources within a county using the same weighting factors across grid cells, while link sources have different factors. <remark>Note that at this time, <command>Premobl</command> cannot use link-based meteorology data.</remark></para>
 
 </section>
 
@@ -2434,7 +2449,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><emphasis>Processing categories:</emphasis> mobile</para>
 
-<para>The <command>Mbsetup</command> program prepares intermediate files needed to run <command>Premobl</command> and <command>Emisfac</command>. It uses a county cross-reference file to assign a reference county to each county in the mobile-source inventory. The program also reads a county-settings file to determine options for temperature averaging and handling of local roads. <command>Mbsetup</command> groups sources by speed and reference county, then outputs a summary file used by <command>Premobl</command> and <command>Emisfac</command>.</para>
+<para>The <command>Mbsetup</command> program prepares intermediate files needed to run <command>Premobl</command> and <command>Emisfac</command>. It uses a county cross-reference file to assign a reference county to each county in the mobile-source inventory. The program also reads a county-settings file to determine options for meteorology averaging and handling of local roads. <command>Mbsetup</command> groups sources by speed and reference county, then outputs a summary file used by <command>Premobl</command> and <command>Emisfac</command>.</para>
 
 </section>
 
@@ -2468,7 +2483,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><xref linkend="fig_programs_mbsetup" /> shows the input and output files for the <command>Mbsetup</command> program. The input files are the county cross-reference file (<envar>MCREF</envar>), the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file from <command>Grdmat</command> (<envar>MUMAT</envar>), the county settings file (<envar>MVREF</envar>), and the speed cross-reference file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y).</para>
 
-<para><command>Mbsetup</command> outputs an ASCII listing of counties using day-average temperatures (<envar>DAILYGROUP</envar>), week-average temperatures (<envar>WEEKLYGROUP</envar>), month-average temperatures (<envar>MONTHLYGROUP</envar>), or episode-average temperatures (<envar>EPISODEGROUP</envar>). It also outputs a log file (<envar>LOGFILE</envar>) and a summary of speeds and road types (<envar>SPDSUM</envar>).</para>
+<para><command>Mbsetup</command> outputs an ASCII listing of counties using day-average meteorology data (<envar>DAILYGROUP</envar>), week-average meteorology data (<envar>WEEKLYGROUP</envar>), month-average meteorology data (<envar>MONTHLYGROUP</envar>), or episode-average meteorology data (<envar>EPISODEGROUP</envar>). It also outputs a log file (<envar>LOGFILE</envar>) and a summary of speeds and road types (<envar>SPDSUM</envar>).</para>
 
 <section>
 
@@ -2569,12 +2584,12 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>DAILYGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>Listing of counties using day-average temperatures</entry>
+<entry>Listing of counties using day-average meteorology data</entry>
 </row>
 <row>
 <entry><envar>EPISODEGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>Listing of counties using episode-average temperatures</entry>
+<entry>Listing of counties using episode-average meteorology data</entry>
 </row>
 <row>
 <entry><envar>LOGFILE</envar></entry>
@@ -2584,7 +2599,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>MONTHLYGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>Listing of counties using month-average temperatures</entry>
+<entry>Listing of counties using month-average meteorology data</entry>
 </row>
 <row>
 <entry><envar>SPDSUM</envar></entry>
@@ -2594,7 +2609,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>WEEKLYGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>Listing of counties using week-average temperatures</entry>
+<entry>Listing of counties using week-average meteorology data</entry>
 </row>
 </tbody>
 </tgroup>
@@ -2930,15 +2945,15 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><emphasis>Processing categories:</emphasis> mobile</para>
 
-<para>The <command>Premobl</command> program inputs gridded, time-dependent temperature data and an ungridding matrix produced by the <command>Grdmat</command> program. <command>Premobl</command> creates 24-hour temperature profiles for each county group based on settings obtained from <command>Mbsetup</command>.</para>
+<para>The <command>Premobl</command> program inputs gridded, time-dependent meteorology data and an ungridding matrix produced by the <command>Grdmat</command> program. <command>Premobl</command> creates 24-hour temperature and humidity profiles for each county group based on settings obtained from <command>Mbsetup</command>.</para>
 
 <section>
 
 <title>Definition of a <quote>day</quote></title>
 
-<para><command>Premobl</command> seeks to obtain 24 hours&rsquo; worth of temperature data for a source for each day, which is necessary for generating emission factors. However, the definition of a <quote>day</quote> differs for sources in different time zones. By default, <command>Premobl</command> uses each source&rsquo;s time zone to determine a day for that time zone. To instead use the same day-start-time for all sources, the <envar>UNIFORM_TIME</envar> environment variable can be used.</para>
+<para><command>Premobl</command> seeks to obtain 24 hours&rsquo; worth of meteorology data for a source for each day, which is necessary for generating emission factors. However, the definition of a <quote>day</quote> differs for sources in different time zones. By default, <command>Premobl</command> uses each source&rsquo;s time zone to determine a day for that time zone. To instead use the same day-start-time for all sources, the <envar>UNIFORM_TIME</envar> environment variable can be used.</para>
 
-<para>If the inventory covers multiple time zones, all sources will not have the same coverage of days. <command>Premobl</command> will use temperature data from previous or subsequent days to fill in missing data. If appropriate data are not available, the program will quit with an error and you must provide additional temperature data to cover the time period of interest. Currently, <command>Premobl</command> does not considers Daylight Saving time in its determination of <quote>day</quote>.</para>
+<para>If the inventory covers multiple time zones, all sources will not have the same coverage of days. <command>Premobl</command> will use meteorology data from previous or subsequent days to fill in missing data. If appropriate data are not available, the program will quit with an error and you must provide additional meteorology data to cover the time period of interest. Currently, <command>Premobl</command> does not considers Daylight Saving time in its determination of <quote>day</quote>.</para>
 
 </section>
 
@@ -2972,9 +2987,9 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_premobl" /> shows the input and output files for the <command>Premobl</command> program. The input files include the group files output by <command>Mbsetup</command>. These files list the counties that use each given type of temperature averaging: daily (<envar>DAILYGROUP</envar>), weekly (<envar>WEEKLYGROUP</envar>), monthly (<envar>MONTHLYGROUP</envar>) and episodic (<envar>EPISODEGROUP</envar>). <command>Premobl</command> also uses a file listing the available meteorology files (<envar>METLIST</envar>), the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file (<envar>MUMAT</envar>) output by <command>Grdmat</command>, and the speed summary file (<envar>SPDSUM</envar>) from <command>Mbsetup</command>.</para>
+<para><xref linkend="fig_programs_premobl" /> shows the input and output files for the <command>Premobl</command> program. The input files include the group files output by <command>Mbsetup</command>. These files list the counties that use each given type of meteorology averaging: daily (<envar>DAILYGROUP</envar>), weekly (<envar>WEEKLYGROUP</envar>), monthly (<envar>MONTHLYGROUP</envar>) and episodic (<envar>EPISODEGROUP</envar>). <command>Premobl</command> also uses a file listing the available meteorology files (<envar>METLIST</envar>), the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file (<envar>MUMAT</envar>) output by <command>Grdmat</command>, and the speed summary file (<envar>SPDSUM</envar>) from <command>Mbsetup</command>.</para>
 
-<para><command>Premobl</command> outputs automatically named files containing hourly temperature data. The program also writes a log file detailing the program&rsquo;s execution (<envar>LOGFILE</envar>).</para>
+<para><command>Premobl</command> outputs automatically named files containing hourly meteorology data. The program also writes a log file detailing the program&rsquo;s execution (<envar>LOGFILE</envar>).</para>
 
 <section>
 
@@ -2998,12 +3013,12 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>DAILYGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>List of counties using day-average temperatures, from <command>Mbsetup</command></entry>
+<entry>List of counties using day-average meteorology data, from <command>Mbsetup</command></entry>
 </row>
 <row>
 <entry><envar>EPISODEGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>List of counties using episode-average temperatures, from <command>Mbsetup</command></entry>
+<entry>List of counties using episode-average meteorology data, from <command>Mbsetup</command></entry>
 </row>
 <row>
 <entry><envar>METLIST</envar></entry>
@@ -3018,7 +3033,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>MONTHLYGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>List of counties using month-average temperatures, from <command>Mbsetup</command></entry>
+<entry>List of counties using month-average meteorology data, from <command>Mbsetup</command></entry>
 </row>
 <row>
 <entry><envar>MUMAT</envar></entry>
@@ -3033,7 +3048,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>WEEKLYGROUP</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>List of counties using week-average temperatures, from <command>Mbsetup</command></entry>
+<entry>List of counties using week-average meteorology data, from <command>Mbsetup</command></entry>
 </row>
 </tbody>
 </tgroup>
@@ -3078,7 +3093,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>SMK_METPATH</envar>: [default: <filename class="directory">.</filename>]</para>
 
-<para>Directory for the hourly temperature files.</para>
+<para>Directory for the hourly meteorology files.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_MINTEMP</envar>: [default: 0.0 (from MOBILE6)]</para>
@@ -3134,7 +3149,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><filename><envar>${GROUP_TYPE}</envar>.{date}.ncf</filename></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Hourly temperature files</entry>
+<entry>Hourly meteorology files</entry>
 </row>
 <row>
 <entry><envar>LOGFILE</envar></entry>
