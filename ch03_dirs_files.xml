@@ -1205,46 +1205,46 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><emphasis role="bold">I - Profile 0000:</emphasis> Contains pass-through profiles for CO, NH<subscript>3</subscript>, SO<subscript>2</subscript>, and PMC; also splits NO<subscript>x</subscript> into 90% NO and 10% NO<subscript>2</subscript>. Includes the profile for BEIS2 speciation, including creating TERPB from TERP for CMAQ files that use this profile.</para>
+<para><emphasis role="bold">Profile 0000:</emphasis> Contains pass-through profiles for CO, NH<subscript>3</subscript>, SO<subscript>2</subscript>, and PMC; also splits NO<subscript>x</subscript> into 90% NO and 10% NO<subscript>2</subscript>. Includes the profile for BEIS2 speciation, including creating TERPB from TERP for CMAQ files that use this profile.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">II - BEIS3:</emphasis> Includes the BEIS3 profiles prepared by Tom Pierce at EPA/ORD. The biogenic-only speciation profile files are not associated with a speciation cross-reference file because biogenic processing uses only one profile and does not need a speciation cross-reference file.</para>
+<para><emphasis role="bold">BEIS3:</emphasis> Includes the BEIS3 profiles prepared by Tom Pierce at EPA/ORD. The biogenic-only speciation profile files are not associated with a speciation cross-reference file because biogenic processing uses only one profile and does not need a speciation cross-reference file.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">III - CMAQ CB4:</emphasis> Includes TOG profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" />. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
+<para><emphasis role="bold">CMAQ CB4:</emphasis> Includes TOG profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" />. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">IV - CMAQ PM:</emphasis> Includes PM2.5 profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" /></para>
+<para><emphasis role="bold">CMAQ PM:</emphasis> Includes PM2.5 profiles and SCC assignments from EPA web site (3/8/02), <ulink url="http://www.epa.gov/ttn/chief/emch/speciation/" /></para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">V - CMAQ CB4tx1:</emphasis> CMAQ CB4 toxics (version 1) TOG profiles and VOC SCC assignments to be used when integrating toxics VOC with criteria inventory for on-road mobile sources. Because changes are being made to the research version 1 of CB4 toxics, it is expected that users will have to create new CB4 toxics profiles for all source categories. TOG profiles are labeled with profile codes ending in "A" to identify them as different from standard profiles. They were developed by Jerry Gipson at EPA/ORD and can be used only for the "no-integrate" case, to drop mass of acetaldehyde, 1,3-butadiene, formaldehyde, and acrolein (all explicit CMAQ toxics). Benzene is mapped to both CB4 species (PAR and NR) and to special BENZENE species, which doubles the mass of benzene output by SMOKE. Added to file by Marc Houyoux, MCNC. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
+<para><emphasis role="bold">CMAQ CB4tx1:</emphasis> CMAQ CB4 toxics (version 1) TOG profiles and VOC SCC assignments to be used when integrating toxics VOC with criteria inventory for on-road mobile sources. Because changes are being made to the research version 1 of CB4 toxics, it is expected that users will have to create new CB4 toxics profiles for all source categories. TOG profiles are labeled with profile codes ending in "A" to identify them as different from standard profiles. They were developed by Jerry Gipson at EPA/ORD and can be used only for the "no-integrate" case, to drop mass of acetaldehyde, 1,3-butadiene, formaldehyde, and acrolein (all explicit CMAQ toxics). Benzene is mapped to both CB4 species (PAR and NR) and to special BENZENE species, which doubles the mass of benzene output by SMOKE. Added to file by Marc Houyoux, MCNC. Cross-reference entries are for VOC, because VOC is anticipated in the inventory and the inventory pollutant is what is used to assign profiles by SCC.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">VI - Toxics:</emphasis> Includes toxics mapped to CB4 species using profile 0000. Developed by Jerry Gipson at EPA/ORD. Added to file by Marc Houyoux, MCNC.</para>
+<para><emphasis role="bold">Toxics:</emphasis> Includes toxics mapped to CB4 species using profile 0000. Developed by Jerry Gipson at EPA/ORD. Added to file by Marc Houyoux, MCNC.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">VII - RADM:</emphasis> RADM2 TOG profiles and VOC SCC assignments (which are the same as assignments for CB4), origin unknown. Cannot be used with the toxics inventories.</para>
+<para><emphasis role="bold">RADM:</emphasis> RADM2 TOG profiles and VOC SCC assignments (which are the same as assignments for CB4), origin unknown. Cannot be used with the toxics inventories.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">VIII - SAPRC99:</emphasis> All TOG speciation profiles for the SAPRC99 mechanism. TOG profiles provided by EPA/ORD, circa 2001. Never tested by MCNC or CEP for SMOKE release. Cannot be used with the toxics inventories.</para>
+<para><emphasis role="bold">SAPRC99:</emphasis> All TOG speciation profiles for the SAPRC99 mechanism. TOG profiles provided by EPA/ORD, circa 2001. Never tested by MCNC or CEP for SMOKE release. Cannot be used with the toxics inventories.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">IX - REMSAD6:</emphasis> REMSAD version 6 PM<subscript>2.5</subscript> speciation profiles from ENVIRON and EPA. The PM<subscript>2.5</subscript> profiles are the same as those for CMAQ except that they use different species names. Cannot be used with the toxics inventories. VOC profiles pass through VOC using average molecular weight of 16, as needed by REMSAD version 6.</para>
+<para><emphasis role="bold">REMSAD6:</emphasis> REMSAD version 6 PM<subscript>2.5</subscript> speciation profiles from ENVIRON and EPA. The PM<subscript>2.5</subscript> profiles are the same as those for CMAQ except that they use different species names. Cannot be used with the toxics inventories. VOC profiles pass through VOC using average molecular weight of 16, as needed by REMSAD version 6.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">X - REMSAD7:</emphasis> Created by CEP July 11, 2003. VOC profiles created from CMAQ TOG profiles as described in header for XYL and TOL (used for REMSAD SOA computation only). These are actual VOC profiles and therefore do not require the VOC-to-TOG conversion. VOC-to-CARB profiles added based on CARB = 0.03 x VOC. Also contains pass-through profile for cadmium (CD). PM<subscript>2.5</subscript> profiles are the same as those in the REMSAD6 file, which are the same profiles as for CMAQ, but they use different species names.</para>
+<para><emphasis role="bold">REMSAD7:</emphasis> Created by CEP July 11, 2003. VOC profiles created from CMAQ TOG profiles as described in header for XYL and TOL (used for REMSAD SOA computation only). These are actual VOC profiles and therefore do not require the VOC-to-TOG conversion. VOC-to-CARB profiles added based on CARB = 0.03 x VOC. Also contains pass-through profile for cadmium (CD). PM<subscript>2.5</subscript> profiles are the same as those in the REMSAD6 file, which are the same profiles as for CMAQ, but they use different species names.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">XI - SO2-SULF:</emphasis> Includes point-source SO<subscript>2</subscript> profiles for creating a SULF species from SO<subscript>2</subscript>; mass is intentionally not conserved (SULF mass is added to SO<subscript>2</subscript> mass). Profiles from Ron Ryan, EPA/OAQPS, 2001.</para>
+<para><emphasis role="bold">SO2-SULF:</emphasis> Includes point-source SO<subscript>2</subscript> profiles for creating a SULF species from SO<subscript>2</subscript>; mass is intentionally not conserved (SULF mass is added to SO<subscript>2</subscript> mass). Profiles from Ron Ryan, EPA/OAQPS, 2001.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">XII - HG:</emphasis> Mercury profiles and assignments created by Marc Houyoux, CEP, based on data provided in 2003 by Madeleine Strum, EPA/OAQPS. These HG profiles are based on 1996 inventory and need to be updated to account for new MACT codes and updated data. For REMSAD, molecular weight for HG species set to 201 as per REMSAD documentation, which is not the same as CMAQ HG. A different default mercury profile is used for point sources than for nonpoint sources. For on-road mobile, a single mercury profile that maps HGSUM to the mercury model species is included.</para>
+<para><emphasis role="bold">HG:</emphasis> Mercury profiles and assignments created by Marc Houyoux, CEP, based on data provided in 2003 by Madeleine Strum, EPA/OAQPS. These HG profiles are based on 1996 inventory and need to be updated to account for new MACT codes and updated data. For REMSAD, molecular weight for HG species set to 201 as per REMSAD documentation, which is not the same as CMAQ HG. A different default mercury profile is used for point sources than for nonpoint sources. For on-road mobile, a single mercury profile that maps HGSUM to the mercury model species is included.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">XIII - MOBILE6:</emphasis> Includes MOBILE6 profiles as per EPA/OTAQ, 2002. These include process-specific assignments needed for both MOBILE5 and MOBILE6 emission processes (e.g., exhaust starting, evaporative).</para>
+<para><emphasis role="bold">MOBILE6:</emphasis> Includes MOBILE6 profiles as per EPA/OTAQ, 2002. These include process-specific assignments needed for both MOBILE5 and MOBILE6 emission processes (e.g., exhaust starting, evaporative).</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">XIV - NONHAP:</emphasis> Includes NONHAPTOG and NONHAPVOC profiles and toxic pollutant profiles created by Jerry Gipson, EPA/ORD, and added to file by Marc Houyoux, MCNC. Uses NONHAPVOC/NONHAPTOG definitions from EPA, 2002. Extra pollutants included erroneously for nonroad-mobile sources: CHLOROBENZN, METHANOL, MEK, and PHENOL. Mass for these pollutants has been dropped from NONHAPVOC/NONHAPTOG profiles when it should not have been (the profiles still conserve mass because they were normalized after removing the appropriate HAPs, it is simply that none of the mass pertains to the above pollutants; this error is expected to be very small since the above pollutants account for less than 1% of the TOG for nonroad mobile sources).</para>
+<para><emphasis role="bold">NONHAP:</emphasis> Includes NONHAPTOG and NONHAPVOC profiles and toxic pollutant profiles created by Jerry Gipson, EPA/ORD, and added to file by Marc Houyoux, MCNC. Uses NONHAPVOC/NONHAPTOG definitions from EPA, 2002. Extra pollutants included erroneously for nonroad-mobile sources: CHLOROBENZN, METHANOL, MEK, and PHENOL. Mass for these pollutants has been dropped from NONHAPVOC/NONHAPTOG profiles when it should not have been (the profiles still conserve mass because they were normalized after removing the appropriate HAPs, it is simply that none of the mass pertains to the above pollutants; this error is expected to be very small since the above pollutants account for less than 1% of the TOG for nonroad mobile sources).</para>
 </listitem>
 </itemizedlist>
 
@@ -1252,21 +1252,21 @@ source $ASSIGNS/set_dirs.scr
 <title>Default SMOKE ancillary files for speciation in <filename class="directory"><envar>$SMKDAT</envar>/ge_dat</filename> (<envar>$GE_DAT</envar>)</title>
 
 <tgroup cols="15">
-<colspec colname="Names" colwidth="10*" />
+<colspec colname="Names" colwidth="12*" />
 <colspec colname="Profile 0000" colwidth="1*" />
 <colspec colname="BEIS3" colwidth="1*" />
 <colspec colname="CMAQ CB4" colwidth="1*" />
 <colspec colname="CMAQ PM" colwidth="1*" />
 <colspec colname="CMAQ CB4tx1" colwidth="1*" />
-<colspec colname="Toxics" colwidth="1*" />
+<colspec colname="Toxics" colwidth="1.5*" />
 <colspec colname="RADM" colwidth="1*" />
-<colspec colname="SAPRC99" colwidth="1*" />
+<colspec colname="SAPRC99" colwidth="1.5*" />
 <colspec colname="REMSAD6" colwidth="1*" />
 <colspec colname="REMSAD7" colwidth="1*" />
 <colspec colname="SO2-SULF" colwidth="1*" />
 <colspec colname="HG" colwidth="1*" />
 <colspec colname="MOBILE6" colwidth="1*" />
-<colspec colname="NONHAP" colwidth="1*" />
+<colspec colname="NONHAP" colwidth="1.5*" />
 
 <thead>
 <row>
@@ -1274,40 +1274,21 @@ source $ASSIGNS/set_dirs.scr
 <entry namest="Profile 0000" nameend="NONHAP" align="center">Description*</entry>
 </row>
 
-<comment>
 <row>
-<entry rotate="1">Profile 0000</entry>
-<entry rotate="1">BEIS3</entry>
-<entry rotate="1">CMAQ CB4</entry>
-<entry rotate="1">CMAQ PM</entry>
-<entry rotate="1">CMAQ CB4tx1</entry>
-<entry rotate="1">Toxics</entry>
-<entry rotate="1">RADM</entry>
-<entry rotate="1">SAPRC99</entry>
-<entry rotate="1">REMSAD6</entry>
-<entry rotate="1">REMSAD7</entry>
-<entry rotate="1">SO2-SULF</entry>
-<entry rotate="1">HG</entry>
-<entry rotate="1">MOBILE6</entry>
-<entry rotate="1">NONHAP</entry>
-</row>
-</comment>
-
-<row>
-<entry>I</entry>
-<entry>II</entry>
-<entry>III</entry>
-<entry>IV</entry>
-<entry>V</entry>
-<entry>VI</entry>
-<entry>VII</entry>
-<entry>VIII</entry>
-<entry>IX</entry>
-<entry>X</entry>
-<entry>XI</entry>
-<entry>XII</entry>
-<entry>XIII</entry>
-<entry>XIV</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>Profile 0000</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>BEIS3</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>CMAQ CB4</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>CMAQ PM</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>CMAQ CB4tx1</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>Toxics</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>RADM</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>SAPRC99</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>REMSAD6</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>REMSAD7</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>SO2-SULF</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>HG</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>MOBILE6</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1in"?>NONHAP</entry>
 </row>
 
 </thead>
@@ -1318,7 +1299,11 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="BEIS3">B</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.cb4p25.beis3.txt</filename>; <filename>gsref.cmaq.cb4p25.txt</filename></entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.cb4p25.beis3.txt</filename></member> <member><filename>gsref.cmaq.cb4p25.txt</filename></member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="BEIS3">B</entry>
 <entry colname="CMAQ CB4">X</entry>
@@ -1326,7 +1311,12 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="MOBILE6">M</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.cb4p25.txt</filename>; <filename>gsref.cmaq.cb4p25.txt</filename> (same as previous)</entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.cb4p25.txt</filename></member>
+<member><filename>gsref.cmaq.cb4p25.txt</filename> (same as previous)</member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ CB4">X</entry>
 <entry colname="CMAQ PM">X</entry>
@@ -1334,7 +1324,12 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="MOBILE6">M</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.cb4p25_wtox.m.txt</filename>; <filename>gsref.cmaq.cb4p25_wtox.txt</filename></entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.cb4p25_wtox.m.txt</filename></member>
+<member><filename>gsref.cmaq.cb4p25_wtox.txt</filename></member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ CB4">M</entry>
 <entry colname="CMAQ PM">X</entry>
@@ -1343,7 +1338,12 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="NONHAP">M</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.cb4p25_wtox.txt</filename>; <filename>gsref.cmaq.cb4p25_wtox.txt</filename> (same as previous)</entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.cb4p25_wtox.txt</filename></member>
+<member><filename>gsref.cmaq.cb4p25_wtox.txt</filename> (same as previous)</member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ CB4">X</entry>
 <entry colname="CMAQ PM">X</entry>
@@ -1352,7 +1352,12 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="NONHAP">ANP</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.cb4tx1p25.m.txt</filename>; <filename>gsref.cmaq.cb4tx1p25.m.txt</filename></entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.cb4tx1p25.m.txt</filename></member>
+<member><filename>gsref.cmaq.cb4tx1p25.m.txt</filename></member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ PM">X</entry>
 <entry colname="CMAQ CB4tx1">M</entry>
@@ -1362,7 +1367,13 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="NONHAP">M</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.cb4tx1p25.txt</filename>; <filename>gsref.cmaq.cb4tx1p25.txt</filename> (non-point/area/nonroad); <filename>gsref.cmaq.cb4tx1p25.p.txt</filename> (point only)</entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.cb4tx1p25.txt</filename></member>
+<member><filename>gsref.cmaq.cb4tx1p25.txt</filename> (non-point/area/nonroad)</member>
+<member><filename>gsref.cmaq.cb4tx1p25.p.txt</filename> (point only)</member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ PM">X</entry>
 <entry colname="CMAQ CB4tx1">X</entry>
@@ -1372,30 +1383,55 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="NONHAP">ANP</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.radm2p25.txt</filename>; <filename>gsref.cmaq.radm2p25.txt</filename></entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.radm2p25.txt</filename></member>
+<member><filename>gsref.cmaq.radm2p25.txt</filename></member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ PM">X</entry>
 <entry colname="RADM">X</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.saprc99pm.abp.txt</filename>; <filename>gsref.cmaq.saprc99.txt</filename></entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.saprc99pm.abp.txt</filename></member>
+<member><filename>gsref.cmaq.saprc99.txt</filename></member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ PM">X</entry>
 <entry colname="SAPRC99">ANP</entry>
 </row>
 <row>
-<entry><filename>gspro.cmaq.saprc99pm.m.txt</filename>; <filename>gsref.cmaq.saprc99.txt</filename> (same as previous)</entry>
+<entry>
+<simplelist>
+<member><filename>gspro.cmaq.saprc99pm.m.txt</filename></member>
+<member><filename>gsref.cmaq.saprc99.txt</filename> (same as previous)</member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ PM">X</entry>
 <entry colname="SAPRC99">M</entry>
 </row>
 <row>
-<entry><filename>gspro.maqsip.cb4.txt</filename>; <filename>gsref.cmaq.cb4p25.txt</filename> (same as CMAQ file)</entry>
+<entry>
+<simplelist>
+<member><filename>gspro.maqsip.cb4.txt</filename></member>
+<member><filename>gsref.cmaq.cb4p25.txt</filename> (same as CMAQ file)</member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ CB4">X</entry>
 </row>
 <row>
-<entry><filename>gspro.maqsip.radm2pm.txt</filename>; <filename>gsref.cmaq.radm2p25.txt</filename> (same as CMAQ file)</entry>
+<entry>
+<simplelist>
+<member><filename>gspro.maqsip.radm2pm.txt</filename></member>
+<member><filename>gsref.cmaq.radm2p25.txt</filename> (same as CMAQ file)</member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="CMAQ PM">X</entry>
 <entry colname="RADM">X</entry>
@@ -1405,12 +1441,22 @@ source $ASSIGNS/set_dirs.scr
 <entry colname="BEIS3">B</entry>
 </row>
 <row>
-<entry><filename>gspro.remsad.cb4mpm.txt</filename>; <filename>gsref.remsad.cb4mpm.txt</filename></entry>
+<entry>
+<simplelist>
+<member><filename>gspro.remsad.cb4mpm.txt</filename></member>
+<member><filename>gsref.remsad.cb4mpm.txt</filename></member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="REMSAD6">X</entry>
 </row>
 <row>
-<entry><filename>gspro.remsad7.cb4mpm.txt</filename>; <filename>gsref.remsad7.cb4mpm.txt</filename></entry>
+<entry>
+<simplelist>
+<member><filename>gspro.remsad7.cb4mpm.txt</filename></member>
+<member><filename>gsref.remsad7.cb4mpm.txt</filename></member>
+</simplelist>
+</entry>
 <entry colname="Profile 0000">X</entry>
 <entry colname="REMSAD7">X</entry>
 <entry colname="HG">X</entry>
