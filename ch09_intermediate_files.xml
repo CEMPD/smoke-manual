@@ -4,28 +4,28 @@
 
 <title>SMOKE Intermediate Files</title>
 
-<section>
+<section id="sect_intmed_introduction">
 
 <title>Introduction</title>
 
-<para>An intermediate file is one that is output from one SMOKE program and input to another SMOKE program. All other files output from programs are considered output files; these are documented in <xref linkend="ch_output_files" />.</para>
+<para>An intermediate file is a file that is output from one SMOKE program and input to another SMOKE program. All other files output from programs are considered output files; these are documented in <xref linkend="ch_output_files" />.</para>
 
 <para>In this chapter, the intermediate files are organized under headings named for the SMOKE programs that create the files; the files are listed alphabetically within each program section. The order of the programs within the chapter is also alphabetical. Please note that some file types have multiple file names, one per source category. For example, the multiplicative control matrix file name is <envar>ACMAT</envar>, <envar>MCMAT</envar>, or <envar>PCMAT</envar>, depending on whether the area, mobile, or point source category is being processed by <command>Cntlmat</command>. In these cases of multiple names for a single file type, the file description is listed one time for all intermediate files.</para>
 
 </section>
 
-<section>
+<section id="sect_intmed_cntlmat">
 
 <title><command>Cntlmat</command></title>
 
-<para>The <command>Cntlmat</command> program is responsible for creating the projection and control matrices. <command>Cntlmat</command> creates the following intermediate files:</para>
+<para>The <command>Cntlmat</command> program is responsible for creating the growth and control matrices. <command>Cntlmat</command> creates the following intermediate files:</para>
 
 <itemizedlist>
 <listitem>
 <para>Multiplicative control matrix: <xref linkend="sect_intmed_ampcmat" /></para>
 </listitem>
 <listitem>
-<para>Projection matrix: <xref linkend="sect_intmed_amppmat" /></para>
+<para>Growth matrix: <xref linkend="sect_intmed_amppmat" /></para>
 </listitem>
 <listitem>
 <para>Reactivity control matrix: <xref linkend="sect_intmed_amprmat" /></para>
@@ -286,7 +286,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_elevpoint">
 
 <title><command>Elevpoint</command></title>
 
@@ -305,7 +305,7 @@
 
 <title><envar>PELV</envar></title>
 
-<para>Type: ASCII - list-formatted</para>
+<para>Type: ASCII - list-directed</para>
 
 <para>Used by: <command>Laypoint</command>, <command>Smkmerge</command>, and <command>Smkreport</command></para>
 
@@ -491,7 +491,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_emisfac">
 
 <title><command>Emisfac</command></title>
 
@@ -606,7 +606,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_grdmat">
 
 <title><command>Grdmat</command></title>
 
@@ -644,7 +644,9 @@
 </row>
 </thead>
 
-<remark><tbody>
+<comment>this isn't right - the gridding matrix is more complicated</comment>
+
+<tbody>
 <row>
 <entry>NCOLS3D</entry>
 <entry>Number of source-cell intersections</entry>
@@ -655,7 +657,7 @@
 <entry>Number of cells in the grid</entry>
 <entry>Number of columns times number of rows in the grid</entry>
 </row>
-</tbody></remark>
+</tbody>
 </tgroup>
 </table>
 
@@ -676,14 +678,14 @@
 </row>
 </thead>
 
-<remark><tbody>
+<tbody>
 <row>
 <entry>COEFF-INDEX</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Source gridding coefficients</entry>
 </row>
-</tbody></remark>
+</tbody>
 </tgroup>
 </table>
 
@@ -697,13 +699,15 @@
 
 <para>Used by: <command>Mbsetup</command>, <command>Premobl</command>, and <command>Temporal</command></para>
 
-<para>The ungridding matrix is used to produce county-level meteorology data from gridded files. <remark>Add table here.</remark></para>
+<para>The ungridding matrix is used to produce county-level meteorology data from gridded files.</para>
+
+<comment>add description tables</comment>
 
 </section>
 
 </section>
 
-<section>
+<section id="sect_intmed_grwinven">
 
 <title><command>Grwinven</command></title>
 
@@ -970,7 +974,7 @@
 
 <title><envar>ARINV_O</envar>, <envar>MBINV_O</envar>, <envar>MBINV_AO</envar>, <envar>PTINV_O</envar></title>
 
-<para>Type: ASCII</para>
+<para>Type: ASCII - column-specific</para>
 
 <para>Used by: <command>Smkinven</command></para>
 
@@ -980,7 +984,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_laypoint">
 
 <title><command>Laypoint</command></title>
 
@@ -1063,7 +1067,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_mbsetup">
 
 <title><command>Mbsetup</command></title>
 
@@ -1179,7 +1183,7 @@
 
 <title><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and <envar>EPISODEGROUP</envar></title>
 
-<para>Type: ASCII - list formatted</para>
+<para>Type: ASCII - list-directed</para>
 
 <para>Used by: <command>Premobl</command> and <command>Emisfac</command></para>
 
@@ -1230,7 +1234,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_normbeis3">
 
 <title><command>Normbeis3</command></title>
 
@@ -1341,7 +1345,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_premobl">
 
 <title><command>Premobl</command></title>
 
@@ -1424,7 +1428,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_rawbio">
 
 <title><command>Rawbio</command></title>
 
@@ -1535,7 +1539,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_smkinven">
 
 <title><command>Smkinven</command></title>
 
@@ -1805,7 +1809,7 @@
 
 <title><envar>ASRC</envar>, <envar>MSRC</envar>, and <envar>PSRC</envar></title>
 
-<para>Type: ASCII - list formatted</para>
+<para>Type: ASCII - list-directed</para>
 
 <para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Emisfac</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Smkmerge</command>, <command>Smkreport</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
 
@@ -1975,7 +1979,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_smkmerge">
 
 <title><command>Smkmerge</command></title>
 
@@ -1995,13 +1999,13 @@
 
 <para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
 
-<para>These files can be model-ready emissions files by source category or all categories.  See <xref linkend="ch_output_files" /> for format information.</para>
+<para>These files can be model-ready emissions files by source category or all categories.  See <xref linkend="sect_output_egts" /> for format information.</para>
 
 </section>
 
 </section>
 
-<section>
+<section id="sect_intmed_spcmat">
 
 <title><command>Spcmat</command></title>
 
@@ -2178,7 +2182,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_temporal">
 
 <title><command>Temporal</command></title>
 
@@ -2272,7 +2276,7 @@
 
 </section>
 
-<section>
+<section id="sect_intmed_tmpbeis3">
 
 <title><command>Tmpbeis3</command></title>
 
@@ -2292,13 +2296,13 @@
 
 <para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
 
-<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="ch_output_files" /> for format information.</para>
+<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="sect_output_b3gts" /> for format information.</para>
 
 </section>
 
 </section>
 
-<section>
+<section id="sect_intmed_tmpbio">
 
 <title><command>Tmpbio</command></title>
 
@@ -2318,7 +2322,7 @@
 
 <para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
 
-<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="ch_output_files" /> for format information.</para>
+<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="sect_output_bgts" /> for format information.</para>
 
 </section>
 
