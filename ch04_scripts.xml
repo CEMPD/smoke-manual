@@ -3727,7 +3727,7 @@ endif</programlisting>
 <listitem>
 <para>Make sure the chemical speciation is set for one of the UAM, REMSAD, or CAM<subscript>X</subscript> chemical mechanisms.</para>
 
-<para>This check involves the <envar>SPC</envar> setting, explained in <xref linkend="sect_scripts_change_speciation" />. Please note that the files and setup needed for CAM<subscript>X</subscript>-PM are not available in SMOKE version 2.0.</para>
+<para>This check involves the <envar>SPC</envar> setting, explained in <xref linkend="sect_scripts_change_speciation" />. Please note that the files and setup needed for CAM<subscript>X</subscript>-PM are not available in SMOKE v2.1.</para>
 </listitem>
 <listitem>
 <para>Set the basic settings for UAM, REMSAD, and CAM<subscript>X</subscript></para>
