@@ -2,7 +2,7 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:import href="/Users/Shared/DocBook/lib/docbook/xsl/html/chunk.xsl" />
+<xsl:import href="/usr/local/docbook/xsl/html/chunk.xsl" />
 
 <xsl:include href="custom-common.xsl" />
 
@@ -21,5 +21,9 @@
   chapter  toc
   section  toc
 </xsl:param>
+
+<xsl:template match="remark">
+  <xsl:call-template name="inline.charseq"/>
+</xsl:template>
 
 </xsl:stylesheet>
