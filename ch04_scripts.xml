@@ -52,7 +52,7 @@
 
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/scripts/nctox_domain_pdf.jpg" />
+<imagedata width="5in" fileref="images/scripts/nctox_domain_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
 <imagedata fileref="images/scripts/nctox_domain_html.jpg" />
