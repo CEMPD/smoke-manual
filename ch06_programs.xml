@@ -219,7 +219,7 @@
 
 <para>For point sources, the following hierarchy is used, in order of most specific to least specific.</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code, pollutant</para>
 </listitem>
@@ -413,7 +413,7 @@
 
 <para>For nonpoint/stationary area sources, the following hierarchy is used. Nonpoint SCCs can have either 8 or 10 digits, which is why there are two separate SCC levels mentioned for each of the SCC-based assignments.</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/State/County code, MACT code, 8- or 10-digit SCC code, pollutant</para>
 </listitem>
@@ -577,7 +577,7 @@
 
 <para>On-road mobile and nonroad sources are matched to the control packet entries using the following hierarchy:</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/State/County code, 10-digit SCC code, pollutant</para>
 </listitem>
@@ -713,6 +713,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name*</entry>
@@ -845,6 +849,10 @@
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name*</entry>
@@ -913,13 +921,13 @@
 </tgroup>
 </informaltable>
 
-<para>* As in <xref linkend="fig_programs_cntlmat" />, the notation [A|M|P] is used to indicate that only one of the three files is output for a given run.</para>
+<para>* As in <xref linkend="fig_programs_cntlmat" />, the notation <envar>[A|M|P]</envar> is used to indicate that only one of the three files is output for a given run.</para>
 
 </section>
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -929,7 +937,7 @@
 <para><command>Cntlmat</command> for SMOKE v1.2 did not have an operational reporting capability. The /MACT/ packet and updated /CONTROL/ and /PROJECTION/ packets were added in SMOKE v2.0.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -1091,6 +1099,10 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1199,6 +1211,10 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1236,7 +1252,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -1248,7 +1264,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <para>The <envar>REPPELV</envar> file did not exist in versions 1.3 and earlier.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -1366,6 +1382,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="30*" />
+<colspec colwidth="18*" />
+<colspec colwidth="52*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1556,6 +1576,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="43*" />
+<colspec colwidth="18*" />
+<colspec colwidth="39*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1588,7 +1612,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -1600,7 +1624,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Version 2.0 added the capability to use hourly speed profiles instead of inventory speeds, and adjustments to speed and emission factors to account for travel on freeway ramps.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -1634,7 +1658,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>For area sources, the gridding cross-reference file provides the following possible combinations, ordered from most specific to least specific:</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code and 10-digit SCC</para>
 </listitem>
@@ -1666,7 +1690,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>For mobile sources, the available combinations and their order are:</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, and 10-digit SCC</para>
 </listitem>
@@ -1729,6 +1753,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1831,6 +1859,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -1868,7 +1900,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -1878,7 +1910,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Calculation of the mobile "ungridding" matrix was significantly revised for SMOKE v2.0.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -1934,6 +1966,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2020,6 +2056,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="35*" />
+<colspec colwidth="18*" />
+<colspec colwidth="47*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2057,7 +2097,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -2065,7 +2105,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para><command>Grwinven</command> was updated for SMOKE v2.0 to output SICs for non-point toxic inventories.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -2121,6 +2161,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2264,6 +2308,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2301,7 +2349,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -2309,7 +2357,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>The current version of the <command>Laypoint</command> program replaces the Laypoint program found in the SMOKE prototype. This new version adds support for plume-in-grid models by removing those sources from the point-source emissions in the <envar>PLAY</envar> file.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -2365,6 +2413,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2438,6 +2490,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="30*" />
+<colspec colwidth="18*" />
+<colspec colwidth="52*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2485,7 +2541,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -2493,7 +2549,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para><command>Mbsetup</command> was first released with SMOKE v1.5. SMOKE v2.0 included the ability to use hourly speed profiles.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -2547,6 +2603,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2581,6 +2641,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2608,7 +2672,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -2616,7 +2680,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para><command>Mrggrid</command> was first released with SMOKE v1.3.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -2672,6 +2736,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2721,6 +2789,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2748,7 +2820,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -2756,7 +2828,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>SMOKE v1.4 marked the initial release of the <command>Normbeis3</command> program, which together with the <command>Tmpbeis3</command> program make up the SMOKE-BEIS3 modeling system.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -2822,6 +2894,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="30*" />
+<colspec colwidth="18*" />
+<colspec colwidth="52*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -2902,85 +2978,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>Indicates offset from Greenwich Mean Time (GMT) for episode start date and time. <envar>OUTZONE</envar> should be set to the standard time for the time zone of interest; SMOKE will adjust to Daylight Saving time for episodes that are during periods and in regions where Daylight Saving time applies.</para>
 
-<para><xref linkend="tbl_programs_outzone" /> provides allowed values for <envar>OUTZONE</envar>. The CMAQ and MAQSIP models expect <envar>OUTZONE</envar> to be 0, while other models such as UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript> often use time zone 5. All models expect that the emissions and the meteorology data provided to the model will have a consistent time zone. SMOKE expects that the meteorology data will be in GMT.</para>
-
-<table id="tbl_programs_outzone">
-<title>Values for <envar>OUTZONE</envar> and associated time zone</title>
-
-<tgroup cols="4">
-<thead>
-<row>
-<entry><envar>OUTZONE</envar></entry>
-<entry>GMT Offset</entry>
-<entry>Time Zone</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>0</entry>
-<entry>+0:00</entry>
-<entry>GMT</entry>
-<entry>Greenwich Mean Time</entry>
-</row>
-<row>
-<entry>4</entry>
-<entry>-4:00</entry>
-<entry>AST</entry>
-<entry>Atlantic Standard Time</entry>
-</row>
-<row>
-<entry>5</entry>
-<entry>-5:00</entry>
-<entry>EST</entry>
-<entry>Eastern Standard Time</entry>
-</row>
-<row>
-<entry>6</entry>
-<entry>-6:00</entry>
-<entry>CST</entry>
-<entry>Central Standard Time</entry>
-</row>
-<row>
-<entry>7</entry>
-<entry>-7:00</entry>
-<entry>MST</entry>
-<entry>Mountain Standard Time</entry>
-</row>
-<row>
-<entry>8</entry>
-<entry>-8:00</entry>
-<entry>PST</entry>
-<entry>Pacific Standard Time</entry>
-</row>
-<row>
-<entry>9</entry>
-<entry>-9:00</entry>
-<entry>YST</entry>
-<entry>Yukon Standard Time</entry>
-</row>
-<row>
-<entry>10</entry>
-<entry>-10:00</entry>
-<entry>HST</entry>
-<entry>Hawaiian Standard Time</entry>
-</row>
-<row>
-<entry>10</entry>
-<entry>-10:00</entry>
-<entry>CAT</entry>
-<entry>Central Alaska Time</entry>
-</row>
-<row>
-<entry>11</entry>
-<entry>-11:00</entry>
-<entry>NT</entry>
-<entry>Nome Time</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
+<para><xref linkend="tbl_concepts_outzone" /> provides allowed values for <envar>OUTZONE</envar>. The CMAQ and MAQSIP models expect <envar>OUTZONE</envar> to be 0, while other models such as UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript> often use time zone 5. All models expect that the emissions and the meteorology data provided to the model will have a consistent time zone. SMOKE expects that the meteorology data will be in GMT.</para>
 
 <para>Note that SMOKE expects <envar>OUTZONE</envar> to be set as a positive number for time zones in the Western Hemisphere, although standard notation would list these as negative values. For example, Eastern Standard Time is -5:00 hours from GMT, but <envar>OUTZONE</envar> for EST in SMOKE is 5.</para>
 </listitem>
@@ -3032,6 +3030,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="30*" />
+<colspec colwidth="18*" />
+<colspec colwidth="52*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -3059,7 +3061,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -3067,7 +3069,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>The SMOKE prototype had a similar program called Prediur. In previous versions of SMOKE, <command>Premobl</command> determined minimum and maximum temperature combinations by source and day.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -3157,6 +3159,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -3272,6 +3278,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -3299,7 +3309,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -3307,7 +3317,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>The SMOKE prototype version of <command>Rawbio</command> included an additional input file (<envar>BFIP</envar>) that contained a list of counties to use from the <envar>BCUSE</envar> file. Newer versions automatically create this list internally using the FIPS codes contained in the surrogates file <envar>BGPRO</envar>. A <envar>BGUSE</envar> input file can now be created using the utility program <command>Beld3to2</command> (see <xref linkend="sect_utilities_beld3to2" />).</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -3440,6 +3450,11 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="4">
+<colspec colwidth="25*" />
+<colspec colwidth="18*" />
+<colspec colwidth="10*" />
+<colspec colwidth="47*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -3803,6 +3818,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="18*" />
+<colspec colwidth="57*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -3878,7 +3897,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -3892,7 +3911,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Processing of toxic pollutants was added in versions 1.5 and 2.0, and required extensive changes to <command>Smkinven</command>, including a different intermediate inventory format. Previous versions of SMOKE used an intermediate inventory format consisting of one ASCII file and one I/O API file. Support for EPS 2.0 formatted inventories was dropped in SMOKE v1.5.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -4026,6 +4045,11 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="4">
+<colspec colwidth="30*" />
+<colspec colwidth="18*" />
+<colspec colwidth="10*" />
+<colspec colwidth="42*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -4555,6 +4579,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="37*" />
+<colspec colwidth="18*" />
+<colspec colwidth="45*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -4610,7 +4638,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -4618,7 +4646,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>The SMOKE prototype used a series of merge programs: CSELEV for elevated point sources, SDGMERGE for low-level sources, CSGLMERGE for layered output, SMK2EMIS for UAM-ready lower-level emissions, SMK2PTS for UAM-ready elevated point sources, SMK2SAQM for SAQM-ready emissions, and CSGLDAYMERGE. The new <command>Smkmerge</command> program replaces all these special-purpose programs.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -4640,7 +4668,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>For stationary area/nonpoint sources, the available combinations and their order are the following, starting with the most specific. "Left <emphasis>x</emphasis> of SCC" refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. "Left 2 of SIC code" refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, MACT code, and 8- or 10-digit SCC</para>
 </listitem>
@@ -4708,7 +4736,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>For nonroad sources, the available combinations and their order are:</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code and 10-digit SCC</para>
 </listitem>
@@ -4740,7 +4768,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>For mobile sources, the available combinations and their order are:</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, road class, vehicle type, and process</para>
 </listitem>
@@ -4811,7 +4839,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>For point sources, the available combinations depend on the source definition. A header in the speciation cross-reference file format allows you to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. For point sources, the available combinations and their order are:</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, plant ID, point ID, stack ID, segment ID, and SCC</para>
 </listitem>
@@ -4948,6 +4976,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5034,6 +5066,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5071,7 +5107,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -5081,7 +5117,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Version 2.0 added the ability to assign speciation profiles by MACT and SIC codes. Also, species of differing types (i.e., gaseous and particulate) can be created from the same pollutant.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -5130,7 +5166,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>For area sources, the available combinations are the following, starting with the most specific. "7-digit SCC" means a 10-digit SCC with the last three digits set to zero.</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, 10-digit SCC, and pollutant</para>
 </listitem>
@@ -5180,7 +5216,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>For mobile sources, the available combinations are given below. To specify an entry that is to match by vehicle type, the road class part of the SCC must be filled with zeros. If any warnings or errors are written during the read of the mobile temporal cross-reference file, the messages will use the mobile internal SCCs.</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, road class, link ID, vehicle type, and process/pollutant</para>
 </listitem>
@@ -5262,7 +5298,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>The hierarchy of cross-referencing is the following.</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, segment, and pollutant</para>
 </listitem>
@@ -5404,6 +5440,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5588,6 +5628,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5620,7 +5664,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -5632,7 +5676,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>SMOKE v1.0 and later handle pollutants other than CO, NO<subscript>x</subscript>, and VOC or ROG.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -5688,6 +5732,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5818,6 +5866,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -5850,7 +5902,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -5858,7 +5910,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para><command>Tmpbeis3</command> was first released with SMOKE v1.4.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -5914,6 +5966,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="18*" />
+<colspec colwidth="57*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -6046,6 +6102,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <informaltable>
 <tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
 <thead>
 <row>
 <entry>File Name</entry>
@@ -6078,7 +6138,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<comment>
+<!--
 <section>
 
 <title>Earlier Versions</title>
@@ -6086,7 +6146,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>The SMOKE prototype version of <command>Tmpbio</command> supported only UAM-BEIS2 processing for the CB4 mechanism. The prototype <command>Tmpbio</command> also allowed National Weather Service observational data to be used in estimating emissions; this option is no longer available due to lack of interest. Regarding the <envar>BG_CLOUD_TYPE</envar> environment variable, options 2, 3, and 4 above that use cloud fraction data have not been fully tested, so we strongly recommend setting <envar>BG_CLOUD_TYPE</envar> to 1. The <envar>OUTZONE</envar> environment variable was not in the prototype version of <command>Tmpbio</command>; the output time zone was the same time zone as the meteorological data. SMOKE v1.2 and earlier versions did not allow the input of a gridded seasonal switch file.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
