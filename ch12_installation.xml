@@ -120,7 +120,7 @@
 
 <para><userinput><command>echo</command> <envar>$EDSS_OS</envar></userinput></para>
 
-<para>If the value that comes back from this command is not listed as a "case" in the <filename>platform</filename> file in <remark>lines 45-71</remark>, then you need to update the <filename>platform</filename> file to have your case in <remark>lines 45-71</remark>, and you need to update for your case in the section composed of <remark>lines 75-128</remark>. You will also need to determine which compiler options are needed on your system for maximum optimization (like the -O3 option), whether any options are needed for portable executables (like -static), or whether any options are needed for extra memory allocation (like -bmaxdata:0X20000000 on AIX systems). This will vary depending on platform and compiler; please consult your compiler documentation for exact settings.</para>
+<para>If the value that comes back from this command is not listed as a "case" in the <filename>platform</filename> file in lines 45-71, then you need to update the <filename>platform</filename> file to have your case in lines 45-71, and you need to update for your case in the section composed of lines 75-128. You will also need to determine which compiler options are needed on your system for maximum optimization (like the -O3 option), whether any options are needed for portable executables (like -static), or whether any options are needed for extra memory allocation (like -bmaxdata:0X20000000 on AIX systems). This will vary depending on platform and compiler; please consult your compiler documentation for exact settings.</para>
 </listitem>
 <listitem>
 <para>Once the <filename>platform</filename> file has been updated, enter the following commands from the UNIX prompt:</para>
@@ -132,12 +132,12 @@
 <para>This sets the <envar>EDSS_EXE</envar> environment variable needed in the next steps.</para>
 </listitem>
 <listitem>
-<para>Collect or create the I/O API library <remark>version 2.1</remark> for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/libioapi.a</filename></para>
+<para>Collect or create the I/O API library version 2.1 for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/libioapi.a</filename></para>
 
 <para>You will also need one of the I/O API Tools programs, <command>datshift</command>. Install it as <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/datshift</filename></para>
 </listitem>
 <listitem>
-<para>Collect or create the NetCDF library <remark>version 3.1</remark> or higher for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/netcdf/bin/<envar>$EDSS_EXE</envar>/libnetcdf.a</filename></para>
+<para>Collect or create the NetCDF library version 3.5 or higher for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/netcdf/bin/<envar>$EDSS_EXE</envar>/libnetcdf.a</filename></para>
 </listitem>
 <listitem>
 <para>If needed, update the files</para>
@@ -168,7 +168,7 @@
 
 <para><userinput><command>Makeall</command></userinput></para>
 
-<para>The only errors that are acceptable when you use this script are errors after the <command>/bin/rm</command> commands. The <command>/bin/rm</command> commands will fail if there are no object files (<filename>*.o</filename> files) in your SMOKE source code directories. This will be the case if you have not previously compiled SMOKE. <remark>If you get errors other than those after the <command>/bin/rm</command> commands, you may submit a help request to the <ulink url="http://www.cmascenter.org/html/help.html">CMAS Help Desk</ulink>.</remark></para>
+<para>The only errors that are acceptable when you use this script are errors after the <command>/bin/rm</command> commands. The <command>/bin/rm</command> commands will fail if there are no object files (<filename>*.o</filename> files) in your SMOKE source code directories. This will be the case if you have not previously compiled SMOKE. If you get errors other than those after the <command>/bin/rm</command> commands, you may submit a help request to the <ulink url="http://www.cmascenter.org/html/help.html">CMAS Help Desk</ulink>.</para>
 </listitem>
 </itemizedlist>
 
