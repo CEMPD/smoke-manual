@@ -4,6 +4,344 @@
 
 <title>Source Code and Include Files</title>
 
-<para>In progress</para>
+<para>The SMOKE modeling system consists of several core programs (described in <xref linkend="ch_programs" />), several utility programs (described in <xref linkend="ch_utilities" />), and the quality assurance program <command>Smkreport</command> (described in <xref linkend="ch_quality_assurance" />). The source code for all programs is available in the <filename class="directory"><envar>$SMKROOT</envar>/src</filename> directory.</para>
+
+<para>SMOKE also uses several libraries for shared functionality. The I/O API and NetCDF libraries were discussed in <xref linkend="ch_installation" />. In addition, SMOKE is distributed with the FileSetAPI library (<xref linkend="sect_source_fileset" />), the EDSS Tools library (<xref linkend="sect_source_edss_tools" />), and a library version of MOBILE6 (<xref linkend="sect_source_mobile6" />).</para>
+
+<section id="sect_source_source">
+
+<title>Source Code</title>
+
+All source code for SMOKE and its associated libraries can be found in the <filename class="directory"><envar>$EDSS_SUBSYS</envar></filename> directory.
+
+<section id="sect_source_fileset">
+
+<title>FileSetAPI library</title>
+
+<para>This library is used to open multiple I/O API files to avoid the limit of 120 variables per I/O API file. The source code in found in the <filename class="directory"><envar>$EDSS_SUBSYS</envar>/filesetapi</filename> directory (also accessible using the <envar>FS_ROOT</envar> environment variable), which contains the following source code and Makefiles.</para>
+
+<itemizedlist spacing="compact">
+<listitem><filename><envar>$FS_ROOT</envar>/appendname.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/chkfileset.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/chksetdesc.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/cleanup.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/closeset.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/createset.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/descset.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/Makefile</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/Makeit</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/modfileset.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/modmake.inc</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/openset.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/promptset.f</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/readset.F</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/SETDECL.EXT</filename></listitem>
+<listitem><filename><envar>$FS_ROOT</envar>/writeset.F</filename></listitem>
+</itemizedlist>
+
+</section>
+
+<section id="sect_source_edss_tools">
+
+<title>EDSS Tools library</title>
+
+<para>The EDSS Tools library is built on the EDSS framework and contains a variety of routines used for accessing I/O API data and other Models-3 conventions. The main directory for the EDSS Tools library is <filename class="directory"><envar>$EDSS_SUBSYS</envar>/edss_tools</filename>, which is also accessible with the <envar>TOOLS_ROOT</envar> environment variable. The source code for the EDSS Tools library is in the <filename class="directory"><envar>$TOOLS_ROOT</envar>/src</filename> directory and consists of the following source code and Makefiles.</para>
+
+<itemizedlist spacing="compact">
+<listitem><filename><envar>$ETINC</envar>/FLTERR.EXT</filename></listitem>
+<listitem><filename><envar>$ETINC</envar>/IOCNST3.EXT</filename></listitem>
+<listitem><filename><envar>$ETINC</envar>/IOPRVT3.EXT</filename></listitem>
+<listitem><filename><envar>$ETINC</envar>/IOSTRG3.EXT</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/checkmem.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/chkgrid.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/chkint.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/chkreal.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/dscm3grd.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/dscm3lay.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/fltrneg.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/getcfdsc.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/getfline.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/getifdsc.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/getm3epi.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/getnlist.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/hdrmiss3.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/ioapi_grd_size.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/lambert.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/m3mesg.F</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/Makefile</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/Makeit</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/multunit.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/nextime.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/openphys.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/padnzero.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/padzero.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/parsline.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/polmesg.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/promptwhat.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/rd3mask.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/rdsetmask.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/unitfac.f</filename></listitem>
+<listitem><filename><envar>$ETLSRC</envar>/unitmatch.f</filename></listitem>
+<listitem><filename><envar>$ETDSRC</envar>/modgrid.f</filename></listitem>
+<listitem><filename><envar>$ETDSRC</envar>/modmake.inc</filename></listitem>
+</itemizedlist>
+
+</section>
+
+<section id="sect_source_mobile6">
+
+<title>MOBILE6 library</title>
+
+<para>The code for the library version of MOBILE6 is in <filename class="directory"><envar>$SMKROOT</envar>/src/mo6</filename>, also accessible with the <envar>M6_SRC</envar> environment variable. This code is the stand-alone version of MOBILE6.2 with special aggregation code to create the emission factors at the resolution needed by SMOKE. In addition, we have added code to allow MOBILE6 to pass the emission factors back to SMOKE in memory, rather than writing an output file.</para>
+
+</section>
+
+<section id="sect_source_programs">
+
+<title>SMOKE programs</title>
+
+<para>The source code needed for the SMOKE programs is in the <filename class="directory"><envar>$SMKROOT</envar>/src</filename> directory. <xref linkend="tbl_source_programs" /> lists each SMOKE program and the corresponding source code directory and environment variable you can use to access that directory.</para>
+
+<table id="tbl_source_programs">
+<title>SMOKE programs and source code directories</title>
+<?dbfo table-width="6in"?>
+
+<tgroup cols="3">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+<colspec colwidth="1*" />
+
+<thead>
+<row>
+<entry align="center">SMOKE Program</entry>
+<entry align="center">Source Code Directory</entry>
+<entry align="center">Environment Variable</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><link linkend="sect_utilities_beld3to2"><command>Beld3to2</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_cntlmat"><command>Cntlmat</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/cntlmat</filename></entry>
+<entry><envar>CL_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_elevpoint"><command>Elevpoint</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/point</filename></entry>
+<entry><envar>PT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_emisfac"><command>Emisfac</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/mobile</filename></entry>
+<entry><envar>MB_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_extractida"><command>Extractida</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_geofac"><command>Geofac</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_grdmat"><command>Grdmat</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/grdmat</filename></entry>
+<entry><envar>GD_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_grwinven"><command>Grwinven</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/smkinven</filename></entry>
+<entry><envar>IV_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_invsplit"><command>Invsplit</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_laypoint"><command>Laypoint</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/point</filename></entry>
+<entry><envar>PT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_mbsetup"><command>Mbsetup</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/mobile</filename></entry>
+<entry><envar>MB_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_metscan"><command>Metscan</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_mrggrid"><command>Mrggrid</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/smkmerge</filename></entry>
+<entry><envar>MG_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_normbeis3"><command>Normbeis3</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/biog</filename></entry>
+<entry><envar>BG_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_pktreduc"><command>Pktreduc</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_premobl"><command>Premobl</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/mobile</filename></entry>
+<entry><envar>MB_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_rawbio"><command>Rawbio</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/biog</filename></entry>
+<entry><envar>BG_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_smk2emis"><command>Smk2emis</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_smkinven"><command>Smkinven</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/smkinven</filename></entry>
+<entry><envar>IV_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_smkmerge"><command>Smkmerge</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/smkmerge</filename></entry>
+<entry><envar>MG_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_qa_smkreport"><command>Smkreport</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emqa</filename></entry>
+<entry><envar>QA_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_spcmat"><command>Spcmat</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/spcmat</filename></entry>
+<entry><envar>SP_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_surgtool"><command>Surgtool</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_temporal"><command>Temporal</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/temporal</filename></entry>
+<entry><envar>TM_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_tmpbeis3"><command>Tmpbeis3</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/biog</filename></entry>
+<entry><envar>BG_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_tmpbio"><command>Tmpbio</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/biog</filename></entry>
+<entry><envar>BG_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_utilities_uam2ncf"><command>Uam2ncf</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
+<entry><envar>UT_SRC</envar></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>There are three additional directories in the <filename class="directory"><envar>$SMKROOT</envar>/src</filename> that we have not mentioned. They are:</para>
+
+<itemizedlist>
+<listitem>
+<para><filename class="directory"><envar>$SMKROOT</envar>/src/emmod</filename> (<envar>MD_SRC</envar>): Contains modules for shared program variables</para>
+</listitem>
+<listitem>
+<para><filename class="directory"><envar>$SMKROOT</envar>/src/inc</filename> (<envar>INC</envar>): Contains include files (discussed in <xref linkend="sect_source_include" />)</para>
+</listitem>
+<listitem>
+<para><filename class="directory"><envar>$SMKROOT</envar>/src/lib</filename> (<envar>EL_SRC</envar>): Contains source code for the main SMOKE library</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+</section>
+
+<section id="sect_source_include">
+
+<title>Include Files</title>
+
+<para>In this section we list all the include files used to compile the various libraries and SMOKE programs.</para>
+
+<section>
+
+<title>I/O API</title>
+
+<para>These include files are part of the I/O API library and are in the <filename class="directory"><envar>$EDSS_SUBSYS</envar>/ioapi_includes</filename> directory, accessible using the environment variable <envar>IOINC</envar>.</para>
+
+<itemizedlist spacing="compact">
+<listitem><filename><envar>$IOINC</envar>/ATDSC3.EXT</filename></listitem>
+<listitem><filename><envar>$IOINC</envar>/CONST3.EXT</filename></listitem>
+<listitem><filename><envar>$IOINC</envar>/FDESC3.EXT</filename></listitem>
+<listitem><filename><envar>$IOINC</envar>/IODECL3.EXT</filename></listitem>
+<listitem><filename><envar>$IOINC</envar>/NETCDF.EXT</filename></listitem>
+<listitem><filename><envar>$IOINC</envar>/NOTICE.EXT</filename></listitem>
+<listitem><filename><envar>$IOINC</envar>/PARMS3.EXT</filename></listitem>
+<listitem><filename><envar>$IOINC</envar>/STATE3.EXT</filename></listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>FileSetAPI</title>
+
+<itemizedlist spacing="compact">
+<listitem><filename><envar>$FS_ROOT</envar>/SETDECL.EXT</filename></listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>EDSS Tools</title>
+
+<itemizedlist spacing="compact">
+<listitem><filename><envar>$ETINC</envar>/FLTERR.EXT</filename></listitem>
+<listitem><filename><envar>$ETINC</envar>/IOCNST3.EXT</filename></listitem>
+<listitem><filename><envar>$ETINC</envar>/IOPRVT3.EXT</filename></listitem>
+<listitem><filename><envar>$ETINC</envar>/IOSTRG3.EXT</filename></listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>SMOKE</title>
+
+<itemizedlist spacing="compact">
+<listitem><filename><envar>$CL_SRC</envar>/CPKTDAT.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/B3DIMS3.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/BIODIMS3.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/EMCNST3.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/EMPRVT3.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/EMSTRG3.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/FLTERR.EXT</filename></listitem>
+<listitem><filename><envar>$INC</envar>/M6CNST3.EXT</filename></listitem>
+</itemizedlist>
+
+</section>
+
+</section>
 
 </chapter>

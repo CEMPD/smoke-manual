@@ -4,6 +4,745 @@
 
 <title>SMOKE Output Files</title>
 
-<para>In progress</para>
+<section id="sect_output_introduction">
+
+<title>Introduction</title>
+
+<para>An output file is a file that is output from a SMOKE program and not used as input to any other SMOKE programs. This include the model-ready emissions files and various reports. Files that are used as input to other SMOKE programs are considered intermediate files and are documented in <xref linkend="ch_intermediate_files" />.</para>
+
+<para>In this chapter, the output files are organized under headings named for the SMOKE programs that create the files; the files are listed alphabetically within each program section. The order of the programs within the chapter is also alphabetical. Please note that some file types have multiple file names, one per source category. For example, the multiplicative control report file name is <envar>ACREP</envar>, <envar>MCREP</envar>, or <envar>PCREP</envar>, depending on whether the area, mobile, or point source category is being processed by <command>Cntlmat</command>. In these cases of multiple names for a single file type, the file description is listed one time for all output files.</para>
+
+</section>
+
+<section id="sect_output_cntlmat">
+
+<title><command>Cntlmat</command></title>
+
+<para>The <command>Cntlmat</command> program is responsible for creating the growth and control matrices. <command>Cntlmat</command> creates the following output files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Multiplicative control report: <xref linkend="sect_output_ampcrep" /></para>
+</listitem>
+<listitem>
+<para>Growth factors report: <xref linkend="sect_output_ampprojrep" /></para>
+</listitem>
+<listitem>
+<para>Reactivity controls report: <xref linkend="sect_output_ampreacrep" /></para>
+</listitem>
+<listitem>
+<para>Summary of controls report: <xref linkend="sect_output_ampcsumrep" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_output_ampcrep">
+
+<title><envar>ACREP</envar>, <envar>MCREP</envar>, and <envar>PCREP</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Summary: This file contains the report for the multiplicative control matrix. It includes the inventory pollutant emissions before and after application of the multiplicative control matrix factors. For area and mobile sources, the report resolution is by state and SCC code. For point sources, the report is by state/county and plant code. The individual factors applied (e.g., /ALLOWABLE/ and /CONTROL/ packet factors) by source are provided in the <envar>*CSUMREP</envar> file described in <xref linkend="sect_output_ampcsumrep" />.</para>
+
+<para>The file header and output format are similar to what is output by the <command>Smkreport</command> program (see <xref linkend="sect_qa_output" />. The headers include information about:</para>
+
+<itemizedlist>
+<listitem>
+<para>The source category (area, mobile, or point sources) for the report</para>
+</listitem>
+<listitem>
+<para>The base year or projected year of the inventory input file</para>
+</listitem>
+<listitem>
+<para>Which control packets were applied</para>
+</listitem>
+<listitem>
+<para>Whether the emissions in the report are based on ozone-season or annual total emissions</para>
+</listitem>
+<listitem>
+<para>The inventory pollutants controlled by the packets</para>
+</listitem>
+<listitem>
+<para>The units</para>
+</listitem>
+</itemizedlist>
+
+<para>The columns of the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>State ID (area and mobile); state/county ID (point)</para>
+</listitem>
+<listitem>
+<para>SCC (area and mobile); plant (point)</para>
+</listitem>
+<listitem>
+<para>Input emissions in tons/day for each controlled pollutant</para>
+</listitem>
+<listitem>
+<para>Output emissions in tons/day for each controlled pollutant</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section id="sect_output_ampprojrep">
+
+<title><envar>APROJREP</envar>, <envar>MPROJREP</envar>, and <envar>PPROJREP</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Summary:  This file contains the report for the /PROJECTION/ packet applied during the <command>Cntlmat</command> run. It includes the growth matrix factors applied to the inventory pollutant emissions. For all sources, the resolution of the report is the source level. For area and mobile sources, this means that the report resolution is by county code and SCC. Mobile sources may additionally have link-detail information if links are included in the inventory. For point sources, the resolution includes the state/county code, plant ID, SCC, and other source identifiers such as segment and point.</para>
+
+<para>The file header and output format are somewhat similar to that output by the <command>Smkreport</command> program (see <xref linkend="sect_qa_output" />), but less so than the <envar>*CREP</envar> file (see <xref linkend="sect_output_ampcrep" />). The headers include information about:</para>
+
+<itemizedlist>
+<listitem>
+<para>The source category (area, mobile, or point sources) for the report</para>
+</listitem>
+<listitem>
+<para>The base year of the inventory</para>
+</listitem>
+<listitem>
+<para>The growth year for the packets being applied</para>
+</listitem>
+<listitem>
+<para>The fact that all pollutants receive factors uniformly.</para>
+</listitem>
+</itemizedlist>
+
+<para>The columns of the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>State ID (area and mobile); state/county ID (point)</para>
+</listitem>
+<listitem>
+<para>SCC (area and mobile); plant (point)</para>
+</listitem>
+<listitem>
+<para>Growth factor</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section id="sect_output_ampreacrep">
+
+<title><envar>AREACREP</envar>, <envar>MREACREP</envar>, and <envar>PREACREP</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Summary: This file contains the report for the reactivity packet applied during the <command>Cntlmat</command> run. It contains the reactivity packet contents applied for any source in the inventory that gets a reactivity control.  For all sources, the resolution of the report is the source level, as described for the <envar>[A|M|P]PROJREP</envar> files in <xref linkend="sect_output_ampprojrep" />.</para>
+
+<para>The file header and output format are the same as that output by the <command>Smkreport</command> program (see <xref linkend="sect_qa_output" />). The headers in include information about:</para>
+
+<itemizedlist>
+<listitem>
+<para>The source category (area, mobile, or point sources) for the report</para>
+</listitem>
+<listitem>
+<para>The base year of the inventory (or the projected year if applicable)</para>
+</listitem>
+<listitem>
+<para>The projected year in the reactivity packet</para>
+</listitem>
+<listitem>
+<para>The pollutant name (e.g., ROG) for which the reactivity controls were applied.</para>
+</listitem>
+<listitem>
+<para>Whether the emissions in the report are based on average-day or annual total emissions.</para>
+</listitem>
+<listitem>
+<para>The column names and units</para>
+</listitem>
+</itemizedlist>
+
+<para>The columns in the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>SMOKE source number</para>
+</listitem>
+<listitem>
+<para>State/county code</para>
+</listitem>
+<listitem>
+<para>Base-year SCC</para>
+</listitem>
+<listitem>
+<para>Base-year emissions</para>
+</listitem>
+<listitem>
+<para>New base-year emissions</para>
+</listitem>
+<listitem>
+<para>Projection factor</para>
+</listitem>
+<listitem>
+<para>Projected-year SCC</para>
+</listitem>
+<listitem>
+<para>Projected-year speciation profile</para>
+</listitem>
+<listitem>
+<para>Market penetration rate</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section id="sect_output_ampcsumrep">
+
+<title><envar>ACSUMREP</envar>, <envar>MCSUMREP</envar>, and <envar>PCSUMREP</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Summary:  This file contains all of the control (not growth) information applied to each source, by source. The structure of this file is not amenable for import into a spreadsheet, because all control information applied to each source is listed underneath each source (not on the same line). There is no header in this file.</para>
+
+</section>
+
+</section>
+
+<section id="sect_output_elevpoint">
+
+<title><command>Elevpoint</command></title>
+
+<para>The <command>Elevpoint</command> program is responsible for selecting the elevated sources. <command>Elevpoint</command> creates the following output files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Elevated-point-source report: <xref linkend="sect_output_reppelv" /></para>
+</listitem>
+<listitem>
+<para>Stack groups file: <xref linkend="sect_output_stack_groups" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_output_reppelv">
+
+<title><envar>REPPELV</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Summary: This ASCII output file contains the sources and criteria used for selecting elevated and PinG sources in SMOKE. The following is a description of columns/header in the report:</para>
+
+<itemizedlist>
+<listitem>
+<para>Source ID: SMOKE source ID, used by SMOKE only</para>
+</listitem>
+<listitem>
+<para>Region: Country/state/county code (CSSYYY where C=country, SS=state, and YYY=county)</para>
+</listitem>
+<listitem>
+<para>Plant: Inventory facility ID</para>
+</listitem>
+<listitem>
+<para>Char 1: For IDA inventory, Point ID</para>
+</listitem>
+<listitem>
+<para>Char 2: For IDA inventory, Stack ID</para>
+</listitem>
+<listitem>
+<para>Char 3: For IDA inventory, Segment ID</para>
+</listitem>
+<listitem>
+<para>Char 4: For IDA inventory, SCC</para>
+</listitem>
+<listitem>
+<para>Plt Name: Plant description from the input inventory</para>
+</listitem>
+<listitem>
+<para>Elevstat: Elevated status - P = plume-in-grid, E = elevated</para>
+</listitem>
+<listitem>
+<para>Group: SMOKE-assigned stack group number</para>
+</listitem>
+<listitem>
+<para>Stk Ht: Stack height in meters</para>
+</listitem>
+<listitem>
+<para>Stk Dm: Stack diameter in meters</para>
+</listitem>
+<listitem>
+<para>Stk Tmp: Stack exit gas temperature in K</para>
+</listitem>
+<listitem>
+<para>Stk Vel: Stack exit gas velocity in m/s</para>
+</listitem>
+<listitem>
+<para>Stk Flw: Stack exit gas flow rate in m<superscript>3</superscript>/s</para>
+</listitem>
+<listitem>
+<para>Rise: Briggs analytical solution plume rise in meters. This column is output only when RISE is specified as a selection criterion in the <envar>PELVCONFIG</envar> input file.</para>
+</listitem>
+<listitem>
+<para>Group &lt;pol&gt;: Daily maximum emissions for source or source group for each pollutant (&lt;pol&gt;) in the <envar>PELVCONFIG</envar> file. These emissions are source emissions when a single source has its own group number. This column is output only when a pollutant is specified as a selection criterion in the <envar>PELVCONFIG</envar> input file.</para>
+</listitem>
+<listitem>
+<para>Var 1: The first variable from the <envar>PELVCONFIG</envar> input file that was used in establishing the source as a PinG/elevated source</para>
+</listitem>
+<listitem>
+<para>Type 1: If “TOP” was used in the <envar>PELVCONFIG</envar> input file, this field says "RANK"</para>
+</listitem>
+<listitem>
+<para>Test 1: The test used to establish this source as a PinG/elevated source (e.g., &gt;, &lt;, &gt;=, =)</para>
+</listitem>
+<listitem>
+<para>Val 1: If TOP was used, this value is the RANK. Otherwise, this value is the criterion used with Var 1 and Test 1 (e.g., if Var 1 is HT, Test 1 is "&gt;", and if Val 1 is 50, then the criterion for selection is that the stack height be greater than 50.</para>
+</listitem>
+</itemizedlist>
+
+<para>Var 2 through Val 2 are the same as Var 1 through Val 1, except these are defined only if an AND condition existed for the OR condition that SMOKE used to establish the source as PinG or elevated. There will be as many variables of these types as there are AND conditions in the <command>PELVCONFIG</command> file.</para>
+
+</section>
+
+<section id="sect_output_stack_groups">
+
+<title><envar>STACK_GROUPS</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Summary: I/O API intermediate file and output file for CMAQ. See <xref linkend="sect_intmed_stack_groups" /> for more information.</para>
+
+</section>
+
+</section>
+
+<section id="sect_output_mrggrid">
+
+<title><command>Mrggrid</command></title>
+
+<para>The <command>Mrggrid</command> program is responsible for creating model-ready emissions files. <command>Mrggrid</command> creates the following output file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready emissions file: <xref linkend="sect_output_outfile" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_output_outfile">
+
+<title><envar>OUTFILE</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Summary: Final, model-ready file created from two or more souce categories. See <xref linkend="sect_output_smkmerge" /> for file format.</para>
+
+</section>
+
+</section>
+
+<section id="sect_output_smkinven">
+
+<title><command>Smkinven</command></title>
+
+<para>The <command>Smkinven</command> program is responsible for importing the raw inventory into SMOKE format. <command>Smkinven</command> creates the following output files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Inventory import report: <xref linkend="sect_output_repinven" /></para>
+</listitem>
+<listitem>
+<para>SCC file: <xref linkend="sect_output_ampscc" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_output_repinven">
+
+<title><envar>REPINVEN</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Summary: This report is made up of several different sections describing different parts of the inventory import.</para>
+
+<orderedlist>
+<listitem>
+<para>This section lists, by CAS number, the emissions in tons/year; the number of inventory records; whether all, some, or none of the pollutants associated with that CAS number were kept; and the CAS number description.</para>
+
+<para>The columns in the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>CAS number</para>
+</listitem>
+<listitem>
+<para>Whether all, some, or none of the pollutants were kept</para>
+</listitem>
+<listitem>
+<para>Number of inventory records read for the CAS number</para>
+</listitem>
+<listitem>
+<para>Emissions for the CAS number</para>
+</listitem>
+<listitem>
+<para>CAS number description</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para>This section includes emissions before and after application of disaggregation factors from the <envar>INVTABLE</envar>. Only the pollutants that have Keep = Y in <envar>INVTABLE</envar> will be included in this report. This report will be provided only if disaggregation and/or aggregation have occurred.</para>
+
+<para>The columns in the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>"Kept" unique CAS number</para>
+</listitem>
+<listitem>
+<para>Emissions total for the CAS number</para>
+</listitem>
+<listitem>
+<para>Factor used to adjust the CAS number to the pollutant</para>
+</listitem>
+<listitem>
+<para>Pollutant name</para>
+</listitem>
+<listitem>
+<para>Emissions total of the inventory pollutant</para>
+</listitem>
+<listitem>
+<para>Pollutant description</para>
+</listitem>
+<listitem>
+<para>CAS number description</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+</orderedlist>
+
+<para>The following sections are only for area-to-point assignments:</para>
+
+<orderedlist continuation="continues">
+<listitem>
+<para>This section lists SCCs that have area-to-point source factor file assignments but are not in the inventory.</para>
+
+<para>The columns in the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>Assigned SCC codes not in the inventory</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para>For emissions going to point sources, this section lists the pollutant name, emissions total before and after the factors are applied, and the total number of FIPS codes affected, by SCC.</para>
+
+<para>The columns in the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>SCC code</para>
+</listitem>
+<listitem>
+<para>Pollutant name</para>
+</listitem>
+<listitem>
+<para>Number of FIPS codes affected</para>
+</listitem>
+<listitem>
+<para>Emissions before factors are applied</para>
+</listitem>
+<listitem>
+<para>Emissions after factors are applied</para>
+</listitem>
+<listitem>
+<para>SCC description</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para>Same as the above section, except emissions are reported by state.</para>
+
+<para>The columns in the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>State</para>
+</listitem>
+<listitem>
+<para>SCC code</para>
+</listitem>
+<listitem>
+<para>Pollutant name</para>
+</listitem>
+<listitem>
+<para>Number of FIPS codes affected</para>
+</listitem>
+<listitem>
+<para>Emissions before factors are applied</para>
+</listitem>
+<listitem>
+<para>Emissions after factors are applied</para>
+</listitem>
+<listitem>
+<para>SCC description</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para>This section lists, by SCC, the number of state and county FIPS codes getting assigned to point locations and the number not getting assigned.</para>
+
+<para>The columns in the report include:</para>
+
+<itemizedlist>
+<listitem>
+<para>SCC code</para>
+</listitem>
+<listitem>
+<para>Number of FIPS assigned to point locations</para>
+</listitem>
+<listitem>
+<para>Number of FIPS not assigned to point locations</para>
+</listitem>
+<listitem>
+<para>SCC description</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+</orderedlist>
+
+<comment>add reports from importing CEM data</comment>
+
+</section>
+
+<section id="sect_output_ampscc">
+
+<title><envar>ASCC</envar>, <envar>MSCC</envar>, <envar>PSCC</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Summary: This file simply lists the SCC codes in the raw inventory.</para>
+
+</section>
+
+</section>
+
+<section id="sect_output_smkmerge">
+
+<title><command>Smkmerge</command></title>
+
+<para>The <command>Smkmerge</command> program is responsible for creating model-ready emissions files. <command>Smkmerge</command> creates the following output file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready emissions file: <xref linkend="sect_output_egts" /></para>
+</listitem>
+</itemizedlist>
+
+<comment>add PINGTS, ELEVTS, and REP files</comment>
+
+<section id="sect_output_egts">
+
+<title><envar>[A|B|M|P|E]G[T][S][3D][_S][_L]</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<table>
+<title>I/O API Header for <envar>[A|B|M|P|E]G[T][S][3D][_S][_L]</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NCOLS3D</entry>
+<entry>Number of columns in the grid</entry>
+<entry>Output grid description in <envar>GRIDDESC</envar></entry>
+</row>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of rows in the grid</entry>
+<entry>Output grid description in <envar>GRIDDESC</envar></entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of output species</entry>
+<entry>Chemical mechanism and speciation profiles in <envar>GSPRO</envar></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>[A|B|M|P|E]G[T][S][3D][_S][_L]</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Name of species 1</entry>
+<entry>Real</entry>
+<entry>[moles|tons]/time</entry>
+<entry>Emissions for species 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of species NVARS3D</entry>
+<entry>Real</entry>
+<entry>[moles|tons]/time</entry>
+<entry>Emissions for species NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section id="sect_output_tmpbeis3">
+
+<title><command>Tmpbeis3</command></title>
+
+<para>The <command>Tmpbeis3</command> program is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbeis3</command> creates the following output file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready biogenic emissions: <xref linkend="sect_output_b3gts" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_output_b3gts">
+
+<title><envar>B3GTS_L</envar> and <envar>B3GTS_S</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<table>
+<title>I/O API Header for <envar>B3GTS_L</envar> and <envar>B3GTS_S</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="40*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NCOLS3D</entry>
+<entry>Number of columns in the grid</entry>
+<entry>Output grid description in <envar>GRIDDESC</envar></entry>
+</row>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of rows in the grid</entry>
+<entry>Output grid description in <envar>GRIDDESC</envar></entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of output species</entry>
+<entry>Chemical mechanism and speciation profiles in <envar>GSPRO</envar></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>B3GTS_L</envar> and <envar>B3GTS_S</envar></title>
+<tgroup cols="4">
+<colspec colwidth="3*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Name of species 1</entry>
+<entry>Real</entry>
+<entry>[moles|tons]/hr</entry>
+<entry>Emissions for species 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of species NVARS3D</entry>
+<entry>Real</entry>
+<entry>[moles|tons]/hr</entry>
+<entry>Emissions for species NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section id="sect_output_tmpbio">
+
+<title><command>Tmpbio</command></title>
+
+<para>The <command>Tmpbio</command> program is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbio</command> creates the following output file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready biogenic emissions: <xref linkend="sect_output_bgts" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_output_bgts">
+
+<title><envar>BGTS_L</envar> and <envar>BGTS_S</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>The <envar>BGTS_L</envar> and <envar>BGTS_S</envar> files have the same format as the <envar>B3GTS_L</envar> and <envar>B3GTS_S</envar> files, respectively. See <xref linkend="sect_output_b3gts" /> for format information.</para>
+
+</section>
+
+</section>
 
 </chapter>
