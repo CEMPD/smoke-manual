@@ -45,7 +45,7 @@
 
 <para>The file header and output format are similar to what is output by the <command>Smkreport</command> program (see <xref linkend="sect_qa_output" />. The headers include information about:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>The source category (area, mobile, or point sources) for the report</para>
 </listitem>
@@ -68,7 +68,7 @@
 
 <para>The columns of the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>State ID (area and mobile); state/county ID (point)</para>
 </listitem>
@@ -95,7 +95,7 @@
 
 <para>The file header and output format are somewhat similar to that output by the <command>Smkreport</command> program (see <xref linkend="sect_qa_output" />), but less so than the <envar>*CREP</envar> file (see <xref linkend="sect_output_ampcrep" />). The headers include information about:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>The source category (area, mobile, or point sources) for the report</para>
 </listitem>
@@ -112,7 +112,7 @@
 
 <para>The columns of the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>State ID (area and mobile); state/county ID (point)</para>
 </listitem>
@@ -136,7 +136,7 @@
 
 <para>The file header and output format are the same as that output by the <command>Smkreport</command> program (see <xref linkend="sect_qa_output" />). The headers in include information about:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>The source category (area, mobile, or point sources) for the report</para>
 </listitem>
@@ -159,7 +159,7 @@
 
 <para>The columns in the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>SMOKE source number</para>
 </listitem>
@@ -361,7 +361,7 @@
 
 <para>The columns in the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>CAS number</para>
 </listitem>
@@ -385,7 +385,7 @@
 
 <para>The columns in the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>"Kept" unique CAS number</para>
 </listitem>
@@ -432,7 +432,7 @@
 
 <para>The columns in the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>SCC code</para>
 </listitem>
@@ -459,7 +459,7 @@
 
 <para>The columns in the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>State</para>
 </listitem>
@@ -489,7 +489,7 @@
 
 <para>The columns in the report include:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>
 <para>SCC code</para>
 </listitem>
@@ -547,8 +547,8 @@
 <title>I/O API Header for <envar>[A|B|M|P|E]G[T][S][3D][_S][_L]</envar></title>
 
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -582,10 +582,10 @@
 <table>
 <title>Variables in <envar>[A|B|M|P|E]G[T][S][3D][_S][_L]</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -645,8 +645,8 @@
 <title>I/O API Header for <envar>B3GTS_L</envar> and <envar>B3GTS_S</envar></title>
 
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -680,10 +680,10 @@
 <table>
 <title>Variables in <envar>B3GTS_L</envar> and <envar>B3GTS_S</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
