@@ -435,7 +435,7 @@
 
 <para>If the instructions are</para>
 
-<programlisting>/DEFINE GROUP REGION/ Example group
+<programlisting>/DEFINE SUBGRID/ Example subgrid
     INCLUDE (2,2) TO (6,6)
     EXCLUDE (3,3) TO (5,5)
     INCLUDE (4,4) TO (4,4)
