@@ -124,7 +124,7 @@
 
 </section>
 
-<comment>
+<!--
 <section id="sect_scripts_nei_case">
 
 <title>1996 NEI case (net96)</title>
@@ -151,7 +151,7 @@
 <para>The pollutants available in the NEI are CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript>. SMOKE computes PMC from the PM<subscript>10</subscript> and PM<subscript>2.5</subscript> values, which is set as an option to the <command>Smkinven</command> program in the scripts. All inventory inputs are in IDA format. More will be added to describe this case once it has been integrated with version 1.5 of SMOKE.</para>
 
 </section>
-</comment>
+-->
 
 </section>
 
@@ -745,7 +745,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <entry>Grid name used for naming files that depend on the selected grid. User must coordinate <envar>GRID</envar> settings with <envar>IOAPI_GRIDNAME_1</envar> setting <xref linkend="tbl_scripts_variables_time" />. Dependent files include gridding and ungridding matrices, gridded land use and biogenic emissions, hourly mobile emissions, layer-fractions files, model-ready emissions, and some reports.</entry>
 </row>
 <row>
-<entry>SPC</entry>
+<entry><envar>SPC</envar></entry>
 <entry>Speciation profile name for selecting input files and naming output files and directories that depend on the chemical mechanism. This setting can be overridden by the <envar>SPC_OVERRIDE</envar> script setting (see <xref linkend="sect_scripts_script_settings" />). The <envar>SPC</envar> setting sets input files <envar>GSPRO</envar> and <envar>GSREF</envar>; speciation matrix intermediate file names, and output directories <envar>OUTPUT</envar>, <envar>A_OUT</envar>, <envar>B_OUT</envar>, <envar>M_OUT</envar>, <envar>N_OUT</envar>, and <envar>P_OUT</envar>.</entry>
 </row>
 <row>
@@ -775,7 +775,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <tgroup cols="2">
 <colspec colwidth="1*" />
-<colspec colwidth="5*" />
+<colspec colwidth="3*" />
 
 <thead>
 <row>
@@ -2080,34 +2080,46 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <title>Valid <envar>SPC</envar> settings</title>
 
 <tgroup cols="9">
-<colspec colname="c1" colwidth="3*" />
-<colspec colname="c2" colwidth="2*" />
-<colspec colname="c3" colwidth="2*" />
-<colspec colname="c4" colwidth="1*" />
-<colspec colname="c5" colwidth="1*" />
-<colspec colname="c6" colwidth="1*" />
-<colspec colname="c7" colwidth="1*" />
-<colspec colname="c8" colwidth="1*" />
-<colspec colname="c9" colwidth="1*" />
+<colspec colname="c1" colwidth="40*" />
+<colspec colname="c2" colwidth="15*" />
+<colspec colname="c3" colwidth="15*" />
+<colspec colname="c4" colwidth="5*" />
+<colspec colname="c5" colwidth="5*" />
+<colspec colname="c6" colwidth="5*" />
+<colspec colname="c7" colwidth="5*" />
+<colspec colname="c8" colwidth="5*" />
+<colspec colname="c9" colwidth="5*" />
 
 <thead>
 <row>
-<entry align="center"><envar>SPC</envar> Setting (chemical mechanism)</entry>
-<entry align="center">Air Quality Models</entry>
-<entry align="center">Inventories</entry>
-<entry rotate="1">BEIS2</entry>
-<entry rotate="1">BEIS3</entry>
-<entry rotate="1">Non-point/area</entry>
-<entry rotate="1">Nonroad mobile</entry>
-<entry rotate="1">On-road mobile</entry>
-<entry rotate="1">Point</entry>
+<entry align="center" valign="bottom"><envar>SPC</envar> Setting (chemical mechanism)</entry>
+<entry align="center" valign="bottom">Air Quality Models</entry>
+<entry align="center" valign="bottom">Inventories</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>BEIS2</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>BEIS3</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Non-point/area</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Nonroad mobile</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>On-road mobile</entry>
+<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Point</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>cmaq.cb4p25 (CB4 with PM<subscript>2.5</subscript> speciation)</entry>
-<entry>CMAQ, MAQSIP*, UAM*, CAM<subscript>X</subscript>*</entry>
+<entry>
+<simplelist>
+<member>cmaq.cb4p25</member>
+<member>(CB4 with PM<subscript>2.5</subscript> speciation)</member>
+</simplelist>
+</entry>
+<entry>
+<simplelist>
+<member>CMAQ</member>
+<member>MAQSIP*</member>
+<member>UAM*</member>
+<member>CAM<subscript>X</subscript>*</member>
+</simplelist>
+</entry>
 <entry>criteria</entry>
 <entry>X</entry>
 <entry>X</entry>
@@ -2117,9 +2129,26 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <entry>X</entry>
 </row>
 <row>
-<entry>cmaq.cb4p25_wtox (CB4 with PM<subscript>2.5</subscript> speciation, but inputs can include VOC toxics)</entry>
-<entry>CMAQ, MAQSIP*, UAM*, CAM<subscript>X</subscript>*</entry>
-<entry>criteria, toxics</entry>
+<entry>
+<simplelist>
+<member>cmaq.cb4p25_wtox</member>
+<member>(CB4 with PM<subscript>2.5</subscript> speciation, but inputs can include VOC toxics)</member>
+</simplelist>
+</entry>
+<entry>
+<simplelist>
+<member>CMAQ</member>
+<member>MAQSIP*</member>
+<member>UAM*</member>
+<member>CAM<subscript>X</subscript>*</member>
+</simplelist>
+</entry>
+<entry>
+<simplelist>
+<member>criteria</member>
+<member>toxics</member>
+</simplelist>
+</entry>
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
@@ -2128,9 +2157,19 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <entry>X</entry>
 </row>
 <row>
-<entry>cmaq.cb4tx1p25 (CB4 toxics version 1, with PM<subscript>2.5</subscript> speciation)</entry>
+<entry>
+<simplelist>
+<member>cmaq.cb4tx1p25</member>
+<member>(CB4 toxics version 1, with PM<subscript>2.5</subscript> speciation)</member>
+</simplelist>
+</entry>
 <entry>CMAQ</entry>
-<entry>criteria, toxics</entry>
+<entry>
+<simplelist>
+<member>criteria</member>
+<member>toxics</member>
+</simplelist>
+</entry>
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
@@ -2139,7 +2178,12 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <entry>X</entry>
 </row>
 <row>
-<entry>cmaq.radm2p25 (RADM2 with PM<subscript>2.5</subscript> speciation)</entry>
+<entry>
+<simplelist>
+<member>cmaq.radm2p25</member>
+<member>(RADM2 with PM<subscript>2.5</subscript> speciation)</member>
+</simplelist>
+</entry>
 <entry>CMAQ</entry>
 <entry>criteria</entry>
 <entry>X</entry>
@@ -2150,7 +2194,12 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <entry>X</entry>
 </row>
 <row>
-<entry>cmaq.saprc99pm (SAPRC99 with PM<subscript>2.5</subscript> speciation)</entry>
+<entry>
+<simplelist>
+<member>cmaq.saprc99pm</member>
+<member>(SAPRC99 with PM<subscript>2.5</subscript> speciation)</member>
+</simplelist>
+</entry>
 <entry>CMAQ</entry>
 <entry>criteria</entry>
 <entry>X</entry>
@@ -2185,7 +2234,12 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <row>
 <entry>remsad7.cb4mpm</entry>
 <entry>REMSAD v7</entry>
-<entry>criteria, toxics</entry>
+<entry>
+<simplelist>
+<member>criteria</member>
+<member>toxics</member>
+</simplelist>
+</entry>
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
@@ -2970,23 +3024,23 @@ endif</programlisting>
 <para><xref linkend="sect_scripts_duration_output" /></para>
 </listitem>
 
-<comment>
+<!--
 <listitem>
 <para><xref linkend="sect_scripts_use_average_day" /></para>
 </listitem>
-</comment>
+-->
 
-<comment>
+<!--
 <listitem>
 <para><xref linkend="sect_scripts_change_outzone" /></para>
 </listitem>
-</comment>
+-->
 
-<comment>
+<!--
 <listitem>
 <para><xref linkend="sect_scripts_mwss_approach" /></para>
 </listitem>
-</comment>
+-->
 
 <listitem>
 <para><xref linkend="sect_scripts_change_holidays" /></para>
@@ -3174,7 +3228,7 @@ endif</programlisting>
 
 </section>
 
-<comment>
+<!--
 <section id="sect_scripts_use_average_day">
 
 <title>Using average-day emissions values</title>
@@ -3184,9 +3238,9 @@ endif</programlisting>
 <remark>Missing text - see <xref linkend="sect_scripts_average_day_invs" /></remark>
 
 </section>
-</comment>
+-->
 
-<comment>
+<!--
 <section id="sect_scripts_change_outzone">
 
 <title>Changing the output time zone</title>
@@ -3196,9 +3250,9 @@ endif</programlisting>
 <remark>Missing text - see <xref linkend="sect_concepts_time_zones" /></remark>
 
 </section>
-</comment>
+-->
 
-<comment>
+<!--
 <section id="sect_scripts_mwss_approach">
 
 <title>Monday, weekday, Saturday, Sunday approach</title>
@@ -3208,7 +3262,7 @@ endif</programlisting>
 <remark>Missing text - see <xref linkend="sect_concepts_mwss_processing" /></remark>
 
 </section>
-</comment>
+-->
 
 <section id="sect_scripts_change_holidays">
 
@@ -3759,6 +3813,8 @@ endif</programlisting>
 <para>Select from one of the default settings for <envar>QA_TYPE</envar></para>
 
 <para>The default <envar>QA_TYPE</envar> settings allow users to run <command>Smkreport</command> with the default <envar>REPCONFIG</envar> files. These files are located in the <filename class="directory"><envar>$OTHER</envar></filename> directory, documented in <xref linkend="ch_dirs_files" />. Each source category has its own valid <envar>QA_TYPE</envar> settings, and each of these settings causes certain reports to be created. <xref linkend="tbl_scripts_qa_type" /> indicates which <envar>QA_TYPE</envar> setting can be used in which case, and the <envar>REPCONFIG</envar> files that will be used.</para>
+</listitem>
+</orderedlist>
 
 <table id="tbl_scripts_qa_type">
 <title><envar>QA_TYPE</envar> settings with associated source categories and default <envar>REPCONFIG</envar> files.</title>
@@ -3779,13 +3835,41 @@ endif</programlisting>
 <tbody>
 <row>
 <entry>part1 (<envar>RUN_PART1</envar> must be set to Y)</entry>
-<entry>area, nonroad, mobile, point</entry>
-<entry><filename>repconfig.ar.inv.txt</filename>, <filename>repconfig.nr.inv.txt</filename>, <filename>repconfig.mb.inv.txt</filename>, <filename>repconfig.pt.inv.txt</filename></entry>
+<entry>
+<simplelist>
+<member>area</member>
+<member>nonroad</member>
+<member>mobile</member>
+<member>point</member>
+</simplelist>
+</entry>
+<entry>
+<simplelist>
+<member><filename>repconfig.ar.inv.txt</filename></member>
+<member><filename>repconfig.nr.inv.txt</filename></member>
+<member><filename>repconfig.mb.inv.txt</filename></member>
+<member><filename>repconfig.pt.inv.txt</filename></member>
+</simplelist>
+</entry>
 </row>
 <row>
 <entry>part2 (<envar>RUN_PART2</envar> must be set to Y)</entry>
-<entry>area, nonroad, mobile, point</entry>
-<entry><filename>repconfig.ar.temporal.txt</filename>, <filename>repconfig.nr.temporal.txt</filename>, <filename>repconfig.mb.temporal.txt</filename>, <filename>repconfig.pt.temporal.txt</filename></entry>
+<entry>
+<simplelist>
+<member>area</member>
+<member>nonroad</member>
+<member>mobile</member>
+<member>point</member>
+</simplelist>
+</entry>
+<entry>
+<simplelist>
+<member><filename>repconfig.ar.temporal.txt</filename></member>
+<member><filename>repconfig.nr.temporal.txt</filename></member>
+<member><filename>repconfig.mb.temporal.txt</filename></member>
+<member><filename>repconfig.pt.temporal.txt</filename></member>
+</simplelist>
+</entry>
 </row>
 <row>
 <entry>part3 (<envar>RUN_PART3</envar> must be set to Y)</entry>
@@ -3799,12 +3883,26 @@ endif</programlisting>
 </row>
 <row>
 <entry>all</entry>
-<entry>area, nonroad, mobile, point</entry>
+<entry>
+<simplelist>
+<member>area</member>
+<member>nonroad</member>
+<member>mobile</member>
+<member>point</member>
+</simplelist>
+</entry>
 <entry>All of the above reports will be generated, provided that the <envar>RUN_PART(1-4)</envar> settings are set as listed in column 1 of this table.</entry>
 </row>
 <row>
 <entry>custom</entry>
-<entry>area, nonroad, mobile, point</entry>
+<entry>
+<simplelist>
+<member>area</member>
+<member>nonroad</member>
+<member>mobile</member>
+<member>point</member>
+</simplelist>
+</entry>
 <entry>See step (3) below.</entry>
 </row>
 </tbody>
@@ -3815,7 +3913,8 @@ endif</programlisting>
 <para>The helper script <filename>qa_run.csh</filename> is responsible for selecting the correct <envar>REPCONFIG</envar> file based on the <envar>QA_TYPE</envar> setting, and these settings need not be changed. If users wish to implement a different configuration, the "custom" value of <envar>QA_TYPE</envar> should be able to meet those needs without any changes to <filename>qa_run.csh</filename>. Copying the <envar>REPCONFIG</envar> files from the default files to your case and changing them changes the default reports that are generated by SMOKE for your case.</para>
 
 <para>Users can examine these <envar>REPCONFIG</envar> files along with the documentation in <xref linkend="ch_quality_assurance" /> to determine the reports that will be generated by each. These reports are also generated during the SMOKE installation and test case run, and can provide examples for understanding which reports will be written.</para>
-</listitem>
+
+<orderedlist continuation="continues">
 <listitem>
 <para>Using the "custom" setting</para>
 
