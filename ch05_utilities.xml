@@ -10,23 +10,23 @@
 
 <para>There are nine programs covered in this chapter:</para>
 
-<para>The <command>Beld3to2</command> program converts two BELD3 I/O API netCDF files into a single BELD2 ASCII file for input into <command>Rawbio</command>.</para>
+<para>The <link linkend="sect_utilities_beld3to2"><command>Beld3to2</command></link> program converts two BELD3 I/O API netCDF files into a single BELD2 ASCII file for input into <command>Rawbio</command>.</para>
 
-<para><command>Extractida</command> allows you to extract specific plants from a point-source, IDA-formatted SMOKE input inventory file.</para>
+<para><link linkend="sect_utilities_extractida"><command>Extractida</command></link> allows you to extract specific plants from a point-source, IDA-formatted SMOKE input inventory file.</para>
 
-<para><command>Geofac</command> adjusts SMOKE hourly, gridded, speciated emissions in based on a specified geographic region</para>
+<para><link linkend="sect_utilities_geofac"><command>Geofac</command></link> adjusts SMOKE hourly, gridded, speciated emissions in based on a specified geographic region</para>
 
-<para><command>Invsplit</command> splits an IDA, SMOKE toxics, or EMS-95 inventory into separate inventories by state, grouping the states as indicated by your inputs.</para>
+<para><link linkend="sect_utilities_invsplit"><command>Invsplit</command></link> splits an IDA, SMOKE toxics, or EMS-95 inventory into separate inventories by state, grouping the states as indicated by your inputs.</para>
 
-<para><command>Metscan</command> reads up to one year's worth of first-layer I/O API meteorology data (whether 2-D or 3-D files) and determine the first and last freeze dates of the year, for use by <command>Tmpbio</command> in setting winter/summer emission factors by day and grid cell.</para>
+<para><link linkend="sect_utilities_metscan"><command>Metscan</command></link> reads up to one year's worth of first-layer I/O API meteorology data (whether 2-D or 3-D files) and determine the first and last freeze dates of the year, for use by <command>Tmpbio</command> in setting winter/summer emission factors by day and grid cell.</para>
 
-<para><command>Pktreduc</command> reduces the size of projection packets, but keeps the same information by identifying and implementing state defaults where none already exist in the file.</para>
+<para><link linkend="sect_utilities_pktreduc"><command>Pktreduc</command></link> reduces the size of /PROJECTION/ packets, but keeps the same information by identifying and implementing state defaults where none already exist in the file.</para>
 
-<para><command>Smk2emis</command> converts SMOKE netCDF files into a UAM-, REMSAD-, or CAM<subscript>X</subscript>-ready emissions file.</para>
+<para><link linkend="sect_utilities_smk2emis"><command>Smk2emis</command></link> converts SMOKE netCDF files into a UAM-, REMSAD-, or CAM<subscript>X</subscript>-ready emissions file.</para>
 
-<para><command>Surgtool</command> inputs SMOKE-formatted gridding surrogates for a "fine" input grid and outputs a surrogate file for a "coarse" output grid. It produces approximate "coarse" grid surrogates, the accuracy of which depends on how fine the resolution of the input grid is relative to that of the output grid.</para>
+<para><link linkend="sect_utilities_surgtool"><command>Surgtool</command></link> inputs SMOKE-formatted gridding surrogates for a "fine" input grid and outputs a surrogate file for a "coarse" output grid. It produces approximate "coarse" grid surrogates, the accuracy of which depends on how fine the resolution of the input grid is relative to that of the output grid.</para>
 
-<para><command>Uam2ncf</command> converts UAM-ready emissions files into I/O API format.</para>
+<para><link linkend="sect_utilities_uam2ncf"><command>Uam2ncf</command></link> converts UAM-ready emissions files into I/O API format.</para>
 
 </section>
 
@@ -52,28 +52,42 @@
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>BELD3_A</envar>:</entry>
-<entry>(I/O API netCDF) BELD3 land use data file A (first 120 land use types)</entry>
+<entry><envar>B3XRF</envar></entry>
+<entry>ASCII</entry>
+<entry>Cross-reference file that maps the BELD3 land use types to the BELD2 land use types</entry>
 </row>
 <row>
-<entry><envar>BELD3_B</envar>:</entry>
-<entry>(I/O API netCDF) BELD3 land use data file B (remaining 110 land use types)</entry>
+<entry><envar>BELD3_A</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>BELD3 land use data file A (first 120 land use types)</entry>
 </row>
 <row>
-<entry><envar>BELD3_TOT</envar>:</entry>
-<entry>(I/O API netCDF) BELD3 land use totals file; contains additional information about the BELD3 data for the same modeling domain used in the <envar>BELD3_A</envar> and <envar>BELD3_B</envar> files</entry>
+<entry><envar>BELD3_B</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>BELD3 land use data file B (remaining 110 land use types)</entry>
 </row>
 <row>
-<entry><envar>B3XRF</envar></entry>:
-<entry>(ASCII) Cross-reference file that maps the BELD3 land use types to the BELD2 land use types</entry>
+<entry><envar>BELD3_TOT</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>BELD3 land use totals file; contains additional information about the BELD3 data for the same modeling domain used in the <envar>BELD3_A</envar> and <envar>BELD3_B</envar> files</entry>
 </row>
 </tbody>
 </tgroup>
@@ -94,15 +108,25 @@
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>BGUSE</envar>:</entry>
-<entry>(ASCII) Gridded land use data in ASCII format containing BELD2 land use types.</entry>
+<entry><envar>BGUSE</envar></entry>
+<entry>ASCII</entry>
+<entry>Gridded land use data in ASCII format containing BELD2 land use types.</entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Beld3to2</command></entry>
 </row>
 </tbody>
 </tgroup>
@@ -110,6 +134,9 @@
 
 </section>
 
+</section>
+
+<comment>
 <section>
 
 <title>Earlier Versions</title>
@@ -117,6 +144,7 @@
 <para>The <envar>B3XRF</envar> file was updated in the SMOKE v1.5 release. The earlier version of this file had been tested only in the eastern United States. Application of this program for the rest of North America (BELD3 geographical area) resulted in numerous changes to the <envar>B3XRF</envar> file.</para>
 
 </section>
+</comment>
 
 </section>
 
@@ -142,22 +170,34 @@
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>INRECS</envar>:</entry>
-<entry><para>(ASCII) Input list of state/county codes and plant IDs. This file format <comment>(which is not documented in Chapter 8) </comment>is a single concatenated field of state/county code and plant ID with no spaces on each line. For example, to select county 37001 and plant 0001, the line of the <envar>INRECS</envar> file must be:</para>
-
-<programlisting>370010001</programlisting></entry>
+<entry><envar>INFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Input point-source inventory file in IDA format.</entry>
 </row>
 <row>
-<entry><envar>INFILE</envar>:</entry>
-<entry>(ASCII) Input point-source inventory file in IDA format.</entry>
+<entry><envar>INRECS</envar></entry>
+<entry>ASCII</entry>
+<entry><para>Input list of state/county codes and plant IDs. This file format <comment>(which is not documented in Chapter 8) </comment>is a single concatenated field of state/county code and plant ID with no spaces on each line. For example, to select county 37001 and plant 0001, the line of the <envar>INRECS</envar> file must be:</para>
+
+<programlisting>370010001</programlisting></entry>
 </row>
 </tbody>
 </tgroup>
@@ -178,19 +218,31 @@
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>OUTFILE</envar>:</entry>
-<entry>(ASCII) Point-source, IDA-formatted inventory file that includes only the state/county and plant IDs listed in the <envar>INRECS</envar> input file that match the <envar>INFILE</envar> input file.</entry>
+<entry><envar>OUTFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Point-source, IDA-formatted inventory file that includes only the state/county and plant IDs listed in the <envar>INRECS</envar> input file that match the <envar>INFILE</envar> input file.</entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Extractida</command></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -220,24 +272,37 @@
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>INFILE</envar>:</entry>
-<entry>(I/O API) Hourly, gridded, speciated inputs from <command>Smkmerge</command>. <envar>INFILE</envar> should be set to logical file name <envar>AGTS_[L|S]</envar>, <envar>BGTS_[L|S]</envar>, <envar>MGTS_[L|S]</envar>, <envar>PGTS_[L|S]</envar>, <envar>PGTS3D_[L|S]</envar>, <envar>EGTS_[L|S]</envar>, or <envar>EGTS3D_[L|S]</envar>, which are the output files from <command>Smkmerge</command>.</entry>
+<entry><envar>GEOMASK</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Gridded, time-independent file that assigns a 1 to any grid cell whose emissions you want to adjust. The emissions from <envar>INFILE</envar> in grid cells that have a 1 in <envar>GEOMASK</envar> are multiplied by the factor provided in <envar>SPECFACS</envar>. All other emissions and grid cells are untouched.<comment>(Note that this file is not documented in Chapter 8.)</comment></entry>
 </row>
 <row>
-<entry><envar>GEOMASK</envar>:</entry>
-<entry>(I/O API) Gridded, time-independent file that assigns a 1 to any grid cell whose emissions you want to adjust. The emissions from <envar>INFILE</envar> in grid cells that have a 1 in <envar>GEOMASK</envar> are multiplied by the factor provided in <envar>SPECFACS</envar>. All other emissions and grid cells are untouched.<comment>(Note that this file is not documented in Chapter 8.)</comment></entry>
+<entry><envar>INFILE</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Hourly, gridded, speciated inputs from <command>Smkmerge</command>. <envar>INFILE</envar> should be set to logical file name <envar>AGTS_[L|S]</envar>, <envar>BGTS_[L|S]</envar>, <envar>MGTS_[L|S]</envar>, <envar>PGTS_[L|S]</envar>, <envar>PGTS3D_[L|S]</envar>, <envar>EGTS_[L|S]</envar>, or <envar>EGTS3D_[L|S]</envar>, which are the output files from <command>Smkmerge</command>.</entry>
 </row>
 <row>
-<entry><envar>SPECFACS</envar>:</entry>
-<entry><para>(ASCII) File that lists the species name in the first column and the factor to be applied to all grid cells with a 1 value in the <envar>GEOMASK</envar> file. For example, the following <envar>SPECFACS</envar> file sample would multiply NO and NO<subscript>2</subscript> emissions by 1.3 (30% increase) and multiply PAR by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
+<entry><envar>SPECFACS</envar></entry>
+<entry>ASCII</entry>
+<entry><para>File that lists the species name in the first column and the factor to be applied to all grid cells with a 1 value in the <envar>GEOMASK</envar> file. For example, the following <envar>SPECFACS</envar> file sample would multiply NO and NO<subscript>2</subscript> emissions by 1.3 (30% increase) and multiply PAR by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
 
 <programlisting>NO   1.3
 NO2  1.3
@@ -262,19 +327,31 @@ PAR  0.6</programlisting></entry>
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>OUTFILE</envar>:</entry>
-<entry>(I/O API netCDF) Hourly, gridded, speciated emissions, adjusted based on <envar>GEOMASK</envar> and <envar>SPECFACS</envar>.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Geofac</command></entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>OUTFILE</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Hourly, gridded, speciated emissions, adjusted based on <envar>GEOMASK</envar> and <envar>SPECFACS</envar>.</entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -302,21 +379,33 @@ PAR  0.6</programlisting></entry>
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>ARINV</envar>, <envar>MBINV</envar>, or <envar>PTINV</envar>:</entry>
-<entry>The logical name for the input inventory depends on the 
+<entry><envar>ARINV</envar>, <envar>MBINV</envar>, or <envar>PTINV</envar></entry>
+<entry>ASCII</entry>
+<entry>Input inventory file; the logical name used depends on the 
 <envar>SMK_SOURCE</envar> setting. The <envar>ARINV</envar> file is for nonpoint (stationary area) and nonroad mobile sources, the <envar>MBINV</envar> file is for on-road mobile sources, and the <envar>PTINV</envar> file is for point sources.</entry>
 </row>
 <row>
-<entry><envar>SPLITS</envar>:</entry>
-<entry><para>(ASCII) Space-delimited file that lists the state codes and indicates which output file should include the emissions for that state. The first column is for the state codes and the second column is the output file number. In this example, states 1 and 4 will be written to the <envar>OUTFILE01</envar> output file logical name, state 37 to <envar>OUTFILE02</envar>, and state 45 to <envar>OUTFILE03</envar>. The numbers in the second column need not be sequential.<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
+<entry><envar>SPLITS</envar></entry>
+<entry>ASCII</entry>
+<entry><para>Space-delimited file that lists the state codes and indicates which output file should include the emissions for that state. The first column is for the state codes and the second column is the output file number. In this example, states 1 and 4 will be written to the <envar>OUTFILE01</envar> output file logical name, state 37 to <envar>OUTFILE02</envar>, and state 45 to <envar>OUTFILE03</envar>. The numbers in the second column need not be sequential.<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
 
 <programlisting>01    1
 04    1
@@ -342,19 +431,31 @@ PAR  0.6</programlisting></entry>
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>OUTFILEnn</envar>:</entry>
-<entry>(ASCII) One or more inventory files in the same inventory format input by the <envar>ARINV</envar>, <envar>MBINV</envar>, or <envar>PTINV</envar> input file for a given program run. The actual logical file name of these files is <envar>OUTFILE01</envar>, <envar>OUTFILE02</envar>, <envar>OUTFILE03</envar>, ... <envar>OUTFILEnn</envar>, where nn = the largest number in the second column of the <envar>SPLITS</envar> file. The output file names are not necessarily sequential, depending on whether or not sequential numbers are used in the second column of the splits file.</entry>
+<entry><envar>OUTFILEnn</envar></entry>
+<entry>ASCII</entry>
+<entry>One or more inventory files in the same inventory format input by the <envar>ARINV</envar>, <envar>MBINV</envar>, or <envar>PTINV</envar> input file for a given program run. The actual logical file name of these files is <envar>OUTFILE01</envar>, <envar>OUTFILE02</envar>, <envar>OUTFILE03</envar>, ... <envar>OUTFILEnn</envar>, where nn = the largest number in the second column of the <envar>SPLITS</envar> file. The output file names are not necessarily sequential, depending on whether or not sequential numbers are used in the second column of the splits file.</entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Invsplit</command></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -386,15 +487,26 @@ PAR  0.6</programlisting></entry>
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>MET_CRO_3D</envar>:</entry>
+<entry><envar>MET_CRO_3D</envar></entry>
+<entry>I/O API NetCDF</entry>
 <entry><para>Meteorology file that can be a 2-D or 3-D file (though the logical file name is the same in both cases) and needs to include all dates in the modeling period. For example, for an annual SMOKE run this file would need to have all hours of the year. The file can be created by extracting one or more temperature variables (at a minimum, the one you intend to use) out of the <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar> files output by the MCIP or MCPL programs using the <command>m3xtract</command> I/O API utility and appending all days of data into the same file.</para>
 
 <para>The <command>m3xtract</command> utility documentation is provided with the I/O API, but we provide some information here. The utility expects input logical file name <envar>INFILE</envar> and creates output logical file name <envar>OUTFILE</envar>. It prompts for the start date, start time, duration, and variables that you want to extract from the <envar>INFILE</envar>. If <envar>OUTFILE</envar> already exists, <command>m3xtract</command> appends additional data to the file (assuming that the grid is the same and the time period is sequential).</para></entry>
@@ -439,19 +551,31 @@ PAR  0.6</programlisting></entry>
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>BIOSEASON</envar>:</entry>
-<entry>(I/O API NetCDF) For each grid cell, contains 0 for winter dates and 1 for summer (nonwinter) dates. The file's duration will be as long as that of the input meteorology file you provide.</entry>
+<entry><envar>BIOSEASON</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>For each grid cell, contains 0 for winter dates and 1 for summer (nonwinter) dates. The file's duration will be as long as that of the input meteorology file you provide.</entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Metscan</command></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -481,16 +605,27 @@ PAR  0.6</programlisting></entry>
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file name of the input files along with its description:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>GCNTL</envar>:</entry>
-<entry>(ASCII) File version that includes only the /PROJECTION/ packet (for growth). The other packets that are normally acceptable as input to <command>Cntlmat</command> should not be included in this file when it is an input to <command>Pktreduc</command>. In addition, the /PROJECTION/ packet entries can include only state/county/SCC combinations; no combinations that include SIC, MACT, or pollutant codes or other fields should be included.</entry>
+<entry><envar>GCNTL</envar></entry>
+<entry>ASCII</entry>
+<entry>Growth and controls file that includes only the /PROJECTION/ packet. The other packets that are normally acceptable as input to <command>Cntlmat</command> (see <xref linkend="sect_input_gcntl" />) should not be included in this file when it is an input to <command>Pktreduc</command>. In addition, the /PROJECTION/ packet entries can include only state/county/SCC combinations; no combinations that include SIC, MACT, or pollutant codes or other fields should be included.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -511,19 +646,31 @@ PAR  0.6</programlisting></entry>
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>GCNTL_OUT</envar>:</entry>
-<entry>(ASCII) Reformatted <envar>GCNTL</envar> file that includes only the /PROJECTION/ packet for inventory growth. The reformatting performed is described in <xref linkend="sect_pktreduc_description" />.</entry>
+<entry><envar>GCNTL_OUT</envar></entry>
+<entry>ASCII</entry>
+<entry>Reformatted <envar>GCNTL</envar> file that includes only the /PROJECTION/ packet for inventory growth. The reformatting performed is described in <xref linkend="sect_pktreduc_description" />.</entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Pktreduc</command></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -551,20 +698,32 @@ PAR  0.6</programlisting></entry>
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>[A|B|M|P|E]GTS_L</envar>:</entry>
-<entry>(I/O API) SMOKE 2-D gridded, mole-speciated, hourly emissions file.</entry>
+<entry><envar>[A|B|M|P|E]GTS_L</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>SMOKE 2-D gridded, mole-speciated, hourly emissions file.</entry>
 </row>
 <row>
-<entry><envar>VNAMMAP</envar>:</entry>
-<entry>(ASCII) Optional file for renaming variables from those in the I/O API file header to those needed by the AQM. See the <envar>SMK2EMIS_VMAP_YN</envar> environment variable below.</entry>
+<entry><envar>VNAMMAP</envar></entry>
+<entry>ASCII</entry>
+<entry>Optional file for renaming variables from those in the I/O API file header to those needed by the AQM. See the <envar>SMK2EMIS_VMAP_YN</envar> environment variable below.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -754,15 +913,25 @@ PAR  0.6</programlisting></entry>
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>UAM_[A|B|M|P|E]GTS</envar>:</entry>
-<entry>(Fortran binary) UAM-IV-, UAM-V- or CAM<subscript>X</subscript>-ready gridded, hourly emissions.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Smk2emis</command></entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>UAM_[A|B|M|P|E]GTS</envar></entry>
+<entry>Fortran binary</entry>
+<entry>UAM-IV-, UAM-V- or CAM<subscript>X</subscript>-ready gridded, hourly emissions.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -770,6 +939,9 @@ PAR  0.6</programlisting></entry>
 
 </section>
 
+</section>
+
+<comment>
 <section>
 
 <title>Earlier Versions</title>
@@ -777,6 +949,7 @@ PAR  0.6</programlisting></entry>
 <para>The SMOKE prototype used a <envar>USERIN</envar> file to input the necessary UAM header information. The <envar>USERIN</envar> file is no longer needed. Previous versions of the <command>Smk2emis</command> code also did not use the <envar>SMK_SOURCE</envar> environment variable to set the input or output file names.</para>
 
 </section>
+</comment>
 
 </section>
 
@@ -804,20 +977,32 @@ PAR  0.6</programlisting></entry>
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>INFILE</envar>:</entry>
-<entry>(ASCII) Spatial surrogates file in <envar>AGPRO</envar>/<envar>BGPRO</envar>/<envar>MGPRO</envar> format (see <xref linkend="ch_input_files" />). File can be for Lambert Conformal, UTM, or lat-lon projection.</entry>
+<entry><envar>GRIDDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>Grid descriptions file that defines the output grid for the output surrogates file created by the program. It must include the name of the grid set by the <envar>IOAPI_GRIDNAME_1</envar> environment variable setting.</entry>
 </row>
 <row>
-<entry><envar>GRIDDESC</envar>:</entry>
-<entry>(ASCII) Grid descriptions file that defines the output grid for the output surrogates file created by the program. It must include the name of the grid set by the <envar>IOAPI_GRIDNAME_1</envar> environment variable setting.</entry>
+<entry><envar>INFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Spatial surrogates file in <envar>AGPRO</envar>/<envar>BGPRO</envar>/<envar>MGPRO</envar> format (see <xref linkend="sect_input_amgpro" />). File can be for Lambert Conformal, UTM, or lat-lon projection.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -844,19 +1029,31 @@ PAR  0.6</programlisting></entry>
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>OUTFILE</envar>:</entry>
-<entry>(ASCII) Estimated surrogates file for the grid defined in <envar>GRIDDESC</envar> and selected by the <envar>IOAPI_GRIDNAME_1</envar> setting. This surrogates file is not as accurate as creating a spatial surrogates file from the MIMS spatial allocator. However, the finer the <command>Surgtool</command> input grid is relative to the output grid, the more accurate the estimated surrogates are.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Surgtool</command></entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>OUTFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Estimated surrogates file for the grid defined in <envar>GRIDDESC</envar> and selected by the <envar>IOAPI_GRIDNAME_1</envar> setting. This surrogates file is not as accurate as creating a spatial surrogates file from the MIMS spatial allocator. However, the finer the <command>Surgtool</command> input grid is relative to the output grid, the more accurate the estimated surrogates are.</entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
@@ -898,20 +1095,32 @@ PAR  0.6</programlisting></entry>
 
 <section>
 
+<title>Files and Environment Variables</title>
+
+<section>
+
 <title>Input Files</title>
 
-<para>The logical file names of the input files along with their descriptions:</para>
-
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
-<entry><envar>UAMEMIS</envar>:</entry>
-<entry>UAM-ready, Fortran-binary, gridded, hourly, speciated emissions file.</entry>
+<entry><envar>GRIDDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>Grid descriptions file that defines the input grid in the <envar>UAMEMIS</envar> file. This is needed because the <envar>UAMEMIS</envar> file does not include enough information to describe the grid for the I/O API. The file must include the name of the grid set by the <envar>IOAPI_GRIDNAME_1</envar> environment variable setting.</entry>
 </row>
 <row>
-<entry><envar>GRIDDESC</envar>:</entry>
-<entry>Grid descriptions file that defines the input grid in the <envar>UAMEMIS</envar> file. This is needed because the <envar>UAMEMIS</envar> file does not include enough information to describe the grid for the I/O API. The file must include the name of the grid set by the <envar>IOAPI_GRIDNAME_1</envar> environment variable setting.</entry>
+<entry><envar>UAMEMIS</envar></entry>
+<entry>Fortran binary</entry>
+<entry>UAM-ready, gridded, hourly, speciated emissions file.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -938,19 +1147,31 @@ PAR  0.6</programlisting></entry>
 <title>Output Files</title>
 
 <informaltable>
-<tgroup cols="2">
+<tgroup cols="3">
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
 <tbody>
 <row>
 <entry><envar>E2DNCF</envar>:</entry>
-<entry>(I/O API) Gridded, hourly, speciated emissions in the I/O API format needed for CMAQ or MAQSIP.</entry>
+<entry>I/O API NetCDF</entry>
+<entry>Gridded, hourly, speciated emissions in the I/O API format needed for CMAQ or MAQSIP.</entry>
 </row>
 <row>
-<entry><envar>LOGFILE</envar>:</entry>
-<entry>(ASCII) The log generated from executing this program.</entry>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Uam2ncf</command></entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
 
 </section>
 
