@@ -74,7 +74,7 @@
 
 <itemizedlist>
 <listitem>
-<para>Growth matrix - This contains past- or future-year growth factors for all sources. <comment>If desired, <command>Cntlmat</command> can grow multiple inventory years to a single modeling year. The /PROJECTION/ packet contains the year for which the growth factors apply and contains both a "to year" and a "from year". Using a series of these packets, inventory records from different years can be grown to a single year. <command>Cntlmat</command> supports multiple-year growth for area, mobile, and point sources.</comment></para>
+<para>Growth matrix - This contains past- or future-year growth factors for all sources. <comment>If desired, <command>Cntlmat</command> can grow multiple inventory years to a single modeling year. The /PROJECTION/ packet contains the year for which the growth factors apply and contains both a <quote>to year</quote> and a <quote>from year</quote>. Using a series of these packets, inventory records from different years can be grown to a single year. <command>Cntlmat</command> supports multiple-year growth for area, mobile, and point sources.</comment></para>
 </listitem>
 <listitem>
 <para>Multiplicative control matrix - This matrix contains the combination of various types ofcontrols typically used in emissions processing: CTG, MACT, RACT, control efficiency, rule effectiveness, rule penetration, allowable emissions, and caps. The logic used when applying this matrix is described below this bulleted list. </para>
@@ -143,13 +143,13 @@
 
 <title>/CONTROL/ packet</title>
 
-<para>After processing the /MACT/ packet, the /CONTROL/ packet is applied using the following logic. Each entry in the /CONTROL/ packet can be identified as "replacement" or "additive". If set to "replace", the /CONTROL/ entry will be used to replace the controls from the /MACT/ packet; otherwise, the control will be applied in addition to the controls from the /MACT/ packet. When an "additive" entry is matched to a source, the /CONTROL/ packet factor (Fac<subscript>CONTROL</subscript>) is calculated only from the control efficiency, rule effectiveness, and rule penetration values provided in the /CONTROL/ packet entry as follows:</para>
+<para>After processing the /MACT/ packet, the /CONTROL/ packet is applied using the following logic. Each entry in the /CONTROL/ packet can be identified as <quote>replacement</quote> or <quote>additive</quote>. If set to <quote>replace</quote>, the /CONTROL/ entry will be used to replace the controls from the /MACT/ packet; otherwise, the control will be applied in addition to the controls from the /MACT/ packet. When an <quote>additive</quote> entry is matched to a source, the /CONTROL/ packet factor (Fac<subscript>CONTROL</subscript>) is calculated only from the control efficiency, rule effectiveness, and rule penetration values provided in the /CONTROL/ packet entry as follows:</para>
 
 <para>Fac<subscript>CONTROL</subscript> = (1 - C<subscript>eff</subscript> [packet] x R<subscript>eff</subscript> [packet] x R<subscript>pen</subscript> [packet])</para>
 
 <para>A cumulative control factor is then calculated by multiplying Fac<subscript>MACT</subscript> x Fac<subscript>CONTROL</subscript>.</para>
 
-<para>For "replacement" entries, <command>Cntlmat</command> first "backs out" the existing controls provided in the inventory from the control values provided in the /CONTROL/ packet entry as follows:</para>
+<para>For <quote>replacement</quote> entries, <command>Cntlmat</command> first <quote>backs out</quote> the existing controls provided in the inventory from the control values provided in the /CONTROL/ packet entry as follows:</para>
 
 <para>D = (1 - C<subscript>eff</subscript> [inventory] x R<subscript>eff</subscript> [inventory] x R<subscript>pen</subscript> [inventory])</para>
 
@@ -157,7 +157,7 @@
 
 <para>Fac<subscript>CONTROL</subscript> = B x (1 - C<subscript>eff</subscript> [packet] x R<subscript>eff</subscript> [packet] x R<subscript>pen</subscript> [packet])</para>
 
-<para>Unlike "additive" entries, the Fac<subscript>CONTROL</subscript> value for "replacement" entries replaces the factor calculated from the /MACT/ packet (if any). The /CONTROL/ packet can be applied to stationary area/nonpoint, nonroad, on-road mobile, and point sources. On-road mobile source inventories do not include control efficiency, rule effectiveness, or rule penetration fields. However, the /CONTROL/ packet can still be used to apply adjustment factors to mobile sources. In this case, B in the above formula will be 1 when computing factor Fac<subscript>CONTROL</subscript> that is applied to the emissions.</para>
+<para>Unlike <quote>additive</quote> entries, the Fac<subscript>CONTROL</subscript> value for <quote>replacement</quote> entries replaces the factor calculated from the /MACT/ packet (if any). The /CONTROL/ packet can be applied to stationary area/nonpoint, nonroad, on-road mobile, and point sources. On-road mobile source inventories do not include control efficiency, rule effectiveness, or rule penetration fields. However, the /CONTROL/ packet can still be used to apply adjustment factors to mobile sources. In this case, B in the above formula will be 1 when computing factor Fac<subscript>CONTROL</subscript> that is applied to the emissions.</para>
 
 </section>
 
@@ -165,14 +165,14 @@
 
 <title>/EMS_CONTROL/ packet</title>
 
-<para>The /EMS_CONTROL/ packet is processed in a very similar way as "replacement" entries in the /CONTROL/ packet, with three differences:</para>
+<para>The /EMS_CONTROL/ packet is processed in a very similar way as <quote>replacement</quote> entries in the /CONTROL/ packet, with three differences:</para>
 
 <orderedlist>
 <listitem>
-<para>The base-year inventory control efficiency, rule effectiveness, and rule penetration values are not provided with the base-year inventory emission input files in EMS-95 format. Instead, these base-year values are provided as part of the control packet values (see the /EMS_CONTROL/ packet format). The base-year controls are "backed out" before the future-year controls from the /EMS_CONTROL/ packets are applied.</para>
+<para>The base-year inventory control efficiency, rule effectiveness, and rule penetration values are not provided with the base-year inventory emission input files in EMS-95 format. Instead, these base-year values are provided as part of the control packet values (see the /EMS_CONTROL/ packet format). The base-year controls are <quote>backed out</quote> before the future-year controls from the /EMS_CONTROL/ packets are applied.</para>
 </listitem>
 <listitem>
-<para>The /EMS_CONTROL/ packet contains a "control adjustment factor" field, which overrides all other values in the packet. This override feature allows the user to precompute the control factor needed for each record instead of using the formula listed above for application of the controls. When a control adjustment factor is provided, the control efficiency, rule effectiveness, and rule penetration from both the base case and the future year are completely ignored.</para>
+<para>The /EMS_CONTROL/ packet contains a <quote>control adjustment factor</quote> field, which overrides all other values in the packet. This override feature allows the user to precompute the control factor needed for each record instead of using the formula listed above for application of the controls. When a control adjustment factor is provided, the control efficiency, rule effectiveness, and rule penetration from both the base case and the future year are completely ignored.</para>
 </listitem>
 <listitem>
 <para>The factor computed from the /EMC_CONTROL/ packet will be applied in addition to any factors computed from the /MACT/ packet.</para>
@@ -215,7 +215,7 @@
 
 <title>Source Matching Hierarchy</title>
 
-<para>To match each sources with the appropriate control packet entry, <command>Cntlmat</command> uses a hierarchy of source characteristics, trying to match each source to the most specific control packet entry. Note that not all combinations are applicable to all control packets (for example, there is no MACT code associated with the /PROJECTION/ packet). "Left <emphasis>x</emphasis> of SCC" refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. "Left 2 of SIC code" refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
+<para>To match each sources with the appropriate control packet entry, <command>Cntlmat</command> uses a hierarchy of source characteristics, trying to match each source to the most specific control packet entry. Note that not all combinations are applicable to all control packets (for example, there is no MACT code associated with the /PROJECTION/ packet). <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
 
 <para>For point sources, the following hierarchy is used, in order of most specific to least specific.</para>
 
@@ -705,7 +705,7 @@
 
 <para>If the <envar>GCNTL</envar> file contains a /PROJECTION/ packet, <command>Cntlmat</command> outputs a growth matrix file (<envar>APMAT</envar>, <envar>MPMAT</envar>, or <envar>PPMAT</envar>) and a growth report (<envar>APROJREP</envar>, <envar>MPROJREP</envar>, or <envar>PPROJREP</envar>).</para>
 
-<para>If the <envar>GCNTL</envar> file contains a /REACTIVITY/ packet, <command>Cntlmat</command> outputs mole and mass-based reactivity matrix files (either <envar>ARMAT_L</envar> and <envar>ARMAT_S</envar>, <envar>MRMAT_L</envar> and <envar>MRMAT_S</envar>, or <envar>PRMAT_L</envar> and <envar>PRMAT_S</envar>), a reactivity matrix supplement file (<envar>ARSUP</envar>, <envar>MRSUP</envar>, or <envar>PRSUP</envar>), and a report of reactivity controls (<envar>AREACREP</envar>, <envar>MREACREP</envar>, or <envar>PREACREP</envar>). Finally, <command>Cntlmat</command> writes the <envar>LOGFILE</envar> detailing the program's execution.</para>
+<para>If the <envar>GCNTL</envar> file contains a /REACTIVITY/ packet, <command>Cntlmat</command> outputs mole and mass-based reactivity matrix files (either <envar>ARMAT_L</envar> and <envar>ARMAT_S</envar>, <envar>MRMAT_L</envar> and <envar>MRMAT_S</envar>, or <envar>PRMAT_L</envar> and <envar>PRMAT_S</envar>), a reactivity matrix supplement file (<envar>ARSUP</envar>, <envar>MRSUP</envar>, or <envar>PRSUP</envar>), and a report of reactivity controls (<envar>AREACREP</envar>, <envar>MREACREP</envar>, or <envar>PREACREP</envar>). Finally, <command>Cntlmat</command> writes the <envar>LOGFILE</envar> detailing the program&rsquo;s execution.</para>
 
 <section>
 
@@ -820,7 +820,7 @@
 </listitem>
 
 <listitem>
-<para><envar>SMK_TMPDIR</envar>: [default: "."]</para>
+<para><envar>SMK_TMPDIR</envar>: [default: <quote>.</quote>]</para>
 <para>Sets the path for writing the temporary files needed when processing the /ALLOWABLE/, /CONTROL/, /CTG/, /EMS_CONTROL/, /MACT/, and/or /PROJECTION/ packets (from the <envar>GCNTL</envar> file).</para>
 </listitem>
 
@@ -953,13 +953,13 @@
 
 <para>The <command>Elevpoint</command> program is used to select elevated point sources and to prepare certain input files for special elevated source or PinG processing. <command>Elevpoint</command> selects the major point source (MPS) and major elevated point source emissions (MEPSE) records using a variety of criteria, such as stack parameters, emissions, and analytical plume rise calculations. (Note that MEPSE is another name for a PinG source.)</para>
 
-<para><command>Elevpoint</command> distinguishes PinG sources from non-PinG elevated sources based on emission thresholds, highest day-specific emissions rank compared to other sources, analytical plume rise, and/or stack parameters such as height. <command>Elevpoint</command> flags sources as either elevated or PinG based on instructions given in an input configuration file, the <envar>PELVCONFIG</envar> file. <command>Elevpoint</command> also permits grouping of stacks at the same facility if the stack parameters are similar, within tolerances you specify with the <envar>PELVCONFIG</envar> file; the result is call a "stack group". For more information on selecting and grouping elevated and PinG sources, refer to <xref linkend="sect_input_pelvconfig" />.</para>
+<para><command>Elevpoint</command> distinguishes PinG sources from non-PinG elevated sources based on emission thresholds, highest day-specific emissions rank compared to other sources, analytical plume rise, and/or stack parameters such as height. <command>Elevpoint</command> flags sources as either elevated or PinG based on instructions given in an input configuration file, the <envar>PELVCONFIG</envar> file. <command>Elevpoint</command> also permits grouping of stacks at the same facility if the stack parameters are similar, within tolerances you specify with the <envar>PELVCONFIG</envar> file; the result is call a <quote>stack group</quote>. For more information on selecting and grouping elevated and PinG sources, refer to <xref linkend="sect_input_pelvconfig" />.</para>
 
-<para><command>Elevpoint</command> can also be used to calculate plume rise using the "cutoff" method. This is the method traditionally used to prepare input files to the air quality models UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript>, which require a separate model-ready input file containing emissions for elevated point sources. Below, we refer to this path as the "UAM style" of emissions processing.</para>
+<para><command>Elevpoint</command> can also be used to calculate plume rise using the <quote>cutoff</quote> method. This is the method traditionally used to prepare input files to the air quality models UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript>, which require a separate model-ready input file containing emissions for elevated point sources. Below, we refer to this path as the <quote>UAM style</quote> of emissions processing.</para>
 
-<para>For the cutoff method, the <command>Elevpoint</command> program uses the stack parameters of the point sources and estimates the plume rise for each source using a Briggs analytical solution (but not actual gridded meteorology data); the details of this process are given later in this subsection. <command>Elevpoint</command> then records all of the sources that have an estimated plume rise greater than a specified cutoff as defined in the <envar>PELVCONFIG</envar> file using the "RISE" instruction. Using the <envar>PELVCONFIG</envar> file, this cutoff method can be combined with selection of elevated sources based on stack parameters and/or emissions values.</para>
+<para>For the cutoff method, the <command>Elevpoint</command> program uses the stack parameters of the point sources and estimates the plume rise for each source using a Briggs analytical solution (but not actual gridded meteorology data); the details of this process are given later in this subsection. <command>Elevpoint</command> then records all of the sources that have an estimated plume rise greater than a specified cutoff as defined in the <envar>PELVCONFIG</envar> file using the <quote>RISE</quote> instruction. Using the <envar>PELVCONFIG</envar> file, this cutoff method can be combined with selection of elevated sources based on stack parameters and/or emissions values.</para>
 
-<para>When emissions values are part of these selection criteria, <command>Elevpoint</command> computes the maximum daily emissions using one or more <envar>PTMP</envar> files. <command>Elevpoint</command> computes the maximum daily value of any pollutant used as a selection criterion across all of the days that you input. You have the option of providing either a list of paths and file names of one or more <envar>PTMP</envar> files, or a single <envar>PTMP</envar> file. The day or days that <command>Elevpoint</command> uses to compute each source's maximum depends on the time zone in which the source resides, based on the county and the <envar>COSTCY</envar> file setting for the time zone (the time zone is stored in the <envar>PNTS</envar> file output from <command>Smkinven</command>).</para>
+<para>When emissions values are part of these selection criteria, <command>Elevpoint</command> computes the maximum daily emissions using one or more <envar>PTMP</envar> files. <command>Elevpoint</command> computes the maximum daily value of any pollutant used as a selection criterion across all of the days that you input. You have the option of providing either a list of paths and file names of one or more <envar>PTMP</envar> files, or a single <envar>PTMP</envar> file. The day or days that <command>Elevpoint</command> uses to compute each source&rsquo;s maximum depends on the time zone in which the source resides, based on the county and the <envar>COSTCY</envar> file setting for the time zone (the time zone is stored in the <envar>PNTS</envar> file output from <command>Smkinven</command>).</para>
 
 <para><command>Elevpoint</command> also creates a report file that contains all SMOKE sources that have been selected as elevated, their source characteristics (including stack parameters), emissions values used as selection criteria, stack-group numbers, status as either elevated or PinG, and which selection criteria were used to assign the status to the source. The report does not include any low-level sources. This report is in semicolon-delimited format for easier reading into a spreadsheet for sorting, review, and making charts.</para>
 
@@ -1067,7 +1067,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <para>No MEPSE/PinG source processing is required.</para>
 </listitem>
 <listitem>
-<para>You are willing to run <command>Laypoint</command> for all point sources and treat all as "potentially elevated". In this case, sources that rise above layer 1 will be "elevated" for reporting purposes in <command>Smkreport</command>, but these sources may sometimes be within layer 1 if the plume rise algorithm in <command>Laypoint</command> computes it that way.</para>
+<para>You are willing to run <command>Laypoint</command> for all point sources and treat all as <quote>potentially elevated</quote>. In this case, sources that rise above layer 1 will be <quote>elevated</quote> for reporting purposes in <command>Smkreport</command>, but these sources may sometimes be within layer 1 if the plume rise algorithm in <command>Laypoint</command> computes it that way.</para>
 </listitem>
 </orderedlist>
 
@@ -1174,7 +1174,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <para>0: Treat all sources as potentially elevated, and let the <command>Laypoint</command> program determine which sources are elevated and which are not. This approach is appropriate only for SMOKE output for the CMAQ and MAQSIP models.</para>
 </listitem>
 <listitem>
-<para>1: Use the "Elevated" section of the <envar>PELVCONFIG</envar> configuration file to select specific sources. This approach can be used for any of the model output formats - CMAQ, MAQSIP, and UAM-style.</para>
+<para>1: Use the <quote>Elevated</quote> section of the <envar>PELVCONFIG</envar> configuration file to select specific sources. This approach can be used for any of the model output formats - CMAQ, MAQSIP, and UAM-style.</para>
 </listitem>
 </itemizedlist>
 
@@ -1278,7 +1278,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <para><emphasis>Processing categories:</emphasis> mobile</para>
 
-<para>The <command>Emisfac</command> program drives EPA's Office of Transportation and Air Quality MOBILE model (version 6.2) to generate emission factors representing several different emission processes. The program drives MOBILE6 by supplying 24-hour temperature profiles and county-specific MOBILE6 input files. Using multiple calls to MOBILE6, <command>Emisfac</command> uses the specified temperatures and inputs to create emission factors for all sources. Having <command>Emisfac</command> execute MOBILE6 allows very complex combinations of emission factors to be generated in a relatively short period of time.</para>
+<para>The <command>Emisfac</command> program drives EPA&rsquo;s Office of Transportation and Air Quality MOBILE model (version 6.2) to generate emission factors representing several different emission processes. The program drives MOBILE6 by supplying 24-hour temperature profiles and county-specific MOBILE6 input files. Using multiple calls to MOBILE6, <command>Emisfac</command> uses the specified temperatures and inputs to create emission factors for all sources. Having <command>Emisfac</command> execute MOBILE6 allows very complex combinations of emission factors to be generated in a relatively short period of time.</para>
 
 <section>
 
@@ -1711,7 +1711,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 </orderedlist>
 
-<para>For mobile sources only, <command>Grdmat</command> outputs both a gridding matrix and a second file called an "ungridding" matrix. This ungridding matrix is used by <command>Mbsetup</command> and <command>Temporal</command> to determine which sources are within the grid, and by <command>Premobl</command> to compute county-based temperatures from the gridded temperature data inputs. The ungridding matrix is calculated as the ratio of VMT in a given grid cell to the total amount of VMT in the county. For link-based sources, the ratio is the amount of VMT in the grid cell to the total VMT for that link. This results in nonlink sources within a county using the same weighting factors across grid cells, while link sources have different factors. <remark>Note that at this time, <command>Premobl</command> cannot use link-based temperature data.</remark></para>
+<para>For mobile sources only, <command>Grdmat</command> outputs both a gridding matrix and a second file called an <quote>ungridding</quote> matrix. This ungridding matrix is used by <command>Mbsetup</command> and <command>Temporal</command> to determine which sources are within the grid, and by <command>Premobl</command> to compute county-based temperatures from the gridded temperature data inputs. The ungridding matrix is calculated as the ratio of VMT in a given grid cell to the total amount of VMT in the county. For link-based sources, the ratio is the amount of VMT in the grid cell to the total VMT for that link. This results in nonlink sources within a county using the same weighting factors across grid cells, while link sources have different factors. <remark>Note that at this time, <command>Premobl</command> cannot use link-based temperature data.</remark></para>
 
 </section>
 
@@ -1789,7 +1789,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>MCODES</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>Mobile codes for converting inventory road classes and vehicle type names to SMOKE's road types and vehicle type numbers</entry>
+<entry>Mobile codes for converting inventory road classes and vehicle type names to SMOKE&rsquo;s road types and vehicle type numbers</entry>
 </row>
 </tbody>
 </tgroup>
@@ -1907,7 +1907,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The SMOKE prototype used separate programs for each type of emission source: GRDAMAT for area sources, GRDMMAT for mobile sources, and GRDPMAT for point sources.</para>
 
-<para>Calculation of the mobile "ungridding" matrix was significantly revised for SMOKE v2.0.</para>
+<para>Calculation of the mobile <quote>ungridding</quote> matrix was significantly revised for SMOKE v2.0.</para>
 
 </section>
 -->
@@ -2846,11 +2846,11 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <section>
 
-<title>Definition of a "day"</title>
+<title>Definition of a <quote>day</quote></title>
 
-<para><command>Premobl</command> seeks to obtain 24 hours' worth of temperature data for a source for each day, which is necessary for generating emission factors. However, the definition of a "day" differs for sources in different time zones. By default, <command>Premobl</command> uses each source's time zone to determine a day for that time zone. To instead use the same day-start-time for all sources, the <envar>UNIFORM_TIME</envar> environment variable can be used.</para>
+<para><command>Premobl</command> seeks to obtain 24 hours&rsquo; worth of temperature data for a source for each day, which is necessary for generating emission factors. However, the definition of a <quote>day</quote> differs for sources in different time zones. By default, <command>Premobl</command> uses each source&rsquo;s time zone to determine a day for that time zone. To instead use the same day-start-time for all sources, the <envar>UNIFORM_TIME</envar> environment variable can be used.</para>
 
-<para>If the inventory covers multiple time zones, all sources will not have the same coverage of days. <command>Premobl</command> will use temperature data from previous or subsequent days to fill in missing data. If appropriate data are not available, the program will quit with an error and you must provide additional temperature data to cover the time period of interest. Currently, <command>Premobl</command> does not considers Daylight Saving time in its determination of "day".</para>
+<para>If the inventory covers multiple time zones, all sources will not have the same coverage of days. <command>Premobl</command> will use temperature data from previous or subsequent days to fill in missing data. If appropriate data are not available, the program will quit with an error and you must provide additional temperature data to cover the time period of interest. Currently, <command>Premobl</command> does not considers Daylight Saving time in its determination of <quote>day</quote>.</para>
 
 </section>
 
@@ -2886,7 +2886,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><xref linkend="fig_programs_premobl" /> shows the input and output files for the <command>Premobl</command> program. The input files include the group files output by <command>Mbsetup</command>. These files list the counties that use each given type of temperature averaging: daily (<envar>DAILYGROUP</envar>), weekly (<envar>WEEKLYGROUP</envar>), monthly (<envar>MONTHLYGROUP</envar>) and episodic (<envar>EPISODEGROUP</envar>). <command>Premobl</command> also uses a file listing the available meteorology files (<envar>METLIST</envar>), the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the ungridding matrix file (<envar>MUMAT</envar>) output by <command>Grdmat</command>, and the speed summary file (<envar>SPDSUM</envar>) from <command>Mbsetup</command>.</para>
 
-<para><command>Premobl</command> outputs automatically named files containing hourly temperature data. The program also writes a log file detailing the program's execution (<envar>LOGFILE</envar>).</para>
+<para><command>Premobl</command> outputs automatically named files containing hourly temperature data. The program also writes a log file detailing the program&rsquo;s execution (<envar>LOGFILE</envar>).</para>
 
 <section>
 
@@ -3331,7 +3331,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><emphasis>Processing categories:</emphasis> area, mobile, point</para>
 
-<para><command>Smkinven</command> reads in the raw input data, sorts the records, and creates the SMOKE inventory files that are required by most of the SMOKE programs. The program is run separately for area-, mobile-, and point-source processing. <command>Smkinven</command> reads annual, average-day, day-specific, and hour-specific inventory files. The annual and average-day inventory data are combined into a single inventory. The output also indicates whether the data started out as annual or average-day data; such "temporal origin" information is needed by the <command>Temporal</command> program to determine whether to apply monthly adjustments. <command>Smkinven</command> can also import gridded one-layer annual or average-day emissions in I/O API NetCDF format.</para>
+<para><command>Smkinven</command> reads in the raw input data, sorts the records, and creates the SMOKE inventory files that are required by most of the SMOKE programs. The program is run separately for area-, mobile-, and point-source processing. <command>Smkinven</command> reads annual, average-day, day-specific, and hour-specific inventory files. The annual and average-day inventory data are combined into a single inventory. The output also indicates whether the data started out as annual or average-day data; such <quote>temporal origin</quote> information is needed by the <command>Temporal</command> program to determine whether to apply monthly adjustments. <command>Smkinven</command> can also import gridded one-layer annual or average-day emissions in I/O API NetCDF format.</para>
 
 <para><command>Smkinven</command> writes several SMOKE inventory files for each source category: an ASCII file containing all character-string fields from the inventory, individual I/O API NetCDF files containing emissions data for each output pollutant, and an ASCII map file listing the names and locations of each file. The character string fields cannot be stored in the I/O API NetCDF file because of limitations of the I/O API library. When day-specific and hour-specific data are available (this applies only for point sources), <command>Smkinven</command> can also read these data, and produce separate I/O API NetCDF files for each data type (day-specific or hour-specific).</para>
 
@@ -3576,7 +3576,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <itemizedlist>
 <listitem>
-<para>Y: Use "Y" when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole. Note that <envar>SMK_AVEDAY_YN</envar> should be set to N in other SMOKE programs when this option has been selected.</para>
+<para>Y: Use <quote>Y</quote> when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole. Note that <envar>SMK_AVEDAY_YN</envar> should be set to N in other SMOKE programs when this option has been selected.</para>
 </listitem>
 <listitem>
 <para>N: Do not fill in annual data based on average-day emissions values.</para>
@@ -3761,7 +3761,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>SMKINVEN_FORMULA</envar>: [default: blank]</para>
 
-<para>Allows you to specify a formula for computing one pollutant value from the values of other pollutants. For example, if the formula is set to "PMC=PM10-PM25", then <command>Smkinven</command> will compute a new variable, PMC, as the difference between PM<subscript>10</subscript> and PM<subscript>2.5</subscript>. The pollutant units are taken from the first variable in the formula. The variables used as input in the formula will still be output to the SMOKE inventory file. If the formula is not set, no additional variables will be written to the SMOKE inventory file.</para>
+<para>Allows you to specify a formula for computing one pollutant value from the values of other pollutants. For example, if the formula is set to <quote>PMC=PM10-PM25</quote>, then <command>Smkinven</command> will compute a new variable, PMC, as the difference between PM<subscript>10</subscript> and PM<subscript>2.5</subscript>. The pollutant units are taken from the first variable in the formula. The variables used as input in the formula will still be output to the SMOKE inventory file. If the formula is not set, no additional variables will be written to the SMOKE inventory file.</para>
 </listitem>
 <listitem>
 <para><envar>VELOC_RECALC</envar>: [default: N]</para>
@@ -3796,7 +3796,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>WKDAY_NORMALIZE</envar>: [default: Y for EMS-95 input format, N for all other formats]</para>
 
-<para>Clarifies the nature of the "average-day" data read in by <command>Smkinven</command> and will impact the <command>Temporal</command> program processing of EMS-95 formatted data of type "AD" and average-day data for all other formats.</para>
+<para>Clarifies the nature of the <quote>average-day</quote> data read in by <command>Smkinven</command> and will impact the <command>Temporal</command> program processing of EMS-95 formatted data of type <quote>AD</quote> and average-day data for all other formats.</para>
 
 <itemizedlist>
 <listitem>
@@ -3937,7 +3937,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Smkmerge</command> can use a by-day processing approach, to read in one-day hourly files for each day of the week. When the <envar>MRG_BYDAY</envar> environment variable is set to A, M, P, or any combination of those letters, <command>Smkmerge</command> reads a different logical file name for each day of the week for the hourly emission input files for the indicated sources.</para>
 
-<para>For example, if the <envar>MRG_SOURCE</envar> environment variable is set to AMBP, <command>Smkmerge</command> will expect the following hourly input files: <envar>ATMP</envar>, <envar>BGTS_[S|L]</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar>, for area, biogenic, mobile, and point source types respectively. If, in addition, <envar>MRG_BYDAY</envar> is set to "A", then the hourly input files expected by <command>Smkmerge</command> for area sources would be the <envar>ATMP_{day}</envar> files. The files for the other source types would remain the same.</para>
+<para>For example, if the <envar>MRG_SOURCE</envar> environment variable is set to AMBP, <command>Smkmerge</command> will expect the following hourly input files: <envar>ATMP</envar>, <envar>BGTS_[S|L]</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar>, for area, biogenic, mobile, and point source types respectively. If, in addition, <envar>MRG_BYDAY</envar> is set to <quote>A</quote>, then the hourly input files expected by <command>Smkmerge</command> for area sources would be the <envar>ATMP_{day}</envar> files. The files for the other source types would remain the same.</para>
 
 <para>The <envar>MRG_BYDAY</envar> option is useful for implementing a Monday-weekday-Saturday-Sunday (MWSS) approach to save processing time for long episodes. This approach is applicable when weekly temporal profiles used by an inventory do not have variation between the five weekdays. In the MWSS approach, Monday is processed separately, because time zone differences across a large domain cause some Sunday emissions for some time zones to be in the Monday file. Additional environment variables other than the defaults in the Assigns file need to be set when this option is applied. <command>Smkmerge</command> will prompt for a different file for each day of the week, but the logical file names for Tuesday through Friday can be defined as the same file when implementing the MWSS approach.</para>
 
@@ -4021,7 +4021,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><xref linkend="fig_programs_smkmerge_point" /> shows the input and output files for the <command>Smkmerge</command> program for point sources. The inputs include the country, state, and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the grid description file (<envar>GRIDDESC</envar>), and the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>PCMAT</envar>). If using PinG or elevated sources, the <envar>PELV</envar> file is used. <command>Smkmerge</command> reads the gridding matrix output from <command>Grdmat</command> (<envar>PGMAT</envar>). The <envar>PLAY</envar> file is used to merge layer fractions, while the <envar>PLAY_EX</envar> file is used for explicit plumes. Other <command>Smkmerge</command> input files include the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>PRMAT</envar>), and the optional speciation matrix from <command>Spcmat</command> (<envar>PSMAT</envar>). The hourly emissions from <command>Temporal</command> are provided either as the <envar>PTMP</envar> file or as hourly emissions for each day of the week (<envar>PTMP_{day}</envar>). Finally, <command>Smkmerge</command> can read the optional elevated stack groups file (<envar>STACK_GROUPS</envar>).</para>
 
-<para><command>Smkmerge</command> can output an elevated sources file (<envar>ELEV[T]S[_S|_L]</envar>) if requested. Like all other SMOKE programs, <command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>) detailing the program's execution. The main data file is determined by the inputs and can be include a model-ready emissions file (<envar>PG[T][S][C][3D]_L</envar> or <envar>PG[T][S][C][3D]_S</envar>). Other output files can be a PinG file (<envar>PING[T][S][C][_S][_L]</envar> and a report file (<envar>REPPG[T][S][C]_L</envar> or <envar>REPPG[T][S][C]_S</envar>).</para>
+<para><command>Smkmerge</command> can output an elevated sources file (<envar>ELEV[T]S[_S|_L]</envar>) if requested. Like all other SMOKE programs, <command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>) detailing the program&rsquo;s execution. The main data file is determined by the inputs and can be include a model-ready emissions file (<envar>PG[T][S][C][3D]_L</envar> or <envar>PG[T][S][C][3D]_S</envar>). Other output files can be a PinG file (<envar>PING[T][S][C][_S][_L]</envar> and a report file (<envar>REPPG[T][S][C]_L</envar> or <envar>REPPG[T][S][C]_S</envar>).</para>
 
 <figure id="fig_programs_smkmerge_all">
 <title><command>Smkmerge</command> input and output files for all source categories</title>
@@ -4192,22 +4192,22 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>MRG_BYDAY</envar>: [default: blank]</para>
 
-<para>String code that specifies which source categories (if any) are to use a by-day approach for the hourly input files (see "Description" section above for more information on this approach). Valid settings include A, M, P, or any combination. For example, set this environment variable to "AMP" to have <command>Smkmerge</command> read the area-, mobile-, and point-source hourly emissions files individually for each day.</para>
+<para>String code that specifies which source categories (if any) are to use a by-day approach for the hourly input files (see <quote>Description</quote> section above for more information on this approach). Valid settings include A, M, P, or any combination. For example, set this environment variable to <quote>AMP</quote> to have <command>Smkmerge</command> read the area-, mobile-, and point-source hourly emissions files individually for each day.</para>
 </listitem>
 <listitem>
 <para><envar>MRG_CTLMAT_MULT</envar>: [default: blank]</para>
 
-<para>String code that specifies which source categories (if any) are to be processed using a multiplicative control matrix. Valid settings include A, M, P, or any combination. For example, set this environment variable to "M" to have <command>Smkmerge</command> read the mobile-source multiplicative control matrix.</para>
+<para>String code that specifies which source categories (if any) are to be processed using a multiplicative control matrix. Valid settings include A, M, P, or any combination. For example, set this environment variable to <quote>M</quote> to have <command>Smkmerge</command> read the mobile-source multiplicative control matrix.</para>
 </listitem>
 <listitem>
 <para><envar>MRG_CTLMAT_REAC</envar>: [default: blank]</para>
 
-<para>String code that specifies which source categories (if any) are to be processed using a reactivity control matrix. Valid settings include A, M, P, or any combination. For example, set this environment variable to "MP" to have <command>Smkmerge</command> read the mobile- and point-source reactivity control matrices.</para>
+<para>String code that specifies which source categories (if any) are to be processed using a reactivity control matrix. Valid settings include A, M, P, or any combination. For example, set this environment variable to <quote>MP</quote> to have <command>Smkmerge</command> read the mobile- and point-source reactivity control matrices.</para>
 </listitem>
 <listitem>
 <para><envar>MRG_GRDOUT_UNIT</envar>: [default: input file units]</para>
 
-<para>String code that permits the user to change the units of the gridded output file. For example, "kg/hr" would convert the output emissions to kilograms per hour, before outputting the emissions data file. Not all conversions are known to SMOKE. Valid numerators are: "tons", "kg", "moles", and "g"; note that molar emissions cannot be output without the mole-based speciation matrices. Valid denominators are "yr", "dy", "hr", and "s". Note that if annual output is requested but not available in the input file, leap year adjustments are not made.</para>
+<para>String code that permits the user to change the units of the gridded output file. For example, <quote>kg/hr</quote> would convert the output emissions to kilograms per hour, before outputting the emissions data file. Not all conversions are known to SMOKE. Valid numerators are: <quote>tons</quote>, <quote>kg</quote>, <quote>moles</quote>, and <quote>g</quote>; note that molar emissions cannot be output without the mole-based speciation matrices. Valid denominators are <quote>yr</quote>, <quote>dy</quote>, <quote>hr</quote>, and <quote>s</quote>. Note that if annual output is requested but not available in the input file, leap year adjustments are not made.</para>
 
 <para>Units required by CMAQ are moles/s and units needed for MAQSIP and most other air quality models are moles/hr.</para>
 </listitem>
@@ -4468,7 +4468,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Number of layers to output to the elevated-point-source file.</para>
 </listitem>
 <listitem>
-<para><envar>UAM_NOTE</envar>: [default: "UAM elev pt emis from Smkmerge"]</para>
+<para><envar>UAM_NOTE</envar>: [default: <quote>UAM elev pt emis from Smkmerge</quote>]</para>
 
 <para>Message to appear as a note in the elevated-point-source file.</para>
 </listitem>
@@ -4525,7 +4525,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>UAM4_HTLOWR</envar>: [default: 20]</para>
 
-<para>Minimum height (in meters) of cells between the surface and the "diffbreak" in the elevated-point-source file.</para>
+<para>Minimum height (in meters) of cells between the surface and the <quote>diffbreak</quote> in the elevated-point-source file.</para>
 </listitem>
 <listitem>
 <para><envar>UAM4_HTSFC</envar>: [default: 0]</para>
@@ -4535,22 +4535,22 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>UAM4_HTUPPR</envar>: [default: 100]</para>
 
-<para>Minimum height (in meters) of cells between the "diffbreak" and the top of the model in the elevated-point-source file.</para>
+<para>Minimum height (in meters) of cells between the <quote>diffbreak</quote> and the top of the model in the elevated-point-source file.</para>
 </listitem>
 <listitem>
 <para><envar>UAM4_LAYABOVE</envar>: [default: <envar>UAM_LAYERS</envar> - <envar>UAM4_LAYBELOW</envar>]</para>
 
-<para>Number of layers above the "diffbreak" in the elevated-point-source file.</para>
+<para>Number of layers above the <quote>diffbreak</quote> in the elevated-point-source file.</para>
 </listitem>
 <listitem>
 <para><envar>UAM4_LAYBELOW</envar>: [default: 3]</para>
 
-<para>Number of layers below the "diffbreak" in the elevated-point-source file.</para>
+<para>Number of layers below the <quote>diffbreak</quote> in the elevated-point-source file.</para>
 </listitem>
 <listitem>
 <para><envar>UAM4_METSCALARS_UNIT</envar>: [default: 15]</para>
 
-<para>METSCALARS file unit number in the elevated-point-source file. Used only for <envar>UAM_VERTICAL_METHOD</envar> set to "PLUMERISE".</para>
+<para>METSCALARS file unit number in the elevated-point-source file. Used only for <envar>UAM_VERTICAL_METHOD</envar> set to <quote>PLUMERISE</quote>.</para>
 </listitem>
 <listitem>
 <para><envar>UAM4_REGIONTOP_UNIT</envar>: [default: 0]</para>
@@ -4560,12 +4560,12 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>UAM4_TEMPERATUR_UNIT</envar>: [default: 14]</para>
 
-<para>TEMPERATUR file unit number in the elevated-point-source file. Used only for <envar>UAM_VERTICAL_METHOD</envar> set to "PLUMERISE".</para>
+<para>TEMPERATUR file unit number in the elevated-point-source file. Used only for <envar>UAM_VERTICAL_METHOD</envar> set to <quote>PLUMERISE</quote>.</para>
 </listitem>
 <listitem>
 <para><envar>UAM4_WIND_UNIT</envar>: [default: 16]</para>
 
-<para>WIND file unit number in the elevated-point-source file. Used only for <envar>UAM_VERTICAL_METHOD</envar> set to "PLUMERISE".</para>
+<para>WIND file unit number in the elevated-point-source file. Used only for <envar>UAM_VERTICAL_METHOD</envar> set to <quote>PLUMERISE</quote>.</para>
 </listitem>
 </itemizedlist>
 
@@ -4660,13 +4660,13 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><emphasis>Processing categories:</emphasis> area, mobile, point</para>
 
-<para>An emission inventory is built and reported for a variety of compounds or chemical classes such as CO, NO<subscript>x</subscript>, VOC, PM<subscript>10</subscript>, and SO<subscript>2</subscript>. However, AQM photochemical mechanisms (e.g., CB4, RADM2) contain a simplified set of equations that use representative "model species" to represent atmospheric chemistry. Therefore, source-specific factors are needed to convert the emissions from the chemical classes in the emission inventory to the species in the intended photochemical mechanism. The <command>Spcmat</command> program produces matrices that contain the factors for performing this conversion.</para>
+<para>An emission inventory is built and reported for a variety of compounds or chemical classes such as CO, NO<subscript>x</subscript>, VOC, PM<subscript>10</subscript>, and SO<subscript>2</subscript>. However, AQM photochemical mechanisms (e.g., CB4, RADM2) contain a simplified set of equations that use representative <quote>model species</quote> to represent atmospheric chemistry. Therefore, source-specific factors are needed to convert the emissions from the chemical classes in the emission inventory to the species in the intended photochemical mechanism. The <command>Spcmat</command> program produces matrices that contain the factors for performing this conversion.</para>
 
 <para><command>Spcmat</command> outputs both mass-based and mole-based factors for all sources. Previous systems have assumed that the average molecular weight of the model species was sufficient to represent the molecular weight of a species emitted by a specific source. In fact, the actual molecular weight of a model species is different for different types of emission processes. To represent the mass values more accurately, the mass and mole factors are computed and stored separately.</para>
 
 <para>The speciation cross-reference file input to <command>Spcmat</command> specifies the speciation profile to be used for transforming the inventory pollutants to the model species for each source or type of source. <command>Spcmat</command> permits profiles to be assigned based on the country, state, and county code, the SCC, and other source characteristics. In the hierarchical system used to apply the profiles, the most specific assignments are applied first, followed by the next most specific, and so on. This system ensures that the most-specific matches override the less-specific ones.</para>
 
-<para>For stationary area/nonpoint sources, the available combinations and their order are the following, starting with the most specific. "Left <emphasis>x</emphasis> of SCC" refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. "Left 2 of SIC code" refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
+<para>For stationary area/nonpoint sources, the available combinations and their order are the following, starting with the most specific. <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5133,7 +5133,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>The <command>Temporal</command> program produces a file with hourly inventory pollutant emissions. Unlike the SMOKE matrices produced by <command>Cntlmat</command>, <command>Grdmat</command>, and <command>Spcmat</command>, the output file from <command>Temporal</command> contains the actual emissions data. For all source categories, it uses temporal profiles, temporal cross-references, and the time zone of each source to create the hourly emissions output file. It can also read in day-specific and hour-specific inventory data in SMOKE format, and it uses the most detailed data it can when multiple types of data are available for the same source. For example, if a source had annual, day-specific, and hour-specific data, <command>Temporal</command> would use the hour-specific emissions. The program can also apply source-specific hourly profiles from the hour-specific data file, and it can override all temporal profiles and use temporally uniform profiles for all sources. For mobile sources, <command>Temporal</command> also reads the emission factors created by <command>Emisfac</command>.</para>
 
-<para><command>Temporal</command> treats the temporal profiles as <emphasis>local</emphasis> profiles. In other words, the profile applied to the source is adjusted based on the difference between the time zone of the source (determined by the <envar>COSTCY</envar> file) and the output time zone (determined by the <envar>OUTZONE</envar> environment variable). SMOKE automatically considers Daylight Saving time when converting from a region's standard time zone to the output time zone, and SMOKE can exclude regions that never use Daylight Saving time based on the <envar>COSTCY</envar> file. Note that <command>Temporal</command> has been tested for time zones in the Western Hemisphere, but we have not tested it for time zones in the Eastern Hemisphere.</para>
+<para><command>Temporal</command> treats the temporal profiles as <emphasis>local</emphasis> profiles. In other words, the profile applied to the source is adjusted based on the difference between the time zone of the source (determined by the <envar>COSTCY</envar> file) and the output time zone (determined by the <envar>OUTZONE</envar> environment variable). SMOKE automatically considers Daylight Saving time when converting from a region&rsquo;s standard time zone to the output time zone, and SMOKE can exclude regions that never use Daylight Saving time based on the <envar>COSTCY</envar> file. Note that <command>Temporal</command> has been tested for time zones in the Western Hemisphere, but we have not tested it for time zones in the Eastern Hemisphere.</para>
 
 <para>Within the <command>Temporal</command> program, the processing occurs as follows:</para>
 
@@ -5164,7 +5164,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>A many-step hierarchy is used in applying the temporal cross-referencing. SMOKE preferentially matches each source to the most specific line in the cross-reference file. When there are missing entries in the cross-reference file, <command>Temporal</command> first looks for cross-reference entries for other species at the same level in the search hierarchy before descending to the next level in the hierarchy. For example, if a source has a temporal cross-reference entry for CO but not for NO<subscript>x</subscript>, <command>Temporal</command> uses the source-specific CO temporal cross reference entry for allocating NO<subscript>x</subscript> from that source in preference to using a default NO<subscript>x</subscript> temporal profile.</para>
 
-<para>For area sources, the available combinations are the following, starting with the most specific. "7-digit SCC" means a 10-digit SCC with the last three digits set to zero.</para>
+<para>For area sources, the available combinations are the following, starting with the most specific. <quote>7-digit SCC</quote> means a 10-digit SCC with the last three digits set to zero.</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5294,7 +5294,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </orderedlist>
 
-<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. "5-digit SCC" means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the "5-digit SCC" becomes a "3-digit SCC."</para>
+<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>.</para>
 
 <para>The hierarchy of cross-referencing is the following.</para>
 
@@ -5586,7 +5586,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>ZONE4WM</envar>: [default: Y]</para>
 
-<para>Defines whether <command>Temporal</command> applies weekly and monthly temporal profiles using time zones. If SMOKE does not apply the profiles using the sources' time zones, then all sources change from one day to the next or one month to the next at the same hour. This is what other emission processing systems have typically done, and it is a minor distinction in most cases.</para>
+<para>Defines whether <command>Temporal</command> applies weekly and monthly temporal profiles using time zones. If SMOKE does not apply the profiles using the sources&rsquo; time zones, then all sources change from one day to the next or one month to the next at the same hour. This is what other emission processing systems have typically done, and it is a minor distinction in most cases.</para>
 
 <itemizedlist>
 <listitem>
@@ -5753,12 +5753,12 @@ Defines whether the program produces a report of emission totals by state.</para
 <row>
 <entry><envar>BIOSEASON</envar> (optional)</entry>
 <entry>I/O API NetCDF</entry>
-<entry>Gridded seasonal switch file containing daily data, with "0" meaning use winter normalized emissions and "1" meaning use the summer normalized emissions, produced by <command>Metscan</command></entry>
+<entry>Gridded seasonal switch file containing daily data, with <quote>0</quote> meaning use winter normalized emissions and <quote>1</quote> meaning use the summer normalized emissions, produced by <command>Metscan</command></entry>
 </row>
 <row>
 <entry><envar>GSPRO</envar></entry>
 <entry>ASCII</entry>
-<entry>Speciation profiles file (<emphasis role="bold">do not use the same profiles used in SMOKE-BEIS2; use profile named 'BV309'</emphasis>)</entry>
+<entry>Speciation profiles file (<emphasis role="bold">do not use the same profiles used in SMOKE-BEIS2; use profile named <quote>BV309</quote></emphasis>)</entry>
 </row>
 <row>
 <entry><envar>GRID_CRO_2D</envar></entry>
@@ -5958,7 +5958,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><xref linkend="fig_programs_tmpbio" /> shows the input and output files for the <command>Tmpbio</command> program. The input files include the gridded, normalized biogenic emissions from <command>Rawbio</command> (<envar>BGRD</envar> and optionally <envar>BGRDW</envar>) and, if <envar>BIOSW_YN</envar> = Y, an optional gridded seasonal switch file output from <command>Metscan</command> (<envar>BIOSEASON</envar>). <command>Rawbio</command> also reads the optional meteorology file <envar>GRID_CRO_2D</envar> and the speciation profiles file (<envar>GSPRO</envar>). For inputting surface pressure and radiation/cloud data, <command>Tmpbio</command> can either use individual meteorology files (<envar>MET_FILE1</envar> and <envar>MET_FILE2</envar>) or list files (<envar>METLIST</envar> and <envar>RADLIST</envar>).</para>
 
-<para><command>Tmpbio</command> outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<envar>BGTS_L</envar>) and tons/hour (<envar>BGTS_S</envar>) and a log file detailing the program's execution (<envar>LOGFILE</envar>).</para>
+<para><command>Tmpbio</command> outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<envar>BGTS_L</envar>) and tons/hour (<envar>BGTS_S</envar>) and a log file detailing the program&rsquo;s execution (<envar>LOGFILE</envar>).</para>
 
 <section>
 
@@ -5992,7 +5992,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <row>
 <entry><envar>BIOSEASON</envar> (optional)</entry>
 <entry>I/O API NetCDF</entry>
-<entry>Gridded seasonal switch file containing daily data, with "0" meaning use winter normalized emissions and "1" meaning use summer normalized emissions, produced by <command>Metscan</command></entry>
+<entry>Gridded seasonal switch file containing daily data, with <quote>0</quote> meaning use winter normalized emissions and <quote>1</quote> meaning use summer normalized emissions, produced by <command>Metscan</command></entry>
 </row>
 <row>
 <entry><envar>GRID_CRO_2D</envar> (optional)</entry>

@@ -282,13 +282,13 @@
 <para>Var 1: The first variable from the <envar>PELVCONFIG</envar> input file that was used in establishing the source as a PinG/elevated source</para>
 </listitem>
 <listitem>
-<para>Type 1: If “TOP” was used in the <envar>PELVCONFIG</envar> input file, this field says "RANK"</para>
+<para>Type 1: If <quote>TOP</quote> was used in the <envar>PELVCONFIG</envar> input file, this field says <quote>RANK</quote></para>
 </listitem>
 <listitem>
 <para>Test 1: The test used to establish this source as a PinG/elevated source (e.g., &gt;, &lt;, &gt;=, =)</para>
 </listitem>
 <listitem>
-<para>Val 1: If TOP was used, this value is the RANK. Otherwise, this value is the criterion used with Var 1 and Test 1 (e.g., if Var 1 is HT, Test 1 is "&gt;", and if Val 1 is 50, then the criterion for selection is that the stack height be greater than 50.</para>
+<para>Val 1: If TOP was used, this value is the RANK. Otherwise, this value is the criterion used with Var 1 and Test 1 (e.g., if Var 1 is HT, Test 1 is <quote>&gt;</quote>, and if Val 1 is 50, then the criterion for selection is that the stack height be greater than 50.</para>
 </listitem>
 </itemizedlist>
 
@@ -387,7 +387,7 @@
 
 <itemizedlist spacing="compact">
 <listitem>
-<para>"Kept" unique CAS number</para>
+<para><quote>Kept</quote> unique CAS number</para>
 </listitem>
 <listitem>
 <para>Emissions total for the CAS number</para>

@@ -20,16 +20,16 @@
 
 <orderedlist>
 <listitem>
-<para>Go to the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>, then click on "SMOKE".</para>
+<para>Go to the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>, then click on <quote>SMOKE</quote>.</para>
 </listitem>
 <listitem>
-<para>Click on "Register to download SMOKE".</para>
+<para>Click on <quote>Register to download SMOKE</quote>.</para>
 </listitem>
 <listitem>
-<para>Complete the registration form, then click "Submit".</para>
+<para>Complete the registration form, then click <quote>Submit</quote>.</para>
 </listitem>
 <listitem>
-<para>You will be sent to the CMAS Model Clearinghouse download page. Click "SMOKE".</para>
+<para>You will be sent to the CMAS Model Clearinghouse download page. Click <quote>SMOKE</quote>.</para>
 </listitem>
 <listitem>
 <para>Download the SMOKE default data file (<filename>smoke.nctox.data.tar.gz</filename>).</para>
@@ -120,7 +120,7 @@
 
 <para><userinput><command>echo</command> <envar>$EDSS_OS</envar></userinput></para>
 
-<para>If the value that comes back from this command is not listed as a "case" in the <filename>platform</filename> file in lines 45-71, then you need to update the <filename>platform</filename> file to have your case in lines 45-71, and you need to update for your case in the section composed of lines 75-128. You will also need to determine which compiler options are needed on your system for maximum optimization (like the -O3 option), whether any options are needed for portable executables (like -static), or whether any options are needed for extra memory allocation (like -bmaxdata:0X20000000 on AIX systems). This will vary depending on platform and compiler; please consult your compiler documentation for exact settings.</para>
+<para>If the value that comes back from this command is not listed as a <quote>case</quote> in the <filename>platform</filename> file in lines 45-71, then you need to update the <filename>platform</filename> file to have your case in lines 45-71, and you need to update for your case in the section composed of lines 75-128. You will also need to determine which compiler options are needed on your system for maximum optimization (like the -O3 option), whether any options are needed for portable executables (like -static), or whether any options are needed for extra memory allocation (like -bmaxdata:0X20000000 on AIX systems). This will vary depending on platform and compiler; please consult your compiler documentation for exact settings.</para>
 </listitem>
 <listitem>
 <para>Once the <filename>platform</filename> file has been updated, enter the following commands from the UNIX prompt:</para>
