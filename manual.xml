@@ -14,6 +14,8 @@
 <!ENTITY chap11 SYSTEM "ch11_source.xml">
 <!ENTITY chap12 SYSTEM "ch12_installation.xml">
 <!ENTITY chap13 SYSTEM "ch13_errors.xml">
+<!ENTITY appA SYSTEM "app_glossary.xml">
+<!ENTITY appB SYSTEM "app_abbreviations.xml">
 ]>
 
 <book>
@@ -33,5 +35,7 @@
 &chap11;
 &chap12;
 &chap13;
+&appA;
+&appB;
 
 </book>
