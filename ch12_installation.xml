@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<chapter id="installation">
+
+<title>Downloading, Installing, and Compiling SMOKE</title>
+
+<section>
+
+<title>Introduction</title>
+
+<para>Instructions on how to download and install SMOKE are provided in <remark>Sections 12.2 and 12.3</remark>. <remark>Section 12.4</remark> describes how to compile SMOKE for UNIX platforms other than those supported by CMAS. The SMOKE compile scripts are configured to use a UNIX c-shell environment, so they are not useful for creating Windows-based SMOKE files; using SMOKE with any version of the Windows operating system is not currently supported. If your operating system is one of the types supported by CMAS, you need only to download the SMOKE executables available from the CMAS Model Clearinghouse, accessible at <remark><ulink url="http://www.cmascenter.org/modelclear.shtml" /></remark>.</para>
+
+</section>
+
+<section>
+
+<title>Downloading SMOKE</title>
+
+<para>Steps for downloading SMOKE:</para>
+
+<orderedlist>
+<listitem>
+<para>Go to the CMAS Model Clearinghouse at <remark><ulink url="http://www.cmascenter.org/modelclear.shtml" /></remark>, then click on "SMOKE".</para>
+</listitem>
+<listitem>
+<para>Click on "Register to download SMOKE".</para>
+</listitem>
+<listitem>
+<para>Complete the registration form, then click "Submit".</para>
+</listitem>
+<listitem>
+<para>You will be sent to the CMAS Model Clearinghouse download page. Click "SMOKE".</para>
+</listitem>
+<listitem>
+<para>Download the SMOKE default data file (<filename>smoke.nctox.data.tar.gz</filename>).</para>
+</listitem>
+<listitem>
+<para>Download the installation script (<filename>smoke_install.csh</filename>).</para>
+</listitem>
+<listitem>
+<para>Download at least one of the operating-system-specific files (e.g., <filename>smoke.IRIXn32f90.tar.gz</filename>, <filename>smoke.Linux2_x86ifc.tar.gz</filename>). Save this file in the same directory as the data file.</para>
+</listitem>
+</orderedlist>
+
+</section>
+
+<section>
+
+<title>Installing SMOKE</title>
+
+<para>Steps for installing SMOKE:</para>
+
+<orderedlist>
+<listitem>
+<para>Make sure that the files you have downloaded for installation are in the same directory.</para>
+</listitem>
+<listitem>
+<para>Choose the directory in which you want to install SMOKE and the data files. This directory will be known as your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory.</para>
+</listitem>
+<listitem>
+<para>At the command line, type:</para>
+
+<para><userinput><command>setenv</command> <envar>EDSS_ROOT</envar> <replaceable>&lt;your selected directory for SMOKE installation&gt;</replaceable></userinput></para>
+</listitem>
+<listitem>
+<para>Make sure your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory exists, by typing at the command line:</para>
+
+<para><userinput><command>mkdir -p</command> <filename class="directory"><envar>$EDSS_ROOT</envar></filename></userinput></para>
+</listitem>
+<listitem>
+<para>Go to the directory in which you have downloaded the SMOKE installation files.</para>
+</listitem>
+<listitem>
+<para>Type the following at the command line:</para>
+
+<para><userinput><command>source</command> <filename>smoke_install.csh</filename></userinput></para>
+
+<para>This command will unzip and install the SMOKE files in your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory.</para>
+</listitem>
+</orderedlist>
+
+<para>The <envar>EDSS_ROOT</envar> setting is needed by the SMOKE scripts. Therefore, it is best to always have this setting defined when you log into your computer. To do this, perform the following additional steps before proceeding:</para>
+
+<orderedlist continuation="continues">
+<listitem>
+<para>Go to your home directory, then use a text editor to view the <filename>.cshrc</filename> file (note that this file is a hidden file, which can be listed in UNIX using the <command>ls -a</command> command at the prompt).</para>
+</listitem>
+<listitem>
+<para>In the <filename>.cshrc</filename> file, add the following line:</para>
+
+<para><userinput><command>setenv</command> <envar>EDSS_ROOT</envar> <replaceable>&lt;your selected directory for SMOKE installation&gt;</replaceable></userinput></para>
+</listitem>
+<listitem>
+<para>Save and close the <filename>.cshrc</filename> file. It will now always define your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory when you log into the computer or when you open a new <command>xterm</command> window.</para>
+</listitem>
+</orderedlist>
+
+<para>Now you are ready to run the SMOKE test case. Running SMOKE is described in <remark>Chapter 4</remark>, which discusses using SMOKE scripts. Please refer to <remark>Section 4.4</remark> of that chapter for instructions on running the default scripts, the "nctox" case. The current SMOKE documentation can be found online at <ulink url="http://www.cep.unc.edu/empd/products/smoke/" />.</para>
+
+</section>
+
+<section>
+
+<title>Compiling SMOKE for UNIX</title>
+
+<para>SMOKE compilation is needed only if the executables for your platform are not available from the CMAS web site. Prior to SMOKE compilation, please take the following steps:</para>
+
+<itemizedlist>
+<listitem>
+<para>Install SMOKE as described above.</para>
+</listitem>
+<listitem>
+<para>If needed, update the file <filename><envar>$EDSS_ROOT</envar>/scripts/platform</filename> to have the compiler options for your operating system. To decide whether you need to update this file, enter the following commands from the UNIX prompt:</para>
+
+<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/scripts</filename></userinput></para>
+
+<para><userinput><command>source</command> <filename>platform</filename></userinput></para>
+
+<para>and if you then get an error, enter</para>
+
+<para><userinput><command>echo</command> <envar>$EDSS_OS</envar></userinput></para>
+
+<para>If the value that comes back from this command is not listed as a "case" in the <filename>platform</filename> file in <remark>lines 45-71</remark>, then you need to update the <filename>platform</filename> file to have your case in <remark>lines 45-71</remark>, and you need to update for your case in the section composed of <remark>lines 75-128</remark>. You will also need to determine which compiler options are needed on your system for maximum optimization (like the -O3 option), whether any options are needed for portable executables (like -static), or whether any options are needed for extra memory allocation (like -bmaxdata:0X20000000 on AIX systems). This will vary depending on platform and compiler; please consult your compiler documentation for exact settings.</para>
+</listitem>
+<listitem>
+<para>Once the <filename>platform</filename> file has been updated, enter the following commands from the UNIX prompt:</para>
+
+<para><userinput><command>cd</command> <filename><envar>$EDSS_ROOT</envar>/scripts</filename></userinput></para>
+
+<para><userinput><command>source</command> <filename>platform</filename></userinput></para>
+
+<para>This sets the <envar>EDSS_EXE</envar> environment variable needed in the next steps.</para>
+</listitem>
+<listitem>
+<para>Collect or create the I/O API library <remark>version 2.1</remark> for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/libioapi.a</filename></para>
+
+<para>You will also need one of the I/O API Tools programs, <command>datshift</command>. Install it as <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/bin/<envar>$EDSS_EXE</envar>/datshift</filename></para>
+</listitem>
+<listitem>
+<para>Collect or create the NetCDF library <remark>version 3.1</remark> or higher for your platform and install it as <filename><envar>$EDSS_ROOT</envar>/subsys/netcdf/bin/<envar>$EDSS_EXE</envar>/libnetcdf.a</filename></para>
+</listitem>
+<listitem>
+<para>If needed, update the files</para>
+
+<itemizedlist>
+<listitem><filename><envar>$EDSS_SUBSYS</envar>/edss_tools/setup/sysflags</filename></listitem> <listitem><filename><envar>$EDSS_SUBSYS</envar>/filesetapi/sysflags</filename></listitem>
+<listitem><filename><envar>$SMKROOT</envar>/assigns/sysflags</filename></listitem>
+</itemizedlist>
+
+<para>to have the compiler options for your operating system. See the instructions above for the <filename>platform</filename> file updates to determine whether you need to do this. All of the same cases available in the <filename>platform</filename> file are also available in these three files.</para>
+</listitem>
+</itemizedlist>
+
+<para>After the appropriate libraries and compile options have been installed, then you are ready to use the SMOKE compile scripts, which are quite simple to use. To compile SMOKE:</para>
+
+<itemizedlist>
+<listitem>
+<para>Source an Assigns file to ensure that your system is configured properly for installation.</para>
+</listitem>
+<listitem>
+<para>Change directories to <filename class="directory"><envar>$SMKROOT</envar>/scripts/make</filename>.</para>
+</listitem>
+<listitem>
+<para>Optionally edit the header of the <filename>Makeall</filename> file to turn off building one or more libraries needed for SMOKE (libfileset, libedsstools, libsmoke, or libmo6). You can turn off these options only if these libraries have been previously compiled for your system.</para>
+</listitem>
+<listitem>
+<para>At the UNIX prompt, type:</para>
+
+<para><userinput><command>Makeall</command></userinput></para>
+
+<para>The only errors that are acceptable when you use this script are errors after the <command>/bin/rm</command> commands. The <command>/bin/rm</command> commands will fail if there are no object files (<filename>*.o</filename> files) in your SMOKE source code directories. This will be the case if you have not previously compiled SMOKE. <remark>If you get errors other than those after the <command>/bin/rm</command> commands, you may submit a help request to the CMAS Help Desk (<ulink url="http://www.cmascenter.org/help.shtml" />).</remark></para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+</chapter>

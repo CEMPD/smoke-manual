@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+                      "http://www.docbook.org/xml/4.3/docbookx.dtd" [
+<!ENTITY chap1 SYSTEM "ch01_introduction.xml">
+<!ENTITY chap2 SYSTEM "ch02_concepts.xml">
+<!ENTITY chap3 SYSTEM "ch03_dirs_files.xml">
+<!ENTITY chap4 SYSTEM "ch04_scripts.xml">
+<!ENTITY chap5 SYSTEM "ch05_utilities.xml">
+<!ENTITY chap6 SYSTEM "ch06_programs.xml">
+<!ENTITY chap7 SYSTEM "ch07_quality_assurance.xml">
+<!ENTITY chap8 SYSTEM "ch08_input_files.xml">
+<!ENTITY chap9 SYSTEM "ch09_intermediate_files.xml">
+<!ENTITY chap10 SYSTEM "ch10_output_files.xml">
+<!ENTITY chap11 SYSTEM "ch11_source.xml">
+<!ENTITY chap12 SYSTEM "ch12_installation.xml">
+<!ENTITY chap13 SYSTEM "ch13_errors.xml">
+]>
+
+<book>
+
+<title>SMOKE User's Manual</title>
+
+&chap1;
+&chap2;
+&chap3;
+&chap4;
+&chap5;
+&chap6;
+&chap7;
+&chap8;
+&chap9;
+&chap10;
+&chap11;
+&chap12;
+&chap13;
+
+</book>
