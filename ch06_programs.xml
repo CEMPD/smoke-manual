@@ -1522,6 +1522,21 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Sets which temporal averaging group to process by indicating which of the group files (<envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, etc.) to open. Valid values are daily, weekly, monthly, and episode.</para>
 </listitem>
 <listitem>
+<para><envar>M6_FLAT_VMT</envar>: [default: Y]</para>
+
+<para>Determines if a flat hourly VMT profile should be used when running MOBILE6</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Use the command VMT BY HOUR with the external input file <filename><envar>$SMK_M6PATH</envar>/SMOKE_flat_hr_vmt.def</filename> to run MOBILE6 with flat hourly VMT profile; <command>Emisfac</command> will comment out the VMT BY HOUR command in any MOBILE6 scenario files</para>
+</listitem>
+<listitem>
+<para>N: Use the MOBILE6 default hourly VMT profile or the VMT BY HOUR command in the MOBILE6 scenario files</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
 <para><envar>MB_HC_TYPE</envar>: [default: TOG]</para>
 
 <para>Sets the type of hydrocarbon pollutant to generate from MOBILE6. Valid values are THC, NMHC, VOC, TOG, and NMOG.</para>
