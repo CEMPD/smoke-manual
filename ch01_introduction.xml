@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<chapter id="introduction">
+<chapter id="ch_introduction">
 
 <title>Introduction</title>
 
@@ -12,35 +12,28 @@
 
 <para>The MCNC Environmental Modeling Center (EMC) created the Sparse Matrix Operator Kernel Emissions (SMOKE) Modeling System to allow emissions data processing methods to integrate high-performance-computing (HPC) sparse-matrix algorithms. The SMOKE system is a significant addition to the available resources for decision-making about emissions controls for both urban and regional applications. It provides a mechanism for preparing specialized inputs for air quality modeling research, and it makes air quality forecasting possible. The SMOKE system continues to develop and improve at the University of North Carolina at Chapel Hill's Carolina Environmental Program (CEP).</para>
 
-<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA), for use with <ulink url="http://www.epa.gov/asmdnerl/models3/">EPA's Models-3 Air Quality Modeling System</ulink>. The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms and (2) emissions processing for reactivity assessments (which are described in more detail in <xref linkend="concepts" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE version 1.5. Most recently, in 2003 SMOKE version 2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE version 2.0 can process criteria gaseous pollutants such as carbon monoxide (CO), nitrogen oxides (NO<subscript>x</subscript>), volatile organic compounds (VOC), ammonia (NH<subscript>3</subscript>), sulfur dioxide (SO<subscript>2</subscript>); particulate matter (PM) pollutants such as PM 2.5 microns or less (PM<subscript>2.5</subscript>) and PM less than 10 microns (PM<subscript>10</subscript>); as well as a large array of toxic pollutants, such as mercury, cadmium, benzene, and formaldehyde. In fact, SMOKE has no limitation regarding the number or types of pollutants it can process.</para>
+<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA), for use with <ulink url="http://www.epa.gov/asmdnerl/models3/">EPA's Models-3 Air Quality Modeling System</ulink>. The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms and (2) emissions processing for reactivity assessments (which are described in more detail in <xref linkend="ch_concepts" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE version 1.5. Most recently, in 2003 SMOKE version 2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE version 2.0 can process criteria gaseous pollutants such as carbon monoxide (CO), nitrogen oxides (NO<subscript>x</subscript>), volatile organic compounds (VOC), ammonia (NH<subscript>3</subscript>), sulfur dioxide (SO<subscript>2</subscript>); particulate matter (PM) pollutants such as PM 2.5 microns or less (PM<subscript>2.5</subscript>) and PM less than 10 microns (PM<subscript>10</subscript>); as well as a large array of toxic pollutants, such as mercury, cadmium, benzene, and formaldehyde. In fact, SMOKE has no limitation regarding the number or types of pollutants it can process.</para>
 
-<para>The purpose of SMOKE (or any emissions processor) is to convert the resolution of the emission inventory data to the resolution needed by an air quality model. Emission inventories are typically available with an annual-total emissions value for each emissions source, or perhaps with an average-day emissions value. The AQMs, however, typically require emissions data on an hourly basis, for each model grid cell (and perhaps model layer), and for each model species. (Please refer to <!--<link linkend="appB">Appendix B</link>--> for a glossary with definitions of these terms.) Consequently, emissions processing involves transforming an emission inventory through temporal allocation, chemical speciation, and spatial allocation, to achieve the input requirements of the AQM.</para>
+<para>The purpose of SMOKE (or any emissions processor) is to convert the resolution of the emission inventory data to the resolution needed by an air quality model. Emission inventories are typically available with an annual-total emissions value for each emissions source, or perhaps with an average-day emissions value. The AQMs, however, typically require emissions data on an hourly basis, for each model grid cell (and perhaps model layer), and for each model species. <remark>(Please refer to <!--<link linkend="appB">Appendix B</link>--> for a glossary with definitions of these terms.)</remark> Consequently, emissions processing involves transforming an emission inventory through temporal allocation, chemical speciation, and spatial allocation, to achieve the input requirements of the AQM.</para>
 
 <para>Currently, SMOKE supports area-, mobile-, and point-source emissions processing and also includes biogenic emissions modeling through both a rewrite of the Biogenic Emission Inventory System, version 2 (BEIS2) and the new BEIS3 system. SMOKE can process both criteria and toxic emissions data inventories. The terminology of source categories used by inventory developers is often different from that used in SMOKE. The list below clarifies how various inventory source categories map to the SMOKE source categories described in this manual.</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>SMOKE "area" sources
-    <itemizedlist>
-    <listitem>Criteria stationary area sources
-    </listitem>
-    <listitem>Toxics nonpoint sources
-    </listitem>
-    <listitem>Criteria and toxics nonroad mobile sources
-    </listitem>
+    <itemizedlist spacing="compact">
+    <listitem>Criteria stationary area sources</listitem>
+    <listitem>Toxics nonpoint sources</listitem>
+    <listitem>Criteria and toxics nonroad mobile sources</listitem>
     </itemizedlist>
 </listitem>
-
 <listitem>SMOKE "mobile" sources
-    <itemizedlist>
-    <listitem>Criteria and toxics on-road mobile sources
-    </listitem>
+    <itemizedlist spacing="compact">
+    <listitem>Criteria and toxics on-road mobile sources</listitem>
     </itemizedlist>
 </listitem>
-    
 <listitem>SMOKE "point" sources
-    <itemizedlist>
-    <listitem>Criteria and toxics point sources
-    </listitem>
+    <itemizedlist spacing="compact">
+    <listitem>Criteria and toxics point sources</listitem>
     </itemizedlist>
 </listitem>
 </itemizedlist>
@@ -49,11 +42,11 @@
 
 <section>
 
-<title>SMOKE users</title>
+<title>SMOKE Users</title>
 
 <para>Possible SMOKE users are individuals who need to prepare emission input files for one of the following air quality models:</para>
 
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem>Community Multiscale Air Quality (CMAQ) modeling system</listitem>
 <listitem>Multiscale Air Quality Simulation Platform (MAQSIP)</listitem>
 <listitem>Regulatory Modeling System for Aerosols and Deposition (REMSAD)</listitem>
@@ -64,7 +57,7 @@
 
 <para>We anticipate that the typical SMOKE user will have some combination of the following experience and needs:</para>
 
-<orderedlist>
+<orderedlist spacing="compact">
 <listitem>Those knowledgeable about emission inventories.</listitem>
 <listitem>Those with UNIX experience (including Linux).</listitem>
 <listitem>Those with little or no emissions modeling background.</listitem>
@@ -75,17 +68,17 @@
 <listitem>Those wishing to generate an on-road mobile inventory using MOBILE6 and the Pennsylvania State University/National Center for Atmospheric Research fifth-generation Mesoscale Model (MM5) gridded, hourly temperature data.</listitem>
 </orderedlist>
 
-<para>SMOKE users who have previous UNIX (which includes Linux) experience can expect to run SMOKE more easily than users who must learn both UNIX and SMOKE. This is because the standard way to run SMOKE is from UNIX scripts. SMOKE can also be run through the Multimedia Integrated Modeling System (MIMS) framework, though instructions for doing so are not included here. More information on using MIMS can be found at <ulink url="http://www.epa.gov/asmdnerl/mims/software/release/fw_release.html" />.</para>
+<para>SMOKE users who have previous UNIX (which includes Linux) experience can expect to run SMOKE more easily than users who must learn both UNIX and SMOKE. This is because the standard way to run SMOKE is from UNIX scripts. SMOKE can also be run through the Multimedia Integrated Modeling System (MIMS) framework, though instructions for doing so are not included here. More information on using MIMS can be found at the <ulink url="http://www.epa.gov/asmdnerl/mims/software/release/fw_release.html">MIMS Framework Download</ulink> page.</para>
 
 </section>
 
 <section>
 
-<title>SMOKE features</title>
+<title>SMOKE Features</title>
 
-<para>SMOKE version 2.0 is primarily an emissions processing system and not an emission inventory preparation system. This means that its main purpose is to provide an efficient tool for converting emission inventory data into the formatted emission input files required by an AQM. However, for mobile and biogenic sources, SMOKE does offer emission inventory preparation functions. For mobile sources, SMOKE computes an emission inventory from mobile-source activity data, using emission factors from the MOBILE6 model. Previous versions of SMOKE (version 1.4 and below) have also supported the MOBILE5b model. For biogenic sources, SMOKE includes both the BEIS2 and BEIS3 models for computation of hour-specific, meteorology-based biogenic emissions from vegetation and soils.</para>
+<para>SMOKE version 2.0 is primarily an emissions processing system and not an emission inventory preparation system. This means that its main purpose is to provide an efficient tool for converting emission inventory data into the formatted emission input files required by an AQM. However, for mobile and biogenic sources, SMOKE does offer emission inventory preparation functions. For mobile sources, SMOKE computes an emission inventory from mobile-source activity data, using emission factors from the MOBILE6 model. Previous versions of SMOKE (version 1.4 and below) supported the MOBILE5b model. For biogenic sources, SMOKE includes both the BEIS2 and BEIS3 models for computation of hour-specific, meteorology-based biogenic emissions from vegetation and soils.</para>
 
-<para>The SMOKE modeling system can be run using either of two approaches. The most common method is through the use of UNIX scripts, which includes the Linux versions of the UNIX operating system. <remark>SMOKE classroom training using UNIX scripts is available for version 2.0 of SMOKE, as of October 2003. This manual includes space in Chapter 14 for training materials used in the classroom training, which can be obtained by submitting a <ulink url="http://www.cmascenter.org/emailsupp.shtml">User Support Request</ulink> to the Community Modeling and Analysis System (CMAS) Center after the October 2003 CMAS training.</remark> The second approach is to run SMOKE using the <ulink url="http://www.epa.gov/asmdnerl/mims/">MIMS interface</ulink>, which is a general-purpose graphical user interface (GUI).</para>
+<para>The SMOKE modeling system can be run using either of two approaches. The most common method is through the use of UNIX scripts, which includes the Linux versions of the UNIX operating system. The second approach is to run SMOKE using the <ulink url="http://www.epa.gov/asmdnerl/mims/">MIMS interface</ulink>, which is a general-purpose graphical user interface (GUI).</para>
 
 <para>Below, we summarize the major features of SMOKE version 2.0.</para>
 
@@ -176,51 +169,51 @@
 
 <section>
 
-<title>How to use this manual</title>
+<title>How to Use this Manual</title>
 
-<para>This document is the most complete reference available on SMOKE. It is available both as an HTML document and PDF document (including page numbers) at <ulink url="http://www.cep.unc.edu/empd/products/smoke/SMOKEDOCS.shtml" />.</para>
+<para>This document is the most complete reference available on SMOKE. It is available both as an HTML document and PDF document (including page numbers) from the <ulink url="http://www.cep.unc.edu/empd/products/smoke/SMOKEDOCS.shtml">SMOKE documentation</ulink> page.</para>
 
-<para>The document's overall table of contents shows all chapter topics and subtopics, while each chapter includes its own table of contents (without page numbers) at the head of the chapter. In the online version of the manual, the table of contents and the chapter contents use hyperlinks to facilitate navigation of the document.</para>
+<para><remark>The document's overall table of contents shows all chapter topics and subtopics, while each chapter includes its own table of contents (without page numbers) at the head of the chapter. In the online version of the manual, the table of contents and the chapter contents use hyperlinks to facilitate navigation of the document.</remark></para>
 
 <para>Given below are typical activities for which users need this manual, and the resources available to meet those needs.</para>
 
 <para><emphasis role="bold">Install SMOKE:</emphasis></para>
 
-<para>Installation instructions are available in Chapter 12, and online after registering for and downloading SMOKE. To register and download, see <ulink url="http://www.cmascenter.org/modelclear.shtml#smoke" />.</para>
+<para>Installation instructions are available in <xref linkend="ch_installation" />. To register and download SMOKE, visit the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>.</para>
 
 <para><emphasis role="bold">Compile SMOKE:</emphasis></para>
 
-<para>Chapter 12 provides instructions for compiling SMOKE for platforms other than the default ones supported by the CMAS Center.</para>
+<para><xref linkend="ch_installation" /> provides instructions for compiling SMOKE for platforms other than the default ones supported by the CMAS Center.</para>
 
 <para><emphasis role="bold">Run SMOKE test case:</emphasis></para>
 
-<para>Chapter 4 provides instructions for running the cases provided with SMOKE.</para>
+<para><xref linkend="ch_scripts" /> provides instructions for running the cases provided with SMOKE.</para>
 
 <para><emphasis role="bold">Set up and run SMOKE for new inventory, grid, episode, etc.:</emphasis></para>
 
-<para>Chapter 4 includes instructions on how users can set up SMOKE for their own cases. Additionally, the SMOKE classroom training available through the CMAS Center covers these topics in more detail. Chapter 4 references other chapters to indicate files and settings that must be changed for different configurations.</para>
+<para><xref linkend="ch_scripts" /> includes instructions on how users can set up SMOKE for their own cases. The <ulink url="http://www.cmascenter.org/html/classes_SMOKE.html">SMOKE classroom training</ulink> available through the CMAS Center covers these topics in more detail. <xref linkend="ch_scripts" /> references other chapters to indicate files and settings that must be changed for different configurations.</para>
 
 <para><emphasis role="bold">Prepare input files:</emphasis></para>
 
-<para>Most SMOKE input files are ASCII files that can be prepared using database programs or other tools. Many of the SMOKE default files include data available from EPA, and may need not to be replaced; if desired, users may edit or replace these files based on the formatting descriptions in Chapter 8. Users may also obtain input data files (perhaps not in SMOKE input format) from EPA web sites, such as the Clearinghouse for Inventories and Emission Factors (CHIEF) <ulink url="http://www.epa.gov/ttn/chief/emch/">web site</ulink>.</para>
+<para>Most SMOKE input files are ASCII files that can be prepared using database programs or other tools. Many of the SMOKE default files include data available from EPA, and may need not to be replaced; if desired, users may edit or replace these files based on the formatting descriptions in <xref linkend="ch_input_files" />. Users may also obtain input data files (perhaps not in SMOKE input format) from EPA web sites, such as the Clearinghouse for Inventories and Emission Factors (CHIEF) <ulink url="http://www.epa.gov/ttn/chief/emch/">web site</ulink>.</para>
 
 <para><emphasis role="bold">Decide how to assign settings in run scripts:</emphasis></para>
 
-<para>In Chapter 4 we cover the SMOKE scripts and how to use them. The settings are assigned via environment variables, which are explained in general terms in Chapter 2. Any settings used to control the scripts (not the programs) are described in Chapter 4. The settings that are evaluated by SMOKE programs and directly affect their behavior are further explained in Chapters 5, 6, and 7.</para>
+<para>In <xref linkend="ch_scripts" /> we cover the SMOKE scripts and how to use them. The settings are assigned via environment variables, which are explained in general terms in <xref linkend="ch_concepts" />. Any settings used to control the scripts (not the programs) are described in <xref linkend="ch_scripts" />. The settings that are evaluated by SMOKE programs and directly affect their behavior are further explained in <xref linkend="ch_utilities" />, <xref linkend="ch_programs" />, and <xref linkend="ch_quality_assurance" />.</para>
 
 <para><emphasis role="bold">Check that SMOKE has run properly:</emphasis></para>
 
-<para>Chapter 4, which covers all aspects of running SMOKE, includes a list of steps regarding how to verify that SMOKE has run properly. Chapter 7 also includes instructions on running the quality assurance (QA) features of SMOKE. Chapter 8 includes documentation on the reporting control file (REPCONFIG) needed for configuring different types of reports for quality assurance. Chapter 13 includes SMOKE errors and warnings associated with each program, with explanations about what one might do to correct problems.</para>
+<para><xref linkend="ch_quality_assurance" /> includes a list of steps regarding how to verify that SMOKE has run properly. This chapter also includes instructions on running the quality assurance (QA) features of SMOKE and documentation on the reporting control file (<xref linkend="sect_qa_repconfig" />) needed for configuring different types of reports for quality assurance. <xref linkend="ch_errors" /> includes SMOKE errors and warnings associated with each program, with explanations about what one might do to correct problems.</para>
 
 <para><emphasis role="bold">Understand the operations that SMOKE is performing:</emphasis></para>
 
-<para>Any available technical documentation regarding SMOKE operations is provided in Chapters 5, 6, and 7 for each SMOKE program. We are continuously working to enhance this documentation and can take suggestions through the CMAS Center User Support (see next bullet).</para>
+<para>Any available technical documentation regarding SMOKE operations is provided in <xref linkend="ch_utilities" />, <xref linkend="ch_programs" />, and <xref linkend="ch_quality_assurance" /> for each SMOKE program. We are continuously working to enhance this documentation and can take suggestions through the CMAS Center Help Desk (see next bullet).</para>
 
 <para><emphasis role="bold">Submit problem reports or questions about SMOKE:</emphasis></para>
 
-<para>The CMAS Center has a "CMAS Center User Support" system called Bugzilla that one can use to submit problem reports for SMOKE and other Models-3 components. It is available on the web at <ulink url="http://www.cmascenter.org/emailsupp.shtml" />.</para>
+<para>All questions and problems concerning SMOKE and other Models-3 components should be submitted through the <ulink url="http://www.cmascenter.org/html/help.html">CMAS Center Help Desk</ulink>.</para>
 
-<para>This manual does not provide substantial technical documentation on the code itself, though some information is provided in Chapter 11. The code does have extensive in-line documentation to assist Fortran-savvy users in understanding its workings. We hope that in the future we will be able to enhance the documentation in Chapter 11, but are unsure of the necessity and have not obtained resources for such documentation to date.</para>
+<para>This manual does not provide substantial technical documentation on the code itself, though some information is provided in <xref linkend="ch_source" />. The code does have extensive in-line documentation to assist Fortran-savvy users in understanding its workings. We hope that in the future we will be able to enhance the documentation in <xref linkend="ch_source" />, but are unsure of the necessity and have not obtained resources for such documentation to date.</para>
 
 </section>
 
