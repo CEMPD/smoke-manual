@@ -161,7 +161,7 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">filesetapi</filename>: Contains the source code, makefiles, and library object files for the FileSetAPI library, necessary for compiling SMOKE programs.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">ioapi</filename>: A placeholder location for the I/O API library object files. When compiling SMOKE, the makefiles look here for the I/O API library, but the actual library can be linked to the main I/O API installation, which can be elsewhere on your computer. This is covered in the <xref linkend="ch_installation" /> installation description. The <filename class="directory">ioapi</filename> subdirectory is also where SMOKE scripts look for the <command>datshift</command> I/O API program.</para>
+<para><filename class="directory">ioapi</filename>: Contains the source code, makefiles, and library object files for the I/O API library, necessary for compiling SMOKE programs. This directory also contains the I/O API utility programs needed by the SMOKE scripts.</para>
 </listitem>
 <listitem>
 <para><filename class="directory">ioapi_includes</filename>: Location for the I/O API include files, needed for compiling the FileSetAPI library, EDSS Tools library, and SMOKE libraries and programs. All makefiles that come with SMOKE look here for the I/O API include files, which are included with the SMOKE installation files.</para>
@@ -196,7 +196,7 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">assigns</filename>: Contains the Assigns files and all helper scripts for the Assigns files.</para>
 </listitem>
 <listitem>
-<para><filename class="directory">doc</filename>: Contains the SMOKE user documentation <remark>(not included with SMOKE v2.0)</remark> and files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked properly.</para>
+<para><filename class="directory">doc</filename>: Contains the <comment>SMOKE user documentation <remark>(not included with SMOKE v2.0)</remark> and</comment> files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked properly.</para>
 </listitem>
 <listitem>
 <para><filename class="directory"><envar>$EDSS_EXE</envar></filename>: This directory contains the executables for your particular system. Different directory names apply to different platforms (e.g., <filename class="directory">Linux2_x86ifc</filename>, <filename class="directory">IRIXn32f90</filename>, <filename class="directory">SunOS5f90</filename>). For more information about the various platforms for which SMOKE is available, see <xref linkend="ch_installation" />.</para>
@@ -235,7 +235,7 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 <listitem>
 <para><filename class="directory">src/emutil</filename>: <command>Beld3to2</command>, <command>Extractida</command>, 
-<command>Geofac</command>, <command>Invsplit</command>, <command>Metscan</command>, <command>Pktreduc</command>, <command>Smk2emis</command>, <command>Surgtool</command>, <command>Uam2ncf</command></para>
+<command>Geofac</command>, <command>Invsplit</command>, <command>Metcombine</command>, <command>Metscan</command>, <command>Pktreduc</command>, <command>Smk2emis</command>, <command>Surgtool</command>, <command>Uam2ncf</command></para>
 </listitem>
 <listitem>
 <para><filename class="directory">src/grdmat</filename>: <command>Grdmat</command></para>
@@ -1183,6 +1183,11 @@ source $ASSIGNS/set_dirs.scr
 <entry><filename>scc_desc.txt</filename></entry>
 <entry><envar>SCCDESC</envar></entry>
 <entry>SCC descriptions, from EPA web site: <ulink url="http://www.epa.gov/ttn/chief/codes/index.html#scc" /></entry>
+</row>
+<row>
+<entry><filename>sic_desc.txt</filename></entry>
+<entry><envar>SICDESC</envar></entry>
+<entry>SIC descriptions</entry>
 </row>
 <row>
 <entry><filename>srg_desc.us36.txt</filename></entry>
