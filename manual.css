@@ -1,0 +1,27 @@
+SPAN.remark {
+  color:     #AA0000;
+}
+
+TABLE {
+  border-collapse: collapse;
+  border: none;
+}
+
+TH, TD {
+  padding: 0.3em;
+  border: 1px solid black;
+}
+
+DIV.navfooter TD, DIV.navfooter TH, DIV.navheader TD, DIV.navheader TH {
+  padding: 0;
+  border: none;
+}
+
+H1, H2, H3, H4, H5, H6, P.title {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+P.title {
+  font-size: smaller;
+}
+
