@@ -43,8 +43,8 @@
 <table>
 <title>I/O API Header for <envar>ACMAT</envar>, <envar>MCMAT</envar>, and <envar>PCMAT</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -73,10 +73,10 @@
 <table>
 <title>Variables in <envar>ACMAT</envar>, <envar>MCMAT</envar>, and <envar>PCMAT</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -123,8 +123,8 @@
 <table>
 <title>I/O API Header for <envar>APMAT</envar>, <envar>MPMAT</envar>, and <envar>PPMAT</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -148,10 +148,10 @@
 <table>
 <title>Variables in <envar>APMAT</envar>, <envar>MPMAT</envar>, and <envar>PPMAT</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="25*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -186,8 +186,8 @@
 <table>
 <title>I/O API Header for <envar>ARMAT</envar>, <envar>MRMAT</envar>, and <envar>PRMAT</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -221,10 +221,10 @@
 <table>
 <title>Variables in <envar>ARMAT</envar>, <envar>MRMAT</envar>, and <envar>PRMAT</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -365,8 +365,8 @@
 <table>
 <title>I/O API Header for <envar>STACK_GROUPS</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -390,10 +390,10 @@
 <table>
 <title>Variables in <envar>STACK_GROUPS</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="25*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -529,8 +529,8 @@
 <table>
 <title>I/O API Header for emission factor files</title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -559,10 +559,10 @@
 <table>
 <title>Variables in <envar>STACK_GROUPS</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="25*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -632,8 +632,8 @@
 <table>
 <title>I/O API Header for <envar>AGMAT</envar>, <envar>MGMAT</envar>, and <envar>PGMAT</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -664,10 +664,10 @@
 <table>
 <title>Variables in <envar>AGMAT</envar>, <envar>MGMAT</envar>, and <envar>PGMAT</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="25*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -733,8 +733,8 @@
 <table>
 <title>I/O API Header for <envar>AREA_O</envar>, <envar>MOBL_O</envar>, and <envar>PNTS_O</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -763,10 +763,10 @@
 <table>
 <title>Variables in <envar>AREA_O</envar>, <envar>MOBL_O</envar>, and <envar>PNTS_O</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -1007,8 +1007,8 @@
 <table>
 <title>I/O API Header for <envar>PLAY</envar> and <envar>PLAY_EX</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -1032,10 +1032,10 @@
 <table>
 <title>Variables in <envar>PLAY</envar> and <envar>PLAY_EX</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="25*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -1257,8 +1257,8 @@
 <table>
 <title>I/O API Header for <envar>B3GRD</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -1292,10 +1292,10 @@
 <table>
 <title>Variables in <envar>B3GRD</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -1368,8 +1368,8 @@
 <table>
 <title>I/O API Header for hourly temperature files</title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -1393,10 +1393,10 @@
 <table>
 <title>Variables in hourly temperature files</title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="25*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -1451,8 +1451,8 @@
 <table>
 <title>I/O API Header for <envar>BGRD</envar> and <envar>BGRDW</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -1486,10 +1486,10 @@
 <table>
 <title>Variables in <envar>BGRD</envar> and <envar>BGRDW</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -1568,8 +1568,8 @@
 <table>
 <title>I/O API Header for <envar>AREA</envar>, <envar>MOBL</envar>, and <envar>PNTS</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -1598,10 +1598,10 @@
 <table>
 <title>Variables in <envar>AREA</envar>, <envar>MOBL</envar>, and <envar>PNTS</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -1902,8 +1902,8 @@
 <table>
 <title>I/O API Header for <envar>PDAY</envar> and <envar>PHOUR</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -1932,10 +1932,10 @@
 <table>
 <title>Variables in <envar>PDAY</envar> and <envar>PHOUR</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -2031,8 +2031,8 @@
 <table>
 <title>I/O API Header for <envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, and <envar>PSMAT_S</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -2061,10 +2061,10 @@
 <table>
 <title>Variables in <envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, and <envar>PSMAT_S</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
@@ -2111,8 +2111,8 @@
 <table>
 <title>I/O API Header for <envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, and <envar>PSMAT_L</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -2141,10 +2141,10 @@
 <table>
 <title>Variables in <envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, and <envar>PSMAT_L</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="25*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -2205,8 +2205,8 @@
 <table>
 <title>I/O API Header for <envar>ATMP</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar></title>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="40*" />
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="40*" />
 
 <thead>
@@ -2233,12 +2233,12 @@
 </table>
 
 <table>
-<title>Variables in <envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, and <envar>PSMAT_S</envar></title>
+<title>Variables in <envar>ATMP</envar>, <envar>MTMP</envar>, and <envar>PTMP</envar></title>
 <tgroup cols="4">
-<colspec colwidth="3*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
 
 <thead>
 <row>
