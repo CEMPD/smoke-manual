@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
                       
-<chapter id="input_files">
+<chapter id="ch_input_files">
 
 <title>SMOKE Input Files</title>
 
@@ -461,7 +461,7 @@
 
 </section>
 
-<section>
+<section id="sect_input_nctox_case">
 
 <title>Input files for SMOKE nctox case</title>
 
@@ -7717,10 +7717,10 @@ SOURCE > 100 AND SOURCE < 200
 <para>001000 2501080000 (select a whole state and all SCCs that match levels 1, 2, and 3)</para>
 </listitem>
 <listitem>
-<para>001000 2501000000 (select a specific county and all SCCs that match levels 1 and 2)</para>
+<para>001000 2501000000 (select a whole state and all SCCs that match levels 1 and 2)</para>
 </listitem>
 <listitem>
-<para>001000 2500000000 (select a specific county and all SCCs that match level 1)</para>
+<para>001000 2500000000 (select a whole state and all SCCs that match level 1)</para>
 </listitem>
 <listitem>
 <para>001001   0000000000 (select all SCCs in a specific county)</para>
