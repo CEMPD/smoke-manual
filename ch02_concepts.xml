@@ -711,7 +711,7 @@ Additional data</programlisting>
 
 <title>Map projections and model grids</title>
 
-<para>A map projection is the mathematical representation of the spherical surface of the earth on a 2-D plane. SMOKE supports Lambert conformal, lat-lon, and UTM map projections. There are many different settings that you may use to define your Lambert conformal and UTM projections, to make these projections match the one being used by your meteorology model and AQM. (Lat-lon is a fixed projection and cannot be changed.)</para>
+<para>A map projection is the mathematical representation of the spherical surface of the earth on a 2-D plane. SMOKE supports Lambert conformal, lat-lon, UTM, and polar stereographic map projections. There are many different settings that you may use to define your Lambert conformal, UTM, and polar stereographic projections, to make these projections match the one being used by your meteorology model and AQM. (Lat-lon is a fixed projection and cannot be changed.)</para>
 
 <para>A model grid is a two-dimensional region overlaid on a map projection. It is defined by the starting <emphasis>x-y</emphasis> coordinates, the number of grid cells in each direction, and the physical size of the grid cells. <xref linkend="fig_concepts_grid" /> shows an example of a model grid that includes most of the eastern U.S. This example has <comment>starting coordinates of,</comment> 81 grid cells in the <emphasis>x</emphasis>-direction, 75 grid cells in the <emphasis>y</emphasis>-direction, and each grid cell is 36 by 36 kilometers. Each set of 10 cells by 10 cells (counting from the starting coordinates) is enclosed in black grid lines.</para>
 

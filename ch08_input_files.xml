@@ -5438,6 +5438,7 @@ INVYEAR 1995
 <itemizedlist spacing="compact">
 <listitem>Latitude-Longitude: <quote>LAT-LON</quote> or <quote>LATGRD3</quote></listitem>
 <listitem>Lambert Conformal: <quote>LAMBERT</quote> or <quote>LAMGRD3</quote></listitem>
+<listitem>Polar Stereographic: <quote>POLAR</quote> or <quote>POLGRD3</quote></listitem>
 <listitem>UTM: <quote>UTM</quote> or <quote>UTMGRD3</quote></listitem>
 </itemizedlist>
 

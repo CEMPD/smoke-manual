@@ -392,6 +392,13 @@
 </glossentry>
 
 <glossentry>
+<glossterm>Polar stereographic</glossterm>
+<glossdef>
+<para>A type of map projection.</para>
+</glossdef>
+</glossentry>
+
+<glossentry>
 <glossterm>Profile data</glossterm>
 <glossdef>
 <para>Factors used for disaggregating emissions data as is done during chemical speciation or temporal allocation.</para>

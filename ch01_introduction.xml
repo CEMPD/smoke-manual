@@ -108,6 +108,9 @@
 <para><emphasis>Any</emphasis> chemical mechanism can be used to partition pollutants to model species, as long as the appropriate input data are supplied.</para>
 </listitem>
 <listitem>
+<para>Supports Lambert conformal, lat-lon, UTM, and polar stereographic output grid projections with any number of grid cells.</para>
+</listitem>
+<listitem>
 <para>Improved control strategy input formats and design over previous SMOKE versions.</para>
 </listitem>
 <listitem>

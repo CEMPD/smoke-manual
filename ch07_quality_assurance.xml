@@ -770,6 +770,8 @@
 <listitem><emphasis>R</emphasis> is the radius of the earth in meters</listitem>
 </itemizedlist>
 
+<para><remark>The NORMALIZE CELLAREA command cannot be used with polar stereographic grids at this time.</remark></para>
+
 <para>This instruction requires that the GRIDDING instruction also be used, because the gridding information is needed in order to normalize the emissions by grid area. If the GRIDDING instruction is left out of the report instructions, <command>Smkreport</command> will add it to the report and continue.</para>
 </listitem>
 <listitem>
