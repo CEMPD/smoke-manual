@@ -8,7 +8,7 @@
 
 <title>Overview</title>
 
-<para>There are nine programs covered in this chapter:</para>
+<para>There are ten programs covered in this chapter:</para>
 
 <para>The <link linkend="sect_utilities_beld3to2"><command>Beld3to2</command></link> program converts two BELD3 I/O API netCDF files into a single BELD2 ASCII file for input into <command>Rawbio</command>.</para>
 
@@ -18,7 +18,9 @@
 
 <para><link linkend="sect_utilities_invsplit"><command>Invsplit</command></link> splits an IDA, SMOKE toxics, or EMS-95 inventory into separate inventories by state, grouping the states as indicated by your inputs.</para>
 
-<para><link linkend="sect_utilities_metscan"><command>Metscan</command></link> reads up to one year&rsquo;s worth of first-layer I/O API meteorology data (whether 2-D or 3-D files) and determine the first and last freeze dates of the year, for use by <command>Tmpbio</command> in setting winter/summer emission factors by day and grid cell.</para>
+<para><link linkend="sect_utilities_metcombine"><command>Metcombine</command></link> combines 2-D gridded meteorology data with the 1st layer of 3-D gridded meteorology data to create input files for <command>Premobl</command>.</para>
+
+<para><link linkend="sect_utilities_metscan"><command>Metscan</command></link> reads up to one year&rsquo;s worth of first-layer I/O API meteorology data (whether 2-D or 3-D files) and determine the first and last freeze dates of the year, for use by <command>Tmpbio</command> or <command>Tmpbeis3</command> in setting winter/summer emission factors by day and grid cell.</para>
 
 <para><link linkend="sect_utilities_pktreduc"><command>Pktreduc</command></link> reduces the size of /PROJECTION/ packets, but keeps the same information by identifying and implementing state defaults where none already exist in the file.</para>
 
@@ -482,6 +484,115 @@ PAR             0.6</programlisting></entry>
 <entry><envar>LOGFILE</envar></entry>
 <entry>ASCII</entry>
 <entry>Log generated from executing <command>Invsplit</command></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+</section>
+
+</section>
+
+<section id="sect_utilities_metcombine">
+
+<title><command>Metcombine</command></title>
+
+<section>
+
+<title>Description</title>
+
+<para><command>Metcombine</command> combines 2-D gridded meteorology data with the 1st layer of 3-D gridded meteorology data to create custom files for on-road mobile processing with MOBILE6. To calculate humidity data for use in MOBILE6, the program <command>Premobl</command> needs temperature, pressure, and water vapor mixing ratio data in the same meteorology file. Pressure and mixing ratio data are typically found in the <envar>MET_CRO_3D</envar> file with the variable names PRES and QV, respectively. The <envar>MET_CRO_2D</envar> file usually contains ground-level temperatures (TEMPG), 1.5 meter temperatures (TEMP1P5), and 10 meter temperatures (TEMP10). While it is possible to use air temperature data from the <envar>MET_CRO_3D</envar> file (variable named TA), it is generally recommended to use temperature data from closer to the ground, i.e. ground or 1.5 meter temperatures from <envar>MET_CRO_2D</envar>. <command>Metcombine</command> is used to create custom meteorology files that contain the variables PRES, QV, and TEMPG (or any other temperature variable).</para>
+
+<para>The program takes two I/O API NetCDF gridded meteorology files as input. The files must have identical grid paramaters, start dates and times, time steps, and run lengths. <command>Metcombine</command> is generally used to combine a 2-D file with a 3-D file, but the program is not restricted to that combination; it can be used to combine two 2-D files or the 1st layers of two 3-D files.</para>
+
+</section>
+
+<section>
+
+<title>Processing Order</title>
+
+<para><command>Metcombine</command> can optionally be run before <command>Premobl</command>. If used, <command>Metcombine</command> must be run for each individual meteorology file you need to create. For example, if you have five days worth of meteorology data as one-day files, you'll need to run <command>Metcombine</command> five times. If the meteorology variables you wish to use are already in the same file, then you do not need to use <command>Metcombine</command>.</para>
+
+</section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<section>
+
+<title>Input Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>METFILE1</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>First gridded meteorology file; can be either a 2-D or 3-D file</entry>
+</row>
+<row>
+<entry><envar>METFILE2</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Second gridded meteorology file; can be either a 2-D or 3-D file</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+<section>
+
+<title>Input Environment Variables</title>
+
+<itemizedlist>
+<listitem>
+<para><envar>VARLIST</envar>: [default: none]</para>
+
+<para>Sets the names of the variables that will be read from <envar>METFILE1</envar> and <envar>METFILE2</envar>. Each variable must occur in exactly one of the meteorology files, i.e. the same variable cannot be in both files.</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>Output Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>OUTFILE</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>2-D output meteorology file. This file contains the variables requested in <envar>VARLIST</envar>; for 3-D data, <envar>OUTFILE</envar> will only contain the 1st layer of data. <envar>OUTFILE</envar> will have the same grid parameters, start date and time, time step, and run length as <envar>METFILE1</envar> and <envar>METFILE2</envar>.</entry>
 </row>
 </tbody>
 </tgroup>
