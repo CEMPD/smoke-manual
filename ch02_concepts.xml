@@ -44,7 +44,7 @@
 
 <para>Emission inventories are the key input files to SMOKE and emissions modeling. The data types that these inventories contain are called inventory pollutants (e.g., carbon monoxide, ammonia, mercury). By itself, SMOKE does not require specific data types in the inventory files it reads. However, the AQMs that SMOKE supports do require certain input data, called model species, which in turn requires SMOKE to use certain inventory pollutants.</para>
 
-<para>In this section, we focuse on the inventory files that SMOKE uses. <xref linkend="sect_concepts_inv_data_types" /> describes the major inventory types useable by SMOKE. In <xref linkend="sect_concepts_inv_source_categories" />, we describe the inventory source categories, and in <xref linkend="sect_concepts_inv_file_formats" /> we discuss the inventory file formats. The remaining sections describe the various codes used in specific inventory sources: <xref linkend="sect_concepts_costcy_codes" />, <xref linkend="sect_concepts_scc_codes" />, <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, and <xref linkend="sect_concepts_section_112" />.</para>
+<para>In this section, we focus on the inventory files that SMOKE uses. <xref linkend="sect_concepts_inv_data_types" /> describes the major inventory types useable by SMOKE. In <xref linkend="sect_concepts_inv_source_categories" />, we describe the inventory source categories, and in <xref linkend="sect_concepts_inv_file_formats" /> we discuss the inventory file formats. The remaining sections describe the various codes used in specific inventory sources: <xref linkend="sect_concepts_costcy_codes" />, <xref linkend="sect_concepts_scc_codes" />, <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, and <xref linkend="sect_concepts_section_112" />.</para>
 
 <section id="sect_concepts_inv_data_types">
 
@@ -309,7 +309,7 @@
 
 <para><emphasis role="bold">For point sources,</emphasis> SMOKE has formats for annual or average-day inventories, for day-specific inventories, and for hour-specific inventories. For annual or average-day inventories, the IDA format can be used for criteria and particulate inventories. An EMS-95 format can also be used for average-weekday criteria and particulate inventories; it requires five separate files for each state (SMOKE combines the information from these five files and across all of the states when importing the data). A SMOKE ORL format is available for importing toxics inventories. For day-specific data, we have adapted the EMS-95 format for use in all cases, whether the annual or average-day inventory is in IDA, EMS-95, or SMOKE ORL format. For hour-specific data, a very similar format can be used, again regardless of what format the annual or average-day emissions are provided in. Finally, the CEM data format can be used for day-specific or hour-specific data when using IDA-formatted annual inventories only; SMOKE uses the ORIS codes and boiler codes in the IDA files to match sources between the IDA and CEM data files.</para>
 
-<para><remark><emphasis role="bold">For wildfire sources,</emphasis> you can provide wildfire data that are being treated as point sources to SMOKE using the IDA point-source format. In this case, there are certain fields that must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats.</remark></para>
+<para><emphasis role="bold">For wildfire sources,</emphasis> you can provide wildfire data that are being treated as point sources to SMOKE using the IDA point-source format. In this case, there are certain fields that must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats.</para>
 
 </section>
 
@@ -461,7 +461,7 @@
 
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/concepts/xref_pdf.jpg" />
+<imagedata width="3.5in" fileref="images/concepts/xref_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
 <imagedata fileref="images/concepts/xref_html.jpg" />
@@ -556,15 +556,15 @@
 
 <title>Column-specific ASCII files</title>
 
-<para>In column-specific files, the fields in the files must appear in certain columns in the file. Each character on a line represents a single column. The example below represents a left-justified entry in a data set:</para>
+<para>In column-specific files, the fields in the files must appear in certain columns in the file. Each character on a line represents a single column. The lines below represent a column-specific ASCII data file:</para>
 
 <programlisting>TEST 1 2 3
 
 Additional data</programlisting>
 
-<para>The letters T-E-S-T are in columns 1 through 4 of the file and the numbers 1, 2, and 3 are in columns 6, 8, and 10 respectively:</para>
+<para>The letters <literal>TEST</literal> are in columns 1 through 4 of the file and the numbers 1, 2, and 3 are in columns 6, 8, and 10 respectively:</para>
 
-<programlisting>123456789
+<programlisting>123456789012345
 TEST 1 2 3
 
 Additional data</programlisting>
@@ -987,7 +987,7 @@ Additional data</programlisting>
 
 <title>Pregridded data route</title>
 
-<para>The second processing approach for area sources involves using pregridded data. As indicated in <xref linkend="sect_concepts_summary_source_processing" />, area sources can be specified by grid cell instead of by country/state/county code and SCC. This optional approach to modeling area sources requires the inventory emissions data to be gridded prior to inventory import. The gridded area sources do <emphasis>not</emphasis> have country/state/county codes or SCCs, and can be provided via an I/O API time-independent gridded data file. <remark>Users are responsible for getting their data into this format, which is described in more detail in <xref linkend="ch_input_files" />.</remark> The flow diagrams that describe this type of processing are identical to those in <xref linkend="fig_concepts_area_base" />, <xref linkend="fig_concepts_area_growth" />, and <xref linkend="fig_concepts_area_projection" />. Although the gridding step is quite trivial when the grid cell numbers are already specified, the gridding step must still be run to create a gridding matrix required for the merge step.</para>
+<para>The second processing approach for area sources involves using pregridded data. As indicated in <xref linkend="sect_concepts_summary_source_processing" />, area sources can be specified by grid cell instead of by country/state/county code and SCC. This optional approach to modeling area sources requires the inventory emissions data to be gridded prior to inventory import. The gridded area sources do <emphasis>not</emphasis> have country/state/county codes or SCCs, and can be provided via an I/O API time-independent gridded data file. <comment>Users are responsible for getting their data into this format, which is described in more detail in <xref linkend="ch_input_files" />.</comment> The flow diagrams that describe this type of processing are identical to those in <xref linkend="fig_concepts_area_base" />, <xref linkend="fig_concepts_area_growth" />, and <xref linkend="fig_concepts_area_projection" />. Although the gridding step is quite trivial when the grid cell numbers are already specified, the gridding step must still be run to create a gridding matrix required for the merge step.</para>
 
 <para>The disadvantage of using pregridded emissions for area-source processing is that there are no country/state/county codes and SCCs to use in the cross-referencing of any processing step. Therefore, temporal profiles, speciation profiles, growth factors, and control factors must be applied uniformly across the model grid by pollutant.</para>
 
@@ -1930,7 +1930,7 @@ Additional data</programlisting>
 
 <para><command>Smkinven</command> ensures that all file formats provided to SMOKE are correct and include the required data fields. The formats and their required fields are provided in <xref linkend="ch_input_files" />.</para>
 
-<para><command>Smkinven</command> also ensures that the files listed in list-formatted input files do not include incompatible file formats. Usually, only one file format can be used for one <command>Smkinven</command> run. The major exception to this rule is that <command>Smkinven</command> can import the IDA and SMOKE ORL formats in the same run. The only other minor exception to the input rule is that the EMS-95 point-source format actually includes five separate formats, which can be input at the same time, when users follow the instructions about the order of these files provided in <xref linkend="sect_input_ptinv" />.</para>
+<para><command>Smkinven</command> also ensures that the files listed in list format input files do not include incompatible file formats. Usually, only one file format can be used for one <command>Smkinven</command> run. The major exception to this rule is that <command>Smkinven</command> can import the IDA and SMOKE ORL formats in the same run. The only other minor exception to the input rule is that the EMS-95 point-source format actually includes five separate formats, which can be input at the same time, when users follow the instructions about the order of these files provided in <xref linkend="sect_input_ptinv" />.</para>
 
 </section>
 
@@ -2386,6 +2386,8 @@ Additional data</programlisting>
 
 <para>The temporal processing operation applies factors based on the source characteristics to the emissions data from the SMOKE inventory files. These factors can include monthly, weekly, and diurnal temporal profiles. The resulting emissions data vectors (not a matrix) contain hourly emissions for the inventory species. SMOKE assumes an hourly time step (Even though the time step is an input setting to SMOKE, it currently cannot be changed.). Most of the calculations are implemented as sparse-matrix algebra based upon temporal cross-references and profiles, augmented by the substitution of values from day- and hour-specific emissions data sets. For mobile sources, hourly emissions values also depend on meteorology (e.g., the temperature dependence of evaporative emissions).</para>
 
+<para><xref linkend="fig_concepts_temporal_processing" /> shows how data from the intermediate inventory are stored in the hourly file. The arrow represents the temporal processing steps which convert the annual, average-day, or day- and hour-specific data to hourly data. After the temporal processing, the hourly emissions are stored in the intermediate hourly file, by hour and source number. The emissions are stored in the same order as the sources in the sorted intermediate inventory file.</para>
+
 <figure id="fig_concepts_temporal_processing">
 <title>Transformation of inventory data to hourly data</title>
 
@@ -2448,7 +2450,7 @@ Additional data</programlisting>
 
 <para>When using multiple diurnal profiles, a given source must use a diurnal profile with the same profile code for each day. For example, if a source uses diurnal profile 1 for Monday, it will also use profile 1 for Tuesday, but Monday's profile 1 can be different than Tuesday's profile 1.</para>
 
-<para>For weekly profiles, <command>Temporal</command> evaluates the TPFLAG setting (set by <command>Smkinven</command> as explained in <xref linkend="sect_concepts_set_weekday_approach" />) and uses the weekly-normalized weekly profiles or weekday-normalized weekly profiles, depending on the setting. <remark>The formulas used are described in <xref linkend="sect_programs_temporal" />.</remark></para>
+<para>For weekly profiles, <command>Temporal</command> evaluates the TPFLAG setting (set by <command>Smkinven</command> as explained in <xref linkend="sect_concepts_set_weekday_approach" />) and uses the weekly-normalized weekly profiles or weekday-normalized weekly profiles, depending on the setting. <comment>The formulas used are described in <xref linkend="sect_programs_temporal" />.</comment></para>
 
 <para>One limitation of using monthly, weekly, and diurnal profiles is that there is no week-to-week variation within a month. For example, all Tuesdays in a month use the same emissions profile (unless one happens to be a holiday, see <xref linkend="sect_concepts_holiday_processing" />). This limitation can be overcome by using day-specific emissions data (only for point sources).</para>
 
@@ -2612,7 +2614,7 @@ Additional data</programlisting>
 
 <para>An emission inventory is built and reported for a variety of pollutants, such as CO, NO<subscript>x</subscript>, VOC, PM<subscript>10</subscript>, and SO<subscript>2</subscript>. However, AQM chemical mechanisms (e.g., CB4) contain a simplified set of equations that use "model species" to represent atmospheric chemistry. Therefore, emissions processing requires speciation profiles to convert the emissions in terms of pollutant values to the species used in the photochemical mechanism. The purpose of the chemical speciation processing program <command>Spcmat</command> is to produce matrices that contain the factors for converting the input emissions pollutants to the model species used in the AQM. These species include organics, PM species, and toxics species.</para>
 
-<para>The speciation matrices that <command>Spcmat</command> creates are used transform column vectors of inventory-pollutant emissions into column vectors of model-species emissions. As shown in <xref linkend="fig_concepts_chemical_processing" />, the speciation matrix consists of columns for each required pollutant-to-species transformation and includes an entry for each source. The actual speciation matrix contains the factors for the pollutant-to-species calculation instead of the source numbers shown in the figure. Note that speciation matrices depend only upon the chemical mechanism and the inventory, and they are therefore independent of the other factor-based operations for emissions processing.</para>
+<para>The speciation matrices that <command>Spcmat</command> creates are used transform column vectors of inventory-pollutant emissions into column vectors of model-species emissions. As shown in <xref linkend="fig_concepts_chemical_processing" />, the speciation matrix consists of columns for each required pollutant-to-species transformation and includes an entry for each source. The entries are the factors needed to convert the inventory pollutants into the model species. Note that speciation matrices depend only upon the chemical mechanism and the inventory, and they are therefore independent of the other factor-based operations for emissions processing.</para>
 
 <figure id="fig_concepts_chemical_processing">
 <title>Relationship of inventory sources to speciation matrix</title>
@@ -2787,14 +2789,14 @@ Additional data</programlisting>
 
 <para>Because the surrogate codes are arbitrarily assigned, you need to make sure that the spatial cross-reference is developed in conjunction with the spatial surrogates so that the surrogate codes used in each are consistent. It is not generally wise to develop surrogates without a cross-reference, unless the surrogate codes used in the surrogates file are set to the same values that are in a spatial cross-reference file that is already available.</para>
 
-<para><xref linkend="fig_concepts_spatial_allocation_county" /> illustrates spatial allocation of all county-based emissions sources. The box at the left represents a grid with a single county, shaded in gray to represent an emissions value in that county. The arrow represents the spatial allocation steps. The box at right shows that all grid cells that intersect the county have emissions contributed by the county. The two darker cells could represent cells in which a large city causes the population surrogate to concentrate the emissions in those two cells, while the surrounding regions within the county have lower emissions.</para>
+<para><xref linkend="fig_concepts_spatial_allocation_county" /> illustrates spatial allocation of all county-based emissions sources. The box at the left represents a grid with a single county, shaded in gray to represent an emissions value in that county. The arrow represents the spatial allocation steps. The box at right shows that all grid cells that intersect the county have emissions contributed by the county. Cells that intersect more of the county are shown in darker colors, simulating the effect of using area surrogates. The darker cells could also represent cells in which a large city causes the population surrogate to concentrate the emissions in those cells, while the surrounding regions within the county have lower emissions.</para>
 
 <figure id="fig_concepts_spatial_allocation_county">
 <title>Spatial allocation of county-total emissions</title>
 
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/concepts/spatial_allocation_county_pdf.jpg" />
+<imagedata width="4in" fileref="images/concepts/spatial_allocation_county_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
 <imagedata fileref="images/concepts/spatial_allocation_county_html.jpg" />
@@ -2826,14 +2828,14 @@ Additional data</programlisting>
 
 <para>On-road mobile link sources are straight line segments within a county that have emissions and/or VMT data associated with them as well as the latitudes and longitudes of the starting and ending positions of the link. SMOKE determines the fraction of each link within each grid cell, and then assigns the emissions or VMT from the link to those grid cells that the link intersects, by weighting the emissions according to the length of the link within a grid cell divided by the total length of the link.</para>
 
-<para>As shown in <xref linkend="fig_concepts_spatial_allocation_link" />, three link sources in the left-hand diagram are joined at their ends to represent a road cutting through the county. As shown in the figure, link sources do not bisect county boundaries (new link sources would be used to continue the road into an adjoining county). The three portions of the link have different VMT values, as represented by the three different shades of gray that highlight the link. The arrow represents the spatial allocation step; the details of the calculation are included in <xref linkend="sect_programs_grdmat" /> where the <command>Grdmat</command> program is described in more detail. In the right-hand diagram, the cells that intersect the link sources are shaded, with darker shading used in cells in which the link intersects the cell more and the link has higher VMT.</para>
+<para>As shown in <xref linkend="fig_concepts_spatial_allocation_link" />, three link sources in the left-hand diagram are joined at their ends to represent a road cutting through the county. As shown in the figure, link sources do not bisect county boundaries (new link sources would be used to continue the road into an adjoining county). The three portions of the link have different VMT values, as represented by the three different shades of gray that highlight the link. The arrow represents the spatial allocation step<comment>; the details of the calculation are included in <xref linkend="sect_programs_grdmat" /> where the <command>Grdmat</command> program is described in more detail</comment>. In the right-hand diagram, the cells that intersect the link sources are shaded, with darker shading used in cells in which the link intersects the cell more and the link has higher VMT.</para>
 
 <figure id="fig_concepts_spatial_allocation_link">
 <title>Spatial allocation of on-road mobile link sources</title>
 
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/concepts/spatial_allocation_link_pdf.jpg" />
+<imagedata width="4in" fileref="images/concepts/spatial_allocation_link_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
 <imagedata fileref="images/concepts/spatial_allocation_link_html.jpg" />
@@ -2864,7 +2866,7 @@ Additional data</programlisting>
 
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/concepts/ungridding_pdf.jpg" />
+<imagedata width="4in" fileref="images/concepts/ungridding_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
 <imagedata fileref="images/concepts/ungridding_html.jpg" />
@@ -2892,7 +2894,7 @@ Additional data</programlisting>
 
 <para>If no new sources are being added when moving from the inventory year to the future year, then <command>Grwinven</command> can be used with the base case inventory and the growth matrix based on it. If new sources must be added, then the data structuring step (performed by <command>Smkinven</command>) must be rerun for the new number of sources, followed by running <command>Cntlmat</command> to create the growth matrix; then <command>Grwinven</command> applies the matrix to the new inventory file. Alternatively, users may elect to prepare a future-year inventory outside of SMOKE and import it directly with <command>Smkinven</command>, which skips the <command>Cntlmat</command> and <command>Grwinven</command> steps.</para>
 
-<para><xref linkend="fig_concepts_growth_processing" /> shows the relationship between the inventory and the growth matrix created by <command>Cntlmat</command>, which consists of columns for each pollutant being grown from one year to another. The actual growth matrix contains the growth factors instead of the source numbers shown in the figure. If the growth factors are the same for every pollutant in the inventory, then only one column, called "pfac," is included in the growth matrix, rather than using duplicate columns for every pollutant. The growth matrix depends only upon the growth factors and the inventory, so it is therefore independent of other factor-based operations for emissions processing; however, growth of the inventory (using the <command>Grwinven</command> program) must occur before the temporal allocation step when creating model-ready emissions using inventories grown with SMOKE.</para>
+<para><xref linkend="fig_concepts_growth_processing" /> shows the relationship between the inventory and the growth matrix created by <command>Cntlmat</command>, which consists of columns for each pollutant being grown from one year to another. The entries in the matrix are the growth factors needed to grow the inventory to a future or past year; note that these entries can be greater than, equal to, or less than 1 depending on if the emissions should increase, stay the same, or decrease after the inventory is grown. If the growth factors are the same for every pollutant in the inventory, then only one column, called "pfac," is included in the growth matrix, rather than using duplicate columns for every pollutant. The growth matrix depends only upon the growth factors and the inventory, so it is therefore independent of other factor-based operations for emissions processing; however, growth of the inventory (using the <command>Grwinven</command> program) must occur before the temporal allocation step when creating model-ready emissions using inventories grown with SMOKE.</para>
 
 <figure id="fig_concepts_growth_processing">
 <title>Relationship between inventory sources and growth matrix</title>
