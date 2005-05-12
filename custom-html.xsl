@@ -2,7 +2,7 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:import href="/usr/local/docbook/xsl/html/chunk.xsl" />
+<xsl:import href="/afs/isis/depts/cep/emc/apps/DocBook/xsl/html/chunk.xsl" />
 
 <xsl:include href="custom-common.xsl" />
 
