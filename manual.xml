@@ -20,46 +20,7 @@
 
 <book>
 
-<bookinfo>
 <title>SMOKE v2.1 User&rsquo;s Manual</title>
-
-<authorgroup>
-<author>
-<firstname>Andrew</firstname><surname>Holland</surname>
-<affiliation><orgname>Carolina Environmental Program</orgname></affiliation>
-</author>
-<author>
-<firstname>Marc</firstname><surname>Houyoux</surname>
-<affiliation><orgname>U.S. Environmental Protection Agency</orgname></affiliation>
-</author>
-<author>
-<firstname>Jeff</firstname><surname>Vukovich</surname>
-<affiliation><orgname>Carolina Environmental Program</orgname></affiliation>
-</author>
-<author>
-<firstname>Catherine</firstname><surname>Seppanen</surname>
-<affiliation><orgname>Carolina Environmental Program</orgname></affiliation>
-</author>
-</authorgroup>
-
-<edition>$Revision$</edition>
-<pubdate>$Date$</pubdate>
-
-<copyright>
-<year>2004</year>
-<year>2003</year>
-<year>2002</year>
-<year>2001</year>
-<holder>Carolina Environmental Program - The University of North Carolina at Chapel Hill</holder>
-</copyright>
-
-<legalnotice>
-<para>Permission to copy and distribute this publication is granted provided it is not used for commercial purposes and that the above copyright notice and this paragraph appear in all copies.</para>
-</legalnotice>
-
-<legalnotice>
-<para>The copyright holders make no representation about the suitability of this publication for any purpose. It is provided <quote>as is</quote> without expressed or implied warranty.</para>
-</bookinfo>
 
 &chap1;
 &chap2;
