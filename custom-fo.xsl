@@ -8,9 +8,8 @@
 
 <xsl:include href="custom-common.xsl" />
 
-<xsl:param name="fop.extensions" select="1" />
 <xsl:param name="xep.extensions" select="1" />
-<xsl:param name="title.margin.left" select="'0pc'" />
+<xsl:param name="body.start.indent" select="'0pc'" />
 <xsl:param name="alignment" select="'left'" />
 <xsl:param name="insert.xref.page.number" select="1" />
 <xsl:param name="double.sided" select="1" />
@@ -20,7 +19,7 @@
 <xsl:param name="toc.max.depth" select="2" />
 
 <xsl:param name="generate.toc">
-  book     toc,title,figure,table,example,equation
+  book     toc,title
   chapter  toc
 </xsl:param>
 
@@ -28,13 +27,6 @@
 <xsl:template match="remark">
   <fo:inline>
     <xsl:call-template name="inline.charseq" />
-  </fo:inline>
-</xsl:template>
-
-<!-- Special handling for symbols in FOP -->
-<xsl:template match="phrase[@role='symbol']">
-  <fo:inline font-family="Symbol">
-    <xsl:apply-templates />
   </fo:inline>
 </xsl:template>
 
