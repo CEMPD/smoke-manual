@@ -17,7 +17,7 @@
 <xsl:param name="toc.max.depth" select="'1'" />
 
 <xsl:param name="generate.toc">
-  book     toc,title,figure,table,example,equation
+  book     toc,title
   chapter  toc
   section  toc
 </xsl:param>
