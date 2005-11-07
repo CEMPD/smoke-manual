@@ -21,31 +21,13 @@
 <book>
 
 <bookinfo>
-<title>SMOKE v2.1 User&rsquo;s Manual</title>
-
-<authorgroup>
-<author>
-<firstname>Andrew</firstname><surname>Holland</surname>
-<affiliation><orgname>Carolina Environmental Program</orgname></affiliation>
-</author>
-<author>
-<firstname>Marc</firstname><surname>Houyoux</surname>
-<affiliation><orgname>U.S. Environmental Protection Agency</orgname></affiliation>
-</author>
-<author>
-<firstname>Jeff</firstname><surname>Vukovich</surname>
-<affiliation><orgname>Carolina Environmental Program</orgname></affiliation>
-</author>
-<author>
-<firstname>Catherine</firstname><surname>Seppanen</surname>
-<affiliation><orgname>Carolina Environmental Program</orgname></affiliation>
-</author>
-</authorgroup>
+<title>SMOKE v2.2 User&rsquo;s Manual</title>
 
 <edition>$Revision$</edition>
 <pubdate>$Date$</pubdate>
 
 <copyright>
+<year>2005</year>
 <year>2004</year>
 <year>2003</year>
 <year>2002</year>
