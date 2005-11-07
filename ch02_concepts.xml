@@ -461,10 +461,10 @@
 <informalfigure>
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="3in" fileref="images/concepts/scc_area_pdf.jpg" />
+<imagedata width="3in" fileref="images/concepts/scc_nonpoint_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
-<imagedata fileref="images/concepts/scc_area_html.jpg" />
+<imagedata fileref="images/concepts/scc_nonpoint_html.jpg" />
 </imageobject>
 </mediaobject>
 </informalfigure>
@@ -1222,10 +1222,10 @@ Additional data</programlisting>
 <informalfigure>
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="3in" fileref="images/concepts/mobile_scc_pdf.jpg" />
+<imagedata width="3in" fileref="images/concepts/scc_mobile_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
-<imagedata fileref="images/concepts/mobile_scc_html.jpg" />
+<imagedata fileref="images/concepts/scc_mobile_html.jpg" />
 </imageobject>
 </mediaobject>
 </informalfigure>
@@ -1235,10 +1235,10 @@ Additional data</programlisting>
 <informalfigure>
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="3in" fileref="images/concepts/mobile_internal_scc_pdf.jpg" />
+<imagedata width="3in" fileref="images/concepts/scc_mobile_internal_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
-<imagedata fileref="images/concepts/mobile_internal_scc_html.jpg" />
+<imagedata fileref="images/concepts/scc_mobile_internal_html.jpg" />
 </imageobject>
 </mediaobject>
 </informalfigure>
@@ -2344,7 +2344,7 @@ Additional data</programlisting>
 <listitem>
 <para>If the exit velocity is missing or zero and the exit flow is not, or if the <envar>VELOC_RECALC</envar> option is Y in the run script, <command>Smkinven</command> automatically calculates the exit velocity using the formula:</para>
 
-<para>velocity = flow / (<phrase role="symbol">&pi;</phrase> * diameter<superscript>2</superscript>/4)</para>
+<para>velocity = flow / (&pi; * diameter<superscript>2</superscript>/4)</para>
 </listitem>
 
 <listitem>
