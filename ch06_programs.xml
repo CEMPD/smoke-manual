@@ -54,6 +54,8 @@
 
 <para><link linkend="sect_programs_smkmerge"><command>Smkmerge</command></link> is used to combine all emissions and matrices to create the gridded, hourly, model-species emissions needed for an AQM. It can merge for one source category at a time or all source categories at once, and it can read in the model-ready biogenic emissions to merge with the anthropogenic source categories. It can merge the matrices with the inventory data output from <command>Smkinven</command> or the hourly emissions from <command>Temporal</command>, and it can optionally merge the speciation, gridding, or control matrices, or any combination. It also writes state and county emissions totals.</para>
 
+<para><link linkend="sect_programs_mrgelev"><command>Mrgelev</command></link> is used to combine ASCII elevated files created by <command>Smkmerge</command>. These files contain point-source data needed by AQMs including CAMx, REMSAD, and UAM models.</para>
+
 <para><link linkend="sect_programs_mrggrid"><command>Mrggrid</command></link> is used to combine gridded emission data files, which can be speciated or non-speciated, and hourly or time-independent. It can combine a 3-D point source file with any number of 2-D files from other source categories. This program is optional and provides a convenient way to merge model-ready output files outside of <command>Smkmerge</command>.</para>
 
 <para>In the remaining sections of this chapter, we provide detailed program descriptions, in alphabetic order.</para>
@@ -972,7 +974,7 @@
 
 <para>For the cutoff method, the <command>Elevpoint</command> program uses the stack parameters of the point sources and estimates the plume rise for each source using a Briggs analytical solution (but not actual gridded meteorology data); the details of this process are given later in this subsection. <command>Elevpoint</command> then records all of the sources that have an estimated plume rise greater than a specified cutoff as defined in the <envar>PELVCONFIG</envar> file using the <quote>RISE</quote> instruction. Using the <envar>PELVCONFIG</envar> file, this cutoff method can be combined with selection of elevated sources based on stack parameters and/or emissions values.</para>
 
-<para>When emissions values are part of these selection criteria, <command>Elevpoint</command> computes the maximum daily emissions using one or more <envar>PTMP</envar> files. <command>Elevpoint</command> computes the maximum daily value of any pollutant used as a selection criterion across all of the days that you input. You have the option of providing either a list of paths and file names of one or more <envar>PTMP</envar> files, or a single <envar>PTMP</envar> file. The day or days that <command>Elevpoint</command> uses to compute each source&rsquo;s maximum depends on the time zone in which the source resides, based on the county and the <envar>COSTCY</envar> file setting for the time zone (the time zone is stored in the <envar>PNTS</envar> file output from <command>Smkinven</command>).</para>
+<para>When emissions values are part of these selection criteria, <command>Elevpoint</command> computes the maximum daily emissions using one or more <envar>PTMP</envar> files. <command>Elevpoint</command> computes the maximum daily value of any pollutant used as a selection criterion across all of the days that you input. You have the option of providing either a list of paths and file names of one or more <envar>PTMP</envar> files, or a single <envar>PTMP</envar> file. The day or days that <command>Elevpoint</command> uses to compute each source&rsquo;s maximum depends on the time zone in which the source resides, based on the county and the <envar>COSTCY</envar> file setting for the time zone (the time zone is stored in the <envar>PNTS</envar> file output from <command>Smkinven</command>). When using emissions values as a selection criterion, <command>Elevpoint</command> only considers sources that are within the grid domain.</para>
 
 <para><command>Elevpoint</command> also creates a report file that contains all SMOKE sources that have been selected as elevated, their source characteristics (including stack parameters), emissions values used as selection criteria, stack-group numbers, status as either elevated or PinG, and which selection criteria were used to assign the status to the source. The report does not include any low-level sources. This report is in semicolon-delimited format for easier reading into a spreadsheet for sorting, review, and making charts.</para>
 
@@ -1327,7 +1329,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <title>MOBILE modifications</title>
 
-<para>In adapting MOBILE6 for use in SMOKE, MOBILE6 has been changed somewhat in order to output emission factors at the level of aggregation required by SMOKE, generate multiple sets of emission factors in the same run, and create a better interface with <command>Emisfac</command>. The mappings of SMOKE road classes to MOBILE6 facilities and of SMOKE vehicle types to MOBILE6 facilities are given in <xref linkend="tbl_concepts_mobile6_roads" /> and <xref linkend="tbl_concepts_mobile6_vehicles" />.</para>
+<para>In adapting MOBILE6 for use in SMOKE, MOBILE6 has been changed somewhat in order to output emission factors at the level of aggregation required by SMOKE, generate multiple sets of emission factors in the same run, and create a better interface with <command>Emisfac</command>. The mapping of SMOKE road classes to MOBILE6 facilities are given in <xref linkend="tbl_concepts_mobile6_roads" />. The mapping of SMOKE vehicle types to MOBILE6 vehicle types are provided in the <envar>M6MAP</envar> file.</para>
 
 </section>
 
@@ -1415,7 +1417,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_emisfac" /> shows the input and output files for the <command>Emisfac</command> program. The input files used depend on the <envar>GROUP_TYPE</envar> setting. <envar>GROUP_TYPE</envar> can be set to daily, weekly, monthly, or episode; these settings correspond to the input files <envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, or <envar>EPISODEGROUP</envar>. <command>Emisfac</command> uses the hourly meteorology file <envar>HOURLYT</envar> as the first day of meteorology data; it continues processing using the additional hourly meteorology files output from <command>Premobl</command>. Other input files are the inventory data table (<envar>INVTABLE</envar>), a file listing the MOBILE6 scenario files (<envar>M6LIST</envar>), the mobile emission processes file (<envar>MEPROC</envar>), the mobile-source inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), a speed profiles file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y), and a speed summary file output by <command>Mbsetup</command> (<envar>SPDSUM</envar>).</para> 
+<para><xref linkend="fig_programs_emisfac" /> shows the input and output files for the <command>Emisfac</command> program. The input files used depend on the <envar>GROUP_TYPE</envar> setting. <envar>GROUP_TYPE</envar> can be set to daily, weekly, monthly, or episode; these settings correspond to the input files <envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, or <envar>EPISODEGROUP</envar>. <command>Emisfac</command> uses the hourly meteorology file <envar>HOURLYT</envar> as the first day of meteorology data; it continues processing using the additional hourly meteorology files output from <command>Premobl</command>. Other input files are the inventory data table (<envar>INVTABLE</envar>), a file listing the MOBILE6 scenario files (<envar>M6LIST</envar>), the vehicle type mapping file (<envar>M6MAP</envar>), the mobile emission processes file (<envar>MEPROC</envar>), the mobile-source inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), a speed profiles file (only if <envar>USE_SPEED_PROFILES</envar> is set to Y), and a speed summary file output by <command>Mbsetup</command> (<envar>SPDSUM</envar>).</para> 
 
 <para><command>Emisfac</command> outputs hourly emission factors corresponding to each hourly meteorology file that it processed. The program also creates a <envar>LOGFILE</envar> and outputs several intermediate files from the MOBILE6 processing.</para>
 
@@ -1467,6 +1469,11 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry><envar>M6LIST</envar></entry>
 <entry>ASCII</entry>
 <entry>List of MOBILE6 scenario files with full names and paths</entry>
+</row>
+<row>
+<entry><envar>M6MAP</envar></entry>
+<entry>ASCII</entry>
+<entry>Mapping file assigning MOBILE6 vehicle types to inventory vehicle types</entry>
 </row>
 <row>
 <entry><envar>MEPROC</envar></entry>
@@ -1999,9 +2006,9 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><emphasis>Processing catagories:</emphasis> area, mobile, point</para>
 
-<para>The <command>Grwinven</command> program grows and controls inventory emissions and activity data into the past/future by merging a SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) with its respective growth and control matrices. This optional program need not be used if these projections have been made outside of SMOKE. <command>Grwinven</command> outputs new SMOKE I/O API inventory files, but not the corresponding inventory ASCII files (because the program changes the data only in the I/O API inventory files, so there is no need to output the same ASCII files). The program can also output in IDA format, or be used as a converter from SMOKE to IDA format. <command>Grwinven</command> does not merge the SMOKE inventory with reactivity matrices; this functionality is handled by <command>Smkmerge</command>.</para>
+<para>The <command>Grwinven</command> program grows and controls inventory emissions and activity data into the past/future by merging a SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) with its respective growth and control matrices. This optional program need not be used if these projections have been made outside of SMOKE. <command>Grwinven</command> outputs new SMOKE I/O API inventory files, but not the corresponding inventory ASCII files (because the program changes the data only in the I/O API inventory files, so there is no need to output the same ASCII files). The program can also output data in IDA or ORL format, or be used as a converter from SMOKE to IDA or ORL format. <command>Grwinven</command> does not merge the SMOKE inventory with reactivity matrices; this functionality is handled by <command>Smkmerge</command>.</para>
 
-<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an IDA-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPPATH</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
+<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an IDA- or ORL-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPPATH</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
 
 </section>
 
@@ -2033,7 +2040,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><xref linkend="fig_programs_grwinven" /> shows the input and output files for the <command>Grwinven</command> program. The input files include at least one growth or control matrix output from <command>Cntlmat</command> (<envar>ACMAT01</envar>, <envar>MCMAT01</envar>, or <envar>PCMAT01</envar>). If you are applying more than one growth or control matrix (i.e. <envar>SMK_NUM_CNTLMAT</envar> is greater than one), <command>Cntlmat</command> will open additional matrices as needed (<envar>ACMAT[xx]</envar>, <envar>MCMAT[xx]</envar>, or <envar>PCMAT[xx]</envar>). <command>Cntlmat</command> also uses the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) and the country, state and county file (<envar>COSTCY</envar>).</para>
 
-<para><command>Grwinven</command> outputs new SMOKE intermediate inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been controlled and/or grown into the past or future. Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files. You can also choose to output ASCII inventory files in IDA format (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). <command>Grwinven</command> also writes a log file (<envar>LOGFILE</envar>) and can create an ASCII inventory file for activity data (<envar>MBINV_AO</envar>).</para>
+<para><command>Grwinven</command> outputs new SMOKE intermediate inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been controlled and/or grown into the past or future. Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files. You can also choose to output ASCII inventory files in IDA or ORL format (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). <command>Grwinven</command> also writes a log file (<envar>LOGFILE</envar>) and can create an ASCII inventory file for activity data (<envar>MBINV_AO</envar>).</para>
 
 <section>
 
@@ -2093,7 +2100,22 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Y: Output inventory in IDA format</para>
 </listitem>
 <listitem>
-<para>N: Do not output IDA format</para>
+<para>N: Do not output inventory in IDA format</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para><envar>SMK_GRWORLOUT_YN</envar>: [default: N]</para>
+
+<para>Indicates if an ORL-formatted grown and/or controlled inventory should be output; <envar>SMK_GRWORLOUT_YN</envar> and <envar>SMK_GRWIDAOUT_YN</envar> cannot be both set to Y in the same run.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Output inventory in ORL format</para>
+</listitem>
+<listitem>
+<para>N: Do not output inventory in ORL format</para>
 </listitem>
 </itemizedlist>
 
@@ -2106,7 +2128,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Y: Output inventory in SMOKE I/O API format</para>
 </listitem>
 <listitem>
-<para>N: Do not output SMOKE I/O API format</para>
+<para>N: Do not output inventory in SMOKE I/O API format</para>
 </listitem>
 </itemizedlist>
 
@@ -2226,7 +2248,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_laypoint" /> shows the input and output files for the <command>Laypoint</command> program. The input files include the grid description file (<envar>GRIDDESC</envar>) and meteorology files created by the meteorology preprocessor (<envar>GRID_CRO_3D</envar>, <envar>MET_CRO_2D</envar>, <envar>MET_CRO_3D</envar>, and <envar>MET_DOT_3D</envar>). If elevated sources have been selected, <command>Laypoint</command> uses the the elevated point source identification file output from <command>Elevpoint</command> (<envar>PELV</envar>). Hourly plume data can be read from the <envar>PHOUR</envar> hourly inventory file and annual inventory data is read from the <envar>PNTS</envar> file, both output from <command>Smkinven</command>.</para>
+<para><xref linkend="fig_programs_laypoint" /> shows the input and output files for the <command>Laypoint</command> program. The input files include the grid description file (<envar>GRIDDESC</envar>) and meteorology files created by the meteorology preprocessor (<envar>GRID_CRO_3D</envar>, <envar>MET_CRO_2D</envar>, <envar>MET_CRO_3D</envar>, and <envar>MET_DOT_3D</envar>). If elevated sources have been selected, <command>Laypoint</command> uses the the elevated point source identification file output from <command>Elevpoint</command> (<envar>PELV</envar>). Hourly plume data can be read from the <envar>PHOUR</envar> hourly inventory file and annual inventory data is read from the <envar>PNTS</envar> file, both output from <command>Smkinven</command>. When processing fire sources, the <envar>PDAY</envar> file created by <command>Smkinven</command> and the <envar>PTMP</envar> file created by <command>Temporal</command> may be used.</para>
 
 <para><command>Laypoint</command> outputs a log file (<envar>LOGFILE</envar>), hourly plume rise layer fractions for all sources (<envar>PLAY</envar>) or optionally only for explicit sources (<envar>PLAY_EX</envar>), and a report file <envar>REPRTLAY</envar> if reporting is turned on using the <envar>REP_LAYER_MAX</envar> setting.</para>
 
@@ -2255,9 +2277,9 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry>Description of the modeling grid</entry>
 </row>
 <row>
-<entry><envar>GRID_CRO_3D</envar></entry>
+<entry><envar>GRID_CRO_3D</envar> (optional)</entry>
 <entry>I/O API NetCDF</entry>
-<entry>Meteorology file produced by the meteorology preprocessor </entry>
+<entry>Meteorology file produced by the meteorology preprocessor; only needed if using static layer information </entry>
 </row>
 <row>
 <entry><envar>MET_CRO_2D</envar></entry>
@@ -2275,6 +2297,11 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry>Meteorology file produced by the meteorology preprocessor </entry>
 </row>
 <row>
+<entry><envar>PDAY</envar> (optional)</entry>
+<entry>I/O API NetCDF</entry>
+<entry>Daily point-source inventory file produced by <command>Smkinven</command></entry>
+</row>
+<row>
 <entry><envar>PELV</envar> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Elevated point source identification file produced by <command>Elevpoint</command></entry>
@@ -2288,6 +2315,11 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry><envar>PNTS</envar></entry>
 <entry>SMOKE map</entry>
 <entry>Intermediate inventory file produced by <command>Smkinven</command></entry>
+</row>
+<row>
+<entry><envar>PTMP</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Hourly emissions file produced by <command>Temporal</command></entry>
 </row>
 </tbody>
 </tgroup>
@@ -2316,6 +2348,33 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </listitem>
 <listitem>
+<para><envar>FIRE_AREA</envar>: [default: 0.0]</para>
+
+<para>Sets daily area burned in acres/day; only used when <envar>FIRE_PLUME_YN</envar> is set to Y and <envar>HOURLY_FIRE_YN</envar> is set to N.</para>
+
+</listitem>
+<listitem>
+<para><envar>FIRE_HFLUX</envar>: [default: 0.0]</para>
+
+<para>Sets hourly heat flux value in BTU/hr; only used when <envar>FIRE_PLUME_YN</envar> is set to Y and <envar>HOURLY_FIRE_YN</envar> is set to N.</para>
+
+</listitem>
+<listitem>
+<para><envar>FIRE_PLUME_YN</envar>: [default: N]</para>
+
+<para>Indicates if fire-specific plume rise calculations should be used.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Use fire-specific plume rise calculations for all sources</para>
+</listitem>
+<listitem>
+<para>N: Use traditional plume rise calculations based on stack parameters for all sources</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
 <para><envar>HOUR_PLUMEDATA_YN</envar>: [default: N]</para>
 
 <para>Indicates whether hourly plume rise data should be used.</para>
@@ -2326,6 +2385,21 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 <listitem>
 <para>N: Do not use hourly data</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para><envar>HOURLY_FIRE_YN</envar>: [default: N]</para>
+
+<para>Indicates if hourly fire data should be used; only checked when <envar>FIRE_PLUME_YN</envar> is set to Y.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Read hourly heat flux from <envar>PTMP</envar> file and daily area burned from <envar>PDAY</envar> file</para>
+</listitem>
+<listitem>
+<para>N: Get heat flux and area burned from environment variables <envar>FIRE_AREA</envar> and <envar>FIRE_HFLUX</envar></para>
 </listitem>
 </itemizedlist>
 
@@ -2372,6 +2446,21 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 <listitem>
 <para>N: Use velocity values from hourly inventory file</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para><envar>VERTICAL_SPREAD</envar>: [default: 0]</para>
+
+<para>Sets the vertical spread method for determining the bottom and top heights of each plume.</para>
+
+<itemizedlist>
+<listitem>
+<para>0: Use the default Turner approach where plume thickness equals the amount of plume rise</para>
+</listitem>
+<listitem>
+<para>1: Compute vertical spread using ambient temperature data</para>
 </listitem>
 </itemizedlist>
 
@@ -2544,6 +2633,21 @@ F<subscript>ef</subscript> = freeway emission factor
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />.</para>
 </listitem>
 <listitem>
+<para><envar>USE_INVSPD_DEFAULT</envar>: [default: N]</para>
+
+<para>If <envar>USE_SPEED_PROFILES</envar> is set to Y, this variable determines if sources that do not have matching entries in the <envar>SPDREF</envar> cross-reference file should use inventory speeds.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Use inventory speed as default for sources that do not have matching entries in the <envar>SPDREF</envar> file</para>
+</listitem>
+<listitem>
+<para>N: Print a list of sources that do not have matching <envar>SPDREF</envar> entries and exit with an error</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
 <para><envar>USE_SPEED_PROFILES</envar>: [default: N]</para>
 
 <para>Indicates whether hourly speed profiles should be used instead of speed data from the inventory.</para>
@@ -2628,6 +2732,160 @@ F<subscript>ef</subscript> = freeway emission factor
 
 </section>
 -->
+
+</section>
+
+<section id="sect_programs_mrgelev">
+
+<title><command>Mrgelev</command></title>
+
+<section>
+
+<title>Description</title>
+
+<para><emphasis>Processing categories:</emphasis> point</para>
+
+<para>The <command>Mrgelev</command> merges multiple ASCII elevated files created by <command>Smkmerge</command>. The program can also output a binary elevated file needed by CAMx, REMSAD, and UAM models. <command>Mrgelev</command> also handles matching PinG sources from different inputs, ensuring that only the top 300 emission sources are marked as PinG sources in the final merged output. For PinG matching, <command>Mrgelev</command> uses <envar>PELV</envar> files output by <command>Elevpoint</command>. <command>Mrgelev</command> uses the environment variable <envar>MRG_DIFF_DAYS</envar> to merge files from different days into a single file.</para>
+
+</section>
+
+<section>
+
+<title>Processing Order</title>
+
+<para><command>Mrgelev</command> is used to merge ASCII elevated files created by <command>Smkmerge</command>. If PinG matching is desired, then output files from <command>Elevpoint</command> are required.</para>
+
+<para>The output binary elevated file from <command>Mrgelev</command> is used when running CAMx, REMSAD, or UAM models.</para>
+
+</section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_mrgelev">
+<title><command>Mrgelev</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/mrgelev_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/mrgelev_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_mrgelev" /> shows the input and output files for the <command>Mrgelev</command> program. The input files are a list of the ASCII elevated files (<envar>FILELIST</envar>) and optionally a list of <envar>PELV</envar> files created by <command>Elevpoint</command> (<envar>PELVLIST</envar>). In both files, the complete file name including path must be provided. When using the <envar>PELVLIST</envar> file, each file must match the corresponding ASCII elevated file. The program outputs a log file (<envar>LOGFILE</envar>), a merged ASCII elevated file (<envar>OUTFILE</envar>), a merged binary elevated file (<envar>PTSOURCE</envar>), and a report file (<envar>REPMRGELEV</envar>).</para>
+
+<section>
+
+<title>Input Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>FILELIST</envar></entry>
+<entry>ASCII</entry>
+<entry>List of input ASCII elevated files including path and file name</entry>
+</row>
+<row>
+<entry><envar>PELVLIST</envar></entry>
+<entry>ASCII</entry>
+<entry>List of input <envar>PELV</envar> files including path and file name; leave environment variable unset if not processing PinG sources</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+<section>
+
+<title>Input Environment Variables</title>
+
+<itemizedlist>
+<listitem>
+<para><envar>MRG_DIFF_DAYS</envar>: [default: N]</para>
+
+<para>This environment variable allows <command>Mrgelev</command> to merge files with data from different days.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Allow data from different dates to be merged together</para>
+
+<para><command>Mrgelev</command> will use the environment variables <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, <envar>G_RUNLEN</envar>, and <envar>G_TSTEP</envar> to set the start date, start time, length, and time step of the output file. All input files must have the same starting time as <envar>G_STTIME</envar>, the same time step as <envar>G_TSTEP</envar>, and must contain more than <envar>G_RUNLEN</envar> steps of data. For each input file, if it contains data to cover the actual episode requested by <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar>, then the data for the actual episode will be used; otherwise, data starting at the first time step of the file will be used.</para>
+</listitem>
+<listitem>
+<para>N: Require all merged data to be from the same date</para>
+
+<para><command>Mrgelev</command> will determine the output file time period based on the latest starting input file and the earliest ending input file.</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>Output Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Mrgelev</command></entry>
+</row>
+<row>
+<entry><envar>OUTFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Merged ASCII elevated file</entry>
+</row>
+<row>
+<entry><envar>PTSOURCE</envar></entry>
+<entry>Binary</entry>
+<entry>Merged binary elevated file</entry>
+</row>
+<row>
+<entry><envar>REPMRGELEV</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file summarizing input and output emissions for QA purposes</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+</section>
 
 </section>
 
@@ -3477,7 +3735,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
-<para>When using CEM data, the default CEM files provided with SMOKE are for the whole U.S. and a whole year. Because this file takes a long time to read in, you are encouraged to preprocess these data to pare them down to the dates and/or sources in the domain. <comment>However, SMOKE can do this if you do not. The dates can be extracted with the DATERANGE header in the <envar>PTHOUR</envar> file (see <envar>PTHOUR</envar> file documentation).</comment> The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the modeling grid) and/or by the <command>Grdmat</command> program, which will remove sources outside the grid from the model-ready results.</para>
+<para>When using CEM data, you are encouraged to preprocess your data to pare them down to the dates and/or sources in the domain. <comment>However, SMOKE can do this if you do not. The dates can be extracted with the DATERANGE header in the <envar>PTHOUR</envar> file (see <envar>PTHOUR</envar> file documentation).</comment> The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the modeling grid) and/or by the <command>Grdmat</command> program, which will remove sources outside the grid from the model-ready results.</para>
 
 <para>If new sources are added to the input files or sources are removed, <command>Smkinven</command> must be rerun for that type of source. However, <command>Smkinven</command> does not need to be rerun when processing additional control scenarios, growth projections, speciation profiles, or modeling grids.</para>
 
@@ -3492,6 +3750,8 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Processing Order</title>
 
 <para><command>Smkinven</command> must be run for a given processing type (i.e., area, mobile, point) before any other SMOKE programs for that processing type can be run.</para>
+
+<para>When processing CEM data, the utility program <command>CEMScan</command> must be run before <command>Smkinven</command>.</para>
 
 </section>
 
@@ -3543,7 +3803,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_smkinven_point" /> shows the input and output files for <command>Smkinven</command> for point sources. The input files include the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), and the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>). If importing hour-specific data, the ORIS facility description file <envar>ORISDESC</envar> is used. The <envar>PSTK</envar> file provides replacement stack parameters. Day-specific data is read from the <envar>PTDAY</envar> file, while hour-specific data comes from the <envar>PTHOUR</envar> file; the <envar>PTINV</envar> file provides the raw inventory data. For hour-specific data, the SCC description file (<envar>SCCDESC</envar>) is also needed.</para>
+<para><xref linkend="fig_programs_smkinven_point" /> shows the input and output files for <command>Smkinven</command> for point sources. The input files include the optional CEM summary file created by <command>CEMScan</command> (<envar>CEMSUM</envar>), the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), and the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>). If importing hour-specific data, the ORIS facility description file <envar>ORISDESC</envar> is used. The <envar>PSTK</envar> file provides replacement stack parameters. Day-specific data is read from the <envar>PTDAY</envar> file, while hour-specific data comes from the <envar>PTHOUR</envar> file; the <envar>PTINV</envar> file provides the raw inventory data. For hour-specific data, the SCC description file (<envar>SCCDESC</envar>) is also needed.</para>
 
 <para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), and optional day-specific inventory (<envar>PDAY</envar>), and an optional hour-spceific inventory (<envar>PHOUR</envar>). The annual and average-day inventory emissions are stored in the <envar>PNTS</envar> file and the <envar>PSCC</envar> file lists the inventory SCCs.  For EMS-95 formatted inputs, an optional temporal profiles file (<envar>PTREF_ALT</envar>) is output. Finally, the <envar>REPINVEN</envar> report contains various information about the processed inventory.</para>
 
@@ -3585,6 +3845,12 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry>ASCII</entry>
 <entry>A</entry>
 <entry>Area-to-point cross-reference file for assigning X and Y locations to area sources</entry>
+</row>
+<row>
+<entry><envar>CEMSCAN</envar> (optional)</entry>
+<entry>ASCII</entry>
+<entry>P</entry>
+<entry>CEM summary data produced by <command>CEMScan</command></entry>
 </row>
 <row>
 <entry><envar>COSTCY</envar></entry>
@@ -3658,6 +3924,21 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <itemizedlist>
 <listitem>
+<para><envar>CHECK_STACKS_YN</envar>: [default: Y]</para>
+
+<para>Indicates if stack parameter values should be checked for missing or out-of-range values; only checked if <command>SMK_SOURCE</command> is set to P.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Check input stack parameters for missing or out-of-range values</para>
+</listitem>
+<listitem>
+<para>N: Do not check input stack parameter values</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
 <para><envar>DAY_SPECIFIC_YN</envar>: [default: N]</para>
 
 <para>Defines whether to import day-specific inventory data.</para>
@@ -3685,6 +3966,14 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>N: Do not fill in annual data based on average-day emissions values.</para>
 </listitem>
 </itemizedlist>
+
+</listitem>
+<listitem>
+<para><envar>FLOW_RATE_FACTOR</envar>: [default: 15875 ft<superscript>3</superscript>/MMBTU]</para>
+
+<para>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <envar>FLOW_RATE_FACTOR</envar> is set to zero or unset, then <command>Smkinven</command> will not calculate hourly flow rates.</para>
+
+<para>hourly flow rate (m<superscript>3</superscript>/s) = [<envar>FLOW_RATE_FACTOR</envar> (ft<superscript>3</superscript>/MMBTU) * hourly heat input (MMBTU/hr) * 0.02831 m<superscript>3</superscript>/ft<superscript>3</superscript>] / 3600 s/hr</para>
 
 </listitem>
 <listitem>
@@ -3775,6 +4064,18 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>N: Do not import VMT mix data</para>
 </listitem>
 </itemizedlist>
+
+</listitem>
+<listitem>
+<para><envar>INVNAME1</envar>: [default: none]</para>
+
+<para>Sets root for naming output map inventory file</para>
+
+</listitem>
+<listitem>
+<para><envar>INVNAME2</envar>: [default: none]</para>
+
+<para>Sets root for naming output ASCII inventory file</para>
 
 </listitem>
 <listitem>
@@ -3907,6 +4208,21 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 <listitem>
 <para>N: Average-day emissions input to <command>Smkinven</command> are based on <emphasis>all days of the week</emphasis>. In <command>Temporal</command>, these emissions will be adjusted with weekly profiles normalized with all days of the week.</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+<listitem>
+<para><envar>WRITE_ANN_ZERO</envar>: [default: N]</para>
+
+<para>Indicates if annual emission values equal to zero should be written to the intermediate inventory file</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Write zero emission values; this option makes the intermediate inventory file larger but is sometimes necessary when only daily or hourly data is provided and the entries in the annual inventory are dummy values</para>
+</listitem>
+<listitem>
+<para>N: Do not write zero values</para>
 </listitem>
 </itemizedlist>
 
