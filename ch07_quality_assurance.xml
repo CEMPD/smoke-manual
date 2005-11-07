@@ -161,10 +161,22 @@
 <entry>Contains description of the modeling grid</entry>
 </row>
 <row>
+<entry><envar>MACTDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>A, P</entry>
+<entry>MACT code descriptions</entry>
+</row>
+<row>
 <entry><envar>MOBL</envar></entry>
 <entry>SMOKE map</entry>
 <entry>M</entry>
 <entry>Intermediate mobile-source emissions and/or activity inventory from <command>Smkinven</command></entry>
+</row>
+<row>
+<entry><envar>NAICSDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>A, P</entry>
+<entry>NAICS code descriptions</entry>
 </row>
 <row>
 <entry><envar>PELV</envar></entry>
@@ -328,6 +340,9 @@
 </listitem>
 <listitem>
 <para>/NEWFILE/ (<xref linkend="sect_qa_repconfig_newfile" />)</para>
+</listitem>
+<listitem>
+<para>/SET LABEL/ (<xref linkend="sect_qa_repconfig_set_label" />)</para>
 </listitem>
 </itemizedlist>
 
@@ -620,7 +635,13 @@
 <para>LAYER: For point sources, emissions are printed by vertical layer. This option implies the LAYFRAC option (discussed later) that requires input of the <envar>PLAY</envar> SMOKE intermediate file; it also implies the BY HOUR instruction (above). Emissions will be written by hour as well as by layer. In the report, records are written first for one layer, then the next, and so on. <comment>The Java Analysis and Reporting Tool (JART) software can be used to sort the records in a different order.</comment> <remark>Only records with nonzero emissions in a layer are written.</remark> Since the number of records this report can generate is very large, we recommend that a source group be used to subselect the inventory records.</para>
 </listitem>
 <listitem>
+<para>MACT [NAME]: Records are printed by MACT code. NAME can be appended to the option to additionally output the MACT code description (from the <envar>MACTDESC</envar> file) instead of only the MACT code.</para>
+</listitem>
+<listitem>
 <para>MONCODE: Records are printed by monthly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>NAICS [NAME]: Records are printed by NAICS code. NAME can be appended to the option to additional output the NAICS code description (from the <envar>NAICSDESC</envar> file) instead of only the NAICS code.</para>
 </listitem>
 <listitem>
 <para>PLANT [NAME]: For point sources, emissions are printed by plant total. This option cannot be used in conjunction with the BY SOURCE option; if the <envar>REPCONFIG</envar> file contains both instructions, SMOKE will ignore the BY PLANT instruction.</para>
@@ -631,9 +652,12 @@
 <para>ROADCLASS: Records are printed by road class total. This option can only be used for mobile sources.</para>
 </listitem>
 <listitem>
-<para>SCC10 [NAME]: Records are printed by full 10-digit SCC totals.</para>
+<para>SCC [N] [NAME]: Records are printed and summed by all or part of the SCC, depending on the value of N, which can be set to 1, 2, 3, or 4. These numbers correspond to the SCC levels described in <xref linkend="sect_concepts_scc_codes" />. When N = 4, the full SCC is used. When N = 1, 2, or 3, the records are summed and reported by the corresponding SCC level. Differences between point and nonpoint/mobile SCCs are handled as described by the SCC structures. If no value is given. N is assumed to be 4 by default.</para>
 
-<para>When the <quote>NAME</quote> option on the BY SCC10 instruction is included, the column delimiter default is automatically changed from a semi-colon to a pipe symbol (<quote>|</quote>). This is because the SCC descriptions include semi-colons, commas, and colons, causing some spreadsheet programs (e.g. Microsoft Excel) to not read in the report cleanly. Also, the SCC name is enclosed in double quotes, which can help with the delimiter issue. If the /DELIMITER/ instruction (discussed in <xref linkend="sect_qa_repconfig_delimiter" />) is used, the user-specified delimiter is included in all subsequent reports, regardless of whether the BY SCC10 instruction with the NAME option is set in the <envar>REPCONFIG</envar> file.</para>
+<para>The NAME option can be used for any N value. The SCC description is truncated assuming that semicolons separate the different parts of the SCC descriptions. If there are more than 3 semicolons in an SCC description (dividing into 4 parts), then all of the SCC sections after part 3 are put into part 4. The SCC description written by <command>Smkreport</command> will match the value of N by including all parts of the SCC description up to and including the value of N.</para>
+</listitem>
+<listitem>
+<para>SCC10 [NAME]: This option maintains backward compatibility with previous versions of <command>Smkreport</command>. It is the same as the option "SCC 4 [NAME]".</para>
 </listitem>
 <listitem>
 <para>SIC [NAME]: Records are printed by SIC totals.</para>
@@ -641,7 +665,7 @@
 <para>When the <quote>NAME</quote> option is included, the SIC name will be included in the report. Otherwise, only the SIC code will be included. As with the BY SCC10 NAME instruction, the BY SIC NAME instruction will change the column delimiter from a semi-colon to the pipe symbol (<quote>|</quote>). The SIC name will also be enclosed in double quotes.</para>
 </listitem>
 <listitem>
-<para>SOURCE [STACKPARM] [NAME]: Records are printed by source totals. Source characteristics are printed as well:</para>
+<para>SOURCE [STACKPARM] [NAME] [LATLON]: Records are printed by source totals. Source characteristics are printed as well:</para>
 
 <itemizedlist>
 <listitem>Point: country/state/county code, plant ID, stack ID, point ID, segment ID, SCC, and SIC</listitem>
@@ -651,10 +675,13 @@
  
 <para>For area and mobile sources, the SCC descriptions will automatically be included in the report. This is the same as adding the <quote>BY SCC10 NAME</quote> instruction to the report instructions. There is no way to turn off this feature.</para>
 
-<para>For point sources, STACKPARM can be appended to the option to also output the stack parameters (height, diameter, exit velocity, exit temperature). Also for point sources, NAME can be appended to the option to get the facility names in the output file.</para>
+<para>For point sources, STACKPARM can be appended to the option to also output the stack parameters (height, diameter, exit velocity, exit temperature). Also for point sources, NAME can be appended to the option to get the facility names in the output file. LATLON can be appended to the option to print each source&rsquo;s x- and y-coordinates.</para>
 </listitem>
 <listitem>
 <para>SPCCODE &lt;POLLUTANT&gt;: Records are printed by speciation profile codes assigned to sources by the speciation cross-reference file. <emphasis>Only one pollutant can appear with this command throughout the entire <envar>REPCONFIG</envar> file.</emphasis> The pollutant should be one that is in the inventory file and that was processed as part of the chemical speciation file run. This BY option does not imply the SPECIATION instruction (see below), and it can be used without included speciated emissions in the report. For example, the BY SPCCODE instruction may be used to indicate which speciation profiles were assigned to total VOC emissions (without reporting speciated VOC emissions).</para>
+</listitem>
+<listitem>
+<para>SRCTYPE: Records are printed by source type code.</para>
 </listitem>
 <listitem>
 <para>SRGCODE [FALLBACK]: Records are printed by surrogate codes assigned to sources by the gridding cross-reference file. If no option is used, both primary and fallback surrogate codes are included in the output report. If the FALLBACK option is used, only the fallback surrogate codes are included in the output report, and a zero is used for all records that did not use a fallback surrogate (i.e., their primary surrogate did not cause emissions to go to zero). This BY option does not imply the GRIDDING instruction (see below); therefore, it can be used without applying the gridding matrix in the report. A value of -9 is used for fallback surrogate IDs in the resulting report.</para>
@@ -672,9 +699,6 @@
 <para>Future versions of the BY command may support the following options, if a need for them is identified by SMOKE users:</para>
 
 <itemizedlist>
-<listitem>
-<para>SCC[#] [NAME]: Records are printed by collections of SCCs based on the number selected from 1 to 10. SCC-levels would match the 4 available levels for 8-digit and 10-digit SCCs. For example, SCC3 would sum emissions by SCC tier with the structure ###*******, where ### is the first three digits of the SCCs, and the asterisks indicate that the rest of the SCC number is ignored for purposes of grouping. NAME can be used to include the name of the SCC (or the appropriate SCC level) as one of the records in the output report.</para>
-</listitem>
 <listitem>
 <para>STACK [NAME]: For point sources only, records are printed as facility and stack totals. NAME can be appended to the option to get the facility names in the output file.</para>
 </listitem>
@@ -760,7 +784,7 @@
 
 <para>For lat-lon grids, the area of the lat-lon cell are estimated using the formula:</para>
 
-<para>(cos <emphasis>Y</emphasis>)*( <phrase role="symbol">&pi;</phrase> * <emphasis>DX</emphasis> * <emphasis>R</emphasis> / 180 )*( <phrase role="symbol">&pi;</phrase> * <emphasis>DY</emphasis> * <emphasis>R</emphasis> / 180 )</para>
+<para>(cos <emphasis>Y</emphasis>)*( &pi; * <emphasis>DX</emphasis> * <emphasis>R</emphasis> / 180 )*( &pi; * <emphasis>DY</emphasis> * <emphasis>R</emphasis> / 180 )</para>
 
 <para>where</para>
 
@@ -1009,6 +1033,46 @@ UNITS ALL kg/year</programlisting>
 <para>/DELIMITER/ ,</para>
 
 <para>This example results in a comma (,) being used as the delimiter for columns of any results from /CREATE REPORT/ instructions that followed this instruction in the <envar>REPCONFIG</envar> file.</para>
+
+</section>
+
+<section id="sect_qa_repconfig_set_label">
+
+<title>The /SET LABEL/ packet</title>
+
+<para>The /SET LABEL/ packet can be used to set a label to include on every row of every subsequent report defined in the <envar>REPCONFIG</envar> file. The label text can be either the text that appears in the packet, or the label can be defined by an environment variable.  This feature facilitates combining multiple reports from separate SMOKE runs into a single report more easily. For example, if the packet is used to create state reports for all sectors run through SMOKE, then those state reports could be concatenated, the file headers removed (except for the first header), and the individual sectors would be idenfified by the labels on the rows.</para>
+
+<para>The syntax for the packet is as follows:</para>
+
+<para>/SET LABEL/ &lt;label&gt;</para>
+
+<para>where &lt;label&gt; is limited to 200 characters and is one of the following:</para>
+
+<itemizedlist>
+<listitem>
+<para>a string of text that will appear near the beginning of every data line of the report. The only invalid string is the word "OFF" in capital letters.</para>
+
+<para>Example: /SET LABEL/ NonEGU Point</para>
+
+<para>In this example, all subsequent reports will contain a new column called "Label" and every value in the entire report will be "NonEGU Point".</para>
+</listitem>
+<listitem>
+<para>an environment variable designated by &lt;label&gt; starting with a dollar sign.</para>
+
+<para>Example: /SET LABEL/ $RUN_ID</para>
+
+<para>In this example, <command>Smkreport</command> will attempt to evaluate the environment variable <envar>RUN_ID</envar> from the shell running <command>Smkreport</command>. If <envar>RUN_ID</envar> is a defined environment variable (e.g., the shell had set <envar>RUN_ID</envar> to "oarea"), then all subsequent reports will contain a new column called "Label" and every value in the entire report will be "oarea".</para>
+
+<para>If the environment variable is not defined, set to blank, or otherwise invalid, the instruction will behave like the /SET LABEL/ OFF case below.</para>
+</listitem>
+<listitem>
+<para>the word "OFF".</para>
+
+<para>Example: /SET LABEL/ OFF</para>
+
+<para>This syntax turns off use of the label in all subsequent reports until a new valid /SET LABEL/ packet is found.</para>
+</listitem>
+</itemizedlist>
 
 </section>
 
