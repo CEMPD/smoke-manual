@@ -64,6 +64,10 @@ In this overview section, we first provide a few important notes about file form
 
 <para>For column-specific formats, the optional entries can be left blank or set to -9 when they are not used.</para>
 </listitem>
+
+<listitem>
+<para>Nearly all input files support full-line and trailing comments. If the first character on a line is a pound sign (#) then the line is treated as a comment. Any characters after an exclamation point (!) are treated as a comment.</para>
+</listitem>
 </itemizedlist>
 
 </section>
@@ -1934,15 +1938,15 @@ In this overview section, we first provide a few important notes about file form
 <listitem>#EMS-95 indicates that the file is in EMS-95 format</listitem>
 <listitem>#IDA indicates that the file is in IDA format</listitem>
 <listitem>#LIST indicates that the file is a list file</listitem>
-<listitem>#TOXICS indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
-<listitem>#TOXICS NONPOINT indicates that the file is in ORL format for nonpoint sources</listitem>
+<listitem>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
+<listitem>#ORL NONPOINT indicates that the file is in ORL format for nonpoint sources</listitem>
 </itemizedlist>
 
 <para>If you want to give the format information in the list file, you need to append an additional format label to the #LIST header. For example, #LIST IDA indicates that the current file is in list format and that the listed files are IDA format. List files can include multiple #LIST &lt;format&gt; entries to include multiple file types; the given format is assumed to apply to all files until another #LIST &lt;format&gt; is encountered. Format indicators in the individual inventory files will override settings in the list file. A sample list file is shown below.</para>
 
 <programlisting>#LIST IDA
 /apps/smoke/data/inventory/nei02/area/arinv.ida.txt
-#LIST TOXICS
+#LIST ORL
 /apps/smoke/data/inventory/nti02/area/arinv.orl.txt</programlisting>
 
 <para>In this case, SMOKE will assume that the file <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename> is in IDA format and the file <filename>/apps/smoke/data/inventory/nti02/area/arinv.orl.txt</filename> is in ORL format. Alternatively, these files could be listed like so:</para>
@@ -1951,7 +1955,7 @@ In this overview section, we first provide a few important notes about file form
 /apps/smoke/data/inventory/nei02/area/arinv.ida.txt
 /apps/smoke/data/inventory/nti02/area/arinv.orl.txt</programlisting>
 
-<para>In this case, the <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename> file must include the #IDA header and the <filename>/apps/smoke/data/inventory/nti02/area/arinv.orl.txt</filename> file must include the #TOXICS header.</para>
+<para>In this case, the <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename> file must include the #IDA header and the <filename>/apps/smoke/data/inventory/nti02/area/arinv.orl.txt</filename> file must include the #ORL header.</para>
 
 </section>
 
@@ -1996,8 +2000,8 @@ In this overview section, we first provide a few important notes about file form
 <entry>
 <simplelist>
 <member>#IDA</member>
-<member>#TOXICS</member>
-<member>#TOXICS NONPOINT</member>
+<member>#ORL</member>
+<member>#ORL NONPOINT</member>
 </simplelist>
 </entry>
 <entry>N/A</entry>
@@ -2303,11 +2307,11 @@ INVYEAR 1996
 
 <section>
 
-<title>ORL Formats (Toxics)</title>
+<title>ORL Formats</title>
 
 <para>Because area sources encompass both nonpoint and nonroad mobile sources, two different ORL formats are available depending on source type. Both formats use the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for nonpoint sources are shown below:</para>
 
-<programlisting>#TOXICS NONPOINT
+<programlisting>#ORL NONPOINT
 #TYPE     Nonpoint Source Toxics Inventory
 #COUNTRY  US
 #YEAR     1999
@@ -2315,7 +2319,7 @@ INVYEAR 1996
 
 <para>Sample header records for nonroad sources:</para>
 
-<programlisting>#TOXICS
+<programlisting>#ORL
 #TYPE     Nonroad Source Toxics Inventory
 #COUNTRY  US
 #YEAR     1999
@@ -2390,9 +2394,9 @@ INVYEAR 1996
 </row>
 <row>
 <entry>G</entry>
-<entry>CAS</entry>
+<entry>POLL</entry>
 <entry>Char</entry>
-<entry>Pollutant CAS number or other code (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Pollutant CAS number or other name (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
 <entry>H</entry>
@@ -2457,54 +2461,48 @@ INVYEAR 1996
 <tbody>
 <row>
 <entry>A</entry>
-<entry>STATE</entry>
+<entry>FIPS</entry>
 <entry>Int</entry>
-<entry>Two digit FIPS code for state (required)</entry>
+<entry>Five digit FIPS code for state and county (required)</entry>
 </row>
 <row>
 <entry>B</entry>
-<entry>COUNTY</entry>
-<entry>Int</entry>
-<entry>Three digit FIPS code for county (required)</entry>
-</row>
-<row>
-<entry>C</entry>
 <entry>SCC</entry>
 <entry>Char</entry>
 <entry>Source Classification Code (10 characters maximum) (required)</entry>
 </row>
 <row>
-<entry>D</entry>
-<entry>CAS</entry>
+<entry>C</entry>
+<entry>POLL</entry>
 <entry>Char</entry>
-<entry>Pollutant CAS number or other code (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Pollutant CAS number or other name (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>D</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
 <entry>Annual emissions (tons/year) (required)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>E</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
 <entry>Average-day emissions (tons/average day) (optional)</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>F</entry>
 <entry>CEFF</entry>
 <entry>Real</entry>
 <entry>Control Efficiency percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 0)</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>G</entry>
 <entry>REFF</entry>
 <entry>Real</entry>
 <entry>Rule Effectiveness percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>H</entry>
 <entry>RPEN</entry>
 <entry>Real</entry>
 <entry>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
@@ -2679,7 +2677,7 @@ INVYEAR 1996
 
 <title><envar>MBINV</envar>: Mobile-source activity and emissions</title>
 
-<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data and one for emissions data. Note that although the IDA formats support the link ID field, SMOKE cannot read the IDA link definitions file, which contains the coordinates for the links. In order to use link data with SMOKE, the EMS-95 format must be used. SMOKE also supports the ORL format for reading on-road mobile toxics data.</para>
+<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data and one for emissions data. Note that although the IDA formats support the link ID field, SMOKE cannot read the IDA link definitions file, which contains the coordinates for the links. In order to use link data with SMOKE, the EMS-95 format must be used. SMOKE also supports the ORL format for reading on-road mobile emissions data.</para>
 
 <section>
 
@@ -3141,11 +3139,11 @@ INVYEAR 1996
 
 <section>
 
-<title>ORL Format (Toxics)</title>
+<title>ORL Format</title>
 
 <para>The ORL format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
 
-<programlisting>#TOXICS
+<programlisting>#ORL
 #TYPE     Mobile Source Toxics Inventory
 #COUNTRY  US
 #YEAR     1999
@@ -3174,36 +3172,30 @@ INVYEAR 1996
 <tbody>
 <row>
 <entry>A</entry>
-<entry>STATE</entry>
+<entry>FIPS</entry>
 <entry>Int</entry>
-<entry>Two digit FIPS code for state (required)</entry>
+<entry>Five digit FIPS code for state and county (required)</entry>
 </row>
 <row>
 <entry>B</entry>
-<entry>COUNTY</entry>
-<entry>Int</entry>
-<entry>Three digit FIPS code for county (required)</entry>
-</row>
-<row>
-<entry>C</entry>
 <entry>SCC</entry>
 <entry>Char</entry>
 <entry>Ten character SCC (required)</entry>
 </row>
 <row>
-<entry>D</entry>
-<entry>CAS</entry>
+<entry>C</entry>
+<entry>POLL</entry>
 <entry>Char</entry>
-<entry>Pollutant CAS number or other code (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Pollutant CAS number or other name (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>D</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
 <entry>Annual emissions (tons/year) (required)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>E</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
 <entry>Average-day emissions (tons/average day) (optional)</entry>
@@ -3220,7 +3212,7 @@ INVYEAR 1996
 
 <title><envar>PTDAY</envar>: Point source day-specific emissions</title>
 
-<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95 or IDA format. In addition, these files can have a #COUNTRY entry as the first line of the file to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which correpsonds to the United States in the default <envar>COSTCY</envar> file).</para>
+<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95 or IDA format. However, the format indicator for the day-specific files must by #EMS-95; this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which correpsonds to the United States in the default <envar>COSTCY</envar> file).</para>
 
 <para>SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file, and that the user has matched the sources between the annual data inventory and the day-specific data. <comment>See the documentation for the <envar>PTHOUR</envar> file for additional information on how to use this file with IDA annual inventories.</comment></para>
 
@@ -3336,7 +3328,7 @@ INVYEAR 1996
 
 <comment>add variables for hourly precomputed plume rise and hourly stack data</comment>
 
-<para>The <envar>PTHOUR</envar> file is the input point-source inventory file for hour-specific data and profiles. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTHOUR</envar> file must be in either EMS-95 format or Continuous Emissions Monitoring (CEM) format. The contents of the hour-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95 or IDA format. In addition, these files can have a #COUNTRY entry as the first line of the file to set the country code (see <xref linkend="sect_input_inventory_header" />. The default country code is 0, which corresponds to the United States in the default <envar>COSTCY</envar> file.</para>
+<para>The <envar>PTHOUR</envar> file is the input point-source inventory file for hour-specific data and profiles. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTHOUR</envar> file must be in either EMS-95 format or Continuous Emissions Monitoring (CEM) format. Each file must have an format identifier (either #EMS-95 or #CEM) or the format can be specified in the <envar>PTHOUR</envar> list file (#LIST EMS-95 or #LIST CEM). The contents of the hour-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95 or IDA format. In addition, these files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />. The default country code is 0, which corresponds to the United States in the default <envar>COSTCY</envar> file.</para>
 
 <section>
 
@@ -3545,13 +3537,13 @@ INVYEAR 1996
 <row>
 <entry>A</entry>
 <entry>ORISID</entry>
-<entry>Char</entry>
+<entry>Char (6)</entry>
 <entry>DOE Plant ID (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
 </row>
 <row>
 <entry>B</entry>
 <entry>BLRID</entry>
-<entry>Char</entry>
+<entry>Char (6)</entry>
 <entry>Boiler Identification Code (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
 </row>
 <row>
@@ -3568,45 +3560,45 @@ INVYEAR 1996
 </row>
 <row>
 <entry>E</entry>
-<entry>CO2</entry>
+<entry>NOXMASS</entry>
 <entry>Real</entry>
-<entry>Carbon dioxide emissions (lb/h)</entry>
+<entry>Nitrogen oxide emissions (lb/h) (required)</entry>
 </row>
 <row>
 <entry>F</entry>
-<entry>SO2</entry>
+<entry>SO2MASS</entry>
 <entry>Real</entry>
-<entry>Sulfur dioxide emissions (lb/h)</entry>
+<entry>Sulfur dioxide emissions (lb/h) (required)</entry>
 </row>
 <row>
 <entry>G</entry>
 <entry>NOXRATE</entry>
 <entry>Real</entry>
-<entry>Nitrogen dioxide emissions (lb/MMBtu)</entry>
+<entry>Nitrogen oxide emissions rate (lb/MMBtu) (not used by SMOKE)</entry>
 </row>
 <row>
 <entry>H</entry>
 <entry>OPTIME</entry>
 <entry>Real</entry>
-<entry>Operating time (not used by SMOKE)</entry>
+<entry>Fraction of hour unit was operating (optional)</entry>
 </row>
 <row>
 <entry>I</entry>
 <entry>GLOAD</entry>
 <entry>Real</entry>
-<entry>Not used by SMOKE, but some real number must be in the field</entry>
+<entry>Gross load (MW) (optional)</entry>
 </row>
 <row>
 <entry>J</entry>
 <entry>SLOAD</entry>
 <entry>Real</entry>
-<entry>Not used by SMOKE, but some real number must be in the field</entry>
+<entry>Steam load (MW) (optional)</entry>
 </row>
 <row>
 <entry>K</entry>
 <entry>HTINPUT</entry>
 <entry>Real</entry>
-<entry>Heat input (MMBtu)</entry>
+<entry>Heat input (MMBtu) (required)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -3634,8 +3626,6 @@ INVYEAR 1996
 #YEAR     1995
 #DESC     Alabama 1995
 #POLID    CO NH3 NOX PM10 PM2_5 SO2 VOC</programlisting>
-
-<para><remark>Starting in version 1.4 of SMOKE, the reader of this file has been changed to work around a bug in the version 6.5 IRIX operating system. This workaround makes the reader more sensitive to missing pollutant data. This can cause problems when reading the data if a record has missing emissions data for the last pollutant in the list given by the #POLID header. To prevent this problem, fill in the missing data columns with spaces.</remark></para>
 
 <para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_ida" />.</para>
 
@@ -4415,11 +4405,11 @@ INVYEAR 1995
 
 <section>
 
-<title>ORL Format (Toxics)</title>
+<title>ORL Format</title>
 
 <para>The ORL format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
 
-<programlisting>#TOXICS
+<programlisting>#ORL
 #TYPE     Point Source Toxics Inventory
 #COUNTRY  US
 #YEAR     1999
@@ -4883,26 +4873,26 @@ INVYEAR 1995
 
 <title><envar>[A|M|P]TPRO</envar>: Temporal profiles file</title>
 
-<para>The <envar>ATPRO</envar>, <envar>MTPRO</envar>, and <envar>PTPRO</envar> files are used by the <command>Temporal</command> program for area, mobile, and point sources, respectively. These files contain the monthly, weekly, and diurnal temporal profiles used to convert the annual emissions stored in the inventory to hourly emissions. The files can contain four types of records:</para>
+<para>The <envar>ATPRO</envar>, <envar>MTPRO</envar>, and <envar>PTPRO</envar> files are used by the <command>Temporal</command> program for area, mobile, and point sources, respectively. These files contain the monthly, weekly, and diurnal temporal profiles used to convert the annual emissions stored in the inventory to hourly emissions. The files can contain the following types of records:</para>
 
 <itemizedlist>
 <listitem>
-<para>Monthly temporal weighting factors (/MONTHLY/ packet)</para>
+<para>Monthly temporal weighting factors (exactly one /MONTHLY/ packet)</para>
 </listitem>
 <listitem>
-<para>Weekly temporal weighting factors (/WEEKLY/ packet)</para>
+<para>Weekly temporal weighting factors (exactly one /WEEKLY/ packet)</para>
 </listitem>
 <listitem>
-<para>Weekday diurnal temporal weighting factors (/DIURNAL WEEKDAY/ packet)</para>
+<para>Weekday diurnal temporal weighting factors (either one /DIURNAL WEEKDAY/ packet or one each of /DIURNAL MONDAY/, /DIURNAL TUESDAY/, /DIURNAL WEDNESDAY/, /DIURNAL THURSDAY/, and /DIURNAL FRIDAY/ packets)</para>
 </listitem>
 <listitem>
-<para>Weekend diurnal temporal weighting factors (/DIURNAL WEEKEND/ packet)</para>
+<para>Weekend diurnal temporal weighting factors (either one /DIURNAL WEEKEND/ packet or one each of /DIURNAL SATURDAY/ and /DIURNAL SUNDAY/ packets)</para>
 </listitem>
 </itemizedlist>
 
-<comment>check on /DIURNAL MONDAY/, /DIURNAL TUESDAY/, etc. packets, as mentioned in chapter 2</comment>
+<para>The weekend diurnal temporal factors are optional if the /DIURNAL WEEKDAY/ packet is provided; in that case, the diurnal factors from the weekday packet will be used for both weekend days. If the monthly factors are not used because all of the inventory emissions are supplied as <quote>per day</quote> emissions, at least one monthly profile is still needed to prevent an error message.</para>
 
-<para>The weekend diurnal temporal factors are optional. If the monthly factors are not used because all of the inventory emissions are supplied as <quote>per day</quote> emissions, at least one monthly profile is still needed, to prevent an error message. The file format is column-specific and shown in <xref linkend="tbl_input_amptpro" />. All three source categories use the same file format, and they can share the same file.</para>
+<para>The file format is column-specific and shown in <xref linkend="tbl_input_amptpro" />. All three source categories use the same file format, and they can share the same file.</para>
 
 <table id="tbl_input_amptpro">
 <title>Format for <envar>ATPRO</envar>, <envar>MTPRO</envar>, and <envar>PTPRO</envar></title>
@@ -5009,7 +4999,7 @@ INVYEAR 1995
 <row>
 <entry>1</entry>
 <entry>1-20</entry>
-<entry>Packet identifier = /DIURNAL WEEKDAY/ or /DIURNAL WEEKEND/</entry>
+<entry>Packet identifier = /DIURNAL WEEKDAY/, /DIURNAL WEEKEND/, ...</entry>
 </row>
 <row>
 <entry>2+</entry>
@@ -6856,9 +6846,210 @@ INVYEAR 1995
 
 <title>Meteorology Files</title>
 
-<para>The five meteorology files that SMOKE needs for biogenic emissions adjustments, calculation of on-road mobile source emission, and plume rise calculations are <envar>GRID_CRO_2D</envar>, <envar>GRID_CRO_3D</envar>, <envar>MET_CRO_2D</envar>, <envar>MET_CRO_3D</envar>, and <envar>MET_DOT_3D</envar>. The files are usually based on MM5 data, but must be specially formatted by a postprocessor like MCIP or MCPL.</para>
+<para>The five meteorology files that SMOKE needs for biogenic emissions adjustments, calculation of on-road mobile source emission, and plume rise calculations are <envar>GRID_CRO_2D</envar>, <envar>GRID_CRO_3D</envar>, <envar>MET_CRO_2D</envar>, <envar>MET_CRO_3D</envar>, and <envar>MET_DOT_3D</envar>. The files are usually based on MM5 data but must be specially formatted by a postprocessor like MCIP or MCPL.</para>
 
-<comment>add info about required variables for each type of processing, descriptions about the different file types</comment>
+<para>GRID_CRO_2D - 2-D grid parameters file</para>
+<para>GRID_CRO_3D - 3-D grid parameters file</para>
+<para>MET_CRO_2D - 2-D cross-point data file (surface meteorology data)</para>
+<para>MET_CRO_3D - 3-D cross-point data file (layered meteorology data)</para>
+<para>MET_DOT_3D - 3-D dot-point data file (layered meteorology data)</para>
+
+<table id="tbl_input_metfiles">
+<title>Meteorology variables used by program</title>
+
+<tgroup cols="5">
+<colspec colwidth="20*" colname="File" />
+<colspec colwidth="20*" colname="Program" />
+<colspec colwidth="20*" colname="Variable" />
+<colspec colwidth="20*" colname="Description" />
+<colspec colwidth="20*" colname="Note" />
+
+<thead>
+<row>
+<entry>File name</entry>
+<entry>Program</entry>
+<entry>Variable</entry>
+<entry>Description</entry>
+<entry>Notes</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>GRID_CRO_2D</envar></entry>
+<entry><command>Tmpbeis3</command></entry>
+<entry>LAT</entry>
+<entry>grid cell latitude (degrees)</entry>
+</row>
+<row>
+<entry colname="Variable">LON</entry>
+<entry>grid cell longitude (degrees)</entry>
+</row>
+<row>
+<entry colname="Program"><command>Tmpbio</command></entry>
+<entry>LAT</entry>
+<entry>grid cell latitude (degrees)</entry>
+<entry>only used if <envar>BG_CLOUD_TYPE</envar> = 1</entry>
+</row>
+<row>
+<entry colname="Variable">LON</entry>
+<entry>grid cell longitude (degrees)</entry>
+<entry>only used if <envar>BG_CLOUD_TYPE</envar> = 1</entry>
+</row>
+
+<row>
+<entry><envar>GRID_CRO_3D</envar></entry>
+<entry><command>Laypoint</command></entry>
+<entry>X3HT0F</entry>
+<entry>height of layer face above ground (m)</entry>
+<entry>only used when layer structure is static</entry>
+</row>
+<row>
+<entry colname="Variable">X3HT0M</entry>
+<entry>height of layer middle above ground (m)</entry>
+<entry>only used when layer structure is static</entry>
+</row>
+
+<row>
+<entry><envar>MET_CRO_2D</envar></entry>
+<entry><command>Laypoint</command></entry>
+<entry>HFX</entry>
+<entry>sensible heat flux (watts/m<superscript>2</superscript>)</entry>
+</row>
+<row>
+<entry colname="Variable">PBL</entry>
+<entry>PBL height (m)</entry>
+</row>
+<row>
+<entry colname="Variable">PRSFC</entry>
+<entry>surface pressure (Pascals)</entry>
+</row>
+<row>
+<entry colname="Variable">TEMP1P5</entry>
+<entry>temperature at 1.5 m (Kelvins)</entry>
+</row>
+<row>
+<entry colname="Variable">USTAR</entry>
+<entry>average friction velocity (m/s)</entry>
+</row>
+<row>
+<entry colname="Program"><command>Premobl</command></entry>
+<entry>TEMPG</entry>
+<entry>ground temperature (Kelvins)</entry>
+<entry>variable name is set by <envar>TVARNAME</envar>, all <command>Premobl</command> variables must be in same file</entry>
+</row>
+<row>
+<entry colname="Program"><command>Tmpbeis3</command></entry>
+<entry>RGRND</entry>
+<entry>solar radiation reaching surface (watts/m<superscript>2</superscript>)</entry>
+<entry>variable name is set by <envar>RAD_VAR</envar>, actual file used is determined by <envar>BIOMET_SAME</envar></entry>
+</row>
+<row>
+<entry colname="Program"><command>Tmpbio</command></entry>
+<entry>PRSFC</entry>
+<entry>surface pressure (Pascals)</entry>
+<entry>only used if <envar>BG_CLOUD_TYPE</envar> is not 1, variable name is set by <envar>PRES_VAR</envar></entry>
+</row>
+<row>
+<entry colname="Variable">RGRND</entry>
+<entry>solar radiation reaching surface (watts/m<superscript>2</superscript>)</entry>
+<entry>only used if <envar>BG_CLOUD_TYPE</envar> = 1, variable name is set by <envar>RAD_VAR</envar>, actual file used is determined by <envar>BIOMET_SAME</envar></entry>
+</row>
+
+<row>
+<entry><envar>MET_CRO_3D</envar></entry>
+<entry><command>Laypoint</command></entry>
+<entry>DENS</entry>
+<entry>total air density (kg/m<superscript>3</superscript>)</entry>
+</row>
+<row>
+<entry colname="Variable">PRES</entry>
+<entry>pressure (Pascals)</entry>
+</row>
+<row>
+<entry colname="Variable">QV</entry>
+<entry>water vapor mixing ratio (kg/kg)</entry>
+</row>
+<row>
+<entry colname="Variable">TA</entry>
+<entry>air temperature (Kelvins)</entry>
+</row>
+<row>
+<entry colname="Variable">ZF</entry>
+<entry>full-layer height above ground (m)</entry>
+</row>
+<row>
+<entry colname="Variable">ZH</entry>
+<entry>mid-layer height above ground (m)</entry>
+</row>
+<row>
+<entry colname="Program"><command>Premobl</command></entry>
+<entry>PRES</entry>
+<entry>pressure (Pascals)</entry>
+<entry>all <command>Premobl</command> variables must be in same file</entry>
+</row>
+<row>
+<entry colname="Variable">QV</entry>
+<entry>water vapor mixing ratio (kg/kg)</entry>
+<entry>all <command>Premobl</command> variables must be in same file</entry>
+</row>
+<row>
+<entry colname="Program"><command>Tmpbeis3</command></entry>
+<entry>PRES</entry>
+<entry>pressure (Pascals)</entry>
+<entry>variable name is set by <envar>PRES_VAR</envar></entry>
+</row>
+<row>
+<entry colname="Variable">RC</entry>
+<entry>convective rainfall (cm)</entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.12, variable name is set by <envar>RC_VAR</envar></entry>
+</row>
+<row>
+<entry colname="Variable">RN</entry>
+<entry>nonconvective rainfall (cm)</entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.12, variable name is set by <envar>RN_VAR</envar></entry>
+</row>
+<row>
+<entry colname="Variable">SLTYP</entry>
+<entry>soil texture type by USDA category</entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.12 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>ISLTYP_VAR</envar></entry>
+</row>
+<row>
+<entry colname="Variable">SOIM1</entry>
+<entry>volumetric soil moisture in top centimeter (m<superscript>3</superscript>/m<superscript>3</superscript>)</entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.12 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILM_VAR</envar></entry>
+</row>
+<row>
+<entry colname="Variable">SOIT1</entry>
+<entry>soil temperature in top centimeter (Kelvins)</entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.12 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILT_VAR</envar></entry>
+</row>
+<row>
+<entry colname="Variable">TA</entry>
+<entry>air temperature (Kelvins)</entry>
+<entry>variable name is set by <envar>TMPR_VAR</envar>, actual file opened depends on <envar>MET_FILE1</envar></entry>
+</row>
+<row>
+<entry colname="Program"><command>Tmpbio</command></entry>
+<entry>TA</entry>
+<entry>air temperature (Kelvins)</entry>
+<entry>variable name is set by <envar>TMPR_VAR</envar>, actual file opened depends on <envar>MET_FILE1</envar>/<envar>METLIST</envar></entry>
+</row>
+
+<row>
+<entry><envar>MET_DOT_3D</envar></entry>
+<entry><command>Laypoint</command></entry>
+<entry>UWIND</entry>
+<entry>U-component of wind (m/s)</entry>
+</row>
+<row>
+<entry colname="Variable">VWIND</entry>
+<entry>V-component of wind (m/s)</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
 
 <section id="sect_input_metlist">
 
@@ -7210,6 +7401,84 @@ OXYGENATE          : MTBE  15.1  0.50
 </example>
 
 </section>
+
+</section>
+
+<section id="sect_input_m6map">
+
+<title><envar>M6MAP</envar>: Mobile source vehicle mapping file</title>
+
+<para>The <envar>M6MAP</envar> file maps the 28 MOBILE6 vehicle types to the vehicle types in the mobile-source inventory. The format of the <envar>M6MAP</envar> file is shown in <xref linkend="tbl_input_m6map" />.</para>
+
+<table id="tbl_input_m6map">
+<title>Format for <envar>M6MAP</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>M6TYPE</entry>
+<entry>Char (6)</entry>
+<entry>MOBILE6 vehicle type</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>INVTYPE</entry>
+<entry>Char (6)</entry>
+<entry>Inventory vehicle type</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>M6MAP</envar> file</title>
+
+<programlisting># MOBILE6 to SMOKE vehicle type mapping file
+# base 8 vehicle types from SMOKE User's Manual
+LDGV    LDGV
+LDGT1   LDGT1
+LDGT2   LDGT1
+LDGT3   LDGT2
+LDGT4   LDGT2
+HDGV2b  HDGV
+HDGV3   HDGV
+HDGV4   HDGV
+HDGV5   HDGV
+HDGV6   HDGV
+HDGV7   HDGV
+HDGV8a  HDGV
+HDGV8b  HDGV
+HDGB    HDGV
+LDDV    LDDV
+LDDT12  LDDT
+LDDT34  LDDT
+HDDV2b  HDDV
+HDDV3   HDDV
+HDDV4   HDDV
+HDDV5   HDDV
+HDDV6   HDDV
+HDDV7   HDDV
+HDDV8a  HDDV
+HDDV8b  HDDV
+HDDBT   HDDV
+HDDBS   HDDV
+MC      MC</programlisting>
+</example>
 
 </section>
 
@@ -7815,7 +8084,7 @@ VE  <  10.
 
 <itemizedlist>
 <listitem>
-<para>+/- or -/+: variable values must be within &lt;value for criterion&gt; for the variable given</para>
+<para>+/- or -/+: variable values must be within plus or minus &lt;value for criterion&gt; for the variable given</para>
 </listitem>
 <listitem>
 <para>&gt;: variable values must be greater than &lt;value for criterion&gt; for the variable given</para>
@@ -7831,6 +8100,9 @@ VE  <  10.
 </listitem>
 <listitem>
 <para>= or ==: variable values must be equal to &lt;value for criterion&gt; for the variable given</para>
+</listitem>
+<listitem>
+<para>%: variable values must be less than plus or minus &lt;value for criterion&gt; percent different for the variable given</para>
 </listitem>
 </itemizedlist>
 
@@ -8532,6 +8804,98 @@ SOURCE > 100 AND SOURCE < 200
 
 </section>
 
+<section id="sect_input_mactdesc">
+
+<title><envar>MACTDESC</envar>: MACT code descriptions</title>
+
+<para>This file provides textual descriptions of the MACT codes. The format of the <envar>MACTDESC</envar> file is shown in <xref linkend="tbl_input_mactdesc" />.</para>
+
+<table id="tbl_input_mactdesc">
+<title>Format for <envar>MACTDESC</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>CODE</entry>
+<entry>Char (6)</entry>
+<entry>MACT code</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>DESC</entry>
+<entry>Char (200)</entry>
+<entry>Description for MACT code</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+</example>
+
+</section>
+
+<section id="sect_input_naicsdesc">
+
+<title><envar>NAICSDESC</envar>: NAICS code descriptions</title>
+
+<para>This file provides text descriptions of the NAICS codes. The format of the <envar>NAICSDESC</envar> file is shown in <xref linkend="tbl_input_naicsdesc" />.</para>
+
+<table id="tbl_input_naicsdesc">
+<title>Format for <envar>NAICSDESC</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>CODE</entry>
+<entry>Char (6)</entry>
+<entry>NAICS code</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>DESC</entry>
+<entry>Char (200)</entry>
+<entry>Description for NAICS code</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+</example>
+
+</section>
+
 <section id="sect_input_nhapexclude">
 
 <title><envar>NHAPEXCLUDE</envar>: NonHAP VOC calculation exclusions file</title>
@@ -8753,6 +9117,52 @@ SOURCE > 100 AND SOURCE < 200
 </tbody>
 </tgroup>
 </table>
+
+</section>
+
+<section id="sect_input_sicdesc">
+
+<title><envar>SICDESC</envar>: SIC code descriptions</title>
+
+<para>This file provides text descriptions of the SIC codes. The format of the <envar>SICDESC</envar> file is shown in <xref linkend="tbl_input_sicdesc" />.</para>
+
+<table id="tbl_input_sicdesc">
+<title>Format for <envar>SICDESC</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>CODE</entry>
+<entry>Char (6)</entry>
+<entry>SIC code</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>DESC</entry>
+<entry>Char (200)</entry>
+<entry>Description for SIC code</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+</example>
 
 </section>
 
