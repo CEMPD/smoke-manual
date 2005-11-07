@@ -8,9 +8,15 @@
 
 <title>Overview</title>
 
-<para>There are ten programs covered in this chapter:</para>
+<para>There are thirteen programs covered in this chapter:</para>
+
+<para><link linkend="sect_utilities_aggwndw"><command>Aggwndw</command></link> is a utility program that can aggregate or window emissions from an I/O API file to a new grid.</para>
 
 <para>The <link linkend="sect_utilities_beld3to2"><command>Beld3to2</command></link> program converts two BELD3 I/O API netCDF files into a single BELD2 ASCII file for input into <command>Rawbio</command>.</para>
+
+<para><link linkend="sect_utilities_bluesky2inv"><command>BlueSky2Inv</command></link> converts output files from the BlueSky fire modeling framework into inventory files that SMOKE can read.</para>
+
+<para>The <link linkend="sect_utilities_cemscan"><command>CEMScan</command></link> program calculates summed annual NOx emissions, SO2 emissions, heat input, gross load, and steam load from a year&rsquo;s worth of CEM data. The output from <command>CEMScan</command> is used by <command>Smkinven</command> to calculate hourly emissions from annual inventory data when processing CEM data.</para>
 
 <para><link linkend="sect_utilities_extractida"><command>Extractida</command></link> allows you to extract specific plants from a point-source, IDA-formatted SMOKE input inventory file.</para>
 
@@ -29,6 +35,118 @@
 <para><link linkend="sect_utilities_surgtool"><command>Surgtool</command></link> inputs SMOKE-formatted gridding surrogates for a <quote>fine</quote> input grid and outputs a surrogate file for a <quote>coarse</quote> output grid. It produces approximate <quote>coarse</quote> grid surrogates, the accuracy of which depends on how fine the resolution of the input grid is relative to that of the output grid.</para>
 
 <para><link linkend="sect_utilities_uam2ncf"><command>Uam2ncf</command></link> converts UAM-ready emissions files into I/O API format.</para>
+
+</section>
+
+<section id="sect_utilities_aggwndw">
+
+<title><command>Aggwndw</command></title>
+
+<section>
+
+<title>Description</title>
+
+<para><command>Aggwndw</command> aggregates and/or windows emissions from an I/O API file to a new grid. The program does not change grid projections or interpolate data; the grid boundaries of the input and output grids must be aligned and the output grid must be entirely contained within the input grid. <command>Aggwndw</command> automatically checks that the input and output emissions do not differ by more than 0.01% and also produces a report file containing summed input and output data.</para>
+
+</section>
+
+<section>
+
+<title>Processing Order</title>
+
+<para><command>Aggwndw</command> can be run on any gridded I/O API file. Usually it would be used to create coarse-grid or windowed emissions from fine-grid model-ready output files created by <command>Smkmerge</command> or <command>Mrggrid</command>.</para>
+
+</section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<section>
+
+<title>Input Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>GRIDDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>Grid description file containing information about the output grid</entry>
+</row>
+<row>
+<entry><envar>INFILE</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Input gridded emissions file</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+<section>
+
+<title>Input Environment Variables</title>
+
+<itemizedlist>
+<listitem>
+<para><envar>IOAPI_GRIDNAME_1</envar>: [default: none]</para>
+
+<para>Sets the name of the output grid whose parameters will be read from the <envar>GRIDDESC</envar> file.</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>Output Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>OUTFILE</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Gridded emissions file</entry>
+</row>
+<row>
+<entry><envar>REPFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file; provides summed input and output emissions for QA purposes</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+</section>
 
 </section>
 
@@ -155,6 +273,232 @@
 
 </section>
 -->
+
+</section>
+
+<section id="sect_utilities_bluesky2inv">
+
+<title><command>BlueSky2Inv</command></title>
+
+<section>
+
+<title>Description</title>
+
+<para><command>BlueSky2Inv</command> converts output files from the BlueSky fire modeling framework into an annual IDA-formatted inventory and an hourly emissions inventory.</para>
+
+</section>
+
+<section>
+
+<title>Processing Order</title>
+
+<para><command>BlueSky2Inv</command> is used to create inventories from BlueSky output for input into <command>Smkinven</command>.</para>
+
+</section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<section>
+
+<title>Input Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>COSTCY</envar></entry>
+<entry>ASCII</entry>
+<entry>Country, state, and county codes file; used to assign time zones to each source based on the source&rsquo;s state and county codes</entry>
+</row>
+<row>
+<entry><envar>FILELIST</envar></entry>
+<entry>ASCII</entry>
+<entry>List of BlueSky output files including path and filename</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+<section>
+
+<title>Input Environment Variables</title>
+
+<itemizedlist>
+<listitem>
+<para><envar>G_STDATE</envar>: [default: none]</para>
+
+<para>Starting date of data (YYYYDDD); used to set the inventory year in the annual inventory. <envar>G_STDATE</envar> is also used to create default entries in the daily inventory file for each source.</para>
+</listitem>
+<listitem>
+<para><envar>VARLIST</envar>: [default: none]</para>
+
+<para>Selects the variables that will be output in the annual and daily inventories. Valid values are AREA, HFLUX, PM2_5, PM10, PM, PMC, CO, CO2, CH4, NMHC, and TOG. The values for the variable should be formatted as follows:</para>
+
+<para><userinput>setenv VARLIST "AREA, HFLUX, PM2_5, PMC, CO, TOG"</userinput></para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>Output Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>PTDAY</envar></entry>
+<entry>ASCII</entry>
+<entry>Daily emissions inventory</entry>
+</row>
+<row>
+<entry><envar>PTINV</envar></entry>
+<entry>ASCII</entry>
+<entry>Annual IDA-formatted inventory</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+</section>
+
+</section>
+
+<section id="sect_utilities_cemscan">
+
+<title><command>CEMScan</command></title>
+
+<section>
+
+<title>Description</title>
+
+<para><command>CEMScan</command> reads a year&rsquo;s worth of CEM data and calculates summed annual NOx emissions, SO2 emissions, heat input, gross load, and steam load. The output from <command>CEMScan</command> is used by <command>Smkinven</command> to calculate hourly emissions from annual inventory data when reading CEM data.</para>
+
+</section>
+
+<section>
+
+<title>Processing Order</title>
+
+<para><command>CEMScan</command> should be run before <command>Smkinven</command> when processing CEM data.</para>
+
+</section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<section>
+
+<title>Input Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>FILELIST</envar></entry>
+<entry>ASCII</entry>
+<entry>List of CEM input files including path and filename; the files must contain data for an entire year to be consistent with the annual inventory</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+<section>
+
+<title>Input Environment Variables</title>
+
+<itemizedlist>
+<listitem>
+<para><envar>MAX_CEM_UNITS</envar>: [default: none]</para>
+
+<para>Maximum number of CEM units in input data; this value can usually be based on the number of sources in the annual inventory</para>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>Output Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>OUTFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>CEM summary file</entry>
+</row>
+<row>
+<entry><envar>REPFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Report summarizes CEM data</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+</section>
 
 </section>
 
@@ -513,7 +857,7 @@ PAR             0.6</programlisting></entry>
 
 <title>Processing Order</title>
 
-<para><command>Metcombine</command> can optionally be run before <command>Premobl</command>. If used, <command>Metcombine</command> must be run for each individual meteorology file you need to create. For example, if you have five days worth of meteorology data as one-day files, you'll need to run <command>Metcombine</command> five times. If the meteorology variables you wish to use are already in the same file, then you do not need to use <command>Metcombine</command>.</para>
+<para><command>Metcombine</command> can optionally be run before <command>Premobl</command>. If used, <command>Metcombine</command> must be run for each individual meteorology file you need to create. For example, if you have five days worth of meteorology data as one-day files, you&rsquo;ll need to run <command>Metcombine</command> five times. If the meteorology variables you wish to use are already in the same file, then you do not need to use <command>Metcombine</command>.</para>
 
 </section>
 
