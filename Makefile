@@ -1,6 +1,6 @@
 # base directories for applications and data
 APPS_DIR = /afs/isis/depts/cep/emc/apps/DocBook
-BASE_DIR = /nas/uncch/depts/cep/emc/cseppan/docs/manual
+BASE_DIR = /afs/isis/depts/cep/emc/proj/smoke/docs/manual/current
 
 # application locations
 JAVA_EXE = /usr/bin/java
