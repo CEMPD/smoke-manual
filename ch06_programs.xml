@@ -2008,7 +2008,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The <command>Grwinven</command> program grows and controls inventory emissions and activity data into the past/future by merging a SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) with its respective growth and control matrices. This optional program need not be used if these projections have been made outside of SMOKE. <command>Grwinven</command> outputs new SMOKE I/O API inventory files, but not the corresponding inventory ASCII files (because the program changes the data only in the I/O API inventory files, so there is no need to output the same ASCII files). The program can also output data in IDA or ORL format, or be used as a converter from SMOKE to IDA or ORL format. <command>Grwinven</command> does not merge the SMOKE inventory with reactivity matrices; this functionality is handled by <command>Smkmerge</command>.</para>
 
-<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an IDA- or ORL-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPPATH</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
+<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an IDA- or ORL-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPDIR</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
 
 </section>
 
@@ -2108,7 +2108,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>SMK_GRWORLOUT_YN</envar>: [default: N]</para>
 
-<para>Indicates if an ORL-formatted grown and/or controlled inventory should be output; <envar>SMK_GRWORLOUT_YN</envar> and <envar>SMK_GRWIDAOUT_YN</envar> cannot be both set to Y in the same run.</para>
+<para>Indicates if an ORL-formatted grown and/or controlled inventory should be output. Currently only ORL nonpoint ond point inventory formats are supported. <envar>SMK_GRWORLOUT_YN</envar> and <envar>SMK_GRWIDAOUT_YN</envar> cannot be both set to Y in the same run.</para>
 
 <itemizedlist>
 <listitem>
@@ -2139,7 +2139,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Number of control and/or growth matrices to import and apply to the inventory.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_TMPPATH</envar>: [default: <filename class="directory">.</filename>]</para>
+<para><envar>SMK_TMPDIR</envar>: [default: <filename class="directory">.</filename>]</para>
 
 <para>Defines the path to use for temporary files that are written out when supplying the IDA-formatted inventory. This setting is used only when <envar>SMK_GRWIDAOUT_YN</envar> is set to Y.</para>
 </listitem>
@@ -3367,18 +3367,9 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Name of the temperature variable to read from the meteorology input data.</para>
 </listitem>
 <listitem>
-<para><envar>UNIFORM_STIME</envar>: [default: N]</para>
+<para><envar>UNIFORM_STIME</envar>: [default: -1]</para>
 
-<para>Logical value to specify whether all sources start a day on the same hour or use time zones to determine the start of a day.</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Start all sources on same hour</para>
-</listitem>
-<listitem>
-<para>N: Use time zones to determine start of day</para>
-</listitem>
-</itemizedlist>
+<para>Indicates day starting time for all sources (HHMMSS); -1 uses time zones to determine the start of a day.</para>
 
 </listitem>
 </itemizedlist>
@@ -3926,7 +3917,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>CHECK_STACKS_YN</envar>: [default: Y]</para>
 
-<para>Indicates if stack parameter values should be checked for missing or out-of-range values; only checked if <command>SMK_SOURCE</command> is set to P.</para>
+<para>Indicates if stack parameter values should be checked for missing or out-of-range values; only checked if <envar>SMK_SOURCE</envar> is set to P.</para>
 
 <itemizedlist>
 <listitem>
@@ -4870,11 +4861,6 @@ Defines whether the program produces a report of emission totals by state.</para
 <para><envar>SMK_REPORT_TIME</envar>: [default: 230000]</para>
 
 <para>Time for writing daily reports from program (HHMMSS).</para>
-</listitem>
-<listitem>
-<para><envar>SPC_INPUT</envar>: [script setting, no default]</para>
-
-<para>Used by the SMOKE scripts to switch between mass-based and mole-based speciation. At this time, the <command>Smkmerge</command> program does not read in this setting directly; instead, the SMOKE scripts use it to control whether <command>Smkmerge</command> will be provided with mass-based or mole-based speciation matrices and biogenic model-ready inputs.</para>
 </listitem>
 </itemizedlist>
 
