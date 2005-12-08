@@ -10,7 +10,7 @@
 
 <para>This chapter contains format information for all input files used by SMOKE. <xref linkend="ch_intermediate_files" /> and <xref linkend="ch_output_files" /> provide documentation on SMOKE&rsquo;s intermediate and output file formats.</para>
 
-In this overview section, we first provide a few important notes about file formats (<xref linkend="sect_input_file_formats" />, and then discuss where to put SMOKE input files (<xref linkend="sect_input_file_locations" />). <xref linkend="sect_input_file_list" /> summarizes all the input files needed by SMOKE, organized by function. <xref linkend="sect_input_nctox_case" /> provides a list, organized by SMOKE program, of all the default input files provided with the nctox sample case, which is described in <xref linkend="sect_scripts_nctox_case" />.
+In this overview section, we first provide a few important notes about file formats (<xref linkend="sect_input_file_formats" />, and then discuss where to put SMOKE input files (<xref linkend="sect_input_file_locations" />). <xref linkend="sect_input_file_list" /> summarizes all the input files needed by SMOKE, organized by function. <xref linkend="sect_input_nctox_case" /> provides a list, organized by SMOKE program, of all the example input files provided with the nctox test case, which is described in <xref linkend="sect_scripts_nctox_case" />.
 
 <para>The remaining sections in this chapter are broken down as follows:</para>
 
@@ -104,353 +104,354 @@ In this overview section, we first provide a few important notes about file form
 
 <para>Within each table, the files are listed in alphabetical order. When a file is optional, this is noted in the description column of the table.</para>
 
-<para>All of the ASCII files could conceivably be prepared manually. However, the last three table columns indicate other options you can use to prepare the files.</para>
-
-<remark>
-<itemizedlist>
-<listitem>
-<para>An <quote>X</quote> in column <quote>CNV</quote> indicates that there is a SMOKE converter (either a Fortran program, SAS program, script, or Excel spreadsheet) to create the file.</para>
-</listitem>
-<listitem>
-<para>An <quote>X</quote> in column <quote>ST</quote> indicates that the SMOKE Tool in Models-3 can prepare the file.</para>
-</listitem>
-<listitem>
-<para>An entry in column <quote>Other</quote> indicates that there is another method available to create the file, or that the file is resident in the installation, in which case it is not likely to need modification for most users.</para>
-</listitem>
-</itemizedlist>
-</remark>
-
 <table id="tbl_input_inventory_files">
 
-<title>Inventory Files</title>
+<title>Inventory File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_arinv"><envar>ARINV</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_arinv"><envar>ARINV</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>A</entry>
-<entry>Stationary area/nonpoint or nonroad raw inventory in IDA format, SMOKE list format for EMS-95 files, or SMOKE ORL format (<envar>$ARDAT</envar> directory)</entry>
-<entry colname="ST">X</entry>
-<entry>NEI resident</entry>
+<entry>Stationary area/nonpoint or nonroad raw inventory in IDA format, SMOKE list format for EMS-95 files, or SMOKE ORL format</entry>
+<entry><envar>$ARDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_bcuse"><envar>BCUSE</envar></link> (<command>Rawbio</command>)</entry>
+<entry><link linkend="sect_input_bcuse"><envar>BCUSE</envar></link></entry>
+<entry><command>Rawbio</command></entry>
 <entry>B</entry>
-<entry>Biogenic county land use data (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">National data resident</entry>
+<entry>Biogenic county land use data</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_bguse"><envar>BGUSE</envar></link> (<command>Rawbio</command>)</entry>
+<entry><link linkend="sect_input_bguse"><envar>BGUSE</envar></link></entry>
+<entry><command>Rawbio</command></entry>
 <entry>B</entry>
-<entry>Biogenic gridded land use data (<envar>$BGDAT</envar> directory)</entry>
-<entry colname="Other">U.S. 36 km resident</entry>
+<entry>Biogenic gridded land use data</entry>
+<entry><envar>$BGDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_mbinv"><envar>MBINV</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_mbinv"><envar>MBINV</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>M</entry>
-<entry>Mobile source raw inventory in IDA format for nonlink data, SMOKE list format for EMS-95 nonlink and link data, or SMOKE ORL format (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">NEI resident</entry>
+<entry>Mobile source raw inventory in IDA format for nonlink data, SMOKE list format for EMS-95 nonlink and link data, or SMOKE ORL format</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_ptday"><envar>PTDAY</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_ptday"><envar>PTDAY</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Point source raw day-specific inventory data (optional) (<envar>$PTDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Point source raw day-specific inventory data (optional)</entry>
+<entry><envar>$PTDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_pthour"><envar>PTHOUR</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_pthour"><envar>PTHOUR</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Point source raw hour-specific inventory data (optional) (<envar>$PTDAT</envar> directory)</entry>
-<entry colname="Other">User or CEM data</entry>
+<entry>Point source raw hour-specific inventory data (optional)</entry>
+<entry><envar>$PTDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_ptinv"><envar>PTINV</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_ptinv"><envar>PTINV</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Point source raw inventory in IDA format, SMOKE list format for EMS-95 files, or SMOKE ORL format (<envar>$PTDAT</envar> directory)</entry>
-<entry colname="ST">X</entry>
-<entry colname="Other">NEI resident</entry>
+<entry>Point source raw inventory in IDA format, SMOKE list format for EMS-95 files, or SMOKE ORL format</entry>
+<entry><envar>$PTDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_vmtmix"><envar>VMTMIX</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_vmtmix"><envar>VMTMIX</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>M</entry>
-<entry>Mobile source vehicle mix for EMS-95 files (<envar>$MBDAT</envar> directory)</entry>
+<entry>Mobile source vehicle mix for EMS-95 files</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_temporal_files">
 
-<title>Temporal Allocation Input Files</title>
+<title>Temporal Allocation Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_amptpro"><envar>[A|M|P]TPRO</envar></link> (<command>Temporal</command>)</entry>
+<entry><link linkend="sect_input_amptpro"><envar>[A|M|P]TPRO</envar></link></entry>
+<entry><command>Temporal</command></entry>
 <entry>A, M, P</entry>
-<entry>Temporal profile file (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="ST">X</entry>
-<entry>NEI resident</entry>
+<entry>Temporal profile file</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_amptref"><envar>[A|M|P]TREF</envar></link> (<command>Temporal</command>)</entry>
+<entry><link linkend="sect_input_amptref"><envar>[A|M|P]TREF</envar></link></entry>
+<entry><command>Temporal</command></entry>
 <entry>A, M, P</entry>
-<entry>Temporal cross-reference file (<envar>$GE_DAT</envar> directory)</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>NEI resident</entry>
+<entry>Temporal cross-reference file</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_holidays"><envar>HOLIDAYS</envar></link> (<command>Temporal</command>)</entry>
+<entry><link linkend="sect_input_holidays"><envar>HOLIDAYS</envar></link></entry>
+<entry><command>Temporal</command></entry>
 <entry>A, M, P</entry>
-<entry>Holidays file (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>Holidays file</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_spatial_files">
 
-<title>Spatial Allocation Input Files</title>
+<title>Spatial Allocation Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_amgpro"><envar>[A|M]GPRO</envar></link> (<command>Grdmat</command>, <command>Surgtool</command>)</entry>
+<entry><link linkend="sect_input_amgpro"><envar>[A|M]GPRO</envar></link></entry>
+<entry><command>Grdmat</command>, <command>Surgtool</command></entry>
 <entry>A, M</entry>
-<entry>Area and/or mobile source spatial surrogates (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="ST">X</entry>
-<entry>U.S. 36-km resident</entry>
+<entry>Area and/or mobile source spatial surrogates</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_amgref"><envar>[A|M]GREF</envar></link> (<command>Grdmat</command>)</entry>
+<entry><link linkend="sect_input_amgref"><envar>[A|M]GREF</envar></link></entry>
+<entry><command>Grdmat</command></entry>
 <entry>A, M</entry>
-<entry>Area source or mobile gridding cross-reference (<envar>$GE_DAT </envar>directory)</entry>
-<entry colname="ST">X</entry>
-<entry>NEI resident</entry>
+<entry>Area source or mobile gridding cross-reference</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_beld3"><envar>BELD3_A</envar></link>, <link linkend="sect_input_beld3"><envar>BELD3_B</envar></link>, <link linkend="sect_input_beld3"><envar>BELD3_TOT</envar></link> (<command>Beld3to2</command>, <command>Normbeis3</command>)</entry>
+<entry><link linkend="sect_input_beld3"><envar>BELD3_A</envar></link>, <link linkend="sect_input_beld3"><envar>BELD3_B</envar></link>, <link linkend="sect_input_beld3"><envar>BELD3_TOT</envar></link></entry>
+<entry><command>Beld3to2</command>, <command>Normbeis3</command></entry>
 <entry>B</entry>
-<entry>Biogenic gridded landuse for use in SMOKE-BEIS3 (<envar>$BGDAT</envar>)</entry>
-<entry colname="ST">X</entry>
-<entry>U.S. 36-km resident</entry>
+<entry>Biogenic gridded landuse for use in SMOKE-BEIS3</entry>
+<entry><envar>$BGDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_bgpro"><envar>BGPRO</envar></link> (<command>Rawbio</command>, <command>Smkmerge</command>)</entry>
+<entry><link linkend="sect_input_bgpro"><envar>BGPRO</envar></link></entry>
+<entry><command>Rawbio</command>, <command>Smkmerge</command></entry>
 <entry>B</entry>
-<entry>Biogenic spatial surrogates for county land use (<envar>$GE_DAT </envar> directory)</entry>
-<entry colname="ST">X</entry>
-<entry>U.S. 36-km resident</entry>
+<entry>Biogenic spatial surrogates for county land use</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
-<!--<row>
-<entry><link linkend="sect_input_gridpath"><envar>G_GRIDPATH</envar></link> (<command>Grdmat</command>, <command>Elevpoint</command>, <command>Smkmerge</command>)</entry>
-<entry>A, B, M, P</entry>
-<entry>Grid and grid projection information (<envar>$BASDIR</envar> directory)</entry>
-<entry colname="Other">M3 Study Planner</entry>
-</row>-->
+
 <row>
-<entry><link linkend="sect_input_griddesc"><envar>GRIDDESC</envar></link> <comment>(add programs)</comment></entry>
+<entry><link linkend="sect_input_griddesc"><envar>GRIDDESC</envar></link></entry>
+<entry><comment>(add programs)</comment></entry>
 <entry>A, B, M, P</entry>
-<entry>Grid descriptions (<envar>$BASDIR</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>Grid descriptions</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_chemical_files">
 
-<title>Chemical Speciation Input Files</title>
+<title>Chemical Speciation Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_gscnv"><envar>GSCNV</envar></link> (<command>Spcmat</command>)</entry>
+<entry><link linkend="sect_input_gscnv"><envar>GSCNV</envar></link></entry>
+<entry><command>Spcmat</command></entry>
 <entry>A, M, P</entry>
-<entry>Pollutant-to-pollutant conversion file (e.g., ROG to TOG) (optional) (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">ROG to TOG resident</entry>
+<entry>Pollutant-to-pollutant conversion file (e.g., ROG to TOG) (optional)</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_gspro"><envar>GSPRO</envar></link> (<command>Cntlmat</command>, <command>Spcmat</command>, <command>Tmpbio</command>, <command>Tmpbeis3</command>)</entry>
+<entry><link linkend="sect_input_gspro"><envar>GSPRO</envar></link></entry>
+<entry><command>Cntlmat</command>, <command>Spcmat</command>, <command>Tmpbio</command>, <command>Tmpbeis3</command></entry>
 <entry>A, B, M, P</entry>
-<entry>Speciation profiles file (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>Speciation profiles file</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_gsref"><envar>GSREF</envar></link> (<command>Spcmat</command>)</entry>
+<entry><link linkend="sect_input_gsref"><envar>GSREF</envar></link></entry>
+<entry><command>Spcmat</command></entry>
 <entry>A, M, P</entry>
-<entry>Speciation cross-reference file (a.k.a., mapping table) (<envar>$GE_DAT</envar> directory)</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>NEI resident</entry>
+<entry>Speciation cross-reference file (a.k.a., mapping table)</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_projection_files">
 
-<title>Growth and Controls Input Files</title>
+<title>Growth and Controls Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_gcntl"><envar>GCNTL</envar></link> (<command>Cntlmat</command>, <command>Pktreduc</command>)</entry>
+<entry><link linkend="sect_input_gcntl"><envar>GCNTL</envar></link></entry>
+<entry><command>Cntlmat</command>, <command>Pktreduc</command></entry>
 <entry>A, M, P</entry>
-<entry>Control packets or growth packets file (<envar>$STATIC</envar> directory)</entry>
-<entry colname="ST">X</entry>
-<entry>User</entry>
+<entry>Control packets or growth packets file</entry>
+<entry><envar>$STATIC</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_merging_files">
 
-<title>Special Merging Input Files</title>
+<title>Special Merging Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_filelist"><envar>FILELIST</envar></link> (<command>Mrggrid</command>)</entry>
+<entry><link linkend="sect_input_filelist"><envar>FILELIST</envar></link></entry>
+<entry><command>Mrggrid</command></entry>
 <entry>A, B, M, P</entry>
-<entry>List of gridded 2-D and/or 3-D files to be merged (<filename class="directory"><envar>$SCRIPTS</envar>/run</filename> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>List of gridded 2-D and/or 3-D files to be merged</entry>
+<entry><filename class="directory"><envar>$SCRIPTS</envar>/run/</filename></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_meteorology_files">
 
-<title>Meteorology Input Files</title>
+<title>Meteorology Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
@@ -459,291 +460,377 @@ In this overview section, we first provide a few important notes about file form
 <comment>make sections for GRID_CRO_2D, GRID_CRO_3D, MET_CRO_2D, MET_CRO_3D, and MET_DOT_3D - need to include what variables are needed</comment>
 
 <row>
-<entry><link linkend="sect_input_meteorology"><envar>GRID_CRO_2D</envar></link> (<command>Tmpbio</command>, <command>Tmpbeis3</command>)</entry>
+<entry><link linkend="sect_input_meteorology"><envar>GRID_CRO_2D</envar></link></entry>
+<entry><command>Tmpbio</command>, <command>Tmpbeis3</command></entry>
 <entry>B</entry>
-<entry>Grid 2-D cross-point file (optional) (<envar>$METDAT</envar> directory)</entry>
-<entry colname="Other">MCIP</entry>
+<entry>Grid 2-D cross-point file (optional)</entry>
+<entry><envar>$METDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_meteorology"><envar>GRID_CRO_3D</envar></link> (<command>Laypoint</command>)</entry>
+<entry><link linkend="sect_input_meteorology"><envar>GRID_CRO_3D</envar></link></entry>
+<entry><command>Laypoint</command></entry>
 <entry>P</entry>
-<entry>Grid 3-D cross-point file (<envar>$METDAT</envar> directory)</entry>
-<entry colname="Other">MCIP</entry>
+<entry>Grid 3-D cross-point file</entry>
+<entry><envar>$METDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_meteorology"><envar>MET_CRO_2D</envar></link> (<command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Premobl</command>, <command>Laypoint</command>, <command>Metscan</command>)</entry>
+<entry><link linkend="sect_input_meteorology"><envar>MET_CRO_2D</envar></link></entry>
+<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Premobl</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
 <entry>B, M, P</entry>
-<entry>Meteorology 2-D cross-point file (<envar>$METDAT</envar> directory)</entry>
-<entry colname="Other">MCIP</entry>
+<entry>Meteorology 2-D cross-point file</entry>
+<entry><envar>$METDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_meteorology"><envar>MET_CRO_3D</envar></link> (<command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Premobl</command>, <command>Laypoint</command>, <command>Metscan</command>)</entry>
+<entry><link linkend="sect_input_meteorology"><envar>MET_CRO_3D</envar></link></entry>
+<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Premobl</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
 <entry>B, M, P</entry>
-<entry>Meteorology 3-D cross-point file (optional for biogenics) (<envar>$METDAT</envar> directory)</entry>
-<entry colname="Other">MCIP</entry>
+<entry>Meteorology 3-D cross-point file (optional for biogenics)</entry>
+<entry><envar>$METDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_meteorology"><envar>MET_DOT_3D</envar></link> (<command>Laypoint</command>)</entry>
+<entry><link linkend="sect_input_meteorology"><envar>MET_DOT_3D</envar></link></entry>
+<entry><command>Laypoint</command></entry>
 <entry>P</entry>
-<entry>Meteorology 3-D dot-point file (<envar>$METDAT</envar> directory)</entry>
-<entry colname="Other">MCIP</entry>
+<entry>Meteorology 3-D dot-point file</entry>
+<entry><envar>$METDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_metlist"><envar>METLIST</envar></link> (<command>Tmpbio</command>, <command>Premobl</command>)</entry>
+<entry><link linkend="sect_input_metlist"><envar>METLIST</envar></link></entry>
+<entry><command>Tmpbio</command>, <command>Premobl</command></entry>
 <entry>B, M</entry>
-<entry>Listing of meteorology files (<envar>$STATIC</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Listing of meteorology files</entry>
+<entry><envar>$STATIC</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_radlist"><envar>RADLIST</envar></link> (<command>Tmpbio</command>)</entry>
+<entry><link linkend="sect_input_radlist"><envar>RADLIST</envar></link></entry>
+<entry><command>Tmpbio</command></entry>
 <entry>B</entry>
-<entry>Listing of meteorology files containing radiation data (<envar>$STATIC</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Listing of meteorology files containing radiation data</entry>
+<entry><envar>$STATIC</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_biogenic_files">
 
-<title>Biogenic-Specific Input Files</title>
+<title>Biogenic-Specific Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_b3fac"><envar>B3FAC</envar></link> (<command>Normbeis3</command>)</entry>
+<entry><link linkend="sect_input_b3fac"><envar>B3FAC</envar></link></entry>
+<entry><command>Normbeis3</command></entry>
 <entry>B</entry>
-<entry>BEIS3 emissions factors (<envar>$BGDAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>BEIS3 emissions factors</entry>
+<entry><envar>$BGDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_b3xrf"><envar>B3XRF</envar></link> (<command>Beld3to2</command>)</entry>
+<entry><link linkend="sect_input_b3xrf"><envar>B3XRF</envar></link></entry>
+<entry><command>Beld3to2</command></entry>
 <entry>B</entry>
-<entry>BELD3 to BELD2 cross-reference file (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>BELD3 to BELD2 cross-reference file</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_bfac"><envar>BFAC</envar></link> (<command>Rawbio</command>)</entry>
+<entry><link linkend="sect_input_bfac"><envar>BFAC</envar></link></entry>
+<entry><command>Rawbio</command></entry>
 <entry>B</entry>
-<entry>Summer or winter biogenic emission factors (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>Summer or winter biogenic emission factors</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_bioseason"><envar>BIOSEASON</envar></link> (<command>Tmpbeis3</command>, <command>Tmpbio</command>)</entry>
+<entry><link linkend="sect_input_bioseason"><envar>BIOSEASON</envar></link></entry>
+<entry><command>Tmpbeis3</command>, <command>Tmpbio</command></entry>
 <entry>B</entry>
-<entry>Bioseason switch file (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="ST">X</entry>
+<entry>Bioseason switch file</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_mobile_files">
 
-<title>Mobile-Specific Input Files</title>
+<title>Mobile-Specific Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_m6list"><envar>M6LIST</envar></link> (<command>Emisfac</command>)</entry>
+<entry><link linkend="sect_input_m6list"><envar>M6LIST</envar></link></entry>
+<entry><command>Emisfac</command></entry>
 <entry>M</entry>
-<entry>List of MOBILE6 input scenarios (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>List of MOBILE6 input scenarios</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_mcodes"><envar>MCODES</envar></link> (<command>Smkinven</command>, <command>Grdmat</command>, <command>Spcmat</command>, <command>Temporal</command>)</entry>
+<entry><link linkend="sect_input_m6map"><envar>M6MAP</envar></link></entry>
+<entry><command>Emisfac</command></entry>
 <entry>M</entry>
-<entry>Mobile vehicle type and road codes (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">Resident/User</entry>
+<entry>MOBILE6 vehicle type mapping file</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_mcref"><envar>MCREF</envar></link> (<command>Mbsetup</command>)</entry>
+<entry><link linkend="sect_input_mcodes"><envar>MCODES</envar></link></entry>
+<entry><command>Smkinven</command>, <command>Grdmat</command>, <command>Spcmat</command>, <command>Temporal</command></entry>
 <entry>M</entry>
-<entry>Mobile source county cross-reference (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Mobile vehicle type and road codes</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_meflist"><envar>MEFLIST</envar></link> (<command>Temporal</command>)</entry>
+<entry><link linkend="sect_input_mcref"><envar>MCREF</envar></link></entry>
+<entry><command>Mbsetup</command></entry>
 <entry>M</entry>
-<entry>List of emission factor files (<envar>$SMK_EMISPATH</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Mobile source county cross-reference</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_meproc"><envar>MEPROC</envar></link> (<command>Emisfac</command>, <command>Spcmat</command>, <command>Temporal</command>)</entry>
+<entry><link linkend="sect_input_meflist"><envar>MEFLIST</envar></link></entry>
+<entry><command>Temporal</command></entry>
 <entry>M</entry>
-<entry>Mobile emission processes (e.g., exhaust, running loss, refueling) with associated activities and pollutants (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">Resident/User</entry>
+<entry>List of emission factor files</entry>
+<entry><envar>$SMK_EMISPATH</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_mvref"><envar>MVREF</envar></link> (<command>Mbsetup</command>)</entry>
+<entry><link linkend="sect_input_meproc"><envar>MEPROC</envar></link></entry>
+<entry><command>Emisfac</command>, <command>Spcmat</command>, <command>Temporal</command></entry>
 <entry>M</entry>
-<entry>Mobile source county settings file (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Mobile emission processes (e.g., exhaust, running loss, refueling) with associated activities and pollutants</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link> (<command>Emisfac</command>)</entry>
+<entry><link linkend="sect_input_mvref"><envar>MVREF</envar></link></entry>
+<entry><command>Mbsetup</command></entry>
 <entry>M</entry>
-<entry>Hourly speed profiles (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Mobile source county settings file</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_spdref"><envar>SPDREF</envar></link> (<command>Mbsetup</command>)</entry>
+<entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link></entry>
+<entry><command>Emisfac</command></entry>
 <entry>M</entry>
-<entry>Hourly speed cross-reference (<envar>$MBDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Hourly speed profiles</entry>
+<entry><envar>$MBDAT</envar></entry>
 </row>
+
+<row>
+<entry><link linkend="sect_input_spdref"><envar>SPDREF</envar></link></entry>
+<entry><command>Mbsetup</command></entry>
+<entry>M</entry>
+<entry>Hourly speed cross-reference</entry>
+<entry><envar>$MBDAT</envar></entry>
+</row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_point_files">
 
-<title>Point-Specific Input Files</title>
+<title>Point-Specific Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_pelvconfig"><envar>PELVCONFIG</envar></link> (<command>Elevpoint</command>)</entry>
+<entry><link linkend="sect_input_pelvconfig"><envar>PELVCONFIG</envar></link></entry>
+<entry><command>Elevpoint</command></entry>
 <entry>P</entry>
-<entry>Elevated source and PinG selection configuration file (<envar>$PTDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>Elevated source and PinG selection configuration file</entry>
+<entry><envar>$PTDAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_pstk"><envar>PSTK</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_pstk"><envar>PSTK</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Replacement stack parameters for invalid stacks (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>Replacement stack parameters for invalid stacks</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_ptmplist"><envar>PTMPLIST</envar></link> (<command>Elevpoint</command>)</entry>
+<entry><link linkend="sect_input_ptmplist"><envar>PTMPLIST</envar></link></entry>
+<entry><command>Elevpoint</command></entry>
 <entry>P</entry>
-<entry>List of <envar>PTMP</envar> files for <command>Elevpoint</command> to use to compute maximum daily emissions (<envar>$PTDAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry>List of <envar>PTMP</envar> files for <command>Elevpoint</command> to use to compute maximum daily emissions</entry>
+<entry><envar>$PTDAT</envar></entry>
 </row>
+
 </tbody>
 </tgroup>
 </table>
 
 <table id="tbl_input_other_files">
 
-<title>Other Support Input Files</title>
+<title>Other Support Input File Locations</title>
 
-<tgroup cols="6">
-<colspec colwidth="25*" colname="Name" />
+<tgroup cols="5">
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Program" />
 <colspec colwidth="10*" colname="Source" />
 <colspec colwidth="40*" colname="Description" />
-<colspec colwidth="5*" colname="CNV" />
-<colspec colwidth="5*" colname="ST" />
-<colspec colwidth="15*" colname="Other" />
+<colspec colwidth="20*" colname="Location" />
 
 <thead>
 <row>
-<entry>Logical File Name with (Program)</entry>
+<entry>Logical File Name</entry>
+<entry>Program</entry>
 <entry>Source Category</entry>
-<entry>File Description and (Location)</entry>
-<entry>CNV</entry>
-<entry>ST</entry>
-<entry>Other</entry>
+<entry>File Description</entry>
+<entry>Location</entry>
 </row>
 </thead>
 
 <tbody>
+
 <row>
-<entry><link linkend="sect_input_artopnt"><envar>ARTOPNT</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_artopnt"><envar>ARTOPNT</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>A</entry>
-<entry>Area-to-point conversion file (<filename class="directory"><envar>$INVDIR</envar>/other</filename> directory)</entry>
-<entry colname="Other">Resident/user</entry>
+<entry>Area-to-point conversion file</entry>
+<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_costcy"><envar>COSTCY</envar></link> (<command>Smkinven</command>, <command>Grwinven</command>, <command>Temporal</command>, <command>Smkmerge</command>, <command>Smkreport</command>)</entry>
+<entry><link linkend="sect_input_costcy"><envar>COSTCY</envar></link></entry>
+<entry><command>Smkinven</command>, <command>Grwinven</command>, <command>Temporal</command>, <command>Smkmerge</command>, <command>Smkreport</command></entry>
 <entry>A, B, M, P</entry>
-<entry>Country, state, and county names and time zones (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>Country, state, and county names and time zones</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_invtable"><envar>INVTABLE</envar></link> (<command>Smkinven</command>, <command>Emisfac</command>, <command>Spcmat</command>, <command>Temporal</command>, <command>Smkmerge</command>)</entry>
+<entry><link linkend="sect_input_invtable"><envar>INVTABLE</envar></link></entry>
+<entry><command>Smkinven</command>, <command>Emisfac</command>, <command>Spcmat</command>, <command>Temporal</command>, <command>Smkmerge</command></entry>
 <entry>A, M, P</entry>
-<entry>Pollutant and activity names and codes in order of output (<filename class="directory"><envar>$INVDIR</envar>/other</filename> directory)</entry>
-<entry colname="Other">Resident/user</entry>
+<entry>Pollutant and activity names and codes in order of output</entry>
+<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_nhapexclude"><envar>NHAPEXCLUDE</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_mactdesc"><envar>MACTDESC</envar></link></entry>
+<entry><command>Smkreport</command></entry>
+<entry>A, P</entry>
+<entry>MACT descriptions</entry>
+<entry><envar>$GE_DAT</envar></entry>
+</row>
+
+<row>
+<entry><link linkend="sect_input_naicsdesc"><envar>NAICSDESC</envar></link></entry>
+<entry><command>Smkreport</command></entry>
+<entry>A, P</entry>
+<entry>NAICS descriptions</entry>
+<entry><envar>$GE_DAT</envar></entry>
+</row>
+
+<row>
+<entry><link linkend="sect_input_nhapexclude"><envar>NHAPEXCLUDE</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>A, M, P</entry>
-<entry>NONHAP exclusions file (<filename class="directory"><envar>$INVDIR</envar>/other</filename> directory)</entry>
-<entry colname="Other">Resident/User</entry>
+<entry>NONHAP exclusions file</entry>
+<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_orisdesc"><envar>ORISDESC</envar></link> (<command>Smkinven</command>)</entry>
+<entry><link linkend="sect_input_orisdesc"><envar>ORISDESC</envar></link></entry>
+<entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>ORIS facility descriptions, needed for getting ORIS facility names for reporting purposes (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>ORIS facility descriptions, needed for getting ORIS facility names for reporting purposes</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_sccdesc"><envar>SCCDESC</envar></link> (<command>Smkinven</command>, <command>Smkreport</command>)</entry>
+<entry><link linkend="sect_input_sccdesc"><envar>SCCDESC</envar></link></entry>
+<entry><command>Smkinven</command>, <command>Smkreport</command></entry>
 <entry>A, M, P</entry>
-<entry>SCC descriptions (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">Resident</entry>
+<entry>SCC descriptions</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
 <row>
-<entry><link linkend="sect_input_vnammap"><envar>VNAMMAP</envar></link> (<command>Smk2emis</command>)</entry>
-<entry>A, B, M, P</entry>
-<entry>Species name mapping file for <command>Smk2emis</command> (<envar>$GE_DAT</envar> directory)</entry>
-<entry colname="Other">User</entry>
+<entry><link linkend="sect_input_sicdesc"><envar>SICDESC</envar></link></entry>
+<entry><command>Smkreport</command></entry>
+<entry>A, P</entry>
+<entry>SIC descriptions</entry>
+<entry><envar>$GE_DAT</envar></entry>
 </row>
+
+<row>
+<entry><link linkend="sect_input_vnammap"><envar>VNAMMAP</envar></link></entry>
+<entry><command>Smk2emis</command></entry>
+<entry>A, B, M, P</entry>
+<entry>Species name mapping file for <command>Smk2emis</command></entry>
+<entry><envar>$GE_DAT</envar></entry>
+</row>
+
 </tbody>
 </tgroup>
 </table>
@@ -754,7 +841,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Input files for SMOKE nctox case</title>
 
-<para>In this section, we summarize the SMOKE input files for the nctox sample case provided with SMOKE for processing ozone, PM, and toxics pollutants. You can adapt these tables to keep track of the raw input files needed for your cases, and to help you understand all the files that need to be prepared for input to SMOKE. <xref linkend="sect_scripts_nctox_case" /> is a description of the nctox case in more detail. The documentation in <xref linkend="sect_scripts_how_use_smoke" /> describes which input files need to be changed for adapting the default scripts to a particular case.</para>
+<para>In this section, we summarize the SMOKE input files for the nctox example case provided with SMOKE for processing ozone, PM, and toxics pollutants. You can adapt these tables to keep track of the raw input files needed for your cases, and to help you understand all the files that need to be prepared for input to SMOKE. <xref linkend="sect_scripts_nctox_case" /> is a description of the nctox case in more detail. The documentation in <xref linkend="sect_scripts_how_use_smoke" /> describes which input files need to be changed for adapting the test case scripts to a particular case.</para>
 
 <para>We list the raw SMOKE input files by program, with the programs listed in alphabetical order:</para>
 
@@ -769,16 +856,14 @@ In this overview section, we first provide a few important notes about file form
 <listitem><xref linkend="tbl_input_nctox_mrggrid_files" /></listitem>
 <listitem><xref linkend="tbl_input_nctox_normbeis3_files" /></listitem>
 <listitem><xref linkend="tbl_input_nctox_premobl_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_rawbio_files" /></listitem>
 <listitem><xref linkend="tbl_input_nctox_smkinven_files" /></listitem>
 <listitem><xref linkend="tbl_input_nctox_smkmerge_files" /></listitem>
 <listitem><xref linkend="tbl_input_nctox_spcmat_files" /></listitem>
 <listitem><xref linkend="tbl_input_nctox_temporal_files" /></listitem>
 <listitem><xref linkend="tbl_input_nctox_tmpbeis3_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_tmpbio_files" /></listitem>
 </itemizedlist>
 
-<para>The files listed are the files that would have to be created by the user or provided by SMOKE, and most cannot be created with a SMOKE utility (exceptions are noted in the tables). Those files that are typically prepared by the users are listed with their logical file names in bold, while the files that users do not usually change fro the defaults are not. Intermediate files (those output by one program and input to another) are not included in the list, but can be found with the program-specific documentation in <xref linkend="ch_programs" /> and in the intermediate file documentation in <xref linkend="ch_intermediate_files" />. The files that are shared among several programs are listed with each program for which they are used (i.e. listed multiple times), and noted with an asterisk adjacent to the logical file name. The file paths are listed using the path logical names, the definitions for which are available below the tables.</para>
+<para>Intermediate files (those output by one program and input to another) are not included in the list, but can be found with the program-specific documentation in <xref linkend="ch_programs" /> and in the intermediate file documentation in <xref linkend="ch_intermediate_files" />. The files that are shared among several programs are listed with each program for which they are used (i.e. listed multiple times), and noted with an asterisk adjacent to the logical file name. The file paths are listed using the path logical names, the definitions for which are available below the tables.</para>
 
 <table id="tbl_input_nctox_cntlmat_files">
 
@@ -800,8 +885,9 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>GCNTL</envar></emphasis>: growth and/or control instructions</entry>
+<entry><envar>GCNTL</envar>: growth and/or control instructions</entry>
 <entry>
 <simplelist>
 <member>A (stationary)</member>
@@ -812,30 +898,20 @@ In this overview section, we first provide a few important notes about file form
 </entry>
 <entry>
 <simplelist>
-<member><filename class="directory"><envar>$INVDIR</envar>/area/</filename></member>
-<member><filename class="directory"><envar>$INVDIR</envar>/nonroad/</filename></member>
-<member><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></member>
-<member><filename class="directory"><envar>$INVDIR</envar>/point/</filename></member>
+<member><envar>$ARDAT</envar></member>
+<member><envar>$NRDAT</envar></member>
+<member><envar>$MBDAT</envar></member>
+<member><envar>$PTDAT</envar></member>
 </simplelist>
 </entry>
 <entry>
 <simplelist>
-<member><filename>gcntl.1996_2018.txt</filename></member>
+<member><filename>gcntl.2001_2018.txt</filename></member>
 <member><filename>gcntl.1999_2018.txt</filename></member>
 <member><filename>gcntl.1999_2018.txt</filename></member>
-<member><filename>gcntl.1996_2018.txt</filename></member>
+<member><filename>gcntl.2001_2018.txt</filename></member>
 </simplelist>
 </entry>
-</row>
-<row>
-<entry><envar>GSPRO</envar>*: speciation profiles needed for reactivity controls only</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>gspro.cmaq.cb4p25_wtox.txt</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -862,27 +938,30 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>GRIDDESC</envar></emphasis>*: grid descriptions</entry>
+<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
 <entry>P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>GRIDDESC</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>PELVCONFIG</envar></emphasis>: elevated source selection instructions</entry>
+<entry><envar>PELVCONFIG</envar>: elevated source selection instructions</entry>
 <entry>P</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/point/</filename></entry>
+<entry><envar>$PTDAT</envar></entry>
 <entry><filename>pelvconfig.top50.txt</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>PTMPLIST</envar></emphasis>: optional list of <envar>PTMP</envar> SMOKE intermediate files for selecting elevated point sources based on emissions</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/point/</filename></entry>
-<entry><filename>ptmplist.txt</filename> (generated automatically by default run script)</entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry><envar>PTMPLIST</envar>: optional list of <envar>PTMP</envar> SMOKE intermediate files for selecting elevated point sources based on emissions</entry>
+<entry>P</entry>
+<entry><envar>$PTDAT</envar></entry>
+<entry><filename>ptmplist.txt</filename> (generated automatically by run script)</entry>
+</row>
+
+<row>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -909,24 +988,28 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry><filename>invtable_onroad.cb4.120202.txt</filename></entry>
+<entry><filename>invtable_onroad.cb4.010804.txt</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>M6LIST</envar></emphasis>: List of MOBILE6 scenario files with path</entry>
+<entry><envar>M6LIST</envar>: List of MOBILE6 scenario files with path</entry>
 <entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry><filename>m6list.nctox.1999.txt</filename> (generated automatically by default run script)</entry>
+<entry><envar>$MBDAT</envar></entry>
+<entry><filename>m6list.nctox.1999.txt</filename> (generated automatically by run script)</entry>
 </row>
+
 <row>
 <entry><envar>MEPROC</envar>*: mobile processes</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/mobile</filename></entry>
 <entry><filename>meproc.txt</filename></entry>
 </row>
+
 <row>
 <entry>Required MOBILE6 input files. (Note that there are other MOBILE6 input files that are needed if you use certain settings in the <envar>M6LIST</envar> file).</entry>
 <entry>M</entry>
@@ -943,13 +1026,14 @@ In this overview section, we first provide a few important notes about file form
 <member><filename>PMGZML.CSV</filename></member>
 <member><filename>PMNH3BER.D</filename></member>
 <member><filename>PMNH3SDR.D</filename></member>
+<member><filename>SMOKE_flat_hr_vmt.def</filename></member>
 <member><filename>TECH12.D</filename></member>
 </simplelist>
 </entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -976,45 +1060,51 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>AGPRO</envar></emphasis>: gridding surrogates</entry>
+<entry><envar>AGPRO</envar>: gridding surrogates</entry>
 <entry>A</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>abmgpro.m3.040402.us36+can+mex.txt</filename></entry>
+<entry><filename>amgpro.12km_041604.nc.txt</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>AGREF</envar></emphasis>: gridding cross-reference</entry>
+<entry><envar>AGREF</envar>: gridding cross-reference</entry>
 <entry>A</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amgref.m3.us+mex.txt</filename></entry>
+<entry><filename>amgref_us_051704.txt</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>GRIDDESC</envar></emphasis>*: grid descriptions</entry>
+<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
 <entry>A, M, P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>GRIDDESC</filename></entry>
 </row>
+
 <row>
 <entry><envar>MCODES</envar>*: mobile code definitions</entry>
 <entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
+<entry><envar>$MBDAT</envar></entry>
 <entry><filename>mcodes.txt</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>MGPRO</envar></emphasis>: gridding surrogates</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>abmgpro.m3.040402.us36+can+mex.txt</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>MGREF</envar></emphasis>: gridding cross-reference</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amgref.m3.us+mex.txt</filename></entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry><envar>MGPRO</envar>: gridding surrogates</entry>
+<entry>M</entry>
+<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
+<entry><filename>amgref.m3.us+can+mex.txt</filename></entry>
+</row>
+
+<row>
+<entry><envar>MGREF</envar>: gridding cross-reference</entry>
+<entry>M</entry>
+<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
+<entry><filename>amgref_us_051704.txt</filename></entry>
+</row>
+
+<row>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1041,6 +1131,7 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
 <entry><envar>COSTCY</envar>*: country, state, and county names</entry>
 <entry>A, M, P</entry>
@@ -1049,7 +1140,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1076,54 +1167,59 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>GRID_CRO_3D</envar></emphasis>: 3-d cross-point grid data</entry>
+<entry><envar>GRID_CRO_3D</envar>: 3-d cross-point grid data</entry>
 <entry>P</entry>
 <entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
 <entry><filename>GRIDCRO3D</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>GRIDDESC</envar></emphasis>*: grid descriptions</entry>
+<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
 <entry>P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>GRIDDESC</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>MET_CRO_2D</envar></emphasis>*: 2-d cross-point meteorology data</entry>
+<entry><envar>MET_CRO_2D</envar>*: 2-d cross-point meteorology data</entry>
 <entry>P</entry>
 <entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
 <entry>
 <simplelist>
-<member><filename>METCRO2D_1996191</filename></member>
-<member><filename>METCRO2D_1996192</filename></member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>MET_CRO_3D</envar></emphasis>*: 3-d cross-point grid data</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>METCRO3D_1996191</filename></member>
-<member><filename>METCRO3D_1996192</filename></member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>MET_DOT_3D</envar></emphasis>: 3-d dot-point grid data (for winds)</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>METDOT3D_1996191</filename></member>
-<member><filename>METDOT3D_1996192</filename></member>
+<member><filename>METCRO2D_2001191</filename></member>
+<member><filename>METCRO2D_2001192</filename></member>
 </simplelist>
 </entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry><envar>MET_CRO_3D</envar>*: 3-d cross-point grid data</entry>
+<entry>P</entry>
+<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
+<entry>
+<simplelist>
+<member><filename>METCRO3D_2001191</filename></member>
+<member><filename>METCRO3D_2001192</filename></member>
+</simplelist>
+</entry>
+</row>
+
+<row>
+<entry><envar>MET_DOT_3D</envar>: 3-d dot-point grid data (for winds)</entry>
+<entry>P</entry>
+<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
+<entry>
+<simplelist>
+<member><filename>METDOT3D_2001191</filename></member>
+<member><filename>METDOT3D_2001192</filename></member>
+</simplelist>
+</entry>
+</row>
+
+<row>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1150,21 +1246,23 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>MCREF</envar></emphasis>: county cross-reference</entry>
+<entry><envar>MCREF</envar>: county cross-reference</entry>
 <entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
+<entry><envar>$MBDAT</envar></entry>
 <entry><filename>mcref.nctox.txt</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>MVREF</envar></emphasis>: county meteorology group settings</entry>
+<entry><envar>MVREF</envar>: county meteorology group settings</entry>
 <entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
+<entry><envar>$MBDAT</envar></entry>
 <entry><filename>mvref.nctox.txt</filename></entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1191,15 +1289,12 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
-<row>
-<entry><emphasis role="bold"><envar>FILELIST</envar></emphasis>: list of logical file names to merge</entry>
-<entry>All</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry><filename>filelist.mrggrid.txt</filename> (generated automatically by default run script)</entry>
-</row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry><envar>FILELIST</envar>: list of logical file names to merge</entry>
+<entry>All</entry>
+<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
+<entry><filename>filelist.mrggrid.txt</filename> (generated automatically by run script)</entry>
 </row>
 
 </tbody>
@@ -1226,33 +1321,33 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>B3FAC</envar></emphasis>: BEIS3 emissions factors</entry>
+<entry><envar>B3FAC</envar>: BEIS3 emissions factors</entry>
 <entry>B</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>b3fac.march2002.beisv3.09.txt</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>BELD3_A</envar></emphasis>: File A of biogenic gridded landuse</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$SMKDAT</envar>/inventory/beld3</filename></entry>
-<entry><filename>LANDA_c_cmaq_nat.dat</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>BELD3_B</envar></emphasis>: File B of biogenic gridded landuse</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$SMKDAT</envar>/inventory/beld3</filename></entry>
-<entry><filename>LANDB_c_cmaq_nat.dat</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>BELD3_TOT</envar></emphasis>: Landuse totals</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$SMKDAT</envar>/inventory/beld3</filename></entry>
-<entry><filename>LAND_TOTALS_c_cmaq_nat.dat</filename></entry>
+<entry><filename>b3fac.beis3_efac_v0.98.txt</filename></entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry><envar>BELD3_A</envar>: File A of biogenic gridded landuse</entry>
+<entry>B</entry>
+<entry><envar>$BGDAT</envar></entry>
+<entry><filename>beld3.US12NC_66X52.output_a.ncf</filename></entry>
+</row>
+
+<row>
+<entry><envar>BELD3_B</envar>: File B of biogenic gridded landuse</entry>
+<entry>B</entry>
+<entry><envar>$BGDAT</envar></entry>
+<entry><filename>beld3.US12NC_66X52.output_b.ncf</filename></entry>
+</row>
+
+<row>
+<entry><envar>BELD3_TOT</envar>: Landuse totals</entry>
+<entry>B</entry>
+<entry><envar>$BGDAT</envar></entry>
+<entry><filename>beld3.US12NC_66X52.output_tot.ncf</filename></entry>
 </row>
 
 </tbody>
@@ -1279,73 +1374,12 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>METLIST</envar></emphasis>: meteorology file list</entry>
+<entry><envar>METLIST</envar>: meteorology file list</entry>
 <entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry><filename>metlist.premobl.txt</filename> (This list will include the paths of the 2-D [<envar>MET_CRO_2D</envar>] or 3-D [<envar>MET_CRO_3D</envar>] meteorology files for the entire modeling episode and is generated automatically by default run script.)</entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_rawbio_files">
-
-<title><command>Rawbio</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry><envar>BCUSE</envar>: county land use</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry>not used in this case</entry>
-</row>
-<row>
-<entry><envar>BFAC</envar>: emission factors</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>bfac.summer.txt</filename></member>
-<member><filename>bfac.winter.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>BGUSE</envar></emphasis>: gridded land use</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$SMKDAT</envar>/inventory/beld2/</filename></entry>
-<entry><filename>beld.5.us36.txt</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>GRIDDESC</envar></emphasis>*: grid descriptions</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>GRIDDESC</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry><envar>$MBDAT</envar></entry>
+<entry><filename>metlist.premobl.txt</filename> (This list will include the paths of the <envar>METCOMBO</envar> meteorology files for the entire modeling episode and is generated automatically by the run script.)</entry>
 </row>
 
 </tbody>
@@ -1372,30 +1406,35 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>ARINV</envar></emphasis> (area): stationary area/nonpoint inventory (or list of inventories)</entry>
+<entry><envar>ARINV</envar> (area): stationary area/nonpoint inventory (or list of inventories)</entry>
 <entry>A</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/area/</filename></entry>
+<entry><envar>$ARDAT</envar></entry>
 <entry><filename>arinv.stationary.lst</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>ARINV</envar></emphasis> (nonroad): nonroad inventory (or list of inventories)</entry>
+<entry><envar>ARINV</envar> (nonroad): nonroad inventory (or list of inventories)</entry>
 <entry>A</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/nonroad/</filename></entry>
+<entry><envar>$NRDAT</envar></entry>
 <entry><filename>arinv.nonroad.lst</filename></entry>
 </row>
+
 <row>
 <entry><envar>ARTOPNT</envar>: area-to-point assignments</entry>
 <entry>A</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry><filename>artopnt.1999.txt</filename></entry>
+<entry><filename>ar2pt_14OCT03_1999.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>COSTCY</envar>*: time zones by county</entry>
 <entry>All</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>costcy.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
@@ -1408,22 +1447,25 @@ In this overview section, we first provide a few important notes about file form
 <entry>
 <simplelist>
 <member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.120202.txt</filename></member>
+<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
 </simplelist>
 </entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>MBINV</envar></emphasis>: on-road mobile inventory (or list of inventories)</entry>
+<entry><envar>MBINV</envar>: on-road mobile inventory (or list of inventories)</entry>
 <entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
+<entry><envar>$MBDAT</envar></entry>
 <entry><filename>mbinv.lst</filename></entry>
 </row>
+
 <row>
 <entry><envar>MCODES</envar>*: mobile code definitions</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
 <entry><filename>mcodes.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>NHAPEXCLUDE</envar>: exclusions from NONHAP calculation</entry>
 <entry>
@@ -1440,51 +1482,37 @@ In this overview section, we first provide a few important notes about file form
 </simplelist>
 </entry>
 </row>
+
 <row>
 <entry><envar>ORISDESC</envar>: ORIS ID descriptions</entry>
 <entry>P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>oris_info.txt</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>PTDAY</envar></emphasis>: point source list of day-specific data</entry>
+<entry><envar>PTINV</envar>: point source inventory (or list of inventories)</entry>
 <entry>P</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/point/</filename></entry>
-<entry>Not used in this case</entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>PTHOUR</envar></emphasis>: point source list of hour-specific data</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/point/</filename></entry>
-<entry><filename>pthour.lst</filename> (List of CEM files of interest)</entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>PTINV</envar></emphasis>: point source inventory (or list of inventories)</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/point/</filename></entry>
+<entry><envar>$PTDAT</envar></entry>
 <entry><filename>ptinv.lst</filename></entry>
 </row>
+
 <row>
-<entry><envar>PSTK</envar>: replacements for bad stack parameters</entry>
+<entry><envar>PSTK</envar>: replacements for invalid stack parameters</entry>
 <entry>P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>pstk.m3.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>SCCDESC</envar>: SCC descriptions</entry>
 <entry>A, M, P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>scc_desc.txt</filename></entry>
 </row>
-<row>
-<entry><emphasis role="bold"><envar>VMTMIX</envar></emphasis>: vehicle mix </entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry>Not used in this case because of <envar>MBINV</envar> format selected.</entry>
-</row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1511,18 +1539,21 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
-<entry><emphasis role="bold"><envar>BGPRO</envar></emphasis>: spatial surrogates with cell-area surrogate</entry>
+<entry><envar>BGPRO</envar>: spatial surrogates with land-area surrogate</entry>
 <entry>B</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>abmgpro.m3.040402.us36+can+mex.txt</filename></entry>
+<entry><filename>bgpro.12km_041604.nc.txt</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>GRIDDESC</envar></emphasis>*: grid descriptions</entry>
+<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
 <entry>All</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>GRIDDESC</filename></entry>
 </row>
+
 <row>
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
@@ -1535,13 +1566,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>
 <simplelist>
 <member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.120202.txt</filename></member>
+<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
 </simplelist>
 </entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1568,12 +1599,14 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
 <entry><envar>GSCNV</envar>: pollutant-to-pollutant conversion</entry>
 <entry>A, M, P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>gscnv.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>GSPRO</envar>*: speciation profiles</entry>
 <entry>
@@ -1590,12 +1623,14 @@ In this overview section, we first provide a few important notes about file form
 </simplelist>
 </entry>
 </row>
+
 <row>
 <entry><envar>GSREF</envar>: speciation cross-reference</entry>
 <entry>A, M, P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>gsref.cmaq.cb4p25_wtox.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
@@ -1608,16 +1643,18 @@ In this overview section, we first provide a few important notes about file form
 <entry>
 <simplelist>
 <member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.120202.txt</filename></member>
+<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
 </simplelist>
 </entry>
 </row>
+
 <row>
 <entry><envar>MCODES</envar>*: mobile code definitions</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
 <entry><filename>mcodes.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>MEPROC</envar>*: mobile processes</entry>
 <entry>M</entry>
@@ -1626,7 +1663,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1653,30 +1690,35 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
 <row>
 <entry><envar>ATPRO</envar>: Temporal profiles</entry>
 <entry>A</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>amptpro.m3.us+can.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>ATREF</envar>: Temporal cross-reference</entry>
 <entry>A</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>amptref.m3.us+can.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>COSTCY</envar>*: Daylight time exemptions</entry>
 <entry>All</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>costcy.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>HOLIDAYS</envar>: Holidays date list</entry>
 <entry>A, M, P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>holidays.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>INVTABLE</envar>*: inventory table</entry>
 <entry>
@@ -1689,46 +1731,53 @@ In this overview section, we first provide a few important notes about file form
 <entry>
 <simplelist>
 <member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.120202.txt</filename></member>
+<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
 </simplelist>
 </entry>
 </row>
+
 <row>
 <entry><envar>MCODES</envar>*: mobile code definitions</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
 <entry><filename>mcodes.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>MEFLIST</envar>: list of emission factors files</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$SMK_EMISPATH</envar>/</filename></entry>
-<entry><filename>meflist.txt</filename> (generated automatically by default run script)</entry>
+<entry><filename>meflist.txt</filename> (generated automatically by run script)</entry>
 </row>
+
 <row>
 <entry><envar>MEPROC</envar>*: mobile processes</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
 <entry><filename>meproc.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>MTPRO</envar>: Temporal profiles</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>amptpro.m3.us+can.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>MTREF</envar>: Temporal cross-reference</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>amptref.m3.us+can.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>PTPRO</envar>: Temporal profiles</entry>
 <entry>P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>amptpro.m3.us+can.txt</filename></entry>
 </row>
+
 <row>
 <entry><envar>PTREF</envar>: Temporal cross-reference</entry>
 <entry>P</entry>
@@ -1737,7 +1786,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1764,74 +1813,35 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
-<row>
-<entry>Same raw inputs as <command>Tmpbio</command> program, documented below</entry>
-<entry>See <command>Tmpbio</command></entry>
-<entry>See <command>Tmpbio</command></entry>
-<entry>See <command>Tmpbio</command></entry>
-</row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_tmpbio_files">
-
-<title><command>Tmpbio</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry><emphasis role="bold"><envar>BIOSEASON</envar></emphasis>: Winter/summer designation by cell and day</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>bioseason.ncf</filename></entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>GRID_CRO_2D</envar></emphasis>: 2-d cross-point grid data </entry>
+<entry><envar>GRID_CRO_2D</envar>: 2-d cross-point grid data </entry>
 <entry>B</entry>
 <entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry>Not used in this case (From MCIP)</entry>
+<entry><envar>GRIDCRO2D</envar></entry>
 </row>
+
 <row>
 <entry><envar>GSPRO</envar>*: Speciation profiles</entry>
 <entry>B</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>gspro.cmaq.cb4p25.txt</filename></entry>
 </row>
+
 <row>
-<entry><emphasis role="bold"><envar>METLIST</envar></emphasis>: List of MCIP outputs with temperature data</entry>
+<entry><envar>MET_FILE1</envar>: Meteorology file containing temperature and radiation data</entry>
 <entry>B</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/biog/</filename></entry>
-<entry><filename>metlist.tmpbio.txt</filename> (generated automatically by default run script)</entry>
-</row>
-<row>
-<entry><emphasis role="bold"><envar>RADLIST</envar></emphasis>: List of MCIP outputs with solar radiation data</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/biog/</filename></entry>
-<entry><filename>radlist.tmpbio.txt</filename> (generated automatically by default run script)</entry>
+<entry><filename class="directory"><envar>$METDAT</envar></filename></entry>
+<entry>
+<simplelist>
+<member><filename>METCRO2D_2001191</filename></member>
+<member><filename>METCRO2D_2001192</filename></member>
+</simplelist>
+</entry>
 </row>
 
 <row>
-<entry namest="Logical" nameend="Physical">Bold file names indicate that the file is typically prepared by the user; * This file is used by more than one program.</entry>
+<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
 </row>
 
 </tbody>
@@ -1842,22 +1852,19 @@ In this overview section, we first provide a few important notes about file form
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory"><envar>$INVDIR</envar>/area</filename>: Raw area inputs</para>
+<para><envar>$ARDAT</envar>: Raw area inputs</para>
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$SMKDAT</envar>/inventory/beld2</filename> or <filename class="directory"><envar>$SMKDAT</envar>/inventory/beld3</filename>: Raw biogenic inputs</para>
+<para><envar>$BGDAT</envar>: Raw biogenic inputs</para>
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$INVDIR</envar>/biog</filename>: Other biogenic inputs</para>
+<para><envar>$MBDAT</envar>: Raw on-road mobile inputs</para>
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$INVDIR</envar>/mobile</filename>: Raw on-road mobile inputs</para>
+<para><envar>$NRDAT</envar>: Raw nonroad mobile inputs (these can alternatively be included in the area directory)</para>
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$INVDIR</envar>/nonroad</filename>: Raw nonroad mobile inputs (these can alternatively be included in the area directory)</para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$INVDIR</envar>/point</filename>: Raw point inputs</para>
+<para><envar>$PTDAT</envar>: Raw point inputs</para>
 </listitem>
 <listitem>
 <para><filename class="directory"><envar>$INVDIR</envar>/other</filename>: Other raw inputs not associated with a specific source category</para>
@@ -1886,6 +1893,23 @@ In this overview section, we first provide a few important notes about file form
 </listitem>
 <listitem>
 <para><filename class="directory"><envar>$INVDIR</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/inventory/nctox</filename></para>
+  <itemizedlist>
+  <listitem>
+  <para><filename class="directory"><envar>$ARDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/area</filename></para>
+  </listitem>
+  <listitem>
+  <para><filename class="directory"><envar>$BGDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/biog</filename></para>
+  </listitem>
+  <listitem>
+  <para><filename class="directory"><envar>$MBDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/mobile</filename></para>
+  </listitem>
+  <listitem>
+  <para><filename class="directory"><envar>$NRDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/nonroad</filename></para>
+  </listitem>
+  <listitem>
+  <para><filename class="directory"><envar>$PTDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/point</filename></para>
+  </listitem>
+  </itemizedlist>
 </listitem>
 <listitem>
 <para><filename class="directory"><envar>$GE_DAT</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/ge_dat</filename></para>
@@ -1897,7 +1921,7 @@ In this overview section, we first provide a few important notes about file form
 <para><filename class="directory"><envar>$SMK_EMISPATH</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/run_nctox/static/m6emfac</filename></para>
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$METDAT</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/met/run_a1a</filename></para>
+<para><filename class="directory"><envar>$METDAT</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/met/run_12km</filename></para>
 </listitem>
 </itemizedlist>
 
@@ -1908,6 +1932,8 @@ In this overview section, we first provide a few important notes about file form
 <section id="sect_input_inventory">
 
 <title>Inventory Files</title>
+
+<para>The directories where the inventory files should be stored are listed in <xref linkend="tbl_input_inventory_files" />. The table also lists the programs that use each input file.</para>
 
 <section>
 
@@ -4869,6 +4895,8 @@ INVYEAR 1995
 
 <title>Temporal Allocation Files</title>
 
+<para>The directories where the temporal allocation files should be stored are listed in <xref linkend="tbl_input_temporal_files" />. The table also lists the programs that use each input file.</para>
+
 <section id="sect_input_amptpro">
 
 <title><envar>[A|M|P]TPRO</envar>: Temporal profiles file</title>
@@ -5343,23 +5371,25 @@ INVYEAR 1995
 
 <title>Spatial Allocation Files</title>
 
-<para>Preparing the spatial allocation inputs to SMOKE is a major stumbling blocks for most users at this time. All spatial allocation (gridding) inputs need to be consistent. Each file has a header to indicate the grid projection, location, dimensions, and resolution; SMOKE uses these headers to ensure consistency across all inputs. SMOKE also requires that any meteorology data inputs be consistent with these gridded data. Most programs in SMOKE are capable of processing a modeling grid that is a subgrid of the input data (i.e. spatial surrogates, meteorology data).</para>
+<para>All spatial allocation (gridding) inputs need to be consistent. Each file has a header to indicate the grid projection, location, dimensions, and resolution; SMOKE uses these headers to ensure consistency across all inputs. SMOKE also requires that any meteorology data inputs be consistent with these gridded data. Most programs in SMOKE are capable of processing a modeling grid that is a subgrid of the input data (i.e. spatial surrogates, meteorology data).</para>
 
-<para>SMOKE does not require that you have a GIS to be able to install the software. However, some processing with a GIS is required to create the <envar>AGPRO</envar>, <envar>MGPRO</envar>, and <envar>BGPRO</envar> or <envar>BGUSE</envar> files. You currently have the following options to prepare these files:</para>
+<para>Several options are available for creating the spatial surrogate and biogenic land use inputs.</para>
 
 <itemizedlist>
 <listitem>
-<para>Use the national 36-km Lambert surrogates provided with SMOKE (appropriate only for 36-km modeling). You will have to manually copy and edit the 36-km file to create a file for a smaller grid.</para>
+<para>The <ulink url="http://www.cep.unc.edu/empd/projects/mims/spatial/">MIMS Spatial Allocator</ulink> can create surrogates and prepare BELD3 inputs files for any modeling grid.</para>
 </listitem>
+
 <listitem>
-<para>Use the <ulink url="http://www.epa.gov/asmdnerl/mims/software/spatial_allocator.html">MIMS Spatial Allocator</ulink> to create surrogates for any desired modeling grid.</para>
+<para>Several national surrogate data sets are available online at EPA&rsquo;s <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/">Clearinghouse for Inventories and Emissions Factors</ulink>. These data sets are at 36-, 12-, and 4-km resolutions.</para>
 </listitem>
+
 <listitem>
-<para>Hire a contractor to prepare the gridding surrogates and/or gridded land use data, or prepare the data yourself using a GIS.</para>
+<para>The gridding surrogates and land use data can be prepared using a GIS program.</para>
 </listitem>
 </itemizedlist>
 
-<comment>check on EPA&rsquo;s 4-km national surrogates</comment>
+<para>The directories where the spatial allocation files should be stored are listed in <xref linkend="tbl_input_spatial_files" />. The table also lists the programs that use each input file.</para>
 
 <section id="sect_input_amgpro">
 
@@ -5762,6 +5792,8 @@ INVYEAR 1995
 
 <title>Chemical speciation</title>
 
+<para>The directories where the chemical speciation files should be stored are listed in <xref linkend="tbl_input_chemical_files" />. The table also lists the programs that use each input file.</para>
+
 <section id="sect_input_gscnv">
 
 <title><envar>GSCNV</envar>: Pollutant-to-pollutant conversion file (optional)</title>
@@ -5891,7 +5923,7 @@ INVYEAR 1995
 <para>The pollutant ID must match the pollutant names in the SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>). These names are set by the #POLID or #DATA headers in the <command>Smkinven</command> input files.</para>
 </listitem>
 <listitem>
-<para>The species IDs are the names of the model species needed by the AQM for which SMOKE is being used. These depend on the requirements of that model. The default SMOKE inputs will not be correct for all AQMs.</para>
+<para>The species IDs are the names of the model species needed by the AQM for which SMOKE is being used. These depend on the requirements of that model. The example SMOKE inputs will not be correct for all AQMs.</para>
 </listitem>
 <listitem>
 <para>The split factor is the numerator in the factor computed for the mole-based speciation matrix.</para>
@@ -6095,6 +6127,8 @@ INVYEAR 1995
 <section id="sect_input_growth">
 
 <title>Growth and Controls Files</title>
+
+<para>The directories where the growth and controls files should be stored are listed in <xref linkend="tbl_input_projection_files" />. The table also lists the programs that use each input file.</para>
 
 <section id="sect_input_gcntl">
 
@@ -6806,6 +6840,8 @@ INVYEAR 1995
 
 <title>Special Merging Files</title>
 
+<para>The directories where the special merging files should be stored are listed in <xref linkend="tbl_input_merging_files" />. The table also lists the programs that use each input file.</para>
+
 <section id="sect_input_filelist">
 
 <title><envar>FILELIST</envar>: Gridded merge 2-D file list</title>
@@ -6846,13 +6882,15 @@ INVYEAR 1995
 
 <title>Meteorology Files</title>
 
+<para>The directories where the meteorology files should be stored are listed in <xref linkend="tbl_input_meteorology_files" />. The table also lists the programs that use each input file.</para>
+
 <para>The five meteorology files that SMOKE needs for biogenic emissions adjustments, calculation of on-road mobile source emission, and plume rise calculations are <envar>GRID_CRO_2D</envar>, <envar>GRID_CRO_3D</envar>, <envar>MET_CRO_2D</envar>, <envar>MET_CRO_3D</envar>, and <envar>MET_DOT_3D</envar>. The files are usually based on MM5 data but must be specially formatted by a postprocessor like MCIP or MCPL.</para>
 
-<para>GRID_CRO_2D - 2-D grid parameters file</para>
-<para>GRID_CRO_3D - 3-D grid parameters file</para>
-<para>MET_CRO_2D - 2-D cross-point data file (surface meteorology data)</para>
-<para>MET_CRO_3D - 3-D cross-point data file (layered meteorology data)</para>
-<para>MET_DOT_3D - 3-D dot-point data file (layered meteorology data)</para>
+<para><envar>GRID_CRO_2D</envar> - 2-D grid parameters file</para>
+<para><envar>GRID_CRO_3D</envar> - 3-D grid parameters file</para>
+<para><envar>MET_CRO_2D</envar> - 2-D cross-point data file (surface meteorology data)</para>
+<para><envar>MET_CRO_3D</envar> - 3-D cross-point data file (layered meteorology data)</para>
+<para><envar>MET_DOT_3D</envar> - 3-D dot-point data file (layered meteorology data)</para>
 
 <table id="tbl_input_metfiles">
 <title>Meteorology variables used by program</title>
@@ -7055,7 +7093,7 @@ INVYEAR 1995
 
 <title><envar>METLIST</envar>: List of meteorology files</title>
 
-<para>The <envar>METLIST</envar> file is used to provide the file names of available meteorology files to the <command>Tmpbio</command> and <command>Premobl</command> programs. <command>Premobl</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. If <command>Tmpbio</command> is being run for a period longer than the individual meteorology files, the <envar>METLIST</envar> file is used to combine multiple meteorology files so that <command>Tmpbio</command> can find the data it needs. The meteorology files provided to <command>Premobl</command> and <command>Tmpbio</command> must cover the desired episode and contain the requested variables. In the default SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
+<para>The <envar>METLIST</envar> file is used to provide the file names of available meteorology files to the <command>Tmpbio</command> and <command>Premobl</command> programs. <command>Premobl</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. If <command>Tmpbio</command> is being run for a period longer than the individual meteorology files, the <envar>METLIST</envar> file is used to combine multiple meteorology files so that <command>Tmpbio</command> can find the data it needs. The meteorology files provided to <command>Premobl</command> and <command>Tmpbio</command> must cover the desired episode and contain the requested variables. In the example SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
 
 <table id="tbl_input_metlist">
 <title>Format for <envar>METLIST</envar></title>
@@ -7128,6 +7166,8 @@ INVYEAR 1995
 <section id="sect_input_source_biogenics">
 
 <title>Biogenics</title>
+
+<para>The directories where the biogenic-specific input files should be stored are listed in <xref linkend="tbl_input_biogenic_files" />. The table also lists the programs that use each input file.</para>
 
 <section id="sect_input_b3fac">
 
@@ -7304,6 +7344,8 @@ INVYEAR 1995
 <section id="sect_input_source_mobile">
 
 <title>Mobile</title>
+
+<para>The directories where the mobile-specific input files should be stored are listed in <xref linkend="tbl_input_mobile_files" />. The table also lists the programs that use each input file.</para>
 
 <section id="sect_input_m6list">
 
@@ -7703,7 +7745,7 @@ LDGT   0106   N
 
 <title><envar>MEFLIST</envar>: Mobile emission factors list file</title>
 
-<para>The <envar>MEFLIST</envar> file is used to provide the file names of available emission factors files to the <command>Temporal</command> program. This file cannot be created very easily until the <command>Emisfac</command> program has been run. Therefore, this file is generated automatically by the default SMOKE run scripts. The format of the <envar>MEFLIST</envar> file i shown in <xref linkend="tbl_input_meflist" />.</para>
+<para>The <envar>MEFLIST</envar> file is used to provide the file names of available emission factors files to the <command>Temporal</command> program. This file cannot be created very easily until the <command>Emisfac</command> program has been run. Therefore, this file is generated automatically by the example SMOKE run scripts. The format of the <envar>MEFLIST</envar> file i shown in <xref linkend="tbl_input_meflist" />.</para>
 
 <table id="tbl_input_meflist">
 <title>Format for <envar>MEFLIST</envar></title>
@@ -7975,6 +8017,8 @@ VMT RFL TOG
 <section id="sect_input_source_point">
 
 <title>Point</title>
+
+<para>The directories where the point-specific input files should be stored are listed in <xref linkend="tbl_input_point_files" />. The table also lists the programs that use each input file.</para>
 
 <section id="sect_input_pelvconfig">
 
@@ -8291,7 +8335,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>PTMPLIST</envar>: List of hourly point source emissions files</title>
 
-<para>The <envar>PTMPLIST</envar> file is an list file containing the full name and path of available hourly point source emissions files. This file is created automatically from the default SMOKE run scripts. Its format is shown in <xref linkend="tbl_input_ptmplist" />.</para>
+<para>The <envar>PTMPLIST</envar> file is an list file containing the full name and path of available hourly point source emissions files. This file is created automatically from the example SMOKE run scripts. Its format is shown in <xref linkend="tbl_input_ptmplist" />.</para>
 
 <table id="tbl_input_ptmplist">
 <title>Format for <envar>PTMPLIST</envar></title>
@@ -8328,6 +8372,8 @@ SOURCE > 100 AND SOURCE < 200
 <section id="sect_input_support">
 
 <title>Other Support Files</title>
+
+<para>The directories where the other support files should be stored are listed in <xref linkend="tbl_input_other_files" />. The table also lists the programs that use each input file.</para>
 
 <section id="sect_input_artopnt">
 
