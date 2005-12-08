@@ -189,7 +189,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Run SMOKE test case:</emphasis> <xref linkend="sect_scripts_run_default" /> provides instructions for running the cases provided with SMOKE.</para>
+<para><emphasis role="bold">Run SMOKE test case:</emphasis> <xref linkend="sect_scripts_run_example" /> provides instructions for running the test case provided with SMOKE.</para>
 </listitem>
 
 <listitem>
@@ -197,7 +197,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Prepare input files:</emphasis> Most SMOKE input files are ASCII files that can be prepared using database programs or other tools. Many of the SMOKE default files include data available from EPA, and may need not to be replaced; if desired, users may edit or replace these files based on the formatting descriptions in <xref linkend="ch_input_files" />. Users may also obtain input data files (perhaps not in SMOKE input format) from EPA web sites, such as the Clearinghouse for Inventories and Emission Factors (CHIEF) <ulink url="http://www.epa.gov/ttn/chief/emch/">web site</ulink>.</para>
+<para><emphasis role="bold">Prepare input files:</emphasis> Most SMOKE input files are ASCII files that can be prepared using database programs or other tools. Descriptions of all input file formats are found in <xref linkend="ch_input_files" />. Users may obtain input data files (perhaps not in SMOKE input format) from EPA web sites, such as the Clearinghouse for Inventories and Emission Factors (CHIEF) <ulink url="http://www.epa.gov/ttn/chief/emch/">web site</ulink>.</para>
 </listitem>
 
 <listitem>
