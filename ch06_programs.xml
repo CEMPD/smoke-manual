@@ -1823,7 +1823,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_grdmat" /> shows the input and output files for the <command>Grdmat</command> program. The input files are the spatial surrogates file (<envar>AGPRO</envar> or <envar>MGPRO</envar>), the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>), the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), and the grid description file (<envar>GRIDDESC</envar>). For mobile sources, the mobile codes file (<envar>MCODES</envar>) is also needed.</para>
+<para><xref linkend="fig_programs_grdmat" /> shows the input and output files for the <command>Grdmat</command> program. The input files are the spatial surrogates file (<envar>AGPRO</envar> or <envar>MGPRO</envar>), the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>), the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the surrogate description file (<envar>SRGDESC</envar>), and the grid description file (<envar>GRIDDESC</envar>). For mobile sources, the mobile codes file (<envar>MCODES</envar>) is also needed.</para>
 
 <para><command>Grdmat</command> outputs a gridding matrix file (<envar>AGMAT</envar>, <envar>MGMAT</envar>, or <envar>PGMAT</envar>) used by other SMOKE programs, and a supplemental gridding file (<envar>AGSUP</envar> or <envar>MGSUP</envar>) that includes all of the spatial surrogate codes assigned to each source. Like all SMOKE programs, <command>Grdmat</command> writes a program log (<envar>LOGFILE</envar>). When processing mobile activity data (i.e. VMT), <command>Grdmat</command> also outputs the <envar>MUMAT</envar> ungridding matrix file.</para>
 
@@ -1846,6 +1846,11 @@ F<subscript>ef</subscript> = freeway emission factor
 </thead>
 
 <tbody>
+<row>
+<entry><envar>SRGDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>Surrogate list, description and surrogate file name used in the modeling grid</entry>
+</row>
 <row>
 <entry><envar>[A|M]GPRO</envar></entry>
 <entry>ASCII</entry>
@@ -1924,8 +1929,12 @@ F<subscript>ef</subscript> = freeway emission factor
 <para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
+<para><envar>SRGPRO_PATH</envar>: Defines the location of the <envar>SRGDESC</envar> file.</para>
+</listitem>
+<listitem>
 <para><envar>SMK_DEFAULT_SRGID</envar>: [default: 50 (Models-3 population surrogate code) or 1 (if 50 is unavailable in surrogates data)]</para>
-
+</listitem>
+<listitem>
 <para>Defines the surrogate code number to use as a fallback surrogate when the surrogate number set by the cross-reference file would zero out the emissions for that source.</para>
 </listitem>
 <listitem>
@@ -5803,7 +5812,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_temporal_area" /> shows the input and output files for the <command>Temporal</command> program for area sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>), the temporal profiles file (<envar>ATPRO</envar>), the temporal cross-reference file (<envar>ATREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), and the holidays file (<envar>HOLIDAYS</envar>).</para>
+<para><xref linkend="fig_programs_temporal_area" /> shows the input and output files for the <command>Temporal</command> program for area sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>), the temporal profiles file (<envar>ATPRO</envar>), the temporal cross-reference file (<envar>ATREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and optional process date file (<envar>PROCDATES</envar>).</para>
 
 <para><command>Temporal</command> outputs an hourly emissions file (<envar>ATMP</envar>), a temporal allocation supplemental file (<envar>ATSUP</envar>), and a log file (<envar>LOGFILE</envar>).</para>
 
@@ -5819,7 +5828,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_temporal_mobile" /> shows the input and output files for the <command>Temporal</command> program for mobile sources. The input files include the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). <command>Spcmat</command> also reads the mobile codes file (<envar>MCODES</envar>). The <envar>MEFLIST</envar> file lists available emission factors files created by <command>Emisfac</command>, which is used when processing activity data, as is the mobile emission process file (<envar>MEPROC</envar>). <command>Temporal</command> also uses the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the temporal profiles file (<envar>MTPRO</envar>), the temporal cross-reference file (<envar>MTREF</envar>), and the ungridding matrix file for activity data (<envar>MUMAT</envar>).</para>
+<para><xref linkend="fig_programs_temporal_mobile" /> shows the input and output files for the <command>Temporal</command> program for mobile sources. The input files include the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), the optional process date file (<envar>PROCDATES</envar>) and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). <command>Spcmat</command> also reads the mobile codes file (<envar>MCODES</envar>). The <envar>MEFLIST</envar> file lists available emission factors files created by <command>Emisfac</command>, which is used when processing activity data, as is the mobile emission process file (<envar>MEPROC</envar>). <command>Temporal</command> also uses the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the temporal profiles file (<envar>MTPRO</envar>), the temporal cross-reference file (<envar>MTREF</envar>), and the ungridding matrix file for activity data (<envar>MUMAT</envar>).</para>
 
 <para><command>Temporal</command> outputs a log file (<envar>LOGFILE</envar>), an hourly emissions file (<envar>MTMP</envar>), and a temporal allocation supplemental file (<envar>MTSUP</envar>).</para>
 
@@ -5835,7 +5844,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_temporal_point" /> shows the input and output files for the <command>Temporal</command> program for point sources. The input files include the country, state, and county codes file (<envar>COSTCY</envar>) and the holidays file (<envar>HOLIDAYS</envar>). If using day-specific data, the <envar>PDAY</envar> file is read, and the <envar>PHOUR</envar> file is read when using hour-specific data. <command>Temporal</command> also uses the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the temporal profiles file (<envar>PTPRO</envar>), and the temporal cross-reference file (<envar>PTREF</envar>).</para>
+<para><xref linkend="fig_programs_temporal_point" /> shows the input and output files for the <command>Temporal</command> program for point sources. The input files include the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>) and the optional process date file (<envar>PROCDATES</envar>). If using day-specific data, the <envar>PDAY</envar> file is read, and the <envar>PHOUR</envar> file is read when using hour-specific data. <command>Temporal</command> also uses the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the temporal profiles file (<envar>PTPRO</envar>), and the temporal cross-reference file (<envar>PTREF</envar>).</para>
 
 <para><command>Temporal</command> outputs a log file (<envar>LOGFILE</envar>), an hourly emissions file (<envar>PTMP</envar>), and a temporal allocation supplemental file (<envar>PTSUP</envar>).</para>
 
@@ -5882,6 +5891,11 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry><envar>HOLIDAYS</envar></entry>
 <entry>ASCII</entry>
 <entry>Holidays file by Gregorian date, for applying holiday temporal profiles. </entry>
+</row>
+<row>
+<entry><envar>PROCDATES</envar> (optional)</entry>
+<entry>ASCII</entry>
+<entry>Processes user specified Gregorian dates</entry>
 </row>
 <row>
 <entry><envar>INVTABLE</envar> (optional)</entry>
@@ -6015,7 +6029,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <itemizedlist>
 <listitem>
-<para>Start date: Starting date of simulation in Julian (DDDYYYY) or Gregorian (MMDDYYYY) formats</para>
+<para>Start date: Starting date of simulation in Julian (YYYYDDD) or Gregorian (YYYYMMDD) formats</para>
 </listitem>
 <listitem>
 <para>Start Time: Starting time of simulation in HHMMSS</para>
@@ -6024,6 +6038,10 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Duration: Simulation duration in hours</para>
 </listitem>
 </itemizedlist>
+
+<para>Optionally, <command>Temporal</command> may be run using PROCDATES.  This enables the processing of sequential or non-sequential user specified days. If PROCDATES is not assigned, the defaults apply.</para>
+
+<para><envar>PROCDATES</envar>: See description in <xref linkend="sect_input_procdates" />.</para>
 
 </section>
 

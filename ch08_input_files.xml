@@ -242,6 +242,14 @@ In this overview section, we first provide a few important notes about file form
 <entry><envar>$GE_DAT</envar></entry>
 </row>
 
+<row>
+<entry><link linkend="sect_input_procdates"><envar>PROCDATES</envar></link></entry>
+<entry><command>Temporal</command></entry>
+<entry>A, M, P</entry>
+<entry>Procdates file</entry>
+<entry><envar>$GE_DAT</envar></entry>
+</row>
+
 </tbody>
 </tgroup>
 </table>
@@ -268,6 +276,14 @@ In this overview section, we first provide a few important notes about file form
 </thead>
 
 <tbody>
+
+<row>
+<entry><link linkend="sect_input_srgdesc"><envar>SRGDESC</envar></link></entry>
+<entry><command>Grdmat</command></entry>
+<entry>A, M</entry>
+<entry>Surrogate definitions and descriptions</entry>
+<entry><envar>$GE_DAT</envar></entry>
+</row>
 
 <row>
 <entry><link linkend="sect_input_amgpro"><envar>[A|M]GPRO</envar></link></entry>
@@ -1717,6 +1733,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>A, M, P</entry>
 <entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
 <entry><filename>holidays.txt</filename></entry>
+</row>
+
+<row>
+<entry><envar>PROCDATES</envar>: Specifc dates to process</entry>
+<entry>A, M, P</entry>
+<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
+<entry><filename>procdates.txt</filename></entry>
 </row>
 
 <row>
@@ -5365,6 +5388,49 @@ INVYEAR 1995
 
 </section>
 
+<section id="sect_input_procdates">
+
+<title><envar>PROCDATES</envar>: Procdates date list</title>
+
+<para>SMOKE can process specific sequential or non-seqential days of the year. The <envar>PROCDATES</envar> file is used to indicate which days should be processed temporally. The format of this file is shown in <xref linkend="tbl_input_procdates" />.</para>
+
+<table id="tbl_input_procdates">
+<title>Format for <envar>PROCDATES</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Seven digit Gregorian date (YYYYMMDD) (required)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Six digit Start time (HHMMSS) (required)</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry>Six digit Run lenght (HHMMSS) (required)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+
 </section>
 
 <section id="sect_input_spatial">
@@ -5391,6 +5457,127 @@ INVYEAR 1995
 
 <para>The directories where the spatial allocation files should be stored are listed in <xref linkend="tbl_input_spatial_files" />. The table also lists the programs that use each input file.</para>
 
+
+<section id="sect_input_srgdesc">
+
+<title><envar>SRGDESC</envar>: Surrogate Designation, Description and Surrogate profile filename.</title>
+
+<para>The Surrogate Description file is used to designate the regional location of the surrogate, the surrogate code number, a brief description of the code number and the <envar>AGPRO</envar> or <envar>MGPRO</envar> file in which surrogate profile can be found. The format of the <envar>SRGDESC</envar> file is shown in <xref linkend="tbl_input_srgdesc" />.</para> 
+
+<table id="tbl_input_srgdesc">
+<title>Format for <envar>SRGDESC</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>A</entry>
+<entry>#GRID</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Grid name</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry>X origin in units of the projection</entry>
+</row>
+<row>
+<entry colname="Position">D</entry>
+<entry>Y origin in units of the projection</entry>
+</row>
+<row>
+<entry colname="Position">E</entry>
+<entry>X direction cell length in units of the projection</entry>
+</row>
+<row>
+<entry colname="Position">F</entry>
+<entry>Y direction cell length in units of the projection</entry>
+</row>
+<row>
+<entry colname="Position">G</entry>
+<entry>Number of columns</entry>
+</row>
+<row>
+<entry colname="Position">H</entry>
+<entry>Number of rows</entry>
+</row>
+<row>
+<entry colname="Position">I</entry>
+<entry>Number of boundary cells</entry>
+</row>
+<row>
+<entry colname="Position">J</entry>
+<entry><para>Projection types:</para>
+
+<itemizedlist spacing="compact">
+<listitem>Latitude-Longitude: <quote>LAT-LON</quote> or <quote>LATGRD3</quote></listitem>
+<listitem>Lambert Conformal: <quote>LAMBERT</quote> or <quote>LAMGRD3</quote></listitem>
+<listitem>Polar Stereographic: <quote>POLAR</quote> or <quote>POLGRD3</quote></listitem>
+<listitem>UTM: <quote>UTM</quote> or <quote>UTMGRD3</quote></listitem>
+</itemizedlist>
+
+</entry>
+</row>
+<row>
+<entry colname="Position">K</entry>
+<entry>Projection units</entry>
+</row>
+<row>
+<entry colname="Position">L</entry>
+<entry>Projection alpha value</entry>
+</row>
+<row>
+<entry colname="Position">M</entry>
+<entry>Projection beta value</entry>
+</row>
+<row>
+<entry colname="Position">N</entry>
+<entry>Projection gamma value</entry>
+</row>
+<row>
+<entry colname="Position">O</entry>
+<entry>X-direction projection center in units of the projection</entry>
+</row>
+<row>
+<entry colname="Position">P</entry>
+<entry>Y-direction projection center in units of the projection</entry>
+</row>
+<row>
+<entry>2+</entry>
+<entry>A</entry>
+<entry>Region of surrogate i.e. USA, MEX, or CAN. (ASCII) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Surrogate code number (Integer)(required)</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry>Surrogate Description (ASCII 80 characters in quotes) (required)</entry>
+</row>
+<row>
+<entry colname="Position">D</entry>
+<entry>Surrogate file name (ASCII 80 characters) (required)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
 <section id="sect_input_amgpro">
 
 <title><envar>AGPRO</envar> and <envar>MGPRO</envar>: Area and Mobile Spatial Surrogates Files</title>
@@ -5405,7 +5592,7 @@ INVYEAR 1995
 <colspec colwidth="15*" colname="Position" />
 <colspec colwidth="70*" colname="Description" />
 
-<thead>
+<thead>tbl_input_amgpro
 <row>
 <entry>Line</entry>
 <entry>Position</entry>
