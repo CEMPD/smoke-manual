@@ -44,7 +44,7 @@
 
 <para>Emission inventories are the key input files to SMOKE and emissions modeling. The data types that these inventories contain are called inventory pollutants (e.g., carbon monoxide, ammonia, mercury). By itself, SMOKE does not require specific data types in the inventory files it reads. However, the AQMs that SMOKE supports do require certain input data, called model species, which in turn requires SMOKE to use certain inventory pollutants.</para>
 
-<para>In this section, we focus on the inventory files that SMOKE uses. <xref linkend="sect_concepts_inv_data_types" /> describes the major inventory types useable by SMOKE. In <xref linkend="sect_concepts_inv_source_categories" />, we describe the inventory source categories, and in <xref linkend="sect_concepts_inv_file_formats" /> we discuss the inventory file formats. The remaining sections describe the various codes used in specific inventory sources: <xref linkend="sect_concepts_costcy_codes" />, <xref linkend="sect_concepts_scc_codes" />, <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, and <xref linkend="sect_concepts_section_112" />.</para>
+<para>In this section, we focus on the inventory files that SMOKE uses. <xref linkend="sect_concepts_inv_data_types" /> describes the major inventory types useable by SMOKE. In <xref linkend="sect_concepts_inv_source_categories" />, we describe the inventory source categories, and in <xref linkend="sect_concepts_inv_file_formats" /> we discuss the inventory file formats. The remaining sections describe the various codes used in specific inventory sources: <xref linkend="sect_concepts_costcy_codes" />, <xref linkend="sect_concepts_scc_codes" />, <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, <xref linkend="sect_concepts_section_112" /> and <xref linkend="sect_concepts_source_type_codes" />.</para>
 
 <section id="sect_concepts_inv_data_types">
 
@@ -521,6 +521,14 @@
 <para>In practice, all <quote>major</quote> sources should appear only in the point toxics inventory, but in some cases, <quote>major</quote> sources have shown up in the nonpoint inventory (specifically in inventory year 1996, in the July 2001 version of that inventory). Thus, the source type designation is provided in both the point and nonpoint toxics input formats.</para>
 
 <para>The major and section-112 area designations are used when applying MACT-based control factors. These control factors are assigned based on a source&rsquo;s MACT code and may be applied to major sources only, to section-112 area sources only, or to both types of sources regardless of designation.</para>
+
+</section>
+
+<section id="sect_concepts_source_type_codes">
+
+<title>Source types: nonroad and onroad mobile sources</title>
+
+<para>The nonroad and onroad mobile source type designations are used when applying MACT-based control factors. These control factors are assigned based on a source&rsquo;s MACT code.</para>
 
 </section>
 
