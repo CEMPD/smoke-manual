@@ -2432,6 +2432,8 @@ INVYEAR 1996
 <itemizedlist>
 <listitem>01 = major</listitem>
 <listitem>02 = Section 12 area source</listitem>
+<listitem>03 = nonroad</listitem>
+<listitem>04 = onroad</listitem>
 </itemizedlist>
 </entry>
 </row>
@@ -2445,7 +2447,7 @@ INVYEAR 1996
 <entry>G</entry>
 <entry>POLL</entry>
 <entry>Char</entry>
-<entry>Pollutant CAS number or other name (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
 <entry>H</entry>
@@ -2476,6 +2478,39 @@ INVYEAR 1996
 <entry>RPEN</entry>
 <entry>Real</entry>
 <entry>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
+</row>
+<row>
+<entry>M</entry>
+<entry>PRIMARY_DEVICE_TYPE_CODE</entry>
+<entry>Char</entry>
+<entry>Primary Control Equipment Code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>N</entry>
+<entry>SECONDARY_DEVICE_TYPE_CODE</entry>
+<entry>Char</entry>
+<entry>Secondary Control Equipment Code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>O</entry>
+<entry>DATA_SOURCE</entry>
+<entry>Char</entry>
+<entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>P</entry>
+<entry>YEAR</entry>
+<entry>Char</entry>
+<entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>Q</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>Char</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -2524,7 +2559,7 @@ INVYEAR 1996
 <entry>C</entry>
 <entry>POLL</entry>
 <entry>Char</entry>
-<entry>Pollutant CAS number or other name (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
 <entry>D</entry>
@@ -2555,6 +2590,41 @@ INVYEAR 1996
 <entry>RPEN</entry>
 <entry>Real</entry>
 <entry>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
+</row>
+<row>
+<entry>I</entry>
+<entry>SRCTYPE</entry>
+<entry>Char</entry>
+<entry><para>Source type (2 characaters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
+
+<itemizedlist>
+<listitem>01 = major</listitem>
+<listitem>02 = Section 12 area source</listitem>
+<listitem>03 = nonroad</listitem>
+<listitem>04 = onroad</listitem>
+</itemizedlist>
+</entry>
+</row>
+<row>
+<entry>J</entry>
+<entry>DATA_SOURCE</entry>
+<entry>Char</entry>
+<entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>K</entry>
+<entry>YEAR</entry>
+<entry>Char</entry>
+<entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>L</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>Char</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -3204,10 +3274,10 @@ INVYEAR 1996
 <title>ORL Format for <envar>MBINV</envar></title>
 
 <tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="55*" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -3235,7 +3305,7 @@ INVYEAR 1996
 <entry>C</entry>
 <entry>POLL</entry>
 <entry>Char</entry>
-<entry>Pollutant CAS number or other name (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
 <entry>D</entry>
@@ -3248,6 +3318,41 @@ INVYEAR 1996
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
 <entry>Average-day emissions (tons/average day) (optional)</entry>
+</row>
+<row>
+<entry>F</entry>
+<entry>SRCTYPE</entry>
+<entry>Char</entry>
+<entry><para>Source type (2 characaters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
+
+<itemizedlist>
+<listitem>01 = major</listitem>
+<listitem>02 = Section 12 area source</listitem>
+<listitem>03 = nonroad</listitem>
+<listitem>04 = onroad</listitem>
+</itemizedlist>
+</entry>
+</row>
+<row>
+<entry>G</entry>
+<entry>DATA_SOURCE</entry>
+<entry>Char</entry>
+<entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>H</entry>
+<entry>YEAR</entry>
+<entry>Char</entry>
+<entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>I</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>Char</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -4046,7 +4151,7 @@ INVYEAR 1996
 <entry>pol3 Secondary Control Equipment Code (not used by SMOKE)</entry>
 </row>
 <row>
-<entry namest="Position" nameend="Description">(Report for <emphasis>n</emphasis> pollutants)</entry>
+<entry namest="Position" nameend="Description">(Repeat for <emphasis>n</emphasis> pollutants)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -4470,10 +4575,10 @@ INVYEAR 1995
 <title>ORL Format for <envar>PTINV</envar></title>
 
 <tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="55*" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
 
 <thead>
 <row>
@@ -4553,6 +4658,8 @@ INVYEAR 1995
 <itemizedlist spacing="compact">
 <listitem>01 = major</listitem>
 <listitem>02 = Section 12 area source</listitem>
+<listitem>03 = nonroad</listitem>
+<listitem>04 = onroad</listitem>
 </itemizedlist>
 
 </entry>
@@ -4654,7 +4761,7 @@ INVYEAR 1995
 <entry>V</entry>
 <entry>CAS</entry>
 <entry>Char</entry>
-<entry>Pollutant CAS number or other code (10 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Pollutant CAS number or other code (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
 <entry>W</entry>
@@ -4691,6 +4798,75 @@ INVYEAR 1995
 <entry>CSEC</entry>
 <entry>Int</entry>
 <entry>Secondary Control Equipment Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>CC</entry>
+<entry>NEI_UNIQUE_ID</entry>
+<entry>Char</entry>
+<entry>Unique ID that ties together HAP and CAP emissions within a common facility ID and also ties together emissions obtained from muptiple data sources which may have different State facility identifiers but really belong to a single facility (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>DD</entry>
+<entry>ORIS_FACILITY_CODE</entry>
+<entry>Char</entry>
+<entry>DOE Plant ID (generally recommended, and required if matching to hour-specific CEM data)</entry>
+</row>
+<row>
+<entry>EE</entry>
+<entry>ORIS_BOILER_ID</entry>
+<entry>Char</entry>
+<entry>Boiler Identification Code (recommended)</entry>
+</row>
+<row>
+<entry>FF</entry>
+<entry>IPM_YN</entry>
+<entry>Char</entry>
+<entry>Y or N character flag indicating whether the point source belongs in the IPM sector or not (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>GG</entry>
+<entry>DATA_SOURCE</entry>
+<entry>Char</entry>
+<entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>HH</entry>
+<entry>STACK_DEFAULT_FLAG</entry>
+<entry>Char</entry>
+<entry>Flag indicating how NEI defaulted the stack parameters (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>II</entry>
+<entry>LOCATION_DEFAULT_FLAG</entry>
+<entry>Char</entry>
+<entry>Flag indicating how NEI defaulted locations (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>JJ</entry>
+<entry>YEAR</entry>
+<entry>Char</entry>
+<entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>KK</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>Char</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>LL</entry>
+<entry>HORIZONTAL_AREA_FUGITIVE</entry>
+<entry>Real</entry>
+<entry>Related to AXLEN and AYLEN which are optional parameters for ISCST3/AERMOD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>MM</entry>
+<entry>RELEASE_HEIGHT_FUGITIVE</entry>
+<entry>Real</entry>
+<entry>Related to optional parameters for ISCST3/AERMOD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -6813,6 +6989,8 @@ INVYEAR 1995
 <listitem>00 = both</listitem>
 <listitem>01 = major</listitem>
 <listitem>02 = CAA Section 12 area sources</listitem>
+<listitem>03 = nonroad</listitem>
+<listitem>04 = onroad</listitem>
 </itemizedlist>
 
 <para>The source type is only used to make a final determination about whether the entry applies for a source. If the record matches the source otherwise (MACT or SCC matches) but the source type does not match, then the source receives no controls from this entry.</para></entry>
@@ -8920,67 +9098,67 @@ SOURCE > 100 AND SOURCE < 200
 <entry>11-character string</entry>
 </row>
 <row>
-<entry>13-22</entry>
+<entry>13-28</entry>
 <entry>Chemical Abstract Service (CAS) number (optional, except for toxic compounds)</entry>
-<entry>10-character string</entry>
+<entry>16-character string</entry>
 </row>
 <row>
-<entry>24-28</entry>
+<entry>30-34</entry>
 <entry>Storage and Retrieval of Aerometric Data (SAROAD) code (optional)</entry>
 <entry>Integer</entry>
 </row>
 <row>
-<entry>30</entry>
+<entry>36</entry>
 <entry>Reactivity group (not used by SMOKE)</entry>
 <entry>Integer</entry>
 </row>
 <row>
-<entry>32</entry>
+<entry>38</entry>
 <entry>Keep (Y or N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>34-38</entry>
+<entry>40-44</entry>
 <entry>Factor</entry>
 <entry>Float</entry>
 </row>
 <row>
-<entry>40</entry>
+<entry>46</entry>
 <entry>VOC or TOG component (V/T/N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>42</entry>
+<entry>48</entry>
 <entry>Model species (Y/N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>44</entry>
+<entry>50</entry>
 <entry>Explicit in mechanism (Y/N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>46</entry>
+<entry>52</entry>
 <entry>Activity</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>48-50</entry>
+<entry>54-56</entry>
 <entry>NTI</entry>
 <entry>Integer</entry>
 </row>
 <row>
-<entry>52-67</entry>
+<entry>58-73</entry>
 <entry>Units to be used in SMOKE intermediate files (<emphasis>changing not recommended</emphasis>)</entry>
 <entry>16-character string</entry>
 </row>
 <row>
-<entry>69-108</entry>
+<entry>75-114</entry>
 <entry>Inventory data description - a description of the name provided in columns 1-11.</entry>
 <entry>40-character string</entry>
 </row>
 <row>
-<entry>110-149</entry>
+<entry>116-159</entry>
 <entry>CAS pollutant description - a description of the CAS or pollutant code contained in the inventory</entry>
 <entry>40-character string</entry>
 </row>
