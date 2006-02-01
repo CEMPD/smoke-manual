@@ -310,7 +310,11 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><envar>AGPRO</envar>, <envar>BGPRO</envar>, <envar>MGPRO</envar>: The spatial surrogates file for nonpoint (stationary area)/nonroad, biogenics (for using county-total land use in <command>Rawbio</command> and/or computing county-total emissions with <command>Smkmerge</command>), and on-road mobile sources. These three logical file names can all reference the same physical file.</para>
+<para><envar>BGPRO</envar>: The spatial surrogates file biogenics (for using county-total land use in <command>Rawbio</command> and/or computing county-total emissions with <command>Smkmerge</command>).</para>
+</listitem>
+
+<listitem>
+<para><envar>SRGPRO_PATH</envar>: The location of the spatial surrogates file for nonpoint (stationary area)/nonroad and on-road mobile sources.</para>
 </listitem>
 
 <listitem>
@@ -354,11 +358,19 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
+<para><envar>SRGDESC</envar>: The surrogate definitions/description file.</para>
+</listitem>
+
+<listitem>
 <para><envar>GSREF</envar>, <envar>GSPRO</envar>, <envar>GSCNV</envar>: The chemical speciation cross-reference file, speciation profiles file, and pollutant-to-pollutant conversion file (e.g., VOC-to-TOG factors), respectively.</para>
 </listitem>
 
 <listitem>
 <para><envar>HOLIDAYS</envar>: The dates that SMOKE should process as holidays and the day of the week to use for each date instead of its actual day of the week (the substitute is usually a Saturday or Sunday).</para>
+</listitem>
+
+<listitem>
+<para><envar>PROCDATES</envar>: The sequential/non-sequential user-specified dates that SMOKE should process. </para>
 </listitem>
 
 <listitem>
@@ -959,7 +971,7 @@ source $ASSIGNS/set_dirs.scr
 
 <title>Test case data files</title>
 
-<para>In the following two sections, we discuss the <envar>$SMKDAT</envar> directories and the test case data files included with SMOKE. These files are all the input files needed by SMOKE <emphasis>except</emphasis> for the actual inventory files. This includes the inventory table (<envar>INVTABLE</envar>), gridding surrogates (<envar>AGPRO</envar> and <envar>MGPRO</envar>), speciation profiles (<envar>GSPRO</envar>), temporal cross-reference files (<envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar>), etc. These files are only provided as example inputs and should not be used for modeling applications. We document the source of the data so you can evaluate the available files.</para>
+<para>In the following two sections, we discuss the <envar>$SMKDAT</envar> directories and the test case data files included with SMOKE. These files are all the input files needed by SMOKE <emphasis>except</emphasis> for the actual inventory files. This includes the inventory table (<envar>INVTABLE</envar>), gridding surrogates (defined and described in <envar>SRGDESC</envar> and located in <envar>SRGPRO_PATH</envar>), speciation profiles (<envar>GSPRO</envar>), temporal cross-reference files (<envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar>), etc. These files are only provided as example inputs and should not be used for modeling applications. We document the source of the data so you can evaluate the available files.</para>
 
 <para>Many of the support files used in the nctox test case are from the EPA&rsquo;s 2001 modeling platform, available online at <ulink url="http://www.epa.gov/ttn/chief/emch/invent/">http://www.epa.gov/ttn/chief/emch/invent/</ulink>. A description of the files is provided in <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/readme_2001.txt">readme_2001.txt</ulink>.</para>
 
@@ -1111,7 +1123,7 @@ source $ASSIGNS/set_dirs.scr
 
 <row>
 <entry><filename>amgpro.12km_041604.nc.txt</filename></entry>
-<entry><envar>AGPRO</envar>, <envar>MGPRO</envar></entry>
+<entry><envar>SRGDESC</envar>, <envar>SRGPR_PATH</envar></entry>
 <entry><para>12-km surrogates extracted from EPA&rsquo;s national 12-km surrogate set <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/new/amgpro.12km_041604.us.gz">amgpro.12km_041604.us.gz</ulink> described at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html">http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html</ulink>.</para></entry>
 </row>
 
@@ -1179,6 +1191,12 @@ source $ASSIGNS/set_dirs.scr
 <entry><filename>GRIDDESC</filename></entry>
 <entry><envar>GRIDDESC</envar></entry>
 <entry>Grid descriptions file with nctox modeling domain. An unlimited number of domains can be added to this file.</entry>
+</row>
+
+<row>
+<entry><filename>procdates.txt</filename></entry>
+<entry><envar>PROCDATES</envar></entry>
+<entry>SMOKE dates information; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
 </row>
 
 <row>
