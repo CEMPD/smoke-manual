@@ -1833,9 +1833,9 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <informaltable>
 <tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="18*" />
-<colspec colwidth="62*" />
+<colspec colwidth="30*" />
+<colspec colwidth="16*" />
+<colspec colwidth="54*" />
 
 <thead>
 <row>
@@ -1852,7 +1852,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry>Surrogate list, description and surrogate file name used in the modeling grid</entry>
 </row>
 <row>
-<entry><envar>[A|M]GPRO</envar></entry>
+<entry><envar>SRGPRO_PATH/surrogate-files</envar></entry>
 <entry>ASCII</entry>
 <entry>Gridding surrogate coefficients</entry>
 </row>
@@ -1929,13 +1929,16 @@ F<subscript>ef</subscript> = freeway emission factor
 <para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>SRGPRO_PATH</envar>: Defines the location of the <envar>SRGDESC</envar> file.</para>
+<para><envar>SRGPRO_PATH</envar>: Defines the location of the Area and Mobile spatial surrogate files. This should be a sub-directory in the <envar>$GE_DAT</envar> directory.</para>
 </listitem>
 <listitem>
-<para><envar>SMK_DEFAULT_SRGID</envar>: [default: 50 (Models-3 population surrogate code) or 1 (if 50 is unavailable in surrogates data)]</para>
+<para><envar>SMK_DEFAULT_SRGID</envar>: [default: 100 (Models-3 population surrogate code)] Mandatory, user MUST choose a fallback code.</para>
 </listitem>
 <listitem>
-<para>Defines the surrogate code number to use as a fallback surrogate when the surrogate number set by the cross-reference file would zero out the emissions for that source.</para>
+<para><envar>SMK_USE_FALLBACK</envar>: [Y/N]  </para>
+</listitem>
+<listitem>
+<para>Defines the surrogate code number to use as a fallback surrogate when the surrogate number set by the cross-reference file would zero out the emissions for that source.  This fallback surrogate is also used to define the county/state/country (FIPS) codes for use in <command>Grdmat</command>; therefore, a fallback surrogate code is mandatory even if the <envar>SMK_USE_FALLBACK</envar> is set to [N]. This code should exist in the <envar>SRGDESC</envar> file and be representative on all county/state/countries.  See description in <xref linkend="sect_input_srgdesc" />.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
