@@ -1482,7 +1482,7 @@ PAR             0.6</programlisting></entry>
 
 <title>Processing Order</title>
 
-<para>Since <command>Surgtool</command> is an optional program that creates new <envar>AGPRO</envar>, <envar>BGPRO</envar>, and/or <envar>MGPRO</envar> files from existing <envar>AGPRO</envar>, <envar>BGPRO</envar>, and/or <envar>MGPRO</envar> files, it must be run before any of the following programs that use these files: <command>Grdmat</command>, <command>Rawbio</command>, and <command>Smkmerge</command>.</para>
+<para>Since <command>Surgtool</command> is an optional program that creates new Area, Mobile and/or Biogenic <envar>BGPRO</envar> spatial surrogate files from existing Area, Mobile and/or Biogenic <envar>BGPRO</envar> spatial surrogate files, it must be run before any of the following programs that use these files: <command>Grdmat</command>, <command>Rawbio</command>, and <command>Smkmerge</command>.</para>
 
 </section>
 
@@ -1517,7 +1517,7 @@ PAR             0.6</programlisting></entry>
 <row>
 <entry><envar>INFILE</envar></entry>
 <entry>ASCII</entry>
-<entry>Spatial surrogates file in <envar>AGPRO</envar>/<envar>BGPRO</envar>/<envar>MGPRO</envar> format (see <xref linkend="sect_input_amgpro" />). File can be for Lambert Conformal, UTM, or lat-lon projection.</entry>
+<entry>Area and Mobile spatial surrogate file format (see <xref linkend="sect_input_amgpro" />) and Biogenic spatial surrogate file format (see <xref linkend="sect_input_bgpro" />). File can be for Lambert Conformal, UTM, or lat-lon projection.</entry>
 </row>
 </tbody>
 </tgroup>
