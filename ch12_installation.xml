@@ -146,11 +146,16 @@
 <para>This sets the <envar>EDSS_EXE</envar> environment variable needed in the next steps.</para>
 </listitem>
 <listitem>
-<para>Download and compile the I/O API library version 3.0 from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink>. The I/O API can be installed in <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the 
-<filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/<envar>$EDSS_EXE</envar>/</filename> directory.</para>
+<para>Download the I/O API library version 3.0 from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink> and compile with <filename>Makeinclude.Linux2_x86pg</filename>. The I/O API can be installed in <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/Linux2_x86pg/</filename> directory.</para>
 </listitem>
 <listitem>
-<para>Create the <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi_includes/</filename> directory by symbolically linking the <filename>fixed_src</filename> directory from your I/O API installation.</para>
+<para>Create the directory <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi_includes/</filename> and then copy the <filename>*.EXT</filename> files from the <filename>fixed_src</filename> directory of your I/O API installation to this new directory.</para>
+</listitem>
+<listitem>
+<para>Note: If the user wants to see interactive screen outputs while running SMOKE, follow these steps; 1) Add <filename>IOAPIDEFS = -DIOAPI_STDOUT</filename> to <filename>Makefile</filename> and 2) Add <filename> DEFINEFLAGS = IOAPI__DEFS &dollar;(ARCHFLAGS) &dollar;(PARFLAGS)</filename> to the <filename>Makefile.nocpl.sed</filename> for a proper IOAPI compilation for the SMOKE model.</para>
+</listitem>
+<listitem>
+<para>Note: If there are any error messages during compilation regarding <filename>CONST3.EXT</filename>, go to the <filename>fixed_src</filename> directory, edit <filename>CONST3.EXT</filename> and delete the second <command>&amp;</command> at the end of line 42.</para>
 </listitem>
 <listitem>
 <para>Collect or create the NetCDF library version 3.6.1 for your platform and create a symbolic link to the <filename>libnetcdf.a</filename> library file in the <filename><envar>$EDSS_ROOT</envar>/subsys/netcdf/<envar>$EDSS_EXE</envar>/</filename> directory.</para>
