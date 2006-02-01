@@ -1931,9 +1931,9 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Update or install the grid description in the <envar>GRIDDESC</envar> file, if not done previously (see step 1 in the previous subsection).</para>
 </listitem>
 <listitem>
-<para>Create and install the spatial surrogates file and surrogate description file</para>
+<para>Create and install the spatial surrogates file and surrogate description file <envar>SRGDESC</envar></para>
 
-<para>The spatial surrogates file (<envar>AGPRO</envar>, <envar>BGPRO</envar>, and <envar>MGPRO</envar>) is one of the most difficult inputs to create for SMOKE. The gridded data in the file must match the definition in the <envar>GRIDDESC</envar> file for the grid selected using the <envar>IOAPI_GRIDNAME_1</envar> variable.</para>
+<para>The Area and Mobile spatial surrogates files located in <envar>SRGPRO_PATH</envar> and the <envar>BGPRO</envar> are one of the most difficult inputs to create for SMOKE. The gridded data in the files must match the definition in the <envar>GRIDDESC</envar> and <envar>SRGDESC</envar> files for the grid selected using the <envar>IOAPI_GRIDNAME_1</envar> variable.</para>
 
 <para>The best approach to creating this file is to obtain it from someone else who has created surrogates for your domain. For example, EPA has created 4-km national spatial surrogates available at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html" />. Of course, using a national file has its limitations if your domain happens to be far away from the center of the U.S. since the map projection for the surrogates is more distorted further away from the center of the projection. However, for most users, this distortion will be a small price to pay for having readily available spatial surrogates.</para>
 
@@ -1945,9 +1945,9 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>In addition to the surrogate file, it is important to create a surrogate description file (<envar>SRGDESC</envar>). This is simply a file that lists the surrogate codes and their descriptions. Since the surrogate file itself does not currently have descriptive text that indicate what the surrogate codes mean, the surrogate description file is the only way users have of knowing to what data the codes in the surrogate file refer.</para>
 
-<para>The same surrogate file can be used for <envar>AGPRO</envar>, <envar>BGPRO</envar>, and <envar>MGPRO</envar>. This is accomplished by having the same physical file name assigned to the three logical file names. Please see <xref linkend="ch_input_files" /> for more information on these files. The <envar>BGPRO</envar> file must include the <quote>county area</quote> spatial surrogate, and is used for estimating county-total emissions from gridded emissions.</para>
+<para>The same surrogate file can be used for Area and Mobile.  This is accomplished by using the same physical file name in the <envar>SRGDESC</envar>.  Please see <xref linkend="ch_input_files" /> for more information on these files. The <envar>BGPRO</envar> file must include the <quote>county area</quote> spatial surrogate, and is used for estimating county-total emissions from gridded emissions.</para>
 
-<para>The spatial surrogate file(s) should be installed in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory, since the file is likely to be shared by many SMOKE runs and source categories. The surrogate description file should be stored in <filename class="directory"><envar>$GE_DAT</envar></filename> as well. It is useful to name both files to include the <envar>GRID</envar> environment variable for easier identification.</para>
+<para>The Area and Mobile spatial surrogate file(s) should be installed as a sub-directory in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory.  This sub-directory is assigned to <envar>SRGPRO_PATH</envar>.  The surrogate description file should be stored in <filename class="directory"><envar>$GE_DAT</envar></filename> as well. It is useful to include the name of the <envar>GRID</envar> in the name of the sub-directory <envar>SRGPRO_PATH</envar> for you may in the future be modeling different grids and therefore needing different surrogate files. The Biogenic surrogate file <envar>BGPRO</envar> should be located in <filename class="directory"><envar>$GE_DAT</envar></filename>.</para>
 </listitem>
 <listitem>
 <para>Create and install the spatial cross-reference file</para>
@@ -1956,7 +1956,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>When <command>Smkinven</command> imports an area, non-road mobile, or on-road mobile inventory, a list of SCCs is created (logical file name <envar>ASCC</envar>, <envar>NSCC</envar>, or <envar>MSCC</envar>). After importing the data but before running spatial allocation, it is wise to examine the list of SCCs included in this file and compare it with the list in the example spatial cross-reference files. This comparison can be accomplished manually or using the <command>Smkreport</command> program with a report that includes the surrogate codes assigned to each SCC (see <xref linkend="ch_quality_assurance" />). The <command>Smkreport</command> results will list all of the surrogate assignments by SCC and the emissions associated with each, with which users may evaluate if any SCCs were included in the inventory but not in the example SMOKE file. The example spatial cross-reference files (<envar>AGREF</envar> and <envar>MGREF</envar>) can be updated with any new assignments or to include SCCs that are in the user&rsquo;s inventory but not in the example files.</para>
 
-<para>If a new surrogates file uses surrogate codes that are different from the example codes, then new spatial surrogate cross-reference files need to be created. These can be created by copying and editing the existing files to replace the example surrogate codes with the new codes. For example, the current code for population is 100. If the new code for population is 400, then all of the <quote>200</quote> surrogate codes in the file would need to be replaced with <quote>400</quote>s. These replacements must be made carefully because the example file also uses <quote>400</quote> for the rural land area surrogate, so if global search and replace is performed, one must be careful to change what one intends to change. It is much easier to simply use the codes that are already in use in any new surrogates file, or modify the surrogate file to use those codes.</para>
+<para>If a new surrogates file uses surrogate codes that are different from the example codes, then new spatial surrogate cross-reference files need to be created. These can be created by copying and editing the existing files to replace the example surrogate codes with the new codes. For example, the current code for population is 100. If the new code for population is 400, then all of the <quote>100</quote> surrogate codes in the file would need to be replaced with <quote>400</quote>s. These replacements must be made carefully because the example file also uses <quote>400</quote> for the rural land area surrogate, so if global search and replace is performed, one must be careful to change what one intends to change. It is much easier to simply use the codes that are already in use in any new surrogates file, or modify the surrogate file to use those codes.</para>
 
 <para>The spatial cross-reference file(s) should be installed in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory, since the file is likely to be shared by many SMOKE runs and source categories. It is useful to name the file(s) to include the <envar>GRID</envar> environment variable for easier identification as association with the surrogate file(s) with which it works.</para>
 </listitem>
@@ -1995,13 +1995,16 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <itemizedlist>
 <listitem>
-<para><envar>AGPRO</envar>, <envar>BGPRO</envar>, <envar>MGPRO</envar></para>
+<para><envar>BGPRO</envar></para>
 </listitem>
 <listitem>
 <para><envar>AGREF</envar>, <envar>MGREF</envar></para>
 </listitem>
 <listitem>
 <para><envar>SRGDESC</envar></para>
+</listitem>
+<listitem>
+<para><envar>SRGPRO_PATH</envar></para>
 </listitem>
 <listitem>
 <para><envar>BGUSE</envar></para>
@@ -2993,6 +2996,9 @@ endif</programlisting>
 <listitem>
 <para><xref linkend="sect_scripts_duration_output" /></para>
 </listitem>
+<listitem>
+<para><xref linkend="sect_scripts_non_seq_dates" /></para>
+</listitem>
 
 <!--
 <listitem>
@@ -3197,6 +3203,131 @@ endif</programlisting>
 </orderedlist>
 
 </section>
+
+
+<section id="sect_scripts_non_seq_dates">
+
+<title>Setting non-sequential processing dates</title>
+
+<para>The <envar>PROCDATES</envar> option is specifically designed for use on daily and/or hourly inventory data with <command>Temporal</command>.  <envar>PROCDATES</envar> is not yet incorporated within other SMOKE core programs, such as <command>Grdmat</command>,<command>Smkmerge</command> or <command>Smkreport</command>.  For creating model-ready outputs and QA reports, the users need to be sure that the episode dates (<envar>EPI_STDATE</envar> and <envar>G_STDATE</envar>) in the assigns file are listed in <envar>PROCDATES</envar></para>
+
+<para>If <envar>PROCDATES</envar> is not assigned, the defaults are <envar>G_STDATE</envar>, <envar>G_STTIME</envar> and <envar>G_RUNLEN</envar>.</para>
+
+<para>The following steps must be taken to set non-sequential processing dates.</para>
+
+<para>Area/Non-road/Point Sources</para>
+
+<orderedlist>
+
+<listitem>
+<para>Determine whether you need to use <envar>PROCDATES</envar>.</para>
+</listitem>
+
+<listitem>
+<para>If you are using <envar>PROCDATES</envar>, you need to set the environment variable by uncommenting <envar>PROCDATES</envar> in the assigns file.</para>
+</listitem>
+
+<listitem>
+<para>Set the environment variable <envar>PROCDATES</envar> to the file procdates.txt located in <envar>GE_DAT</envar>. (i.e. setenv <envar>PROCDATES</envar> <envar>$GE_DAT</envar>/procdates.txt.</para>
+</listitem>
+
+</orderedlist>
+
+<para>Mobile Source</para>
+
+<para>Because <command>Temproal</command> is also responsible for combining hourly emissions factors calculated by <envar>MOBILE6</envar> with hourly <envar>VMT</envar> data to generate hourly on-road mobile emissions, several following steps and pre-conditions are necessary.</para>
+
+<orderedlist>
+
+<listitem>
+<para>Determine whether you need to use <envar>PROCDATES</envar>.</para>
+</listitem>
+
+<listitem>
+<para>If you are using <envar>PROCDATES</envar>, you need to set the environment variable by uncommenting <envar>PROCDATES</envar> in the assigns file.</para>
+</listitem>
+
+<listitem>
+<para>Set the environment variable <envar>PROCDATES</envar> to the file procdates.txt located in <envar>GE_DAT</envar>. (i.e. setenv <envar>PROCDATES</envar> <envar>$GE_DAT</envar>/procdates.txt.</para>
+</listitem>
+
+</orderedlist>
+
+<para> Preconditions</para>
+
+<orderedlist>
+
+<listitem>
+<para>For SMOKE to properly perform with <envar>PROCDATES</envar> for the Mobile source sector, <command>Emisfac</command> intermidiate files must be available for the desired days requested in <envar>PROCDATES</envar> so <command>Temporal</command> to create the daily/hourly intermediate outputs.</para>
+</listitem>
+
+<listitem>
+<para>To aquire <command>Emisfac</command> itermediate output files, <command>Premobl</command> and <command>Emisfac</command> need to be run for desired dates. See <xref linkend="sect_concepts_onroad_processing" />, <xref linkend="sect_scripts_change_episode" /> and <xref linkend="sect_scripts_duration_output" />. </para>
+</listitem>
+
+<listitem>
+<para><command>Emisfac</command> requires meteorologic data be available for the desired days. See Process the meteorology data for use by <envar>MOBILE6</envar> in <xref linkend="sect_concepts_onroad_processing" />. </para>
+</listitem>
+
+<listitem>
+<para>Thus, the user must decide what representative days they wish to model, ensure there is meteorologic data available and the run <command>Premobl</command> and <command>Emisfac</command>.</para>
+</listitem>
+
+</orderedlist>
+
+<para> As an example, if the user wishes to run the first date of each month from January to May of 2005, the user must assure that the <envar>MET</envar> data is available for <command>Emisfac</command> to properly execute.</para> 
+
+<para> <envar>PROCDATES</envar> needs to be set as follows: </para>
+
+<itemizedlist>
+<listitem># First day of each month</listitem>
+<listitem>20050101 0 250000 ! January</listitem>
+<listitem>20050201 0 250000 ! February</listitem>
+<listitem>20050301 0 250000 ! March</listitem>
+<listitem>20050401 0 250000 ! April</listitem>
+<listitem>20050501 0 250000 ! May</listitem>
+</itemizedlist>
+
+<para>NOTE: If you are running multiple non-sequential episodes through <command>Emisfac</command>, the user MUST relocate the output files located in <envar>STATIC</envar>/m6emfac after each <command>Emisfac</command> run.  These files are automatically deleted before the next <command>Emisfac</command> iteration.  After all <command>Premobl</command> and <command>Emisfac</command> for all episodes have been completed, move all intermediate files back to <envar>STATIC</envar>/m6emfac directory.</para>
+
+<para>Let us review the steps:</para>
+
+
+<orderedlist>
+
+<listitem>
+<para>Assure that the meteorologic data exists for the days being processed.</para>
+</listitem>
+
+<listitem>
+<para>Set the environment variable for <envar>RUN_PREMOBL</envar> and <envar>RUN_EMISFAC</envar> to Y and <envar>RUN_TEMPORAL</envar> is set to N.</para>
+</listitem>
+
+<listitem>
+<para>Follow the steps in <xref linkend="sect_scripts_change_episode" /> and <xref linkend="sect_scripts_duration_output" /> corresponding to the Mobile source processing date information.</para>
+</listitem>
+
+<listitem>
+<para>After each <command>Emisfac</command> run, move/copy itermediate output from <envar>STATIC</envar>/m6emfac to a temporary directory.</para>
+</listitem>
+
+<listitem>
+<para>Repeat steps 3 and 4 until all necesary dates for the days covered in <envar>PROCDATES</envar> have been processed.</para>
+</listitem>
+
+<listitem>
+<para>After all dates have been processed, move all the <command>Emisfac</command> output files back to <envar>STATIC</envar>/m6emfac.</para>
+</listitem>
+
+
+<listitem>
+<para>Last, set the environment variable for <envar>RUN_PREMOBL</envar> and <envar>RUN_EMISFAC</envar> to N and <envar>RUN_TEMPORAL</envar> is set to Y.</para>
+</listitem>
+
+</orderedlist>
+
+</section>
+
 
 <!--
 <section id="sect_scripts_use_average_day">
