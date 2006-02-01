@@ -286,11 +286,11 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry><link linkend="sect_input_amgpro"><envar>[A|M]GPRO</envar></link></entry>
+<entry><link linkend="sect_input_amgpro"><envar>Area/Mobile surrogate profiles</envar></link></entry>
 <entry><command>Grdmat</command>, <command>Surgtool</command></entry>
 <entry>A, M</entry>
 <entry>Area and/or mobile source spatial surrogates</entry>
-<entry><envar>$GE_DAT</envar></entry>
+<entry><envar>$SRGPRO_PATH</envar></entry>
 </row>
 
 <row>
@@ -1078,9 +1078,9 @@ In this overview section, we first provide a few important notes about file form
 <tbody>
 
 <row>
-<entry><envar>AGPRO</envar>: gridding surrogates</entry>
+<entry>Area gridding surrogates</entry>
 <entry>A</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
+<entry><filename class="directory"><envar>$SRGPRO_PATH</envar>/</filename></entry>
 <entry><filename>amgpro.12km_041604.nc.txt</filename></entry>
 </row>
 
@@ -1106,9 +1106,9 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry><envar>MGPRO</envar>: gridding surrogates</entry>
+<entry>Mobile gridding surrogates</entry>
 <entry>M</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
+<entry><filename class="directory"><envar>$SRGPRO_PATH</envar>/</filename></entry>
 <entry><filename>amgref.m3.us+can+mex.txt</filename></entry>
 </row>
 
@@ -2721,7 +2721,7 @@ INVYEAR 1996
 <row>
 <entry>1</entry>
 <entry>A</entry>
-<entry>#GRID header (see <envar>AGPRO</envar> and <envar>MGPRO</envar>) (required)</entry>
+<entry>#GRID header (see Area and Mobile spatial surrogate files) (required)</entry>
 </row>
 <comment>
 <row>
@@ -5638,7 +5638,7 @@ INVYEAR 1995
 
 <title><envar>SRGDESC</envar>: Surrogate Designation, Description and Surrogate profile filename.</title>
 
-<para>The Surrogate Description file is used to designate the regional location of the surrogate, the surrogate code number, a brief description of the code number and the <envar>AGPRO</envar> or <envar>MGPRO</envar> file in which surrogate profile can be found. The format of the <envar>SRGDESC</envar> file is shown in <xref linkend="tbl_input_srgdesc" />.</para> 
+<para>The Surrogate Description file is used to designate the regional location of the surrogate, the surrogate code number, a brief description of the code number and the Area and Mobile spatial surrogate file in which surrogate profile can be found.  This file is located in <envar>SRGPRO_PATH</envar>. See <xref linkend="fig_programs_grdmat" />.  The format of the <envar>SRGDESC</envar> file is shown in <xref linkend="tbl_input_srgdesc" />.</para> 
 
 <table id="tbl_input_srgdesc">
 <title>Format for <envar>SRGDESC</envar></title>
@@ -5646,7 +5646,7 @@ INVYEAR 1995
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
 <colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
+<colspec colwidth="80*" colname="Description" />
 
 <thead>
 <row>
@@ -5746,7 +5746,7 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Surrogate file name (ASCII 80 characters) (required)</entry>
+<entry>Surrogate file name (ASCII 80 characters) (required) located in <envar>SRGPRO_PATH</envar></entry>
 </row>
 </tbody>
 </tgroup>
@@ -5756,12 +5756,12 @@ INVYEAR 1995
 
 <section id="sect_input_amgpro">
 
-<title><envar>AGPRO</envar> and <envar>MGPRO</envar>: Area and Mobile Spatial Surrogates Files</title>
+<title>Area and Mobile Spatial Surrogates Files</title>
 
-<para>The spatial surrogates files contain the spatial allocation factors for all area sources and non-link mobile sources. One file may be used for both area and mobile sources, although the SMOKE programs use the two logical file names to access it. The format for these files is shown in <xref linkend="tbl_input_amgpro" />.</para>
+<para>The spatial surrogates files contain the spatial allocation factors for all area sources and non-link mobile sources. One file may be used for both area and mobile sources, however, multiple surrogate files may also be used to futher separate and refine the detail of the spatial allocation.  The location of these files can be found in <xref linkend="tbl_input_spatial_files" /> The format for these files is shown in <xref linkend="tbl_input_amgpro" />.</para>
 
 <table id="tbl_input_amgpro">
-<title>Format for <envar>AGPRO</envar> and <envar>MGPRO</envar></title>
+<title>Format for Area and Mobile spatial surrogate files.</title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -5967,7 +5967,7 @@ INVYEAR 1995
 
 <title><envar>BGPRO</envar>: Biogenic spatial surrogate file</title>
 
-<para>The <envar>BGPRO</envar> file must be provided to SMOKE when using county land use data, in order to provide a means of converting county land use to gridded land use. The format for the <envar>BGPRO</envar> file is the same as for the <envar>AGPRO</envar> and <envar>MGPRO</envar> files (see <xref linkend="sect_input_amgpro" />). Typically, the same gridded surrogates file would be used, and the <command>Rawbio</command> options would be set to assign the county area, agriculture, or forest surrogates to the various biogenic land use groups.</para>
+<para>The <envar>BGPRO</envar> file must be provided to SMOKE when using county land use data, in order to provide a means of converting county land use to gridded land use. The format for the <envar>BGPRO</envar> file is the same as for the Area and Mobile spatial surrogate files (see <xref linkend="sect_input_amgpro" />). Typically, the same gridded surrogates file would be used, and the <command>Rawbio</command> options would be set to assign the county area, agriculture, or forest surrogates to the various biogenic land use groups.</para>
 
 </section>
 
@@ -7085,6 +7085,30 @@ INVYEAR 1995
 <row>
 <entry colname="Position">F</entry>
 <entry>Maximum Achievable Control Technology code (MACT), optional (6-character string)</entry>
+</row>
+<row>
+<entry colname="Position">G</entry>
+<entry>Plant ID for point sources, optional (Character)</entry>
+</row>
+<row>
+<entry colname="Position">H</entry>
+<entry>Characteristic 1 (for IDA, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
+</row>
+<row>
+<entry colname="Position">I</entry>
+<entry>Characteristic 2 (for IDA, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
+</row>
+<row>
+<entry colname="Position">J</entry>
+<entry>Characteristic 3 (for IDA, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
+</row>
+<row>
+<entry colname="Position">K</entry>
+<entry>Characteristic 4 (blank for IDA inventory input format), optional (Character)</entry>
+</row>
+<row>
+<entry colname="Position">L</entry>
+<entry>Characteristic 5 (blank for IDA inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
