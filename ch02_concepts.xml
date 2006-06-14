@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_concepts">
 
@@ -86,7 +86,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Wildfire sources with precomputed plume rise:</emphasis> Traditionally, wildfire emissions have been treated as stationary area sources. More recently, data have also been developed for point locations, with day-specific emissions and hour-specific plume rise (vertical distribution of emissions) being computed prior to input to SMOKE. In this case, the wildfire emissions are processed by SMOKE as point sources.</para>
+<para><emphasis role="bold">Wildfire sources:</emphasis> Traditionally, wildfire emissions have been treated as stationary area sources. More recently, data have also been developed for point locations, with day-specific emissions and hour-specific plume rise (vertical distribution of emissions). In this case, the wildfire emissions are processed by SMOKE as point sources.</para>
 </listitem>
 
 <listitem>
@@ -173,6 +173,15 @@
 <entry align="center">N/A</entry>
 <entry align="center">D, H</entry>
 <entry align="center">D, H</entry>
+<entry align="center">N/A</entry>
+<entry>Point</entry>
+</row>
+
+<row>
+<entry>Fire without precomputed plume rise</entry>
+<entry align="center">N/A</entry>
+<entry align="center">D</entry>
+<entry align="center">D</entry>
 <entry align="center">N/A</entry>
 <entry>Point</entry>
 </row>
@@ -312,11 +321,41 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Source attributes:</emphasis> Like other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In addition, wildfire sources require the latitude and longitude source attributes. Finally, additional hour-specific source attributes for wildfire sources <emphasis>must</emphasis> be provided for the fraction of emissions in the surface layer, the height of the bottom of the plume, and the height of the top of the plume. These hour-specific attributes are provided to SMOKE using the point-source hour-specific formats described in <xref linkend="sect_input_pthour" />.</para>
+<para><emphasis role="bold">Source attributes:</emphasis> Like other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In addition, wildfire sources require the latitude and longitude source attributes. Finally, additional hour-specific source attributes for wildfire sources <emphasis>must</emphasis> be provided for the fraction of emissions in the surface layer, the height of the bottom of the plume, and the height of the top of the plume. These hour-specific attributes are provided to SMOKE using the point source hour-specific formats described in <xref linkend="sect_input_pthour" />.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Data:</emphasis> Wildfire source inventories can contain criteria and particulate pollutants. SMOKE is not constrained with regard to the pollutants read (although typical examples were given in <xref linkend="sect_concepts_inv_data_types" />). These data must be provided as day-specific or hour-specific emissions values using point-source formats specified in <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" />.</para>
+<para><emphasis role="bold">Data:</emphasis> Wildfire source inventories can contain criteria and particulate pollutants. SMOKE is not constrained with regard to the pollutants read (although typical examples were given in <xref linkend="sect_concepts_inv_data_types" />). These data must be provided as day-specific or hour-specific emissions values using point source formats specified in <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" />.</para>
+</listitem>
+
+<listitem>
+<para><emphasis role="bold">Data attributes:</emphasis> No data attributes are associated with wildfire sources.</para>
+</listitem>
+
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>Fires without precomputed plumes (SMOKE category: point)</title>
+
+<itemizedlist>
+
+<listitem>
+<para><emphasis role="bold">Source characteristics:</emphasis> Fires without precomputed plumes are identified by the country/state/county code, fire identification, fire name, location identification, and SCC.</para>
+</listitem>
+
+<listitem>
+<para><emphasis role="bold">Optional source characteristics:</emphasis> There are optional source characteristics for fire sources, such as material burned, vegetation types, size of area burned, fuel loading, and fire start/end hour. The size of area burned and fuel loading are used for computing the fire-specific plume rise. Fire starting and ending hours are needed to adjust the hourly temporal profiles for the emissions.</para>
+</listitem>
+
+<listitem>
+<para><emphasis role="bold">Source attributes:</emphasis> Like other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and will re-normalize temporal profiles based on the starting and ending hours of the fire. In addition, wildfire sources require the latitude and longitude source attributes to locate the fire. Note that all emissions for a fire will be assumed to come from the single grid cell that contains the latititude and longitude of the fire. Finally, additional day-specific source attributes listed above for fire sources <emphasis>must</emphasis> be provided for calculating the heat flux of each fire, which is used to estimate the fraction of emissions in the surface layer, the height of the bottom of the plume, and the height of the top of the plume. These hour-specific attributes are provided to SMOKE using the point source day-specific formats described in <xref linkend="sect_input_ptday_fireemis" />.</para>
+</listitem>
+
+<listitem>
+<para><emphasis role="bold">Data:</emphasis> Fire source inventories can contain criteria and particulate pollutants. SMOKE is not constrained with regard to the pollutants read (although typical examples were given in <xref linkend="sect_concepts_inv_data_types" />). These data must be provided as day-specific emissions values using point source formats specified in <xref linkend="sect_input_ptday_fireemis" />.</para>
 </listitem>
 
 <listitem>
@@ -388,7 +427,11 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Wildfire sources:</emphasis> You can provide wildfire data that are being treated as point sources to SMOKE using the IDA point-source format. In this case, there are certain fields that must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats.</para>
+<para><emphasis role="bold">Wildfire sources:</emphasis> There are two approches available that you can provide wildfire data that are being treated as point sources to SMOKE using the IDA or ORL point-source format.</para>
+    <itemizedlist spacing="compact">
+        <listitem><emphasis role="bold">BlueSky approach:</emphasis> Certain fields must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats. Detailed information is available in <xref linkend="sect_utilities_bluesky2inv"/>.</listitem>
+        <listitem><emphasis role="bold">NEI fire inventories approach:</emphasis> Requires two separate inventory files that are provided in a modified ORL format: (1) a list of fires with fire-specific characteristics including county/state/county, fire identification, location coordinate, fire name, SCC and others, as described in <xref linkend="sect_input_ptinv_fire"/>, and (2) a day-specific fire data including size of area burned, fuel loading, and star/end hour of fire (<xref linkend="sect_input_ptday_fireemis"/>). Unlike the approach listed above, this approach internally estimates the plume rise using the size of the area burned and fuel loading, and it adjusts temporal profiles using the start and end hours of the fire.</listitem>
+    </itemizedlist>
 </listitem>
 
 </itemizedlist>
@@ -594,7 +637,7 @@
 
     <itemizedlist spacing="compact">
     <listitem>cross-references: <envar>AGREF</envar>, <envar>MGREF</envar></listitem>
-    <listitem>profiles: <envar>AGPRO</envar>, <envar>MGPRO</envar></listitem>
+    <listitem>profiles: <envar>AGPRO</envar>, <envar>MGPRO</envar> (<command>* Note</command>)</listitem>
     </itemizedlist>
     
 </listitem>
@@ -625,6 +668,8 @@
 </itemizedlist>
     
 <para>The hierarchies that each SMOKE program uses to assign cross-reference entries to sources are provided in <xref linkend="ch_programs" />, where the programs are described at length. The file contents and formats are described in more detail in <xref linkend="ch_input_files" />.</para>
+
+<para><command>Note</command>:  The use of the Environment variable <envar>AGPRO</envar> (Area spatial surrogate file)and <envar>MGPRO</envar> (Mobile spatial surrogate file) have been discontinued.  Two new Environment variables have been introduced to SMOKE; <envar>SRGPRO_PATH</envar> (spatial surrogate profile file location) and <envar>SRGDESC</envar> (description file with the specific list of available surrogates located in <envar>SRGPRO_PATH</envar>) See <xref linkend="fig_programs_grdmat" />.  The surrogate files located in <envar>SRGPRO_PATH</envar> are refinements of the old [A|M]GPRO files.  They are of the same format as the old files, however, there now may be one or more surrogate files.  <command>Grdmat</command> now process each surrogate separately.  On domains with large cell counts, this approach limits the memory usage at the expense of slightly longer run times. </para>
 
 </section>
 
@@ -1728,7 +1773,7 @@ Additional data</programlisting>
 
 <para>When running MOBILE6, each county in the mobile inventory is assigned a reference county using the <envar>MCREF</envar> file. All counties with the same reference county will use the same MOBILE6 input scenario. The MOBILE6 input scenario defines many aspects to be modeled, including I/M programs, ATPs, and fuel parameters.</para>
 
-<para>For a single county, SMOKE duplicates the MOBILE6 input scenario for all speeds in the inventory. It then inserts county-specific temperature, barometric pressure, and humidity data (see <xref linkend="sect_concepts_gridded_met_data" />, replaces speed information, and runs MOBILE6. The hourly emission factors are then matched to the individual sources and stored.</para>
+<para>For a single county, SMOKE duplicates the MOBILE6 input scenario for all speeds in the inventory. It then inserts county-specific temperature, barometric pressure, and humidity data (see <xref linkend="sect_concepts_gridded_met_data" />), replaces speed information, and runs MOBILE6. The hourly emission factors are then matched to the individual sources and stored.</para>
 
 <comment>clarify preceeding paragraph in regards to next section</comment>
 
@@ -2347,6 +2392,11 @@ Additional data</programlisting>
 <para>An additional action taken by the <command>Smkinven</command> program for point sources only is to check stack parameters and fill them in with valid values if they are missing. <command>Smkinven</command> performs the following steps on stack parameters from the annual or average-day inventory files, but not the hour-specific stack parameters file.</para>
 
 <itemizedlist>
+
+<listitem>
+<para>If the stack parameters are zero, <command>Smkinven</command> treats them as missing values and writes the warning messages.</para>
+</listitem>
+
 <listitem>
 <para>If the exit velocity is missing or zero and the exit flow is not, or if the <envar>VELOC_RECALC</envar> option is Y in the run script, <command>Smkinven</command> automatically calculates the exit velocity using the formula:</para>
 
@@ -2367,7 +2417,7 @@ Additional data</programlisting>
 </listitem>
 
 <listitem>
-<para>If the stack parameters are missing or zero, <command>Smkinven</command> uses the <envar>PSTK</envar> file to assign new stack parameters using country/state/county and SCC assignments. The example <envar>PSTK</envar> file is described in <xref linkend="sect_dirs_example_data_files" />.</para>
+<para>If the stack parameters  are missing or zero, <command>Smkinven</command> uses the <envar>PSTK</envar> file to assign new stack parameters using country/state/county and SCC assignments. The example <envar>PSTK</envar> file is described in <xref linkend="sect_dirs_example_data_files" />.</para>
 </listitem>
 </itemizedlist>
 
@@ -2474,7 +2524,7 @@ Additional data</programlisting>
 <para>For area-to-point conversions, a summary by SCC of the number of country/state/county codes being assigned area-to-point factors, and the number not being assigned those factors. This report is written to the <envar>REPINVEN</envar> file.</para>
 </listitem>
 <listitem>
-<para>For import of CEM data, a summary of ORIS IDs from the CEM data that have been matched to the inventory, a summary of the ORIS IDs from the CEM data that have <emphasis>not</emphasis> been matched to the inventory, and power-generating inventory sources that have not been matched to the CEM data. This report is written to the <envar>REPINVEN</envar> file.</para>
+<para>For import of CEM data, a summary of ORIS IDs and boiler IDs from the CEM data that have been matched to the inventory. SMOKE allows for multiple plant descriptions and country/state/county codes for a single ORIS ID that may be identical in their characteristics but different boiler IDS. They are treated as separate sources by matching boiler IDs. This report is written to the <envar>REPINVEN</envar> file.</para>
 </listitem>
 </orderedlist>
 
@@ -2509,7 +2559,7 @@ Additional data</programlisting>
 
 <para>The temporal allocation of emission inventory data always occurs after the inventory import processing previously described in <xref linkend="sect_concepts_inventory_import" />. The <command>Temporal</command> program processes data for anthropogenic sources, while the <command>Tmpbio</command> program allocates biogenic emissions. In this section, we focus on the temporal allocation of the anthropogenic inventories using <command>Temporal</command>. The biogenic processing is further described in <xref linkend="sect_concepts_biogenic_processing" />.</para>
 
-<para>The primary purpose of the <command>Temporal</command> program is to create an intermediate hourly emissions file (<envar>ATMP</envar>, <envar>MTMP</envar>, or <envar>PTMP</envar>). It also creates a supplementary intermediate file that indicates which monthly, weekly (day-of-week), and diurnal (hourly) profiles were assigned to each source (<envar>ATSUP</envar>, <envar>MTSUP</envar>, or <envar>PTSUP</envar>).</para>
+<para>The primary purpose of the <command>Temporal</command> program is to create an intermediate hourly emissions file (<envar>ATMP</envar>, <envar>MTMP</envar>, or <envar>PTMP</envar>). It also creates a supplementary intermediate file that indicates which monthly, weekly (day-of-week), and diurnal (hourly) profiles were assigned to each source (<envar>ATSUP</envar>, <envar>MTSUP</envar>, or <envar>PTSUP</envar>). Since the <command>Temporal</command> dynamically create names for the output files, two new environment variables <envar>[A|M|P]TMPNAME</envar> and <envar>[A|M|P]TSUPNAME</envar> are used to set the directory and file prefix for naming the output files <envar>[A|M|P]TMP</envar> and <envar>[A|M|P]TSUP</envar>. The files are named using the starting date of each time period.For example, if <envar>ATMPNAME</envar> is set to /data/ntmp.nctox., then the <envar>ATMP</envar> file for a given time period will be put in the data directory and named ntmp.nctox.[start date].ncf.</para>
 
 <para>The temporal processing operation applies factors based on the source characteristics to the emissions data from the SMOKE inventory files. These factors can include monthly, weekly, and diurnal temporal profiles. The resulting emissions data vectors (not a matrix) contain hourly emissions for the inventory species. SMOKE assumes an hourly time step (Even though the time step is an input setting to SMOKE, it currently cannot be changed.). Most of the calculations are implemented as sparse-matrix algebra based upon temporal cross-references and profiles, augmented by the substitution of values from day- and hour-specific emissions data sets. For mobile sources, hourly emissions values also depend on meteorology (e.g., the temperature dependence of evaporative emissions).</para>
 
@@ -2551,6 +2601,9 @@ Additional data</programlisting>
 </listitem>
 <listitem>
 <para>Monday-weekday-Saturday-Sunday (MWSS) processing</para>
+</listitem>
+<listitem>
+<para>Processing non-sequential dates</para>
 </listitem>
 <listitem>
 <para>Creating the intermediate files</para>
@@ -2720,6 +2773,41 @@ Additional data</programlisting>
 <para>This approach relies heavily on scripting to select dates for each month&rsquo;s representative days and to ensure that the days that are run are consistent with the dates in the <envar>HOLIDAYS</envar> file. Scripting is also responsible for ensuring that the correct files are merged together by <command>Smkmerge</command> to create the model-ready files for all days of the episode. These scripting issues are described in more detail in <xref linkend="ch_scripts" />.</para>
 
 <para>There are some situations in which you cannot use the MWSS approach. In particular, on-road processing with MOBILE6 must be run for all days of the episode, although some steps can be sped up by using the meteorology averaging approach. Additionally, biogenic emissions processing obtains all of its temporal variation from the meteorology data, and therefore must be run for all days. Fortunately, biogenic emissions processing is very fast compared to processing for other source categories.</para>
+
+</section>
+
+
+<section id="sect_concepts_non_seq_processing">
+
+<title>Processing Non-sequential Dates</title>
+
+<para>Previously, <command>Temporal</command> processed a single continuous time period during each execution of the program producing one output file.  Typically, only representative Monday, weekday, Saturday and Sunday, plus any holidays are processed for a single month.  This type of processing can require complex scripting and <command>Temporal</command> would need to be run several times.  See <xref linkend="sect_scripts_change_episode" />, <xref linkend="sect_scripts_duration_output" /> and <xref linkend="sect_scripts_non_seq_dates" />.</para>
+
+<para>SMOKE now provides the capability for optionally setting non-sequential date processing during a single execution of <command>Temporal</command> using a new input file <envar>PROCDATES</envar> to indicate a list of dates which <command>Temporal</command> should process.  The format for <envar>PROCDATES</envar> is described in <xref linkend="sect_input_procdates" />.  The format allows for blank lines, comment lines (any lines that start with a pound sign, and trailing comments (any characters after an exclamation point).</para>
+
+<para><envar>G_TSTEP</envar> will be used to set the time step for all time periods.  The output data for each time period will be written to an endividual file.</para>
+
+<para>An example of <envar>PROCDATES</envar> file is shown below.  In this case, we are processing the first day of each month in 2005.  Twelve output files will be produced.  Each file will contain 25 time steps.</para>
+
+<itemizedlist>
+<listitem># First day of each month</listitem>
+<listitem>20050101 0 250000 ! January</listitem>
+<listitem>20050201 0 250000 ! February</listitem>
+<listitem>20050301 0 250000 ! March</listitem>
+<listitem>20050401 0 250000 ! April</listitem>
+<listitem>20050501 0 250000 ! May</listitem>
+<listitem>20050601 0 250000 ! June</listitem>
+<listitem>20050701 0 250000 ! July</listitem>
+<listitem>20050801 0 250000 ! August</listitem>
+<listitem>20050901 0 250000 ! September</listitem>
+<listitem>20051001 0 250000 ! October</listitem>
+<listitem>20051101 0 250000 ! November</listitem>
+<listitem>20051201 0 250000 ! December</listitem>
+</itemizedlist>
+
+<para><command>Temporal</command> procduces two output files <envar>[A|M|P]TMP</envar> and <envar>[A|M|P]TSUP</envar>.  Since <command>Temporal</command> will need to dynamically create names for the output files, we will use two new environment variables <envar>[A|M|P]TMPNAME</envar> and <envar>[A|M|P]TSUPNAME</envar> to set the directory and file prefix used to name the output files.  The files will be named using the starting date of each time period.  For example, if <envar>ATMPNAME</envar> is set to /data/ntmp.nctox., (note the period at the end of the file string) the <envar>ATMP</envar> file for a given time period will be put in the <envar>STATIC</envar> directory and named "ntmp.nctox.&lt;start date&gt;.ncf".</para>
+
+<para>More detail on setting non-sequential dates using <envar>PROCDATES</envar> will be discussed in</para>
 
 </section>
 
@@ -2910,11 +2998,11 @@ Additional data</programlisting>
 
 <para>The area/nonpoint, nonroad mobile, and on-road mobile nonlink sources all have emissions in the inventory with county-total values. To spatially allocate these emissions, factors must be assigned to each source to distribute the county-total emissions across the grid cells that intersect the county. This is accomplished using a cross-referencing approach that assigns a spatial surrogate to each source in the inventory.</para>
 
-<para>The spatial surrogates files (<envar>AGPRO</envar> or <envar>MGPRO</envar>) contain factors for allocating emissions from a county-total to a gridded value, and there are usually many sets of factors available for each county. The data in this file are used to estimate the spatial distribution of county-total emissions inside the county. These sets of factors are calculated from other data that are available at a finer resolution than the county data, such as census tracks. Examples of commonly available surrogates are population, housing, urban area, rural area, agriculture, water, railroads, major highways, airports, ports, and forest. To ensure correct emissions processing, it is essential that all counties within the inventory and domain be included in the spatial surrogates file. If any counties inside the domain are left out of the file, then SMOKE will not be able to detect this; instead, it will act as though the county is outside of the domain and drop the emissions.</para>
+<para>The spatial surrogates files, located in <envar>SRGPRO_PATH</envar> contain factors for allocating emissions from a county-total to a gridded value, and there are usually many sets of factors available for each county. The data in this file are used to estimate the spatial distribution of county-total emissions inside the county. These sets of factors are calculated from other data that are available at a finer resolution than the county data, such as census tracks. Examples of commonly available surrogates are population, housing, urban area, rural area, agriculture, water, railroads, major highways, airports, ports, and forest. To ensure correct emissions processing, it is essential that all counties within the inventory and domain be included in the spatial surrogates file. If any counties inside the domain are left out of the file, then SMOKE will not be able to detect this; instead, it will act as though the county is outside of the domain and drop the emissions.</para>
 
-<para>The general case of cross-referencing and profiles was described in <xref linkend="sect_concepts_cross_referencing" />. During spatial allocation with the <command>Grdmat</command> program, the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>) assigns spatial surrogates for area/nonpoint, nonroad mobile, and on-road mobile nonlink sources. The spatial cross-reference file associates SCCs with a spatial surrogate code, which is an arbitrary positive integer code that also appears in the spatial surrogates file along with the spatial surrogate data. It is important to ensure (if possible) that the spatial surrogate codes assigned to each SCC are actually available in the surrogate file for all counties in the inventory with that SCC. For example, if the water surrogate is assigned to motorboat sources in a given county, the spatial surrogate file should have values for the water surrogate in that county. If this is not the case, SMOKE will be forced to use a <quote>fallback</quote> surrogate, set with the <envar>SMK_DEFAULT_SRGID</envar> environment variable setting, which assigns a surrogate that is defined for every county in the domain.   <envar>SMK_DEFAULT_SRGID</envar> is mandatory and must be set to the population surrogate code listed in the <envar>SRGDESC</envar> file.  The population surrogate in this case serves two purposes; 1) It defines all the FIPS codes contained within the gridded domain which reduces I/O in the gridding process and 2) this fallback approach prevents the emissions for that county and source category from being dropped from the emissions processing. <command>Grdmat</command> produces warnings in the log file whenever the fallback surrogate is used. If the fallback surrogate also causes the emissions to go to zero, an additional warning that indicates the emissions are being dropped is also written to the <command>Grdmat</command> log file.</para>
+<para>The general case of cross-referencing and profiles was described in <xref linkend="sect_concepts_cross_referencing" />. During spatial allocation with the <command>Grdmat</command> program, the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>) assigns spatial surrogates for area/nonpoint, nonroad mobile, and on-road mobile nonlink sources. The spatial cross-reference file associates SCCs with a spatial surrogate code, which is an arbitrary positive integer code that also appears in the spatial surrogates file along with the spatial surrogate data. It is important to ensure (if possible) that the spatial surrogate codes assigned to each SCC are actually available in the surrogate file for all counties in the inventory with that SCC. For example, if the water surrogate is assigned to motorboat sources in a given county, the spatial surrogate file should have values for the water surrogate in that county. If this is not the case, SMOKE will be forced to use a <quote>fallback</quote> surrogate, defined with the <envar>SMK_DEFAULT_SRGID</envar> environment variable setting, which assigns a surrogate that is defined for every county in the domain.   <envar>SMK_DEFAULT_SRGID</envar> is mandatory and must be set to the population surrogate code listed in the <envar>SRGDESC</envar> file.  The population surrogate in this case serves two purposes; 1) It defines all the FIPS codes contained within the gridded domain which reduces I/O in the gridding process and 2) this fallback approach prevents the emissions for that county and source category from being dropped from the emissions processing. <command>Grdmat</command> produces warnings in the log file whenever the fallback surrogate is used. If the fallback surrogate also causes the emissions to go to zero, an additional warning that indicates the emissions are being dropped is also written to the <command>Grdmat</command> log file.  It is to the the users discretion to use the fallback described in purpose 2.  This is set by the <envar>SMK_USE_FALLBACK</envar> environment variable either set as [Y/N]. </para>
 
-<para>The surrogate codes are defined, described and a reference to the spatial surrogate file (<envar>AGPRO</envar> or <envar>MGPRO</envar>) listed in the surrogate description file <envar>SRGDESC</envar> which is likewise set as the environment variable <envar>SRGDESC</envar>. Because the surrogate codes are arbitrarily assigned, you need to make sure that the spatial cross-reference is developed in conjunction with the spatial surrogates so that the surrogate codes used in each are consistent. It is not generally wise to develop surrogates without a cross-reference, unless the surrogate codes used in the surrogates file are set to the same values that are in a spatial cross-reference file that is already available.  In other words, the surrogate codes in <envar>SRGDESC</envar>, <envar>AMGREF</envar> and <envar>AMGPRO</envar> should be in aggrement. </para>
+<para>The surrogate codes are defined, described and a reference to the spatial surrogate files listed in the surrogate description file <envar>SRGDESC</envar> which is likewise set as the environment variable <envar>SRGDESC</envar>. Because the surrogate codes are arbitrarily assigned, you need to make sure that the spatial cross-reference is developed in conjunction with the spatial surrogates so that the surrogate codes used in each are consistent. It is not generally wise to develop surrogates without a cross-reference, unless the surrogate codes used in the surrogates file are set to the same values that are in a spatial cross-reference file that is already available.  In other words, the surrogate codes in <envar>SRGDESC</envar>, <envar>AMGREF</envar> and <envar>AMGPRO</envar> should be in aggrement. </para>
 
 <para><xref linkend="fig_concepts_spatial_allocation_county" /> illustrates spatial allocation of all county-based emissions sources. The box at the left represents a grid with a single county, shaded in gray to represent an emissions value in that county. The arrow represents the spatial allocation steps. The box at right shows that all grid cells that intersect the county have emissions contributed by the county. Cells that intersect more of the county are shown in darker colors, simulating the effect of using area surrogates. The darker cells could also represent cells in which a large city causes the population surrogate to concentrate the emissions in those cells, while the surrounding regions within the county have lower emissions.</para>
 
@@ -3339,7 +3427,7 @@ Additional data</programlisting>
 
 <title>Using <command>Laypoint</command></title>
 
-<para>In this CMAQ/MAQSIP approach, <command>Laypoint</command> uses gridded, hourly meteorological data and stack parameters to calculate the plume rise for all point-source emissions. The program&rsquo;s approach is based on the Briggs algorithm, as explained in detail in <xref linkend="sect_programs_laypoint" />, and provides the top and bottom heights of the plume. <command>Laypoint</command> uses these heights to compute the plumes&rsquo; distributions into the vertical layers that the plumes intersect, using the pressure difference across each layer over the pressure difference across the entire plume as a weighting factor to make this calculation. This approach gives plume fractions by layer and source. Only these fractions are stored in the output file (<envar>PLAY</envar>) from the <command>Laypoint</command> program (not the emissions in each layer).</para>
+<para>In this CMAQ/MAQSIP approach, <command>Laypoint</command> uses gridded, hourly meteorological data and stack parameters to calculate the plume rise for all point-source emissions. The program&rsquo;s approach is based on the Briggs algorithm, as explained in detail in <xref linkend="sect_programs_elevpoint_briggs"/>, and provides the top and bottom heights of the plume. <command>Laypoint</command> uses these heights to compute the plumes&rsquo; distributions into the vertical layers that the plumes intersect, using the pressure difference across each layer over the pressure difference across the entire plume as a weighting factor to make this calculation. This approach gives plume fractions by layer and source. Only these fractions are stored in the output file (<envar>PLAY</envar>) from the <command>Laypoint</command> program (not the emissions in each layer).</para>
 
 <para>If explicit plume rise sources (e.g., wildfires with precomputed hourly plume rise) are included in the inventory, <command>Laypoint</command> will skip the plume rise calculation for these sources. Instead, it will use the hourly data from the SMOKE <envar>PHOUR</envar> intermediate file, which describe the fraction of emissions in layer 1 and the top and bottom of the plume. <command>Laypoint</command> will combine these data with the pressure weights used for all elevated point sources to compute the fraction of emissions to go into each layer.</para>
 
@@ -3465,7 +3553,7 @@ Additional data</programlisting>
 
 <title>Group reference counties</title>
 
-<para>The first major task for the <command>Mbsetup</command> program is to set the reference counties (defined in <xref linkend="sect_concepts_reference_counties" />. To do this, it reads the user-defined county cross-reference file (<envar>MCREF</envar>). This file assigns a reference county to each county in the inventory. When reading <envar>MCREF</envar>, SMOKE checks that all state and county FIPS codes in the file are integer values (no nonnumeric characters). Next, it looks for any duplicate inventory counties and gives an error message if any are found. <command>Mbsetup</command> will ignore any inventory counties that are not inside the grid or do not have any VMT data. <command>Mbsetup</command> also makes sure that all valid inventory counties (i.e., those that are inside the grid and have VMT data) have been assigned a reference county.</para>
+<para>The first major task for the <command>Mbsetup</command> program is to set the reference counties (defined in <xref linkend="sect_concepts_reference_counties" />). To do this, it reads the user-defined county cross-reference file (<envar>MCREF</envar>). This file assigns a reference county to each county in the inventory. When reading <envar>MCREF</envar>, SMOKE checks that all state and county FIPS codes in the file are integer values (no nonnumeric characters). Next, it looks for any duplicate inventory counties and gives an error message if any are found. <command>Mbsetup</command> will ignore any inventory counties that are not inside the grid or do not have any VMT data. <command>Mbsetup</command> also makes sure that all valid inventory counties (i.e., those that are inside the grid and have VMT data) have been assigned a reference county.</para>
 
 </section>
 

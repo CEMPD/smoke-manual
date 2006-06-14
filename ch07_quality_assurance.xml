@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_quality_assurance">
 
@@ -632,13 +632,19 @@
 <para>HOUR: Records are printed by hour total for each day. This option implies the TEMPORAL instruction, so <command>Smkreport</command> automatically adds that instruction even if it was not included in the input.</para>
 </listitem>
 <listitem>
-<para>LAYER: For point sources, emissions are printed by vertical layer. This option implies the LAYFRAC option (discussed later) that requires input of the <envar>PLAY</envar> SMOKE intermediate file; it also implies the BY HOUR instruction (above). Emissions will be written by hour as well as by layer. In the report, records are written first for one layer, then the next, and so on. <comment>The Java Analysis and Reporting Tool (JART) software can be used to sort the records in a different order.</comment> <remark>Only records with nonzero emissions in a layer are written.</remark> Since the number of records this report can generate is very large, we recommend that a source group be used to subselect the inventory records.</para>
+<para>LAYER: For point sources, daily emissions are printed by vertical layer. This option implies the LAYFRAC option (discussed later) that requires input of the <envar>PLAY</envar> SMOKE intermediate file. In the report, records are written first for one layer, then the next, and so on. <comment>The Java Analysis and Reporting Tool (JART) software can be used to sort the records in a different order.</comment> <remark>Only records with nonzero emissions in a layer are written.</remark> When used to together with the HOUR instruction (above), emissions will be written by hour as well as by layer. Since the number of records the report when using HOUR instruction is very large, we recommend that a source group be used to subselect the inventory records when appropriate.</para>
 </listitem>
 <listitem>
 <para>MACT [NAME]: Records are printed by MACT code. NAME can be appended to the option to additionally output the MACT code description (from the <envar>MACTDESC</envar> file) instead of only the MACT code.</para>
 </listitem>
 <listitem>
+<para>MATBURNED: For wildfire point sources, records are printed by MATBURNED code.</para>
+</listitem>
+<listitem>
 <para>MONCODE: Records are printed by monthly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>NFDRSCODE: For wildfire point sources, records are printed by NFDRSCODE code.</para>
 </listitem>
 <listitem>
 <para>NAICS [NAME]: Records are printed by NAICS code. NAME can be appended to the option to additional output the NAICS code description (from the <envar>NAICSDESC</envar> file) instead of only the NAICS code.</para>

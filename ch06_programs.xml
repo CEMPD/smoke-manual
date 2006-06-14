@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_programs">
 
@@ -980,7 +980,7 @@
 
 <para>The <command>Elevpoint</command> program is not needed if the environment variables <envar>SMK_PING_METHOD</envar> and <envar>SMK_ELEV_METHOD</envar> are both set to 0.</para>
 
-<section>
+<section id="sect_programs_elevpoint_briggs">
 
 <title>Plume rise calculation</title>
 
@@ -1849,7 +1849,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>SRGDESC</envar></entry>
 <entry>ASCII</entry>
-<entry>Surrogate list, description and surrogate file name used in the modeling grid</entry>
+<entry>Surrogate list, description and surrogate file name used in the modeling grid. Note: we recommand to use multiple files for individual surrogate code which are available from the <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html">EPA&rsquo;s New Surrogates web site</ulink>.</entry>
 </row>
 <row>
 <entry><envar>SRGPRO_PATH/surrogate-files</envar></entry>
@@ -3710,6 +3710,9 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 <listitem>
 <para>SMOKE one-record-per-line (ORL) format for nonpoint, nonroad mobile, on-road mobile, and point sources</para>
+</listitem>
+<listitem>
+<para>SMOKE one-record-per-line (ORL) format for fire point sources (modified to support wildfires and prescribed fires characteristics and pollutants)</para>
 </listitem>
 <listitem>
 <para>EMS-95 area, mobile nonlink (column-specific and list-directed), point</para>

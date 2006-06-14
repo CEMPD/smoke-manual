@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_introduction">
 
@@ -12,7 +12,7 @@
 
 <para>The MCNC Environmental Modeling Center (EMC) created the Sparse Matrix Operator Kernel Emissions (SMOKE) Modeling System to allow emissions data processing methods to integrate high-performance-computing (HPC) sparse-matrix algorithms. The SMOKE system is a significant addition to the available resources for decision-making about emissions controls for both urban and regional applications. It provides a mechanism for preparing specialized inputs for air quality modeling research, and it makes air quality forecasting possible. The SMOKE system continues to develop and improve at the University of North Carolina at Chapel Hill&rsquo;s Carolina Environmental Program (CEP).</para>
 
-<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA), for use with <ulink url="http://www.epa.gov/asmdnerl/models3/">EPA&rsquo;s Models-3 Air Quality Modeling System</ulink>. The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms (described in more detail in <xref linkend="sect_concepts_chemical_processing" />) and (2) emissions processing for reactivity assessments (described in <xref linkend="sect_concepts_create_reactivity" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE v1.5. In 2003, SMOKE v2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE v2.1, released in 2004, included updated versions of the BEIS3 and MOBILE6.2 models, the ability to use humidity data when processing on-road mobile sources with MOBILE6, and support for polar stereographic output grids. The latest version of SMOKE, SMOKE v2.2, features enhanced processing of fire data, more streamlined processing for CAMx, REMSAD, and UAM models, and a new approach to processing CEM data.</para>
+<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA), for use with <ulink url="http://www.epa.gov/asmdnerl/models3/">EPA&rsquo;s Models-3 Air Quality Modeling System</ulink>. The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms (described in more detail in <xref linkend="sect_concepts_chemical_processing" />) and (2) emissions processing for reactivity assessments (described in <xref linkend="sect_concepts_create_reactivity" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE v1.5. In 2003, SMOKE v2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE v2.1, released in 2004, included updated versions of the BEIS3 and MOBILE6.2 models, the ability to use humidity data when processing on-road mobile sources with MOBILE6, and support for polar stereographic output grids. The latest version of SMOKE, SMOKE v2.3, features enhanced processing of fire data, more streamlined processing for CAMx, REMSAD, and UAM models, and a new approach to processing CEM data.</para>
 
 <para>SMOKE can process criteria gaseous pollutants such as carbon monoxide (CO), nitrogen oxides (NO<subscript>x</subscript>), volatile organic compounds (VOC), ammonia (NH<subscript>3</subscript>), sulfur dioxide (SO<subscript>2</subscript>); particulate matter (PM) pollutants such as PM 2.5 microns or less (PM<subscript>2.5</subscript>) and PM less than 10 microns (PM<subscript>10</subscript>); as well as a large array of toxic pollutants, such as mercury, cadmium, benzene, and formaldehyde. In fact, SMOKE has no limitation regarding the number or types of pollutants it can process.</para>
 
@@ -82,7 +82,51 @@
 
 <para>The SMOKE modeling system can be run using either of two approaches. The most common method is through the use of UNIX scripts, which includes the Linux versions of the UNIX operating system. The second approach is to run SMOKE using the <ulink url="http://www.epa.gov/asmdnerl/mims/">MIMS interface</ulink>, which is a general-purpose graphical user interface (GUI).</para>
 
-<para>Below, we summarize the major features of SMOKE v2.2.</para>
+<para>Below, we summarize the major features of SMOKE v2.3.</para>
+
+<itemizedlist>
+<listitem>
+<para>Smkinven can read the extended ORL format.  It accepts source type codes for area, nonroad mobile and onroad mobile sources, as well as ORIS and boiler identification codes for point sources.</para>
+</listitem>
+<listitem>
+<para>Smkinven can support new ORL NEI fomatted NEI inventory files for fires (including both a list of fires with fire characteristics similar to an annual inventory file, and day-specific fire emissions).</para>
+</listitem>
+<listitem>
+<para>Smkinven will match hourly point source data to annual data in either IDA or ORL format.</para>
+</listitem>
+<listitem>
+<para>Smkinven allows multiple plant descriptions and FIPS codes for an ORIS ID when matching hourly point data to annual data.</para>
+</listitem>
+<listitem>
+<para>Smkinven uses 16 characters for the CAS code, also known as the pollutant code, to allow criteria pollutants to be input using the ORL format.</para>
+</listitem>
+<listitem>
+<para>Smkinven now treats duplicate sources as separate sources and will issue a warning.</para>
+</listitem>
+<listitem>
+<para>Cntlmat accepts source type codes of 03 and 04 for nonroad and onroad mobile respectively.</para>
+</listitem>
+<listitem>
+<para>Temporal can run for multiple non-sequential processing dates.</para>
+</listitem>
+<listitem>
+<para>Grdmat can read in surrogates from either one file or multiple files and now requires the SRGDESC file. As a result of this update, Grdmat requires far less memory to run than it did in previous versions.</para>
+</listitem>
+<listitem>
+<para>Smkinven can now output longer messages when processing hour and day specific emissions.</para>
+</listitem>
+<listitem>
+<para>CEMscan now outputs 10 decimal places for emissions instead of 5.</para>
+</listitem>
+<listitem>
+<para>Cntlmat will accept twelve new cases in the projection packet for plant-specific source matching.</para>
+</listitem>
+<listitem>
+<para>Cntlmat has had a bug fix in the plant-specific cross reference assignment.</para>
+</listitem>
+</itemizedlist>
+
+<para>Below, we also list the major features from the previous release SMOKE v2.2.</para>
 
 <itemizedlist>
 <listitem>
@@ -170,7 +214,7 @@
 
 <title>How to Use this Manual</title>
 
-<para>This document is the most complete reference available on SMOKE. It is available both as a set of HTML pages and PDF document (including page numbers) at <ulink url="http://www.cep.unc.edu/empd/products/smoke/version2.2/" />.</para>
+<para>This document is the most complete reference available on SMOKE. It is available both as a set of HTML pages and PDF document (including page numbers) at <ulink url="http://www.cep.unc.edu/empd/products/smoke/version2.3/" />.</para>
 
 <comment>
 <para>The document&rsquo;s overall table of contents shows all chapter topics and subtopics, while each chapter includes its own table of contents (without page numbers) at the head of the chapter. In the online version of the manual, the table of contents and the chapter contents use hyperlinks to facilitate navigation of the document.</para>

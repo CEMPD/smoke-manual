@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_input_files">
 
@@ -1989,6 +1989,8 @@ In this overview section, we first provide a few important notes about file form
 <listitem>#LIST indicates that the file is a list file</listitem>
 <listitem>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
 <listitem>#ORL NONPOINT indicates that the file is in ORL format for nonpoint sources</listitem>
+<listitem>#ORL FIRE indicates that the file is in ORL format for fires sources</listitem>
+<listitem>#ORL FIREEMIS indicates that the file is in ORL format for day-specific fires sources</listitem>
 </itemizedlist>
 
 <para>If you want to give the format information in the list file, you need to append an additional format label to the #LIST header. For example, #LIST IDA indicates that the current file is in list format and that the listed files are IDA format. List files can include multiple #LIST &lt;format&gt; entries to include multiple file types; the given format is assumed to apply to all files until another #LIST &lt;format&gt; is encountered. Format indicators in the individual inventory files will override settings in the list file. A sample list file is shown below.</para>
@@ -2080,6 +2082,11 @@ In this overview section, we first provide a few important notes about file form
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
 <entry>Only used for IDA-format files. Defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</entry>
+</row>
+<row>
+<entry>#POLLUTANT</entry>
+<entry>data1 data2 ... data <emphasis>n</emphasis></entry>
+<entry>Only used for the master ORL FIRE and day-specific ORL FIREEMIS format fires files. Defines the pollutants for which emissions data is provided and the variables used for the internal heat flux computation and temporal re-normalization; <quote>data1</quote> is the ID of the first pollutant/variable, <quote>data2</quote> is the ID of the second pollutant/variable, and so on. There are also default variables: <envar>ACRESBURNED</envar>, <envar>FUEL_LOAD</envar>, <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar>. The list of pollutants and default variables are the same between the master (#ORL FIRE) and the day-specific (#ORL FIREEMIS) files.  <emphasis role="bold">Note: <envar>ACRESBURNED</envar> <envar>FUEL_LOAD</envar> <envar>BEGHOUR</envar> <envar>ENDHOUR</envar> need to be listed in <envar>INVTABLE</envar> as pollutants.</emphasis><para>[Example: <envar>#POLLUTANT</envar> <envar>CO</envar> <envar>NOX</envar> <envar>SO2</envar> <envar>PM10</envar> <envar>PM25</envar> <envar>ACRESBURNED</envar> <envar>FUEL_LOAD</envar> <envar>BEGHOUR</envar> <envar>ENDHOUR</envar>]</para></entry>
 </row>
 <row>
 <entry>#UNITS</entry>
@@ -3366,7 +3373,10 @@ INVYEAR 1996
 
 <title><envar>PTDAY</envar>: Point source day-specific emissions</title>
 
-<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95 or IDA format. However, the format indicator for the day-specific files must by #EMS-95; this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which correpsonds to the United States in the default <envar>COSTCY</envar> file).</para>
+<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, ORL FIREEMIS format. However, the format indicator for the day-specific files must by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which correpsonds to the United States in the default <envar>COSTCY</envar> file).</para>
+
+<section>
+<title>Day-specific file format</title>
 
 <para>SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file, and that the user has matched the sources between the annual data inventory and the day-specific data. <comment>See the documentation for the <envar>PTHOUR</envar> file for additional information on how to use this file with IDA annual inventories.</comment></para>
 
@@ -3473,6 +3483,94 @@ INVYEAR 1996
 </tbody>
 </tgroup>
 </table>
+</section>
+
+<section id="sect_input_ptday_fireemis">
+
+<title>Day-specific file format for fires</title>
+
+<para>For day-specific fires inventory format (#ORL FIREEMIS), the SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> need to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are used to calculate the fire-specific plume-rise, and <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are for the adjustment of hourly temporal profile.</para>
+
+<para>The ORL FIREEMIS format uses the header described in <xref linkend="sect_input_inventory_header" /> and is a list-directed format shown in <xref linkend="tbl_input_ptday_fireemis" />.</para>
+
+<table id="tbl_input_ptday_fireemis">
+<title>Format for individual day-specific data files for fires : ORL FIREEIMS</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>FIPS</entry>
+<entry>Int</entry>
+<entry>State and County code (required)</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>FIREID</entry>
+<entry>Char</entry>
+<entry>Fire idenfication code (required)</entry>
+</row>
+<row>
+<entry>C</entry>
+<entry>LOCID</entry>
+<entry>Char</entry>
+<entry>Location identification code (required)</entry>
+</row>
+<row>
+<entry>D</entry>
+<entry>SCC</entry>
+<entry>Char</entry>
+<entry>SCC Flaming or Smoldeling </entry>
+</row>
+<row>
+<entry>E</entry>
+<entry>DATA</entry>
+<entry>Char</entry>
+<entry>The pollutant codes, "ACRESCBURNED", or "FUEL_LOAD" (16 characters) (required)</entry>
+</row>
+<row>
+<entry>F</entry>
+<entry>DATE</entry>
+<entry>Char</entry>
+<entry>MM/DD/YY format. Years less than 70 are treated as century 2000 (8 characters) (required)</entry>
+</row>
+<row>
+<entry>G</entry>
+<entry>DATAVALUE</entry>
+<entry>Real</entry>
+<entry>If the value of "DATA" is a particular pollutant, then this value represents the daily emissions associated with the particular pollutant (required)</entry>
+</row>
+<row>
+<entry>H</entry>
+<entry>BEGHOUR</entry>
+<entry>Int</entry>
+<entry>Hour of the day that the fire began (0 to 23) (required)</entry>
+</row>
+<row>
+<entry>I</entry>
+<entry>ENDHOUR</entry>
+<entry>Int</entry>
+<entry>Hour of the day that the fire ended (0 to 23) (required)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
 
 </section>
 
@@ -3766,7 +3864,7 @@ INVYEAR 1996
 
 <title><envar>PTINV</envar>: Point source annual or average day emissions</title>
 
-<para>The <envar>PTINV</envar> file is the input point source inventory file for annual and average-day data. This file can be in IDA, EMS-95, or ORL format.</para>
+<para>The <envar>PTINV</envar> file is the input point source inventory file for annual and average-day data. This file can be in IDA, EMS-95, ORL, or ORL FIRE format.</para>
 
 <section>
 
@@ -4874,6 +4972,112 @@ INVYEAR 1995
 
 </section>
 
+<section id="sect_input_ptinv_fire">
+
+<title>ORL FIRE Format</title>
+
+<para>The ORL inventory file for fires (#ORL FIRE) is one of the required input files to provide wildfire and prescribed fire data that are being treated as point sources to SMOKE. This file includes the fire characteristics, such as county/state/county code, fire identification, fire name, location identification, location coordinates, SCC (flaming or smoldering), material burned, and vegetation types. Some of characteristics that are common to this master (annual) inventory file <envar>PTINV</envar> and the day-specific inventory file <envar>PTDAY</envar> shown in <xref linkend="sect_input_ptday_fireemis"/> need to match exactly by county/state/county code, fire ID, location ID, location coordinates, and SCC. </para>
+
+<para>The ORL FIRE format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
+
+<programlisting>#ORL FIRE
+#TYPE      Point Source Inventory for FIRES
+#COUNTRY   US
+#YEAR      2001
+#POLLUTANT CO NOX SO2 PM10 PM2_5 ACRESBURNED NFDRSCODE BEGHOUR ENDHOUR</programlisting>
+
+<para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_orl_fire" />.</para>
+
+<table id="tbl_input_ptinv_orl_fire">
+<title>ORL FIRE Format for <envar>PTINV</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>FIPS</entry>
+<entry>Int</entry>
+<entry>Five digit FIPS code for state and county (required)</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>FIREID</entry>
+<entry>Char</entry>
+<entry>Fire Identification Code (15 characters maximum) (required)</entry>
+</row>
+<row>
+<entry>C</entry>
+<entry>LOCID</entry>
+<entry>Char</entry>
+<entry>Location Identification Code (15 characters maximum) (required)</entry>
+</row>
+<row>
+<entry>D</entry>
+<entry>SCC</entry>
+<entry>Char</entry>
+<entry>Source Classification Code (8 characters maximum) (required)</entry>
+</row>
+<row>
+<entry>E</entry>
+<entry>FIRENAME</entry>
+<entry>Char</entry>
+<entry>Fire name (40 characters maximum) (recommended)</entry>
+</row>
+<row>
+<entry>F</entry>
+<entry>LAT</entry>
+<entry>Real</entry>
+<entry>Latitude associated with FIREID/LOCID</entry>
+</row>
+<row>
+<entry>G</entry>
+<entry>LON</entry>
+<entry>Real</entry>
+<entry>Longitude associated with FIREID/LOCID</entry>
+</row>
+<row>
+<entry>H</entry>
+<entry>NFDRSCODE</entry>
+<entry>Char</entry>
+<entry>Code for the Vegetation type (2 characters maximum) (recommended)</entry>
+</row>
+<row>
+<entry>I</entry>
+<entry>MATBURNED</entry>
+<entry>Int</entry>
+<entry>Code for the material burned</entry>
+</row>
+<row>
+<entry>J</entry>
+<entry>DATA</entry>
+<entry>Char</entry>
+<entry>Name of DATA (ex: HEATCONTENT)</entry>
+</row>
+<row>
+<entry>K</entry>
+<entry>DATAVALUE</entry>
+<entry>Real</entry>
+<entry>Value of heat content</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
 </section>
 
 <section id="sect_input_vmtmix">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_scripts">
 
@@ -514,6 +514,9 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 <listitem>
 <para>If processing for toxics, we do not recommend that you try to run with your old scripts. If you do, you will <emphasis>at least</emphasis> need to add the <envar>NHAPEXCLUDE</envar> and <envar>ARTOPNT</envar> files to your scripts. You will also have to add options to <command>Smkinven</command>.</para>
+</listitem>
+<listitem>
+<para>Since the <command>Temporal</command> dynamically create names for the output files, two new environment variables <envar>[A|M|P]TMPNAME</envar> and <envar>[A|M|P]TSUPNAME</envar> are used to set the directory and file prefix for naming the output files <envar>[A|M|P]TMP</envar> and <envar>[A|M|P]TSUP</envar>. The files are named using the starting date of each time period.For example, if <envar>ATMPNAME</envar> is set to /data/ntmp.nctox., then the <envar>ATMP</envar> file for a given time period will be put in the data directory and named ntmp.nctox.start date.ncf.</para>
 </listitem>
 </itemizedlist>
 
@@ -1267,7 +1270,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <section>
 
-<title>Point inventories</title>
+<title>Point/fires inventories</title>
 
 <orderedlist>
 <listitem>
@@ -1317,8 +1320,13 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </comment>
 
 <listitem>
-<para>Hour-specific or day-specific data (including plume-rise data) are covered in <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<para>Hour-specific or day-specific data (including precomputed plume-rise data) are covered in <xref linkend="sect_scripts_hour_day_invs" />.</para>
 </listitem>
+
+<listitem>
+<para>If using a master (annual) inventory file for fires (excluding precomputed plume-rise data) (<envar>PTINV</envar>) described in <xref linkend="sect_input_ptinv_fire"/>, SMOKE requires that the sources from <xref linkend="sect_input_ptday_fireemis"/> be in the <envar>PTINV</envar> file to be exactly matched.</para>
+</listitem>
+
 </itemizedlist>
 
 </listitem>
@@ -1367,7 +1375,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </comment>
 
 <listitem>
-<para>For hour-specific and day-specific data, including fire data, see <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<para>For hour-specific and day-specific data, including fire data wiht precomputed plume rise data, see <xref linkend="sect_scripts_hour_day_invs" />.</para>
 </listitem>
 
 <listitem>
@@ -1402,6 +1410,9 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 <listitem>
 <para>If using hourly precomputed plume rise (e.g., for fire data), the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided<comment>, as described in the file format documentation in <xref linkend="sect_input_pthour" /></comment>. The allowable data includes the fraction of the plume in layer 1, the plume bottom height, and the plume top height.</para>
+</listitem>
+<listitem>
+<para>If using daily fire inventory without precomputed plume rise, the <envar>PTDAY</envar> file should be created as described above for emissions data and specific variables ( size of acres burned, fuel loading, and duration of fire ) must be provided for plume rise calculation and re-normalization of temporal profiles, as described in the file format documentation in <xref linkend="sect_input_ptday_fireemis" />.</para>
 </listitem>
 <listitem>
 <para>If using hourly stack exit temperature, velocity, or flow rates, the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, as described in the file format documentation in <xref linkend="sect_input_pthour" />.</para>
