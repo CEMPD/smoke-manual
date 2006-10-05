@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_utilities">
 
@@ -16,7 +16,7 @@
 
 <para><link linkend="sect_utilities_bluesky2inv"><command>BlueSky2Inv</command></link> converts output files from the BlueSky fire modeling framework into inventory files that SMOKE can read.</para>
 
-<para>The <link linkend="sect_utilities_cemscan"><command>CEMScan</command></link> program calculates summed annual NOx emissions, SO2 emissions, heat input, gross load, and steam load from a year&rsquo;s worth of CEM data. The output from <command>CEMScan</command> is used by <command>Smkinven</command> to calculate hourly emissions from annual inventory data when processing CEM data.</para>
+<para>The <link linkend="sect_utilities_cemscan"><command>CEMScan</command></link> program calculates summed annual NOx emissions, SO<subscript>2</subscript> emissions, heat input, gross load, and steam load from a year&rsquo;s worth of CEM data. The output from <command>CEMScan</command> is used by <command>Smkinven</command> to calculate hourly emissions from annual inventory data when processing CEM data.</para>
 
 <para><link linkend="sect_utilities_extractida"><command>Extractida</command></link> allows you to extract specific plants from a point-source, IDA-formatted SMOKE input inventory file.</para>
 
@@ -403,7 +403,7 @@
 
 <title>Description</title>
 
-<para><command>CEMScan</command> reads a year&rsquo;s worth of CEM data and calculates summed annual NOx emissions, SO2 emissions, heat input, gross load, and steam load. The output from <command>CEMScan</command> is used by <command>Smkinven</command> to calculate hourly emissions from annual inventory data when reading CEM data.</para>
+<para><command>CEMScan</command> reads a year&rsquo;s worth of CEM data and calculates summed annual NOx emissions, SO<subscript>2</subscript> emissions, heat input, gross load, and steam load for each uniquie ORIS/boiler combination in the output CEM data. While writing the output, CEMScan will skip any ORIS/boiler combinations where the total annual NOx emissions are zero or null or where the total annual gross load, steam load, and heat input are zero or null. The program will write these ORIS/boiler combinations to the report file along with a flag indicating that the combination was not written to the output file. The output from <command>CEMScan</command> is used by <command>Smkinven</command> to calculate hourly emissions from annual inventory data when reading CEM data. Detail information is described in <xref linkend="sect_concepts_hour_specific_cem" />.</para>
 
 </section>
 

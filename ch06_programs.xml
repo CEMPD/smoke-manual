@@ -145,11 +145,17 @@
 
 <title>/CONTROL/ packet</title>
 
-<para>After processing the /MACT/ packet, the /CONTROL/ packet is applied using the following logic. Each entry in the /CONTROL/ packet can be identified as <quote>replacement</quote> or <quote>additive</quote>. If set to <quote>replace</quote>, the /CONTROL/ entry will be used to replace the controls from the /MACT/ packet; otherwise, the control will be applied in addition to the controls from the /MACT/ packet. When an <quote>additive</quote> entry is matched to a source, the /CONTROL/ packet factor (Fac<subscript>CONTROL</subscript>) is calculated only from the control efficiency, rule effectiveness, and rule penetration values provided in the /CONTROL/ packet entry as follows:</para>
+<para>After processing the /MACT/ packet, the /CONTROL/ packet is applied using the following logic. Each entry in the /CONTROL/ packet can be identified as <quote>replacement</quote> or <quote>additive</quote>. If set to <quote>replace</quote>, the /CONTROL/ entry will be used to replace the controls from the /MACT/ packet or the base-year inventory controls; otherwise, the control will be applied in addition to the controls from the /MACT/ packet or the base-year inventory controls.  When the controls are replaced, the default behaviour of <command>Cntlmat</command> is to back out the existing controls and apply the replacement controls.  Usually, users want to do this only when the replacement controls are more stringent (i.e., a greater reduction) than the /MACT/ packet or base-year controls - so this is the default behaviour of <command>Cntlmat</command>.  This default behaviour can be changed by setting the value of <envar>COMPARE_REPLACE_CONTROL</envar> to "N" in your run script. In this case, the replacement controls will be applied regardless of the existing controls from the base invetory or the /MACT/ packet, which could result in increased emissions. </para>
+
+<para>When an <quote>additive</quote> entry is matched to a source, the /CONTROL/ packet factor (Fac<subscript>CONTROL</subscript>) the control packet information is applied in addition to the exitsing controls, which further reduce the remaining emissions.</para>
+
+<para>For <quote>additive</quote> control packet entries, the control factors are calculated from the control efficiency, rule effectiveness, and rule penetration values provided in the /CONTROL/ packet entry as follows:</para>
 
 <para>Fac<subscript>CONTROL</subscript> = (1 - C<subscript>eff</subscript> [packet] x R<subscript>eff</subscript> [packet] x R<subscript>pen</subscript> [packet])</para>
 
-<para>A cumulative control factor is then calculated by multiplying Fac<subscript>MACT</subscript> x Fac<subscript>CONTROL</subscript>.</para>
+<para>A cumulative control factor Fac<subscript>result</subscript> is then calculated by multiplying Fac<subscript>Existing</subscript> x Fac<subscript>CONTROL</subscript>.</para>
+
+<para>In the case of <quote>additive</quote> controls only, The overall reduction factor is then used to calculate an overall new control efficiency to be put in any resulting inventory files as: C<subscript>eff</subscript> [result] = 1 - Fac<subscript>result </subscript>.  The final Rule Penetration and Rule Effectiveness values are then set to 100%.</para>
 
 <para>For <quote>replacement</quote> entries, <command>Cntlmat</command> first <quote>backs out</quote> the existing controls provided in the inventory from the control values provided in the /CONTROL/ packet entry as follows:</para>
 
@@ -159,7 +165,7 @@
 
 <para>Fac<subscript>CONTROL</subscript> = B x (1 - C<subscript>eff</subscript> [packet] x R<subscript>eff</subscript> [packet] x R<subscript>pen</subscript> [packet])</para>
 
-<para>Unlike <quote>additive</quote> entries, the Fac<subscript>CONTROL</subscript> value for <quote>replacement</quote> entries replaces the factor calculated from the /MACT/ packet (if any). The /CONTROL/ packet can be applied to stationary area/nonpoint, nonroad, on-road mobile, and point sources. On-road mobile source inventories do not include control efficiency, rule effectiveness, or rule penetration fields. However, the /CONTROL/ packet can still be used to apply adjustment factors to mobile sources. In this case, B in the above formula will be 1 when computing factor Fac<subscript>CONTROL</subscript> that is applied to the emissions.</para>
+<para>Unlike <quote>additive</quote> entries, the Fac<subscript>CONTROL</subscript> value for <quote>replacement</quote> entries replaces the factor calculated from the /MACT/ packet or  base year inventory (if any). The /CONTROL/ packet can be applied to stationary area/nonpoint, nonroad, on-road mobile, and point sources. On-road mobile source inventories do not include control efficiency, rule effectiveness, or rule penetration fields. However, the /CONTROL/ packet can still be used to apply adjustment factors to mobile sources. In this case, B in the above formula will be 1 when computing factor Fac<subscript>CONTROL</subscript> that is applied to the emissions.</para>
 
 </section>
 
@@ -749,7 +755,7 @@
 
 <para>* As in <xref linkend="fig_programs_cntlmat" />, the notation <envar>[AREA|MOBL|PNTS]</envar> is used to indicate that only one of the three files is used for a given run.</para>
 
-<para>The physical file name of the input file <envar>GCNTL</envar> file is typically overridden by the environment that is running <command>Cntlmat</command>. For example, when running SMOKE from scripts using the Assigns file, the projection factor inputs are available as the <envar>[A|M|P]PROJ</envar> files. So, for instance, the script must set <envar>GCNTL</envar> as <envar>APROJ</envar> (for area-source processing) after the Assigns file has been invoked by the script, but before the <command>Cntlmat</command> program is actually run.</para>
+<para>The physical file name of the input file <envar>GCNTL</envar> file is typically overridden by the environment that is running <command>Cntlmat</command>. For example, when running SMOKE from scripts using the Assigns file, the projection factor inputs are available as the <envar>[A|M|P]PROJ</envar> files. So, for instance, the script must set <envar>GCNTL</envar> as <envar>APROJ</envar> (or area-source processing) after the Assigns file has been invoked by the script, but before the <command>Cntlmat</command> program is actually run.</para>
 
 </section>
 
@@ -757,7 +763,26 @@
 
 <title>Input Environment Variables</title>
 
+
 <itemizedlist>
+<listitem>
+<para><envar>COMPARE_REPLACE_CONTROL:</envar> [default: Y]</para>
+<para>Controls the way a replacement control is applied.</para>
+    <itemizedlist>
+    <listitem>
+    <para>Y: When set to Y, Cntlmat compares the overall percent reductions (CEFF * RPEN * REFF) from a replacement control in the CONTROL packet against existing percent reductions (either from the base inventory or from a just-applied /MACT/ packet).  If the packet's reduction is more control (greater reduction) than the existing controls, then it is applied. Otherwise, it is not applied.</para>
+    </listitem>
+    <listitem>
+    <para>N: When set to N, Cntlmat applies replacement controls even if the control is less control than an existing control, which may result in an increase in emissions</para>
+    </listitem>
+    </itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>FULLSCC_ONLY:</envar> [default: N]</para>
+<para>Disables any sub-SCC cross-reference assignments that would otherwise be included in the cross-reference hierarchy. For example, the left-7, left-4, and left-2 levels of nonpoint and mobile SCCs would never be used. This is useful when zeros are a natural part of the SCC that the user does not want to assume are present for cross-reference hierarchy purposes. This option affects all Cntlmat input packets that use SCC assignments as part of their hierarchy.</para>
+</listitem>
+
 <listitem>
 <para><envar>PROJECTION_YR_SPEC:</envar> [default: Y]</para>
 <para>Sets whether or not entries in the /PROJECTION/ packet are in year-specific format.</para>
@@ -888,6 +913,11 @@
 <entry>Report of multiplicative controls applied to the inventory</entry>
 </row>
 <row>
+<entry><envar>[A|M|P]CREP2</envar></entry>
+<entry>ASCII</entry>
+<entry>Detailed before-and-after report of application of the /CONTROL/ packet only, which includes any comments appended to the end of the /CONTROL/ packet entries. These comments can describe the controls being applied with each packet row.  This report then includes the base and future overall percent reductions on a source-by-source basis, and includes the CONTROL packet line-specific comments.</entry>
+</row>
+<row>
 <entry><envar>[A|M|P]CSUMREP</envar></entry>
 <entry>ASCII</entry>
 <entry>Report of all controls applied to the inventory, with all controls listed under each source</entry>
@@ -950,6 +980,12 @@
 <para>The SMOKE prototype used separate programs for each type of source. These programs were CTLAMAT for area sources and CTLPMAT for point sources. A version of the control/growth program was not previously available for mobile sources.</para>
 
 <para><command>Cntlmat</command> for SMOKE v1.2 did not have an operational reporting capability. The /MACT/ packet and updated /CONTROL/ and /PROJECTION/ packets were added in SMOKE v2.0.</para>
+
+<para><command>Cntlmat</command> for SMOKE v2.3 supports passing through updated control efficiencies, rule penetrations, and rule effectiveness values to the output intermediate files. These can be subsequently used by Grwinven to include in the output SMOKE inventories created by that program.</para>
+
+<para><command>Cntlmat</command> for SMOKE v2.3 now includes the COMPARE_REPLACE_CONTROL setting for controlling how Replacement controls are implemented (see above)<para>
+
+<para><command>Cntlmat</command> for SMOKE v2.3 has added <envar>[A|M|P]CREP2</envar> report to provide more detailed reporting on controls actually applied to the inventory records.</envar>
 
 </section>
 -->
@@ -1550,9 +1586,9 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 <listitem>
 <para><envar>EF_YEAR</envar>: [default: 1988]</para>
-
 <para>Sets the year for which to create emission factors.</para>
 </listitem>
+
 <listitem>
 <para><envar>GROUP_TYPE</envar>: [default: daily]</para>
 
@@ -1889,6 +1925,10 @@ F<subscript>ef</subscript> = freeway emission factor
 <itemizedlist>
 <comment>
 <listitem>
+<para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option prevents left-7 SCC assignments using the gridding cross-reference file.</para>
+</listitem>
+
+<listitem>
 <para><envar>GRDMAT_ADJUST</envar>: [default: N]</para>
 
 <para><remark>Defines whether or not the program uses the grid adjustments file. This option is not implemented in the current version of SMOKE.</remark></para>
@@ -2120,7 +2160,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>SMK_GRWORLOUT_YN</envar>: [default: N]</para>
 
-<para>Indicates if an ORL-formatted grown and/or controlled inventory should be output. Currently only ORL nonpoint ond point inventory formats are supported. <envar>SMK_GRWORLOUT_YN</envar> and <envar>SMK_GRWIDAOUT_YN</envar> cannot be both set to Y in the same run.</para>
+<para>Indicates if an ORL-formatted grown and/or controlled inventory should be output. Currently only ORL nonpoint ond point inventory formats are supported. <envar>SMK_GRWORLOUT_YN</envar> and <envar>SMK_GRWIDAOUT_YN</envar> cannot be both set to Y in the same run.  In SMOKE version 2.3, the Grwinven ORL output format was changed to use a more compact structure (eliminated spaces), uses commas, and includes semi-colons around all text fields. These changes make these files much smaller and easier to import to other software, but unfortunately harder to read in a text editor.</para>
 
 <itemizedlist>
 <listitem>
@@ -2212,6 +2252,8 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Earlier Versions</title>
 
 <para><command>Grwinven</command> was updated for SMOKE v2.0 to output SICs for non-point toxic inventories.</para>
+
+<para><command>Grwinven</command> was updated for SMOKE v2.3 to include a more compact ORL output format that is easier to import to other software, but harder to read in a text editor.</para>
 
 </section>
 -->
@@ -2641,6 +2683,10 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the SPDREF file by preventing left-7 SCC assignments.</para>
+</listitem>
+
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />.</para>
 </listitem>
@@ -3741,7 +3787,9 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
-<para>When using CEM data, you are encouraged to preprocess your data to pare them down to the dates and/or sources in the domain. <comment>However, SMOKE can do this if you do not. The dates can be extracted with the DATERANGE header in the <envar>PTHOUR</envar> file (see <envar>PTHOUR</envar> file documentation).</comment> The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the modeling grid) and/or by the <command>Grdmat</command> program, which will remove sources outside the grid from the model-ready results.</para>
+<para>When using CEM data, you are encouraged to preprocess your data to prepare them down to the dates and/or sources in the domain. <comment>However, SMOKE can do this if you do not. The dates can be extracted with the DATERANGE header in the <envar>PTHOUR</envar> file (see <envar>PTHOUR</envar> file documentation).</comment> The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the modeling grid) and/or by the <command>Grdmat</command> program, which will remove sources outside the grid from the model-ready results.</para>
+
+<para><command>Smkinven</command> also can process the hourly CEM data in a more sophisticated way. Hourly heat input from the CEM data are used to allocate annual emissons to hourly emission data. More information are available at (<xref linkend="sect_utilities_cemscan" />) and (<xref linkend="sect_concepts_inventory_import" />)</para>
 
 <para>If new sources are added to the input files or sources are removed, <command>Smkinven</command> must be rerun for that type of source. However, <command>Smkinven</command> does not need to be rerun when processing additional control scenarios, growth projections, speciation profiles, or modeling grids.</para>
 
@@ -3809,7 +3857,7 @@ F<subscript>ef</subscript> = freeway emission factor
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_smkinven_point" /> shows the input and output files for <command>Smkinven</command> for point sources. The input files include the optional CEM summary file created by <command>CEMScan</command> (<envar>CEMSUM</envar>), the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), and the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>). If importing hour-specific data, the ORIS facility description file <envar>ORISDESC</envar> is used. The <envar>PSTK</envar> file provides replacement stack parameters. Day-specific data is read from the <envar>PTDAY</envar> file, while hour-specific data comes from the <envar>PTHOUR</envar> file; the <envar>PTINV</envar> file provides the raw inventory data. For hour-specific data, the SCC description file (<envar>SCCDESC</envar>) is also needed.</para>
+<para><xref linkend="fig_programs_smkinven_point" /> shows the input and output files for <command>Smkinven</command> for point sources. The input files include the optional CEM summary file (<envar>CEMSUM</envar>) created by <command>CEMScan</command>, the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), and the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>). If importing hour-specific data, the ORIS facility description file <envar>ORISDESC</envar> is used. The <envar>PSTK</envar> file provides replacement stack parameters. Day-specific data is read from the <envar>PTDAY</envar> file, while hour-specific data comes from the <envar>PTHOUR</envar> file; the <envar>PTINV</envar> file provides the raw inventory data. For hour-specific data, the SCC description file (<envar>SCCDESC</envar>) is also needed.</para>
 
 <para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), and optional day-specific inventory (<envar>PDAY</envar>), and an optional hour-spceific inventory (<envar>PHOUR</envar>). The annual and average-day inventory emissions are stored in the <envar>PNTS</envar> file and the <envar>PSCC</envar> file lists the inventory SCCs.  For EMS-95 formatted inputs, an optional temporal profiles file (<envar>PTREF_ALT</envar>) is output. Finally, the <envar>REPINVEN</envar> report contains various information about the processed inventory.</para>
 
@@ -3853,7 +3901,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <entry>Area-to-point cross-reference file for assigning X and Y locations to area sources</entry>
 </row>
 <row>
-<entry><envar>CEMSCAN</envar> (optional)</entry>
+<entry><envar>CEMSUM</envar> (optional)</entry>
 <entry>ASCII</entry>
 <entry>P</entry>
 <entry>CEM summary data produced by <command>CEMScan</command></entry>
@@ -3977,11 +4025,16 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>FLOW_RATE_FACTOR</envar>: [default: 15875 ft<superscript>3</superscript>/MMBTU]</para>
 
-<para>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <envar>FLOW_RATE_FACTOR</envar> is set to zero or unset, then <command>Smkinven</command> will not calculate hourly flow rates.</para>
+<para>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <envar>FLOW_RATE_FACTOR</envar> is set to zero or unset, then <command>Smkinven</command> will not calculate hourly flow rates. TDetail information is described in <xref linkend="sect_concepts_hour_specific_cem" /></para>
 
 <para>hourly flow rate (m<superscript>3</superscript>/s) = [<envar>FLOW_RATE_FACTOR</envar> (ft<superscript>3</superscript>/MMBTU) * hourly heat input (MMBTU/hr) * 0.02831 m<superscript>3</superscript>/ft<superscript>3</superscript>] / 3600 s/hr</para>
 
 </listitem>
+
+<listitem>
+<para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the <envar>ARTOPNT</envar>, <envar>NHAPEXCLUDE</envar>, and <envar>VMTMIX</envar> files by preventing left-7 SCC assignments. It also prevents left-2 and left-4 SCC assignments for NHAPEXCLUDE.</para>
+</listitem>
+
 <listitem>
 <para><envar>HOUR_SPECIFIC_YN</envar>: [default: N]</para>
 
@@ -4152,7 +4205,22 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <itemizedlist>
 <listitem>
-<para>Y: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do not integrate the specified sources</para>
+<para>Y: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do not integrate the specified sources. See also <xref linkend="sect_concepts_combine_toxics" /> for a description of criteria/HAP VOC integration. For all sources that will not be integrated, <command>Smkinven</command> will automatically create additional pollutants in the intermediate inventory file output by the program, based on input HAP pollutants that meet the following conditions in the Inventory Table (<envar>INVTABLE</envar>) file: </para>
+    <itemizedlist>
+    <listitem>
+    <para>A "Y" appears in the "Keep" field (of the Inventory Table)</para>
+    </listitem>
+    <listitem>
+    <para>A "V" or "T" appears in the "VOC or TOG component" field</para>
+    </listitem>
+    <listitem>
+    <para>A "Y" appears in the "Model species" field</para>
+    </listitem>
+    <listitem>
+    <para>Something other than "Y" appears in the "Explicit in mechanism" field (e.g., "N" or blank)</para>
+    </listitem>
+    </itemizedlist>
+<para>The purpose of this operation is described in <xref linkend="sect_concepts_toxics_cb4_no_integrate" /></para>
 </listitem>
 <listitem>
 <para>N: Integrate all sources if a toxics inventory has been read</para>
@@ -4171,7 +4239,18 @@ F<subscript>ef</subscript> = freeway emission factor
 <listitem>
 <para><envar>SMKINVEN_FORMULA</envar>: [default: blank]</para>
 
-<para>Allows you to specify a formula for computing one pollutant value from the values of other pollutants. For example, if the formula is set to <quote>PMC=PM10-PM25</quote>, then <command>Smkinven</command> will compute a new variable, PMC, as the difference between PM<subscript>10</subscript> and PM<subscript>2.5</subscript>. The pollutant units are taken from the first variable in the formula. The variables used as input in the formula will still be output to the SMOKE inventory file. If the formula is not set, no additional variables will be written to the SMOKE inventory file.</para>
+<para>Allows you to specify a formula for computing one or more pollutant values from the values of other pollutants. To use, users should set the value of <envar>SMKINVEN_FORMULA</envar> to a double-quote-enclosed string of 512 characters or less, using a comma-delimited list of formulas.  No spaces are necessary in the formula list. Only formulas of a specific structure are accepted. Specifically, one of the following:</para>
+
+<itemizedlist>
+<listitem>
+OUTPUT = INPUT1 + INPUT2
+</listitem>
+<listitem>
+OUTPUT = INPUT1 - INPUT2
+</listitem>
+</itemizedlist>
+
+<para>For example, if the formula is set to <quote>PMC=PM10-PM2_5,EXH__PMC=EXH__PM10-EXH__PM2_5</quote>, then <command>Smkinven</command> will compute two new variables: (1) PMC, as the difference between PM<subscript>10</subscript> and PM<subscript>2.5</subscript> and (2) EXH__PMC as the difference between exhaust PM<subscript>10</subscript> and exhaust PM<subscript>2.5</subscript>. The pollutant units are taken from the first variable in each formula. The variables used as input in the formula will still be output to the SMOKE inventory file. If the formula is not set, no additional variables will be written to the SMOKE inventory file. An output from one formula may not be used as an input to another formula. In the OUTPUT pollutant name is the same as an INPUT pollutant name from the inventory file, Smkinven will give an error indicating that the second pollutant could not be written (e.g. if computing PMC when PMC is already in the raw inventory data). If INPUT2 is ommitted, an error will also occur.  Formulas using multiplication and division are not yet implemented.</para>
 </listitem>
 <listitem>
 <para><envar>VELOC_RECALC</envar>: [default: N]</para>
@@ -4192,7 +4271,6 @@ F<subscript>ef</subscript> = freeway emission factor
 <para><envar>WEST_HSPHERE</envar>: [default: Y]</para>
 
 <para>Defines how spatial coordinates are interpreted.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Convert longitudinal coordinates for the Western Hemisphere (positive values are converted to negative values)</para>
@@ -4334,6 +4412,8 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Previous versions of SMOKE did not support hour-specific, day-specific, or gridded data import.</para>
 
 <para>Processing of toxic pollutants was added in versions 1.5 and 2.0, and required extensive changes to <command>Smkinven</command>, including a different intermediate inventory format. Previous versions of SMOKE used an intermediate inventory format consisting of one ASCII file and one I/O API file. Support for EPS 2.0 formatted inventories was dropped in SMOKE v1.5.</para>
+
+<para>A key bug fix was added in SMOKE version 2.3 that corrected the ORL on-road import to use wider field width buffers during import. The previous versions could import files in which all fields were 16 columns wide or smaller. Additionally, the reader of the <envar>INVTABLE</envar> file was updated to read in CAS number, even if a process-pollutant combination was included in column 1 of the file. This makes it possible to import ORL files with precomputed process-pollutant combinations such as EXH__VOC</para>
 
 </section>
 -->
@@ -5080,9 +5160,11 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><emphasis>Processing categories:</emphasis> area, mobile, point</para>
 
-<para>An emission inventory is built and reported for a variety of compounds or chemical classes such as CO, NO<subscript>x</subscript>, VOC, PM<subscript>10</subscript>, and SO<subscript>2</subscript>. However, AQM photochemical mechanisms (e.g., CB4, RADM2) contain a simplified set of equations that use representative <quote>model species</quote> to represent atmospheric chemistry. Therefore, source-specific factors are needed to convert the emissions from the chemical classes in the emission inventory to the species in the intended photochemical mechanism. The <command>Spcmat</command> program produces matrices that contain the factors for performing this conversion.</para>
+<para>An emission inventory is built and reported for a variety of compounds or chemical classes such as CO, NO<subscript>x</subscript>, VOC, PM<subscript>10</subscript>, and SO<subscript>2</subscript>. However, AQM photochemical mechanisms (e.g., CB4, RADM2) contain a simplified set of equations that use representative <quote>model species</quote> to represent atmospheric chemistry. Therefore, factors are needed to convert the emissions from the chemical classes in the emission inventory to the species in the intended photochemical mechanism. The <command>Spcmat</command> program produces matrices that contain the factors for performing this conversion.</para>
 
-<para><command>Spcmat</command> outputs both mass-based and mole-based factors for all sources. Previous systems have assumed that the average molecular weight of the model species was sufficient to represent the molecular weight of a species emitted by a specific source. In fact, the actual molecular weight of a model species is different for different types of emission processes. To represent the mass values more accurately, the mass and mole factors are computed and stored separately.</para>
+<para>The speciation factors are provided to <command>Spcmat</command> using "speciation profiles", which are applied to the inventory's sources using a "speciation cross-reference".  For inventories that contain VOC mass,  an additional factor is needed that converts the VOC mass to Total Organic Gases (TOG) mass, since the profiles used for VOC are actually computed based on TOG. The TOG profiles are used (instead of VOC profiles) since some of the TOG mass gets assigned to model species. Using VOC-only profiles would underestimate the volatile mass being emitted.  Historically in SMOKE, the VOC-to-TOG conversion factors have been assigned by SCC or FIPS and SCC. Starting with SMOKE version 2.3, however, these factors can optionally be assigned by speciation profile ID codes. In fact, since the VOC-to-TOG factors come directly from the raw data used to create speciation profiles factors (such as the SPECIATE4.0 database), the most consistent way to assign these factors is actually by speciation profile ID. SMOKE version 2.3 is backward compatible with existing GSCNV file formats.</para>
+
+<para><command>Spcmat</command> outputs both mass-based and mole-based speciation factors for all sources. Previous systems have assumed that the average molecular weight of the model species was sufficient to represent the molecular weight of a species emitted by a specific source. In fact, the actual molecular weight of a model species is different for different types of emission processes. To represent the mass values more accurately, the mass and mole factors are input, applied, and output separately by Spcmat.</para>
 
 <para>The speciation cross-reference file input to <command>Spcmat</command> specifies the speciation profile to be used for transforming the inventory pollutants to the model species for each source or type of source. <command>Spcmat</command> permits profiles to be assigned based on the country, state, and county code, the SCC, and other source characteristics. In the hierarchical system used to apply the profiles, the most specific assignments are applied first, followed by the next most specific, and so on. This system ensures that the most-specific matches override the less-specific ones.</para>
 
@@ -5417,7 +5499,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <row>
 <entry><envar>GSCNV</envar> (optional)</entry>
 <entry>ASCII</entry>
-<entry>Pollutant conversion file, used only if <envar>POLLUTANT_CONVERSION</envar> = Y</entry>
+<entry>Pollutant conversion file, used only if <envar>POLLUTANT_CONVERSION</envar> = Y.</entry>
 </row>
 <row>
 <entry><envar>GSPRO</envar></entry>
@@ -5455,6 +5537,10 @@ Defines whether the program produces a report of emission totals by state.</para
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the speciation cross-reference files by preventing left-7 SCC assignments. The application GSCNV files are not affected by this option when using FIPS/SCC assignments, and will continue to use left-7 SCC assignments even when FULLSCC_ONLY is set to "Y".</para>
+</listitem>
+
 <listitem>
 <para><envar>POLLUTANT_CONVERSION</envar>: [default: N]</para>
 
@@ -5535,6 +5621,8 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>The SMOKE prototype used separate programs for each type of emission source: SPCAMAT for area sources, SPCMMAT for mobile sources, and SPCPMAT for point sources. Also, the SMOKE prototype output only mole-based speciation matrices.</para>
 
 <para>Version 2.0 added the ability to assign speciation profiles by MACT and SIC codes. Also, species of differing types (i.e., gaseous and particulate) can be created from the same pollutant.</para>
+
+<para>Versions prior to version 2.3 do not support the using a GSCNV file assign to the sources based on the Speciation Profile ID assigned to that source. Version 2.3 is backward compatible with previous file formats.</para>
 
 </section>
 -->
@@ -5818,7 +5906,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_temporal_area" /> shows the input and output files for the <command>Temporal</command> program for area sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>), the temporal profiles file (<envar>ATPRO</envar>), the temporal cross-reference file (<envar>ATREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), and optional process date file (<envar>PROCDATES</envar>).</para>
+<para><xref linkend="fig_programs_temporal_area" /> shows the input and output files for the <command>Temporal</command> program for area sources. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>), the temporal profiles file (<envar>ATPRO</envar>), the temporal cross-reference file (<envar>ATREF</envar>), the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file <envar>HOLIDAYS</envar>), and optional process date file (<envar>PROCDATES</envar>).</para>
 
 <para><command>Temporal</command> outputs an hourly emissions file (<envar>ATMP</envar>), a temporal allocation supplemental file (<envar>ATSUP</envar>), and a log file (<envar>LOGFILE</envar>).</para>
 
@@ -5951,6 +6039,9 @@ Defines whether the program produces a report of emission totals by state.</para
 <itemizedlist>
 <listitem>
 <para><envar>DAY_SPECIFIC_YN</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>
+</listitem>
+<listitem>
+<para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the temporal cross-reference files by preventing left-7 SCC assignments.</para>
 </listitem>
 <listitem>
 <para><envar>HOUR_SPECIFIC_YN</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>

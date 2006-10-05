@@ -10,13 +10,13 @@
 
 <para>In this chapter, we provide information about using the UNIX scripts that come with SMOKE to run the test case and adapting the scripts to run any case. There are several features of these scripts that specifically support SMOKE v1.5 and later, and using scripts developed for earlier versions of SMOKE will not work without adaptations. We provide a section in this document that explains what changes need to be made to users&rsquo; existing scripts to allow them to work with SMOKE. Alternatively, current users can adapt the new example scripts to their case. New users are advised to create their scripts based on the example scripts, following the instructions included in <xref linkend="sect_scripts_how_use_smoke" /> this chapter.</para>
 
-<para>For all SMOKE users, a critical file to use and know about is the Assigns file. If you have followed the SMOKE installation instructions, then your Assigns file will be located in the directory: <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename> where the <envar>EDSS_ROOT</envar> directory is set in your <filename>.cshrc</filename> file in your home directory, during the SMOKE installation process.</para>
+<para>For all SMOKE users, a critical file to use and know about is the Assigns file. If you have followed the SMOKE installation instructions, then your Assigns file will be located in the directory: <filename class="directory"><envar>$SMK_HOME</envar>/subsys/smoke/assigns</filename> where the <envar>SMK_HOME</envar> directory is set in your <filename>.cshrc</filename> file in your home directory, during the SMOKE installation process.</para>
 
 <para><emphasis role="bold">When using SMOKE, the first thing that you should do is go to the Assigns directory and invoke the Assigns file for the case that you will be working with. This step needs to be taken in every UNIX window from which you intend to run SMOKE.</emphasis></para>
 
 <para>To invoke the Assigns file, use the following commands:</para>
 
-<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename></userinput> <emphasis>(this changes to the correct directory)</emphasis></para>
+<para><userinput><command>cd</command> <filename class="directory"><envar>$SMK_HOME</envar>/subsys/smoke/assigns</filename></userinput> <emphasis>(this changes to the correct directory)</emphasis></para>
 
 <para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb4p25.us12-nc</filename></userinput> <emphasis>(this invokes the default assigns file)</emphasis></para>
 
@@ -530,9 +530,9 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>As mentioned in <xref linkend="sect_scripts_introduction" />, the first step in working with SMOKE is invoking the Assigns file. In this section, we will go beyond that first step to actually running the scripts for the nctox case. But first, we will review the essential steps for running SMOKE each and every time you start to work with the SMOKE system.</para>
 
-<para>First, the <envar>EDSS_ROOT</envar> environment variable needs to be defined. In <xref linkend="sect_install_install" />, we explain that you can configure your UNIX system to set this automatically each time you log into your computer. If you have not done that, then you will need to set the <envar>EDSS_ROOT</envar> variable manually before invoking an Assigns file:</para>
+<para>First, the <envar>SMK_HOME</envar> environment variable needs to be defined. In <xref linkend="sect_install_install" />, we explain that you can configure your UNIX system to set this automatically each time you log into your computer. If you have not done that, then you will need to set the <envar>SMK_HOME</envar> variable manually before invoking an Assigns file:</para>
 
-<para><userinput><command>setenv</command> <envar>EDSS_ROOT</envar> <replaceable>&lt;directory in which you installed SMOKE&gt;</replaceable></userinput></para>
+<para><userinput><command>setenv</command> <envar>SMK_HOME</envar> <replaceable>&lt;directory in which you installed SMOKE&gt;</replaceable></userinput></para>
 
 <para>Second, you must invoke the Assigns file for the case that you want to run. This will make available all of the environment variables that you can use to navigate through the SMOKE directory structure. There is a different Assigns file for each case, so we provide this instruction with the case-specific documentation below. Of course, when you develop an Assigns file for your case, you will use that instead.</para>
 
@@ -540,7 +540,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>To run the nctox test case, you must first source the Assigns file using the commands below:</para>
 
-<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename></userinput> <emphasis>(change to the assigns directory)</emphasis></para>
+<para><userinput><command>cd</command> <filename class="directory"><envar>$SMK_HOME</envar>/subsys/smoke/assigns</filename></userinput> <emphasis>(change to the assigns directory)</emphasis></para>
 
 <para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb4p25_wtox.us12-nc</filename></userinput> <emphasis>(set up for the nctox case)</emphasis></para>
 
@@ -1324,7 +1324,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 
 <listitem>
-<para>If using a master (annual) inventory file for fires (excluding precomputed plume-rise data) (<envar>PTINV</envar>) described in <xref linkend="sect_input_ptinv_fire"/>, SMOKE requires that the sources from <xref linkend="sect_input_ptday_fireemis"/> be in the <envar>PTINV</envar> file to be exactly matched.</para>
+<para>For wildfires and prescribed fires emission modeling without precomputed plume rise, you must use <envar>ORL FIRE</envar> format for both criteria and toxics inventory together. Using a master (annual) inventory file (<envar>PTINV</envar>) for fires described in <xref linkend="sect_input_ptinv_fire"/>, SMOKE requires day-specific inventory file(s) (<envar>PTDAY</envar>) described in <xref linkend="sect_input_ptday_fireemis"/> to provide both criteria and toxics inventories for those matched sources.</para>
 </listitem>
 
 </itemizedlist>
@@ -1406,13 +1406,13 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>For hour-specific emissions data that is <emphasis>not</emphasis> CEM data, create the list file <envar>PTHOUR</envar> and one or more files with hour-specific emissions in the format provided in <xref linkend="sect_input_pthour" />. The format requires that a list file be used to point to the actual data files, even if a single data file with emissions data is used.</para>
 </listitem>
 <listitem>
-<para>If using CEM data, the data files for 1995 through 2000 are available with SMOKE. A list file <envar>PTHOUR</envar> must be created to list the one or more CEM data files that will be input. To speed processing, the DATERANGE setting can be used in the list file <envar>PTHOUR</envar> to cause SMOKE to skip the dates in the CEM files that are not needed. When using this format, the annual inventory file must be provided in IDA format, so that SMOKE can assign stack parameters and other information from the IDA file based on the ORIS ID and the Boiler IDs that are used to match the CEM records to the IDA inventory.</para>
+<para>If using CEM data, the data files for 1995 through 2000 are available with SMOKE. A list file <envar>PTHOUR</envar> must be created to list the one or more CEM data files that will be input. To speed processing, the DATERANGE setting can be used in the list file <envar>PTHOUR</envar> to cause SMOKE to skip the dates in the CEM files that are not needed. When using this format, the annual inventory file must be provided in IDA format, so that SMOKE can assign stack parameters and other information from the IDA file based on the ORIS ID and the Boiler IDs that are used to match the CEM records to the IDA inventory. Detail information is described in <xref linkend="sect_concepts_hour_specific_cem" /></para>
 </listitem>
 <listitem>
 <para>If using hourly precomputed plume rise (e.g., for fire data), the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided<comment>, as described in the file format documentation in <xref linkend="sect_input_pthour" /></comment>. The allowable data includes the fraction of the plume in layer 1, the plume bottom height, and the plume top height.</para>
 </listitem>
 <listitem>
-<para>If using daily fire inventory without precomputed plume rise, the <envar>PTDAY</envar> file should be created as described above for emissions data and specific variables ( size of acres burned, fuel loading, and duration of fire ) must be provided for plume rise calculation and re-normalization of temporal profiles, as described in the file format documentation in <xref linkend="sect_input_ptday_fireemis" />.</para>
+<para>If using daily fire inventories without precomputed plume rise, the <envar>PTDAY</envar> file should be created as described above for emissions data and specific variables ( size of acres burned, fuel loading, and duration of fire ) must be provided for plume rise calculation and re-normalization of temporal profiles, as described in the file format documentation in <xref linkend="sect_input_ptinv_fire" /> and <xref linkend="sect_input_ptday_fireemis" />.</para>
 </listitem>
 <listitem>
 <para>If using hourly stack exit temperature, velocity, or flow rates, the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided, as described in the file format documentation in <xref linkend="sect_input_pthour" />.</para>
@@ -1470,8 +1470,85 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 </listitem>
 </orderedlist>
-
 </listitem>
+
+<listitem>
+<para>For fires emission modeling without precomputed plume rise, ensure script settings will cause SMOKE to compute the plume rise data with internally computed heat flux from fuel loading and burned area.</para>
+<para>NOTE: Due to modeling both criteria and toxics inventories together using SMOKE ORL format files (<envar>PTINV</envar> and <envar>PTDAY</envar>), user must copy inventory data name to the Chemical Absrtracts Service ( CAS ) number column in inventory table (<envar>INVTABLE</envar>) if it is empty.</para>
+<orderedlist>
+
+<listitem>
+<para>For running <envar>RUN_SMKINVEN</envar>, set <envar>RUN_SMKINVEN</envar> setting to Y.</para>
+<itemizedlist>
+<listitem>
+<para>Set <envar>IMPORT_AVEINV_YN</envar> setting to Y.</para>
+</listitem>
+<listitem>
+<para>Set <envar>CHECK_STACKS_YN</envar> setting to N.</para>
+</listitem>
+<listitem>
+<para>Set <envar>WRITE_ANN_ZERO</envar> setting to Y.</para>
+</listitem>
+<listitem>
+<para>Set <envar>SMKINVEN_FORMULA</envar> setting to blank.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para>For running <envar>RUN_ELEVPOINT</envar>, set <envar>RUN_ELEVPOINT</envar> setting to N. <emphasis>[ <envar>SMK_ELEV_METHOD</envar> : O and <envar>SMK_PING_METHOD</envar>: 0 ]</emphasis></para>
+<itemizedlist>
+<listitem>
+<para>Set <envar>SMK_ELEV_METHOD</envar> setting to O.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para>For running <envar>RUN_LAYPOINT</envar>, set <envar>RUN_LAYPOINT</envar> setting to Y.</para>
+<itemizedlist>
+<listitem>
+<para>Set <envar>FIRE_PLUME_YN</envar> setting to Y.</para>
+</listitem>
+<listitem>
+<para>Set <envar>HOURLY_FIRE_YN</envar> setting to Y.</para>
+</listitem>
+<listitem>
+<para>Set <envar>SMK_SPECELEV_YN</envar> setting to N.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para>For running <envar>RUN_SMKMERGE</envar>, set <envar>RUN_SMKMERGE</envar> setting to Y.</para>
+<itemizedlist>
+<listitem>
+<para>Set <envar>SMK_ASCIIELEV_YN</envar> setting to N.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para>In multiple program control settings.</para>
+<itemizedlist>
+<listitem>
+<para>Set <envar>DAY_SPECIFIC_YN</envar> setting to Y.</para>
+</listitem>
+<listitem>
+<para>Set <envar>EXPLICIT_PLUMES_YN</envar> setting to N.</para>
+</listitem>
+<listitem>
+<para>Set <envar>SMK_PING_METHOD</envar> setting to 0.</para>
+</listitem>
+<listitem>
+<para>Set <envar>QA_TYPE</envar> setting to part2.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+</orderedlist>
+</listitem>
+
 <listitem>
 <para>If providing future-year hour-specific data, ensure that the dates used in the file are consistent with the <emphasis>base year</emphasis> dates. The dates must match the dates of the meteorology data that will be used by the air quality model.</para>
 </listitem>

@@ -85,45 +85,22 @@
 <para>Below, we summarize the major features of SMOKE v2.3.</para>
 
 <itemizedlist>
-<listitem>
-<para>Smkinven can read the extended ORL format.  It accepts source type codes for area, nonroad mobile and onroad mobile sources, as well as ORIS and boiler identification codes for point sources.</para>
-</listitem>
-<listitem>
-<para>Smkinven can support new ORL NEI fomatted NEI inventory files for fires (including both a list of fires with fire characteristics similar to an annual inventory file, and day-specific fire emissions).</para>
-</listitem>
-<listitem>
-<para>Smkinven will match hourly point source data to annual data in either IDA or ORL format.</para>
-</listitem>
-<listitem>
-<para>Smkinven allows multiple plant descriptions and FIPS codes for an ORIS ID when matching hourly point data to annual data.</para>
-</listitem>
-<listitem>
-<para>Smkinven uses 16 characters for the CAS code, also known as the pollutant code, to allow criteria pollutants to be input using the ORL format.</para>
-</listitem>
-<listitem>
-<para>Smkinven now treats duplicate sources as separate sources and will issue a warning.</para>
-</listitem>
-<listitem>
-<para>Cntlmat accepts source type codes of 03 and 04 for nonroad and onroad mobile respectively.</para>
-</listitem>
-<listitem>
-<para>Temporal can run for multiple non-sequential processing dates.</para>
-</listitem>
-<listitem>
-<para>Grdmat can read in surrogates from either one file or multiple files and now requires the SRGDESC file. As a result of this update, Grdmat requires far less memory to run than it did in previous versions.</para>
-</listitem>
-<listitem>
-<para>Smkinven can now output longer messages when processing hour and day specific emissions.</para>
-</listitem>
-<listitem>
-<para>CEMscan now outputs 10 decimal places for emissions instead of 5.</para>
-</listitem>
-<listitem>
-<para>Cntlmat will accept twelve new cases in the projection packet for plant-specific source matching.</para>
-</listitem>
-<listitem>
-<para>Cntlmat has had a bug fix in the plant-specific cross reference assignment.</para>
-</listitem>
+  <listitem><para>Supports new wild and Rx fires emission inventory in new ORL-formatted inventories. The fire emissions are either estimated by the EPM/CONSUME model in the Bluesky modeling framework or they come from the 2002 NEI.</para></listitem>
+  <listitem><para>Supports the extended ORL format. It accepts source type codes for area, nonroad mobile and onroad mobile sources, as well as ORIS and boiler identification codes for point sources.</para></listitem>
+  <listitem><para>Supports the extended ORL format.&nbsp; It accepts source type codes for area, nonroad mobile and onroad mobile sources, as well as ORIS and boiler identification codes for point sources.</para></listitem>
+	<listitem><para>Supports new CEM format with additional variables including flow rate for the boiler unit, and pollutant status flags ( measured/substituted/not used ).</para></listitem>
+	<listitem><para>Allows multiple plant descriptions and FIPS codes for an ORIS ID when matching hourly point data to annual data and also supports matching hourly point source data to annual data in either IDA or ORL format.</para></listitem>
+	<listitem><para>Supports 16 characters for the CAS code, also known as the pollutant code, to allow criteria pollutants to be input using the ORL format.</para></listitem>
+	<listitem><para>Treats duplicate sources as separate sources with a warning message instead of dropping the emission.</para></listitem>
+	<listitem><para>Supports only new <envar>INVTABLE</envar> format that has emissions MODE in a new column after the SMOKE NAME. These columns will be used together to create the internal SMOKE name.</para></listitem>
+	<listitem><para>Improves the <envar>SMKINVEN_FORMULA</envar> option to support multiple formula.</para></listitem>
+  <listitem><para>Outputs ORL-formatted file as a more condensed format in comma delimited format with quotes around all string fields.</para></listitem>
+	<listitem><para>Supports an optional special header in GSPRO file that defines the meaning of NONHAPVOC to support of combining criteria and toxic VOC using the NONHAPVOC calculation feature of SMOKE.</para></listitem>
+	<listitem><para>Supports both new and old <envar>GSCNV</envar> file. New <envar>GSCNV</envar> file includes additonal infomation, such as name of pollutant or emission types converting from and to.</para></listitem>
+	<listitem><para>Accepts source type codes of 03 and 04 for nonroad and onroad mobile respectively, and accept twelve new cases in the projection packet for plant-specific source matching. Fixed a bug in the plant-specific cross reference assignment.</para></listitem>
+	<listitem><para>Read in surrogates from either one file or multiple files and now requires the SRGDESC file.  As a result of this update, Grdmat requires far less memory to run than it did in previous versions.</para></listitem>
+	<listitem><para>Perform multiple non-sequential processing dates.</para></listitem>
+  <listitem><para>Re-normalize the assigned temporal profile based on the duration of fires.</para></listitem>
 </itemizedlist>
 
 <para>Below, we also list the major features from the previous release SMOKE v2.2.</para>

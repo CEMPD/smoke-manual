@@ -12,13 +12,13 @@
 
 <title>Source Code</title>
 
-All source code for SMOKE and its associated libraries can be found in the <filename class="directory"><envar>$EDSS_SUBSYS</envar></filename> directory.
+All source code for SMOKE and its associated libraries can be found in the <filename class="directory"><envar>$SMK_SUBSYS</envar></filename> directory.
 
 <section id="sect_source_fileset">
 
 <title>FileSetAPI library</title>
 
-<para>This library is used to open multiple I/O API files to avoid the limit of 120 variables per I/O API file. The source code in found in the <filename class="directory"><envar>$EDSS_SUBSYS</envar>/filesetapi</filename> directory (also accessible using the <envar>FS_ROOT</envar> environment variable), which contains the following source code and Makefiles.</para>
+<para>This library is used to open multiple I/O API files to avoid the limit of 120 variables per I/O API file. The source code in found in the <filename class="directory"><envar>$SMK_SUBSYS</envar>/filesetapi</filename> directory (also accessible using the <envar>FS_ROOT</envar> environment variable), which contains the following source code and Makefiles.</para>
 
 <itemizedlist spacing="compact">
 <listitem><filename><envar>$FS_ROOT</envar>/appendname.f</filename></listitem>
@@ -45,7 +45,7 @@ All source code for SMOKE and its associated libraries can be found in the <file
 
 <title>EDSS Tools library</title>
 
-<para>The EDSS Tools library is built on the EDSS framework and contains a variety of routines used for accessing I/O API data and other Models-3 conventions. The main directory for the EDSS Tools library is <filename class="directory"><envar>$EDSS_SUBSYS</envar>/edss_tools</filename>, which is also accessible with the <envar>TOOLS_ROOT</envar> environment variable. The source code for the EDSS Tools library is in the <filename class="directory"><envar>$TOOLS_ROOT</envar>/src</filename> directory and consists of the following source code and Makefiles.</para>
+<para>The EDSS Tools library is built on the EDSS framework and contains a variety of routines used for accessing I/O API data and other Models-3 conventions. The main directory for the EDSS Tools library is <filename class="directory"><envar>$SMK_SUBSYS</envar>/edss_tools</filename>, which is also accessible with the <envar>TOOLS_ROOT</envar> environment variable. The source code for the EDSS Tools library is in the <filename class="directory"><envar>$TOOLS_ROOT</envar>/src</filename> directory and consists of the following source code and Makefiles.</para>
 
 <itemizedlist spacing="compact">
 <listitem><filename><envar>$ETINC</envar>/IOCNST3.EXT</filename></listitem>
@@ -290,7 +290,7 @@ All source code for SMOKE and its associated libraries can be found in the <file
 
 <title>I/O API</title>
 
-<para>These include files are part of the I/O API library and are in the <filename class="directory"><envar>$EDSS_SUBSYS</envar>/ioapi_includes</filename> directory, accessible using the environment variable <envar>IOINC</envar>.</para>
+<para>These include files are part of the I/O API library and are in the <filename class="directory"><envar>$SMK_SUBSYS</envar>/ioapi_includes</filename> directory, accessible using the environment variable <envar>IOINC</envar>.</para>
 
 <itemizedlist spacing="compact">
 <listitem><filename><envar>$IOINC</envar>/ATDSC3.EXT</filename></listitem>

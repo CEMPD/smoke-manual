@@ -355,7 +355,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Data:</emphasis> Fire source inventories can contain criteria and particulate pollutants. SMOKE is not constrained with regard to the pollutants read (although typical examples were given in <xref linkend="sect_concepts_inv_data_types" />). These data must be provided as day-specific emissions values using point source formats specified in <xref linkend="sect_input_ptday_fireemis" />.</para>
+<para><emphasis role="bold">Data:</emphasis> Fire source inventories can contain criteria and particulate pollutants. SMOKE is not constrained with regard to the pollutants read (although typical examples were given in <xref linkend="sect_input_ptinv_fire" />). These data must be provided as day-specific emissions values using point source formats specified in <xref linkend="sect_input_ptday_fireemis" />.</para>
 </listitem>
 
 <listitem>
@@ -1808,7 +1808,7 @@ Additional data</programlisting>
 
 <title>Point-source processing</title>
 
-<para>Point-source emissions processing in SMOKE focuses on converting annual, daily, or hourly emissions to hourly, gridded model-ready emissions of the chemical species used by an AQM. Recall that by <quote>point sources</quote> in SMOKE we mean point sources in the usual sense plus wildfires with precomputed plumes. SMOKE processing may be performed either with or without growth and control of emissions. SMOKE can process both criteria and toxics inventories for point sources and combine consistent criteria and toxics inventories in one run (as explained in more detail in <xref linkend="sect_concepts_combine_toxics" />).</para>
+<para>Point-source emissions processing in SMOKE focuses on converting annual, daily, or hourly emissions to hourly, gridded model-ready emissions of the chemical species used by an AQM. Recall that by <quote>point sources</quote> in SMOKE we mean point sources in the usual sense plus wildfires with/without precomputed plumes. SMOKE processing may be performed either with or without growth and control of emissions. SMOKE can process both criteria and toxics inventories for point sources and combine consistent criteria and toxics inventories in one run (as explained in more detail in <xref linkend="sect_concepts_combine_toxics" />).</para>
 
 <para>Point-source processing can be performed using a CMAQ-based approach or a UAM-based approach, as previously described in <xref linkend="sect_concepts_model_ready_files" />. The processing steps for CMAQ base-year processing are shown in <xref linkend="fig_concepts_point_base_CMAQ" />. In <xref linkend="fig_concepts_parallel_approach" />, we also included the major intermediate vectors and matrices; please refer to that diagram for those details.</para>
 
@@ -1898,7 +1898,7 @@ Additional data</programlisting>
 <listitem>Day- and hour-specific emissions</listitem>
 <listitem>Different approaches for elevated sources for different AQMs, including the use of PinG sources</listitem>
 <listitem>Elevated-source selection</listitem>
-<listitem>Precomputed plume rise for explicit plume sources</listitem>
+<listitem>Wild and prescribed fires point sources</listitem>
 </orderedlist>
 
 <section>
@@ -1985,9 +1985,9 @@ Additional data</programlisting>
 
 <section>
 
-<title>Precomputed plume rise for explicit plume sources</title>
+<title>Wild and prescribed fires point sources</title>
 
-<para>You may also provide precomputed point-source plume rise to SMOKE with both the CMAQ-based and UAM-based approaches to modeling point sources. Sources that use this approach are called explicit plume sources. This capability was implemented for modeling wildfire sources as point sources in SMOKE using plume rise computed with a different approach from the Briggs-based approach used for stack-based plumes. The input data for this approach are the fraction of emissions in layer 1, the bottom of the plume, and the top of the plume. SMOKE distributes the emissions across the layers by weighting the emissions by the pressure difference in each layer over the total pressure difference between the top and bottom of the plume. <comment><xref linkend="sect_programs_laypoint" /> provides the technical description of how the emissions are distributed among the layers.</comment></para>
+<para>You may also either provide either precomputed point-source plume rise to SMOKE or internally compute plume rise using acres burned and fuel loading of fires with both the CMAQ-based and UAM-based approaches to modeling point sources. Precomputed plume rise point sources are called explicit plume sources. This capability was implemented for modeling wildfire sources as point sources in SMOKE using plume rise computed with a different approach from the Briggs-based approach used for stack-based plumes. The input data for this approach are the fraction of emissions in layer 1, the bottom of the plume, and the top of the plume. SMOKE distributes the emissions across the layers by weighting the emissions by the pressure difference in each layer over the total pressure difference between the top and bottom of the plume. <comment><xref linkend="sect_programs_laypoint" /> provides the technical description of how the emissions are distributed among the layers.</comment></para>
 
 <para>For the UAM-based modeling approach, the file format does not readily allow you to provide precomputed plume rise; in fact, the entire premise of the format is that the AQM will compute the plume rise. To enable you to provide precomputed rise for the UAM-based modeling approach, the <command>Smkmerge</command> program creates an ASCII elevated-point-source file with an imaginary stack for each layer of each source (e.g., each wildfire). The stack parameters of the imaginary stack are set to values that will ensure a zero plume rise will be computed for the stack, and the x-y location of the stacks are the same for all imaginary stacks representing the same source. The emissions associated with the imaginary stacks are provided based on the emissions values that are to be entered in each layer for the source. The emissions for layer 1 are written in the point-source file to the imaginary stack associated with layer 1, and the same is done for all of the other layers. SMOKE uses a zero value for the imaginary stack when the emissions from a given source are not in a layer for an hour or when the source stops (e.g., once a wildfire ends). While not particularly elegant, this approach permits providing precomputed plume rise to the UAM-based models without having to change those models.</para>
 
@@ -2301,7 +2301,7 @@ Additional data</programlisting>
 
 </section>
 
-<section>
+<section id="sect_concepts_toxics_cb4_no_integrate">
 
 <title>Toxics-CB4, no-integrate</title>
 
@@ -2540,7 +2540,7 @@ Additional data</programlisting>
 
 <itemizedlist>
 <listitem>
-<para><emphasis role="bold">CEM data format:</emphasis> The CEM data format provides hourly emissions by ORIS identification code and boiler number. It was developed in conjunction with the Market Trading Division of EPA, and that division now provides this ASCII file format when the data are released. The CEM format is useable only with IDA-formatted annual and average-day inventories.</para>
+<para><emphasis role="bold">CEM data format:</emphasis> The CEM data format provides standard local time hourly emissions by ORIS identification code and boiler number. It was developed in conjunction with the Market Trading Division of EPA, and that division now provides this ASCII file format when the data are released. The CEM format is useable only with IDA-formatted annual and average-day inventories.</para>
 </listitem>
 <listitem>
 <para><emphasis role="bold">EMS-95 format:</emphasis> The EMS-95 hour-specific format can be input to SMOKE using either the EMS-95 average-day format or the IDA format for annual and average-day inventories. This format has also been adapted to provide SMOKE with day-specific instead of hour-specific data.</para>
@@ -2548,6 +2548,42 @@ Additional data</programlisting>
 </itemizedlist>
 
 <para>In addition to reading the files, <command>Smkinven</command> ensures that the records listed in day- and hour-specific files match records provided in the annual inventory inputs. This is necessary because SMOKE builds its list of all point sources based on the annual and/or average-day inventory files, and these are the only sources that will be listed in the SMOKE intermediate inventory file. <command>Smkinven</command> requires that the year associated with the date of the day-specific and hour-specific emissions is the same as the base year. <command>Smkinven</command> generates an error message when it cannot match a day- or hour-specific source with an inventory source. Please refer to <xref linkend="sect_programs_smkinven" /> for more information about how <command>Smkinven</command> can be used to import these data.</para>
+
+<para><command>Smkinven</command> also can process the hourly CEM data in a more sophisticated way. Hourly heat input from the CEM data are used to allocate annual emissons to hourly emission data. First of all, the utility program <command>CEMScan</command> must be run before <command>Smkinven</command>, see more information at (<xref linkend="sect_utilities_cemscan" />). </para>
+
+</section>
+
+<section id="sect_concepts_hour_specific_cem">
+
+<title>Processing hour-specific CEM data</title>
+
+<para><command>Smkinven</command> can allocate annual emissions to hourly data using the hourly heat input from the standard local time CEM data. <command>Smkinven</command> must match the ORIS/boiler combinations that appear in the standard local time CEM data to sources in the annual emissions inventory. Smkinven will first skip any ORIS/boiler combinations in the input CEM data that do not appear in the summary list (<envar>CEMSUM</envar>) created by CEMScan; it is important that users ensure that their input CEM data and CEM summary file remain consistent. Smkinven will also skip any CEM ORIS IDs that are not in the inventory and also any ORIS and boiler combinations that are not in the inventory. Note that the inventory may contain sources with valid ORIS IDs but blank boiler codes; none of these sources will be matched to the CEM data. The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
+
+<para><emphasis role="bold">Data Check :</emphasis> Before calculating the hourly emissions, <command>Smkinven</command> first checks if the hourly NOx emissions from the CEM data are zero or null. If so, all emissions and the hourly flow rates for the sources that match the ORIS/boiler combination are set to zero. Similarly, if the hourly heat input, gross load, and steam load values are zero or null, all output values will be set to zero. In this case a warning will be written to the <command>Smkinven</command> log file.</para>
+
+<para>Special handling is needed when processing SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions. If the summed annual CEM SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions for a particular ORIS/boiler combination are zero or null, <command>Smkinven</command> will calculate hourly emissions based on the SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions in the annual inventory rather than using the hourly CEM data. If the summed annual SO<subscript>2</subscript> and NO<subscript>x</subscript>emissions are valid but a particular hour is missing the hourly SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions, <command>Smkinven</command> will set the hourly SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions to zero and write a warning to the log file.</para>
+
+<para><emphasis role="bold">Calculation:</emphasis> When calculating hourly emissions, <command>Smkinven</command> must use data from the annual inventory. If any of the matching inventory sources are missing the annual emissions value, the program will exit with an error. <command>Smkinven</command> will start with the hourly emissns from the CEM data and then disaggregate the emissions to the matching inventory sources like so:</para>
+
+<para><emphasis>Hourly NOx emissions for source <emphasis>i</emphasis> = (annual NOx emissions for source <emphasis>i</emphasis> / summed annual NOx emissions for all matching sources ) * hourly CEM NOx emissions * pounds to tons conversion</emphasis></para>
+
+<para>If the summed annual emissions for all matching sources is zero, the hourly CEM emissions will be distributed evenly to the matching inventory sources. For all other pollutants, the hourly emissions are calculated as; </para>
+
+<para><emphasis>Hourly emissions for source <emphasis>i</emphasis> = annual factor * annual emissions for source <emphasis>i</emphasis></emphasis></para>
+
+<para>The annual factor in the above calculation will preferentially be:</para>
+
+<para><emphasis>Annual factor = hourly heat input for ORIS/boiler / annual summed heat input for ORIS/boiler</emphasis></para>
+
+<para>If heat input data are not available, <command>Smkinven</command> will fallback to steam load followed by gross load. The heat input values do not need to be disaggregated to the matching inventory sources because the same disaggregation factor would be used for both the hourly heat input and summed heat input.</para>
+
+<para>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <envar>FLOW_RATE_FACTOR</envar> is set to zero or unset, then <command>Smkinven</command> will not calculate hourly flow rates.</para>
+
+<para><emphasis>Hourly flow rate (m<superscript>3</superscript>/s) = [<envar>FLOW_RATE_FACTOR</envar> (ft<superscript>3</superscript>/MMBTU) * hourly heat input (MMBTU/hr) * 0.02831 m<superscript>3</superscript>/ft<superscript>3</superscript>] / 3600 s/hr</emphasis></para>
+
+<para><command>Smkinven</command> then needs to assign the ORIS/boiler-level hourly flow rate to the matching inventory sources. To do this, it sums the flow rate for sources with the same stack. <command>Smkinven</command> uses the plant ID and stack ID to determine which sources feed into the same stack. Script setting information is available at <xref linkend="sect_programs_smkinven_envar" />.</para>
+
+<para><command>NOTE</command>: It is not recommended to run <command>Smkinven</command> for an entire year's worth of CEM data since the memory requirements are large. Instead, users should process only the CEM data for their episode of interest. This may require multiple runs of <command>Smkinven</command> to break up large episodes.</para>
 
 </section>
 
@@ -2579,6 +2615,7 @@ Additional data</programlisting>
 </figure>
 
 <para>Temporal processing also addresses the following issues that need to be considered during emissions processing:</para>
+
 
 <orderedlist>
 <listitem>

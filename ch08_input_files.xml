@@ -76,7 +76,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Where to put SMOKE input files</title>
 
-<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE v2.0 and later, we have reduced the number of places in which you need to keep your raw input files. <xref linkend="sect_input_nctox_case" /> lists the all of the input directories for the files used in the example <quote>nctox</quote> case. In that section, we also define the path names relative to the <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory, which is the directory in which you install SMOKE (and is different for every installation). In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
+<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE v2.0 and later, we have reduced the number of places in which you need to keep your raw input files. <xref linkend="sect_input_nctox_case" /> lists the all of the input directories for the files used in the example <quote>nctox</quote> case. In that section, we also define the path names relative to the <filename class="directory"><envar>SMK_HOME</envar></filename> directory, which is the directory in which you install SMOKE (and is different for every installation). In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
 
 <para>In summary, SMOKE input files must go into a handful of directories (see <xref linkend="sect_input_nctox_case" />). Multiple directories are needed because in some cases (such as speciation profiles and meteorology data), the data are to be shared across multiple runs. In other cases (such as inventory data), the data are specific to a case and should be stored independently to prevent corrupting other modeling runs. To change the directories used for input (or any other) files in SMOKE, you must modify the Assigns file as described in <xref linkend="sect_dirs_change_directory" />.</para>
 
@@ -840,7 +840,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry><link linkend="sect_input_vnammap"><envar>VNAMMAP</envar></link></entry>
+<entry><link linknd="sect_input_vnammap"><envar>VNAMMAP</envar></link></entry>
 <entry><command>Smk2emis</command></entry>
 <entry>A, B, M, P</entry>
 <entry>Species name mapping file for <command>Smk2emis</command></entry>
@@ -1906,13 +1906,13 @@ In this overview section, we first provide a few important notes about file form
 </listitem>
 </itemizedlist>
 
-<para>All of these directories are based on the <filename class="directory"><envar>$SMKDAT</envar></filename> directory, which is set by the Assigns file as <filename class="directory"><envar>$EDSS_ROOT</envar>/data</filename>. The <envar>EDSS_ROOT</envar> environment variable should be set as part of the SMOKE installation process, as described in <xref linkend="sect_install_install" />.</para>
+<para>All of these directories are based on the <filename class="directory"><envar>$SMKDAT</envar></filename> directory, which is set by the Assigns file as <filename class="directory"><envar>$SMK_HOME</envar>/data</filename>. The <envar>SMK_HOME</envar> environment variable should be set as part of the SMOKE installation process, as described in <xref linkend="sect_install_install" />.</para>
 
-<para>For the nctox case, these directories (based on your <envar>EDSS_ROOT</envar> setting) are as follows:</para>
+<para>For the nctox case, these directories (based on your <envar>SMK_HOME</envar> setting) are as follows:</para>
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory"><envar>$SMKDAT</envar></filename>: <filename class="directory"><envar>$EDSS_ROOT</envar>/data</filename></para>
+<para><filename class="directory"><envar>$SMKDAT</envar></filename>: <filename class="directory"><envar>$SMK_HOME</envar>/data</filename></para>
 </listitem>
 <listitem>
 <para><filename class="directory"><envar>$INVDIR</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/inventory/nctox</filename></para>
@@ -1938,7 +1938,7 @@ In this overview section, we first provide a few important notes about file form
 <para><filename class="directory"><envar>$GE_DAT</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/ge_dat</filename></para>
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$SMK_M6PATH</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/run_nctox/static/m6</filename></para>
+<para><filename class="direcory"><envar>$SMK_M6PATH</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/run_nctox/static/m6</filename></para>
 </listitem>
 <listitem>
 <para><filename class="directory"><envar>$SMK_EMISPATH</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/run_nctox/static/m6emfac</filename></para>
@@ -1993,7 +1993,7 @@ In this overview section, we first provide a few important notes about file form
 <listitem>#ORL FIREEMIS indicates that the file is in ORL format for day-specific fires sources</listitem>
 </itemizedlist>
 
-<para>If you want to give the format information in the list file, you need to append an additional format label to the #LIST header. For example, #LIST IDA indicates that the current file is in list format and that the listed files are IDA format. List files can include multiple #LIST &lt;format&gt; entries to include multiple file types; the given format is assumed to apply to all files until another #LIST &lt;format&gt; is encountered. Format indicators in the individual inventory files will override settings in the list file. A sample list file is shown below.</para>
+<para>If you want to give the format information in the list file, you need to append an additional format label to the #LIST header. For example, #LIST IDA indicates that the current file is in list format and that the listed files are IDA format. List files can include multiple #LIST &lt;format&gt; entries to include multiple file types; The given format is assumed to apply to all files until another #LIST &lt;format&gt; is encountered. Format indicators in the individual inventory files will override settings in the list file. A sample list file is shown below.</para>
 
 <programlisting>#LIST IDA
 /apps/smoke/data/inventory/nei02/area/arinv.ida.txt
@@ -2053,6 +2053,8 @@ In this overview section, we first provide a few important notes about file form
 <member>#IDA</member>
 <member>#ORL</member>
 <member>#ORL NONPOINT</member>
+<member>#ORL FIRE</member>
+<member>#ORL FIREEMIS</member>
 </simplelist>
 </entry>
 <entry>N/A</entry>
@@ -2081,12 +2083,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
-<entry>Only used for IDA-format files. Defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</entry>
-</row>
-<row>
-<entry>#POLLUTANT</entry>
-<entry>data1 data2 ... data <emphasis>n</emphasis></entry>
-<entry>Only used for the master ORL FIRE and day-specific ORL FIREEMIS format fires files. Defines the pollutants for which emissions data is provided and the variables used for the internal heat flux computation and temporal re-normalization; <quote>data1</quote> is the ID of the first pollutant/variable, <quote>data2</quote> is the ID of the second pollutant/variable, and so on. There are also default variables: <envar>ACRESBURNED</envar>, <envar>FUEL_LOAD</envar>, <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar>. The list of pollutants and default variables are the same between the master (#ORL FIRE) and the day-specific (#ORL FIREEMIS) files.  <emphasis role="bold">Note: <envar>ACRESBURNED</envar> <envar>FUEL_LOAD</envar> <envar>BEGHOUR</envar> <envar>ENDHOUR</envar> need to be listed in <envar>INVTABLE</envar> as pollutants.</emphasis><para>[Example: <envar>#POLLUTANT</envar> <envar>CO</envar> <envar>NOX</envar> <envar>SO2</envar> <envar>PM10</envar> <envar>PM25</envar> <envar>ACRESBURNED</envar> <envar>FUEL_LOAD</envar> <envar>BEGHOUR</envar> <envar>ENDHOUR</envar>]</para></entry>
+<entry><para>In IDA-format files, it defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</para> <para>In wild/Rx fires ORL format files (<envar>ORL FIRE</envar> (<xref linkend="sect_input_ptinv_fire" />) and day-specific <envar>ORL FIREEMIS</envar> file (<xref linkend="sect_input_ptday_fireemis" />), it defines a complete list of pollutant names from day-specific <envar>ORL FIREEMIS</envar> files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para></entry>
 </row>
 <row>
 <entry>#UNITS</entry>
@@ -3373,7 +3370,7 @@ INVYEAR 1996
 
 <title><envar>PTDAY</envar>: Point source day-specific emissions</title>
 
-<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, ORL FIREEMIS format. However, the format indicator for the day-specific files must by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which correpsonds to the United States in the default <envar>COSTCY</envar> file).</para>
+<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, ORL FIREEMIS format. However, the format indicator for the day-specific files must by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
 
 <section>
 <title>Day-specific file format</title>
@@ -3489,9 +3486,18 @@ INVYEAR 1996
 
 <title>Day-specific file format for fires</title>
 
-<para>For day-specific fires inventory format (#ORL FIREEMIS), the SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> need to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are used to calculate the fire-specific plume-rise, and <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are for the adjustment of hourly temporal profile.</para>
+<para>The SMOKE requires that the sources in the day-specific fires inventory format (<envar>#ORL FIREEMIS</envar>)<envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information, such as <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are used to adjust the hourly temporal profile.</para>
+<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<para>The <envar>ORL FIREEMIS</envar> format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. NOTE: All inventory pollutant names need to be listed in the master (annual) <envar>PTINV</envar> and the day-specific <envar>PTDAY</envar> files using a header record <envar>#POLLUTANT</envar>. Sample header records are shown below:</para>
 
-<para>The ORL FIREEMIS format uses the header described in <xref linkend="sect_input_inventory_header" /> and is a list-directed format shown in <xref linkend="tbl_input_ptday_fireemis" />.</para>
+<programlisting>#ORL     FIREEMIS
+#TYPE    Day-specific Point Source Inventory for FIRES
+#COUNTRY US
+#YEAR    2002
+#DATA    FUEL_LOAD ACRESBURNED CO NOX SO2 PM10 PM2_5 NH3 VOC 16990 10883
+#DESC    FIPS,FIREID,LOCID,SCC,DATA,DATE,DATAVALUE,BEGHOUR,ENDHOUR</programlisting>
+
+<para>The format for the data records is shown in <xref linkend="tbl_input_ptday_fireemis" />.</para>
 
 <table id="tbl_input_ptday_fireemis">
 <title>Format for individual day-specific data files for fires : ORL FIREEIMS</title>
@@ -3534,7 +3540,7 @@ INVYEAR 1996
 <entry>D</entry>
 <entry>SCC</entry>
 <entry>Char</entry>
-<entry>SCC Flaming or Smoldeling </entry>
+<entry>SCC Flaming or Smoldering (required)</entry>
 </row>
 <row>
 <entry>E</entry>
@@ -3765,7 +3771,7 @@ INVYEAR 1996
 
 <title>CEM hour-specific format</title>
 
-<para>The CEM hour-specific format can only be used with IDA-formatted annual inventory files. SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the IDA-formatted annual inventory. <comment>Note that the DATERANGE header can be used in the list file (not the individual CEM files) to limit the dates read from the individual CEM files.</comment> The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
+<para>The CEM hour-specific format can only be used with IDA-formatted annual inventory files. SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the IDA-formatted annual inventory. Note that the CEM data hours are in standard local time (no daylight saving time adjustment). The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
 
 <table id="tbl_input_pthour_cem">
 <title>CEM Format for individual hour-specific data files</title>
@@ -3814,13 +3820,13 @@ INVYEAR 1996
 <entry>E</entry>
 <entry>NOXMASS</entry>
 <entry>Real</entry>
-<entry>Nitrogen oxide emissions (lb/h) (required)</entry>
+<entry>Nitrogen oxide emissions (lb/hr) (required)</entry>
 </row>
 <row>
 <entry>F</entry>
 <entry>SO2MASS</entry>
 <entry>Real</entry>
-<entry>Sulfur dioxide emissions (lb/h) (required)</entry>
+<entry>Sulfur dioxide emissions (lb/hr) (required)</entry>
 </row>
 <row>
 <entry>G</entry>
@@ -3844,20 +3850,74 @@ INVYEAR 1996
 <entry>J</entry>
 <entry>SLOAD</entry>
 <entry>Real</entry>
-<entry>Steam load (MW) (optional)</entry>
+<entry>Steam load (1000 lbs/hr) (optional)</entry>
 </row>
 <row>
 <entry>K</entry>
 <entry>HTINPUT</entry>
 <entry>Real</entry>
-<entry>Heat input (MMBtu) (required)</entry>
+<entry>Heat input (mmBtu) (required)</entry>
+</row>
+<row>
+<entry>L</entry>
+<entry>HTINPUTMEASURE</entry>
+<entry>Character(2)</entry>
+<entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
+</row>
+<row>
+<entry>M</entry>
+<entry>SO2MEASURE</entry>
+<entry>Character(2)</entry>
+<entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
+</row>
+<row>
+<entry>N</entry>
+<entry>NOXMMEASURE</entry>
+<entry>Character(2)</entry>
+<entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
+</row>
+<row>
+<entry>O</entry>
+<entry>NOXRMEASURE</entry>
+<entry>Character(2)</entry>
+<entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
+</row>
+<row>
+<entry>P</entry>
+<entry>UNITFLOW</entry>
+<entry>Real</entry>
+<entry>Flow rate (ft3/sec) for the Boiler Unit (optional; must be present for all records or not any records  not yet used by SMOKE)</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
-</section>
+<para> The code numbers used in columns L through O have the following meanings:</para>
+<itemizedlist>
+<listitem>
+01 = 'Measured'
+</listitem>
+<listitem>
+02 = 'Calculated'
+</listitem>
+<listitem>
+03 = 'Substitute'
+</listitem>
+<listitem>
+04 = 'Measured and Substitute'
+</listitem>
+<listitem>
+97 = 'Not Applicable'
+</listitem>
+<listitem>
+98 = 'Undetermined'
+</listitem>
+<listitem>
+99 = 'Unknown Code'
+</listitem>
+</itemizedlist>
 
+</section>
 </section>
 
 <section id="sect_input_ptinv">
@@ -4976,15 +5036,16 @@ INVYEAR 1995
 
 <title>ORL FIRE Format</title>
 
-<para>The ORL inventory file for fires (#ORL FIRE) is one of the required input files to provide wildfire and prescribed fire data that are being treated as point sources to SMOKE. This file includes the fire characteristics, such as county/state/county code, fire identification, fire name, location identification, location coordinates, SCC (flaming or smoldering), material burned, and vegetation types. Some of characteristics that are common to this master (annual) inventory file <envar>PTINV</envar> and the day-specific inventory file <envar>PTDAY</envar> shown in <xref linkend="sect_input_ptday_fireemis"/> need to match exactly by county/state/county code, fire ID, location ID, location coordinates, and SCC. </para>
+<para>The ORL inventory file for fires (<envar>#ORL FIRE</envar>) is one of the required input files to provide wildfire and prescribed fire data that are being treated as point sources to SMOKE. This file includes the fire characteristics, such as county/state/county code, fire identification, fire name, location identification, location coordinates, SCC (flaming or smoldering), material burned, vegetation types and heat content. Some of characteristics that are common to this master (annual) inventory file <envar>PTINV</envar> and the day-specific inventory file <envar>PTDAY</envar> shown in <xref linkend="sect_input_ptday_fireemis"/> need to match exactly by county/state/county code, fire ID, location ID, location coordinates, and SCC. </para>
+<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<para>The <envar>ORL FIRE</envar> format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. NOTE: Although inventory pollutants are not listed, user needs to list all inventory pollutant names available from the day-specific inventory file <envar>PTDAY</envar> using a header record <envar>#POLLUTANT</envar>. Sample header records are shown below:</para>
 
-<para>The ORL FIRE format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
-
-<programlisting>#ORL FIRE
-#TYPE      Point Source Inventory for FIRES
-#COUNTRY   US
-#YEAR      2001
-#POLLUTANT CO NOX SO2 PM10 PM2_5 ACRESBURNED NFDRSCODE BEGHOUR ENDHOUR</programlisting>
+<programlisting>#ORL     FIRE
+#TYPE    Point Source Inventory for FIRES
+#COUNTRY US
+#YEAR    2002
+#DATA    FUEL_LOAD ACRESBURNED CO NOX SO2 PM10 PM2_5 VOC 16990 10883
+#DESC    FIPS,FIREID,LOCID,SCC,NAME,LAT,LON,NFDRSCODE,MATBURNED,HEATCONTENT</programlisting>
 
 <para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_orl_fire" />.</para>
 
@@ -5060,12 +5121,6 @@ INVYEAR 1995
 <entry>MATBURNED</entry>
 <entry>Int</entry>
 <entry>Code for the material burned</entry>
-</row>
-<row>
-<entry>J</entry>
-<entry>DATA</entry>
-<entry>Char</entry>
-<entry>Name of DATA (ex: HEATCONTENT)</entry>
 </row>
 <row>
 <entry>K</entry>
@@ -5414,7 +5469,7 @@ INVYEAR 1995
 <entry>Temporal weight for Sunday (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">34-38</entry>
+<entry colname="Position">34-39</entry>
 <entry>Total of weights for entire week (Integer)</entry>
 </row>
 <row>
@@ -5692,23 +5747,23 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Characteristic 1 (for IDA, this is point ID; for EMS-95, this is stack ID) (Character) (optional)</entry>
+<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 2 (for IDA, this is stack ID; for EMS-95, this is device ID) (Character) (optional)</entry>
+<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 3 (for IDA, this is segment ID; for EMS-95, this is process ID) (Character) (optional)</entry>
+<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (blank for IDA because SCC already given in column A of list line) (Character) (optional)</entry>
+<entry>Characteristic 4 (blank for IDA and ORL because SCC already given in column A of list line) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 5 (blank for IDA) (Character) (optional)</entry>
+<entry>Characteristic 5 (blank for IDA and ORL) (Character) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -6365,14 +6420,20 @@ INVYEAR 1995
 
 <title><envar>GSCNV</envar>: Pollutant-to-pollutant conversion file (optional)</title>
 
-<para>The pollutant-to-pollutant conversion factors file is required when there is a mismatch between the pollutant in the inventory and the pollutant for which the speciation profiles have been developed. One example is when the inventory has VOC (or ROG), but the speciation profiles were developed for TOG. SMOKE permits such a factor to be applied to any pollutant. The same format is used by all source categories. The available combinations and hierarchies for applying the factors are the same as for the speciation cross-reference (see <xref linkend="sect_programs_spcmat" />), with the exception of the plant ID and other more specific source characteristics for point sources. The <envar>GSCNV</envar> file is not needed if there is no mismatch between the inventory and the pollutants in the speciation profiles file. The <command>Spcmat</command> program will input this file wheh the <envar>POLLUTANT_CONVERSION</envar> environment variable is set to Y.</para>
+<para>The pollutant-to-pollutant conversion factors file is required when there is a mismatch between the pollutant in the inventory and the pollutant for which the speciation profiles have been developed. The typical example is when the inventory has VOC (or ROG), but the speciation profiles are developed for TOG. SMOKE permits such a factor to be applied to any pollutant. The same format is used by all source categories.</para>
 
-<para>If emissions types (emission process/pollutant combinations) are being used, as with mobile source processing using the <command>Emisfac</command> program (see <xref linkend="sect_concepts_emission_processes" />), the emission type must be listed instead of the pollutant. For example, if exhaust running VOC emissions were being converted to exhaust TOG, then EXR__VOC  and EXR__TOG would need to appear in their respective columns on the header line (line 1 in the format below). It would not be correct to put only VOC and TOG. All emission types must be listed, or the conversion factor that will be applied is 1. This approach permits conversion factors that are specific to each emission process (e.g., different conversions for EXR and EXS).</para>
+<para>These factors can be applied to the inventory using one of two assignment approaches: either by FIPS/SCC or by Speciation Profile ID. The same approach must be used for all sources in a single run of Spcmat. Historically in SMOKE, the FIPS/SCC approach has been used; however, starting with SMOKE version 2.3, users may instead apply these factors by Speciation Profile ID. For assignment of factors using the state/county FIPS and SCC codes, the available combinations and hierarchies for applying the factors are the same as for the speciation cross-reference (see <xref linkend="sect_programs_spcmat" />), with the exception of the plant ID and other more specific source characteristics for point sources. For assignment of the factors using Speciation Profile ID, there is no assignment hierarchy - whatever profile was assigned to a source by the GSREF file will be used to choose the factor to apply from the GSCNV file, for the appropriate pollutants. To assign these factors by Speciation Profile ID, a special header line is needed, as described below. SMOKE version 2.3 is backward compatible with previous GSCNV files used with earlier versions.</para>
 
-<para>The format of the <envar>GSCNV</envar> file is shown in <xref linkend="tbl_input_gscnv" />.</para>
+<para>The <envar>GSCNV</envar> file is not needed if there is no mismatch between the inventory and the pollutants in the speciation profiles file. The <command>Spcmat</command> program will input and use this file only when the <envar>POLLUTANT_CONVERSION</envar> environment variable is set to Y. </para>
+
+<para>If emissions types (emission process/pollutant combinations) are being used, as with mobile source processing using the <command>Emisfac</command> program (see <xref linkend="sect_concepts_emission_processes" />), the emission type must be listed instead of the pollutant. For example, if exhaust running VOC emissions were being converted to exhaust TOG, then EXR__VOC  and EXR__TOG would need to appear in their respective columns on the header line (line 1 in the "old" format below or in the first and second columns in the "new" format). It would not be correct to put only VOC and TOG. All emission types must be listed, or the conversion factor that will be applied is 1. This approach permits conversion factors that are specific to each emission process (e.g., different conversions for EXR and EXS).</para>
+
+<para>The "old" format of the <envar>GSCNV</envar> file for FIPS/SCC assignments is shown in <xref linkend="tbl_input_gscnv" />.</para>
+
+<para>The "new" format of the <envar>GSCNV</envar> file for Speciation Profile ID assignments is shown in <xref linkend="tbl_input_gscnv_new" />. The new format is consistent with the format created by the Emission Modeling Framework Speciation Tool.</para>
 
 <table id="tbl_input_gscnv">
-<title>Format for <envar>GSCNV</envar></title>
+<title>Old format for <envar>GSCNV</envar> (using FIPS/SCC assignments)</title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -6426,6 +6487,55 @@ INVYEAR 1995
 </tgroup>
 </table>
 
+<table id="tbl_input_gscnv_new">
+<title>New format for <envar>GSCNV</envar> (using Speciation Profile ID assignments)</title>
+
+<para>This format can support comment lines before the first required header
+line shown as "line 1" in the table below, or anywhere in the files. The file is list-formatted and therefore needs space, comma, or semi-colon delimeters between the fields.</para>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>1-11</entry>
+<entry>#BY PROFILE (required)</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>A</entry>
+<entry>Name of pollutant or emission type converting from (16-character) (required)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Name of pollutant or emission type converting to (16-character) (required)</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry>Speciation profile code (5-character) (required)</entry>
+</row>
+<row>
+<entry colname="Position">D</entry>
+<entry>Volatile conversion factor (Real) (required)</entry>
+</row>
+<row>
+<entry namest="Line" nameend="Description">Repeat line 2 as needed for multiple pollutants and/or emission types</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
 </section>
 
 <section id="sect_input_gspro">
@@ -6433,6 +6543,10 @@ INVYEAR 1995
 <title><envar>GSPRO</envar>: Speciation profile file</title>
 
 <para>The speciation profile file, <envar>GSPRO</envar>, contains the factors that are used to separate aggregated inventory pollutant emissions totals into emissions of model species required by the AQM. In traditional ozone air quality modeling, this file contained split factors only for VOC. In SMOKE, all inventory pollutants need to be represented in this file, even if it is only to indicate that a pollutant is not split into any model species (e.g., CO emissions would have a <quote>split factor</quote> of 1.0). The format of the <envar>GSPRO</envar> file is shown in <xref linkend="tbl_input_gspro" />.</para>
+
+<para> For support of combining criteria and toxic VOC using the NONHAPVOC calculation feature of SMOKE, the GSPRO file (starting in version 2.3 of SMOKE)  includes a special header that defines the meaning of NONHAPVOC. This is the new #NHAP header, described below.  This header keyword will be treated as a comment line by previous versions of SMOKE. The header lines define NONHAPVOC (and/or NONHAPTOG) by listing all of the VOC compounds that were assumed to be removed from VOC (or TOG) when the speciation profile factors for NONHAPVOC (or NONHAPTOG) were calculated. When using this file, Spcmat compares this list with the list from the Inventory Table ("VOC or TOG Component" field = V or T and "Explicit in Mechanism = "N").  This new header is included in this file so that the file is self-describing with respect to the definition of NONHAPVOC and NONHAPTOG.</para>
+
+<para> The format supports header lines (using a # symbol in position 1 of any line) in any part of the file.</para>
 
 <table id="tbl_input_gspro">
 <title>Format for <envar>GSPRO</envar></title>
@@ -6453,6 +6567,19 @@ INVYEAR 1995
 <tbody>
 <row>
 <entry>1+</entry>
+<entry>A</entry>
+<entry>#NHAP (optional header lines to be included only for NONHAPVOC processing approach in SMOKE. Skip to Line 2 for all other cases)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Pollutant name (either NONHAPVOC or NONHAPTOG)</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry>Toxics name of compound(s) subtracted from VOC or TOG to calculate NONHAPVOC or NONHAPTOG (must match "Inventory Data Name" column from Inventory Table (<envar>INVTABLE</envar>)</entry>
+</row>
+<row>
+<entry>2+</entry>
 <entry>A</entry>
 <entry>Speciation profile number (Character)</entry>
 </row>
@@ -6663,23 +6790,23 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Characteristic 1 (for IDA, this is point ID; for EMS-95, this is stack ID) (Character) (optional)</entry>
+<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 2 (for IDA, this is stack ID; for EMS-95, this is device ID) (Character) (optional)</entry>
+<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 3 (for IDA, this is segment ID; for EMS-95, this is process ID) (Character) (optional)</entry>
+<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (for IDA, this is 10-digit SCC, or 5-digit with zeroes) (Character) (optional)</entry>
+<entry>Characteristic 4 (for IDA and ORL, this is 10-digit SCC, or 5-digit with zeroes) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 5 (blank for IDA) (Character) (optional)</entry>
+<entry>Characteristic 5 (blank for IDA and ORL) (Character) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -6792,23 +6919,23 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 1 (for IDA inventory input format, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
+<entry>Characteristic 1 (for IDA and ORL inventory input format, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 2 (for IDA inventory input format, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
+<entry>Characteristic 2 (for IDA and ORL inventory input format, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 3 (for IDA inventory input format, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
+<entry>Characteristic 3 (for IDA and ORL inventory input format, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 4 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">M</entry>
-<entry>Characteristic 5 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -6827,7 +6954,7 @@ INVYEAR 1995
 
 <para>The format of the /CONTROL/ packet is shown in <xref linkend="tbl_input_gcntl_control" />.</para>
 
-<comment>does /CONTROL/ apply to EMS-95 inputs?</comment>
+<comment>does /CONTROL/ apply to EMS-95 inputs</comment>
 
 <table id="tbl_input_gcntl_control">
 <title>Format for /CONTROL/ packet in <envar>GCNTL</envar></title>
@@ -6916,23 +7043,23 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">M</entry>
-<entry>Characteristic 1 (for IDA inventory input format, this is Point ID), optional (Character)</entry>
+<entry>Characteristic 1 (for IDA and ORL inventory input format, this is Point ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">N</entry>
-<entry>Characteristic 2 (for IDA inventory input format, this is Stack ID), optional (Character)</entry>
+<entry>Characteristic 2 (for IDA and ORL inventory input format, this is Stack ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">O</entry>
-<entry>Characteristic 3 (for IDA inventory input format, this is segment), optional (Character)</entry>
+<entry>Characteristic 3 (for IDA and ORL inventory input format, this is segment), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">P</entry>
-<entry>Characteristic 4 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">Q</entry>
-<entry>Characteristic 5 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -7296,23 +7423,23 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Characteristic 1 (for IDA, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
+<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 2 (for IDA, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
+<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 3 (for IDA, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
+<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 5 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -7396,23 +7523,23 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 1 (for IDA, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
+<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 2 (for IDA, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
+<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">M</entry>
-<entry>Characteristic 3 (for IDA, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
+<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">N</entry>
-<entry>Characteristic 4 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">O</entry>
-<entry>Characteristic 5 (blank for IDA inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -8861,7 +8988,7 @@ NOX > 500.
 RISE >= 40. AND RISE < 150.
 NOX TOP 500
 NH3 TOP 50
-FIPS >= 37001 AND FIPS <= 37031
+FIPS > 37001 AND FIPS <= 37031
 SOURCE > 100 AND SOURCE < 200
 /END/
 ]]></programlisting>
@@ -9297,7 +9424,26 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>INVTABLE</envar>: Inventory table</title>
 
-<para>The <envar>INVTABLE</envar> file replaces the <envar>SIPOLS</envar> and <envar>ACTVNAMS</envar> files previously used by SMOKE. <command>Smkinven</command> uses the inventory table to select the inventory pollutants that will be output by <command>Smkinven</command>. The valid pollutants are again checked at the end of SMOKE processing by <command>Smkmerge</command>, to ensure that the program knows about all of the pollutants and also to set the order of the output variables (output species are sorted by the order of their pollutants in the inventory table and for multiple species per pollutant, by alphabetical order) You can use the <envar>INVTABLE</envar> to drop inventory pollutants in <command>Smkinven</command> without having to modify the inventory files, simply by modifying <envar>INVTABLE</envar>. The units used in the SMOKE intermediate files are listed in this file. The SMOKE programs <command>Spcmat</command>, <command>Temporal</command>, and <command>Emisfac</command> use this file to determine which pollutants should be included in the NONHAPVOC or NONHAPTOG calculation.</para>
+<para>The <envar>INVTABLE</envar> file replaces the <envar>SIPOLS</envar> and <envar>ACTVNAMS</envar> files previously used by SMOKE. <command>Smkinven</command> uses the inventory table to select the inventory pollutants that will be output by <command>Smkinven</command>. The valid pollutants are again checked at the end of SMOKE processing by <command>Smkmerge</command>, to ensure that the program knows about all of the pollutants and also to set the order of the output variables (output species are sorted by the order of their pollutants in the inventory table and for multiple species per pollutant, by alphabetical order). You can use the <envar>INVTABLE</envar> to drop inventory pollutants in <command>Smkinven</command> without having to modify the inventory files, simply by modifying <envar>INVTABLE</envar>. The units used in the SMOKE intermediate files are listed in this file. The SMOKE programs <command>Spcmat</command>, <command>Temporal</command>, and <command>Emisfac</command> use this file to determine which pollutants should be included in the NONHAPVOC or NONHAPTOG calculation.</para>
+
+<para>The inventory table also provides a way to assign the SPECIATE4 specie ID to any pollutant that is a Hazardous Air Pollutant (HAP) VOC. This assignment is not used directly by SMOKE, but rather is used by the Speciation Tool when creating VOC speciation profiles.  This is used only when creating speciation profiles to support SMOKE runs that will combine criteria VOC and HAP VOC emissions, using the <envar>NHAPEXCLUDE</envar> file in the <command>Smkinven</command> program. More specifically, this can be done for the purpose of using VOC HAP emissions to augment VOC speciation profiles. Since the Inventory Table provides information to the Speciation Tool, this field is not used by SMOKE, but is included for continued integration of SMOKE inputs with the Speciation Tool.</para>
+
+<para> As described in the <command>Smkinven</command> documentation in Chapter 6, <command>Smkinven</command> in some cases will create "no-integrate" (NOI) HAP pollutant emissions from the inventory data by renaming the pollutant with a "_NOI" suffix applied to the end of the Inventory Data Name from the Inventory Table for such pollutants. Similarly, <command>Smkinven</command> will automatically add all possibly needed "_NOI" pollutant names to the internal master list of valid pollutant names. This list would otherwise be limited to the contents of the <envar>INVTABLE</envar> file entries where the Keep column contains an "Y".  <command>Smkinven</command> inserts these names in the master list such that the "_NOI" version of the pollutant name appears in the list just after the polutant on which the name is based.  The inserted entries that include "_NOI" are made when the following values are included for the pollutant in the <envar>INVTABLE</envar> file.</para>
+
+<itemizedlist>
+<listitem>
+<para>A "Y" appears in the "Keep" field</para>
+</listitem>
+<listitem>
+<para>A "V" or "T" appears in the "VOC or TOG component" field</para>
+</listitem>
+<listitem>
+<para>A "Y" appears in the "Model species" field</para>
+</listitem>
+<listitem>
+<para>Something other than "Y" appears in the "Explicit in mechanism" field (e.g., "N" or blank)</para>
+</listitem>
+</itemizedlist>
 
 <para>It is possible for a user to choose two pollutants that result in double counting the emissions from the inventory. For example, you may want to model both benzo(a)pyrene and 7-PAH which, would result in the emissions associated with CAS number 205992 (for benzo(a)pyrene) to be duplicated. The user is responsible for the choices made and the resulting changes in inventory mass.</para>
 
@@ -9325,68 +9471,75 @@ SOURCE > 100 AND SOURCE < 200
 <entry>Inventory data name</entry>
 <entry>11-character string</entry>
 </row>
+
 <row>
-<entry>13-28</entry>
-<entry>Chemical Abstract Service (CAS) number (optional, except for toxic compounds)</entry>
+<entry>13-15</entry>
+<entry>Mode (optional) e.g., EXR, EXS, EXH, EVP, BIO</entry>
+<entry>3-character string</entry>
+</row>
+
+<row>
+<entry>17-32</entry>
+<entry>Inventory Pollutant Code</entry>
 <entry>16-character string</entry>
 </row>
 <row>
-<entry>30-34</entry>
-<entry>Storage and Retrieval of Aerometric Data (SAROAD) code (optional)</entry>
+<entry>34-38</entry>
+<entry>SPECIATE4 ID(optional)</entry>
 <entry>Integer</entry>
 </row>
 <row>
-<entry>36</entry>
+<entry>40</entry>
 <entry>Reactivity group (not used by SMOKE)</entry>
 <entry>Integer</entry>
 </row>
 <row>
-<entry>38</entry>
+<entry>42</entry>
 <entry>Keep (Y or N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>40-44</entry>
+<entry>44-49</entry>
 <entry>Factor</entry>
 <entry>Float</entry>
 </row>
 <row>
-<entry>46</entry>
+<entry>50</entry>
 <entry>VOC or TOG component (V/T/N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>48</entry>
+<entry>52</entry>
 <entry>Model species (Y/N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>50</entry>
+<entry>54</entry>
 <entry>Explicit in mechanism (Y/N)</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>52</entry>
+<entry>56</entry>
 <entry>Activity</entry>
 <entry>1-character string</entry>
 </row>
 <row>
-<entry>54-56</entry>
+<entry>58-60</entry>
 <entry>NTI</entry>
 <entry>Integer</entry>
 </row>
 <row>
-<entry>58-73</entry>
+<entry>62-77</entry>
 <entry>Units to be used in SMOKE intermediate files (<emphasis>changing not recommended</emphasis>)</entry>
 <entry>16-character string</entry>
 </row>
 <row>
-<entry>75-114</entry>
+<entry>79-118</entry>
 <entry>Inventory data description - a description of the name provided in columns 1-11.</entry>
 <entry>40-character string</entry>
 </row>
 <row>
-<entry>116-159</entry>
+<entry>119-158</entry>
 <entry>CAS pollutant description - a description of the CAS or pollutant code contained in the inventory</entry>
 <entry>40-character string</entry>
 </row>
@@ -9401,10 +9554,13 @@ SOURCE > 100 AND SOURCE < 200
 <para>Inventory data name: Unique name for pollutant or activity that will be stored and processed by SMOKE. Because of I/O API restrictions, these names can only include alphanumeric characters and underscores, and the first character must be a letter. In addition, because SMOKE uses double-underscore as a separator when appending to variable names, no double-underscores are permitted in these names.</para>
 </listitem>
 <listitem>
-<para>CAS number: This code represents the pollutant that is provided in the inventory file input into SMOKE.  It is named the <quote>pollutant code</quote> in the NIF 2.0 format, but we call it <quote>CAS number</quote> to distinguish it from a SMOKE pollutant, and because this number actually is a CAS number when the pollutant contained in the inventory has a valid CAS number.</para>
+<para>Mode: This three-letter code represents the emissions mode that SMOKE uses to augment the pollutant names. Emissions mode usually refers to the on-road or nonroad mobile exhaust or evaporative emissions. If present in a record of the Inventory Table, SMOKE will combine the Mode field with the Inventory Data Name field using a double underscore. So, if the Inventory Data Name is "VOC" and the Mode is "EXH", then the pollutant name in SMOKE intermediate files will be stored as "EXH__VOC".</para>
 </listitem>
 <listitem>
-<para>SAROAD code: The SAROAD code is used by SMOKE only for reporting purposes, since the inventory data name is used by SMOKE for assignments of profiles processing.</para>
+<para>Inventory Pollutant Code: This code represents the pollutant that is provided in the inventory file input into SMOKE, and is sometimes the Chemical Abstracts Service (CAS) number when the inventory uses CAS numbers to identify pollutants. <command>Smkinven</command> matches this code to a ORL-formatted inventory file to assign the combination of Mode and Inventory Data Name (columns 2 and 1 as described in the previous bullet), which is used in all subsequent SMOKE intermediate files and reports. This code is not used by SMOKE in any other way.</para>
+</listitem>
+<listitem>
+<para>SPECIATE4 ID: The SPECIATE4 ID is the unique specie identifier in SPECIATE4 (the "ID" field in the SPECIE_PROPERTIES table). This code is not used by SMOKE, but rather is used during import of the Inventory Table to the Speciation Tool.</para>
 </listitem>
 <listitem>
 <para>Reactivity group: The reactivity group for the ASPEN model. It is not used in SMOKE.</para>

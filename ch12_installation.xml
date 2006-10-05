@@ -49,19 +49,19 @@
 <para>Make sure that the three files you downloaded from the CMAS website are in the same directory.</para>
 </listitem>
 <listitem>
-<para>Choose the directory where you want to install SMOKE and the data files. This directory will be known as your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory.</para>
+<para>Choose the directory where you want to install SMOKE and the data files. This directory will be known as your <filename class="directory"><envar>SMK_HOME</envar></filename> directory.</para>
 </listitem>
 <listitem>
 <para>At the command line, type:</para>
 
-<para><userinput><command>setenv</command> <envar>EDSS_ROOT</envar> <replaceable>&lt;your selected directory for SMOKE installation&gt;</replaceable></userinput></para>
+<para><userinput><command>setenv</command> <envar>SMK_HOME</envar> <replaceable>&lt;your selected directory for SMOKE installation&gt;</replaceable></userinput></para>
 
 <para><emphasis role="bold">NOTE:</emphasis> the SMOKE scripts are designed to run under the UNIX C-shell (either <command>csh</command> or <command>tcsh</command>); the scripts will not work with other shells such as <command>bash</command>.</para>
 </listitem>
 <listitem>
-<para>Make sure your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory exists by typing the following command on the command line:</para>
+<para>Make sure your <filename class="directory"><envar>SMK_HOME</envar></filename> directory exists by typing the following command on the command line:</para>
 
-<para><userinput><command>mkdir -p</command> <filename class="directory"><envar>$EDSS_ROOT</envar></filename></userinput></para>
+<para><userinput><command>mkdir -p</command> <filename class="directory"><envar>$SMK_HOME</envar></filename></userinput></para>
 
 </listitem>
 <listitem>
@@ -72,11 +72,11 @@
 
 <para><userinput><command>source</command> <filename>smoke_install.csh</filename></userinput></para>
 
-<para>This command will unzip and install the SMOKE files in your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory. If the script encounters any problems, it will print an error message to point you to the problem.</para>
+<para>This command will unzip and install the SMOKE files in your <filename class="directory"><envar>SMK_HOME</envar></filename> directory. If the script encounters any problems, it will print an error message to point you to the problem.</para>
 </listitem>
 </orderedlist>
 
-<para>The <envar>EDSS_ROOT</envar> setting is needed by the SMOKE scripts. Therefore, it is best to always have this setting defined when you log into your computer. To do this, perform the following additional steps before proceeding:</para>
+<para>The <envar>SMK_HOME</envar> setting is needed by the SMOKE scripts. Therefore, it is best to always have this setting defined when you log into your computer. To do this, perform the following additional steps before proceeding:</para>
 
 <orderedlist continuation="continues">
 <listitem>
@@ -85,10 +85,10 @@
 <listitem>
 <para>In the <filename>.cshrc</filename> file, add the following line:</para>
 
-<para><userinput><command>setenv</command> <envar>EDSS_ROOT</envar> <replaceable>&lt;your selected directory for SMOKE installation&gt;</replaceable></userinput></para>
+<para><userinput><command>setenv</command> <envar>SMK_HOME</envar> <replaceable>&lt;your selected directory for SMOKE installation&gt;</replaceable></userinput></para>
 </listitem>
 <listitem>
-<para>Save and close the <filename>.cshrc</filename> file. Your <filename class="directory"><envar>EDSS_ROOT</envar></filename> directory will now be defined automatically when you log into the computer or when you open a new <command>xterm</command> window.</para>
+<para>Save and close the <filename>.cshrc</filename> file. Your <filename class="directory"><envar>SMK_HOME</envar></filename> directory will now be defined automatically when you log into the computer or when you open a new <command>xterm</command> window.</para>
 </listitem>
 </orderedlist>
 
@@ -107,20 +107,24 @@
 <para>Install SMOKE as described in <xref linkend="sect_install_install" />. You may receive an error message indicating that the Assigns file could not be sourced when you run the <filename>smoke_install.csh</filename> script.</para>
 </listitem>
 <listitem>
-<para>The <filename><envar>$EDSS_ROOT</envar>/scripts/setup_edss</filename> script sets the <envar>$EDSS_OS</envar> environment variable based on the results of the <command>uname</command> command. The <filename><envar>$EDSS_ROOT</envar>/scripts/platform</filename> uses <envar>$EDSS_OS</envar> to determine the appropriate compiler command and options for your system. The <filename>platform</filename> script has compiler options for several UNIX systems and you will either need to review these settings for your compiler or add settings if your system is not included.</para>
+<para>The <filename><envar>$SMK_HOME</envar>/scripts/setup_edss</filename> script sets the <envar>$EDSS_OS</envar> environment variable based on the results of the <command>uname</command> command. The <filename><envar>$SMK_HOME</envar>/scripts/platform</filename> uses <envar>$EDSS_OS</envar> to determine the appropriate compiler command and options for your system. The <filename>platform</filename> script has compiler options for several UNIX systems and you will either need to review these settings for your compiler or add settings if your system is not included.</para>
 
 <itemizedlist>
 <listitem>
 <para>Source the <filename>platform</filename> script as follows:</para>
 
-<para><userinput><command>cd</command> <filename><envar>$EDSS_ROOT</envar>/scripts</filename></userinput></para>
+<para><userinput><command>cd</command> <filename><envar>$SMK_HOME</envar>/scripts</filename></userinput></para>
 
 <para><userinput><command>source</command> <filename>platform</filename></userinput></para>
 
-<para>If your system is not recognized by the script, you will get an error message and you will need to add your system to the <filename>platform</filename> script. Check the value of the <envar>$EDSS_OS</envar> environment variable and add it to the switch statement beginning at line 46. This switch statement sets the <envar>EDSS_EXE</envar> environment variable which is then used in the switch statement starting at line 76.</para>
 </listitem>
+
+
 <listitem>
-<para>The compiler and its options are set by the switch statement that starts at line 76. If you are not using the Linux2_x86pg settings, you will need to check (or add) your Fortran compiler (using the environment variable <envar>FC</envar>) and the compiler options. The environment variable <envar>FFLAGS</envar> sets the Fortran compiler options for the optimized executables and the <envar>DBGFLAGS</envar> variable sets the options for the debug executables. You should set your options to match the options used for the Linux compile of SMOKE as closely as possible. The Linux Portland Group compiler options for the optimized executable are:</para>
+
+<para>If your system is not recognized by the script, you will get an error message and you will need to add your system to the <filename>platform</filename> script. Check the value of the <envar>$EDSS_OS</envar> environment variable and set it to the switch statement. This switch statement sets the <envar>SMOKE_EXE</envar> environment variable which is then used in the switch statement.</para>
+
+<para>The compiler and its options are set by the switch statement. The default Linux Portland Group compiler options for the optimized executable are:</para>
 
 <itemizedlist spacing="compact">
 <listitem>-O2: default optimization level</listitem>
@@ -132,24 +136,98 @@
 <listitem>-Bstatic: use static binding of libraries</listitem>
 </itemizedlist>
 
+<para>if you are not using the default Linux2_x86pg settings, you will need to check (or add) your Fortran compiler (using the environment variable <envar>FC</envar>) and the compiler options. The environment variable <envar>FFLAGS</envar> sets the Fortran compiler options for the optimized executables and the <envar>DBGFLAGS</envar> variable sets the options for the debug executables. You should set your options to match the options used for the Linux compile of SMOKE as closely as possible. First of all, set the environment variables listed below at the command line prior to invoking the SMOKE Assigns files.</para>
+
+<para><command>Linux2_x86 with Intel Fortran</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE Linux2_x86ifc</envar></listitem>
+<listitem><envar>setenv FC ifort</envar></listitem>
+<listitem><envar>setenv FFLAG "-O2 -save -zero -extend_source -nbs -W0"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -CB -CS -CU -extend_source -save -zero –nbs"</envar></listitem>
+<listitem><envar>setenv M6_FFLAG "-O2 -save -zero -nbs -extend_source -W0 -mp1"</envar></listitem>
+<listitem><envar>setenv F_UFMTENDIAN big</envar></listitem>
+</itemizedlist>
+
+<para><command>32-bit SGI IRIX6</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE IRIXn32f90-O2</envar></listitem>
+<listitem><envar>setenv FC f90</envar></listitem>
+<listitem><envar>setenv FFLAG "-static –n32 –col80 -align64 -O3"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-static -n32 –col80 -align64 -g -C \</envar></listitem>
+<listitem><envar>-DEBUG:conform_check=on:div_check=3:trap_uninitialized=on"</envar></listitem>
+</itemizedlist>
+
+<para><command>64-bit SGI IRIX6</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE IRIXn64f90Y</envar></listitem>
+<listitem><envar>setenv FC f90</envar></listitem>
+<listitem><envar>setenv FFLAG "-static –n64 –col80 -align64 -O3"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-static -n32 –col80 -align64 -g -C \</envar></listitem>
+<listitem><envar>-DEBUG:conform_check=on:div_check=3:trap_uninitialized=on"</envar></listitem>
+</itemizedlist>
+
+<para><command>SunOS5</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE SunOS5f90</envar></listitem>
+<listitem><envar>setenv FC f90</envar></listitem>
+<listitem><envar>setenv FFLAG "-O3 -Bstatic"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g –C"</envar></listitem>
+</itemizedlist>
+
+<para><command>HP UX11</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE HP_UX11f90</envar></listitem>
+<listitem><envar>setenv FC f90</envar></listitem>
+<listitem><envar>setenv FFLAG "+O3"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g –C"</envar></listitem>
+</itemizedlist>
+
+<para><command>64-bit AIX4</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE AIX4n64f90</envar></listitem>
+<listitem><envar>setenv FC xlf</envar></listitem>
+<listitem><envar>setenv FFLAG "-O3 -bmaxdata:0X20000000"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -C -b64 -bmaxdata:0X20000000"</envar></listitem>
+</itemizedlist>
+
+<para><command>32-bit AIX4</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE AIX4f90</envar></listitem>
+<listitem><envar>setenv FC xlf</envar></listitem>
+<listitem><envar>setenv FFLAG "-O3 -bmaxdata:0X20000000"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -C -bmaxdata:0X20000000"</envar></listitem>
+</itemizedlist>
+
+<para><command>Alpha Linux</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE Linux2_Alpha</envar></listitem>
+<listitem><envar>setenv FC fort</envar></listitem>
+<listitem><envar>setenv FFLAG "-O5 -fast -automatic -assume no2underscores"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -C"</envar></listitem>
+</itemizedlist>
+
 </listitem>
+
 </itemizedlist>
 </listitem>
 
+<comment>
 <listitem>
-<para>Once the <filename>platform</filename> file has been updated, enter the following commands from the UNIX prompt:</para>
+<para>If you are using default settings, enter the following commands from the UNIX prompt. Otherwise skip this step:</para>
 
-<para><userinput><command>cd</command> <filename><envar>$EDSS_ROOT</envar>/scripts</filename></userinput></para>
+<para><userinput><command>cd</command> <filename><envar>$SMK_HOME</envar>/scripts</filename></userinput></para>
 
 <para><userinput><command>source</command> <filename>platform</filename></userinput></para>
 
-<para>This sets the <envar>EDSS_EXE</envar> environment variable needed in the next steps.</para>
+<para>This sets the <envar>SMOKE_EXE</envar> environment variable needed in the next steps.</para>
+</listitem>
+</comment>
+
+<listitem>
+<para>Download the I/O API library version 3.0 from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink> and compile with <filename>Makeinclude.Linux2_x86pg</filename>. The I/O API can be installed in <filename><envar>$SMK_HOME</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the <filename><envar>$SMK_HOME</envar>/subsys/ioapi/Linux2_x86pg/</filename> directory.</para>
 </listitem>
 <listitem>
-<para>Download the I/O API library version 3.0 from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink> and compile with <filename>Makeinclude.Linux2_x86pg</filename>. The I/O API can be installed in <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi/Linux2_x86pg/</filename> directory.</para>
-</listitem>
-<listitem>
-<para>Create the directory <filename><envar>$EDSS_ROOT</envar>/subsys/ioapi_includes/</filename> and then copy the <filename>*.EXT</filename> files from the <filename>fixed_src</filename> directory of your I/O API installation to this new directory.</para>
+<para>Create the directory <filename><envar>$SMK_HOME</envar>/subsys/ioapi_includes/</filename> and then copy the <filename>*.EXT</filename> files from the <filename>fixed_src</filename> directory of your I/O API installation to this new directory.</para>
 </listitem>
 <listitem>
 <para>Note: If the user wants to see interactive screen outputs while running SMOKE, follow these steps; 1) Add <filename>IOAPIDEFS = -DIOAPI_STDOUT</filename> to <filename>Makefile</filename> and 2) Add <filename> DEFINEFLAGS = IOAPI__DEFS &dollar;(ARCHFLAGS) &dollar;(PARFLAGS)</filename> to the <filename>Makefile.nocpl.sed</filename> for a proper IOAPI compilation for the SMOKE model.</para>
@@ -158,14 +236,14 @@
 <para>Note: If there are any error messages during compilation regarding <filename>CONST3.EXT</filename>, go to the <filename>fixed_src</filename> directory, edit <filename>CONST3.EXT</filename> and delete the second <command>&amp;</command> at the end of line 42.</para>
 </listitem>
 <listitem>
-<para>Collect or create the NetCDF library version 3.6.1 for your platform and create a symbolic link to the <filename>libnetcdf.a</filename> library file in the <filename><envar>$EDSS_ROOT</envar>/subsys/netcdf/<envar>$EDSS_EXE</envar>/</filename> directory.</para>
+<para>Collect or create the NetCDF library version 3.6.1 for your platform and create a symbolic link to the <filename>libnetcdf.a</filename> library file in the <filename><envar>$SMK_HOME</envar>/subsys/netcdf/<envar>$SMOKE_EXE</envar>/</filename> directory.</para>
 </listitem>
 <listitem>
 <para>If needed, update the files</para>
 
 <itemizedlist>
-<listitem><filename><envar>$EDSS_ROOT</envar>/subsys/edss_tools/setup/sysflags</filename></listitem> <listitem><filename><envar>$EDSS_ROOT</envar>/subsys/filesetapi/sysflags</filename></listitem>
-<listitem><filename><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns/sysflags</filename></listitem>
+<listitem><filename><envar>$SMK_HOME</envar>/subsys/edss_tools/setup/sysflags</filename></listitem> <listitem><filename><envar>$SMK_HOME</envar>/subsys/filesetapi/sysflags</filename></listitem>
+<listitem><filename><envar>$SMK_HOME</envar>/subsys/smoke/assigns/sysflags</filename></listitem>
 </itemizedlist>
 
 <para>to have the compiler options for your operating system. See the instructions above for the <filename>platform</filename> file updates to determine whether you need to do this. All of the same cases available in the <filename>platform</filename> file are also available in these three files.</para>
@@ -173,7 +251,7 @@
 
 <listitem><para>After the appropriate libraries and compile options have been installed, you can source an Assigns file to ensure that your system is configured properly.</para>
 
-<para><userinput><command>cd</command> <filename class="directory"><envar>$EDSS_ROOT</envar>/subsys/smoke/assigns</filename></userinput></para>
+<para><userinput><command>cd</command> <filename class="directory"><envar>$SMK_HOME</envar>/subsys/smoke/assigns</filename></userinput></para>
 
 <para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb4p25.us12-nc</filename></userinput></para>
 </listitem>
