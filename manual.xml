@@ -21,19 +21,20 @@
 <book>
 
 <bookinfo>
-<title>SMOKE v2.3 User&rsquo;s Manual</title>
+<title>SMOKE v2.3.2 User&rsquo;s Manual</title>
 
 <edition>$Revision$</edition>
 <pubdate>$Date$</pubdate>
 
 <copyright>
+<year>2007</year>
 <year>2006</year>
 <year>2005</year>
 <year>2004</year>
 <year>2003</year>
 <year>2002</year>
 <year>2001</year>
-<holder>Carolina Environmental Program - The University of North Carolina at Chapel Hill</holder>
+<holder>The institute for the Environment - The University of North Carolina at Chapel Hill</holder>
 </copyright>
 
 <legalnotice>

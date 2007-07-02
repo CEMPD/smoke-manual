@@ -1003,19 +1003,19 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>ar2pt_14OCT03_1999.txt</filename></entry>
 <entry><envar>ARTOPNT</envar></entry>
-<entry>Area-to-point data for allocating airport emissions to point locations; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Area-to-point data for allocating airport emissions to point locations; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>invtable_nonroad.cb4.120202.txt</filename></entry>
 <entry><envar>INVTABLE</envar></entry>
-<entry>Inventory table for all source categories except on-road mobile; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Inventory table for all source categories except on-road mobile; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>invtable_onroad.cb4.010804.txt</filename></entry>
 <entry><envar>INVTABLE</envar></entry>
-<entry>Inventory table for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Inventory table for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
@@ -1124,13 +1124,13 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>amgpro.12km_041604.nc.txt</filename></entry>
 <entry><envar>SRGDESC</envar>, <envar>SRGPR_PATH</envar></entry>
-<entry><para>12-km surrogates extracted from EPA&rsquo;s national 12-km surrogate set <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/new/amgpro.12km_041604.us.gz">amgpro.12km_041604.us.gz</ulink> described at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html">http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html</ulink>.</para></entry>
+<entry><para>12-km surrogates extracted from EPA&rsquo;s national 12-km surrogate set described at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html">http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html</ulink>.</para></entry>
 </row>
 
 <row>
 <entry><filename>bgpro.12km_041604.nc.txt</filename></entry>
 <entry><envar>BGPRO</envar></entry>
-<entry><para>12-km land-area surrogates extracted from EPA&rsquo;s national 12-km surrogate set <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/new/bgpro.12km_041604.us.gz">bgpro.12km_041604.us.gz</ulink> described at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html">http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html</ulink>.</para></entry>
+<entry><para>12-km land-area surrogates extracted from EPA&rsquo;s national 12-km surrogate set described at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html">http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html</ulink>.</para></entry>
 </row>
 
 <row>
@@ -1142,49 +1142,49 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>amptpro.m3.default.us+can.txt</filename></entry>
 <entry><envar>ATPRO</envar>, <envar>MTPRO</envar>, <envar>PTPRO</envar></entry>
-<entry>U.S. temporal profiles; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>U.S. temporal profiles; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>amptref.m3.us+can.cair.txt</filename></entry>
 <entry><envar>ATREF</envar>, <envar>MTREF</envar>, <envar>PTREF</envar></entry>
-<entry>U.S. temporal cross-reference; copied from amptref.m3.us+can.txt in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>U.S. temporal cross-reference; copied from amptref.m3.us+can.txt in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gscnv.txt</filename></entry>
 <entry><envar>GSCNV</envar></entry>
-<entry>VOC-to-TOG conversion factors; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>VOC-to-TOG conversion factors; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gspro.cmaq.cb4p25_wtox.txt</filename></entry>
 <entry><envar>GSPRO</envar></entry>
-<entry>Speciation profiles for CMAQ CB4 chemical mechanism with additional toxics species for all source categories except on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Speciation profiles for CMAQ CB4 chemical mechanism with additional toxics species for all source categories except on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gspro.cmaq.cb4p25_wtox.m.txt</filename></entry>
 <entry><envar>GSPRO</envar></entry>
-<entry>Speciation profiles for CMAQ CB4 chemical mechanism with additional toxics species for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Speciation profiles for CMAQ CB4 chemical mechanism with additional toxics species for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gsref.cmaq.cb4p25_wtox.txt</filename></entry>
 <entry><envar>GSREF</envar></entry>
-<entry>Speciation cross-reference for CMAQ for CB4 with PM2.5 speciation and additional toxic species; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Speciation cross-reference for CMAQ for CB4 with PM2.5 speciation and additional toxic species; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>b3fac.beis3_efac_v0.98.txt</filename></entry>
 <entry><envar>B3FAC</envar></entry>
-<entry>BEIS3.12 emission factors; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>BEIS3.13 emission factors; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>costcy.txt</filename></entry>
 <entry><envar>COSTCY</envar></entry>
-<entry>Country, state, and county codes; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Country, state, and county codes; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
@@ -1196,43 +1196,43 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>procdates.txt</filename></entry>
 <entry><envar>PROCDATES</envar></entry>
-<entry>SMOKE dates information; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>SMOKE dates information; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>holidays.txt</filename></entry>
 <entry><envar>HOLIDAYS</envar></entry>
-<entry>Dates for days to model as holidays; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Dates for days to model as holidays; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>oris_info.txt</filename></entry>
 <entry><envar>ORISDESC</envar></entry>
-<entry>ORIS ID descriptions; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>ORIS ID descriptions; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>pstk.m3.txt</filename></entry>
 <entry><envar>PSTK</envar></entry>
-<entry>Replacement stack parameters for inventory sources with missing or invalid stack parameters; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Replacement stack parameters for inventory sources with missing or invalid stack parameters; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>scc_desc_030804.txt</filename></entry>
 <entry><envar>SCCDESC</envar></entry>
-<entry>SCC descriptions; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>SCC descriptions; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>sic_desc.txt</filename></entry>
 <entry><envar>SICDESC</envar></entry>
-<entry>SIC descriptions; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>SIC descriptions; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>srg_desc_EPA1999.txt</filename></entry>
 <entry><envar>SRGDESC</envar></entry>
-<entry>Surrogate code descriptions for files <filename>amgpro.12km_041604.nc.txt</filename> and <filename>bgpro.12km_041604.nc.txt</filename>; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink>.</entry>
+<entry>Surrogate code descriptions for files.</entry>
 </row>
 
 </tbody>

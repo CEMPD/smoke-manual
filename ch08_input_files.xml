@@ -1081,7 +1081,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>Area gridding surrogates</entry>
 <entry>A</entry>
 <entry><filename class="directory"><envar>$SRGPRO_PATH</envar>/</filename></entry>
-<entry><filename>amgpro.12km_041604.nc.txt</filename></entry>
+<entry><filename>Multiple surrogate files</filename></entry>
 </row>
 
 <row>
@@ -1109,7 +1109,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>Mobile gridding surrogates</entry>
 <entry>M</entry>
 <entry><filename class="directory"><envar>$SRGPRO_PATH</envar>/</filename></entry>
-<entry><filename>amgref.m3.us+can+mex.txt</filename></entry>
+<entry><filename>Multiple surrogate files</filename></entry>
 </row>
 
 <row>
@@ -3372,6 +3372,8 @@ INVYEAR 1996
 
 <para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, ORL FIREEMIS format. However, the format indicator for the day-specific files must by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
 
+<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with teh CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
+
 <section>
 <title>Day-specific file format</title>
 
@@ -3477,6 +3479,12 @@ INVYEAR 1996
 <entry>Char</entry>
 <entry>Only if <envar>PTINV</envar> in IDA format: SCC (required)</entry>
 </row>
+<row>
+<entry>103-118</entry>
+<entry>DATNAM</entry>
+<entry>Char</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the RAW IDA or ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+</row>
 </tbody>
 </tgroup>
 </table>
@@ -3486,21 +3494,20 @@ INVYEAR 1996
 
 <title>Day-specific file format for fires</title>
 
-<para>The SMOKE requires that the sources in the day-specific fires inventory format (<envar>#ORL FIREEMIS</envar>)<envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information, such as <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are used to adjust the hourly temporal profile.</para>
+<para>The SMOKE requires that the sources in the day-specific fires inventory format (<envar>#ORL FIREEMIS</envar>) <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information, such as <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are used to adjust the hourly temporal profile.</para>
 <para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
-<para>The <envar>ORL FIREEMIS</envar> format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. NOTE: All inventory pollutant names need to be listed in the master (annual) <envar>PTINV</envar> and the day-specific <envar>PTDAY</envar> files using a header record <envar>#POLLUTANT</envar>. Sample header records are shown below:</para>
+<para>NOTE: All inventory pollutant names need to be listed in the master (annual) <envar>PTINV</envar> and the day-specific <envar>PTDAY</envar> files using a header record <envar>#DATA</envar>. Sample header records are shown below:</para>
 
 <programlisting>#ORL     FIREEMIS
 #TYPE    Day-specific Point Source Inventory for FIRES
 #COUNTRY US
 #YEAR    2002
-#DATA    FUEL_LOAD ACRESBURNED CO NOX SO2 PM10 PM2_5 NH3 VOC 16990 10883
 #DESC    FIPS,FIREID,LOCID,SCC,DATA,DATE,DATAVALUE,BEGHOUR,ENDHOUR</programlisting>
 
 <para>The format for the data records is shown in <xref linkend="tbl_input_ptday_fireemis" />.</para>
 
 <table id="tbl_input_ptday_fireemis">
-<title>Format for individual day-specific data files for fires : ORL FIREEIMS</title>
+<title>Format for individual day-specific data files for fires : ORL FIREEMIS</title>
 
 <tgroup cols="4">
 <colspec colwidth="15*" />
@@ -3611,6 +3618,8 @@ INVYEAR 1996
 <title>EMS-95 Format</title>
 
 <para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
+
+<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with teh CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
 
 <para>When using hour-specific data in EMS-95 format with the IDA annual inventory, the fields in the <envar>PTHOUR</envar> file should line up with the fields in the <envar>PTINV</envar> file as follows:</para>
 
@@ -3759,7 +3768,13 @@ INVYEAR 1996
 <entry>250-259</entry>
 <entry>SCC</entry>
 <entry>Char</entry>
-<entry>Only if <envar>PTINV</envar> in IDA format: SCC is required.</entry>
+<entry>Only if <envar>PTINV</envar> in IDA format: SCC (required).</entry>
+</row>
+<row>
+<entry>261-276</entry>
+<entry>DATNAM</entry>
+<entry>Char</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the RAW IDA or ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -4788,7 +4803,7 @@ INVYEAR 1995
 <entry>G</entry>
 <entry>SCC</entry>
 <entry>Char</entry>
-<entry>Source Classification Code (8 characters maximum) (required)</entry>
+<entry>Ten character Source Classification Code (required)</entry>
 </row>
 <row>
 <entry>H</entry>
@@ -5038,14 +5053,13 @@ INVYEAR 1995
 
 <para>The ORL inventory file for fires (<envar>#ORL FIRE</envar>) is one of the required input files to provide wildfire and prescribed fire data that are being treated as point sources to SMOKE. This file includes the fire characteristics, such as county/state/county code, fire identification, fire name, location identification, location coordinates, SCC (flaming or smoldering), material burned, vegetation types and heat content. Some of characteristics that are common to this master (annual) inventory file <envar>PTINV</envar> and the day-specific inventory file <envar>PTDAY</envar> shown in <xref linkend="sect_input_ptday_fireemis"/> need to match exactly by county/state/county code, fire ID, location ID, location coordinates, and SCC. </para>
 <para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
-<para>The <envar>ORL FIRE</envar> format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. NOTE: Although inventory pollutants are not listed, user needs to list all inventory pollutant names available from the day-specific inventory file <envar>PTDAY</envar> using a header record <envar>#POLLUTANT</envar>. Sample header records are shown below:</para>
+<para>NOTE: Although inventory pollutants are not listed, user needs to list all inventory pollutant names available from the day-specific inventory file <envar>PTDAY</envar> using a header record <envar>#DATA</envar>. Sample header records are shown below:</para>
 
 <programlisting>#ORL     FIRE
 #TYPE    Point Source Inventory for FIRES
 #COUNTRY US
 #YEAR    2002
-#DATA    FUEL_LOAD ACRESBURNED CO NOX SO2 PM10 PM2_5 VOC 16990 10883
-#DESC    FIPS,FIREID,LOCID,SCC,NAME,LAT,LON,NFDRSCODE,MATBURNED,HEATCONTENT</programlisting>
+#DESC FIPS,FIREID,LOCID,SCC,NAME,LAT,LON,NFDRSCODE,MATBURNED,HEATCONTENT</programlisting>
 
 <para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_orl_fire" />.</para>
 
@@ -7760,27 +7774,27 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry colname="Variable">RC</entry>
 <entry>convective rainfall (cm)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.12, variable name is set by <envar>RC_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.13, variable name is set by <envar>RC_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">RN</entry>
 <entry>nonconvective rainfall (cm)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.12, variable name is set by <envar>RN_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.13, variable name is set by <envar>RN_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SLTYP</entry>
 <entry>soil texture type by USDA category</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.12 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>ISLTYP_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.13 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>ISLTYP_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SOIM1</entry>
 <entry>volumetric soil moisture in top centimeter (m<superscript>3</superscript>/m<superscript>3</superscript>)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.12 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILM_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.13 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILM_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SOIT1</entry>
 <entry>soil temperature in top centimeter (Kelvins)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.12 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILT_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.13 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILT_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">TA</entry>
@@ -7893,10 +7907,10 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>B3FAC</envar>: BEIS3 emissions factors file</title>
 
-<para>This file contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for four different species/compounds (ISOP, OVOC, MONO, and NO).  The format of this file is shown in <xref linkend="tbl_input_b3fac" />.</para>
+<para>The <envar>B3FAC</envar> file for BEIS version 3.09 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for four different species/compounds (ISOP, OVOC, MONO, and NO).  The format of this file is shown in <xref linkend="tbl_input_b3fac" />.</para>
 
 <table id="tbl_input_b3fac">
-<title>Format for <envar>B3FAC</envar></title>
+<title>Format for <envar>B3FAC</envar>, BEIS version 3.09</title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -7935,19 +7949,1140 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Normalized emissions flux for ISOP (Real) </entry>
+<entry>Normalized emissions flux for ISOP (g C/km<superscript>2</superscript>-hr) (Real) </entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Normalized emissions flux for MONO (Real)</entry>
+<entry>Normalized emissions flux for MONO (g C/km<superscript>2</superscript>-hr) (Real)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
-<entry>Normalized emissions flux for OVOC (Real)</entry>
+<entry>Normalized emissions flux for OVOC (g C/km<superscript>2</superscript>-hr) (Real)</entry>
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Normalized emissions flux for NO (Real)</entry>
+<entry>Normalized emissions flux for NO (g N/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>The <envar>B3FAC</envar> file for BEIS version 3.13 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds (ISOP, OVOC, MONO, and NO).  The format of this file is shown in <xref linkend="tbl_input_b313fac" />.</para>
+
+<table id="tbl_input_b313fac">
+<title>Format for <envar>B3FAC</envar>, BEIS version 3.13</title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>9-24</entry>
+<entry>Abbreviated name for land use type (Character)</entry>
+</row>
+<row>
+<entry colname="Position">A</entry>
+<entry>Leaf area index  (m<superscript>2</superscript>/m<superscript>2</superscript>) (Integer)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Dry leaf biomass (g/m<superscript>2</superscript>) (Integer)</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry>Winter biomass factor (Real)</entry>
+</row>
+<row>
+<entry colname="Position">D</entry>
+<entry>Indicator of specific leaf weight (Integer)</entry>
+</row>
+<row>
+<entry colname="Position">E</entry>
+<entry>Normalized emissions flux for ISOP (g C/km<superscript>2</superscript>-hr) (Real) </entry>
+</row>
+<row>
+<entry colname="Position">F</entry>
+<entry>Normalized emissions flux for MBO (g C/km<superscript>2</superscript>-hr) (Real) </entry>
+</row>
+<row>
+<entry colname="Position">G</entry>
+<entry>Normalized emissions flux for METH (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">H</entry>
+<entry>Normalized emissions flux for APIN (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">I</entry>
+<entry>Normalized emissions flux for BPIN (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">J</entry>
+<entry>Normalized emissions flux for D3CAR (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">K</entry>
+<entry>Normalized emissions flux for DLIM (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">L</entry>
+<entry>Normalized emissions flux for CAMPH (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">M</entry>
+<entry>Normalized emissions flux for MYRC (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">N</entry>
+<entry>Normalized emissions flux for ATERP (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">O</entry>
+<entry>Normalized emissions flux for BPHE (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">P</entry>
+<entry>Normalized emissions flux for SABI (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">Q</entry>
+<entry>Normalized emissions flux for PCYM (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">R</entry>
+<entry>Normalized emissions flux for OCIM (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">S</entry>
+<entry>Normalized emissions flux for ATHU (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">T</entry>
+<entry>Normalized emissions flux for TRPO (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">U</entry>
+<entry>Normalized emissions flux for GTERP (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">V</entry>
+<entry>Normalized emissions flux for ETHE (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">W</entry>
+<entry>Normalized emissions flux for PROPE (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">X</entry>
+<entry>Normalized emissions flux for ETHO (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">Y</entry>
+<entry>Normalized emissions flux for ACET (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">Z</entry>
+<entry>Normalized emissions flux for HEXA (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AA</entry>
+<entry>Normalized emissions flux for HEXE (gC/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AB</entry>
+<entry>Normalized emissions flux for HEXY (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AC</entry>
+<entry>Normalized emissions flux for FORM (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AD</entry>
+<entry>Normalized emissions flux for ACTAL (gC/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AE</entry>
+<entry>Normalized emissions flux for BUTE (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AF</entry>
+<entry>Normalized emissions flux for ETHA (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AG</entry>
+<entry>Normalized emissions flux for FORAC (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AH</entry>
+<entry>Normalized emissions flux for ACTAC (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AI</entry>
+<entry>Normalized emissions flux for BUTO (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AJ</entry>
+<entry>Normalized emissions flux for CO (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AK</entry>
+<entry>Normalized emissions flux for ORVOC (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+<row>
+<entry colname="Position">AL</entry>
+<entry>Normalized emissions flux for NO (g N/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para><xref linkend="tbl_input_landuse230" /> contains names and descriptions of the 230 land use categories in BELD3.</para>
+
+<table id="tbl_input_landuse230">
+<title>Land use categories in BELD3</title>
+
+<tgroup cols="2">
+<colspec colwidth="30*" colname="Land use category" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Land use category</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry colname="Land use category">USGS_urban</entry>
+<entry>USGS urban and built up land</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_drycrop</entry>
+<entry>USGS dryland cropland and pasture</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_irrcrop</entry>
+<entry>USGS irrigated cropland and pasture</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_cropgrass</entry>
+<entry>USGS cropland/grassland mosaic</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_cropwdlnd</entry>
+<entry>USGS cropland/woodland mosaic</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_grassland</entry>
+<entry>USGS grassland</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_shrubland</entry>
+<entry>USGS shrubland</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_shrubgrass</entry>
+<entry>USGS mixed shrubland/grassland</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_savanna</entry>
+<entry>USGS savanna</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_decidforest</entry>
+<entry>USGS deciduous broadleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_evbrdleaf</entry>
+<entry>USGS evergreen broadleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_coniferfor</entry>
+<entry>USGS evergreen needleleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_mxforest</entry>
+<entry>USGS mixed forest</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_water</entry>
+<entry>USGS water bodies</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_wetwoods</entry>
+<entry>USGS wooded wetland</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_sprsbarren</entry>
+<entry>USGS barren or sparsely vegetated</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_woodtundr</entry>
+<entry>USGS wooded tundra</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_mxtundra</entry>
+<entry>USGS mixed tundra</entry>
+</row>
+<row>
+<entry colname="Land use category">USGS_snowice</entry>
+<entry>USGS snow or ice</entry>
+</row>
+<row>
+<entry colname="Land use category">Alfalfa</entry>
+<entry>Alfalfa</entry>
+</row>
+<row>
+<entry colname="Land use category">Barley</entry>
+<entry>Barley</entry>
+</row>
+<row>
+<entry colname="Land use category">Corn</entry>
+<entry>Corn</entry>
+</row>
+<row>
+<entry colname="Land use category">Cotton</entry>
+<entry>Cotton</entry>
+</row>
+<row>
+<entry colname="Land use category">Grass</entry>
+<entry>Grass (from ag data)</entry>
+</row>
+<row>
+<entry colname="Land use category">Hay</entry>
+<entry>Hay</entry>
+</row>
+<row>
+<entry colname="Land use category">Misc_crop</entry>
+<entry>Miscellaneous crops</entry>
+</row>
+<row>
+<entry colname="Land use category">Oats</entry>
+<entry>Oats</entry>
+</row>
+<row>
+<entry colname="Land use category">Pasture</entry>
+<entry>Pasture (from ag data)</entry>
+</row>
+<row>
+<entry colname="Land use category">Peanuts</entry>
+<entry>Peanuts</entry>
+</row>
+<row>
+<entry colname="Land use category">Potatoes</entry>
+<entry>Potatoes</entry>
+</row>
+<row>
+<entry colname="Land use category">Rice</entry>
+<entry>Rice</entry>
+</row>
+<row>
+<entry colname="Land use category">Rye</entry>
+<entry>Rye</entry>
+</row>
+<row>
+<entry colname="Land use category">Sorghum</entry>
+<entry>Sorghum</entry>
+</row>
+<row>
+<entry colname="Land use category">Soybeans</entry>
+<entry>Soybeans</entry>
+</row>
+<row>
+<entry colname="Land use category">Tobacco</entry>
+<entry>Tobacco</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat</entry>
+<entry>Wheat</entry>
+</row>
+<row>
+<entry colname="Land use category">Acacia</entry>
+<entry>Acacia spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Ailanthus</entry>
+<entry>Ailanthus altissima</entry>
+</row>
+<row>
+<entry colname="Land use category">Alder</entry>
+<entry>Alnus</entry>
+</row>
+<row>
+<entry colname="Land use category">Apple</entry>
+<entry>Malus</entry>
+</row>
+<row>
+<entry colname="Land use category">Ash</entry>
+<entry>Fraxinus</entry>
+</row>
+<row>
+<entry colname="Land use category">Basswood</entry>
+<entry>Tilia</entry>
+</row>
+<row>
+<entry colname="Land use category">Beech</entry>
+<entry>Fagus</entry>
+</row>
+<row>
+<entry colname="Land use category">Birch</entry>
+<entry>Betula</entry>
+</row>
+<row>
+<entry colname="Land use category">Bumelia_gum</entry>
+<entry>Bumelia lanuginosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Cajeput</entry>
+<entry>Melaleuca quinquenervia</entry>
+</row>
+<row>
+<entry colname="Land use category">Califor_laurel</entry>
+<entry>Umbellularia californica</entry>
+</row>
+<row>
+<entry colname="Land use category">Cascara_buckthor</entry>
+<entry>Rhamnus purshiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Castanea</entry>
+<entry>American chestnut or chinkapin</entry>
+</row>
+<row>
+<entry colname="Land use category">Catalpa</entry>
+<entry>Catalpa</entry>
+</row>
+<row>
+<entry colname="Land use category">Cedar_chamaecyp</entry>
+<entry>Orford, Alaska, and Atlantic white cedars</entry>
+</row>
+<row>
+<entry colname="Land use category">Cedar_thuja</entry>
+<entry>Northern white and western red cedars</entry>
+</row>
+<row>
+<entry colname="Land use category">Chestnut_buckeye</entry>
+<entry>Aesculus - Horse chestnut or buckeyes</entry>
+</row>
+<row>
+<entry colname="Land use category">Chinaberry</entry>
+<entry>Melia azedarach</entry>
+</row>
+<row>
+<entry colname="Land use category">Cypress_cupress</entry>
+<entry>Cupressus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Cypress_taxodium</entry>
+<entry>Taxodium - bald and pond cypress and yew</entry>
+</row>
+<row>
+<entry colname="Land use category">Dogwood</entry>
+<entry>Cornus</entry>
+</row>
+<row>
+<entry colname="Land use category">Douglas_fir</entry>
+<entry>Pseudotsuga</entry>
+</row>
+<row>
+<entry colname="Land use category">East_hophornbean</entry>
+<entry>Ostrya virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Elder</entry>
+<entry>Sambucus</entry>
+</row>
+<row>
+<entry colname="Land use category">Elm</entry>
+<entry>Ulmus</entry>
+</row>
+<row>
+<entry colname="Land use category">Eucalyptus</entry>
+<entry>Eucalyptus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_balsam</entry>
+<entry>Abies balsamea</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_CA_red</entry>
+<entry>Abies magnifica</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_corkbark</entry>
+<entry>Abies lasiocarpa</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_fraser</entry>
+<entry>Abies fraseri</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_grand</entry>
+<entry>Abies grandis</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_noble</entry>
+<entry>Abies procera</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_Pacf_silver</entry>
+<entry>Abies amabilis</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_SantaLucia</entry>
+<entry>Abies bracteata</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_Shasta_red</entry>
+<entry>Abies magnifica shastensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_spp</entry>
+<entry>Abies spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_subalpine</entry>
+<entry>Abies lasiocarpa arizonica</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_white</entry>
+<entry>Abies concolor</entry>
+</row>
+<row>
+<entry colname="Land use category">Gleditsia_locust</entry>
+<entry>Waterlocust and Honeylocust</entry>
+</row>
+<row>
+<entry colname="Land use category">Hackberry</entry>
+<entry>Celtis</entry>
+</row>
+<row>
+<entry colname="Land use category">Hawthorn</entry>
+<entry>Crataegus</entry>
+</row>
+<row>
+<entry colname="Land use category">Hemlock</entry>
+<entry>Tsuga</entry>
+</row>
+<row>
+<entry colname="Land use category">Hickory</entry>
+<entry>Carya - includes pecan</entry>
+</row>
+<row>
+<entry colname="Land use category">Holly_American</entry>
+<entry>Ilex</entry>
+</row>
+<row>
+<entry colname="Land use category">Hornbeam</entry>
+<entry>Carpinus caroliniana</entry>
+</row>
+<row>
+<entry colname="Land use category">Incense_cedar</entry>
+<entry>Calocedrus decurrens</entry>
+</row>
+<row>
+<entry colname="Land use category">Juniper</entry>
+<entry>Juniperus - include Sou/Eas red cedar</entry>
+</row>
+<row>
+<entry colname="Land use category">KY_coffeetree</entry>
+<entry>Gymnocladus dioicus</entry>
+</row>
+<row>
+<entry colname="Land use category">Larch</entry>
+<entry>Larix</entry>
+</row>
+<row>
+<entry colname="Land use category">Loblolly_bay</entry>
+<entry>Gordonia lasianthus</entry>
+</row>
+<row>
+<entry colname="Land use category">Madrone</entry>
+<entry>Arbutus</entry>
+</row>
+<row>
+<entry colname="Land use category">Magnolia</entry>
+<entry>Magnolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Mahogany</entry>
+<entry>Cercocarpus</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_bigleaf</entry>
+<entry>Acer grandidentatum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_bigtooth</entry>
+<entry>Acer macrophyllum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_black</entry>
+<entry>Acer nigrum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_boxelder</entry>
+<entry>Acer negundo</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_FL</entry>
+<entry>Acer barbatum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_mtn	Acer</entry>
+<entry>spicatum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_Norway</entry>
+<entry>Acer platanoides</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_red</entry>
+<entry>Acer rubrum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_RkyMtn</entry>
+<entry>Acer glabrum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_silver</entry>
+<entry>Acer saccharinum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_spp</entry>
+<entry>Acer spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_striped</entry>
+<entry>Acer pensylvanicum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_sugar</entry>
+<entry>Acer saccharum</entry>
+</row>
+<row>
+<entry colname="Land use category">Mesquite</entry>
+<entry>Prosopis</entry>
+</row>
+<row>
+<entry colname="Land use category">Misc_hardwoods</entry>
+<entry>Misc hardwoods - undefined from FIA</entry>
+</row>
+<row>
+<entry colname="Land use category">Mixed_conifer_sp</entry>
+<entry>Mixed conifers - underfined from FIA</entry>
+</row>
+<row>
+<entry colname="Land use category">Mountain_ash</entry>
+<entry>Sorbus</entry>
+</row>
+<row>
+<entry colname="Land use category">Mulberry</entry>
+<entry>Morus</entry>
+</row>
+<row>
+<entry colname="Land use category">Nyssa</entry>
+<entry>Tupelo and blackgum</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_AZ_white</entry>
+<entry>Quercus arizonica</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_bear</entry>
+<entry>Quercus ilicifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_black</entry>
+<entry>Quercus velutina</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_blackjack</entry>
+<entry>Quercus marilandica</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_blue</entry>
+<entry>Quercus douglasii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_bluejack</entry>
+<entry>Quercus incana</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_bur</entry>
+<entry>Quercus macrocarpa</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_CA_black</entry>
+<entry>Quercus kelloggii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_CA_live</entry>
+<entry>Quercus agrifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_CA_white</entry>
+<entry>Quercus lobata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_canyon_live</entry>
+<entry>Quercus chrysolepis</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_chestnut</entry>
+<entry>Quercus prinus</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_chinkapin</entry>
+<entry>Quercus muehlenbergii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_delta_post</entry>
+<entry>Quercus stellata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Durand</entry>
+<entry>Quercus durandii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Emery</entry>
+<entry>Quercus emoryi</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Engelmann</entry>
+<entry>Quercus engelmannii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_evergreen_sp</entry>
+<entry>Quercus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Gambel</entry>
+<entry>Quercus gambelii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_interio_live</entry>
+<entry>Quercus wislizenni</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_laurel</entry>
+<entry>Quercus laurifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_live</entry>
+<entry>Quercus virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Mexicanblue</entry>
+<entry>Quercus oblongifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Northrn_pin</entry>
+<entry>Quercus ellipsoidalis</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Northrn_red</entry>
+<entry>Quercus rubra</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_nuttall</entry>
+<entry>Quercus nuttallii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_OR_white</entry>
+<entry>Quercus garryana</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_overcup</entry>
+<entry>Quercus lyrata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_pin</entry>
+<entry>Quercus palustris</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_post</entry>
+<entry>Quercus stellata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_scarlet</entry>
+<entry>Quercus coccinea</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_scrub</entry>
+<entry>Quercus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_shingle</entry>
+<entry>Quercus imbricaria</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Shumrd_red</entry>
+<entry>Quercus shumardii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_silverleaf</entry>
+<entry>Quercus hypoleucoides</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Southrn_red</entry>
+<entry>Quercus falcata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_spp</entry>
+<entry>Quercus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_swamp_cnut</entry>
+<entry>Quercus michauxii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_swamp_red</entry>
+<entry>Quercus falcata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_swamp_white</entry>
+<entry>Quercus bicolor</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_turkey</entry>
+<entry>Quercus laevis</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_water</entry>
+<entry>Quercus nigra</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_white</entry>
+<entry>Quercus alba</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_willow</entry>
+<entry>Quercus phellos</entry>
+</row>
+<row>
+<entry colname="Land use category">Osage_orange</entry>
+<entry>Maclura pomifera</entry>
+</row>
+<row>
+<entry colname="Land use category">Paulownia</entry>
+<entry>Paulownia tomentosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pawpaw</entry>
+<entry>Asimina triloba</entry>
+</row>
+<row>
+<entry colname="Land use category">Persimmon</entry>
+<entry>Diospyros virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Apache</entry>
+<entry>Pinus engelmannii</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Austrian</entry>
+<entry>Pinus nigra</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_AZ</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Bishop</entry>
+<entry>Pinus muricata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_blackjack</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_brstlcone</entry>
+<entry>Pinus aristata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_chihuahua</entry>
+<entry>Pinus leiophylla</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Coulter</entry>
+<entry>Pinus coulteri</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_digger</entry>
+<entry>Pinus sabiniana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Ewhite</entry>
+<entry>Pinus strobus</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_foxtail</entry>
+<entry>Pinus balfouriana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_jack</entry>
+<entry>Pinus banksiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Jeffrey</entry>
+<entry>Pinus jefferyi</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_knobcone</entry>
+<entry>Pinus attenuata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_limber</entry>
+<entry>Pinus flexilis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_loblolly</entry>
+<entry>Pinus taeda</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_lodgepole</entry>
+<entry>Pinus contorta</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_longleaf</entry>
+<entry>Pinus palustris</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Monterey</entry>
+<entry>Pinus radiata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pinyon</entry>
+<entry>Pinus monophylla</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pinyon_brdr</entry>
+<entry>Pinus discolor</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pinyon_cmn</entry>
+<entry>Pinus edulis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pitch</entry>
+<entry>Pinus rigida</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pond</entry>
+<entry>Pinus serotina</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_ponderosa</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_red</entry>
+<entry>Pinus resinosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_sand</entry>
+<entry>Pinus clausa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_scotch</entry>
+<entry>Pinus sylvestris</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_shortleaf</entry>
+<entry>Pinus echinata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_slash</entry>
+<entry>Pinus elliottii</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_spruce</entry>
+<entry>Pinus glabra</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_sugar</entry>
+<entry>Pinus lambertiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Swwhite</entry>
+<entry>Pinus strobiformis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_tablemtn</entry>
+<entry>Pinus pungens</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_VA</entry>
+<entry>Pinus virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Washoe</entry>
+<entry>Pinus washoensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_whitebark</entry>
+<entry>Pinus albicaulis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Wwhite</entry>
+<entry>Pinus monticola</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_yellow</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Populus</entry>
+<entry>Cottonwood, poplars, and aspens</entry>
+</row>
+<row>
+<entry colname="Land use category">Prunus</entry>
+<entry>Cherry and plum</entry>
+</row>
+<row>
+<entry colname="Land use category">Redbay</entry>
+<entry>Cercis</entry>
+</row>
+<row>
+<entry colname="Land use category">Robinia_locust</entry>
+<entry>Black and NM locust</entry>
+</row>
+<row>
+<entry colname="Land use category">Sassafras</entry>
+<entry>Sassafras albidum</entry>
+</row>
+<row>
+<entry colname="Land use category">Sequoia</entry>
+<entry>Redwood and giant sequoia</entry>
+</row>
+<row>
+<entry colname="Land use category">Serviceberry</entry>
+<entry>Amelanchier arborea</entry>
+</row>
+<row>
+<entry colname="Land use category">Silverbell</entry>
+<entry>Halesia</entry>
+</row>
+<row>
+<entry colname="Land use category">Smoketree</entry>
+<entry>Cotinus obovatus</entry>
+</row>
+<row>
+<entry colname="Land use category">Soapberry_westrn</entry>
+<entry>Sapindus drummondii</entry>
+</row>
+<row>
+<entry colname="Land use category">Sourwood</entry>
+<entry>Oxydendrum arboretum</entry>
+</row>
+<row>
+<entry colname="Land use category">Sparkleberry</entry>
+<entry>Vaccinium arboreum</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_black</entry>
+<entry>Picea marianna</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_blue</entry>
+<entry>Picea pungens</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Brewer</entry>
+<entry>Picea breweriana</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Englemann</entry>
+<entry>Picea engelmannii</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Norway</entry>
+<entry>Picea abies</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_red</entry>
+<entry>Picea rubens</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Sitka</entry>
+<entry>Picea sitchensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_spp</entry>
+<entry>Picea spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_white</entry>
+<entry>Picea glauca</entry>
+</row>
+<row>
+<entry colname="Land use category">Sweetgum</entry>
+<entry>Liquidambar styraciflua</entry>
+</row>
+<row>
+<entry colname="Land use category">Sycamore</entry>
+<entry>Platanus</entry>
+</row>
+<row>
+<entry colname="Land use category">Tallowtree_chins</entry>
+<entry>Sapium sebiferum</entry>
+</row>
+<row>
+<entry colname="Land use category">Tamarix</entry>
+<entry>Tamarix chinensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Tanoak</entry>
+<entry>Lithocarpus densiflorus</entry>
+</row>
+<row>
+<entry colname="Land use category">Torreya</entry>
+<entry>Torreya californica</entry>
+</row>
+<row>
+<entry colname="Land use category">Tung_oil_tree</entry>
+<entry>Aleurites fordii</entry>
+</row>
+<row>
+<entry colname="Land use category">Unknown_tree</entry>
+<entry>Unknown spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Walnut</entry>
+<entry>Juglans - includes butternut</entry>
+</row>
+<row>
+<entry colname="Land use category">Water_elm</entry>
+<entry>Planera aquatica</entry>
+</row>
+<row>
+<entry colname="Land use category">Willow</entry>
+<entry>Salix</entry>
+</row>
+<row>
+<entry colname="Land use category">Yellow_poplar</entry>
+<entry>Liriodendron tulipifera</entry>
+</row>
+<row>
+<entry colname="Land use category">Yellowwood</entry>
+<entry>Cladrastis lutea</entry>
+</row>
+<row>
+<entry colname="Land use category">Yucca_Mojave</entry>
+<entry>Yucca schidigera</entry>
 </row>
 </tbody>
 </tgroup>
@@ -9730,11 +10865,47 @@ SOURCE > 100 AND SOURCE < 200
 <entry>10-character string</entry>
 <entry>Ten character source classification category (SCC) code</entry>
 </row>
+<row>
+<entry>C</entry>
+<entry>Plant ID</entry>
+<entry>Chracter</entry>
+<entry>Plant Identification Code (optional; leave blank for not plant-specific)</entry>
+</row>
+<row>
+<entry>D</entry>
+<entry>Characterisitc 1</entry>
+<entry>Chracter</entry>
+<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (optional)</entry>
+</row>
+<row>
+<entry>E</entry>
+<entry>Characterisitc 2</entry>
+<entry>Chracter</entry>
+<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (optional)</entry>
+</row>
+<row>
+<entry>F</entry>
+<entry>Characterisitc 3</entry>
+<entry>Chracter</entry>
+<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (optional)</entry>
+</row>
+<row>
+<entry>G</entry>
+<entry>Characterisitc 4</entry>
+<entry>Chracter</entry>
+<entry>Characteristic 4 (blank for IDA and ORL because SCC already given in column A of list line) (optional)</entry>
+</row>
+<row>
+<entry>H</entry>
+<entry>Characterisitc 5</entry>
+<entry>Chracter</entry>
+<entry>Characteristic 5 (blank for IDA and ORL) (optional)</entry>
+</row>
 </tbody>
 </tgroup>
 </table>
 
-<para>Zeros can be used within the country/state/county code and the SCC code to make an entry more generic. For example, a SCC-only entry would have a zero for the country/state/county code. For a left-2 SCC entry, the final eight characters of the SCC would be zero. The following list illustrates entries for each of the 14 possible cross-reference levels. See <xref linkend="sect_concepts_scc_codes" /> for more information about the different levels within an SCC.</para>
+<para>For area/nonpoint, on-road mobile, and nonroad mobile sources, zeros can be used within the country/state/county code and the SCC code to make an entry more generic. For example, a SCC-only entry would have a zero for the country/state/county code. For a left-2 SCC entry, the final eight characters of the SCC would be zero. The following list illustrates entries for each of the 14 possible cross-reference levels. See <xref linkend="sect_concepts_scc_codes" /> for more information about the different levels within an SCC.</para>
 
 <orderedlist>
 <listitem>
@@ -9778,6 +10949,82 @@ SOURCE > 100 AND SOURCE < 200
 </listitem>
 <listitem>
 <para>000000 2500000000 (select all SCCs that match level 1)</para>
+</listitem>
+</orderedlist>
+
+<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>.</para>
+
+<para>The hierarchy of cross-referencing is the following.</para>
+
+<orderedlist spacing="compact">
+<listitem>
+<para>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, segment, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, plant ID, point ID, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, plant ID, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, plant ID, point ID, stack ID, and segment</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, plant ID, point ID, and stack ID</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, plant ID, and point ID</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, and plant ID</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 5-digit SCC, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state code, 10-digit SCC, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state code, 5-digit SCC, and pollutant</para>
+</listitem>
+<listitem>
+<para>10-digit SCC and pollutant</para>
+</listitem>
+<listitem>
+<para>5-digit SCC and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code and 10-digit SCC</para>
+</listitem>
+<listitem>
+<para>Country/state/county code and 5-digit SCC</para>
+</listitem>
+<listitem>
+<para>Country/state code and 10-digit SCC</para>
+</listitem>
+<listitem>
+<para>Country/state code and 5-digit SCC</para>
+</listitem>
+<listitem>
+<para>10-digit SCC</para>
+</listitem>
+<listitem>
+<para>5-digit SCC</para>
+</listitem>
+<listitem>
+<para>Country/state/county code</para>
+</listitem>
+<listitem>
+<para>Country/state code</para>
+</listitem>
+<listitem>
+<para>Ultimate default (all values = 0)</para>
 </listitem>
 </orderedlist>
 

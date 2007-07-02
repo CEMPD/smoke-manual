@@ -241,6 +241,9 @@
 <para>Country/State/County code, plant ID, point ID, pollutant</para>
 </listitem>
 <listitem>
+<para>Country/State/County code, plant ID, 8-digit SCC code, pollutant</para>
+</listitem>
+<listitem>
 <para>Country/State/County code, plant ID, pollutant</para>
 </listitem>
 <listitem>
@@ -254,6 +257,9 @@
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID</para>
+</listitem>
+<listitem>
+<para>Country/State/County code, plant ID, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID</para>
@@ -1015,66 +1021,6 @@
 <para><command>Elevpoint</command> also creates a report file that contains all SMOKE sources that have been selected as elevated, their source characteristics (including stack parameters), emissions values used as selection criteria, stack-group numbers, status as either elevated or PinG, and which selection criteria were used to assign the status to the source. The report does not include any low-level sources. This report is in semicolon-delimited format for easier reading into a spreadsheet for sorting, review, and making charts.</para>
 
 <para>The <command>Elevpoint</command> program is not needed if the environment variables <envar>SMK_PING_METHOD</envar> and <envar>SMK_ELEV_METHOD</envar> are both set to 0.</para>
-
-<section id="sect_programs_elevpoint_briggs">
-
-<title>Plume rise calculation</title>
-
-<para>The Briggs solution is documented in the following:</para>
-
-<orderedlist>
-<listitem>
-<para>Briggs, Gary A., 1971: Some Recent Analyses of Plume Rise Observation, pp. 1029-1032 in <emphasis>Proceedings of the Second International Clean Air Congress</emphasis>, edited by H. M. Englun and W. T. Beery. Academic Press, New York.</para>
-</listitem>
-<listitem>
-<para>Briggs, Gary A., 1972: Discussion on Chimney Plumes in Neutral and Stable Surroundings, <emphasis>Atmos. Environ.</emphasis> 6, 507-510.</para>
-</listitem>
-</orderedlist>
-
-<para>The following formula is used in <command>Elevpoint</command>:</para>
-
-<para>F = 0.25 x G x V<subscript>S</subscript> x D<subscript>S</subscript><superscript>2</superscript> x (T<subscript>S</subscript> - T)/T<subscript>S</subscript></para>
-
-<para>For F less than 55,</para> 
-
-<para>Plume rise = H<subscript>S</subscript> + 21.31311057 x F<superscript>0.75</superscript>/U</para>
-
-<para>Otherwise,</para>
-
-<para>Plume rise = H<subscript>S</subscript> + 38.87776061 x F<superscript>0.6</superscript>/U</para>
-
-<para>where</para>
-
-<itemizedlist>
-<listitem>
-F = Bouyancy flux (m<superscript>4</superscript>/s<superscript>3</superscript>)
-</listitem>
-<listitem>
-G = Mean gravitational acceleration (9.80665 m/s<superscript>2</superscript>)
-</listitem>
-<listitem>
-V<subscript>S</subscript> = Stack gas exit velocity (m/s)
-</listitem>
-<listitem>
-D<subscript>S</subscript> = Inside stack diameter (m)
-</listitem>
-<listitem>
-T<subscript>S</subscript> = Stack gas temperature (K)
-</listitem>
-<listitem>
-T = Default ambient air temperature (293 K)
-</listitem>
-<listitem>
-U = Default wind speed (2 m/s)
-</listitem>
-<listitem>
-H<subscript>S</subscript> = Physical stack height (m)
-</listitem>
-</itemizedlist>
-
-<para>This represents an improved algorithm over the original so that the discontinuity at F = 55 no longer exists. Now, the second term in the plume rise formula approaches 595 as F approaches 55 from either side.</para>
-
-</section>
 
 <section>
 
@@ -2274,6 +2220,66 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Laypoint</command> is run only for the MAQSIP and CMAQ styles of processing, in which all of the plume rise calculations are done prior to input to the AQM. In <command>Laypoint</command>, meteorological data are used to calculate the plume rise for all point sources. Then, the plume is distributed into the vertical layers that the plume intersects based on the pressure in each layer. Only these fractions are stored (not the emissions in each layer), until the SMOKE merge step (<command>Smkmerge</command>). Therefore, the plume rise calculations do not need to be repeated for each control strategy or grid (unlike the situation in which the plume rise calculations are done inside the AQM, such as in UAM-IV and UAM-V). The <command>Laypoint</command> program calculates the plume rise for all days of each meteorological scenario.</para>
 
+<section id="sect_programs_elevpoint_briggs">
+
+<title>Plume rise calculation</title>
+
+<para>The Briggs solution is documented in the following:</para>
+
+<orderedlist>
+<listitem>
+<para>Briggs, Gary A., 1971: Some Recent Analyses of Plume Rise Observation, pp. 1029-1032 in <emphasis>Proceedings of the Second International Clean Air Congress</emphasis>, edited by H. M. Englun and W. T. Beery. Academic Press, New York.</para>
+</listitem>
+<listitem>
+<para>Briggs, Gary A., 1972: Discussion on Chimney Plumes in Neutral and Stable Surroundings, <emphasis>Atmos. Environ.</emphasis> 6, 507-510.</para>
+</listitem>
+</orderedlist>
+
+<para>The following formula is used in <command>Elevpoint</command>:</para>
+
+<para>F = 0.25 x G x V<subscript>S</subscript> x D<subscript>S</subscript><superscript>2</superscript> x (T<subscript>S</subscript> - T)/T<subscript>S</subscript></para>
+
+<para>For F less than 55,</para> 
+
+<para>Plume rise = H<subscript>S</subscript> + 21.31311057 x F<superscript>0.75</superscript>/U</para>
+
+<para>Otherwise,</para>
+
+<para>Plume rise = H<subscript>S</subscript> + 38.87776061 x F<superscript>0.6</superscript>/U</para>
+
+<para>where</para>
+
+<itemizedlist>
+<listitem>
+F = Bouyancy flux (m<superscript>4</superscript>/s<superscript>3</superscript>)
+</listitem>
+<listitem>
+G = Mean gravitational acceleration (9.80665 m/s<superscript>2</superscript>)
+</listitem>
+<listitem>
+V<subscript>S</subscript> = Stack gas exit velocity (m/s)
+</listitem>
+<listitem>
+D<subscript>S</subscript> = Inside stack diameter (m)
+</listitem>
+<listitem>
+T<subscript>S</subscript> = Stack gas temperature (K)
+</listitem>
+<listitem>
+T = Default ambient air temperature (293 K)
+</listitem>
+<listitem>
+U = Default wind speed (2 m/s)
+</listitem>
+<listitem>
+H<subscript>S</subscript> = Physical stack height (m)
+</listitem>
+</itemizedlist>
+
+<para>This represents an improved algorithm over the original so that the discontinuity at F = 55 no longer exists. Now, the second term in the plume rise formula approaches 595 as F approaches 55 from either side.</para>
+
+</section>
+
 </section>
 
 <section>
@@ -2485,6 +2491,22 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 <listitem>
 <para>N: Let <command>Laypoint</command> plume rise calculation determine whether or not sources are elevated</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>
+<para><envar>USE_EDMS_DATA_YN</envar>: [default: N]</para>
+
+<para>Process EDMS aviation source elevation height as its plume rise and distributes the emissions into the layer where it belongs to.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Skip plume rise calculation and distribute EDMS aviation emissions into the layer where it belongs to using its elevation height.</para>
+</listitem>
+<listitem>
+<para>N: Do not process EDMS aviation sources</para>
 </listitem>
 </itemizedlist>
 
@@ -3113,7 +3135,209 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><emphasis>Processing categories:</emphasis> biogenic</para>
 
-<para><command>Normbeis3</command> reads gridded land use data and emissions factors and produces gridded normalized biogenic emissions. <command>Normbeis3</command> is the first program in the SMOKE-BEIS3 model; <command>Rawbio</command> is the corresponding program for SMOKE-BEIS2. The gridded land use includes 230 different land use types. Emissions factors are provided for each land use type. The output gridded domain is the same as the input domain for the land use data. Emission fluxes are normalized to 30 &deg;C, and isoprene and methyl-butenol fluxes are also normalized to a photosynthetic active radiation (PAR) of 1000 &micro;mol/m<superscript>2</superscript>s. <command>Normbeis3</command> also computes normalized emissions for winter months, using a winter factor read in from the emissions factor table. <command>Normbeis3</command> outputs winter and summer normalized emissions for four species/compounds (ISOP, MONO, OVOC, NO) as well as winter and summer leaf area indices (LAI). The output units for all species/compounds are in grams of carbon per hour.</para>
+<para>
+<command>Normbeis3</command> reads gridded land use data and emissions factors and produces gridded normalized biogenic emissions. <command>Normbeis3</command> is the first program in the SMOKE-BEIS3 model; <command>Rawbio</command> is the corresponding program for SMOKE-BEIS2. The gridded land use includes 230 different land use types. Emissions factors are provided for each land use type. The output gridded domain is the same as the input domain for the land use data. Emission fluxes are normalized to 30 &deg;C, and isoprene and methyl-butenol fluxes are also normalized to a photosynthetic active radiation (PAR) of 1000 &micro;mol/m<superscript>2</superscript>s. <command>Normbeis3</command> also computes normalized emissions for winter months, using a winter factor read in from the emissions factor table.
+</para>
+
+<para>
+For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer normalized emissions for four species/compounds listed below, as well as winter and summer leaf area indices (LAI). The output units for ISOP, MONO and OVOC are grams of carbon per hour; the output units for NO are grams of nitrogen per hour; and the output units for LAI are meters squared per meters squared.
+</para>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="30*" />
+<colspec colwidth="62*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>ISOP</entry>
+<entry>Isoprene</entry>
+</row>
+<row>
+<entry>MONO</entry>
+<entry>All monoterpenes</entry>
+</row>
+<row>
+<entry>OVOC</entry>
+<entry>All other VOCs</entry>
+</row>
+<row>
+<entry>LAI</entry>
+<entry>Leaf area indices</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+<para>For BEIS version 3.13, <command>Normbeis3</command> outputs winter and summer normalized emissions for the 34 species/compounds (including 14 monoterpenes) listed below, as well as winter and summer leaf area indices (LAI). The output units for NO are grams of nitrogen per hour; the output units for LAI are meters squared per meters squared; the units for all other species/compounds are grams of carbon per hour.</para>
+
+<informaltable>
+<tgroup cols="2">
+<colspec colwidth="30*" />
+<colspec colwidth="62*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>ISOP</entry>
+<entry>Isoprene</entry>
+</row>
+<row>
+<entry>MBO</entry>
+<entry>2-methyl-3-buten-2-ol</entry>
+</row>
+<row>
+<entry>METH</entry>
+<entry>Methanol</entry>
+</row>
+<row>
+<entry>ETHE</entry>
+<entry>Ethene</entry>
+</row>
+<row>
+<entry>PROPE</entry>
+<entry>Propene</entry>
+</row>
+<row>
+<entry>ETHO</entry>
+<entry>Ethanol</entry>
+</row>
+<row>
+<entry>ACET</entry>
+<entry>Acetone</entry>
+</row>
+<row>
+<entry>HEXA</entry>
+<entry>Hexanal</entry>
+</row>
+<row>
+<entry>HEXE</entry>
+<entry>Hexenol</entry>
+</row>
+<row>
+<entry>HEXY</entry>
+<entry>Hexenylacetate</entry>
+</row>
+<row>
+<entry>FORM</entry>
+<entry>Formaldehyde</entry>
+</row>
+<row>
+<entry>ACTAL</entry>
+<entry>Acetaldehyde</entry>
+</row>
+<row>
+<entry>BUTE</entry>
+<entry>Butene</entry>
+</row>
+<row>
+<entry>ETHA</entry>
+<entry>Ethane</entry>
+</row>
+<row>
+<entry>FORAC</entry>
+<entry>Formic acid</entry>
+</row>
+<row>
+<entry>ACTAC</entry>
+<entry>Acetic acid</entry>
+</row>
+<row>
+<entry>BUTO</entry>
+<entry>Butenone (aka methyl vinyl ketone)</entry>
+</row>
+<row>
+<entry>CO</entry>
+<entry>Carbon monoxide</entry>
+</row>
+<row>
+<entry>ORVOC</entry>
+<entry>Other reactive VOCs</entry>
+</row>
+<row>
+<entry>NO</entry>
+<entry>Nitric oxide</entry>
+</row>
+<row>
+<entry>LAI</entry>
+<entry>Leaf area indices</entry>
+</row>
+<row>
+<entry><emphasis>Monoterpenes</emphasis></entry>
+<entry>&nbsp;</entry>
+</row>
+<row>
+<entry>APIN</entry>
+<entry>Alpha-pinene</entry>
+</row>
+<row>
+<entry>BPIN</entry>
+<entry>Beta-pinene</entry>
+</row>
+<row>
+<entry>D3CAR</entry>
+<entry>Delta-3-carene</entry>
+</row>
+<row>
+<entry>DLIM</entry>
+<entry>D-limonene</entry>
+</row>
+<row>
+<entry>CAMPH</entry>
+<entry>Camphene</entry>
+</row>
+<row>
+<entry>MYRC</entry>
+<entry>Myrcene</entry>
+</row>
+<row>
+<entry>ATERP</entry>
+<entry>Alpha-terpinene</entry>
+</row>
+<row>
+<entry>BPHE</entry>
+<entry>Beta-phellandrene</entry>
+</row>
+<row>
+<entry>SABI</entry>
+<entry>Sabinene</entry>
+</row>
+<row>
+<entry>PCYM</entry>
+<entry>P-cymene</entry>
+</row>
+<row>
+<entry>OCIM</entry>
+<entry>Ocimene</entry>
+</row>
+<row>
+<entry>ATHU</entry>
+<entry>Alpha-thujene</entry>
+</row>
+<row>
+<entry>TRPO</entry>
+<entry>Terpinolene</entry>
+</row>
+<row>
+<entry>GTERP</entry>
+<entry>Gamma-terpinene</entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
 
 </section>
 
@@ -3121,9 +3345,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <title>Processing Order</title>
 
-<para><command>Normbeis3</command> is the first program for processing biogenic emissions using the SMOKE-BEIS3 prototype.</para>
-
-<para><command>Normbeis3</command> must be executed before <command>Tmpbeis3</command>.</para>
+<para><command>Normbeis3</command> is the first program for processing biogenic emissions using the SMOKE-BEIS3 prototype.  <command>Normbeis3</command> must be executed before <command>Tmpbeis3</command>.</para>
 
 </section>
 
@@ -3206,6 +3428,10 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <title>Output Files</title>
 
+<para>
+See <xref linkend="sect_programs_rawbio" /> for the output variables contained in <envar>B3GRD</envar> for BEIS version 3.09 and version 3.13.
+</para> 
+
 <informaltable>
 <tgroup cols="3">
 <colspec colwidth="20*" />
@@ -3224,7 +3450,7 @@ F<subscript>ef</subscript> = freeway emission factor
 <row>
 <entry><envar>B3GRD</envar></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Gridded, normalized biogenic emission for ISOP, MONO, OVOC, and NO (in grams of carbon per hour) and LAI; contains both summer and winter normalized emissions</entry>
+<entry>Gridded, normalized biogenic emissions (in grams of carbon or nitrogen per hour, depending on the species) and LAI: contains both summer and winter normalized emissions</entry>
 </row>
 <row>
 <entry><envar>LOGFILE</envar></entry>
@@ -3267,7 +3493,7 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <title>Definition of a <quote>day</quote></title>
 
-<para><command>Premobl</command> seeks to obtain 24 hours&rsquo; worth of meteorology data for a source for each day, which is necessary for generating emission factors. However, the definition of a <quote>day</quote> differs for sources in different time zones. By default, <command>Premobl</command> uses each source&rsquo;s time zone to determine a day for that time zone. To instead use the same day-start-time for all sources, the <envar>UNIFORM_TIME</envar> environment variable can be used.</para>
+<para><command>Premobl</command> seeks to obtain 24 hours&rsquo; worth of meteorology data for a source for each day, which is necessary for generating emission factors. However, the definition of a <quote>day</quote> differs for sources in different time zones. By default, <command>Premobl</command> uses each source&rsquo;s time zone to determine a day for that time zone. To instead use the same day-start-time for all sources, the <envar>UNIFORM_STIME</envar> environment variable can be used.</para>
 
 <para>If the inventory covers multiple time zones, all sources will not have the same coverage of days. <command>Premobl</command> will use meteorology data from previous or subsequent days to fill in missing data. If appropriate data are not available, the program will quit with an error and you must provide additional meteorology data to cover the time period of interest. Currently, <command>Premobl</command> does not considers Daylight Saving time in its determination of <quote>day</quote>.</para>
 
@@ -3977,6 +4203,23 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+
+<listitem>
+<para><envar>ALLOW_NEGATIVE</envar>: [default: N]</para>
+
+<para>Indicates if <command>Smkinven</command> should permit negative emissions values to be input from inventory files and output to <envar>SMOKE</envar> intermediate files.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Accept negative emissions values and will allow compute variables (from the <envar>SMKINVEN_FORMULA</envar> variable) to be negative. <command>Smkinven</command> gives warnings for each negative value in the inventory input and each computed value, until triggering the <envar>SMK_MAXWARNING</envar> setting's values.</para>
+</listitem>
+<listitem>
+<para>N: Do not permit negative emissions values. Accept negative emissions values in the input inventory files, and will give errors for these.  <command>Smkinven</command> will reset all negative computed values (from the <envar>SMKINVEN_FORMULA</envar> variable) to zero.  <command>Smkinven</command> gives warnings for each negative computed value and indicates that the value was reset to zero.</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+
 <listitem>
 <para><envar>CHECK_STACKS_YN</envar>: [default: Y]</para>
 
@@ -4137,6 +4380,12 @@ F<subscript>ef</subscript> = freeway emission factor
 <para>Sets root for naming output ASCII inventory file</para>
 
 </listitem>
+
+<listitem>
+<para><envar>NONHAP_TYPE</envar>: [default: VOC]</para>
+<para>Define the pollutant types either VOC or TOG for criteria/HAP VOC (or TOG) integration. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_NHAPEXCLUDE_YN</envar> is set to Y. </para>
+</listitem>
+
 <listitem>
 <para><envar>RAW_DUP_CHECK</envar>: [default: N]</para>
 
@@ -4957,6 +5206,28 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>Time for writing daily reports from program (HHMMSS).</para>
 </listitem>
+
+<listitem>
+<para><envar>SMKMERGE_CUSTOM_OUTPUT</envar>: [default: N]</para>
+
+<para>Defines his/her own output file names from <command>Smkmerge</command>. Manually define environment variables for those output file names below:</para>
+
+<itemizedlist>
+<listitem>
+<para><envar>[E|A|M|P]OUT</envar> : Processing source output file</para>
+</listitem>
+<listitem>
+<para><envar>ELEV</envar> : Elevated-point-sources file, produced if <envar>SMK_ASCIIELEV_YN</envar> is set to Y; if PinG sources have also been selected, then the stack diameters listed in this file will be set to the negative value of their actual value.</para>
+</listitem>
+<listitem>
+<para><envar>PING</envar> : CMAQ PinG file, produced if <envar>SMK_PING_METHOD</envar> is set to 1</para>
+</listitem>
+<listitem>
+<para><envar>REP[E|A|M|P]G</envar> : Emission total report file, produced if either <envar>MRG_REPSTA_YN</envar> or <envar>MRG_REPCNY_YN</envar> is set to Y</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
 </itemizedlist>
 
 <para>The rest of the variables in this list are relevant only when the <envar>SMK_ASCIIELEV_YN</envar> environment variable is set to Y. The UAM-style elevated-point-source file referenced in the following descriptions is produced by <command>Smkmerge</command> and used as input to the UAM preprocessor Ptsrce.</para>
@@ -5343,16 +5614,19 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <orderedlist spacing="compact">
 <listitem>
-<para>Country/state/county code, plant ID, point ID, stack ID, segment ID, and SCC</para>
+<para>Country/state/county code, plant ID, point ID, stack ID, segment ID, SCC, and pollutant</para>
 </listitem>
 <listitem>
-<para>Country/state/county code, plant ID, point ID, stack ID, and segment ID</para>
+<para>Country/state/county code, plant ID, point ID, stack ID, segment ID, and pollutant</para>
 </listitem>
 <listitem>
-<para>Country/state/county code, plant ID, point ID, and stack ID</para>
+<para>Country/state/county code, plant ID, point ID, stack ID, and pollutant</para>
 </listitem>
 <listitem>
-<para>Country/state/county code, plant ID, and point ID</para>
+<para>Country/state/county code, plant ID, point ID, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, plant ID, SCC, and pollutant</para>
 </listitem>
 <listitem>
 <para>Country/state/county code and plant ID</para>
@@ -6122,6 +6396,8 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <title>Other Input</title>
 
+<para>Optionally, <command>Temporal</command> may be run using <envar>PROCDATES</envar>.  This enables the processing of sequential or non-sequential user specified days. If PROCDATES is not assigned, the defaults apply.</para>
+
 <para>When running <command>Temporal</command> interactively, the following inputs will be requested. The default values for these are set by the <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar> environment variables.</para>
 
 <itemizedlist>
@@ -6136,8 +6412,6 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </itemizedlist>
 
-<para>Optionally, <command>Temporal</command> may be run using PROCDATES.  This enables the processing of sequential or non-sequential user specified days. If PROCDATES is not assigned, the defaults apply.</para>
-
 <para><envar>PROCDATES</envar>: See description in <xref linkend="sect_input_procdates" />.</para>
 
 </section>
@@ -6145,7 +6419,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <section>
 
 <title>Output Files</title>
-
+<para>As of SMOKE version 2.3, two new environmental variables <envar>[A|M|P]TMPNAME</envar> and <envar>[A|M|P]TSUPNAME</envar> are required to set the directory and file prefix used to dynamically name the output files <envar>[A|M|P]TMP</envar> and <envar>[A|M|P]TSUP</envar>.</para>
 <informaltable>
 <tgroup cols="3">
 <colspec colwidth="20*" />
@@ -6210,7 +6484,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><emphasis>Processing categories:</emphasis> biogenic</para>
 
-<para><command>Tmpbeis3</command> uses version 3.09 of the BEIS3 model. <command>Tmpbeis3</command> reads the gridded, normalized emissions file <envar>B3GRD</envar> and meteorological data from <envar>MET_FILE1</envar> and optionally <envar>MET_FILE2</envar> (these files may be either <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>). Note that <command>Tmpbeis3</command> uses temperature and surface pressure data that must be in <envar>MET_FILE1</envar>, and radiation/cloud data that may be in <envar>MET_FILE1</envar> or <envar>MET_FILE2</envar>. Within <command>Tmpbeis3</command>, speciation profiles are used to speciate biogenic pollutants for appropriate chemical mechanisms. The speciation profiles used in SMOKE-BEIS3 are different than those used in SMOKE-BEIS2 modeling, and speciation profiles for the CB4, RADM2, and SAPRC99 mechanisms are available for BEIS3 modeling. The normalized emissions and meteorological data are used to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <envar>BIOSEASON</envar>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis.</para>
+<para><command>Tmpbeis3</command> uses version 3.09 or version 3.13 of the BEIS3 model. <command>Tmpbeis3</command> reads the gridded, normalized emissions file <envar>B3GRD</envar> and meteorological data from <envar>MET_FILE1</envar> and optionally <envar>MET_FILE2</envar> (these files may be either <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>). Note that <command>Tmpbeis3</command> uses temperature and surface pressure data that must be in <envar>MET_FILE1</envar>, and radiation/cloud data that may be in <envar>MET_FILE1</envar> or <envar>MET_FILE2</envar>. Within <command>Tmpbeis3</command>, speciation profiles are used to speciate biogenic pollutants for appropriate chemical mechanisms. The speciation profiles used in SMOKE-BEIS3 are different than those used in SMOKE-BEIS2 modeling, and speciation profiles for the CB4, RADM2, and SAPRC99 mechanisms are available for BEIS3 modeling. The normalized emissions and meteorological data are used to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <envar>BIOSEASON</envar>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis.</para>
 
 </section>
 
@@ -6278,7 +6552,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <row>
 <entry><envar>GSPRO</envar></entry>
 <entry>ASCII</entry>
-<entry>Speciation profiles file (<emphasis role="bold">do not use the same profiles used in SMOKE-BEIS2; use profile named <quote>BV309</quote></emphasis>)</entry>
+<entry>Speciation profiles file (<emphasis role="bold">do not use the same profiles used in SMOKE-BEIS2; depending on the version used, <quote>BV309</quote> for CB04 speciation profile or <quote>B10C5</quote> for CB05 speciation profile.</emphasis>)</entry>
 </row>
 <row>
 <entry><envar>GRID_CRO_2D</envar></entry>
@@ -6295,6 +6569,11 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry>I/O API NetCDF</entry>
 <entry>Meteorology file containing radiation/cloud data if not in <envar>MET_FILE1</envar></entry>
 </row>
+<row>
+<entry><envar>SOILINP</envar> (optional)</entry>
+<entry>I/O API NetCDF</entry>
+<entry>Gridded soil restart file ( use if <envar>INITIAL_RUN = N</envar>)</entry>
+</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -6306,33 +6585,51 @@ Defines whether the program produces a report of emission totals by state.</para
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+
+<listitem>
+<para><envar>BEIS_VERSION</envar>: [default: 3.13]</para>
+<para>Specifies which version of BEIS3 to use.</para>
+<itemizedlist>
+<listitem>
+<para>3.09: Use BEIS version 3.09.</para>
+</listitem>
+<listitem>
+<para>3.13: Use BEIS version 3.13.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>BG_CLOUD_TYPE</envar>: [default: 1]</para>
-
 <para>Specifies which meteorological data to use.</para>
-
 <itemizedlist>
 <listitem>
 <para>1: Use RGND or RSD (solar radiation reaching the ground) from MM5 to calculate PAR. No other options are supported at this time.</para>
 </listitem>
 </itemizedlist>
-
 </listitem>
+
 <listitem>
 <para><envar>BIOG_SPRO</envar>: [default: BV309]</para>
-
 <para>Specifies the speciation profile for biogenic emissions from GSPRO.</para>
+<itemizedlist>
+<listitem>
+<para>BV309: Use BEIS version 3.09.</para>
 </listitem>
+<listitem>
+<para>BV313: Use BEIS version 3.13.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>BIOMET_SAME</envar>: [default: N]</para>
-
 <para>Defines whether the radiation/cloud data are in the same file as the temperature data (<envar>MET_FILE1</envar>) or in a different file (<envar>MET_FILE2</envar>).</para>
 </listitem>
+
 <listitem>
 <para><envar>BIOSW_YN</envar>: [default: Y]</para>
-
 <para>Indicates whether to use a gridded seasonal switch file.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Use gridded seasonal switch file <envar>BIOSEASON</envar></para>
@@ -6341,26 +6638,90 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>N: Use environment variable <envar>SUMMER_YN</envar> to determine season</para>
 </listitem>
 </itemizedlist>
-
 </listitem>
+
+<listitem>
+<para><envar>INITIAL_RUN</envar>: [default: N]</para>
+<para>Indicates whether a particular day is the first day in a sequence of simulations.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use for the first day in a sequence of simulations. Use if the <envar>SOILINP</envar> file does not yet exist (i.e., the soil NO calculations will not depend on the previous day&rsquo;s rainfall).</para>
+</listitem>
+<listitem>
+<para>N: Use for subsequent days in a sequence of simulations. Use if the <envar>SOILINP</envar> file exists.</para>
+</listitem>
+</itemizedlist>
+<para>Note that BEIS3 will create a <envar>SOILINP</envar> file for days subsequent to the first day in a sequence of simulations.</para>
+</listitem>
+
+<listitem>
+<para><envar>ISLTYP_VAR</envar>: [default: SLTYP]</para>
+<para>Specifies the soil type variable name used if <envar>PX_VERSION = Y.</envar></para>
+</listitem>
+
 <listitem>
 <para><envar>OUTZONE</envar>: See description in <xref linkend="sect_programs_premobl_envar" /></para>
 </listitem>
+
+<listitem>
+<para><envar>OUT_UNITS</envar>: [default: 1]</para>
+<para>Specifies units for the output variables.</para>
+<itemizedlist>
+<listitem>
+<para>1: moles per hour.</para>
+</listitem>
+<listitem>
+<para>2: moles per second.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>PRES_VAR</envar>: [default: PRSFC]</para>
-
 <para>Specifies the variable name for surface pressure data to extract from <envar>MET_FILE1</envar>.</para>
 </listitem>
-<listitem>
-<para><envar>RAD_VAR</envar>: [default: RGRND]</para>
 
-<para>Specifies the variable name for radiation/cloud data to extract from either <envar>MET_FILE1</envar> or optional <envar>MET_FILE2</envar>.</para>
+<listitem>
+<para><envar>PX_VERSION</envar>: [default: N]</para>
+<para>Indicates whether the Pleim-Xiu land surface model was used in the MM5 simulations.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use if the Pleim-Xiu land surface model was used in the MM5 simulations. Indicates that <envar>MET_FILE1</envar> contains soil temperature, soil moisture and soil type fields that can be used, along with rainfall data, for NO soil emission calculations in <command>Tmpbeis3</command>.</para>
 </listitem>
 <listitem>
+<para>N: Use if the Pleim-Xiu land surface model was not used in the MM5 simulations. Indicates that <command>Tmpbeis3</command> will calculate NO soil emissions using only rainfall data.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>RAD_VAR</envar>: [default: RGRND]</para>
+<para>Specifies the variable name for radiation/cloud data to extract from either <envar>MET_FILE1</envar> or optional <envar>MET_FILE2</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>RC_VAR</envar>: [default: RC]</para>
+<para>Specifies the convective rainfall variable name used in <envar>MET_FILE1</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>RN_VAR</envar>: [default: RN]</para>
+<para>Specifies the non-convective rainfall variable name used in <envar>MET_FILE1</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>SOILM_VAR</envar>: [default: SOIM1]</para>
+<para>Specifies the soil moisture variable name used if <envar>PX_VERSION = Y</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>SOILT_VAR</envar>: [default: SOIT1]</para>
+<para>Specifies the soil temperature variable name used if <envar>PX_VERSION = Y</envar>.</para>
+</listitem>
+
+<listitem>
 <para><envar>SUMMER_YN</envar>: [default: Y]</para>
-
 <para>Indicates whether summer or winter normalized emissions should be used; only used when <envar>BIOSW_YN</envar> is N.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Use summer normalized emissions</para>
@@ -6369,13 +6730,13 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>N: Use winter normalized emissions</para>
 </listitem>
 </itemizedlist>
-
 </listitem>
+
 <listitem>
 <para><envar>TMPR_VAR</envar>: [default: TA]</para>
-
 <para>Specifies the variable name for temperature to extract from <envar>MET_FILE1</envar>.</para>
 </listitem>
+
 </itemizedlist>
 
 </section>
@@ -6410,6 +6771,11 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry>Gridded, speciated, hourly biogenic emissions, in tons/hour</entry>
 </row>
 <row>
+<entry><envar>SOILOUT</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Gridded soil restart file</entry>
+</row>
+<row>
 <entry><envar>LOGFILE</envar></entry>
 <entry>ASCII</entry>
 <entry>Log generated from executing <command>Tmpbeis3</command></entry>
@@ -6417,6 +6783,14 @@ Defines whether the program produces a report of emission totals by state.</para
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
+
+
+<section>
+
+<title>Processing Multiple Days with BEIS3.13</title>
+<para>The user must point to the <envar>SOILOUT</envar> file from one day&rsquo;s simulation as the <envar>SOILINP</envar> file for the next day. The user must also decide whether to write over <envar>SOILOUT</envar> files from previous days or create a uniquely named <envar>SOILOUT</envar> file for each day. The latter approach is recommended if the user wishes to retain the capability to restart simulations in the middle of a sequence of simulations.</para>
 
 </section>
 

@@ -451,9 +451,12 @@
 <para>If the instructions are</para>
 
 <programlisting>/DEFINE SUBGRID/ Example subgrid
-    INCLUDE (2,2) TO (6,6)
-    EXCLUDE (3,3) TO (5,5)
-    INCLUDE (4,4) TO (4,4)
+    INCLUDE
+      (2,2) TO (6,6)
+    EXCLUDE 
+      (3,3) TO (5,5)
+    INCLUDE 
+      (4,4) TO (4,4)
 /END/</programlisting>
 
 <para>then the following cells (shown in gray) will be selected:</para>
@@ -881,7 +884,7 @@
 
 <para><emphasis>Note that <command>Smkreport</command> does not determine whether the summation makes sense, and does not correct for species molecular weights.</emphasis> You must ensure that the data you request makes sense.</para>
 
-<para>Also note that the maximum number of characters that can be read on anly line in this file is 300. This can limit the number of pollutants that you can specifically request in a SELECT DATA statement.</para>
+<para>Also note that the maximum number of characters that can be read on anly line in this file is 1024. This can limit the number of pollutants that you can specifically request in a SELECT DATA statement.</para>
 </listitem>
 <listitem>
 <para>ELEVATED [PING]: Selects all elevated point sources (recognized for point sources only). If no elevated sources are found (after applying all other selection criteria), the report will contain a warning to that effect. If the PING option appears, only plume-in-grid sources will be selected. When the ELEVATED instruction is used by any report, the <envar>PELV</envar> file (from <command>Elevpoint</command>) or <envar>PLAY</envar> file (from <command>Laypoint</command>) will be required to determine which sources are elevated. The latter will be used when the LAYFRAC instruction is also included in the report instructions. If the PING option is used, the <envar>PELV</envar> file will be required in all cases, although the LAYFRAC instruction can still be used to set the elevated source status based on the layer fractions.</para>
@@ -1350,7 +1353,7 @@ METADATA
 
 <title>Data rows</title>
 
-<para>The rows of data (i.e., emissions totals or activity totals) are listed sequentially, without spaces between the rows, in sorted order according to the BY instructions, and based on the order listed in the file (just explained above). Data-value-based sorting is not done by <command>Smkreport</command>, but rather left for a postprocessing step of other data manipulation software. Unlike the title rows, the length of the data rows constrained only by the maximum number of characters per ASCII line, which varies based on the platform you are using. The ARRANGE instruction can be used to improve the arrangement of data rows when the lines are too large or the program is not working properly because of the large number of data values requested in a report.</para>
+<para>The rows of data (i.e., emissions totals or activity totals) are listed sequentially, without spaces between the rows, in sorted order according to the BY instructions, and based on the order listed in the file (just explained above). Data-value-based sorting is not done by <command>Smkreport</command>, but rather left for a postprocessing step of other data manipulation software. Unlike the title rows, the length of the data rows constrained only by the maximum number of characters up to 3500 per ASCII line, which varies based on the platform you are using. The ARRANGE instruction can be used to improve the arrangement of data rows when the lines are too large or the program is not working properly because of the large number of data values requested in a report.</para>
 
 <para>The data values in the rows are formatted based on the NUMBER instruction for the report.</para>
 

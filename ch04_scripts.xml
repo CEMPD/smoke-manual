@@ -516,7 +516,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>If processing for toxics, we do not recommend that you try to run with your old scripts. If you do, you will <emphasis>at least</emphasis> need to add the <envar>NHAPEXCLUDE</envar> and <envar>ARTOPNT</envar> files to your scripts. You will also have to add options to <command>Smkinven</command>.</para>
 </listitem>
 <listitem>
-<para>Since the <command>Temporal</command> dynamically create names for the output files, two new environment variables <envar>[A|M|P]TMPNAME</envar> and <envar>[A|M|P]TSUPNAME</envar> are used to set the directory and file prefix for naming the output files <envar>[A|M|P]TMP</envar> and <envar>[A|M|P]TSUP</envar>. The files are named using the starting date of each time period.For example, if <envar>ATMPNAME</envar> is set to /data/ntmp.nctox., then the <envar>ATMP</envar> file for a given time period will be put in the data directory and named ntmp.nctox.start date.ncf.</para>
+<para>As of SMOKE v2.3, two new environment variables <envar>[A|M|P]TMPNAME</envar> and <envar>[A|M|P]TSUPNAME</envar> are used to set the directory and file prefix for naming the output files <envar>[A|M|P]TMP</envar> and <envar>[A|M|P]TSUP</envar>. The files are named using the starting date of each time period.For example, if <envar>ATMPNAME</envar> is set to /data/ntmp.nctox., then the <envar>ATMP</envar> file for a given time period will be put in the data directory and named ntmp.nctox.start date.ncf.</para>
 </listitem>
 </itemizedlist>
 
@@ -571,12 +571,6 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para><userinput><filename>smk_pt_nctox_18.csh</filename></userinput> <emphasis>(invoke the 2018 point run script)</emphasis></para>
 
 <para><userinput><filename>smk_mrgall_nctox_18.csh</filename></userinput> <emphasis>(invoke the 2018 all-sources merge script)</emphasis></para>
-
-<para>Finally, you can check your results against the distributed nctox emissions reports. This provides a way to check if your installation was successful and if all the scripts completed normally.</para>
-
-<para><userinput><command>cd</command> <filename class="directory"><envar>$SCRIPTS</envar>/install</filename></userinput> <emphasis>(change to the install scripts directory)</emphasis></para>
-
-<para><userinput><filename>check_smk_install</filename></userinput> <emphasis>(invoke the installation check script)</emphasis></para>
 
 </section>
 
@@ -1375,7 +1369,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </comment>
 
 <listitem>
-<para>For hour-specific and day-specific data, including fire data wiht precomputed plume rise data, see <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<para>For hour-specific and day-specific data, including fire data, see <xref linkend="sect_scripts_hour_day_invs" />.</para>
 </listitem>
 
 <listitem>
@@ -1486,12 +1480,6 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para>Set <envar>CHECK_STACKS_YN</envar> setting to N.</para>
 </listitem>
-<listitem>
-<para>Set <envar>WRITE_ANN_ZERO</envar> setting to Y.</para>
-</listitem>
-<listitem>
-<para>Set <envar>SMKINVEN_FORMULA</envar> setting to blank.</para>
-</listitem>
 </itemizedlist>
 </listitem>
 
@@ -1499,7 +1487,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>For running <envar>RUN_ELEVPOINT</envar>, set <envar>RUN_ELEVPOINT</envar> setting to N. <emphasis>[ <envar>SMK_ELEV_METHOD</envar> : O and <envar>SMK_PING_METHOD</envar>: 0 ]</emphasis></para>
 <itemizedlist>
 <listitem>
-<para>Set <envar>SMK_ELEV_METHOD</envar> setting to O.</para>
+<para>Set <envar>SMK_ELEV_METHOD</envar> setting to 0.</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -1654,7 +1642,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para>Set the <envar>RAW_DUP_CHECK</envar> setting to Y if you want <command>Smkinven</command> to give an error if any duplicate entries are found in the inventory. See <xref linkend="sect_programs_smkinven" /> for more information.</para>
 </listitem>
 <listitem>
-<para>Set the <envar>SMKINVEN_FORMULA</envar> setting to compute any pollutant from two other pollutants.</para>
+<para>Set the <envar>SMKINVEN_FORMULA</envar> setting to compute one or more pollutant values from teh values of other pollutants.</para>
 
 <para>This is most commonly used to compute coarse particulates (PMC) from PM<subscript>10</subscript> and PM<subscript>2.5</subscript> using the setting <quote>PMC = PM10 - PM2_5</quote>.</para>
 </listitem>
@@ -3413,6 +3401,8 @@ endif</programlisting>
 </listitem>
 
 </orderedlist>
+
+<para>NOTE: Since the <command>Temporal</command> dynamically create names for the output files, two new environment variables <envar>[A|M|P]TMPNAME</envar> and <envar>[A|M|P]TSUPNAME</envar> are used to set the directory and file prefix for naming the output files <envar>[A|M|P]TMP</envar> and <envar>[A|M|P]TSUP</envar>. The files are named using the starting date of each time period.For example, if <envar>ATMPNAME</envar> is set to /data/ntmp.nctox., then the <envar>ATMP</envar> file for a given time period will be put in the data directory and named ntmp.nctox.start date.ncf.</para>
 
 </section>
 

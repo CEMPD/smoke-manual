@@ -65,7 +65,7 @@
 
 </listitem>
 <listitem>
-<para>Go to the directory whene you have saved the SMOKE installation files.</para>
+<para>Go to the directory when you have saved the SMOKE installation files.</para>
 </listitem>
 <listitem>
 <para>Type the following at the command line:</para>
@@ -180,6 +180,14 @@
 <listitem><envar>setenv FC f90</envar></listitem>
 <listitem><envar>setenv FFLAG "+O3"</envar></listitem>
 <listitem><envar>setenv DBGFLAG "-g –C"</envar></listitem>
+</itemizedlist>
+
+<para><command>64-bit AIX5</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE AIX5f90</envar></listitem>
+<listitem><envar>setenv FC xlf</envar></listitem>
+<listitem><envar>setenv FFLAG "-WF,-D_AIX -O3 -q64 -qfixed=132"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -C -b64 -qfixed=132 -bmaxdata:0X20000000"</envar></listitem>
 </itemizedlist>
 
 <para><command>64-bit AIX4</command></para>
