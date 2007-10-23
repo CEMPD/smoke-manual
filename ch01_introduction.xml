@@ -85,9 +85,9 @@
 <para>Below, we summarize the major features of SMOKE v2.3.2.</para>
 
 <itemizedlist>
-  <listitem><para>The latest Biogenic Emission Inventory System (BEIS) model version 3.13 is integrated to the SMOKE v2.3.2 for generating gridded, hourly emissins in a format consistent for air quality modeling. BEIS 3.13 revises the parameterizations that account for the effects of leaf temperature and solar radiaton on emissions.</para></listitem>
+  <listitem><para>The latest Biogenic Emission Inventory System (BEIS) model version 3.13 is integrated to the SMOKE v2.3.2 for generating gridded, hourly emissions in a format consistent for air quality modeling. BEIS 3.13 revises the parameterizations that account for the effects of leaf temperature and solar radiation on emissions.</para></listitem>
   <listitem><para>Compatible with the Federal Aviation Administration (FAA)'s Emission Modeling and Dispersion Modeling System (EDMS) used to estimate emissions from airports. A new utility program <command>EDMS2Inv</command> creates SMOKE-ready inventory from EDMS output.</para></listitem>
-	<listitem><para>Significant enhancement on combinig aggregated criteria VOC and hazadous air pollutant (HAP) inventories were made throughout the SMOKE.</para></listitem>
+	<listitem><para>Enhancement on combining aggregated criteria VOC and hazardous air pollutant (HAP) inventories were made throughout the SMOKE.</para></listitem>
 	<listitem><para>The updated <command>Smkinven</command> can optionally support upto 16 character size for the Chemical Abstracts Services (CAS) code, also known as the pollutant code, to allow for all HAPs which have more than 5 characters for the pollutant name in day-specific (PTDAY) and hour-specific (PTHOUR) emission inventories.</para></listitem>
   <listitem><para>Support fully extended ORL format for <command>Smkinven</command> and <command>Grwinven</command>.</para></listitem>
 </itemizedlist>

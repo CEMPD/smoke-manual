@@ -2083,7 +2083,9 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
-<entry><para>In IDA-format files, it defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</para> <para>In wild/Rx fires ORL format files (<envar>ORL FIRE</envar> (<xref linkend="sect_input_ptinv_fire" />) and day-specific <envar>ORL FIREEMIS</envar> file (<xref linkend="sect_input_ptday_fireemis" />), it defines a complete list of pollutant names from day-specific <envar>ORL FIREEMIS</envar> files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para></entry>
+<entry><para>In IDA-format files, it defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</para> 
+<para>In wild/Rx fires ORL format files (#ORL FIRE (Section 8.2.8.4, <quote><xref linkend="sect_input_ptinv_fire" /></quote>) and day-specific #ORL FIREEMIS file (Section 8.2.6.2, <quote><xref linkend="sect_input_ptday_fireemis" /></quote>), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para> 
+</entry>
 </row>
 <row>
 <entry>#UNITS</entry>
@@ -2514,7 +2516,124 @@ INVYEAR 1996
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
+<entry>R</entry>
+<entry>MACT_FLAG</entry>
+<entry>Char</entry>
+<entry>MACT flag indicating the relationship of the MACT rule and the particular source (15 characters maximum)(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>S</entry>
+<entry>PROCESS_MACT_COMPLIANCE_STATUS</entry>
+<entry>Char</entry>
+<entry>Indicate the relationship of the MACT rule and the particular source  (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>T</entry>
+<entry>START_DATE</entry>
+<entry>Char</entry>
+<entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>U</entry>
+<entry>END_DATE</entry>
+<entry>Char</entry>
+<entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>V</entry>
+<entry>WINTER_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in winter (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>W</entry>
+<entry>SPRING_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in spring (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>X</entry>
+<entry>SUMMER_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in summer(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>Y</entry>
+<entry>FALL_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in fall (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>Z</entry>
+<entry>ANNUAL_AVG_DAYS_PER_WEEK</entry>
+<entry>Real</entry>
+<entry>Annual average days of operation per week (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>AA</entry>
+<entry>ANNUAL_AVG_WEEKS_PER_YEAR</entry>
+<entry>Real</entry>
+<entry>Annual average weeks of operation per year (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>BB</entry>
+<entry>ANNUAL_AVG_HOURS_PER_DAY</entry>
+<entry>Real</entry>
+<entry>Annual average hours of operation per day (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>CC</entry>
+<entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
+<entry>Real</entry>
+<entry>Annual average hours of operation per year (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>DD</entry>
+<entry>PERIOD_DAYS_PER_WEEK</entry>
+<entry>Real</entry>
+<entry>Days per week operating during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>EE</entry>
+<entry>PERIOD_WEEKS_PER_PERIOD</entry>
+<entry>Real</entry>
+<entry>Weeks per period operating during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>FF</entry>
+<entry>PERIOD_HOURS_PER_DAY</entry>
+<entry>Real</entry>
+<entry>Hours of operation per day during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>GG</entry>
+<entry>PERIOD_HOURS_PER_PERIOD</entry>
+<entry>Real</entry>
+<entry>Hours of operation per period during the period(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>HH</entry>
+<entry>CONTROL_MEASURES</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>II</entry>
+<entry>PCT_REDUCTION</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>JJ</entry>
+<entry>CURRENT_COST</entry>
+<entry>Char</entry>
+<entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>KK</entry>
+<entry>CUMULATIVE_COST</entry>
+<entry>Char</entry>
+<entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -2628,7 +2747,112 @@ INVYEAR 1996
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
+<entry>M</entry>
+<entry>START_DATE</entry>
+<entry>Char</entry>
+<entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>N</entry>
+<entry>END_DATE</entry>
+<entry>Char</entry>
+<entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>O</entry>
+<entry>WINTER_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in winter (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>P</entry>
+<entry>SPRING_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in spring (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>Q</entry>
+<entry>SUMMER_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in summer(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>R</entry>
+<entry>FALL_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in fall (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>S</entry>
+<entry>ANNUAL_AVG_DAYS_PER_WEEK</entry>
+<entry>Real</entry>
+<entry>Annual average days of operation per week (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>T</entry>
+<entry>ANNUAL_AVG_WEEKS_PER_YEAR</entry>
+<entry>Real</entry>
+<entry>Annual average weeks of operation per year (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>U</entry>
+<entry>ANNUAL_AVG_HOURS_PER_DAY</entry>
+<entry>Real</entry>
+<entry>Annual average hours of operation per day (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>V</entry>
+<entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
+<entry>Real</entry>
+<entry>Annual average hours of operation per year (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>W</entry>
+<entry>PERIOD_DAYS_PER_WEEK</entry>
+<entry>Real</entry>
+<entry>Days per week operating during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>X</entry>
+<entry>PERIOD_WEEKS_PER_PERIOD</entry>
+<entry>Real</entry>
+<entry>Weeks per period operating during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>Y</entry>
+<entry>PERIOD_HOURS_PER_DAY</entry>
+<entry>Real</entry>
+<entry>Hours of operation per day during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>Z</entry>
+<entry>PERIOD_HOURS_PER_PERIOD</entry>
+<entry>Real</entry>
+<entry>Hours of operation per period during the period(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>AA</entry>
+<entry>CONTROL_MEASURES</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>BB</entry>
+<entry>PCT_REDUCTION</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>CC</entry>
+<entry>CURRENT_COST</entry>
+<entry>Char</entry>
+<entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>DD</entry>
+<entry>CUMULATIVE_COST</entry>
+<entry>Char</entry>
+<entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -3356,7 +3580,46 @@ INVYEAR 1996
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
+<entry>J</entry>
+<entry>CEFF</entry>
+<entry>Real</entry>
+<entry>Control Efficiency percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 0)</entry>
+</row>
+<row>
+<entry>K</entry>
+<entry>REFF</entry>
+<entry>Real</entry>
+<entry>Rule Effectiveness percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
+</row>
+<row>
+<entry>L</entry>
+<entry>RPEN</entry>
+<entry>Real</entry>
+<entry>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
+</row>
+<row>
+<entry>M</entry>
+<entry>CONTROL_MEASURES</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>N</entry>
+<entry>PCT_REDUCTION</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>O</entry>
+<entry>CURRENT_COST</entry>
+<entry>Char</entry>
+<entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>P</entry>
+<entry>CUMULATIVE_COST</entry>
+<entry>Char</entry>
+<entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5039,7 +5302,190 @@ INVYEAR 1995
 <entry>Related to optional parameters for ISCST3/AERMOD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry namest="Position" nameend="Description">(Additional fields may be appended to the rows without causing SMOKE any problems.)</entry>
+<entry>NN</entry>
+<entry>ZIPCODE</entry>
+<entry>Real</entry>
+<entry>Postal zip code (14 characters maximum) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>OO</entry>
+<entry>NAICS_FLAG</entry>
+<entry>Real</entry>
+<entry>NAICS flag (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>PP</entry>
+<entry>SIC_FLAG</entry>
+<entry>Real</entry>
+<entry>SIC flag (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>QQ</entry>
+<entry>MACT_FLAG</entry>
+<entry>Char</entry>
+<entry>MACT flag indicating the relationship of the MACT rule and the particular source (15 characters maximum)(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>RR</entry>
+<entry>PROCESS_MACT_COMPLIANCE_STATUS</entry>
+<entry>Char</entry>
+<entry>Indicate the relationship of the MACT rule and the particular source  (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>SS</entry>
+<entry>IPM_FACILITY</entry>
+<entry>Char</entry>
+<entry>Integrated Planning Model (IPM) facility (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>TT</entry>
+<entry>IPM_UNIT</entry>
+<entry>Char</entry>
+<entry>IPM unit (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>UU</entry>
+<entry>BART_SOURCE</entry>
+<entry>Char</entry>
+<entry>Best Available Retrofit Technology (BART) source (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>VV</entry>
+<entry>BART_UNIT</entry>
+<entry>Char</entry>
+<entry>BART unit (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>WW</entry>
+<entry>CONTROL_STATUS</entry>
+<entry>Char</entry>
+<entry>Control status (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>XX</entry>
+<entry>START_DATE</entry>
+<entry>Char</entry>
+<entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>YY</entry>
+<entry>END_DATE</entry>
+<entry>Char</entry>
+<entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>ZZ</entry>
+<entry>WINTER_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in winter (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>AAA</entry>
+<entry>SPRING_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in spring (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>BBB</entry>
+<entry>SUMMER_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in summer(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>CCC</entry>
+<entry>FALL_THROUGHPUT_PCT</entry>
+<entry>Real</entry>
+<entry>Percentage throughout in fall (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>DDD</entry>
+<entry>ANNUAL_AVG_DAYS_PER_WEEK</entry>
+<entry>Real</entry>
+<entry>Annual average days of operation per week (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>EEE</entry>
+<entry>ANNUAL_AVG_WEEKS_PER_YEAR</entry>
+<entry>Real</entry>
+<entry>Annual average weeks of operation per year (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>FFF</entry>
+<entry>ANNUAL_AVG_HOURS_PER_DAY</entry>
+<entry>Real</entry>
+<entry>Annual average hours of operation per day (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>GGG</entry>
+<entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
+<entry>Real</entry>
+<entry>Annual average hours of operation per year (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>HHH</entry>
+<entry>PERIOD_DAYS_PER_WEEK</entry>
+<entry>Real</entry>
+<entry>Days per week operating during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>III</entry>
+<entry>PERIOD_WEEKS_PER_PERIOD</entry>
+<entry>Real</entry>
+<entry>Weeks per period operating during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>JJJ</entry>
+<entry>PERIOD_HOURS_PER_DAY</entry>
+<entry>Real</entry>
+<entry>Hours of operation per day during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>KKK</entry>
+<entry>PERIOD_HOURS_PER_PERIOD</entry>
+<entry>Real</entry>
+<entry>Hours of operation per period during the period (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>LLL</entry>
+<entry>DESIGN_CAPACITY</entry>
+<entry>Real</entry>
+<entry>Indicate the design capacity for the source (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>MMM</entry>
+<entry>DESIGN_CAPACITY_UNIT_NUMERATOR</entry>
+<entry>Real</entry>
+<entry>Indicate the numerator for the units of the design capacity (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>NNN</entry>
+<entry>DESIGN_CAPACITY_UNIT_DENOMINATOR</entry>
+<entry>Real</entry>
+<entry>Indicate the denumerator for the units of the design capacity (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>OOO</entry>
+<entry>CONTROL_MEASURES</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>PPP</entry>
+<entry>PCT_REDUCTION</entry>
+<entry>Char</entry>
+<entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>QQQ</entry>
+<entry>CURRENT_COST</entry>
+<entry>Char</entry>
+<entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>RRR</entry>
+<entry>CUMULATIVE_COST</entry>
+<entry>Char</entry>
+<entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5059,6 +5505,7 @@ INVYEAR 1995
 #TYPE    Point Source Inventory for FIRES
 #COUNTRY US
 #YEAR    2002
+#DATA    FUEL_LOAD ACRESBURNED CO NOX SO2 PM10 PM2_5 VOC 16990 10883
 #DESC FIPS,FIREID,LOCID,SCC,NAME,LAT,LON,NFDRSCODE,MATBURNED,HEATCONTENT</programlisting>
 
 <para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_orl_fire" />.</para>

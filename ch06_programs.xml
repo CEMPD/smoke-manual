@@ -2090,6 +2090,19 @@ F<subscript>ef</subscript> = freeway emission factor
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+
+<listitem>
+<para><envar>ORL_NONROAD_OUT</envar>: [default: N]</para>
+<itemizedlist>
+<listitem>
+<para>Y: Output NONROAD inventory in ORL format</para>
+</listitem>
+<listitem>
+<para>N: Do not output NONROAD inventory in ORL format</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>SMK_GRWIDAOUT_YN</envar>: [default: N]</para>
 
@@ -2434,6 +2447,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 </itemizedlist>
 
 </listitem>
+
 <listitem>
 <para><envar>HOUR_PLUMEDATA_YN</envar>: [default: N]</para>
 
@@ -2467,6 +2481,12 @@ H<subscript>S</subscript> = Physical stack height (m)
 <listitem>
 <para><envar>IOAPI_ISPH</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
 </listitem>
+
+<listitem>
+<para><envar>PLUME_GTEMP_NAME</envar>: [default: TEMP2]</para>
+<para>Sets ground temperature variable name from meteorology file for plume rise calcuation.</para>
+</listitem>
+
 <listitem>
 <para><envar>REP_LAYER_MAX</envar>: [default: -1]</para>
 
@@ -5811,8 +5831,22 @@ Defines whether the program produces a report of emission totals by state.</para
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+
 <listitem>
 <para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the speciation cross-reference files by preventing left-7 SCC assignments. The application GSCNV files are not affected by this option when using FIPS/SCC assignments, and will continue to use left-7 SCC assignments even when FULLSCC_ONLY is set to "Y".</para>
+</listitem>
+
+<listitem>
+<para><envar>NO_SPC_ZERO_EMIS</envar>: [default: N]</para>
+<para>Defines whether the program applies the speciation profiles to zero emission sources.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Skip applying speciation profile to zero emission source</para>
+</listitem>
+<listitem>
+<para>N: Do not skip</para>
+</listitem>
+</itemizedlist>
 </listitem>
 
 <listitem>
