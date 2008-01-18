@@ -548,19 +548,24 @@
 
 <tbody>
 <row>
-<entry><envar>EDMS_SCC</envar></entry>
-<entry>ASCII</entry>
-<entry>Cross reference file to map EDMS source IDs from EDMS INP file to SCC codes.</entry>
-</row>
-<row>
 <entry><envar>COSTCY</envar></entry>
 <entry>ASCII</entry>
 <entry>Country, state, and county codes file; used to assign time zones to each source based on the source&rsquo;s state and county codes</entry>
 </row>
 <row>
-<entry><envar>INVTABLE</envar></entry>
+<entry><envar>EDMS_FACT</envar></entry>
 <entry>ASCII</entry>
-<entry>Inventory data table listing pollutant and activity names</entry>
+<entry>A List of EDMS CH4 equivalent pollutants with conversion factors to convet to species mass emission factor unit.</entry>
+</row>
+<row>
+<entry><envar>EDMS_SCC</envar></entry>
+<entry>ASCII</entry>
+<entry>Cross reference file to map EDMS source IDs from EDMS INP file to SCC codes.</entry>
+</row>
+<row>
+<entry><envar>FILELIST</envar></entry>
+<entry>ASCII</entry>
+<entry>List of EDMS AERMOD model ready hourly emission HRE files including path and filename. Files must contain data consistent with the <envar>MAIN_EDMS</envar> INP file.</entry>
 </row>
 <row>
 <entry><envar>ICAO_FIPS</envar></entry>
@@ -568,14 +573,14 @@
 <entry>List of country/state/county codes by airport from International Civil Aviation Organization (ICAO) to assign country/state/county code to ICAO airport.</entry>
 </row>
 <row>
+<entry><envar>INVTABLE</envar></entry>
+<entry>ASCII</entry>
+<entry>Inventory data table listing pollutant and activity names</entry>
+</row>
+<row>
 <entry><envar>MAIN_EDMS</envar></entry>
 <entry>ASCII</entry>
 <entry>An EDMS AERMOD model ready INP file</entry>
-</row>
-<row>
-<entry><envar>FILELIST</envar></entry>
-<entry>ASCII</entry>
-<entry>List of EDMS AERMOD model ready hourly emission HRE files including path and filename. Files must contain data consistent with the <envar>MAIN_EDMS</envar> INP file.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -590,11 +595,11 @@
 <itemizedlist>
 <listitem>
 <para><envar>START_DATE</envar>: [default: none]</para>
-<para>Starting date of data (YYYYDDD); used to set the inventory year in the EDMS hourly inventory HRE files.<envar>G_STDATE</envar> is also used to create default entries in the daily inventory file for each source.</para>
+<para>Starting date of data (MM/DD/YY); used to set the inventory year in the EDMS hourly inventory HRE files.<envar>G_STDATE</envar> is also used to create default entries in the daily inventory file for each source.</para>
 </listitem>
 <listitem>
 <para><envar>END_DATE</envar>: [default: none]</para>
-<para>Ending date of data (YYYYDDD); used to set the inventory year in the EDMS hourly inventory HRE files.<envar>G_STDATE</envar> is also used to create default entries in the daily inventory file for each source.</para>
+<para>Ending date of data (MM/DD/YY); used to set the inventory year in the EDMS hourly inventory HRE files.<envar>G_STDATE</envar> is also used to create default entries in the daily inventory file for each source.</para>
 </listitem>
 </itemizedlist>
 
@@ -1153,7 +1158,7 @@ PAR             0.6</programlisting></entry>
 <listitem>
 <para><envar>TMPR_VAR</envar>: [default: TA]</para>
 
-<para>Sets the name of the temperature variable that will be read from the <envar>MET_CRO_3D</envar> input file. Acceptable values for MCIP and MPCL outputs available at the time of this writing are TA (ambient layer-1 temperature from the <envar>MET_CRO_3D</envar> file), TEMP10 (10-meter temperature from the <envar>MET_CRO_2D</envar> file), TGD (ground temperature), TGRND (ground temperature), and TEMP15 (1.5-meter temperature). Current guidance from EPA suggests that a 10- to 20-meter temperature is the best choice for the temperature input to BEIS2 or BEIS3, to account for the fact that these models do not include a canopy model.</para>
+<para>Sets the name of the temperature variable that will be read from the <envar>MET_CRO_3D</envar> input file. Acceptable values for MCIP and MPCL outputs available at the time of this writing are TA (ambient layer-1 temperature from the <envar>MET_CRO_3D</envar> file), TEMP10 (10-meter temperature from the <envar>MET_CRO_2D</envar> file), TGD (ground temperature), TGRND (ground temperature), and TEMP1P5 (1.5-meter temperature). Current guidance from EPA suggests that a 10- to 20-meter temperature is the best choice for the temperature input to BEIS2 or BEIS3, to account for the fact that these models do not include a canopy model.</para>
 </listitem>
 <listitem>
 <para><envar>N_S_HEMI</envar>: [default: NORTH]</para>
