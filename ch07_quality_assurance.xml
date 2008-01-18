@@ -1315,6 +1315,8 @@ METADATA
 <listitem>County (value is name; optional when country, state, and county code is output)</listitem>
 <listitem>SCC (10-character values, with 2 leading zeros for 8-character SCCs)</listitem>
 <listitem>SIC (4-character values)</listitem>
+<listitem>NAICS (6-character values)</listitem>
+<listitem>MACT (6-character values)</listitem>
 <listitem>Primary Srg (primary surrogate ID code; for area or mobile sources only)</listitem>
 <listitem>Fallbk Srg (fallback surrogate ID code; for area or mobile sources only)</listitem>
 <listitem>Monthly Prf (monthly temporal profile code)</listitem>
@@ -1335,6 +1337,8 @@ METADATA
 <listitem>Plt Name (facility name with quotes around it; for point sources only)</listitem>
 <listitem>SCC Description (in quotes)</listitem>
 <listitem>SIC Description (in quotes)</listitem>
+<listitem>NAICS Description (in quotes)</listitem>
+<listitem>MACT Description (in quotes)</listitem>
 </itemizedlist>
 
 </section>
