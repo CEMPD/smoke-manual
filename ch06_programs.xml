@@ -262,6 +262,9 @@
 <para>Country/State/County code, plant ID, 8-digit SCC code</para>
 </listitem>
 <listitem>
+<para>Country/State/County code, plant ID, MACT code</para>
+</listitem>
+<listitem>
 <para>Country/State/County code, plant ID</para>
 </listitem>
 <listitem>
@@ -1145,6 +1148,21 @@
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+
+<listitem>
+<para><envar>ELEV_WRITE_LATLON</envar>: [default: Y]</para>
+<para>Defines whether write the latitude and longitude information of special elevated or PinG sources to the stack groups file <xref linkend="sect_intmed_stack_groups" /> for air quality models CMAQ, MAQSIP, and UAM-style.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Write the latitude and longitude information of elevated or PinG sources to the the stack group file.</para>
+</listitem>
+<listitem>
+<para>N: Do not write the latitude and longitude information of elevated or PinG sources to the the stack group file.</para>
+</listitem>
+</itemizedlist>
+<para>The ELEV_WRITE_LATLON can not be N, when processing for PinG sources, since CMAQ does need the latitude and longitude to be included.</para>
+</listitem>
+
 <listitem>
 <para><envar>G_RUNLEN</envar>: [default: 240000]</para>
 <para>Simulation length (HHMMSS)</para>
@@ -1191,6 +1209,7 @@
 <para>This environment variable can also be used to set custom spheroid representations. See the <ulink url="http://www.baronams.com/products/ioapi/SETSPHERE.html">I/O API documentation</ulink> for more information.</para>
 
 </listitem>
+
 <listitem>
 <para><envar>SMK_ELEV_METHOD</envar>: [default: 0]</para>
 
@@ -1202,11 +1221,21 @@
 </listitem>
 <listitem>
 <para>1: Use the <quote>Elevated</quote> section of the <envar>PELVCONFIG</envar> configuration file to select specific sources. This approach can be used for any of the model output formats - CMAQ, MAQSIP, and UAM-style.</para>
-</listitem>
-</itemizedlist>
-
 <para>For UAM-style emissions processing, this environment variable must be set to 1 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. This method of processing is needed for UAM, REMSAD, and CAM<subscript>X</subscript> because they require use of the cutoff method discussed earlier. In rare cases of a very small inventory, it might be acceptable to specify 0 for this setting in UAM-style emissions processing, provided that you are sure that treating all sources as elevated sources in UAM-style models is acceptable. We do not recommend such an approach for typical SMOKE applications for UAM-style models.</para>
 </listitem>
+<listitem>
+<para>2: Use the <quote>Elevated</quote> section of the <envar>PELVCONFIG</envar> configuration file to select specific sources. This approach can be used for in-line plume rise in CMAQ. Must set <envar>SMK_PING_METHOD</envar> = 0.</para>
+<para>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. To reduc the total number of plume rise calculations tha would be done in the CMAQ in-line plume rise module, <command>Elevpoint</command> needs to group soiuces with nearly identical stack parameters. Also note that only sources with an analytical plume rise height greater than 38 meters are selecteed for in-line plume rise processing. <command>Elevpoint</command> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation in CMAQ.</para>
+<para>When using <command>Smkmerge</command> for in-line plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file. If <envar>SMKMERGE_CUSTOM_OUTPUT</envar> is set to Y, the output file for the in-line emissions is called <envar>INLN</envar>.</para>
+<para>To process fires emission modeling without precomputed plume rise described in described in <xref linkend="sect_scripts_hour_day_invs" />, the following two lines need to be added to the <envar>GSPRO</envar> file.</para>
+<para><envar> 0000,HFLUX,HFLUX,1,1,1</envar></para>
+<para><envar> 0000,ACRESBURNED,ACRESBURNED,1,1,1</envar></para>
+</listitem>
+
+</itemizedlist>
+
+</listitem>
+
 <listitem>
 <para><envar>SMK_PING_METHOD</envar>: [default: 0]</para>
 
@@ -3057,6 +3086,25 @@ H<subscript>S</subscript> = Physical stack height (m)
 <entry>ASCII</entry>
 <entry>List of <emphasis>logical</emphasis> file name for 2-D and 3-D gridded I/O API NetCDF files; this file cannot contain the full paths and file names. Users should make sure that the logical file names that appear in <envar>FILELIST</envar> are defined prior to running <command>Mrggrid</command>.</entry>
 </row>
+
+<row>
+<entry><envar>ADJ_FACS</envar><para>(optional)</para></entry>
+<entry>ASCII</entry>
+<entry><para>File that lists the species name, the logical file name, and the factor to be applied to all grid cells. The species name must be in columns A, the logical file name in column B, and the factor in columns C. For example, the following <envar>ADJ_FACS</envar> file sample would multiply NO emissions from the MGTS_L file by 1.3 (30% increase) and multiply PAR from the PGTS_L file by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
+<programlisting>NO, MGTS_L, 1.3
+PAR, PGTS_L, 0.6</programlisting></entry>
+</row>
+
+<row>
+<entry><envar>TAG_SPECIES</envar><para>(optional)</para></entry>
+<entry>ASCII</entry>
+<entry><para>File that lists the logical file name, the species name, and the tag to be appended. The logical file name in column B, the species name must be in columns B, and the factor in columns C. For example, the following <envar>TAG_SPECIES</envar> file sample would append a tag (t1) to the NO species from the MGTS_L file and append a tag (t3) to the PAR from the PGTS_L file.<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
+<programlisting>MGTS_L, NO,  t1
+PGTS_L, PAR, t3</programlisting></entry>
+
+</row>
+
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -3070,18 +3118,14 @@ H<subscript>S</subscript> = Physical stack height (m)
 <itemizedlist>
 <listitem>
 <para><envar>MRG_DIFF_DAYS</envar>: [default: N]</para>
-
 <para>This environment variable allows <command>Mrggrid</command> to merge files with data from different days.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Allow data from different dates to be merged together</para>
-
 <para><command>Mrggrid</command> will use the environment variables <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, <envar>G_RUNLEN</envar>, and <envar>G_TSTEP</envar> to set the start date, start time, length, and time step of the output file. All input files must have the same starting time as <envar>G_STTIME</envar>, the same time step as <envar>G_TSTEP</envar>, and must contain more than <envar>G_RUNLEN</envar> steps of data. For each input file, if it contains data to cover the actual episode requested by <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar>, then the data for the actual episode will be used; otherwise, data starting at the first time step of the file will be used.</para>
 </listitem>
 <listitem>
 <para>N: Require all merged data to be from the same date</para>
-
 <para><command>Mrggrid</command> will determine the output file time period based on the latest starting input file and the earliest ending input file.</para>
 </listitem>
 </itemizedlist>
@@ -3125,6 +3169,22 @@ H<subscript>S</subscript> = Physical stack height (m)
 <entry>ASCII</entry>
 <entry>Report file generated when <envar>MRG_DIFF_DAYS</envar> is set to Y; the report lists the date and time for each output time step along with the actual date and time of the data read from each file</entry>
 </row>
+<row>
+<entry><envar>REPMERG_ADJ</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file generated when <envar>ADJ_FACS</envar> is set; the report lists the date, the logical file name, the species name, the factor applied, a daily total of species before and after applying adjustment factor, and the ratio (after/ratio). The report only lists when the ratio is not equal to 1.0 </entry>
+</row>
+<row>
+<entry><envar>REPMERGE_SUM</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file generated when <envar>ADJ_FACS</envar> is set; the report lists the date, the species name, a daily total of species over all the logical files before and after applying adjustment factors, and the ratio (after/ratio). The report only lists when the ratio is not equal to 1.0 </entry>
+</row>
+<row>
+<entry><envar>REPMERGE_TAG</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file generated when <envar>TAG_SPECIES</envar> is set; the report lists the logical files name, species name before and after appending the tag</entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -3196,7 +3256,7 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 </tgroup>
 </informaltable>
 
-<para>For BEIS version 3.13, <command>Normbeis3</command> outputs winter and summer normalized emissions for the 34 species/compounds (including 14 monoterpenes) listed below, as well as winter and summer leaf area indices (LAI). The output units for NO are grams of nitrogen per hour; the output units for LAI are meters squared per meters squared; the units for all other species/compounds are grams of carbon per hour.</para>
+<para>For BEIS version 3.14, <command>Normbeis3</command> outputs winter and summer normalized emissions for the 35 species/compounds (including 14 monoterpenes and 1 sesquiterpene) listed below, as well as winter and summer leaf area indices (LAI). The output units for NO are grams of nitrogen per hour; the output units for LAI are meters squared per meters squared; the units for all other species/compounds are grams of carbon per hour.</para>
 
 <informaltable>
 <tgroup cols="2">
@@ -3296,6 +3356,10 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 <entry>Leaf area indices</entry>
 </row>
 <row>
+<entry>SESQT</entry>
+<entry>Sesquiterpene</entry>
+</row>
+<row>
 <entry><emphasis>Monoterpenes</emphasis></entry>
 <entry>&nbsp;</entry>
 </row>
@@ -3355,6 +3419,7 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 <entry>GTERP</entry>
 <entry>Gamma-terpinene</entry>
 </row>
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -3449,7 +3514,7 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 <title>Output Files</title>
 
 <para>
-See <xref linkend="sect_programs_rawbio" /> for the output variables contained in <envar>B3GRD</envar> for BEIS version 3.09 and version 3.13.
+See <xref linkend="sect_programs_rawbio" /> for the output variables contained in <envar>B3GRD</envar> for BEIS version 3.09 and version 3.14.
 </para> 
 
 <informaltable>
@@ -5762,7 +5827,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_spcmat" /> shows the input and output files for the <command>Spcmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the optional pollutant conversion file (<envar>GSCNV</envar>), the speciation profiles file (<envar>GSPRO</envar>), the speciation cross-reference file (<envar>GSREF</envar>), and the inventory data table (<envar>INVTABLE</envar>). For mobile sources only, <command>Spcmat</command> uses the mobile codes file (<envar>MCODES</envar>) and the mobile emission processes file (<envar>MEPROC</envar>).</para>
+<para><xref linkend="fig_programs_spcmat" /> shows the input and output files for the <command>Spcmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the optional pollutant conversion file (<envar>GSCNV</envar>), the speciation profiles file (<envar>GSPRO</envar>), the speciation cross-reference file (<envar>GSREF</envar>), the combination speciation profiles file (<envar>GSPRO_COMBO</envar>), and the inventory data table (<envar>INVTABLE</envar>). For mobile sources only, <command>Spcmat</command> uses the mobile codes file (<envar>MCODES</envar>) and the mobile emission processes file (<envar>MEPROC</envar>). More informaton of <envar>GSPRO_COMBO</envar> file is available at <xref linkend="sect_input_gspro_combo" />.</para>
 
 <para><command>Spcmat</command> outputs a mole-based speciation matrix file (<envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, or <envar>PSMAT_L</envar>) and a mass-based speciation matrix file (<envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, or <envar>PSMAT_S</envar>). The program also outputs a speciation supplemental file (<envar>ASSUP</envar>, <envar>MSSUP</envar>, or <envar>PSSUP</envar>) and a log file (<envar>LOGFILE</envar>).</para>
 
@@ -6033,18 +6098,6 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>For mobile sources, the available combinations are given below. To specify an entry that is to match by vehicle type, the road class part of the SCC must be filled with zeros. If any warnings or errors are written during the read of the mobile temporal cross-reference file, the messages will use the mobile internal SCCs.</para>
 
 <orderedlist spacing="compact">
-<listitem>
-<para>Country/state/county code, road class, link ID, vehicle type, and process/pollutant</para>
-</listitem>
-<listitem>
-<para>Country/state/county code, road class, link ID, and process/pollutant</para>
-</listitem>
-<listitem>
-<para>Country/state/county code, road class, link ID, and vehicle type</para>
-</listitem>
-<listitem>
-<para>Country/state/county code, road class, and link ID</para>
-</listitem>
 <listitem>
 <para>Country/state/county code, road class, vehicle type, and process/pollutant</para>
 </listitem>
@@ -6518,7 +6571,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><emphasis>Processing categories:</emphasis> biogenic</para>
 
-<para><command>Tmpbeis3</command> uses version 3.09 or version 3.13 of the BEIS3 model. <command>Tmpbeis3</command> reads the gridded, normalized emissions file <envar>B3GRD</envar> and meteorological data from <envar>MET_FILE1</envar> and optionally <envar>MET_FILE2</envar> (these files may be either <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>). Note that <command>Tmpbeis3</command> uses temperature and surface pressure data that must be in <envar>MET_FILE1</envar>, and radiation/cloud data that may be in <envar>MET_FILE1</envar> or <envar>MET_FILE2</envar>. Within <command>Tmpbeis3</command>, speciation profiles are used to speciate biogenic pollutants for appropriate chemical mechanisms. The speciation profiles used in SMOKE-BEIS3 are different than those used in SMOKE-BEIS2 modeling, and speciation profiles for the CB4, RADM2, and SAPRC99 mechanisms are available for BEIS3 modeling. The normalized emissions and meteorological data are used to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <envar>BIOSEASON</envar>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis.</para>
+<para><command>Tmpbeis3</command> uses version 3.09 or version 3.14 of the BEIS3 model. <command>Tmpbeis3</command> reads the gridded, normalized emissions file <envar>B3GRD</envar> and meteorological data from <envar>MET_FILE1</envar> and optionally <envar>MET_FILE2</envar> (these files may be either <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>). Note that <command>Tmpbeis3</command> uses temperature and surface pressure data that must be in <envar>MET_FILE1</envar>, and radiation/cloud data that may be in <envar>MET_FILE1</envar> or <envar>MET_FILE2</envar>. Within <command>Tmpbeis3</command>, speciation profiles are used to speciate biogenic pollutants for appropriate chemical mechanisms. The speciation profiles used in SMOKE-BEIS3 are different than those used in SMOKE-BEIS2 modeling, and speciation profiles for the CB4, RADM2, and SAPRC99 mechanisms are available for BEIS3 modeling. The normalized emissions and meteorological data are used to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <envar>BIOSEASON</envar>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis.</para>
 
 </section>
 
@@ -6621,14 +6674,14 @@ Defines whether the program produces a report of emission totals by state.</para
 <itemizedlist>
 
 <listitem>
-<para><envar>BEIS_VERSION</envar>: [default: 3.13]</para>
+<para><envar>BEIS_VERSION</envar>: [default: 3.14]</para>
 <para>Specifies which version of BEIS3 to use.</para>
 <itemizedlist>
 <listitem>
 <para>3.09: Use BEIS version 3.09.</para>
 </listitem>
 <listitem>
-<para>3.13: Use BEIS version 3.13.</para>
+<para>3.14: Use BEIS version 3.14.</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -6651,7 +6704,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>BV309: Use BEIS version 3.09.</para>
 </listitem>
 <listitem>
-<para>BV313: Use BEIS version 3.13.</para>
+<para>BV313: Use BEIS version 3.14.</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -6823,7 +6876,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <section>
 
-<title>Processing Multiple Days with BEIS3.13</title>
+<title>Processing Multiple Days with BEIS3.14</title>
 <para>The user must point to the <envar>SOILOUT</envar> file from one day&rsquo;s simulation as the <envar>SOILINP</envar> file for the next day. The user must also decide whether to write over <envar>SOILOUT</envar> files from previous days or create a uniquely named <envar>SOILOUT</envar> file for each day. The latter approach is recommended if the user wishes to retain the capability to restart simulations in the middle of a sequence of simulations.</para>
 
 </section>

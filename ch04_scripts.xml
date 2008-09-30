@@ -1484,7 +1484,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 
 <listitem>
-<para>For running <envar>RUN_ELEVPOINT</envar>, set <envar>RUN_ELEVPOINT</envar> setting to N. <emphasis>[ <envar>SMK_ELEV_METHOD</envar> : O and <envar>SMK_PING_METHOD</envar>: 0 ]</emphasis></para>
+<para>For skipping <envar>RUN_ELEVPOINT</envar>, set <envar>RUN_ELEVPOINT</envar> setting to N. <emphasis>[ <envar>SMK_ELEV_METHOD</envar> : O and <envar>SMK_PING_METHOD</envar>: 0 ]</emphasis></para>
 <itemizedlist>
 <listitem>
 <para>Set <envar>SMK_ELEV_METHOD</envar> setting to 0.</para>

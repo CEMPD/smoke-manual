@@ -557,7 +557,7 @@
 </table>
 
 <table>
-<title>Variables in <envar>STACK_GROUPS</envar></title>
+<title>Variables in <envar>EMISFACS</envar></title>
 <tgroup cols="4">
 <colspec colwidth="25*" />
 <colspec colwidth="15*" />
@@ -1343,10 +1343,10 @@
 </tgroup>
 </table>
 
-<para>For BEIS version 3.13, <command>Normbeis3</command> calculates normalized emissions for both the summer and winter seasons. For nitric acid (NO) calculations, however, emissions depend on a given grid cell&rsquo;s land use category (or categories). For agricultural land use portions of a grid cell, a determination is made of whether the given day is in the growing season or the non-growing season. The appropriate emissions factor is then applied to the NO emissions calculations. The agricultural land use categories USGS Cropgrass (a cropland/grassland mosaic) and USGS Cropwoodland (a cropland/woodland mosaic) represent grid cells with mixed vegetation and only half the area is assumed to be covered by crops. Accordingly, the corresponding emissions factors for these two categories are multiplied by 0.5 for NO calculations. (Note that the USGS Drycrop and USGS Irrcrop land use categories assume the vegetation is all crop.) For the non-growing season in agricultural areas, the emissions factor for the USGS Grassland land use category is used for NO emission calculations. Finally, for non-agricultural areas, the USGS Grassland emissions factor is used all year round. Table 9.21b contains the names and descriptions of variables in the B3GRD output file from <command>Normbeis3</command>, BEIS version 3.13</para>
+<para>For BEIS version 3.14, <command>Normbeis3</command> calculates normalized emissions for both the summer and winter seasons. For nitric acid (NO) calculations, however, emissions depend on a given grid cell&rsquo;s land use category (or categories). For agricultural land use portions of a grid cell, a determination is made of whether the given day is in the growing season or the non-growing season. The appropriate emissions factor is then applied to the NO emissions calculations. The agricultural land use categories USGS Cropgrass (a cropland/grassland mosaic) and USGS Cropwoodland (a cropland/woodland mosaic) represent grid cells with mixed vegetation and only half the area is assumed to be covered by crops. Accordingly, the corresponding emissions factors for these two categories are multiplied by 0.5 for NO calculations. (Note that the USGS Drycrop and USGS Irrcrop land use categories assume the vegetation is all crop.) For the non-growing season in agricultural areas, the emissions factor for the USGS Grassland land use category is used for NO emission calculations. Finally, for non-agricultural areas, the USGS Grassland emissions factor is used all year round. Table 9.21b contains the names and descriptions of variables in the B3GRD output file from <command>Normbeis3</command>, BEIS version 3.13</para>
 
 <table id="tbl_input_b3grd_beis313">
-<title>Variables in <envar>B3GRD</envar> for BEIS version 3.13</title>
+<title>Variables in <envar>B3GRD</envar> for BEIS version 3.14</title>
 <tgroup cols="4">
 <colspec colwidth="30*" />
 <colspec colwidth="15*" />

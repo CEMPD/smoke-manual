@@ -1178,7 +1178,7 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>b3fac.beis3_efac_v0.98.txt</filename></entry>
 <entry><envar>B3FAC</envar></entry>
-<entry>BEIS3.13 emission factors; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>BEIS3.09 emission factors; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>

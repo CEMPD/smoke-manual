@@ -7093,11 +7093,100 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 </section>
 
+<section id="sect_input_gspro_combo">
+
+<title><envar>GSPRO_COMBO</envar>: Combination speciation profiles file </title>
+
+<para>When the special keyword <quote><envar>COMBO</envar></quote> is used as a speciation profile code in the <xref linkend="sect_input_gsref" />, all sources matching the cross-reference entry should use a combination speciation profile. The combination speciation profiles file (<envar>GSPRO_COMBO</envar>) contains a combination of multiple speciation profiles that combine multiple speciation profiles with a weight for each profile to support a mixture of fuel profiles to specific counties, when users have information to provide about market penetration of each fuel and have speciation profiles for each of these fuels available. The format of the <envar>GSPRO_COMBO</envar> file is shown in <xref linkend="tbl_input_gspro_combo" />.</para>
+
+<table id="tbl_input_gspro_combo">
+<title>Format for <envar>GSPRO_COMBO</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>POLID</entry>
+<entry>Pollutant ID (Char 16) (required, should be MODE__POLLUTANT for entries that are mode-pollutant combinations).</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>FIPS</entry>
+<entry>FIPS code for country, state and county (Char 6) (required)</entry>
+</row>
+<row>
+<entry>C</entry>
+<entry>PERIOD</entry>
+<entry>Period number( e.g., month number)(integer) (required). Need to match SPCMAT_PERIOD settting in script. for data that are not period specific, use1.</entry>
+</row>
+<row>
+<entry>D</entry>
+<entry>NPROF</entry>
+<entry> Number of profiles in the combination (integer) (required). Values less than or equal to 0 will cause record to be skipped. The maximum number of profiles allowed is 10.</entry>
+</row>
+<row>
+<entry>E</entry>
+<entry>PROF[1]</entry>
+<entry>First speciation profile code (Char 5 ) (requied). Must match profile code in <envar>GSPRO</envar> file for pollutant ID. </entry>
+</row>
+<row>
+<entry>F</entry>
+<entry>FRAC[1]</entry>
+<entry>Fraction of the first speciation profile code to be used in combination (Real) (required)</entry>
+</row>
+<row>
+<entry>G</entry>
+<entry>PROF[2]</entry>
+<entry>Second speciation profile code (Char 5 ) (requied). See note on PROF[1]. </entry>
+</row>
+<row>
+<entry>H</entry>
+<entry>FRAC[2]</entry>
+<entry>Fraction of the second speciation profile code to be used in combination (Real)</entry>
+</row>
+<row>
+<entry>I,K,etc</entry>
+<entry>PROF[NPROF]</entry>
+<entry>Third through NPROF speciation profile codes (Char 5 ) (requied). See note on PROF[1] </entry>
+</row>
+<row>
+<entry>J,L,etc</entry>
+<entry>FRAC[NPROF]</entry>
+<entry>Fraction of the third through NPROF speciation profile code to be used in combination (Real)</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+<para> An example of a two-entry <envar>GSPRO_COMBO</envar> file is as follows:</para>
+<para><envar> EXH__VOC   001001   1   3   8170   0.50   8171   0.20   8172   0.30</envar></para>
+<para><envar> EVP__VOC   001001   1   3   8174   0.50   8175   0.20   8176   0.30</envar></para>
+
+<para>This file would do the following:</para>
+<para>For county 01001 in period=1 (e.g., <envar>SPCMAT_PERIOD</envar> set to 1 ), Exhaust mode VOC would use 3 profiles ( 50% profile 8170, 20% profile 8171, and 30% profile 8172).</para> 
+<para>For county 01001 in period=1 (e.g., <envar>SPCMAT_PERIOD</envar> set to 1 ), Evaporative mode VOC would use 3 profiles ( 50% profile 8174, 20% profile 8175, and 30% profile 8176).</para> 
+</section>
+
 <section id="sect_input_gsref">
 
 <title><envar>GSREF</envar>: Speciation cross-reference file</title>
 
 <para>The speciation cross-reference file is used to match the emission sources with the speciation profiles in the <envar>GSPRO</envar> file. The <envar>GSREF</envar> file uses a header to define the point-source unique characteristics. The same file can be used for all source categories; the SMOKE programs use only the applicable entries in the file. The way that the file is applied in SMOKE ensures that the most-specific matches override the less-specific ones. A description of how the speciation cross-reference is applied to the inventory is provided in <xref linkend="sect_programs_spcmat" />.</para>
+
+<para>When the special keyword <quote><envar>COMBO</envar></quote> is placed in the speciation profile code column, all sources matching the cross-reference entry should use a combination speciation profile provided in  <xref linkend="sect_input_gspro_combo" />. Using the profiles listed in the <envar>GSPRO_COMBO</envar> file, <command>Spcmat</command> can use the fractions and the information from the <envar>GSPRO</envar> and <envar>GSCNV</envar> for the profiles provied to create weighted profiles for the matching source.</para>
 
 <section>
 
@@ -8221,27 +8310,27 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry colname="Variable">RC</entry>
 <entry>convective rainfall (cm)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.13, variable name is set by <envar>RC_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.14, variable name is set by <envar>RC_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">RN</entry>
 <entry>nonconvective rainfall (cm)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.13, variable name is set by <envar>RN_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.14, variable name is set by <envar>RN_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SLTYP</entry>
 <entry>soil texture type by USDA category</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.13 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>ISLTYP_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.14 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>ISLTYP_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SOIM1</entry>
 <entry>volumetric soil moisture in top centimeter (m<superscript>3</superscript>/m<superscript>3</superscript>)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.13 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILM_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.14 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILM_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SOIT1</entry>
 <entry>soil temperature in top centimeter (Kelvins)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.13 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILT_VAR</envar></entry>
+<entry>only used if <envar>BEIS_VERSION</envar> = 3.14 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILT_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">TA</entry>
@@ -8414,10 +8503,10 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </tgroup>
 </table>
 
-<para>The <envar>B3FAC</envar> file for BEIS version 3.13 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds (ISOP, OVOC, MONO, and NO).  The format of this file is shown in <xref linkend="tbl_input_b313fac" />.</para>
+<para>The <envar>B3FAC</envar> file for BEIS version 3.14 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds (ISOP, OVOC, MONO, and NO).  The format of this file is shown in <xref linkend="tbl_input_b313fac" />.</para>
 
 <table id="tbl_input_b313fac">
-<title>Format for <envar>B3FAC</envar>, BEIS version 3.13</title>
+<title>Format for <envar>B3FAC</envar>, BEIS version 3.14</title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -11575,10 +11664,15 @@ SOURCE > 100 AND SOURCE < 200
 </listitem>
 </itemizedlist>
 
-<para>This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>SCCDESC</envar> file is shown in <xref linkend="tbl_input_sccdesc" />.</para>
+<para>There are delimited and fixed formats available for the <envar>SCCDESC</envar> file shown in <xref linkend="tbl_input_sccdesc" /> and <xref linkend="tbl_input_sccdesc_fixed" />. This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>SCCDESC</envar> file is shown in <xref linkend="tbl_input_sccdesc" />.</para>
+
+<programlisting>
+#DELIMITED
+"10100101","External Combustion Boilers;Electric Generation;Anthracite Coal;Pulverized Coal"
+</programlisting>
 
 <table id="tbl_input_sccdesc">
-<title>Format for <envar>SCCDESC</envar></title>
+<title>Delimited format for <envar>SCCDESC</envar></title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -11607,16 +11701,56 @@ SOURCE > 100 AND SOURCE < 200
 </tgroup>
 </table>
 
+<programlisting>
+#FIXED
+  10100101  External Combustion Boilers;Electric Generation;Anthracite Coal;Pulverized Coal
+</programlisting>
+
+<table id="tbl_input_sccdesc_fixed">
+<title>Fixed format for <envar>SCCDESC</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Lines</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>1-10</entry>
+<entry>SCC (10-character string)</entry>
+</row>
+<row>
+<entry colname="Position">101-300</entry>
+<entry>SCC description (200-character string)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
 </section>
 
 <section id="sect_input_sicdesc">
 
 <title><envar>SICDESC</envar>: SIC code descriptions</title>
 
-<para>This file provides text descriptions of the SIC codes. The format of the <envar>SICDESC</envar> file is shown in <xref linkend="tbl_input_sicdesc" />.</para>
+<para>This file provides text descriptions of the SIC codes. There are delimited and fixed formats available for the <envar>SICDESC</envar> file shown in <xref linkend="tbl_input_sicdesc" /> and <xref linkend="tbl_input_sicdesc_fixed" />.</para>
+
+<programlisting>
+#DELIMITED
+"0111","Agricultural Production - Crops, Cash Grains, Wheat"
+</programlisting>
 
 <table id="tbl_input_sicdesc">
-<title>Format for <envar>SICDESC</envar></title>
+<title>Delimited format for <envar>SICDESC</envar></title>
 
 <tgroup cols="4">
 <colspec colwidth="15*" />
@@ -11649,6 +11783,48 @@ SOURCE > 100 AND SOURCE < 200
 </tbody>
 </tgroup>
 </table>
+
+
+<programlisting>
+#FIXED
+0111 Agricultural Production - Crops, Cash Grains, Wheat
+</programlisting>
+
+<table id="tbl_input_sicdesc_fixed">
+<title>Fixed format for <envar>SICDESC</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1-4</entry>
+<entry>CODE</entry>
+<entry>Char (6)</entry>
+<entry>SIC code</entry>
+</row>
+<row>
+<entry>5-205</entry>
+<entry>DESC</entry>
+<entry>Char (200)</entry>
+<entry>Description for SIC code</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
 
 <example>
 </example>

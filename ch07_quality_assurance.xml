@@ -179,6 +179,12 @@
 <entry>NAICS code descriptions</entry>
 </row>
 <row>
+<entry><envar>ORISDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>A, P</entry>
+<entry>ORIS ID code descriptions</entry>
+</row>
+<row>
 <entry><envar>PELV</envar></entry>
 <entry>ASCII</entry>
 <entry>P</entry>
@@ -629,7 +635,7 @@
 <para>DIUCODE: Records are printed by diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
-<para>ELEVSTAT: Records include the status of sources as elevated (E), plume-in-grid (P), and low-level (L). All elevated statuses could appear in the same report, depending on the inventory and elevated source selection criteria. This instruction can be used for point sources only.</para>
+<para>ELEVSTAT [STACKGROUP]: Records include the status of sources as elevated (E), plume-in-grid (P), and low-level (L). All elevated statuses could appear in the same report, depending on the inventory and elevated source selection criteria. <envar>STACKGROUP</envar> can be appended to the option to additionally output stack group number from <envar>PELV</envar>. This instruction can be used for point sources only.</para>
 </listitem>
 <listitem>
 <para>HOUR: Records are printed by hour total for each day. This option implies the TEMPORAL instruction, so <command>Smkreport</command> automatically adds that instruction even if it was not included in the input.</para>
@@ -651,6 +657,9 @@
 </listitem>
 <listitem>
 <para>NAICS [NAME]: Records are printed by NAICS code. NAME can be appended to the option to additional output the NAICS code description (from the <envar>NAICSDESC</envar> file) instead of only the NAICS code.</para>
+</listitem>
+<listitem>
+<para>ORIS [NAME]: Records are printed by ORIS ID code. NAME can be appended to the option to additional output the ORIS ID code description (from the <envar>ORISDESC</envar> file) instead of only the ORIS ID code.</para>
 </listitem>
 <listitem>
 <para>PLANT [NAME]: For point sources, emissions are printed by plant total. This option cannot be used in conjunction with the BY SOURCE option; if the <envar>REPCONFIG</envar> file contains both instructions, SMOKE will ignore the BY PLANT instruction.</para>
@@ -884,7 +893,7 @@
 
 <para><emphasis>Note that <command>Smkreport</command> does not determine whether the summation makes sense, and does not correct for species molecular weights.</emphasis> You must ensure that the data you request makes sense.</para>
 
-<para>Also note that the maximum number of characters that can be read on anly line in this file is 1024. This can limit the number of pollutants that you can specifically request in a SELECT DATA statement.</para>
+<para>Also note that the maximum number of characters that can be read on any line in this file is 1024. This can limit the number of pollutants that you can specifically request in a SELECT DATA statement.</para>
 </listitem>
 <listitem>
 <para>ELEVATED [PING]: Selects all elevated point sources (recognized for point sources only). If no elevated sources are found (after applying all other selection criteria), the report will contain a warning to that effect. If the PING option appears, only plume-in-grid sources will be selected. When the ELEVATED instruction is used by any report, the <envar>PELV</envar> file (from <command>Elevpoint</command>) or <envar>PLAY</envar> file (from <command>Laypoint</command>) will be required to determine which sources are elevated. The latter will be used when the LAYFRAC instruction is also included in the report instructions. If the PING option is used, the <envar>PELV</envar> file will be required in all cases, although the LAYFRAC instruction can still be used to set the elevated source status based on the layer fractions.</para>
@@ -1317,6 +1326,7 @@ METADATA
 <listitem>SIC (4-character values)</listitem>
 <listitem>NAICS (6-character values)</listitem>
 <listitem>MACT (6-character values)</listitem>
+<listitem>ORIS ID (6-character values)</listitem>
 <listitem>Primary Srg (primary surrogate ID code; for area or mobile sources only)</listitem>
 <listitem>Fallbk Srg (fallback surrogate ID code; for area or mobile sources only)</listitem>
 <listitem>Monthly Prf (monthly temporal profile code)</listitem>
@@ -1339,6 +1349,7 @@ METADATA
 <listitem>SIC Description (in quotes)</listitem>
 <listitem>NAICS Description (in quotes)</listitem>
 <listitem>MACT Description (in quotes)</listitem>
+<listitem>ORIS Description (in quotes)</listitem>
 </itemizedlist>
 
 </section>
