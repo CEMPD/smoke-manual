@@ -3583,19 +3583,19 @@ INVYEAR 1996
 <entry>J</entry>
 <entry>CEFF</entry>
 <entry>Real</entry>
-<entry>Control Efficiency percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 0)</entry>
+<entry>Control Efficiency percentage (give value of 0-100) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>K</entry>
 <entry>REFF</entry>
 <entry>Real</entry>
-<entry>Rule Effectiveness percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
+<entry>Rule Effectiveness percentage (give value of 0-100) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>L</entry>
 <entry>RPEN</entry>
 <entry>Real</entry>
-<entry>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
+<entry>Rule Penetration percentage (give value of 0-100) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>M</entry>
@@ -4049,7 +4049,7 @@ INVYEAR 1996
 
 <title>CEM hour-specific format</title>
 
-<para>The CEM hour-specific format can only be used with IDA-formatted annual inventory files. SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the IDA-formatted annual inventory. Note that the CEM data hours are in standard local time (no daylight saving time adjustment). The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
+<para>SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the annual inventory. Note that the CEM data hours are in standard local time (no daylight saving time adjustment). The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
 
 <table id="tbl_input_pthour_cem">
 <title>CEM Format for individual hour-specific data files</title>
@@ -8524,7 +8524,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <tbody>
 <row>
 <entry>1+</entry>
-<entry>9-24</entry>
+<entry>1-16</entry>
 <entry>Abbreviated name for land use type (Character)</entry>
 </row>
 <row>
