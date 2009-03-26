@@ -1180,7 +1180,7 @@
 <para>Time step (HHMMSS), only 10000 is allowed</para>
 </listitem>
 <listitem>
-<para><envar>IOAPI_ISPH</envar>: [default: 8]</para>
+<para><envar>IOAPI_ISPH</envar>: [default: 19]</para>
 <para>Determines which USGS spheroid to use for grid-based calculations</para>
 
 <itemizedlist spacing="compact">
@@ -4468,7 +4468,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <listitem>
 <para><envar>NONHAP_TYPE</envar>: [default: VOC]</para>
-<para>Define the pollutant types either VOC or TOG for criteria/HAP VOC (or TOG) integration. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_NHAPEXCLUDE_YN</envar> is set to Y. </para>
+<para>Define the pollutant types either VOC or TOG for criteria/HAP VOC (or TOG) integration. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_NHAPEXCLUDE_YN</envar> or <envar>SMK_INTEGRATE_ALL_YN</envar> is set to Y. </para>
 </listitem>
 
 <listitem>
@@ -4524,6 +4524,25 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </itemizedlist>
 
 </listitem>
+
+<listitem>
+<para><envar>SMK_INTEGRATE_ALL_YN</envar>: [default: N]</para>
+
+<para>Defines whether treat all sources as integrated sources to combine criteria/hazardous air pollutants (CAP/HAP) together. See <xref linkend="sect_concepts_combine_toxics" /> for more detail. Once it is set to Y, it will override the setting of <envar>SMK_NHAPEXCLUDE_YN</envar> to avoid opening and reading <envar>NHAPEXCLUDE</envar> cross-reference file.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Integrate all sources if a toxics inventory has been read</para>
+</listitem>
+<listitem>
+<para>N: Depending on <envar>SMK_NHAPEXCLUDE_YN</envar> setting</para>
+</listitem>
+</itemizedlist>
+
+
+</listitem>
+
+
 <listitem>
 <para><envar>SMK_MAXERROR</envar>: [default: 100]</para>
 
@@ -5126,16 +5145,16 @@ OUTPUT = INPUT1 - INPUT2
 
 </listitem>
 <listitem>
-<para><envar>MRG_REPCTL_YN</envar>: [default: Y]</para>
+<para><envar>MRG_REPCTL_YN</envar>: [default: N]</para>
 
-<para>Defines whether the program separately reports controlled emissions.</para>
+<para>Defines whether the program reports controlled emissions or not.</para>
 
 <itemizedlist>
 <listitem>
-<para>Y: Report controlled emissions separately</para>
+<para>Y: Report controlled emissions</para>
 </listitem>
 <listitem>
-<para>N: Do not report controlled emissions separately</para>
+<para>N: Do not report controlled emissions</para>
 </listitem>
 </itemizedlist>
 
