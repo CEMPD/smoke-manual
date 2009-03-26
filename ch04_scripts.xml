@@ -1458,7 +1458,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <para><envar>RUN_LAYPOINT</envar> setting to Y (this program is not usually needed for these models)</para>
 </listitem>
 <listitem>
-<para><envar>EXPLICIT_PLUME_YN</envar> setting to Y</para>
+<para><envar>EXPLICIT_PLUMES_YN</envar> setting to Y</para>
 </listitem>
 </itemizedlist>
 
@@ -3796,7 +3796,7 @@ endif</programlisting>
 <para>Set <envar>SMK_SPECELEV_YN</envar> to N</para>
 </listitem>
 <listitem>
-<para>Set <envar>EXPLICIT_PLUME_YN</envar> to N</para>
+<para>Set <envar>EXPLICIT_PLUMES_YN</envar> to N</para>
 </listitem>
 <listitem>
 <para>Set <envar>SMK_PING_METHOD</envar> to N</para>
@@ -3903,7 +3903,7 @@ endif</programlisting>
 <para>Set <envar>MRG_GRDOUT_UNIT</envar> to moles/hr</para>
 </listitem>
 <listitem>
-<para>Set <envar>EXPLICIT_PLUME_YN</envar> to N</para>
+<para>Set <envar>EXPLICIT_PLUMES_YN</envar> to N</para>
 </listitem>
 <listitem>
 <para>Set <envar>HOUR_PLUMEDATA_YN</envar> to N</para>
@@ -3936,7 +3936,7 @@ endif</programlisting>
 <para>Set <envar>RUN_LAYPOINT</envar> to Y</para>
 </listitem>
 <listitem>
-<para>Set <envar>EXPLICIT_PLUME_YN</envar> to Y</para>
+<para>Set <envar>EXPLICIT_PLUMES_YN</envar> to Y</para>
 </listitem>
 <listitem>
 <para>Set <envar>HOUR_PLUMEDATA_YN</envar> to Y</para>
