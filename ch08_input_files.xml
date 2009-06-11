@@ -10467,13 +10467,13 @@ VMT RFL TOG
 
 <comment>check +/- character in HTML and PDF</comment>
 
-<para>For example, the following source grouping criterion groups all inventory sources at the same facility that have stack heights within &plusmn;2 meters:</para>
+<para>For example, the following source grouping criterion groups all inventory sources at the same facility that have stack heights within &plusmn;2 meters of weighted average stack height:</para>
 
 <programlisting>HT  +/-  2.0</programlisting>
 
 <para>The fact that sources are grouped by facility is implicit to the <command>Elevpoint</command> program, since we assumed when creating <command>Elevpoint</command> that grouping at a coarser level of detail was not desirable. The packet supports boolean OR and AND conditions. Each separate line of the packet is an OR condition. The AND conditions must appear on a single line. Any number of lines are permitted in this packet, as are any number of AND conditions or AND/OR combinations. However, each line has a maximum length of 300 characters.</para>
 
-<para>The following example will help illustrate. To indicate that one group should consist of sources with stack heights within &plusmn;2 meters that also have diameters within &plusmn;1 meter, and that a second group should consist of sources with exit velocities below 10 m/s, the packet would be:</para>
+<para>The following example will help illustrate. To indicate that one group should consist of sources with stack heights within &plusmn;2 meters of weighted average stack height that also have diameters within &plusmn;1 meter of weighted average diameter, and that a second group should consist of sources with exit velocities below 10 m/s, the packet would be:</para>
 
 <programlisting><![CDATA[
 /SPECIFY ELEV GROUPS/
