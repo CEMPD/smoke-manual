@@ -5930,7 +5930,7 @@ INVYEAR 1995
 <entry>Temporal weight for Sunday (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">34-39</entry>
+<entry colname="Position">34-38</entry>
 <entry>Total of weights for entire week (Integer)</entry>
 </row>
 <row>
