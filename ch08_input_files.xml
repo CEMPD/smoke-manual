@@ -3635,7 +3635,7 @@ INVYEAR 1996
 
 <para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, and ORL FIRE format. However, the format indicator for the day-specific files must be by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
 
-<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with teh CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
+<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
 
 <section>
 <title>Day-specific file format</title>
@@ -3878,11 +3878,12 @@ INVYEAR 1996
 
 <section>
 
-<title>EMS-95 Format</title>
+<title>EMS-95 Format and EMS-95 Wider Format</title>
 
 <para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
 
-<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with teh CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
+<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_ptday_ems" /> and the wider EMS-95 format is shown in <xref linkend="tbl_input_ptday_ems_wider" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the wider EMS-95 Format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the wider EMS-95 format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
+<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
 
 <para>When using hour-specific data in EMS-95 format with the IDA annual inventory, the fields in the <envar>PTHOUR</envar> file should line up with the fields in the <envar>PTINV</envar> file as follows:</para>
 
@@ -3903,8 +3904,6 @@ INVYEAR 1996
 <para><envar>PTHOUR</envar> SCC (implied by Process ID in EMS-95 process file) maps to <envar>PTINV</envar> SCC</para>
 </listitem>
 </itemizedlist>
-
-<para>The EMS-95 format for hour-specific data is shown in <xref linkend="tbl_input_ptday_ems" />.</para>
 
 <table id="tbl_input_ptday_ems">
 <title>EMS-95 Format for individual hour-specific files</title>
@@ -4031,13 +4030,151 @@ INVYEAR 1996
 <entry>250-259</entry>
 <entry>SCC</entry>
 <entry>Char</entry>
-<entry>Only if <envar>PTINV</envar> in IDA format: SCC (required).</entry>
+<entry>SCC (required).</entry>
 </row>
 <row>
 <entry>261-276</entry>
 <entry>DATNAM</entry>
 <entry>Char</entry>
-<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the RAW IDA or ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+
+<table id="tbl_input_ptday_ems_wider">
+<title>EMS-95 Wider Format for individual hour-specific files</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1-2</entry>
+<entry>STID</entry>
+<entry>Int</entry>
+<entry>State Code (required)</entry>
+</row>
+<row>
+<entry>3-5</entry>
+<entry>CYID</entry>
+<entry>Int</entry>
+<entry>County Code (required)</entry>
+</row>
+<row>
+<entry>6-20</entry>
+<entry>FCID</entry>
+<entry>Char</entry>
+<entry>Facility ID (a.k.a. plant ID) (required)</entry>
+</row>
+<row>
+<entry>21-32</entry>
+<entry>SKID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in EMS-95 format: Stack ID (required)</member>
+<member>If <envar>PTINV</envar> in IDA format: Point ID</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>33-44</entry>
+<entry>DVID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in EMS-95 format: Device ID (required)</member>
+<member>If <envar>PTINV</envar> in IDA format: Stack ID</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>45-56</entry>
+<entry>PRID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in EMS-95 format: Process ID (required)</member>
+<member>If <envar>PTINV</envar> in IDA format: Segment</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>57-61</entry>
+<entry>     </entry>
+<entry>     </entry>
+<entry>Leave blank</entry>
+</row>
+<row>
+<entry>62-69</entry>
+<entry>DATE</entry>
+<entry>Char</entry>
+<entry>Date in MM/DD/YY format. Years less than 70 are treated as century 2000 (required)</entry>
+</row>
+<row>
+<entry>70-72</entry>
+<entry>TZONNAM</entry>
+<entry>Char</entry>
+<entry>Time zone name associated with emissions data. Valid entries are GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, and PST. (required)</entry>
+</row>
+<row>
+<entry>73-84</entry>
+<entry>HRVAL1</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 1 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>85-96</entry>
+<entry>HRVAL2</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>97-108</entry>
+<entry>HRVAL3</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>...</entry>
+</row>
+<row>
+<entry>349-360</entry>
+<entry>HRVAL24</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 24 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>361-372</entry>
+<entry>DAYTOT</entry>
+<entry>Real</entry>
+<entry>Daily emissions total (short tons/day)</entry>
+</row>
+<row>
+<entry>373-380</entry>
+<entry>SCC</entry>
+<entry>Char</entry>
+<entry>SCC (required).</entry>
+</row>
+<row>
+<entry>261-276</entry>
+<entry>DATNAM</entry>
+<entry>Char</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
 </row>
 </tbody>
 </tgroup>
