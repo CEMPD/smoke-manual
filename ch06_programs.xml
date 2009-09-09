@@ -4410,6 +4410,22 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 </listitem>
 <listitem>
+<para><envar>HOURLY_WIDE_FMT</envar>: [default: N]</para>
+
+<para>Defines whether to import the hour-specific data in EMS-95 wider format or not.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Import hour-specific data in <xref linkend="tbl_input_pthour_ems_wider" /></para>
+</listitem>
+<listitem>
+<para>N: Import hour-specific data in <xref linkend="tbl_input_pthour_ems" /></para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>
 <para><envar>IMPORT_AVEINV_YN</envar>: [default: Y]</para>
 
 <para>Defines whether to import the annual and average-day inventory data. This is set to N to import day-specific or hour-specific data after <command>Smkinven</command> has previously been run for the annual and average-day data.</para>
@@ -5940,7 +5956,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>POLLUTANT_CONVERSION</envar>: [default: N]</para>
 
-<para>Defines whether the program uses the pollutant-to-pollutant conversion file.</para>
+<para>Defines whether the program uses the pollutant-to-pollutant conversion file (<xref linkend="sect_input_gscnv" />).</para>
 
 <itemizedlist>
 <listitem>
@@ -5958,9 +5974,26 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
+
+<listitem>
+<para><envar>SRC_TAGGING</envar>: [default: N]</para>
+
+<para>Defines whether the program uses the speication tagging cross-referencs file (<xref linkend="sect_input_gstag" />).</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Use speciation tagging cross-reference file</para>
+</listitem>
+<listitem>
+<para>N: Do not use speciation tagging cross-reference file</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 </itemizedlist>
 
 </section>
+
 
 <section>
 

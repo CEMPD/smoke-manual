@@ -3882,7 +3882,7 @@ INVYEAR 1996
 
 <para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
 
-<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_ptday_ems" /> and the wider EMS-95 format is shown in <xref linkend="tbl_input_ptday_ems_wider" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the wider EMS-95 Format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the wider EMS-95 format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
+<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wider EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wider" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wider format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wider format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
 <para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
 
 <para>When using hour-specific data in EMS-95 format with the IDA annual inventory, the fields in the <envar>PTHOUR</envar> file should line up with the fields in the <envar>PTINV</envar> file as follows:</para>
@@ -3905,7 +3905,7 @@ INVYEAR 1996
 </listitem>
 </itemizedlist>
 
-<table id="tbl_input_ptday_ems">
+<table id="tbl_input_pthour_ems">
 <title>EMS-95 Format for individual hour-specific files</title>
 
 <tgroup cols="4">
@@ -4043,7 +4043,7 @@ INVYEAR 1996
 </table>
 
 
-<table id="tbl_input_ptday_ems_wider">
+<table id="tbl_input_pthour_ems_wider">
 <title>EMS-95 Wider Format for individual hour-specific files</title>
 
 <tgroup cols="4">
@@ -4171,7 +4171,7 @@ INVYEAR 1996
 <entry>SCC (required).</entry>
 </row>
 <row>
-<entry>261-276</entry>
+<entry>381-396</entry>
 <entry>DATNAM</entry>
 <entry>Char</entry>
 <entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
@@ -7016,7 +7016,7 @@ INVYEAR 1995
 
 <section id="sect_input_gscnv">
 
-<title><envar>GSCNV</envar>: Pollutant-to-pollutant conversion file (optional)</title>
+<title><envar>GSCNV</envar>: Pollutant-to-pollutant conversion file</title>
 
 <para>The pollutant-to-pollutant conversion factors file is required when there is a mismatch between the pollutant in the inventory and the pollutant for which the speciation profiles have been developed. The typical example is when the inventory has VOC (or ROG), but the speciation profiles are developed for TOG. SMOKE permits such a factor to be applied to any pollutant. The same format is used by all source categories.</para>
 
@@ -7502,6 +7502,80 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </section>
 
 </section>
+
+<section id="sect_input_gstag">
+
+<title><envar>GSTAG</envar>: Speciation tagging cross-reference file </title>
+
+<para>The speciation tagging cross-reference file allows <command>Spcmat</command> to tag existing model species based on the match between the source characteristics listed in the <envar>GSTAG</envar> file and source characterisitcs for each source in the inventory. The <command>Spcmat</command> program willl append the characters of the tag label specified in the <envar>GSTAG</envar> file. Note that this approach willl not address raw inventoy pollutants (VOC, NOX, PM2_5 and PM10) or any other model speces from bigenic sources based upon BEIS model, since the BEIS model does not use <command>Spcmat</command>. When the environment variable <envar>SRC_TAGGING</envar> is set to <quote>Y</quote>, <command>Spcmat</command> will look for the <envar>GSTAG</envar> file. The default is backward compatible and therefore <quote>N</quote>. If an invalid character in a tag label such as <quote>#</quote> or <quote>+</quote> is used, SMOKE will return an error. The format of the <envar>GSTAG</envar> file is shown in <xref linkend="tbl_input_gstag" />.</para>
+
+<table id="tbl_input_gstag">
+<title>Format for <envar>GSTAG</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry><para>Country/state/county code (6-digit Integer in format YSSCCC) (optional):</para>
+
+<itemizedlist spacing="compact">
+<listitem>leave blank if not country/state-dependent</listitem>
+<listitem>set to YSS000 for country/state-dependent</listitem>
+<listitem>set to YSSCCC for county-dependent</listitem>
+</itemizedlist>
+
+</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>8- or 10-digic SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry>Species name (Character) (required; must match Species in <envar>GSPRO</envar> file; 16-character maximum). If missing or -9, SMOKE willl return an error.</entry>
+</row>
+<row>
+<entry colname="Position">D</entry>
+<entry>Tagging label (Character) (required; 8-character maximum. The combination of Species name in column C and the tagging label can not exceed 16 chracters)</entry>
+</row>
+<row>
+<entry colname="Position">E</entry>
+<entry>Maximum Achievable Technology Code (6-character String) (optional; use 0 if not needed)</entry>
+</row>
+<row>
+<entry colname="Position">F</entry>
+<entry>Standard Industrial Code (4-character String) (optional; use 0 if not needed)</entry>
+</row>
+<row>
+<entry colname="Position">G</entry>
+<entry>Plant ID for point sources (Character) (optional; leave bank or -9 if entry is not plant-specific)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para> An example of a two-entry <envar>GSTAG</envar> file is as follows:</para>
+<para><envar> 001001, 20400408,   ALD2, _T1</envar></para>
+<para><envar> 001001, 2530050000, NO,   _T1</envar></para>
+
+<para>This file would do the following:</para>
+<para><envar>ALD2</envar> species from County 0100 and SCC 20400408 is tagged as <envar>ALD2_T1</envar>.</para> 
+<para><envar>NO</envar> species from County 0100 and SCC 2530050000 is tagged as <envar>NO_T1</envar>.</para> 
+</section>
+
 
 </section>
 
