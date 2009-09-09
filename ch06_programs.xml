@@ -244,6 +244,9 @@
 <para>Country/State/County code, plant ID, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
+<para>Country/State/County code, plant ID, MACT code, pollutant</para>
+</listitem>
+<listitem>
 <para>Country/State/County code, plant ID, pollutant</para>
 </listitem>
 <listitem>
@@ -1225,8 +1228,8 @@
 </listitem>
 <listitem>
 <para>2: Use the <quote>Elevated</quote> section of the <envar>PELVCONFIG</envar> configuration file to select specific sources. This approach can be used for in-line plume rise in CMAQ. Must set <envar>SMK_PING_METHOD</envar> = 0.</para>
-<para>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. To reduc the total number of plume rise calculations tha would be done in the CMAQ in-line plume rise module, <command>Elevpoint</command> needs to group soiuces with nearly identical stack parameters. Also note that only sources with an analytical plume rise height greater than 38 meters are selecteed for in-line plume rise processing. <command>Elevpoint</command> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation in CMAQ.</para>
-<para>When using <command>Smkmerge</command> for in-line plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file. If <envar>SMKMERGE_CUSTOM_OUTPUT</envar> is set to Y, the output file for the in-line emissions is called <envar>INLN</envar>.</para>
+<para>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. To reduce the total number of plume rise calculations that would be done in the CMAQ in-line plume rise module, <command>Elevpoint</command> needs to group sources with nearly identical stack parameters. <command>Elevpoint</command> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation in CMAQ.</para>
+<para>When using <command>Smkmerge</command> for in-line plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file. If <envar>SMKMERGE_CUSTOM_OUTPUT</envar> is set to Y, the output file for the in-line emissions is called <envar>INLNST_L</envar>.</para>
 <para>To process fires emission modeling without precomputed plume rise described in described in <xref linkend="sect_scripts_hour_day_invs" />, the following two lines need to be added to the <envar>GSPRO</envar> file.</para>
 <para><envar> 0000,HFLUX,HFLUX,1,1,1</envar></para>
 <para><envar> 0000,ACRESBURNED,ACRESBURNED,1,1,1</envar></para>
@@ -1951,8 +1954,6 @@ F<subscript>ef</subscript> = freeway emission factor
 </listitem>
 <listitem>
 <para><envar>SMK_USE_FALLBACK</envar>: [Y/N]  </para>
-</listitem>
-<listitem>
 <para>Defines the surrogate code number to use as a fallback surrogate when the surrogate number set by the cross-reference file would zero out the emissions for that source.  This fallback surrogate is also used to define the county/state/country (FIPS) codes for use in <command>Grdmat</command>; therefore, a fallback surrogate code is mandatory even if the <envar>SMK_USE_FALLBACK</envar> is set to [N]. This code should exist in the <envar>SRGDESC</envar> file and be representative on all county/state/countries.  See description in <xref linkend="sect_input_srgdesc" />.</para>
 </listitem>
 <listitem>
@@ -3090,7 +3091,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <row>
 <entry><envar>ADJ_FACS</envar><para>(optional)</para></entry>
 <entry>ASCII</entry>
-<entry><para>File that lists the species name, the logical file name, and the factor to be applied to all grid cells. The species name must be in columns A, the logical file name in column B, and the factor in columns C. For example, the following <envar>ADJ_FACS</envar> file sample would multiply NO emissions from the MGTS_L file by 1.3 (30% increase) and multiply PAR from the PGTS_L file by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
+<entry><para>File that lists the species name, the logical file name, and the factor to be applied to all grid cells. The species name must be in columns A, the logical file name in column B, and the factor in columns C. SMOKE will ignore the case of the text, treating lower- and uppercase characters as if they were the same. For example, the following <envar>ADJ_FACS</envar> file sample would multiply NO emissions from the MGTS_L file by 1.3 (30% increase) and multiply PAR from the PGTS_L file by 0.6 (40% decrease).<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
 <programlisting>NO, MGTS_L, 1.3
 PAR, PGTS_L, 0.6</programlisting></entry>
 </row>
@@ -3098,7 +3099,7 @@ PAR, PGTS_L, 0.6</programlisting></entry>
 <row>
 <entry><envar>TAG_SPECIES</envar><para>(optional)</para></entry>
 <entry>ASCII</entry>
-<entry><para>File that lists the logical file name, the species name, and the tag to be appended. The logical file name in column B, the species name must be in columns B, and the factor in columns C. For example, the following <envar>TAG_SPECIES</envar> file sample would append a tag (t1) to the NO species from the MGTS_L file and append a tag (t3) to the PAR from the PGTS_L file.<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
+<entry><para>File that lists the logical file name, the species name, and the tag name to be appended. The logical file name in column B, the species name must be in columns B, and the factor in columns C. SMOKE will ignore the case of the text, treating lower- and uppercase characters as if they were the same. For example, the following <envar>TAG_SPECIES</envar> file sample would append a tag (t1) to the NO species from the MGTS_L file and append a tag (t3) to the PAR from the PGTS_L file.<comment>(Note that this file is not documented in Chapter 8.)</comment></para>
 <programlisting>MGTS_L, NO,  t1
 PGTS_L, PAR, t3</programlisting></entry>
 
@@ -5325,6 +5326,9 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 <listitem>
 <para><envar>PING</envar> : CMAQ PinG file, produced if <envar>SMK_PING_METHOD</envar> is set to 1</para>
+</listitem>
+<listitem>
+<para><envar>INLN</envar> : CMAQ 2-D surface latyer emissions file, produced if <envar>SMK_ELEV_METHOD</envar> is set to 2. For in-line processing plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file for CMAQ version 4.7.</para>
 </listitem>
 <listitem>
 <para><envar>REP[E|A|M|P]G</envar> : Emission total report file, produced if either <envar>MRG_REPSTA_YN</envar> or <envar>MRG_REPCNY_YN</envar> is set to Y</para>
