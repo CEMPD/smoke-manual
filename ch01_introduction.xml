@@ -82,6 +82,24 @@
 
 <para>The SMOKE modeling system can be run using either of two approaches. The most common method is through the use of UNIX scripts, which includes the Linux versions of the UNIX operating system. The second approach is to run SMOKE using the <ulink url="http://www.epa.gov/asmdnerl/mims/">MIMS interface</ulink>, which is a general-purpose graphical user interface (GUI).</para>
 
+
+<para>Below, we summarize the major features of SMOKE v2.6.</para>
+
+<itemizedlist>
+  <listitem><para><command>Smkinven</command> supports new extended EMS-95 fomrat to enhance the precision of low emissions values. The original EMS-95 format has 7 columns available for the emissions ivalues instead of the 12 columns.</para>
+   </listitem>
+  <listitem><para><command>Smkinven</command> has an option to integrate or non-integrate all criteria VOCs and hazadoss air pollutants (HAPs) without additional NHAPEXCLUDE file. NHAPEXCLUDE file is only required when user partially combines CAP VOCs and HAPs inventories together.</para>
+   </listitem>
+  <listitem><para><command>Spcmat</command> supports source-level tagging functionality by SCC/PlantID/MACT/SIC codes using new GSTAG (Speciation Tagging cross-reference) file.</para>
+   </listitem>
+  <listitem><para><command>Smkreport</command> creates a report by the status of integration of sources that combines criteria VOCs and HAPs inventories using "BY INTEGRATE".</para>
+   </listitem>
+ <listitem><para><command>Layalloc</command> allows users to vertically redistribute 2-D emissions into multiple modle layers after SMOKE has already created surface layer model-ready inputs.</para>
+   </listitem>
+ 
+</itemizedlist>
+
+
 <para>Below, we summarize the major features of SMOKE v2.5.</para>
 
 <itemizedlist>

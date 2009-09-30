@@ -178,7 +178,7 @@
 </row>
 
 <row>
-<entry>Fire without precomputed plume rise</entry>
+<entry>Wildfire with internal plume rise calculation</entry>
 <entry align="center">N/A</entry>
 <entry align="center">D</entry>
 <entry align="center">D</entry>
@@ -308,7 +308,7 @@
 
 <section>
 
-<title>Wildfire with precomputed plumes (SMOKE category: point)</title>
+<title>Wildfire with precomputed plume rise (SMOKE category: point)</title>
 
 <itemizedlist>
 
@@ -338,12 +338,12 @@
 
 <section>
 
-<title>Fires without precomputed plumes (SMOKE category: point)</title>
+<title>Wildfires with internal plume rise calculation (SMOKE category: point)</title>
 
 <itemizedlist>
 
 <listitem>
-<para><emphasis role="bold">Source characteristics:</emphasis> Fires without precomputed plumes are identified by the country/state/county code, fire identification, fire name, location identification, and SCC.</para>
+<para><emphasis role="bold">Source characteristics:</emphasis> Wildfires with internal plume rise calculation are identified by the country/state/county code, fire identification, fire name, location identification, and SCC.</para>
 </listitem>
 
 <listitem>
@@ -351,7 +351,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Source attributes:</emphasis> Like other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and will re-normalize temporal profiles based on the starting and ending hours of the fire. In addition, wildfire sources require the latitude and longitude source attributes to locate the fire. Note that all emissions for a fire will be assumed to come from the single grid cell that contains the latititude and longitude of the fire. Finally, additional day-specific source attributes listed above for fire sources <emphasis>must</emphasis> be provided for calculating the heat flux of each fire, which is used to estimate the fraction of emissions in the surface layer, the height of the bottom of the plume, and the height of the top of the plume. These hour-specific attributes are provided to SMOKE using the point source day-specific formats described in <xref linkend="sect_input_ptday_fireemis" />.</para>
+<para><emphasis role="bold">Source attributes:</emphasis> Like other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and will re-normalize temporal profiles based on the starting and ending hours of the fire. In addition, wildfire sources require the latitude and longitude source attributes to locate the fire. Note that all emissions for a fire will be assumed to come from the single grid cell that contains the latititude and longitude of the fire. Finally, additional day-specific source attributes listed above for fire sources <emphasis>must</emphasis> be provided for calculating the heat flux of each fire, which is used to estimate the fraction of emissions in the surface layer, the height of the bottom of the plume, and the height of the top of the plume. See more information about how to process at <xref linkend="sect_ptfire_emis_cmaq"/></para>
 </listitem>
 
 <listitem>
@@ -429,8 +429,8 @@
 <listitem>
 <para><emphasis role="bold">Wildfire sources:</emphasis> There are two approches available that you can provide wildfire data that are being treated as point sources to SMOKE using the IDA or ORL point-source format.</para>
     <itemizedlist spacing="compact">
-        <listitem><emphasis role="bold">BlueSky approach:</emphasis> Certain fields must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats. Detailed information is available in <xref linkend="sect_utilities_bluesky2inv"/>.</listitem>
-        <listitem><emphasis role="bold">NEI fire inventories approach:</emphasis> Requires two separate inventory files that are provided in a modified ORL format: (1) a list of fires with fire-specific characteristics including county/state/county, fire identification, location coordinate, fire name, SCC and others, as described in <xref linkend="sect_input_ptinv_fire"/>, and (2) a day-specific fire data including size of area burned, fuel loading, and star/end hour of fire (<xref linkend="sect_input_ptday_fireemis"/>). Unlike the approach listed above, this approach internally estimates the plume rise using the size of the area burned and fuel loading, and it adjusts temporal profiles using the start and end hours of the fire.</listitem>
+        <listitem><emphasis role="bold">Precomputed plume rise approach:</emphasis> Certain fields must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats.</listitem>
+        <listitem><emphasis role="bold">Internal plume rise calculation approach:</emphasis> Requires two separate inventory files that are provided in a modified ORL format: (1) a list of fires with fire-specific characteristics including county/state/county, fire identification, location coordinate, fire name, SCC and others, as described in <xref linkend="sect_input_ptinv_fire"/>, and (2) a day-specific fire data including size of area burned, fuel loading, and star/end hour of fire (<xref linkend="sect_input_ptday_fireemis"/>). Unlike the approach listed above, this approach internally estimates the plume rise using the size of the area burned and fuel loading, and it adjusts temporal profiles using the start and end hours of the fire. See detail at <xref linkend="sect_ptfire_emis_cmaq"/></listitem>
     </itemizedlist>
 </listitem>
 
@@ -1987,7 +1987,7 @@ Additional data</programlisting>
 
 <title>Wild and prescribed fires point sources</title>
 
-<para>You may also either provide either precomputed point-source plume rise to SMOKE or internally compute plume rise using acres burned and fuel loading of fires with both the CMAQ-based and UAM-based approaches to modeling point sources. Precomputed plume rise point sources are called explicit plume sources. This capability was implemented for modeling wildfire sources as point sources in SMOKE using plume rise computed with a different approach from the Briggs-based approach used for stack-based plumes. The input data for this approach are the fraction of emissions in layer 1, the bottom of the plume, and the top of the plume. SMOKE distributes the emissions across the layers by weighting the emissions by the pressure difference in each layer over the total pressure difference between the top and bottom of the plume. <comment><xref linkend="sect_programs_laypoint" /> provides the technical description of how the emissions are distributed among the layers.</comment></para>
+<para>You may also either provide either precomputed point-source plume rise to SMOKE or internally compute plume rise using acres burned and fuel loading of fires with both the CMAQ-based and UAM-based approaches to modeling point sources. Precomputed plume rise point sources are called explicit plume sources. This capability was implemented for modeling wildfire sources as point sources in SMOKE using plume rise computed with a different approach from the Briggs-based approach used for stack-based plumes (<xref linkend="sect_ptfire_emis_cmaq"/>). The input data for this approach are the fraction of emissions in layer 1, the bottom of the plume, and the top of the plume. SMOKE distributes the emissions across the layers by weighting the emissions by the pressure difference in each layer over the total pressure difference between the top and bottom of the plume. <comment><xref linkend="sect_programs_laypoint" /> provides the technical description of how the emissions are distributed among the layers.</comment></para>
 
 <para>For the UAM-based modeling approach, the file format does not readily allow you to provide precomputed plume rise; in fact, the entire premise of the format is that the AQM will compute the plume rise. To enable you to provide precomputed rise for the UAM-based modeling approach, the <command>Smkmerge</command> program creates an ASCII elevated-point-source file with an imaginary stack for each layer of each source (e.g., each wildfire). The stack parameters of the imaginary stack are set to values that will ensure a zero plume rise will be computed for the stack, and the x-y location of the stacks are the same for all imaginary stacks representing the same source. The emissions associated with the imaginary stacks are provided based on the emissions values that are to be entered in each layer for the source. The emissions for layer 1 are written in the point-source file to the imaginary stack associated with layer 1, and the same is done for all of the other layers. SMOKE uses a zero value for the imaginary stack when the emissions from a given source are not in a layer for an hour or when the source stops (e.g., once a wildfire ends). While not particularly elegant, this approach permits providing precomputed plume rise to the UAM-based models without having to change those models.</para>
 

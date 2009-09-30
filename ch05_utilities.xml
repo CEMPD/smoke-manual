@@ -24,6 +24,8 @@
 
 <para><link linkend="sect_utilities_invsplit"><command>Invsplit</command></link> splits an IDA, SMOKE toxics, or EMS-95 inventory into separate inventories by state, grouping the states as indicated by your inputs.</para>
 
+<para><link linkend="sect_utilities_layalloc"><command>Layalloc</command></link> vertically redistributes SMOKE hourly, gridded, speciated emissions in based on an user-defined layer fraction input.</para>
+
 <para><link linkend="sect_utilities_metcombine"><command>Metcombine</command></link> combines 2-D gridded meteorology data with the 1st layer of 3-D gridded meteorology data to create input files for <command>Premobl</command>.</para>
 
 <para><link linkend="sect_utilities_metscan"><command>Metscan</command></link> reads up to one year&rsquo;s worth of first-layer I/O API meteorology data (whether 2-D or 3-D files) and determine the first and last freeze dates of the year, for use by <command>Tmpbio</command> or <command>Tmpbeis3</command> in setting winter/summer emission factors by day and grid cell.</para>
@@ -828,6 +830,126 @@ PAR             0.6</programlisting></entry>
 <entry><envar>LOGFILE</envar></entry>
 <entry>ASCII</entry>
 <entry>Log generated from executing <command>Invsplit</command></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+</section>
+
+</section>
+
+<section id="sect_utilities_layalloc">
+
+<title><command>Layalloc</command></title>
+
+<section>
+
+<title>Description</title>
+
+<para>The <command>Layalloc</command> program allows users to vertically distribute 2-D emissions after SMOKE has already created surface layer model-ready inputs. For example, the program could be used to reallocate 2-D surface layer emissions into multiple model layers. Although it is not ideal to vertically modify the emissions, the <command>Layalloc</command> gives users an opportunity of redistributing surface only emissions into multiple model layers for a better vertical representations of 2-D emissions.</para>
+
+<para><command>Layalloc</command> reads in a gridded 2-D SMOKE emissions file (output from the <command>Smkmerge</command> program) and redistributes the emissions into multiple model layers based upon a percentage factor assigned by user-defined layer thickness. This approach assumes that the vertical factors are uniformly applied over grid cells. The resulting hourly, gridded, speciated emissions data are output to a new I/O API file with the same temporal resolution and the same model species with several model layers.</para>
+
+</section>
+
+<section>
+
+<title>Processing Order</title>
+
+<para>This optional program can be run after <command>Smkmerge</command> and before either <command>Mrggrid</command> (if it is being used to merge several <command>Smkmerge</command> output files together) or the AQM of interest.</para>
+
+</section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<section>
+
+<title>Input Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>INFILE</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>2-D hourly, gridded, speciated inputs from <command>Smkmerge</command>. <envar>INFILE</envar> should be set to logical file name <envar>AGTS_[L|S]</envar>, <envar>BGTS_[L|S]</envar>, <envar>MGTS_[L|S]</envar>, <envar>PGTS_[L|S]</envar>, or <envar>EGTS_[L|S]</envar>, which are the output files from <command>Smkmerge</command>.</entry>
+</row>
+<row>
+<entry><envar>MET_CRO_3D</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Meteorology file contains a variable <quote>ZF</quote> which is full-layer height above ground (m)</entry>
+</row>
+<row>
+<entry><envar>LAYER_FRACTION</envar></entry>
+<entry>ASCII</entry>
+<entry><para>File that lists the thickness of layer top and bottom heights in meter along with a percentage factor. For example, the following <envar>LAYER_FRACTION</envar> file sample would distribute 2-D emissions into multiple model layers based upon five user-defined layers (0-100, 100-200,	200-400, 400-600, and 600-1000m).</para>
+
+<programlisting>No., Bottom Ht(m), Top Ht(m), Fraction
+1,         0,        100,        0.60
+2,       100,        200,        0.20
+3,       200,        400,        0.10
+4,       400,        600,        0.07
+5,       600,       1000,        0.03</programlisting></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+<section>
+
+<title>Input Environment Variables</title>
+
+<para>None</para>
+
+</section>
+
+<section>
+
+<title>Output Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="20*" />
+<colspec colwidth="60*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Layalloc</command></entry>
+</row>
+<row>
+<entry><envar>OUTFILE</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>3-D hourly, gridded, speciated emissions, adjusted based on <envar>LAYER_FRACTION</envar>.</entry>
 </row>
 </tbody>
 </tgroup>

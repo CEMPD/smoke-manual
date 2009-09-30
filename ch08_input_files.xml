@@ -2084,7 +2084,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
 <entry><para>In IDA-format files, it defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</para> 
-<para>In wild/Rx fires ORL format files (#ORL FIRE (Section 8.2.8.4, <quote><xref linkend="sect_input_ptinv_fire" /></quote>) and day-specific #ORL FIREEMIS file (Section 8.2.6.2, <quote><xref linkend="sect_input_ptday_fireemis" /></quote>), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para> 
+<para>In wild/Rx fires ORL format files (#ORL FIRE (<quote><xref linkend="sect_input_ptinv_fire" /></quote>) and day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para> 
 </entry>
 </row>
 <row>
@@ -3686,7 +3686,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Stack ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Point ID</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Point ID</member>
 </simplelist>
 </entry>
 </row>
@@ -3697,7 +3697,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Device ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Stack ID</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Stack ID</member>
 </simplelist>
 </entry>
 </row>
@@ -3708,7 +3708,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Process ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Segment</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Segment</member>
 </simplelist>
 </entry>
 </row>
@@ -3758,7 +3758,7 @@ INVYEAR 1996
 <title>Day-specific file format for fires</title>
 
 <para>The SMOKE requires that the sources in the day-specific fires inventory format (<envar>#ORL FIREEMIS</envar>) <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information, such as <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are used to adjust the hourly temporal profile.</para>
-<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para>
 <para>NOTE: All inventory pollutant names need to be listed in the master (annual) <envar>PTINV</envar> and the day-specific <envar>PTDAY</envar> files using a header record <envar>#DATA</envar>. Sample header records are shown below:</para>
 
 <programlisting>#ORL     FIREEMIS
@@ -3949,7 +3949,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Stack ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Point ID</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Point ID</member>
 </simplelist>
 </entry>
 </row>
@@ -3960,7 +3960,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Device ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Stack ID</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Stack ID</member>
 </simplelist>
 </entry>
 </row>
@@ -3971,7 +3971,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Process ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Segment</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Segment</member>
 </simplelist>
 </entry>
 </row>
@@ -4087,7 +4087,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Stack ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Point ID</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Point ID</member>
 </simplelist>
 </entry>
 </row>
@@ -4098,7 +4098,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Device ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Stack ID</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Stack ID</member>
 </simplelist>
 </entry>
 </row>
@@ -4109,7 +4109,7 @@ INVYEAR 1996
 <entry>
 <simplelist>
 <member>If <envar>PTINV</envar> in EMS-95 format: Process ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA format: Segment</member>
+<member>If <envar>PTINV</envar> in IDA/ORL format: Segment</member>
 </simplelist>
 </entry>
 </row>
@@ -5635,7 +5635,7 @@ INVYEAR 1995
 <title>ORL FIRE Format</title>
 
 <para>The ORL inventory file for fires (<envar>#ORL FIRE</envar>) is one of the required input files to provide wildfire and prescribed fire data that are being treated as point sources to SMOKE. This file includes the fire characteristics, such as county/state/county code, fire identification, fire name, location identification, location coordinates, SCC (flaming or smoldering), material burned, vegetation types and heat content. Some of characteristics that are common to this master (annual) inventory file <envar>PTINV</envar> and the day-specific inventory file <envar>PTDAY</envar> shown in <xref linkend="sect_input_ptday_fireemis"/> need to match exactly by county/state/county code, fire ID, location ID, location coordinates, and SCC. </para>
-<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para>
 <para>NOTE: Although inventory pollutants are not listed, user needs to list all inventory pollutant names available from the day-specific inventory file <envar>PTDAY</envar> using a header record <envar>#DATA</envar>. Sample header records are shown below:</para>
 
 <programlisting>#ORL     FIRE
@@ -8714,7 +8714,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </tgroup>
 </table>
 
-<para>The <envar>B3FAC</envar> file for BEIS version 3.14 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds (ISOP, OVOC, MONO, and NO).  The format of this file is shown in <xref linkend="tbl_input_b313fac" />.</para>
+<para>The <envar>B3FAC</envar> file for BEIS version 3.14 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds listed in <xref linkend="tbl_input_b313fac" />.</para>
 
 <table id="tbl_input_b313fac">
 <title>Format for <envar>B3FAC</envar>, BEIS version 3.14</title>
@@ -11575,16 +11575,20 @@ SOURCE > 100 AND SOURCE < 200
 
 <section id="sect_input_nhapexclude">
 
-<title><envar>NHAPEXCLUDE</envar>: NonHAP VOC calculation exclusions file</title>
+<title><envar>NHAPEXCLUDE</envar>: NonHAP VOC calculation inclusions/exclusions file</title>
 
-<para>The <envar>NHAPEXCLUDE</envar> file provides a way to exclude some sources from the NONHAPVOC or NONHAPTOG calculation (see <xref linkend="sect_concepts_combine_toxics" />. When the <envar>NHAPEXCLUDE</envar> file is used, <command>Smkinven</command> will not use the toxics pollutants from the excluded sources to compute NONHAPVOC or NONHAPTOG, but rather will keep the VOC or TOG emissions and naming the same. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed with _NOI appended to the name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file has provided a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. Starting in SMOKE version 2.6, a new special header in the <envar>NHAPEXCLUDE</envar>  file allows <command>Smkinven</command> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is not defined, /EXCLUDE/ will be used as default (see <xref linkend="sect_concepts_combine_toxics" />). When the header is defined as /INCLUDE/, <command>Smkinven</command> will treat those selected sources as integrated sources. It means that <command>Smkinven</command> will use the toxics pollutants from the sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed with _NOI appended to the name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass.</para>
 
-<para>The <envar>NHAPEXCLUDE</envar> file contains the country/state, county, and SCC codes of thouses sources that SMOKE is to exclude from the NONHAP calculation. The file format is shown in <xref linkend="tbl_input_nhapexclude" />.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file is only used when <envar>SMK_PROCERSS_HAPS</envar> is set to <envar>PARTIAL</envar> or <envar>SMK_NHAPEXCLUDE_YN</envar> is set to <envar>Y</envar>. If <envar>SMK_PROCERSS_HAPS</envar> is set to <envar>ALL</envar> or <envar>NONE</envar>, the <envar>NHAPEXCLUDE</envar> is not required. See <xref linkend="sect_programs_smkinven_envar" />. Once integration/non-integration processing is done, <command>Smkreport</command> can create a report that separates integrated and non-integrated sources using <envar>BY INTEGRATE</envar> instruction. See <xref linkend="sect_qa_repconfig_create_report"/>.</para>
+
+<para>NOTE: Whenever <envar>SMK_PROCESS_HAPS</envar> or <envar>SMK_NHAPEXCLUDE_YN</envar> is set, a new inventory pollutant <quote>VOC_INV</quote> or <quote>TOG_INV</quote> will be created to retain the original VOC or TOG values before the calculation for the purpose of quatliy assurance reports using <command>Smkreport</command>.</para>
+
+<para>The <envar>NHAPEXCLUDE</envar> file contains the country/state, county, and SCC codes of thouses sources that SMOKE is to include or exclude from the NONHAP calculation. The file format is shown in <xref linkend="tbl_input_nhapexclude" />.</para>
 
 <table id="tbl_input_nhapexclude">
 <title>Format for <envar>NHAPEXCLUDE</envar></title>
 
-<tgroup cols="4">
+<tgroup cols="3">
 <colspec colwidth="15*" />
 <colspec colwidth="15*" />
 <colspec colwidth="15*" />
@@ -11592,60 +11596,61 @@ SOURCE > 100 AND SOURCE < 200
 
 <thead>
 <row>
+<entry>Line</entry>
 <entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
 <entry>Description</entry>
 </row>
 </thead>
-
 <tbody>
 <row>
+<entry>1</entry>
 <entry>A</entry>
-<entry>Country, state, and county code</entry>
-<entry>Integer</entry>
-<entry>Six digit FIPS code for country, state, and county as CSSYYY where C=country, SS=state, and YYY=county</entry>
+<entry>/INCLUDE/ or /EXCLUDE/</entry>
 </row>
 <row>
+<entry>2+</entry>
+<entry>A</entry>
+<entry><para>Country/state/county code (6-digit integer in format YSSCCC where Y=country, SS=state, and CCC=county</para>
+<itemizedlist spacing="compact">
+<listitem>leave blank if not country/state-dependent</listitem>
+<listitem>set to YSS000 for country/state-dependent</listitem>
+<listitem>set to YSSCCC for county-dependent</listitem>
+</itemizedlist>
+</entry>
+</row>
+<row>
+<entry></entry>
 <entry>B</entry>
-<entry>SCC</entry>
-<entry>10-character string</entry>
-<entry>Ten character source classification category (SCC) code</entry>
+<entry>Source Classification Category (SCC) code (10-character)</entry>
 </row>
 <row>
+<entry></entry>
 <entry>C</entry>
-<entry>Plant ID</entry>
-<entry>Chracter</entry>
-<entry>Plant Identification Code (optional; leave blank for not plant-specific)</entry>
+<entry>Plant Identification Code (Character)(optional; leave blank for not plant-specific)</entry>
 </row>
 <row>
+<entry></entry>
 <entry>D</entry>
-<entry>Characterisitc 1</entry>
-<entry>Chracter</entry>
-<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (optional)</entry>
+<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (Character)(optional)</entry>
 </row>
 <row>
+<entry></entry>
 <entry>E</entry>
-<entry>Characterisitc 2</entry>
-<entry>Chracter</entry>
-<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (optional)</entry>
+<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (Character)(optional)</entry>
 </row>
 <row>
+<entry></entry>
 <entry>F</entry>
-<entry>Characterisitc 3</entry>
-<entry>Chracter</entry>
-<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (optional)</entry>
+<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (Character)(optional)</entry>
 </row>
 <row>
+<entry></entry>
 <entry>G</entry>
-<entry>Characterisitc 4</entry>
-<entry>Chracter</entry>
-<entry>Characteristic 4 (blank for IDA and ORL because SCC already given in column A of list line) (optional)</entry>
+<entry>Characteristic 4 (blank for IDA and ORL because SCC already given in column A of list line) (Character)(optional)</entry>
 </row>
 <row>
+<entry></entry>
 <entry>H</entry>
-<entry>Characterisitc 5</entry>
-<entry>Chracter</entry>
 <entry>Characteristic 5 (blank for IDA and ORL) (optional)</entry>
 </row>
 </tbody>

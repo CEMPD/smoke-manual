@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <chapter id="ch_programs">
 
@@ -1020,13 +1020,73 @@
 
 <para><command>Elevpoint</command> can also be used to calculate plume rise using the <quote>cutoff</quote> method. This is the method traditionally used to prepare input files to the air quality models UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript>, which require a separate model-ready input file containing emissions for elevated point sources. Below, we refer to this path as the <quote>UAM style</quote> of emissions processing.</para>
 
-<para>For the cutoff method, the <command>Elevpoint</command> program uses the stack parameters of the point sources and estimates the plume rise for each source using a Briggs analytical solution (but not actual gridded meteorology data); the details of this process are given later in this subsection. <command>Elevpoint</command> then records all of the sources that have an estimated plume rise greater than a specified cutoff as defined in the <envar>PELVCONFIG</envar> file using the <quote>RISE</quote> instruction. Using the <envar>PELVCONFIG</envar> file, this cutoff method can be combined with selection of elevated sources based on stack parameters and/or emissions values.</para>
+<para>For the cutoff method, the <command>Elevpoint</command> program uses the stack parameters of the point sources and estimates the plume rise for each source using a Briggs analytical solution (but not actual gridded meteorology data); the details of this process are given in <xref linkend="sect_programs_elevpoint_briggs" />. <command>Elevpoint</command> then records all of the sources that have an estimated plume rise greater than a specified cutoff as defined in the <envar>PELVCONFIG</envar> file using the <quote>RISE</quote> instruction. Using the <envar>PELVCONFIG</envar> file, this cutoff method can be combined with selection of elevated sources based on stack parameters and/or emissions values.</para>
 
 <para>When emissions values are part of these selection criteria, <command>Elevpoint</command> computes the maximum daily emissions using one or more <envar>PTMP</envar> files. <command>Elevpoint</command> computes the maximum daily value of any pollutant used as a selection criterion across all of the days that you input. You have the option of providing either a list of paths and file names of one or more <envar>PTMP</envar> files, or a single <envar>PTMP</envar> file. The day or days that <command>Elevpoint</command> uses to compute each source&rsquo;s maximum depends on the time zone in which the source resides, based on the county and the <envar>COSTCY</envar> file setting for the time zone (the time zone is stored in the <envar>PNTS</envar> file output from <command>Smkinven</command>). When using emissions values as a selection criterion, <command>Elevpoint</command> only considers sources that are within the grid domain.</para>
 
 <para><command>Elevpoint</command> also creates a report file that contains all SMOKE sources that have been selected as elevated, their source characteristics (including stack parameters), emissions values used as selection criteria, stack-group numbers, status as either elevated or PinG, and which selection criteria were used to assign the status to the source. The report does not include any low-level sources. This report is in semicolon-delimited format for easier reading into a spreadsheet for sorting, review, and making charts.</para>
 
 <para>The <command>Elevpoint</command> program is not needed if the environment variables <envar>SMK_PING_METHOD</envar> and <envar>SMK_ELEV_METHOD</envar> are both set to 0.</para>
+
+<section id="sect_programs_elevpoint_briggs">
+
+<title>Plume rise calculation</title>
+
+<para>The Briggs solution is documented in the following:</para>
+
+<orderedlist>
+<listitem>
+<para>Briggs, Gary A., 1971: Some Recent Analyses of Plume Rise Observation, pp. 1029-1032 in <emphasis>Proceedings of the Second International Clean Air Congress</emphasis>, edited by H. M. Englun and W. T. Beery. Academic Press, New York.</para>
+</listitem>
+<listitem>
+<para>Briggs, Gary A., 1972: Discussion on Chimney Plumes in Neutral and Stable Surroundings, <emphasis>Atmos. Environ.</emphasis> 6, 507-510.</para>
+</listitem>
+</orderedlist>
+
+<para>The following formula is used in <command>Elevpoint</command>:</para>
+
+<para>F = 0.25 x G x V<subscript>S</subscript> x D<subscript>S</subscript><superscript>2</superscript> x (T<subscript>S</subscript> - T)/T<subscript>S</subscript></para>
+
+<para>For F less than 55,</para> 
+
+<para>Plume rise = H<subscript>S</subscript> + 21.31311057 x F<superscript>0.75</superscript>/U</para>
+
+<para>Otherwise,</para>
+
+<para>Plume rise = H<subscript>S</subscript> + 38.87776061 x F<superscript>0.6</superscript>/U</para>
+
+<para>where</para>
+
+<itemizedlist>
+<listitem>
+F = Bouyancy flux (m<superscript>4</superscript>/s<superscript>3</superscript>)
+</listitem>
+<listitem>
+G = Mean gravitational acceleration (9.80665 m/s<superscript>2</superscript>)
+</listitem>
+<listitem>
+V<subscript>S</subscript> = Stack gas exit velocity (m/s)
+</listitem>
+<listitem>
+D<subscript>S</subscript> = Inside stack diameter (m)
+</listitem>
+<listitem>
+T<subscript>S</subscript> = Stack gas temperature (K)
+</listitem>
+<listitem>
+T = Default ambient air temperature (293 K)
+</listitem>
+<listitem>
+U = Default wind speed (2 m/s)
+</listitem>
+<listitem>
+H<subscript>S</subscript> = Physical stack height (m)
+</listitem>
+</itemizedlist>
+
+<para>This represents an improved algorithm over the original so that the discontinuity at F = 55 no longer exists. Now, the second term in the plume rise formula approaches 595 as F approaches 55 from either side.</para>
+
+</section>
 
 <section>
 
@@ -1228,11 +1288,9 @@
 </listitem>
 <listitem>
 <para>2: Use the <quote>Elevated</quote> section of the <envar>PELVCONFIG</envar> configuration file to select specific sources. This approach can be used for in-line plume rise in CMAQ. Must set <envar>SMK_PING_METHOD</envar> = 0.</para>
-<para>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. To reduce the total number of plume rise calculations that would be done in the CMAQ in-line plume rise module, <command>Elevpoint</command> needs to group sources with nearly identical stack parameters. <command>Elevpoint</command> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation in CMAQ.</para>
+<para>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. To reduce the total number of plume rise calculations that would be done in the CMAQ in-line plume rise module, <command>Elevpoint</command> needs to group sources with nearly identical stack parameters. <command>Elevpoint</command> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation in CMAQ. See <xref linkend="sect_in-line_model_cmaq" /> for more detail.</para>
 <para>When using <command>Smkmerge</command> for in-line plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file. If <envar>SMKMERGE_CUSTOM_OUTPUT</envar> is set to Y, the output file for the in-line emissions is called <envar>INLNST_L</envar>.</para>
-<para>To process fires emission modeling without precomputed plume rise described in described in <xref linkend="sect_scripts_hour_day_invs" />, the following two lines need to be added to the <envar>GSPRO</envar> file.</para>
-<para><envar> 0000,HFLUX,HFLUX,1,1,1</envar></para>
-<para><envar> 0000,ACRESBURNED,ACRESBURNED,1,1,1</envar></para>
+<para>To process point fire emission (ptfire sector) without precomputed plume rise described in described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
 </listitem>
 
 </itemizedlist>
@@ -2263,63 +2321,53 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para><command>Laypoint</command> is run only for the MAQSIP and CMAQ styles of processing, in which all of the plume rise calculations are done prior to input to the AQM. In <command>Laypoint</command>, meteorological data are used to calculate the plume rise for all point sources. Then, the plume is distributed into the vertical layers that the plume intersects based on the pressure in each layer. Only these fractions are stored (not the emissions in each layer), until the SMOKE merge step (<command>Smkmerge</command>). Therefore, the plume rise calculations do not need to be repeated for each control strategy or grid (unlike the situation in which the plume rise calculations are done inside the AQM, such as in UAM-IV and UAM-V). The <command>Laypoint</command> program calculates the plume rise for all days of each meteorological scenario.</para>
 
-<section id="sect_programs_elevpoint_briggs">
+<section id="sect_programs_laypoint_plume_rise_fires">
 
-<title>Plume rise calculation</title>
+<title>Plume rise calculation for fires</title>
 
-<para>The Briggs solution is documented in the following:</para>
+<para>Regardless whether heat flux for wildfires are precomputed or internally computed, the Pouliot-Godowitch plume rise algorithm (Pouliot et al, 2005) converts the heat flux to a bouyancy flux usable in the plume rise calculation (Equation 1). A plume rise for wildfire can be calculated with modified Bouyancy flux (F) from the daily heat flux (Q) using <xref linkend="sect_programs_elevpoint_briggs"/>.</para>
+
+<itemizedlist>
+<listitem>
+<para>Pouliot, G., Pierce, T., Benjey, W., O'Neil, S., Ferguson, S., 2005: Wildfire Emission Modeling: Integrating Blusky and SMOKE, <emphasis>the 14th International Emission Inventory Conference</emphasis>, Las Vegas, NV.</para>
+</listitem>
+</itemizedlist>
+
+
+<para>To account for smoldering fires, the emissions need to be distributed into the model layers below the plume bottom and into the model layers between the plume top and bottom. A smoldering fraction of the total emissions is used to split the emissions into a smoldering part (distributed into the model layer below the plume bottom) and the remaining part (distributed into the model layers between the plume bottom and top). Equation 2 is used for estimate the Bouyant Efficiency (the portion of heat release from a fire that produces bouyancy, BE) using fire size in acres. The smoldering fraction (S<subscript>fraction</subscript>) is calculated from the BE (Equation 3). All the emissions are allocated to the model layers using a weighting based on the hourly sigma-pressure vertical coordinate. This equations are is used in <command>Laypoint</command> once <envar>FIRE_PLUME_YN</envar> is set to Y. See more information about how-to-process at <xref linkend="sect_ptfire_emis_cmaq"/>.</para> 
+
+<para> Fire-specific plume rise equations are following:</para> 
 
 <orderedlist>
 <listitem>
-<para>Briggs, Gary A., 1971: Some Recent Analyses of Plume Rise Observation, pp. 1029-1032 in <emphasis>Proceedings of the Second International Clean Air Congress</emphasis>, edited by H. M. Englun and W. T. Beery. Academic Press, New York.</para>
+<para>F = 0.00000258 x Q</para>
 </listitem>
 <listitem>
-<para>Briggs, Gary A., 1972: Discussion on Chimney Plumes in Neutral and Stable Surroundings, <emphasis>Atmos. Environ.</emphasis> 6, 507-510.</para>
+<para>BE<subscript>size</subscript> = 0.0703 x ln( <emphasis>acres</emphasis> ) + 0.3</para>
+</listitem>
+<listitem>
+<para>S<subscript>fraction</subscript> = 1 - BE<subscript>size</subscript></para>
 </listitem>
 </orderedlist>
 
-<para>The following formula is used in <command>Elevpoint</command>:</para>
-
-<para>F = 0.25 x G x V<subscript>S</subscript> x D<subscript>S</subscript><superscript>2</superscript> x (T<subscript>S</subscript> - T)/T<subscript>S</subscript></para>
-
-<para>For F less than 55,</para> 
-
-<para>Plume rise = H<subscript>S</subscript> + 21.31311057 x F<superscript>0.75</superscript>/U</para>
-
-<para>Otherwise,</para>
-
-<para>Plume rise = H<subscript>S</subscript> + 38.87776061 x F<superscript>0.6</superscript>/U</para>
-
 <para>where</para>
-
 <itemizedlist>
 <listitem>
 F = Bouyancy flux (m<superscript>4</superscript>/s<superscript>3</superscript>)
 </listitem>
 <listitem>
-G = Mean gravitational acceleration (9.80665 m/s<superscript>2</superscript>)
+Q = Heat flux for fires (BTU/hr)
 </listitem>
 <listitem>
-V<subscript>S</subscript> = Stack gas exit velocity (m/s)
+BE<subscript>size</subscript> = bouyanct efficiency
 </listitem>
 <listitem>
-D<subscript>S</subscript> = Inside stack diameter (m)
+acres = fire size in acres
 </listitem>
 <listitem>
-T<subscript>S</subscript> = Stack gas temperature (K)
-</listitem>
-<listitem>
-T = Default ambient air temperature (293 K)
-</listitem>
-<listitem>
-U = Default wind speed (2 m/s)
-</listitem>
-<listitem>
-H<subscript>S</subscript> = Physical stack height (m)
+S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 </itemizedlist>
-
-<para>This represents an improved algorithm over the original so that the discontinuity at F = 55 no longer exists. Now, the second term in the plume rise formula approaches 595 as F approaches 55 from either side.</para>
 
 </section>
 
@@ -4543,24 +4591,6 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </listitem>
 
 <listitem>
-<para><envar>SMK_INTEGRATE_ALL_YN</envar>: [default: N]</para>
-
-<para>Defines whether treat all sources as integrated sources to combine criteria/hazardous air pollutants (CAP/HAP) together. See <xref linkend="sect_concepts_combine_toxics" /> for more detail. Once it is set to Y, it will override the setting of <envar>SMK_NHAPEXCLUDE_YN</envar> to avoid opening and reading <envar>NHAPEXCLUDE</envar> cross-reference file.</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Integrate all sources if a toxics inventory has been read</para>
-</listitem>
-<listitem>
-<para>N: Depending on <envar>SMK_NHAPEXCLUDE_YN</envar> setting</para>
-</listitem>
-</itemizedlist>
-
-
-</listitem>
-
-
-<listitem>
 <para><envar>SMK_MAXERROR</envar>: [default: 100]</para>
 
 <para>Defines the maximum number of ERROR statements to be displayed by SMOKE.</para>
@@ -4570,34 +4600,37 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <para>Defines the maximum number of WARNING statements to be displayed by SMOKE.</para>
 </listitem>
+
 <listitem>
 <para><envar>SMK_NHAPEXCLUDE_YN</envar>: [default: N]</para>
+<para>Starting of SMOKE version 2.6, the environment variable is replaced by <envar>SMK_PROCESS_HAPS</envar> listed below to provide more options to <command>Smkinven</command> to include/exclude sources for NONHAP[VOC|TOG] calculations. Once <envar>SMK_PROCESS_HAPS</envar>is set, <envar>SMK_NHAPEXCLUDE_YN</envar> gets deactivated.</para>
 
 <itemizedlist>
 <listitem>
-<para>Y: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do not integrate the specified sources. See also <xref linkend="sect_concepts_combine_toxics" /> for a description of criteria/HAP VOC integration. For all sources that will not be integrated, <command>Smkinven</command> will automatically create additional pollutants in the intermediate inventory file output by the program, based on input HAP pollutants that meet the following conditions in the Inventory Table (<envar>INVTABLE</envar>) file: </para>
-    <itemizedlist>
-    <listitem>
-    <para>A "Y" appears in the "Keep" field (of the Inventory Table)</para>
-    </listitem>
-    <listitem>
-    <para>A "V" or "T" appears in the "VOC or TOG component" field</para>
-    </listitem>
-    <listitem>
-    <para>A "Y" appears in the "Model species" field</para>
-    </listitem>
-    <listitem>
-    <para>Something other than "Y" appears in the "Explicit in mechanism" field (e.g., "N" or blank)</para>
-    </listitem>
-    </itemizedlist>
-<para>The purpose of this operation is described in <xref linkend="sect_concepts_toxics_cb4_no_integrate" /></para>
+<para>Y: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do include or exclude the specified sources from the NONHAP[VOC|TOG] calculation depending on a header of the <envar>NHAPEXCLUDE</envar> file. See <xref linkend="sect_input_nhapexclude" />. The purpose of this operation is described in <xref linkend="sect_concepts_toxics_cb4_no_integrate" /></para>
 </listitem>
 <listitem>
-<para>N: Integrate all sources if a toxics inventory has been read</para>
+<para>N: Integrate all sources if a toxics inventory has been read which leads to double count toxics. Do not require <envar>NHAPEXCLUDE</envar> file</para>
 </listitem>
 </itemizedlist>
-
 </listitem>
+
+<listitem>
+<para><envar>SMK_PROCESS_HAPS</envar>: [default: blank]</para>
+<para>Defines how to treat sources for combining criteria VOC and hazardous air pollutants (HAP) together. See <xref linkend="sect_concepts_combine_toxics" /> for more detail. Once it is set, it will override the setting of <envar>SMK_NHAPEXCLUDE_YN</envar>.</para>
+<itemizedlist>
+<listitem>
+<para>ALL: Treate all sources as integrate all sources if a toxics inventory has been read. Do not require <envar>NHAPEXCLUDE</envar> file</para>
+</listitem>
+<listitem>
+<para>NONE: Treat all sources as non-integrate all sources if a toxics inventory has been read. Do not require <envar>NHAPEXCLUDE</envar> file</para>
+</listitem>
+<listitem>
+<para>PARTIAL: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do include or exclude the specified sources from the NONHAP[VOC|TOG] calculation depending on a header of the <envar>NHAPEXCLUDE</envar> file. See <xref linkend="sect_input_nhapexclude" />.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
@@ -5978,7 +6011,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>SRC_TAGGING</envar>: [default: N]</para>
 
-<para>Defines whether the program uses the speication tagging cross-referencs file (<xref linkend="sect_input_gstag" />).</para>
+<para>Defines whether the program uses the speication tagging cross-referencs file or not (<xref linkend="sect_input_gstag" />).</para>
 
 <itemizedlist>
 <listitem>

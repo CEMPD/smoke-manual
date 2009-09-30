@@ -641,6 +641,9 @@
 <para>HOUR: Records are printed by hour total for each day. This option implies the TEMPORAL instruction, so <command>Smkreport</command> automatically adds that instruction even if it was not included in the input.</para>
 </listitem>
 <listitem>
+<para>INTEGRAE: Records are printed by the integration status of sources. <quote>Y</quote> could appear for the integrated sources that calculated NONHAP[VOC|TOG] inventory pollutant. </para>
+</listitem>
+<listitem>
 <para>LAYER: For point sources, daily emissions are printed by vertical layer. This option implies the LAYFRAC option (discussed later) that requires input of the <envar>PLAY</envar> SMOKE intermediate file. In the report, records are written first for one layer, then the next, and so on. <comment>The Java Analysis and Reporting Tool (JART) software can be used to sort the records in a different order.</comment> <remark>Only records with nonzero emissions in a layer are written.</remark> When used to together with the HOUR instruction (above), emissions will be written by hour as well as by layer. Since the number of records the report when using HOUR instruction is very large, we recommend that a source group be used to subselect the inventory records when appropriate.</para>
 </listitem>
 <listitem>
