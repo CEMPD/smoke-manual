@@ -3660,27 +3660,21 @@ endif</programlisting>
 
 <title>Plume Rise Calculation for Fires</title>
 
-<para>Since the SMOKE version 2.2, SMOKE has offered an approach for computing plume rise for wildfire/prescribed fires using the Bluesky Pouliot-Godowitch plume rise algorithm (Pouliot et al, 2005). In SMOKE version 2.2, SMOKE can compute hourly plume rise from a precomputed hourly heat flux, fuel loading and area burned data by the Bluesky CONSUME model using a preprocessor <command>Bluesky2Inv</command> that converts the output from the CONSUME model into SMOKE-readable annual and daily inventory files (<xref linkend="sect_utilities_bluesky2inv" />).</para>
+<para>Starting with version 2.2, SMOKE contains an approach for computing plume rise for wildfire/prescribed fires using the Bluesky Pouliot-Godowitch plume rise algorithm (http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf).  In SMOKE version 2.2, SMOKE can compute hourly plume rise from precomputed hourly heat flux, fuel loading and area burned data using the Bluesky CONSUME model. The SMOKE preprocessor <command>Bluesky2Inv</command> that converts the output from the CONSUME model into SMOKE-readable annual and daily inventory files (<xref linkend="sect_utilities_bluesky2inv" />).</para>
+
+<para>Starting with SMOKE version 2.3, SMOKE can compute hourly plume rise from an intenally computed heat flux using area burned and fuel loading data. This approach allows SMOKE to compute hourly heat flux based upon daily area burned, fuel loading, material burned and a constant default heat content (8000 BTU/lb) (Equation 1). The daily heat flux and emissions are temporally allocated to hourly values based upon the duration of the fire (begining and ending hours).</para>
 
 <orderedlist>
 <listitem>
-<para>Pouliot, G., Pierce, T., Benjey, W., O'Neil, S., Ferguson, S., 2005: Wildfire Emission Modeling: Integrating Blusky and SMOKE, <emphasis>the 14th International Emission Inventory Conference</emphasis>, Las Vegas, NV.</para>
+<para>Heat Flux (BTU/hr/m<superscript>2</superscript>) = area burned (acre/day) x (1 acre/4046.86 m<superscript>2</superscript>) x fuel loading (tons/acre) x heat content (BTU/lb) x (2000lb/ton) x duration of fire (hr/day) </para>
 </listitem>
 </orderedlist>
 
-<para>Starting with SMOKE version 2.3, SMOKE can also compute hourly plume rise from an intenally computed heat flux using area burned and fuel loading data. This approach allows SMOKE to compute hourly heat flux based upon daily area burned, fuel loading, material burned and constant default heat content (8000 BUT/lb) (Equation 1). In the future, the heat content value could be determined as a function of vegetation type from values provided in a lookup table. The daily heat flux and emissions can then be temporally allocated to hourly values based upon the duration of the fire (begining and ending hours).</para>
-
+<para>The SMOKE plume rise requires two ORL formatted files for wildfire/prescribed fires. The master #ORL FIRE file (<xref linkend="sect_input_ptinv_fire" />) contains the fire characteristics including country/state/county code, fire idenfication code, geographic coordinate, fire name, heat content, material burned and NFDRS code.  The day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>) includes daily pollutant emissions, area burned, fuel loading, and fire begining and ending time.</para>
+<para>NOTE: SMOKE requires that the fire inventory pollutant names are copied to the Chemical Absrtracts Service ( CAS ) number column in the inventory table (<envar>INVTABLE</envar>) file  (See <xref linkend="sect_input_invtable" />).</para> 
 <orderedlist>
 <listitem>
-<para>Heat Flux (BTU/hr/m<superscript>2</superscript>) = area burned (acre/day) x fuel loading (tons/acre) x heat content (BTU/lb) x (2000lb/ton)</para>
-</listitem>
-</orderedlist>
-
-<para>The SMOKE plume rise requires two ORL formatted files for wildfire/prescribed fires. The master #ORL FIRE file (<xref linkend="sect_input_ptinv_fire" />) contains the fire characteristics including country/state/county code, fire idenfication code, geographic coordinate, fire name, heat content, material burned and NFDRS code.  The day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>) includes daily pollutant emissions, area burned, fuel loading, fire begining and ending time.</para>
-<para>NOTE: To support both criteria and toxics inventories using the ORL format (<envar>PTINV</envar> and <envar>PTDAY</envar>), SMOKE requires that the inventory pollutant name is copied to the Chemical Absrtracts Service ( CAS ) number column in inventory table (<envar>INVTABLE</envar>).</para> 
-<orderedlist>
-<listitem>
-<para> The following variables need to be added to the <envar>INVTABLE</envar> file (See <xref linkend="sect_input_invtable" />):</para>
+<para> To compute plume rise for fires using SMOKE, following these steps. Add the fire inventory variables to the <envar>INVTABLE</envar> file:</para>
 <programlisting><envar>HFLUX           HFLUX                    Y     1 N N N N   0 tons/yr</envar>
 <envar>HEATCONTENT     HEATCONTENT              Y     1 N N N N   0 tons/yr</envar>
 <envar>FUEL_LOAD       FUEL_LOAD                Y     1 N N N N   0 tons/yr</envar>
@@ -3690,7 +3684,7 @@ endif</programlisting>
 </listitem>
 
 <listitem>
-<para>For running <command>Smkinven</command>,</para>
+<para>Run <command>Smkinven</command> with these settings,</para>
 <itemizedlist>
 <listitem>
 <para>Set <envar>RUN_SMKINVEN</envar> to Y</para>
@@ -3705,7 +3699,7 @@ endif</programlisting>
 </listitem>
 
 <listitem>
-<para>For skipping <command>Elevpoint</command>,</para>
+<para>Do not run <command>Elevpoint</command>,</para>
 <itemizedlist>
 <listitem>
 <para>Set <envar>RUN_ELEVPOINT</envar> to N</para>
@@ -3720,7 +3714,7 @@ endif</programlisting>
 </listitem>
 
 <listitem>
-<para>For running <command>Laypoint</command>, See more detail at <xref linkend="sect_programs_laypoint_plume_rise_fires"/>. </para>
+<para>Run <command>Laypoint</command> with these settings, See more detail at <xref linkend="sect_programs_laypoint_plume_rise_fires"/>. </para>
 <itemizedlist>
 <listitem>
 <para>Set <envar>RUN_LAYPOINT</envar> to Y</para>
@@ -3738,7 +3732,7 @@ endif</programlisting>
 </listitem>
 
 <listitem>
-<para>For running <command>Smkmerge</command>,</para>
+<para>Run <command>Smkmerge</command> with theses settings,</para>
 <itemizedlist>
 <listitem>
 <para>Set <envar>RUN_SMKMERGE</envar> to Y</para>
@@ -3750,7 +3744,7 @@ endif</programlisting>
 </listitem>
 
 <listitem>
-<para>In multiple program control settings.</para>
+<para>Set these multiple program control settings.</para>
 <itemizedlist>
 <listitem>
 <para>Set <envar>DAY_SPECIFIC_YN</envar> to Y</para>
@@ -3775,18 +3769,18 @@ endif</programlisting>
 
 <title>In-line Plume Rise Calculation in CMAQ model (as of version 4.7)</title>
 
-<para>Staring of SMOKE version 2.5, SMOKE supports a new feature of CMAQ version 4.7 that allows in-line plume rise calculation for the selected point sources internally. In this section, we attempt to give a basic outline of the considerations for script reconfiguration needed for SMOKE output for the in-line plume rise processing in CMAQ model. This approach requires the following configurations when in-line plume rise calculation in CMAQ.</para>
+<para>Staring with version 2.5, SMOKE supports the calculation of plume rise for point sources in CMAQ known as an in-line plume rise calculation. SMOKE is used to select the point sources to reduce the CMAQ plume rise treatment. In this section, we give a basic outline of how to run SMOKE to output emissions for the in-line plume rise processing in CMAQ. To prepare emissions for the CMAQ in-line plume rise calculation follow these steps:</para>
 
 <orderedlist>
 <listitem>
-<para> For point wildfire ptfire sector, the following two lines need to be added to the <envar>GSPRO</envar> file (See <xref linkend="sect_input_gspro" />):</para>
+<para> For fires, the following two lines need to be added to the <envar>GSPRO</envar> file (See <xref linkend="sect_input_gspro" />):</para>
 
 <para><envar>"0000";"HFLUX";"HFLUX";1;1;1</envar></para>
 <para><envar>"0000";"ACRESBURNED";"ACRESBURNED";1;1;1</envar></para>
 
 </listitem>
 <listitem>
-<para>Set the basic settings for in-line plume rise calculation in CMAQ model.</para>
+<para>Set these variables in the SMOKE run scripts.</para>
 
 <itemizedlist>
 <listitem>
@@ -3809,9 +3803,7 @@ endif</programlisting>
 </listitem>
 
 <listitem>
-<para><command>Elevpoint</command> Processing Notes.</para>
-
-<para> When processing emissins for in-line plume rise in CMAQ, <envar>Elevpoint</envar> is used to group sources with nearly identical stack parameters to reduce the total number of plume rise calculations that would be done in the CMAQ in-line plume rise module. NOTE: Only sources with an analytical plume rise height greater than 38 meters are selected for in-line plume rise processing. The <envar>PELVCONFIG</envar> file used for in-line processing of non-fire sources (except for ptfire sector) should be similar to the following example:</para>
+<para><command>Elevpoint</command> to select the sources to receive the CMAQ in-line plume rise treatment. Create a <envar>PELVCONFIG</envar> file to group sources with nearly identical stack parameters to reduce the total number of plume rise calculations performed by the CMAQ in-line plume rise module. Non-fire sources with an analytical plume rise height greater than 38 meters are typically selected for in-line plume rise processing. The <envar>PELVCONFIG</envar> file used for CMAQ in-line processing of non-fire sources should be similar to the following example:</para>
 
 <para>SMK_SOURCE  P</para>
 <para>/SPECIFY ELEV GROUP/</para>
@@ -3822,7 +3814,7 @@ endif</programlisting>
 <para>RISE >= 38</para>
 <para>/END/</para>
 
-<para>For ptfire sources, the following is an example:</para>
+<para>For point source fires, such as the EPA ptfire sector, the following is an example of a <envar>PELVCONFIG</envar> file:</para>
 <para>SMK_SOURCE  P</para>
 <para>/SPECIFY ELEV GROUP/</para>
 <para>HT+/- 1.0</para>

@@ -3878,11 +3878,11 @@ INVYEAR 1996
 
 <section>
 
-<title>EMS-95 Format and EMS-95 Wider Format</title>
+<title>EMS-95 Format and EMS-95 Wide Format</title>
 
 <para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
 
-<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wider EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wider" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wider format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wider format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
+<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wide EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wide" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wide format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wide format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
 <para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
 
 <para>When using hour-specific data in EMS-95 format with the IDA annual inventory, the fields in the <envar>PTHOUR</envar> file should line up with the fields in the <envar>PTINV</envar> file as follows:</para>
@@ -4043,8 +4043,8 @@ INVYEAR 1996
 </table>
 
 
-<table id="tbl_input_pthour_ems_wider">
-<title>EMS-95 Wider Format for individual hour-specific files</title>
+<table id="tbl_input_pthour_ems_wide">
+<title>EMS-95 Wide Format for individual hour-specific files</title>
 
 <tgroup cols="4">
 <colspec colwidth="15*" />
@@ -7266,7 +7266,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>C</entry>
 <entry>PERIOD</entry>
-<entry>Period number( e.g., month number)(integer) (required). Need to match SPCMAT_PERIOD settting in script. for data that are not period specific, use1.</entry>
+<entry>Period number( e.g., month number)(integer) (required). Need to match SPCMAT_PERIOD settting in script for data that are not period specific, use1.</entry>
 </row>
 <row>
 <entry>D</entry>
@@ -7507,7 +7507,8 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>GSTAG</envar>: Speciation tagging cross-reference file </title>
 
-<para>The speciation tagging cross-reference file allows <command>Spcmat</command> to tag existing model species based on the match between the source characteristics listed in the <envar>GSTAG</envar> file and source characterisitcs for each source in the inventory. The <command>Spcmat</command> program willl append the characters of the tag label specified in the <envar>GSTAG</envar> file. Note that this approach willl not address raw inventoy pollutants (VOC, NOX, PM2_5 and PM10) or any other model speces from bigenic sources based upon BEIS model, since the BEIS model does not use <command>Spcmat</command>. When the environment variable <envar>SRC_TAGGING</envar> is set to <quote>Y</quote>, <command>Spcmat</command> will look for the <envar>GSTAG</envar> file. The default is backward compatible and therefore <quote>N</quote>. If an invalid character in a tag label such as <quote>#</quote> or <quote>+</quote> is used, SMOKE will return an error. The format of the <envar>GSTAG</envar> file is shown in <xref linkend="tbl_input_gstag" />.</para>
+<para>The speciation tagging cross-reference file allows <command>Spcmat</command> to tag existing model species based on the match between the source characteristics listed in the <envar>GSTAG</envar> file and source characteristics for each source in the inventory. The <command>Spcmat</command> program will append the characters of the tag label specified in the <envar>GSTAG</envar> file. Note that this approach will not address raw inventoy pollutants (VOC, NOX, PM2_5 and PM10) or any other model species from biogenic sources from the BEIS model. When the environment variable <envar>SRC_TAGGING</envar> is set to <quote>Y</quote>, <command>Spcmat</command> will look for the <envar>GSTAG</envar> file. The default setting for the <envar>SRC_TAGGING</envar> variable is <quote>N</quote> to support back-ward comparability. If an invalid character appears in a tag label in the <envar>GSTAG</envar> file, such as <quote>#</quote> or <quote>+</quote> is used, SMOKE will return an error.</para>
+<para>The format of the <envar>GSTAG</envar> file is shown in <xref linkend="tbl_input_gstag" />.</para>
 
 <table id="tbl_input_gstag">
 <title>Format for <envar>GSTAG</envar></title>
@@ -11577,13 +11578,13 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>NHAPEXCLUDE</envar>: NonHAP VOC calculation inclusions/exclusions file</title>
 
-<para>The <envar>NHAPEXCLUDE</envar> file has provided a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. Starting in SMOKE version 2.6, a new special header in the <envar>NHAPEXCLUDE</envar>  file allows <command>Smkinven</command> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is not defined, /EXCLUDE/ will be used as default (see <xref linkend="sect_concepts_combine_toxics" />). When the header is defined as /INCLUDE/, <command>Smkinven</command> will treat those selected sources as integrated sources. It means that <command>Smkinven</command> will use the toxics pollutants from the sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed with _NOI appended to the name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file provides a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. Starting in SMOKE version 2.6, a new special header in the <envar>NHAPEXCLUDE</envar>  file allows <command>Smkinven</command> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is defined as /INCLUDE/, <command>Smkinven</command> will treat selected sources as integrated sources; <command>Smkinven</command> will use the toxics pollutants from the selected sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed by appending <quote>_NOI</quote> to the species name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass. When the header is defined as /EXCLUDE/ which is the default setting, <command>Smkinven</command> willl exclude the selected sources from the HAP-CAP integratoin approach. All other inventory sources will be used to compute NONHAPVOC or NONHAPTOG.</para>
 
-<para>The <envar>NHAPEXCLUDE</envar> file is only used when <envar>SMK_PROCERSS_HAPS</envar> is set to <envar>PARTIAL</envar> or <envar>SMK_NHAPEXCLUDE_YN</envar> is set to <envar>Y</envar>. If <envar>SMK_PROCERSS_HAPS</envar> is set to <envar>ALL</envar> or <envar>NONE</envar>, the <envar>NHAPEXCLUDE</envar> is not required. See <xref linkend="sect_programs_smkinven_envar" />. Once integration/non-integration processing is done, <command>Smkreport</command> can create a report that separates integrated and non-integrated sources using <envar>BY INTEGRATE</envar> instruction. See <xref linkend="sect_qa_repconfig_create_report"/>.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file is only used when <envar>SMK_PROCESS_HAPS</envar> is set to <envar>PARTIAL</envar>. If <envar>SMK_PROCESS_HAPS</envar> is set to <envar>ALL</envar> or <envar>NONE</envar>, the <envar>NHAPEXCLUDE</envar> file is not required (<xref linkend="sect_programs_smkinven_envar" />). Once integration/non-integration processing is done, <command>Smkreport</command> can create a report that separates integrated and non-integrated sources using the <envar>BY INTEGRATE</envar> instruction (<xref linkend="sect_qa_repconfig_create_report"/>).</para>
 
-<para>NOTE: Whenever <envar>SMK_PROCESS_HAPS</envar> or <envar>SMK_NHAPEXCLUDE_YN</envar> is set, a new inventory pollutant <quote>VOC_INV</quote> or <quote>TOG_INV</quote> will be created to retain the original VOC or TOG values before the calculation for the purpose of quatliy assurance reports using <command>Smkreport</command>.</para>
+<para>NOTE: Whenever <envar>SMK_PROCESS_HAPS</envar> is set to process HAPs, a new inventory pollutant, <quote>VOC_INV</quote> or <quote>TOG_INV</quote>, will be created to retain the original VOC or TOG values for the purpose of creating quality assurance reports with <command>Smkreport</command>.</para>
 
-<para>The <envar>NHAPEXCLUDE</envar> file contains the country/state, county, and SCC codes of thouses sources that SMOKE is to include or exclude from the NONHAP calculation. The file format is shown in <xref linkend="tbl_input_nhapexclude" />.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file contains the country/state/county and SCC codes of thouses sources that SMOKE will include or exclude from the NONHAP calculation. The file format is shown in <xref linkend="tbl_input_nhapexclude" />.</para>
 
 <table id="tbl_input_nhapexclude">
 <title>Format for <envar>NHAPEXCLUDE</envar></title>

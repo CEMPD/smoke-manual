@@ -849,9 +849,9 @@ PAR             0.6</programlisting></entry>
 
 <title>Description</title>
 
-<para>The <command>Layalloc</command> program allows users to vertically distribute 2-D emissions after SMOKE has already created surface layer model-ready inputs. For example, the program could be used to reallocate 2-D surface layer emissions into multiple model layers. Although it is not ideal to vertically modify the emissions, the <command>Layalloc</command> gives users an opportunity of redistributing surface only emissions into multiple model layers for a better vertical representations of 2-D emissions.</para>
+<para>The <command>Layalloc</command> program calculates 3-D emissions from a 2-D SMOKE emissions file. <command>Layalloc</command> is used to reallocate single layer 2-D surface layer emissions into multiple model layers. This approach is useful for processing pre-gridded or industrial area source inventories that do not contain stack information for plume rise treatment but represent elevated sources.</para>
 
-<para><command>Layalloc</command> reads in a gridded 2-D SMOKE emissions file (output from the <command>Smkmerge</command> program) and redistributes the emissions into multiple model layers based upon a percentage factor assigned by user-defined layer thickness. This approach assumes that the vertical factors are uniformly applied over grid cells. The resulting hourly, gridded, speciated emissions data are output to a new I/O API file with the same temporal resolution and the same model species with several model layers.</para>
+<para><command>Layalloc</command> reads in a gridded 2-D SMOKE emissions file (output from the <command>Smkmerge</command> program) and redistributes the emissions into multiple model layers based on a user-defined vertical profile. The vertical profiles that are input to <command>Layalloc</command> consist of a layer bottom height, layer top height, and percentage of emissions to allocate to the layer. SMOKE willl interpolate from the layer heights (in meters) to the model layers (in sigma-pressure). This approach assumes that the vertical factors are uniformly applied over all horizontal grid cells. The resulting hourly, gridded, speciated 3-D emissions data are output to a new I/O API file with the same temporal resolution and the same model species as the original 2-D emissions file.</para>
 
 </section>
 
@@ -899,7 +899,7 @@ PAR             0.6</programlisting></entry>
 <row>
 <entry><envar>LAYER_FRACTION</envar></entry>
 <entry>ASCII</entry>
-<entry><para>File that lists the thickness of layer top and bottom heights in meter along with a percentage factor. For example, the following <envar>LAYER_FRACTION</envar> file sample would distribute 2-D emissions into multiple model layers based upon five user-defined layers (0-100, 100-200,	200-400, 400-600, and 600-1000m).</para>
+<entry><para>File that lists the layer top and bottom heights in meter(s) along with a percentage factor. For example, the following <envar>LAYER_FRACTION</envar> file sample would distribute 2-D emissions into multiple model layers based upon five user-defined layers.</para>
 
 <programlisting>No., Bottom Ht(m), Top Ht(m), Fraction
 1,         0,        100,        0.60

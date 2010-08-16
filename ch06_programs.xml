@@ -2319,22 +2319,16 @@ F<subscript>ef</subscript> = freeway emission factor
 
 <para>The <command>Laypoint</command> program uses the SMOKE point-source inventory file with gridded and hourly meteorology data to compute hourly plume rise for all point sources. The plume rise is expressed in terms of layer fractions for each source.</para>
 
-<para><command>Laypoint</command> is run only for the MAQSIP and CMAQ styles of processing, in which all of the plume rise calculations are done prior to input to the AQM. In <command>Laypoint</command>, meteorological data are used to calculate the plume rise for all point sources. Then, the plume is distributed into the vertical layers that the plume intersects based on the pressure in each layer. Only these fractions are stored (not the emissions in each layer), until the SMOKE merge step (<command>Smkmerge</command>). Therefore, the plume rise calculations do not need to be repeated for each control strategy or grid (unlike the situation in which the plume rise calculations are done inside the AQM, such as in UAM-IV and UAM-V). The <command>Laypoint</command> program calculates the plume rise for all days of each meteorological scenario.</para>
+<para><command>Laypoint</command> is run only for the MAQSIP and CMAQ styles of processing, in which all of the plume rise calculations are done prior to input to the AQM. In <command>Laypoint</command>, meteorological data are used to calculate the plume rise for all point sources. Then, the plume is distributed into the vertical layers that the plume intersects based on the pressure in each layer. Only these fractions are stored (not the emissions in each layer), until the SMOKE merge step (<command>Smkmerge</command>). Therefore, the plume rise calculations do not need to be repeated for each control strategy or grid. The <command>Laypoint</command> program calculates the plume rise for all days of each meteorological scenario.</para>
 
 <section id="sect_programs_laypoint_plume_rise_fires">
 
 <title>Plume rise calculation for fires</title>
 
-<para>Regardless whether heat flux for wildfires are precomputed or internally computed, the Pouliot-Godowitch plume rise algorithm (Pouliot et al, 2005) converts the heat flux to a bouyancy flux usable in the plume rise calculation (Equation 1). A plume rise for wildfire can be calculated with modified Bouyancy flux (F) from the daily heat flux (Q) using <xref linkend="sect_programs_elevpoint_briggs"/>.</para>
+<para>Regardless whether the heat flux for wildfires is precomputed or internally computed, the Pouliot-Godowitch plume rise algorithm ( http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf ) converts the heat flux (Q) to a bouyancy flux (F) for use in the plume rise calculation (Equation 1). Hourly heat flux (Q) can be estimated based upon daily area burned, fuel loading, material burned and a constant default heat content (8000 BTU/lb). See more detail information in <xref linkend="sect_ptfire_emis_cmaq"/>.</para>
 
-<itemizedlist>
-<listitem>
-<para>Pouliot, G., Pierce, T., Benjey, W., O'Neil, S., Ferguson, S., 2005: Wildfire Emission Modeling: Integrating Blusky and SMOKE, <emphasis>the 14th International Emission Inventory Conference</emphasis>, Las Vegas, NV.</para>
-</listitem>
-</itemizedlist>
-
-
-<para>To account for smoldering fires, the emissions need to be distributed into the model layers below the plume bottom and into the model layers between the plume top and bottom. A smoldering fraction of the total emissions is used to split the emissions into a smoldering part (distributed into the model layer below the plume bottom) and the remaining part (distributed into the model layers between the plume bottom and top). Equation 2 is used for estimate the Bouyant Efficiency (the portion of heat release from a fire that produces bouyancy, BE) using fire size in acres. The smoldering fraction (S<subscript>fraction</subscript>) is calculated from the BE (Equation 3). All the emissions are allocated to the model layers using a weighting based on the hourly sigma-pressure vertical coordinate. This equations are is used in <command>Laypoint</command> once <envar>FIRE_PLUME_YN</envar> is set to Y. See more information about how-to-process at <xref linkend="sect_ptfire_emis_cmaq"/>.</para> 
+<para>To account for a smoldering fraction of the fire emissions, fire plumes are distributed into both the model layers below the plume bottom and into the model layers between the plume top and bottom. The smoldering fraction of the total fire emissions is distributed into the model layer below the plume bottom. The remaining part of emissions are distributed into the model layers between the plume bottom and top.</para>
+<para>Equation 2 estimates the plume bouyant efficiency (BE) which is the portion of heat release from a fire that produces bouyancy, using the fire size in acres. The smoldering fraction (S<subscript>fraction</subscript>) of the fire plume is calculated from the BE (Equation 3). All the fire emissions are allocated to the model layers using a weighting based on the hourly sigma-pressure vertical coordinate. These equations are is used in <command>Laypoint</command> when the variable <envar>FIRE_PLUME_YN</envar> is set to Y. More information about processing fire emissions is in <xref linkend="sect_ptfire_emis_cmaq"/>.</para> 
 
 <para> Fire-specific plume rise equations are following:</para> 
 
@@ -4460,11 +4454,11 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <listitem>
 <para><envar>HOURLY_WIDE_FMT</envar>: [default: N]</para>
 
-<para>Defines whether to import the hour-specific data in EMS-95 wider format or not.</para>
+<para>Defines whether to import the hour-specific data in EMS-95 wide format or not.</para>
 
 <itemizedlist>
 <listitem>
-<para>Y: Import hour-specific data in <xref linkend="tbl_input_pthour_ems_wider" /></para>
+<para>Y: Import hour-specific data in <xref linkend="tbl_input_pthour_ems_wide" /></para>
 </listitem>
 <listitem>
 <para>N: Import hour-specific data in <xref linkend="tbl_input_pthour_ems" /></para>
@@ -4603,14 +4597,14 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <listitem>
 <para><envar>SMK_NHAPEXCLUDE_YN</envar>: [default: N]</para>
-<para>Starting of SMOKE version 2.6, the environment variable is replaced by <envar>SMK_PROCESS_HAPS</envar> listed below to provide more options to <command>Smkinven</command> to include/exclude sources for NONHAP[VOC|TOG] calculations. Once <envar>SMK_PROCESS_HAPS</envar>is set, <envar>SMK_NHAPEXCLUDE_YN</envar> gets deactivated.</para>
+<para>Starting with SMOKE version 2.6, this environment variable is replaced by <envar>SMK_PROCESS_HAPS</envar> to provide more options to <command>Smkinven</command> to include/exclude sources for NONHAP[VOC|TOG] calculations. Once <envar>SMK_PROCESS_HAPS</envar> is set, <envar>SMK_NHAPEXCLUDE_YN</envar> gets deactivated.</para>
 
 <itemizedlist>
 <listitem>
 <para>Y: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do include or exclude the specified sources from the NONHAP[VOC|TOG] calculation depending on a header of the <envar>NHAPEXCLUDE</envar> file. See <xref linkend="sect_input_nhapexclude" />. The purpose of this operation is described in <xref linkend="sect_concepts_toxics_cb4_no_integrate" /></para>
 </listitem>
 <listitem>
-<para>N: Integrate all sources if a toxics inventory has been read which leads to double count toxics. Do not require <envar>NHAPEXCLUDE</envar> file</para>
+<para>N: Integrate all sources if a toxics inventory has been provided. This will lead double counting toxics. Does not require an <envar>NHAPEXCLUDE</envar> file</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -4620,13 +4614,13 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <para>Defines how to treat sources for combining criteria VOC and hazardous air pollutants (HAP) together. See <xref linkend="sect_concepts_combine_toxics" /> for more detail. Once it is set, it will override the setting of <envar>SMK_NHAPEXCLUDE_YN</envar>.</para>
 <itemizedlist>
 <listitem>
-<para>ALL: Treate all sources as integrate all sources if a toxics inventory has been read. Do not require <envar>NHAPEXCLUDE</envar> file</para>
+<para>ALL: Treate all sources as integrated if a toxics inventory has been provided. Does not require an <envar>NHAPEXCLUDE</envar> file</para>
 </listitem>
 <listitem>
-<para>NONE: Treat all sources as non-integrate all sources if a toxics inventory has been read. Do not require <envar>NHAPEXCLUDE</envar> file</para>
+<para>NONE: Treat all sources as non-integrate if a toxics inventory has been provided. Does not require an <envar>NHAPEXCLUDE</envar> file</para>
 </listitem>
 <listitem>
-<para>PARTIAL: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do include or exclude the specified sources from the NONHAP[VOC|TOG] calculation depending on a header of the <envar>NHAPEXCLUDE</envar> file. See <xref linkend="sect_input_nhapexclude" />.</para>
+<para>PARTIAL: Read the <envar>NHAPEXCLUDE</envar> cross-reference file and either include or exclude the specified sources from the NONHAP[VOC|TOG] calculation depending on the header of the <envar>NHAPEXCLUDE</envar> file. See <xref linkend="sect_input_nhapexclude" />.</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -4816,7 +4810,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para>Processing of toxic pollutants was added in versions 1.5 and 2.0, and required extensive changes to <command>Smkinven</command>, including a different intermediate inventory format. Previous versions of SMOKE used an intermediate inventory format consisting of one ASCII file and one I/O API file. Support for EPS 2.0 formatted inventories was dropped in SMOKE v1.5.</para>
 
-<para>A key bug fix was added in SMOKE version 2.3 that corrected the ORL on-road import to use wider field width buffers during import. The previous versions could import files in which all fields were 16 columns wide or smaller. Additionally, the reader of the <envar>INVTABLE</envar> file was updated to read in CAS number, even if a process-pollutant combination was included in column 1 of the file. This makes it possible to import ORL files with precomputed process-pollutant combinations such as EXH__VOC</para>
+<para>A key bug fix was added in SMOKE version 2.3 that corrected the ORL on-road import to use wide field width buffers during import. The previous versions could import files in which all fields were 16 columns wide or smaller. Additionally, the reader of the <envar>INVTABLE</envar> file was updated to read in CAS number, even if a process-pollutant combination was included in column 1 of the file. This makes it possible to import ORL files with precomputed process-pollutant combinations such as EXH__VOC</para>
 
 </section>
 -->
@@ -6011,7 +6005,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>SRC_TAGGING</envar>: [default: N]</para>
 
-<para>Defines whether the program uses the speication tagging cross-referencs file or not (<xref linkend="sect_input_gstag" />).</para>
+<para>Defines whether the program uses the speciation tagging cross-reference file or not (<xref linkend="sect_input_gstag" />).</para>
 
 <itemizedlist>
 <listitem>
