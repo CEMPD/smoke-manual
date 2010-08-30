@@ -3666,7 +3666,7 @@ endif</programlisting>
 
 <orderedlist>
 <listitem>
-<para>Heat Flux (BTU/hr/m<superscript>2</superscript>) = area burned (acre/day) x (1 acre/4046.86 m<superscript>2</superscript>) x fuel loading (tons/acre) x heat content (BTU/lb) x (2000lb/ton) x duration of fire (hr/day) </para>
+<para>Heat Flux (BTU/hr/m<superscript>2</superscript>) = fuel loading(tons/acre) x (1 acre/4046.86 m<superscript>2</superscript>) x heat content (BTU/lb) x (2000lb/ton) / duration of fire (hr) </para>
 </listitem>
 </orderedlist>
 
