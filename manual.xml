@@ -13,7 +13,6 @@
 <!ENTITY chap10 SYSTEM "ch10_output_files.xml">
 <!ENTITY chap11 SYSTEM "ch11_source.xml">
 <!ENTITY chap12 SYSTEM "ch12_installation.xml">
-<!ENTITY chap13 SYSTEM "ch13_errors.xml">
 <!ENTITY appA SYSTEM "app_glossary.xml">
 <!ENTITY appB SYSTEM "app_abbreviations.xml">
 ]>
@@ -21,12 +20,14 @@
 <book>
 
 <bookinfo>
-<title>SMOKE v2.6 User&rsquo;s Manual</title>
+<title>SMOKE v3.0 User&rsquo;s Manual</title>
 
 <edition>$Revision$</edition>
 <pubdate>$Date$</pubdate>
 
 <copyright>
+<year>2011</year>
+<year>2010</year>
 <year>2009</year>
 <year>2008</year>
 <year>2007</year>
@@ -62,5 +63,4 @@
 &chap12;
 &appA;
 &appB;
-
 </book>
