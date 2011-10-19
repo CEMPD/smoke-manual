@@ -154,6 +154,11 @@
 <glossdiv><title>F</title>
 
 <glossentry>
+<glossterm>Fuel month</glossterm>
+<glossdef><para>The concept of a fuel month is used to indicate when a particular set of fuel properties should be used in a MOVES simulation.  The fuel month reduces the computational time of MOVES by using a single month to represent a set of months.  To determine the fuel month and which months it is similar to, the user should review the State-provided fuel supply data in the MOVES database for each representative county.  If the fuel supply data change thoughout the year, then roup the months by fuel parameters.  For example, if the grams/mile exhaust emission rates in January are identical to February's rates for a given representative county, then use a single fuel month to represent January and Febuary. (Only one of the months needs to be modeled throuh MOVES)</para></glossdef>
+</glossentry>
+
+<glossentry>
 <glossterm>Future year</glossterm>
 <glossdef>
 <para>A year after the base year.</para>
@@ -418,6 +423,16 @@
 </glossentry>
 
 </glossdiv>
+
+<glossdiv><title>R</title>
+<glossentry>
+<glossterm>Reference County</glossterm>
+<glossdef>
+<para>Reference county is used to represent a set of counties that have the a constant set of fuel parameters (distribution of fuels over the year), fleet age distritution, inspection/maintenance (I/M) programs, similar community characteristics (e.g. urban vs rural) and similar meteorological conditions (e.g. temperature and relative humidity). Variables that can vary within the counties represented by a representative county include vehicle miles traveled (VMT), source type vehicle population, roadway speed and grid cell temperatures. By specifying a representative county the user is able to reduce the computational time of MOVES by using a single county to represent a set of counties.</para>
+</glossdef>
+</glossentry>
+</glossdiv>
+
 <glossdiv><title>S</title>
 
 <glossentry>

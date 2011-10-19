@@ -10,7 +10,7 @@
 
 <para>The purpose of SMOKE is to convert the resolution of the data in an emission inventory to the resolution needed by an air quality model. Emission inventories typically have an annual-total emissions value for each emissions source, or perhaps an average-day emissions value. The AQMs, however, typically require emissions data on an hourly basis, for each model grid cell (and perhaps model layer), and for each model species. Consequently, to achieve the input requirements of the AQM, emissions processing must (at a minimum) transform inventory data by temporal allocation, chemical speciation, spatial allocation, and perhaps layer assignment.</para>
 
-<para>In addition to changing the resolution of the data, SMOKE must also provide the AQM input files in the correct file format. SMOKE can create the Input/Output Applications Programming Interface (I/O API) Network Common Data Form (NetCDF) output format needed by the CMAQ and MAQSIP models. It can also create the Fortran binary format for the 2-D emissions needed by REMSAD, UAM, and CAM<subscript>X</subscript>, and the ASCII elevated-point-source format used by the <ulink url="http://www.remsad.com/ptsrce.htm">Ptsrce preprocessor</ulink> to these models. File format is also important for the input files used by SMOKE, most of which are ASCII files, but some of which are I/O API NetCDF files.</para>
+<para>In addition to changing the resolution of the data, SMOKE must also provide the AQM input files in the correct file format. SMOKE can create the Input/Output Applications Programming Interface (I/O API) Network Common Data Form (NetCDF) output format needed by the CMAQ and MAQSIP models. It can also create the Fortran binary format for the 2-D emissions needed by REMSAD, UAM, and CAM<subscript>X</subscript>, and the ASCII elevated-point-source format used by the Ptsrce preprocessor to these models. File format is also important for the input files used by SMOKE, most of which are ASCII files, but some of which are I/O API NetCDF files.</para>
 
 <para>In this chapter, we introduce you to various concepts that are critical to understanding the technical description of emissions processing, as well as provide more detail about the processing capabilities of SMOKE. (Later, <xref linkend="ch_utilities" />, <xref linkend="ch_programs" />, <xref linkend="ch_quality_assurance" />, <xref linkend="ch_input_files" />, <xref linkend="ch_intermediate_files" />, and <xref linkend="ch_output_files" /> give more specifics about each program&rsquo;s capabilities and each file&rsquo;s format.) This chapter provides the context and framework for the rest of the user&rsquo;s manual. To assist you in reading and using this chapter, we provide <xref linkend="app_glossary" /> for definitions of emissions inventory and emissions modeling terminology.</para>
 
@@ -78,7 +78,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">On-road mobile sources:</emphasis> Vehicular sources that travel on roadways. These sources can be computed either as being spread over a spatial extent or as being assigned to a line location (called a link). Data in on-road inventories can be either emissions or activity data. Activity data consists of vehicle miles traveled (VMT) and, optionally, vehicle speed. Activity data are used when SMOKE will be computing emission factors via another model such as MOBILE6. Examples of on-road mobile sources include light-duty gasoline vehicles and heavy-duty diesel vehicles. On-road mobile sources are included in both criteria and toxics inventories.</para>
+<para><emphasis role="bold">On-road mobile sources:</emphasis> Vehicular sources that travel on roadways. These sources can be computed either as being spread over a spatial extent or as being assigned to a line location (called a link). Data in on-road inventories can be either emissions or activity data. Activity data consists of vehicle miles traveled (VMT) and, optionally, vehicle speed. Activity data are used when SMOKE will be computing emission factors via another model such as MOVES. Examples of on-road mobile sources include light-duty gasoline vehicles and heavy-duty diesel vehicles. On-road mobile sources are included in both criteria and toxics inventories.</para>
 </listitem>
 
 <listitem>
@@ -142,11 +142,20 @@
 </row>
 
 <row>
-<entry>On-road mobile</entry>
+<entry>On-road mobile (MOBILE 6)</entry>
 <entry align="center">A</entry>
 <entry align="center">A, S</entry>
 <entry align="center">A, S</entry>
 <entry align="center">A, S</entry>
+<entry>Mobile</entry>
+</row>
+
+<row>
+<entry>On-road mobile (MOVES)</entry>
+<entry align="center">A</entry>
+<entry align="center">H</entry>
+<entry align="center">H</entry>
+<entry align="center">H</entry>
 <entry>Mobile</entry>
 </row>
 
@@ -263,7 +272,7 @@
 <listitem>
 <para><emphasis role="bold">Data:</emphasis> Emissions data for criteria, particulate, and toxics pollutants can be read for on-road mobile inventories. SMOKE is not constrained with regard to the pollutants read (although typical examples were given in <xref linkend="sect_concepts_inv_data_types" />). SMOKE accepts annual emissions data, average-day emissions data, or both (though not all input formats support all types).</para>
 
-<para>Additionally, on-road mobile inventories can contain VMT and average speed activity data, which are needed when users would like SMOKE to run MOBILE6 to compute emissions. A combination of precomputed emissions and VMT data is also acceptable for input to SMOKE, but you are responsible for preventing duplication of emissions. Duplication could occur if you input precomputed emissions for the same sources for which you have SMOKE calculate emissions using VMT data and MOBILE6.</para>
+<para>Additionally, on-road mobile inventories can contain VMT and average speed activity data, which are needed when users would like SMOKE to run MOVES to compute emissions. A combination of precomputed emissions and VMT data is also acceptable for input to SMOKE, but you are responsible for preventing duplication of emissions. Duplication could occur if you input precomputed emissions for the same sources that you use SMOKE to compute the emissions on the fly, by multiplying the on-road emissions factors from MOVES by hourly VMT, and the off-network emission factors from MOVES by annual vehicle populations.</para>
 </listitem>
 
 <listitem>
@@ -419,7 +428,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">On-road mobile sources:</emphasis> Four formats are possible for on-road mobile sources. There is an IDA format for activity data and one for emissions data. The IDA activity data format is used to input VMT and speed data to SMOKE for criteria, particulate, and toxics modeling. The IDA emissions data format is intended for criteria and particulate inventories, though other data can be provided in this format as well; this format has all inventory pollutants on each line of the file. Third, there is a SMOKE ORL format for toxics emissions data, which can also be used for input of any inventory data to SMOKE. All three of these formats expect VMT or emissions data to be provided by road class and vehicle type. Fourth, there is an EMS-95 format that can be used to provide SMOKE VMT data that are aggregated by road class and <emphasis>not</emphasis> vehicle type. In this case, SMOKE requires another input file, called the <envar>VMTMIX</envar> file, to disaggregate the emissions by vehicle type for each road class. The EMS-95 format also permits providing data by link, which includes data regarding the coordinates of the link start and end points. The EMS-95 format is the only way to import data by link.</para>
+<para><emphasis role="bold">On-road mobile sources:</emphasis> Five formats are possible for on-road mobile sources. There is an IDA format for activity data and one for emissions data. The IDA activity data format is used to input VMT and speed data to SMOKE for criteria, particulate, and toxics modeling. The IDA emissions data format is intended for criteria and particulate inventories, though other data can be provided in this format as well; this format has all inventory pollutants on each line of the file. Third, there is a SMOKE ORL format for toxics emissions data, which can also be used for input of any inventory data to SMOKE. All three of these formats expect VMT or emissions data to be provided by road class and vehicle type. Fourth, there is an EMS-95 format that can be used to provide SMOKE VMT data that are aggregated by road class and <emphasis>not</emphasis> vehicle type. In this case, SMOKE requires another input file, called the <envar>VMTMIX</envar> file, to disaggregate the emissions by vehicle type for each road class. The EMS-95 format also permits providing data by link, which includes data regarding the coordinates of the link start and end points. The EMS-95 format is the only way to import data by link. Fifth there is the Flat File (FF) format for activity inventory such as VMT, speed,  and vehicle population data.  This format requires VMT, SPEED, and VPOP inventory data.</para>
 </listitem>
 
 <listitem>
@@ -430,7 +439,7 @@
 <para><emphasis role="bold">Wildfire sources:</emphasis> There are two approches available that you can provide wildfire data that are being treated as point sources to SMOKE using the IDA or ORL point-source format.</para>
     <itemizedlist spacing="compact">
         <listitem><emphasis role="bold">Precomputed plume rise approach:</emphasis> Certain fields must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats.</listitem>
-        <listitem><emphasis role="bold">Internal plume rise calculation approach:</emphasis> Requires two separate inventory files that are provided in a modified ORL format: (1) a list of fires with fire-specific characteristics including county/state/county, fire identification, location coordinate, fire name, SCC and others, as described in <xref linkend="sect_input_ptinv_fire"/>, and (2) a day-specific fire data including size of area burned, fuel loading, and star/end hour of fire (<xref linkend="sect_input_ptday_fireemis"/>). Unlike the approach listed above, this approach internally estimates the plume rise using the size of the area burned and fuel loading, and it adjusts temporal profiles using the start and end hours of the fire. See detail at <xref linkend="sect_ptfire_emis_cmaq"/></listitem>
+        <listitem><emphasis role="bold">Internal plume rise calculation approach:</emphasis> Requires two separate inventory files that are provided in a modified ORL format: (1) a list of fires with fire-specific characteristics including county/state/county, fire identification, location coordinate, fire name, SCC and others, as described in <xref linkend="sect_input_ptinv_fire" />, and (2) a day-specific fire data including size of area burned, fuel loading, and star/end hour of fire (<xref linkend="sect_input_ptday_fireemis" />). Unlike the approach listed above, this approach internally estimates the plume rise using the size of the area burned and fuel loading, and it adjusts temporal profiles using the start and end hours of the fire. See detail at <xref linkend="sect_ptfire_emis_cmaq" /></listitem>
     </itemizedlist>
 </listitem>
 
@@ -510,8 +519,6 @@
 </mediaobject>
 </informalfigure>
 
-<para>For more information on SCCs, please refer to <ulink url="http://www.epa.gov/ttn/chief/codes/" />. An SCC Readme file is provided on that page that further explains the codes.</para>
-
 <para>SMOKE treats SCCs as character strings, though in practice the values in the inventories and cross-reference files are usually numeric. In <xref linkend="sect_concepts_cross_referencing" /> on cross-references and profiles, we explain how these hierarchies are used by SMOKE and how you should use them in preparing SMOKE input files.</para>
 
 <para>For on-road mobile sources, SCCs are treated somewhat differently than for other source categories. We explain more about this in <xref linkend="sect_concepts_onroad_sccs" />.</para>
@@ -522,7 +529,7 @@
 
 <title>Standard Industrial Classification codes</title>
 
-<para>Although SIC codes are being replaced by NAICS codes in building emission inventories at EPA, SIC codes are still used in emissions processing. These 4-digit codes use a 2-level hierarchy that is recognized by SMOKE for application of growth, control, and chemical speciation factors. The two code levels are illustrated below. More information on SIC codes is available at <ulink url="http://www.osha.gov/oshstats/sicser.html" />.</para>
+<para>Although SIC codes are being replaced by NAICS codes in building emission inventories at EPA, SIC codes are still used in emissions processing. These 4-digit codes use a 2-level hierarchy that is recognized by SMOKE for application of growth, control, and chemical speciation factors. The two code levels are illustrated below.</para>
 
 <informalfigure>
 <mediaobject>
@@ -541,7 +548,7 @@
 
 <title>Maximum Achievable Control Technology codes</title>
 
-<para>The following quote explaining MACT codes was taken from <ulink url="http://www.epa.gov/ttn/chief/codes/mact.txt">EPA&rsquo;s web site</ulink> to explain what MACT codes are and why they are used in some inventories and not others:</para>
+<para>The following quote explaining MACT codes was taken from EPA to explain what MACT codes are and why they are used in some inventories and not others:</para>
 
 <blockquote>
 <para>To evaluate EPA&rsquo;s progress in reducing air toxic emissions through the Maximum Achievable Control Technology (MACT) standards and to identify sources that may be modeled as part of residual risk assessments, operations within facilities that are subject to MACT standards are identified in the NTI by 4-digit MACT codes. <emphasis>[note that the term NTI (National Toxics Inventory) has since been replaced with NEI and that the codes are now 6 digits]</emphasis></para>
@@ -649,19 +656,11 @@
     </itemizedlist>
     
 </listitem>
-<listitem>Mobile-source speed assignment (<command>Mbsetup</command>, <command>Emisfac</command>)
+<listitem>Mobile-source speed assignment (<command>Movesmrg</command>)
 
     <itemizedlist spacing="compact">
-    <listitem>cross-references: <envar>SPDREF</envar></listitem>
+    <listitem>cross-references: <envar>MCXREF</envar>, <envar>MFMREF</envar></listitem>
     <listitem>profiles: <envar>SPDPRO</envar></listitem>
-    </itemizedlist>
-    
-</listitem>
-<listitem>Mobile-source preprocessing (<command>Mbsetup</command>)
-
-    <itemizedlist spacing="compact">
-    <listitem>cross-references: <envar>MCREF</envar>, <envar>MVREF</envar></listitem>
-    <listitem>profiles: none needed (used for grouping sources)</listitem>
     </itemizedlist>
     
 </listitem>
@@ -726,7 +725,7 @@ Additional data</programlisting>
 
 <para>The basic I/O API file has a limitation of 120 variables per file. To overcome this, SMOKE uses a wrapper called the FileSetAPI that creates and manages multiple I/O API files when more than 120 variables are needed in a single I/O API dataset in SMOKE. For example, if the SMOKE speciation matrix requires 140 pollutant-to-species variables, SMOKE will open by default two standard I/O API files: one with 120 variables and one with 20 variables. This resulting <quote>file set</quote> will be treated by other SMOKE programs as a single file, which enables processing of any number of pollutants and species in a single run, despite the I/O API variable limitation.</para>
 
-<para>Some I/O API files can be viewed by the <ulink url="http://www.cep.unc.edu/empd/EDSS/pave_doc/">Package for Analysis and Visualization of Environmental data</ulink> (PAVE). In SMOKE, any gridded output file from the <command>Smkmerge</command>, <command>Mrggrid</command>, or <command>Smk2emis</command> programs can be viewed by PAVE.</para>
+<para>Some I/O API files can be viewed by the <ulink url="http://www.verdi-tool.org">Visualization Environment for Rich Data Interpretation</ulink> (VERDI). In SMOKE, any gridded output file from the <command>Smkmerge</command>, <command>Mrggrid</command>, or <command>Smk2emis</command> programs can be viewed by VERDI.</para>
 
 <para>In some cases, it can be helpful to directly view the contents of the I/O API files in text form. This provides a quick way to check grid settings, time period, or species names in the model-ready output files. By viewing the text version of the model-ready output files produced by SMOKE, you can easily confirm that the correct species have been created or that the emission units are correct. To convert the I/O API files to text, one can use a combination of the NetCDF-provided <command>ncdump</command> utility and UNIX commands. The <command>ncdump</command> utility is created when you compile the NetCDF library, or you can download it from the <ulink url="http://www.unidata.ucar.edu/packages/netcdf/">NetCDF web site</ulink>. The command to convert the files to text format is:</para>
 
@@ -804,7 +803,7 @@ Additional data</programlisting>
 <para>The input emissions files should ideally contain data for the same base year, and the #YEAR header setting in those files should be consistent with the <envar>YEAR</envar> environment variable in the Assigns file. If the years in the annual inventory files are not consistent with each other, SMOKE will determine the year used by the most sources and set that as the base year. If day-specific or hour-specific data are used, all years in those files must be consistent with the base year of the annual emissions.</para>
 </listitem>
 <listitem>
-<para>The MOBILE6 input data, if they are being used, should also be consistent with the base year. SMOKE is capable of running MOBILE6 with inputs from a different year, but certain inputs may not be correct.</para>
+<para>The MOVES input data, if they are being used, should also be consistent with the base year. SMOKE is capable of running MOVES with inputs from a different year, but certain inputs may not be correct.</para>
 </listitem>
 <listitem>
 <para>Finally, the dates in the I/O API meteorology data from the Meteorology-Chemistry Interface Processor (MCIP) must be consistent with both the base year and the episode and run settings.</para>
@@ -821,7 +820,7 @@ Additional data</programlisting>
 <para>If you already have a future-year inventory and so do not need to use SMOKE to project one from the base year inventory, then the emissions data year must match the future year, and the #YEAR header in the inventory file must match that year as well. In this case, the <envar>SMK_BASEYR_OVERRIDE</envar> setting must also be used to indicate what the base year is (which will be the same as the year of the meteorology data).</para>
 </listitem>
 <listitem>
-<para>The MOBILE6 input data, if they are being used, must also include the correct settings for the future year of interest.</para>
+<para>The MOVES input data, if they are being used, must also include the correct settings for the future year of interest.</para>
 </listitem>
 <listitem>
 <para>The episode and run settings, meteorology files, and day- or hour-specific inventories should <emphasis>not</emphasis> match the future year, but rather should use the base-year episode dates.</para>
@@ -882,7 +881,7 @@ Additional data</programlisting>
 
 <para>In <xref linkend="sect_scripts_change_speciation" />, we provide the settings needed in the Assigns file to use a different chemical mechanisms with SMOKE. SMOKE is not constrained to the files available for download. If you need to process other data (e.g., a tracer species) with SMOKE, they can be added to several input files, including the chemical mechanism file, to be output to the AQM. Some additions to chemical mechanisms are easier than others, and we explain how to determine whether you can create the files you need for your situation. We also give instructions on how to add species to the chemical mechanism files and how to make sure that the inventory pollutants are mapped to the correct chemical species.</para>
 
-<para>SMOKE users must know what chemical mechanism will be used in the AQM for which the SMOKE output emissions are intended. Once that has been determined, the following files must be configured to be consistent with the inventory being used and the chemical mechanism: the inventory table (<envar>INVTABLE</envar>), speciation profiles (<envar>GSPRO</envar>), speciation cross-reference (<envar>GSREF</envar>), and the mobile processes file (<envar>MEPROC</envar>) when creating on-road mobile emissions with MOBILE6 through SMOKE.</para>
+<para>SMOKE users must know what chemical mechanism will be used in the AQM for which the SMOKE output emissions are intended. Once that has been determined, the following files must be configured to be consistent with the inventory being used and the chemical mechanism: the inventory table (<envar>INVTABLE</envar>), speciation profiles (<envar>GSPRO</envar>), speciation cross-reference (<envar>GSREF</envar>), and the mobile processes file (<envar>MEPROC</envar>) when creating on-road mobile emissions with MOVES through SMOKE.</para>
 
 </section>
 
@@ -1012,12 +1011,12 @@ Additional data</programlisting>
 </mediaobject>
 </figure>
 
-<para>Although SMOKE processing generally follows the structure shown in <xref linkend="fig_concepts_parallel_approach" />, there are some exceptions. In the list below, we summarize these exceptions and provide references to the sections of this chapter where these exceptions are explained and shown through diagrams. These exceptions are also described in more detail in <xref linkend="sect_concepts_area_source_processing" />, <xref linkend="sect_concepts_biogenic_source_processing" />, <xref linkend="sect_concepts_mobile_source_processing" />, and <xref linkend="sect_concepts_point_source_processing" />.</para>
+<para>Although SMOKE processing generally follows the structure shown in <xref linkend="fig_concepts_parallel_approach" />, there are some exceptions. In the list below, we summarize these exceptions and provide references to the sections of this chapter where these exceptions are explained and shown through diagrams. These exceptions are also described in more detail in <xref linkend="sect_concepts_area_source_processing" />, <xref linkend="sect_concepts_biogenic_source_processing" />, <xref linkend="sect_concepts_mobile_source_processing_moves" />, and <xref linkend="sect_concepts_point_source_processing" />.</para>
 
 <itemizedlist>
 
 <listitem>
-<para><emphasis role="bold">On-road mobile processing with MOBILE6:</emphasis> One way of processing on-road mobile-source emissions is to have SMOKE run the MOBILE6 model based on hourly, gridded meteorology data. To run a different grid or control strategy using this approach, users usually need to run a number of additional processing steps that we have not yet discussed. These differences from the standard processing approach are described in <xref linkend="sect_concepts_mobile_source_processing" />.</para>
+<para><emphasis role="bold">On-road mobile processing with MOVES:</emphasis> One way of processing on-road mobile-source emissions is to have SMOKE run the MOVES model based on hourly, gridded meteorology data. To run a different grid or control strategy using this approach, users usually need to run a number of additional processing steps that we have not yet discussed. These differences from the standard processing approach are described in <xref linkend="sect_concepts_mobile_source_processing_moves" />.</para>
 </listitem>
 
 <listitem>
@@ -1153,7 +1152,6 @@ Additional data</programlisting>
 <para>The disadvantage of using pregridded emissions for area-source processing is that there are no country/state/county codes and SCCs to use in the cross-referencing of any processing step. Therefore, temporal profiles, speciation profiles, growth factors, and control factors must be applied uniformly across the model grid by pollutant.</para>
 
 </section>
-
 </section>
 
 <section id="sect_concepts_biogenic_source_processing">
@@ -1198,69 +1196,226 @@ Additional data</programlisting>
 
 </section>
 
-<section id="sect_concepts_mobile_source_processing">
+<section id="sect_concepts_mobile_source_processing_moves">
 
-<title>Mobile-source processing</title>
+<title>Mobile-source processing using MOVES</title>
 
-<para>SMOKE provides two ways of processing mobile sources. (Recall that by <quote>mobile sources</quote> in SMOKE we mean on-road mobile sources.) The first approach is to compute mobile emissions values prior to running SMOKE and provide them to SMOKE as input; we call this the precomputed-emissions approach. The second approach is to provide SMOKE with VMT data, meteorology data, and MOBILE6 inputs, and have SMOKE compute the mobile emissions based on these data; this is called the VMT approach. These approaches are not mutually exclusive, so it is possible to provide both precomputed emissions and VMT data to SMOKE and have the system compute only some of the emissions using MOBILE6. Both processing approaches can produce criteria, particulate, and toxics emissions results.</para>
+<para>SMOKE provides two ways of processing mobile sources using MOVES. (Recall that by <quote>mobile sources</quote> in SMOKE we mean on-road mobile sources.) The first approach is to compute mobile emissions values prior to running SMOKE and provide them to SMOKE as input; we call this the precomputed-emissions approach. The second approach is to provide SMOKE with VMT data, Vehicle population (VPOP) data, meteorology data, and MOVES outputs, and have SMOKE compute the mobile emissions based on these data; this is called the MOVES approach. These approaches are not mutually exclusive, so it is possible to provide both precomputed emissions and VMT and VPOP data to SMOKE and have the system compute only some of the emissions using MOVES outputs. Both processing approaches can produce criteria, particulate, and toxics emissions results.</para>
 
 <para>The precomputed-emissions approach is quite similar to the processing method for area sources. In fact, <xref linkend="fig_concepts_area_base" />, <xref linkend="fig_concepts_area_growth" />, and <xref linkend="fig_concepts_area_projection" /> from <xref linkend="sect_concepts_area_source_processing" /> show exactly the processing steps needed for processing mobile sources using SMOKE and the precomputed-emissions approach. As in base-case processing for area sources, emissions in the inventory file are subdivided to hourly emissions during temporal allocation, assigned chemical speciation factors during speciation, and assigned spatial allocation factors during gridding. The merge step combines the hourly emissions, speciation matrix, and gridding matrix to create model-ready emissions. For future- or past-year processing, the growth and controls step is added to create the growth and control matrices, while the grow inventory step converts the inventory from the base year to a future or past year. The control matrix can be optionally used in the merge step to apply control factors to the future- or past-year emissions. Note that, unlike the VMT approach, in the precomputed-emissions approach SMOKE will not model the variations in emissions caused by temperature, humidity, or other meteorological settings.</para>
 
-<para>The VMT approach is much different from the precomputed-emissions approach. <xref linkend="fig_concepts_mobile_vmt_base" /> summarizes the VMT approach. First, VMT data (both link and county-total) by road class and vehicle type are input to SMOKE. The chemical speciation step computes the chemical speciation factors for each county, road class, vehicle type, emissions process (e.g., exhaust start, exhaust running, evaporative, hot soak, diurnal), and pollutant and stores the necessary factors for this transformation. The gridding step allocates the link sources to grid cells and uses spatial surrogates to allocate county-total emissions to grid cells, storing the factors needed for these allocations. The gridding step also creates <quote>ungridding</quote> factors which are used to create county-based meteorology data in the meteorology processing step.</para>
+<para>The MOVES approach is much different from the precomputed-emissions approach. <xref linkend="fig_concepts_mobile_moves_onroad" /> and <xref linkend="fig_concepts_mobile_moves_offroad" /> summarize the MOVES approach. First, county total VMT data by road class and vehicle type or county total VPOP by vehicle type are input to SMOKE. The chemical speciation step computes the chemical speciation factors for each county, road class, vehicle type, emissions process (e.g., exhaust start, exhaust running, evaporative processes, extended idle, and crankcase), and pollutant and stores the necessary factors for this transformation. The gridding step allocates the sources to grid cells and uses spatial surrogates to allocate county-total emissions to grid cells, storing the factors needed for these allocations.</para>
 
-<para>Before the meteorology processing, a MOBILE6 setup program is run which uses inventory and grid information to create inputs for the meteorology processing step. The meteorology processing step uses information from the MOBILE6 setup step and the <quote>ungridding</quote> factors created by the gridding step to compute county-specific hourly temperatures, barometric pressures, and humidity values, which are fed to the MOBILE6.2 driver to compute hour-specific emission factors. The temporal allocation step combines the VMT and emission factors and makes other temporal adjustments to obtain hour-specific emissions for each emissions process. Finally, the merge step combines the hourly emissions, spatial allocation factors, and chemical speciation factors to calculate model-ready emissions.</para>
+<para>The approach for running MOVES for SMOKE relies on the concept of reference counties and fuel months. The concept of reference county refers to running MOVES for a single county, which is the reference county, to represent itself and other counties that share the same MOVES input parameters and thus have the same emission rates for any given speed, temperature and humidity.  A reference fuel month similarly refers to a reference fuel month's MOVES run that contains the temperatures that occur in neighboring months as well as the representative month. The mapping of calendar months to a representative month should be assigned on the basis of shared fuel parameters, because it is the interaction of fuel and temperature that is important.  For example, an average-hourly temperature of 70°F may occur in some hour of any day in each of four months: May, June, July and August.   If those four months share the same fuel properties (i.e. summer fuel) then an emission factor will be determined for just the representative month, reducing by a factor of four the number of calculations that MOVES needs to perform.</para>
+<para>Unlike MOBILE6, MOVES differentiates between on-roadway emission processes and off-network emission processes. <xref linkend="fig_concepts_mobile_moves_onroad" /> summarizes the approach used by MOVES for on-roadway mobile sources.  The on-roadway emission process includes county-total VMT and average speed inventory as input.  The off-network emission processes use the county-total vehicle population by vehicle type as input. <xref linkend="fig_concepts_mobile_moves_offroad" /> summarizes the approach used by MOVES for off-network mobile sources. Both on-roadway and off-network emission processes do require real gridded meteorology data from MCIP files to estimate temperature-dependent emission rates.</para>
 
-<figure id="fig_concepts_mobile_vmt_base">
-<title>Base case mobile VMT approach processing steps</title>
+<figure id="fig_concepts_mobile_moves_onroad">
+<title>MOVES mobile RatePerDistance processing steps</title>
 
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/concepts/mobile_vmt_base_pdf.jpg" />
+<imagedata width="6.5in" fileref="images/concepts/mobile_moves_onroad_base_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
-<imagedata fileref="images/concepts/mobile_vmt_base_html.jpg" />
+<imagedata fileref="images/concepts/mobile_moves_onroad_base_html.jpg" />
 </imageobject>
 </mediaobject>
 </figure>
 
-<para>In addition to base-case processing, the VMT approach can also be used for future- or past-year processing and for control cases. <xref linkend="fig_concepts_mobile_vmt_growth" /> summarizes the steps needed for such processing. In addition to the steps in <xref linkend="fig_concepts_mobile_vmt_base" />, the grow inventory step is used to grow the VMT data to the future year. In the MOBILE6 driver step, the system can use MOBILE6.2 entries that contain settings for the future/past year, as well as control settings such as those related to inspection and maintenance programs. <comment>The control step, which takes its input from the inventory growth program, can optionally be used to further adjust the mobile-source emissions, such as reducing them by some percentage in specific counties.</comment></para>
-
-<figure id="fig_concepts_mobile_vmt_growth">
-<title>Future- or past-year growth and control mobile-source processing steps</title>
+<figure id="fig_concepts_mobile_moves_offroad">
+<title>MOVES mobile RatePerVehicle and RatPerProfile (off-network) processing steps</title>
 
 <mediaobject>
 <imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/concepts/mobile_vmt_growth_pdf.jpg" />
+<imagedata width="6.5in" fileref="images/concepts/mobile_moves_offroad_base_pdf.jpg" />
 </imageobject>
 <imageobject role="html">
-<imagedata fileref="images/concepts/mobile_vmt_growth_html.jpg" />
+<imagedata fileref="images/concepts/mobile_moves_offroad_base_html.jpg" />
 </imageobject>
 </mediaobject>
 </figure>
 
-<para>In sections later in this chapter, we describe the SMOKE programs that are needed for each of the processing steps just described for mobile sources, and additional details about what activities are accomplished during each step. These sections are:</para>
+<para>In sections later in this chapter, we describe the SMOKE programs that are needed for each of the processing steps just described for MOVES processed mobile sources, and additional details about what activities are accomplished during each step. These sections are:</para>
 
 <itemizedlist spacing="compact">
 <listitem><xref linkend="sect_concepts_inventory_import" /></listitem>
 <listitem><xref linkend="sect_concepts_temporal_processing" /></listitem>
 <listitem><xref linkend="sect_concepts_chemical_processing" /></listitem>
 <listitem><xref linkend="sect_concepts_spatial_processing" /></listitem>
-<listitem><xref linkend="sect_concepts_growth_processing" /></listitem>
-<listitem><xref linkend="sect_concepts_control_processing" /></listitem>
-<listitem><xref linkend="sect_concepts_onroad_processing" /></listitem>
-<listitem><xref linkend="sect_concepts_merge_processing" /></listitem>
-<listitem><xref linkend="sect_concepts_qa_processing" /></listitem>
+<listitem><xref linkend="sect_concepts_onroad_processing_moves" /></listitem>
+<listitem><xref linkend="sect_concepts_merge_processing_moves" /></listitem>
+
 </itemizedlist>
 
-<para>Processing mobile sources involves a number of concepts that are unique to mobile sources. These include the link optional source characteristic, a special approach for on-road mobile SCCs, special codes used for road classes and facility types, road types in MOBILE6, SMOKE and MOBILE6 vehicle types, emissions processes, MOBILE6 emission factors, reference counties, and the use of gridded meteorology data. The following subsections explain these topics in more detail.</para>
+<para>Processing mobile sources involves a number of concepts that are unique to mobile sources. These include a special classification of road types in MOVES, SMOKE and MOVES vehicle types, emissions processes, MOVES emission factors, reference counties, reference fuel months, and meteorological processing using <command>Met4moves</command>. The following subsections and sections 2.16 and 2.19 explain these topics in more detail.</para>
 
 <section>
 
-<title>Links</title>
+<title>Road types in MOVES</title>
 
-<para>Mobile sources have an optional source characteristic known as link sources. For SMOKE purposes, links are straight road segments within a county and are defined by starting and ending lat-lon or UTM coordinates. Curved roads must be broken into several straight segments to approximate the curved shape. A Geographical Information Systems (GIS) program and a travel demand model are typically used to perform link-source input preparation; these activities are not integrated into SMOKE. The link coordinates must be provided as input data to SMOKE if you want to use link data. This approach provides the advantage of improved spatial allocation for model-ready emissions, because the VMT and therefore emissions are assigned directly to grid cells using the coordinates, rather than relying on spatial surrogates.</para>
+<para>MOVES can model five different road types: rural restricted/unrestricted access, urban restricted/unrestricted access, and off-network (used for emission processes that are not road dependent, such as exhaust start, extended idle, and crankcase). <xref linkend="tbl_concepts_moves_roads" /> indicates how the 13 SCC road classes are mapped to the five MOVES road types. The fractions for disaggregation are applied at the county level and can be found in the <emphasis role="bold">sccroadtypedistribution</emphasis> table in the MOVES model.</para>
 
-<para>In SMOKE, links are identified by 15-character alphanumeric link IDs, which must be unique for each combination of FIPS code and SCC. SMOKE contains its own line-grid intersection routine to allocate the link emissions into each grid cell. The links are allocated to the cells by the fraction of length of each segment within each grid cell; this allocation is performed by the <command>Grdmat</command> program, which assumes that VMT or emissions data are uniformly distributed over the link.</para>
+<table id="tbl_concepts_moves_roads">
+<?dbfo table-width="4in"?>
+<title>Road class and corresponding MOVES road type</title>
+
+<tgroup cols="3">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center">SCC Code</entry>
+<entry align="center">SCCRoadTypeID</entry>
+<entry align="center">MOVES roadTypeID</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>000</entry>
+<entry>Off-Network</entry>
+<entry>Off-Network</entry>
+</row>
+<row>
+<entry>110</entry>
+<entry>Rural Interstate </entry>
+<entry>Rural Restricted Access</entry>
+</row>
+<row>
+<entry>130</entry>
+<entry>Rural Principal Arterial </entry>
+<entry>Rural Unrestricted Access</entry>
+</row>
+<row>
+<entry>150</entry>
+<entry>Rural Minor Arterial </entry>
+<entry>Rural Unrestricted Access</entry>
+</row>
+<row>
+<entry>170</entry>
+<entry>Rural Major Collector </entry>
+<entry>Rural Unrestricted Access</entry>
+</row>
+<row>
+<entry>190</entry>
+<entry>Rural Minor Collector </entry>
+<entry>Rural Unrestricted Access</entry>
+</row>
+<row>
+<entry>210</entry>
+<entry>Rural Local </entry>
+<entry>Rural Unrestricted Access</entry>
+</row>
+<row>
+<entry>230</entry>
+<entry>Urban Interstate </entry>
+<entry>Urban Restricted Access</entry>
+</row>
+<row>
+<entry>250</entry>
+<entry>Urban Freeway</entry>
+<entry>Urban Restricted Access</entry>
+</row>
+<row>
+<entry>270</entry>
+<entry>Urban Principal Arterial </entry>
+<entry>Urban Unrestricted Access</entry>
+</row>
+<row>
+<entry>290</entry>
+<entry>Urban Minor Arterial </entry>
+<entry>Urban Unrestricted Access</entry>
+</row>
+<row>
+<entry>310</entry>
+<entry>Urban Collector </entry>
+<entry>Urban Unrestricted Access</entry>
+</row>
+<row>
+<entry>330</entry>
+<entry>Urban Local </entry>
+<entry>Urban Unrestricted Access</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>Note that SMOKE assumes that a portion of the VMT data supplied for interstates and freeways are attributable to freeway ramps.  Therefore, SMOKE computes a composite emission factor from the freeway and freeway ramp emission factors from MOVES and maps the composite to the interstates and freeways.</para>
+
+</section>
+
+<section>
+
+<title>Vehicle types in MOVES</title>
+
+<para>The vehicle types used in SMOKE&rsquo;s on-road mobile source processing are described in <xref linkend="tbl_concepts_vehicle_types" />. The codes (e.g., 0100) should be used in the cross-reference files.</para>
+
+<table id="tbl_concepts_vehicle_types">
+<?dbfo table-width="3.5in"?>
+<title>Vehicle type codes and descriptions</title>
+
+<tgroup cols="3">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry align="center">SCC Code</entry>
+<entry align="center">SCCvtypeID</entry>
+<entry align="center">Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>0100</entry>
+<entry>LDGV</entry>
+<entry>Light Duty Gasoline Vehicles</entry>
+</row>
+<row>
+<entry>0102</entry>
+<entry>LDGT1</entry>
+<entry>Light Duty Gasoline Trucks 1</entry>
+</row>
+<row>
+<entry>0104</entry>
+<entry>LDGT2</entry>
+<entry>Light Duty Gasoline Trucks 2</entry>
+</row>
+<row>
+<entry>0107</entry>
+<entry>HDGV</entry>
+<entry>Heavy Duty Gasoline Vehicles</entry>
+</row>
+<row>
+<entry>3000</entry>
+<entry>LDDV</entry>
+<entry>Light Duty Diesel Vehicles</entry>
+</row>
+<row>
+<entry>3006</entry>
+<entry>LDDT</entry>
+<entry>Light Duty Diesel Trucks</entry>
+</row>
+<row>
+<entry>3007</entry>
+<entry>HDDV</entry>
+<entry>Heavy Duty Diesel Vehicles</entry>
+</row>
+<row>
+<entry>0108</entry>
+<entry>MC</entry>
+<entry>Motorcycles</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>MOVES can produce emission factors for possible combinations between 13 MOVES vehicle types (sourceTypeID) and fuel types (fuelTypeID). For SMOKE to assign these emission factors to the mobile sources, the emission factors must be aggregated to the 8 vehicle types (SCCvtypeID) listed in <xref linkend="tbl_concepts_vehicle_types" />.  To perform this aggregation, MOVES disaggregates emission rate output into the 31 vehicle model years. Fractions that map MOVES sourceTypeID by model year and fuleTypeID to SCCVtypeID to SCCVtypeID are found in the <emphasis role="bold">sccvtypedistribution</emphasis> table of MOVES.</para>
+<para>Once the applicable SCC is determined by SCCvtypeID and SCCRoadTypeID, MOVES aggregates those emission rates by SCC over vehicle model years using travel fraction. Travel fractions are simply weighting factors that sum to 1 over all model years; they are used to aggregate emission rates over model years to produce a single SCC-wide emission rate instead of a rate for each of the 31 vehicle model years. Travel fractions are based on mileage accumulation by vehicle model year and/or age distribution by model year.</para>
 
 </section>
 
@@ -1302,503 +1457,1128 @@ Additional data</programlisting>
 
 </section>
 
+
+<section id="sect_concepts_reference_counties_moves">
+<title>Reference Counties</title>
+<para>The approach for running MOVES for SMOKE relies on the concept of reference counties. These are counties that are used during the creation and use of emission rates to represent a set of similar counties (i.e., inventory counties) called a county group. The purpose of the reference county approach is to reduce the computational burden of running MOVES on every county in your modeling domain. By using a represenative county, the user generates key emission rates for the single county in MOVES and then utilizes these factors to estimate emissions for all counties in the county group through SMOKE. The reference county is modeled at a range of speeds and temperatures to produce emission rate lookup tables (grams/mile or grams/vehicle/hour, depending on mobile emission process). The variables that are assumed to be constant across the county group members (and the reference county) are fuel parameters, fleet age distribution and inspection/maintenance (I/M) programs. The variables that can vary within the county group are vehicle miles traveled (VMT), source type vehicle population, roadway speed, and grid cell temperatures. Determining the reference counties and their respective county groups is a key aspect of utilizing the SMOKE-MOVES tool. It is ideal for the user to create each county group based on the similarity between the county characteristics (e.g., urban and rural) and the meteorological conditions (e.g., temperature and relative humidity). The user should avoid grouping counties that have significantly different meteorological conditions.</para>
+</section>
+<section id="sect_concepts_moves_reference_fuel_month">
+<title>Reference Fuel month</title>
+<para>Along with the concept of reference county approach, the concept of a fuel month is very important. It is used to indicate when a particular set of fuel properties should be used in a MOVES simulation. Similar to the reference county, the fuel month reduces the computational time of MOVES by using a single month to represent a set of months. To determine the fuel month and which months it corresponds to, the user should review the State-provided fuel supply data in the MOVES database for each reference county. If the fuel supply data change throughout the year, then group the months by fuel parameters. For example, if the grams/mile exhaust emission rates in January are identical to February's rates for a given reference county, then use a single fuel month to represent January and February. In other words, only one of the months needs to be modeled through MOVES.</para>
+</section>
+<section id="sect_concepts_moves_met_processing">
+	<title>Meteorological Data Processing</title>
+        <para>The meteorological data processor program <command>Met4moves</command> prepares spatially and temporally averaged temperatures and relative humidity data to set up the meteorological input conditions for MOVES and SMOKE using the Meteorology-Chemistry Interface Processor (MCIP) output files.</para>
+<para><link linkend="sect_programs_met4moves"><command>Met4moves</command></link> must be run after MCIP and before the MOVES driver script <command><quote>Runspec_generator.pl</quote></command> and <command>Smkinven</command>.</para>
+<para>The following are the major processing steps that <command>Met4moves</command> performs:</para>
+<itemizedlist>
+<listitem>
+<para>Read the reference county cross-reference file <link linkend="sect_input_mcxref"><envar>MCXREF</envar></link> that contains a list of reference counties and the county groups that map to those reference counties.</para>
+</listitem>
+<listitem>
+<para>Read the surrogate description file <link linkend="sect_input_srgdesc"><envar>SRGDESC</envar></link> and a list of associated spatial surrogate(s) chosen for use in selecting grid cells.</para>
+</listitem>
+<listitem>
+<para>Determine a list of grid cells for each county. Only the selected grid cells are used to estimate the min/max temperatures, 24-hour temperature profiles, and RH over the user-specified modeling period.</para>
+</listitem>
+<listitem>
+<para>Set the dates of the modeling episode in local time using the flags <envar>STDATE</envar> and <envar>ENDATE</envar></para>
+</listitem>
+<listitem><para>Determine the averaging method <envar>AVERAGING_METHOD</envar> chosen by the user to create 24-hour temperature profiles (i.e., MONTHLY).</para>
+</listitem>
+<listitem>
+<para>Determine the fuel month for the reference county using the <link linkend="sect_input_mfmref"><envar>MFMREF</envar></link> input file.</para>
+</listitem>
+<listitem><para>Read the country/state/county <link linkend="sect_input_costcy"><envar>COSTCY</envar></link> file to define the time zones for county groups.</para></listitem><listitem><para>Read the meteorology data that have been processed by MCIP.</para></listitem><listitem>
+<para>Calculate the min/max temperatures hourly and over the modeling period.</para></listitem>
+<listitem>
+<para>Calculate average RH for the specified hour range over the modeling period. The default hour range is from 6 AM to 6 PM local time).</para>
+</listitem>
+<listitem>
+<para>Once min/max temperatures and averaged RH are estimated for all reference counties and all inventory counties in the county groups, estimate diurnal 24-hour temperature profiles for use by the MOVES driver script. The result is a normalized 24-hour shape profile over the user-specified period or fuel month.</para></listitem>
+</itemizedlist>
+</section>
+
+<section id="sect_concepts_moves_emission_processes">
+<title> MOVES Emission Processes</title>
+<para>When the MOVES model runs for SMOKE, it runs for all emissions processes (or modes), including on-roadway and off-network emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting) in MOVES are hour-dependent due to vehicle activity assumptions built into the MOVES model; the emission rate depends on both hour of the day and temperature. On-roadway emission processes (e.g., running exhaust, crankcase running exhaust, brake wear, tire wear, and on-road evaporative), on the other hand, do not depend on hour. In MOVES, these emission processes are categorized into three major groups:</para>
+<itemizedlist>
+<listitem>
+<emphasis role="bold">RatePerDistance (RPD) - </emphasis>The emission rate of on-roadway vehicles (i.e., driving) from MOVES. The rate is expressed in grams/mile traveled.
+</listitem>
+<listitem>
+<emphasis role="bold">RatePerVehicle (RPV) - </emphasis>The emission rate of vehicles off-network (e.g., idling, starts, refueling, parked) from MOVES. The rate is given in grams/vehicle/hour.
+</listitem>
+<listitem>
+<emphasis role="bold">RatePerProfile (RPP) - </emphasis>The emission rate of vehicles off-network specifically, the evaporation from parked vehicles (vapor-venting emissions) from MOVES. The rate is expressed in grams/vehicle/hour.
+</listitem>
+</itemizedlist>
+
 <section>
+<title>Emission Processes by Emission Rate Tables</title>
+<para>MOVES emission rates are organized into three tables (RPD, RPV, RPP), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
 
-<title>Road classes and facility types</title>
-
-<para>The Aerometric Information Retrieval System (AIRS) AMS road class code is the same as the last three digits in the 10-digit SCC expected by SMOKE. Within SMOKE, the road class is stored as the two-digit combination of the area type code and facility type code. Descriptions of the road classes and their associated numeric codes are as given in <xref linkend="tbl_concepts_road_class" />.</para>
-
-<table id="tbl_concepts_road_class">
-<?dbfo table-width="4.5in"?>
-<title>AMS road class and corresponding area and facility type</title>
-
+<table id="tbl_concepts_moves_emission_rate_tbl">
+<title>MOVES Emission Processes by Emission Rate Tables</title>
 <tgroup cols="4">
-<colspec colwidth="2*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
+<colspec colname="c1" colwidth="10*" />
+<colspec colname="c2" colwidth="10*" />
+<colspec colname="c3" colwidth="10*" />
+<colspec colname="c4" colwidth="20*" />
 
 <thead>
 <row>
-<entry align="center">Name</entry>
-<entry align="center">AIRS AMS road class code</entry>
-<entry align="center">Area type code</entry>
-<entry align="center">Facility type code</entry>
+<entry morerows="1" valign="bottom" align="center">MOVES Lookup Table</entry>
+<entry morerows="1" valign="bottom" align="center">Units</entry>
+<entry morerows="1" valign="bottom" align="center">smokeProcID</entry>
+<entry morerows="1" valign="bottom" align="center">Emissions Process</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>Rural Interstate</entry>
-<entry>110</entry>
-<entry>0</entry>
-<entry>1</entry>
+<entry>RatePerDistance (RPD)</entry>
+<entry align="center">Grams/mile</entry>
+<entry align="center">
+	<simplelist>
+<member>EXR</member>
+<member>CXR</member>
+<member>TIR</member>
+<member>BRK</member>
+<member>EPM</member>
+<member>EFL</member>
+<member>EFV</member>
+</simplelist>
+</entry>
+<entry align="left">
+<simplelist>
+<member>Running Exhaust</member>
+<member>Crankcase Running Exhaust</member>
+<member>Tire Wear</member>
+<member>Brake Wear</member>
+<member>On-road Evaporative Permeation</member>
+<member>On-road Evaporative Fuel Leaks</member>
+<member>On-road Evaporative Fuel Vapor Venting</member>
+</simplelist>
+	</entry>
+</row>
+
+<row>
+<entry>RatePerVehicle (RPV)</entry>
+<entry align="center">Grams/vehicle/hour</entry>
+<entry align="center">
+	<simplelist>
+<member>EXS</member>
+<member>CXS</member>
+<member>EPM</member>
+<member>EFL</member>
+<member>CEI</member>
+<member>EXT</member>
+</simplelist>
+</entry>
+<entry align="left">
+<simplelist>
+<member>Start Exhaust</member>
+<member>Crankcase Start Exhaust</member>
+<member>Off-network Evaporative Permeation</member>
+<member>Off-network Evaporative Fuel Leaks</member>
+<member>Crankcase Extended Idle Exhaust</member>
+<member>Extended Idle Exhaust</member>
+</simplelist>
+	</entry>
 </row>
 <row>
-<entry>Rural Principal Arterial</entry>
-<entry>130</entry>
-<entry>0</entry>
-<entry>2</entry>
-</row>
-<row>
-<entry>Rural Minor Arterial</entry>
-<entry>150</entry>
-<entry>0</entry>
-<entry>6</entry>
-</row>
-<row>
-<entry>Rural Major Collector </entry>
-<entry>170</entry>
-<entry>0</entry>
-<entry>7</entry>
-</row>
-<row>
-<entry>Rural Minor Collector </entry>
-<entry>190</entry>
-<entry>0</entry>
-<entry>8</entry>
-</row>
-<row>
-<entry>Rural Local </entry>
-<entry>210</entry>
-<entry>0</entry>
-<entry>9</entry>
-</row>
-<row>
-<entry>Urban Interstate </entry>
-<entry>230</entry>
-<entry>1</entry>
-<entry>1</entry>
-</row>
-<row>
-<entry>Urban Freeway </entry>
-<entry>250</entry>
-<entry>1</entry>
-<entry>2</entry>
-</row>
-<row>
-<entry>Urban Principal Arterial </entry>
-<entry>270</entry>
-<entry>1</entry>
-<entry>4</entry>
-</row>
-<row>
-<entry>Urban Minor Arterial </entry>
-<entry>290</entry>
-<entry>1</entry>
-<entry>6</entry>
-</row>
-<row>
-<entry>Urban Collector </entry>
-<entry>310</entry>
-<entry>1</entry>
-<entry>7</entry>
-</row>
-<row>
-<entry>Urban Local </entry>
-<entry>330</entry>
-<entry>1</entry>
-<entry>9</entry>
+<entry>RatePerProfile (RPP)</entry>
+<entry align="center">Grams/vehicle/hour</entry>
+<entry align="center">EFV</entry>
+<entry align="left">Off-network Evaporative Fuel Vapor Venting</entry>
 </row>
 </tbody>
+
 </tgroup>
 </table>
+  <para><emphasis>The RPD lookup table</emphasis> is used to provide estimates of on-roadway emissions processes from mobile sources, using a separate file for each reference county. The on-road running processes that appear in this table include running exhaust (EXR), crankcase running exhaust (CXR), brake wear (BRK), tire wear (TIR), on-road evaporative permeation (EPM), on-road evaporative fuel leaks (EFL), and on-road evaporative vapor venting (EFV). The units of the emission rates in this table are grams/mile. The lookup fields for the factors are temperature and average speed. There are 16 set speed bins defined in <xref linkend="tbl_moves_speed_bins" /> (i.e., avgSpeedBinID 1=2.5mph, 2=5mph, 3=10mph, …16=75mph). The avgBinSpeed is used for interpolation in the RPD table.</para>  
+  <para><emphasis>The RPV lookup table</emphasis> is used to provide estimates of off-network emission processes (parked engine-off, engine starts, and idling), except for the evaporative off-network vapor venting emissions process. A separate file is provided for each reference county. The off-network emission processes include start exhaust (EXS), crankcase start exhaust (CXS), off-network evaporative permeation (EPM), off-network evaporative fuel leaks (EFL), extended idle exhaust (EXT), and crankcase extended idle exhaust (CEI). Fuel month, temperature, and local hour are the lookup fields in this table, and hours are in the local time of the modeling county. The units of the emission rates are grams/vehicle/hour. Note: Although the units are grams/vehicle/hour, the number of vehicles (i.e., population) should not be temporally allocated to hours in SMOKE. Instead, a county total of vehicle population should be multiplied by emission rates at any given hour. The number of starts per vehicle by hour is already accounted for in the MOVES lookup table.</para>
+	<para><emphasis>The RPP table</emphasis> is used only to estimate emissions for off-network fuel vapor venting (EFV) when the vehicle is parked. This process type includes diurnal (when the vehicle is parked during the day) and hot soak (immediately after a trip when the vehicle parks) emissions types. The process depends on the rate of rise in temperature and the maximum temperature achieved during the day for the diurnal emissions type, and on the hourly temperatures for the hot soak emission type. The lookup fields for this table are reference fuel month and hour of day. As with the RPV table, the units of the emission rates are grams/vehicle/hour. The estimated emissions rates need to be multiplied by the county vehicle population. The reference county lookup tables contain 24-hour emission rates per hour per vehicle using a reference county temperature profile with different minimum and maximum temperatures. The average day county emissions are determined by interpolating between the minimum and maximum temperatures for the modeling county generated by <command>Met4moves</command>. <xref linkend="sect_concepts_moves_met_processing" /> summarizes how <command>Met4moves</command> processes meteorological data for both MOVES and SMOKE.</para>
 
-<section>
 
-<title>Road types in MOBILE6</title>
+<table id="tbl_moves_speed_bins">
+<?dbfo table-width="6in"?>
+<title>MOVES Default Speed Bins</title>
 
-<para>MOBILE6 can model five different road types: freeway, arterial, local, freeway ramp, and none (used for emission processes that are not road dependent, such as exhaust start and hot soak). <xref linkend="tbl_concepts_mobile6_roads" /> indicates how the 12 road classes listed in <xref linkend="tbl_concepts_road_class" /> are mapped to the five MOBILE6 types. Local roads can be modeled using either (1) MOBILE6&rsquo;s local road type, which applies an average speed of 12.9 mph, or (2) the arterial road type and the average speed given in the mobile-source inventory.</para>
-
-<table id="tbl_concepts_mobile6_roads">
-<?dbfo table-width="4in"?>
-<title>Road class and corresponding MOBILE6 road type</title>
-
-<tgroup cols="2">
-<colspec colwidth="1*" />
-<colspec colwidth="1*" />
+<tgroup cols="3">
+<colspec colwidth="5*" />
+<colspec colwidth="5*" />
+<colspec colwidth="10*" />
 
 <thead>
 <row>
-<entry align="center">Name</entry>
-<entry align="center">MOBILE6 Road Type</entry>
+<entry align="center">avgSpeedBinId</entry>
+<entry align="center">avgBinSpeed</entry>
+<entry align="center">AvgSpeedBinDesc</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>Rural Interstate </entry>
-<entry>freeway, freeway ramp</entry>
+<entry align="center">1</entry>
+<entry align="center">2.5</entry>
+<entry align="center">speed &lt; 2.5mph</entry>
 </row>
 <row>
-<entry>Rural Principal Arterial </entry>
-<entry>arterial</entry>
+<entry align="center">2</entry>
+<entry align="center">5</entry>
+<entry align="center">2.5mph &#8804; speed &lt; 7.5mph</entry>
 </row>
 <row>
-<entry>Rural Minor Arterial </entry>
-<entry>arterial</entry>
+<entry align="center">3</entry>
+<entry align="center">10</entry>
+<entry align="center">7.5mph &#8804; speed &lt; 12.5mph</entry>
 </row>
 <row>
-<entry>Rural Major Collector </entry>
-<entry>arterial</entry>
+<entry align="center">4</entry>
+<entry align="center">15</entry>
+<entry align="center">12.5mph &#8804; speed &lt; 17.5mph</entry>
 </row>
 <row>
-<entry>Rural Minor Collector </entry>
-<entry>arterial</entry>
+<entry align="center">5</entry>
+<entry align="center">20</entry>
+<entry align="center">17.5mph &#8804; speed &lt; 22.5mph</entry>
 </row>
 <row>
-<entry>Rural Local </entry>
-<entry>local or arterial</entry>
+<entry align="center">6</entry>
+<entry align="center">25</entry>
+<entry align="center">22.5mph &#8804; speed &lt; 27.5mph</entry>
 </row>
 <row>
-<entry>Urban Interstate </entry>
-<entry>freeway, freeway ramp</entry>
+<entry align="center">7</entry>
+<entry align="center">30</entry>
+<entry align="center">27.5mph &#8804; speed &lt; 32.5mph</entry>
 </row>
 <row>
-<entry>Urban Freeway</entry>
-<entry>freeway, freeway ramp</entry>
+<entry align="center">8</entry>
+<entry align="center">35</entry>
+<entry align="center">32.5mph &#8804; speed &lt; 37.5mph</entry>
 </row>
 <row>
-<entry>Urban Principal Arterial </entry>
-<entry>arterial</entry>
+<entry align="center">9</entry>
+<entry align="center">40</entry>
+<entry align="center">37.5mph &#8804; speed &lt; 42.5mph</entry>
 </row>
 <row>
-<entry>Urban Minor Arterial </entry>
-<entry>arterial</entry>
+<entry align="center">10</entry>
+<entry align="center">45</entry>
+<entry align="center">42.5mph &#8804; speed &lt; 47.5mph</entry>
 </row>
 <row>
-<entry>Urban Collector </entry>
-<entry>arterial</entry>
+<entry align="center">11</entry>
+<entry align="center">50</entry>
+<entry align="center">47.5mph &#8804; speed &lt; 52.5mph</entry>
 </row>
 <row>
-<entry>Urban Local </entry>
-<entry>local or arterial</entry>
+<entry align="center">12</entry>
+<entry align="center">55</entry>
+<entry align="center">52.5mph &#8804; speed &lt; 57.5mph</entry>
+</row>
+<row>
+<entry align="center">13</entry>
+<entry align="center">60</entry>
+<entry align="center">57.5mph &#8804; speed &lt; 62.5mph</entry>
+</row>
+<row>
+<entry align="center">14</entry>
+<entry align="center">65</entry>
+<entry align="center">62.5mph &#8804; speed &lt; 67.5mph</entry>
+</row>
+<row>
+<entry align="center">15</entry>
+<entry align="center">70</entry>
+<entry align="center">67.5mph &#8804; speed &lt; 72.5mph</entry>
+</row>
+<row>
+<entry align="center">16</entry>
+<entry align="center">75</entry>
+<entry align="center">72.5mph &#8804; speed</entry>
 </row>
 </tbody>
 </tgroup>
-</table>
-
-<para>Note that SMOKE assumes that a portion of the VMT data supplied for interstates and freeways are attributable to freeway ramps.  Therefore, SMOKE computes a composite emission factor from the freeway and freeway ramp emission factors from MOBILE6 and maps the composite to the interstates and freeways.</para>
-
-</section>
-
+</table>  
 </section>
 
 <section>
 
-<title>Vehicle types</title>
+<table id="tbl_concepts_moves_emission_processes">
+	
+<title>MOVES Pollutants associated with SMOKE Emissions Processes (<envar>SmokeProcIDs</envar>)</title>
 
-<para>The vehicle types used in SMOKE&rsquo;s on-road mobile source processing are described in <xref linkend="tbl_concepts_vehicle_types" />. The codes (e.g., 0100) should be used in the cross-reference files.</para>
-
-<table id="tbl_concepts_vehicle_types">
-<?dbfo table-width="3.5in"?>
-<title>Vehicle type codes and descriptions</title>
-
-<tgroup cols="2">
-<colspec colwidth="1*" />
-<colspec colwidth="3*" />
-
+<tgroup cols="12">
+<colspec colname="c1" colwidth="15*" />
+<colspec colname="c2" colwidth="7*" />
+<colspec colname="c3" colwidth="7*" />
+<colspec colname="c4" colwidth="7*" />
+<colspec colname="c5" colwidth="7*" />
+<colspec colname="c6" colwidth="7*" />
+<colspec colname="c7" colwidth="7*" />
+<colspec colname="c8" colwidth="7*" />
+<colspec colname="c9" colwidth="7*" />
+<colspec colname="c10" colwidth="7*" />
+<colspec colname="c11" colwidth="7*" />
+<colspec colname="c12" colwidth="7*" />
 <thead>
 <row>
-<entry align="center">Code</entry>
-<entry align="center">Description</entry>
+<entry morerows="3" valign="center" align="center">SMOKE Name</entry>
+<entry namest="c2" nameend="c12" align="center">smokeProcIDs</entry>
+</row>
+<row>
+<entry align="center">EXR </entry>
+<entry align="center">EXS </entry>
+<entry align="center">CXR </entry>
+<entry align="center">CXS </entry>
+<entry align="center">CEI </entry>
+<entry align="center">EXT </entry>
+<entry align="center">EPM </entry>
+<entry align="center">EFV </entry>
+<entry align="center">EFL </entry>
+<entry align="center">BRK </entry>
+<entry align="center">TIR </entry>
+</row>
+<row>
+<entry namest="c2" nameend="c12" align="center">Aggregated smokeProcIDs</entry>
+</row>
+<row>
+<entry align="center">EXH</entry>
+<entry align="center">EXH</entry>
+<entry align="center">EXH</entry>
+<entry align="center">EXH</entry>
+<entry align="center">EXH</entry>
+<entry align="center">EXH</entry>
+<entry align="center">EVP</entry>
+<entry align="center">EVP</entry>
+<entry align="center">EVP</entry>
+<entry align="center">BRK</entry>
+<entry align="center">TIR</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>0100</entry>
-<entry>LDGV: Light Duty Gasoline Vehicles</entry>
+<entry>TOG</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>0102</entry>
-<entry>LDGT1: Light Duty Gasoline Trucks 1</entry>
+<entry>VOC_INV</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>0104</entry>
-<entry>LDGT2: Light Duty Gasoline Trucks 2</entry>
+<entry>CO</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>0107</entry>
-<entry>HDGV: Heavy Duty Gasoline Vehicles</entry>
+<entry>NOX</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>3000</entry>
-<entry>LDDV: Light Duty Diesel Vehicles</entry>
+<entry>NH3</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>3006</entry>
-<entry>LDDT: Light Duty Diesel Trucks</entry>
+<entry>NO</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>3007</entry>
-<entry>HDDV: Heavy Duty Diesel Vehicles</entry>
+<entry>NO2</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>0108</entry>
-<entry>MC: Motorcycles</entry>
+<entry>SO2</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
+<row>
+<entry>PM10OM</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PM10EC</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PM10SO4</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PM10BRAKE</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PM10TIRE</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">x</entry>
+</row>
+<row>
+<entry>PM25OM</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PM25EC</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PSO4</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PNO3</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>NH4</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PMFINE</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PMC</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PM25BRAKE</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>PM25TIRE</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">x</entry>
+</row>
+<row>
+<entry>CH4</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>N2O</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>Atmos_CO2</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>CO2_Eqv</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>BENZENE</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>Ethanol</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>MTBE</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>NAPHTH</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>BUTADIE</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>FORMALD</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>ACETALD</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry>ACROLEI</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center">x</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+
 </tbody>
 </tgroup>
 </table>
+</section>
+</section>
 
 <section>
+<title>MOVES Pollutant Groups</title>
+<para>The following <xref linkend="tbl_concepts_moves_pollutant_groups"/> provides a list of available MOVES pollutant groups that the user can specify to model within MOVES. The choice of pollutant groups(s) determines what pollutants are included in the three emission rate lookup tables (RPD, RPV, and RPP) output by MOVES. The letter 'X' marks the key pollutants for inclusion, and a letter 'd' signifies that the pollutant is included in the MOVES run because a key pollutant depends on it.  The user modifies the <link linkend="sect_input_runctlfile">control.in</link> input file to specify the pollutant group.</para>
 
-<title>Vehicle types in MOBILE6</title>
-
-<para>MOBILE6 produces emission factors for a total of 28 vehicle types. For SMOKE to assign these emission factors to the mobile sources, the emission factors must be aggregated to the eight vehicle types listed in <xref linkend="tbl_concepts_vehicle_types" />. To perform this aggregation, the emission factors for each MOBILE6 vehicle type are weighted by the percentage of VMT assigned to that vehicle type (using the default MOBILE6 values or values assigned by the VMT FRACTIONS command), then summed over the vehicle types to create emission factors for the eight SMOKE vehicle types. <xref linkend="tbl_concepts_mobile6_vehicles" /> lists the MOBILE6 vehicle types and the corresponding SMOKE vehicle types.</para>
-
-<table id="tbl_concepts_mobile6_vehicles">
-<title>MOBILE6 vehicle type and corresponding SMOKE vehicle type</title>
-
-<tgroup cols="2">
-<colspec colwidth="4*" />
-<colspec colwidth="1*" />
-
+<table id="tbl_concepts_moves_pollutant_groups">
+<title>MOVES Pollutant Groups</title>
+<tgroup cols="6">
+<colspec colname="c1" colwidth="7*" />
+<colspec colname="c2" colwidth="20*" />
+<colspec colname="c3" colwidth="7*" />
+<colspec colname="c4" colwidth="7*" />
+<colspec colname="c5" colwidth="7*" />
+<colspec colname="c6" colwidth="7*" />
 <thead>
 <row>
-<entry align="center">MOBILE6 Vehicle Types</entry>
-<entry align="center">SMOKE Vehicle Type</entry>
+<entry morerows="1" valign="center" align="center">pollutantID</entry>
+<entry morerows="1" valign="center" align="center">pollutantName</entry>
+<entry namest="c3" nameend="c6" align="center">Pollutant Group</entry>
+</row>
+<row>
+<entry align="center">Ozone </entry>
+<entry align="center">Toxics </entry>
+<entry align="center">PM </entry>
+<entry align="center">GHG </entry>
 </row>
 </thead>
-
 <tbody>
 <row>
-<entry>LDGV: Light Duty Gasoline Vehicles (Passenger Cars)</entry>
-<entry>LDGV</entry>
+<entry align="center">1</entry>
+<entry align="center">Total Gaseous Hydrocarbons</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>LDGT1: Light Duty Gasoline Trucks 1 (0-6,000 lbs. GVWR, 0-3,750 lbs. LVW)</entry>
-<entry>LDGT1</entry>
+<entry align="center">79</entry>
+<entry align="center">Non-Methane Hydrocarbons</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>LDGT2: Light Duty Gasoline Trucks 2 (0-6,000 lbs. GVWR, 3,751-5,750 lbs. LVW)</entry>
-<entry>LDGT1</entry>
+<entry align="center">80</entry>
+<entry align="center">Non-Methane Organic Gases</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>LDGT3: Light Duty Gasoline Trucks 3 (6,001-8,500 lbs. GVWR, 0-5,750 lbs. ALVW)</entry>
-<entry>LDGT2</entry>
+<entry align="center">86</entry>
+<entry align="center">Total Organic Gases</entry>
+<entry align="center">X</entry>
+<entry align="center">X</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>LDGT4: Light Duty Gasoline Trucks 4 (6,001-8,500 lbs. GVWR, >5,751 lbs. ALVW)</entry>
-<entry>LDGT2</entry>
+<entry align="center">87</entry>
+<entry align="center">Volatile Organic Compounds</entry>
+<entry align="center">X</entry>
+<entry align="center">X</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV2b: Class 2b Heavy Duty Gasoline Vehicles (8,501-10,000 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">2</entry>
+<entry align="center">Carbon Monoxide (CO)</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV3: Class 3 Heavy Duty Gasoline Vehicles (10,001-14,000 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">3</entry>
+<entry align="center">Oxides of Nitrogen</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV4: Class 4 Heavy Duty Gasoline Vehicles (14,001-16,000 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">30</entry>
+<entry align="center">Ammonia (NH3)</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV5: Class 5 Heavy Duty Gasoline Vehicles (16,001-19,500 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">32</entry>
+<entry align="center">Nitrogen Oxide</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV6: Class 6 Heavy Duty Gasoline Vehicles (19,501-26,000 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">33</entry>
+<entry align="center">Nitrogen Dioxide</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV7: Class 7 Heavy Duty Gasoline Vehicles (26,001-33,000 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">31</entry>
+<entry align="center">Sulfur Dioxide (SO2)</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV8a: Class 8a Heavy Duty Gasoline Vehicles (33,001-60,000 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">100</entry>
+<entry align="center">Primary Exhaust PM10 - Total</entry>
+<entry align="center"></entry>
+<entry align="center">d</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGV8b: Class 8b Heavy Duty Gasoline Vehicles (>60,000 lbs. GVWR)</entry>
-<entry>HDGV</entry>
+<entry align="center">101</entry>
+<entry align="center">Primary PM10 - Organic Carbon</entry>
+<entry align="center"></entry>
+<entry align="center">d</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDGB: Gasoline Buses (School, Transit, and Urban)</entry>
-<entry>HDGV</entry>
+<entry align="center">102</entry>
+<entry align="center">Primary PM10 - Elemental Carbon</entry>
+<entry align="center"></entry>
+<entry align="center">d</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>LDDV: Light Duty Diesel Vehicles (Passenger Cars)</entry>
-<entry>LDDV</entry>
+<entry align="center">105</entry>
+<entry align="center">Primary PM10 - Sulfate Particulate</entry>
+<entry align="center"></entry>
+<entry align="center">d</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>LDDT12: Light Duty Diesel Trucks 1 and 2 (0-6,000 lbs. GVWR)</entry>
-<entry>LDDT</entry>
+<entry align="center">106</entry>
+<entry align="center">Primary PM10 - Brakewear Particulate</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>LDDT34: Light Duty Diesel Trucks 3 and 4 (6,001-8,500 lbs. GVWR)</entry>
-<entry>LDDT</entry>
+<entry align="center">107</entry>
+<entry align="center">Primary PM10 - Tirewear Particulate</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDDV2b: Class 2b Heavy Duty Diesel Vehicles (8,501-10,000 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">110</entry>
+<entry align="center">Primary Exhaust PM2.5 - Total</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDDV3: Class 3 Heavy Duty Diesel Vehicles (10,001-14,000 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">111</entry>
+<entry align="center">Primary Exhaust PM2.5 - Organic Carbon</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDDV4: Class 4 Heavy Duty Diesel Vehicles (14,001-16,000 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">112</entry>
+<entry align="center">Primary Exhaust PM2.5 - Elemental Carbon</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDDV5: Class 5 Heavy Duty Diesel Vehicles (16,001-19,500 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">115</entry>
+<entry align="center">Primary Exhaust PM2.5 - Sulfate Particulate</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDDV6: Class 6 Heavy Duty Diesel Vehicles (19,501-26,000 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">116</entry>
+<entry align="center">Primary Exhaust PM2.5 - Brakewear Particulate</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDDV7: Class 7 Heavy Duty Diesel Vehicles (26,001-33,000 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">117</entry>
+<entry align="center">Primary Exhaust PM2.5 - Tirewear Particulate</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
 </row>
 <row>
-<entry>HDDV8a: Class 8a Heavy Duty Diesel Vehicles (33,001-60,000 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">91</entry>
+<entry align="center">Total Energy Consumption</entry>
+<entry align="center"></entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center">X</entry>
 </row>
 <row>
-<entry>HDDV8b: Class 8b Heavy Duty Diesel Vehicles (>60,000 lbs. GVWR)</entry>
-<entry>HDDV</entry>
+<entry align="center">92</entry>
+<entry align="center">Petroleum Energy Consumption</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
 </row>
 <row>
-<entry>HDDBT: Diesel Transit and Urban Buses</entry>
-<entry>HDDV</entry>
+<entry align="center">93</entry>
+<entry align="center">Fossil Fuel Energy Consumption</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
 </row>
 <row>
-<entry>HDDBS: Diesel School Buses</entry>
-<entry>HDDV</entry>
+<entry align="center">5</entry>
+<entry align="center">Methane (CH4)</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center">d</entry>
+<entry align="center">X</entry>
 </row>
 <row>
-<entry>MC: Motorcycles (Gasoline)</entry>
-<entry>MC</entry>
+<entry align="center">6</entry>
+<entry align="center">Nitrous Oxide (N2O)</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+</row>
+<row>
+<entry align="center">90</entry>
+<entry align="center">Atmospheric CO2</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+</row>
+<row>
+<entry align="center">98</entry>
+<entry align="center">CO2 Equivalent</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+</row>
+<row>
+<entry align="center">20</entry>
+<entry align="center">Benzene</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry align="center">21</entry>
+<entry align="center">Ethanol</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry align="center">22</entry>
+<entry align="center">MTBE</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry align="center">23</entry>
+<entry align="center">Naphthalene</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry align="center">24</entry>
+<entry align="center">1,3-Butadiene</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry align="center">25</entry>
+<entry align="center">Formaldehyde</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry align="center">26</entry>
+<entry align="center">Acetaldehyde</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
+</row>
+<row>
+<entry align="center">27</entry>
+<entry align="center">Acrolein</entry>
+<entry align="center"></entry>
+<entry align="center">X</entry>
+<entry align="center"></entry>
+<entry align="center"></entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
-</section>
-
-</section>
-
-<section id="sect_concepts_emission_processes">
-
-<title>Emission processes</title>
-
-<para>SMOKE can use all of the emissions-forming processes modeled in the MOBILE6 model. These processes are the following.</para>
-
-<itemizedlist>
-<listitem>
-<para>EXR: exhaust running emissions</para>
-</listitem>
-<listitem>
-<para>EXS: exhaust engine start emissions (trip start)</para>
-</listitem>
-<listitem>
-<para>HOT: evaporative hot soak emissions (trip end)</para>
-</listitem>
-<listitem>
-<para>DNL: evaporative diurnal emissions (heat rise)</para>
-</listitem>
-<listitem>
-<para>RST: evaporative resting loss emissions (leaks and seepage)</para>
-</listitem>
-<listitem>
-<para>EVR: evaporative running loss emissions</para>
-</listitem>
-<listitem>
-<para>CRC: evaporative crankcase emissions (blow-by)</para>
-</listitem>
-<listitem>
-<para>RFL: evaporative refueling emissions (fuel displacement and spillage)</para>
-</listitem>
-<listitem>
-<para>BRK: particulate matter from brake component wear</para>
-</listitem>
-<listitem>
-<para>TIR: particulate matter from tire wear</para>
-</listitem>
-</itemizedlist>
-
-<para><quote>Emission types</quote> are the combinations arising from combining the above emission-forming processes with each of the pollutants output by MOBILE6, for example, EXR__NOX or EVR__TOG. Each emission type is associated with emission factors produced by the MOBILE6 emission factor model. SMOKE currently supports many process-and-pollutant combinations that are output by MOBILE6; the list below indicates which pollutants can be combined with each process. Note that the list below does not include the user-defined toxics pollutants generated by using the ADDITIONAL HAPS command in SMOKE. Note also that only one hydrocarbon output can be used at a time (e.g., either VOC or TOG [total organic gases] but not both). In the examples below, TOG could be replaced with any of the other hydrocarbon pollutants available from MOBILE6: total hydrocarbons (THC), non-methane hydrocarbons (NMHC), VOC, TOG, or non-methane organic gases (NMOG).</para>
-
-<itemizedlist>
-<listitem>
-<para>EXR: all pollutants except particulates from brake and tire wear</para>
-</listitem>
-<listitem>
-<para>EXS: CO, NOX, TOG, BENZENE, MTBE, BUTADIENE, FORM, ACETALD, ACROLEIN </para>
-</listitem>
-<listitem>
-<para>HOT: TOG, BENZENE, MTBE</para>
-</listitem>
-<listitem>
-<para>DNL: TOG, BENZENE, MTBE</para>
-</listitem>
-<listitem>
-<para>RST: TOG, BENZENE, MTBE</para>
-</listitem>
-<listitem>
-<para>EVR: TOG, BENZENE, MTBE</para>
-</listitem>
-<listitem>
-<para>CRC: TOG</para>
-</listitem>
-<listitem>
-<para>RFL: TOG, BENZENE, MTBE</para>
-</listitem>
-<listitem>
-<para>BRK: BRAKE25, BRAKEPMC</para>
-</listitem>
-<listitem>
-<para>TIR: TIRE25, TIREPMC</para>
-</listitem>
-</itemizedlist>
-
-</section>
-
-<section>
-
-<title>MOBILE6 emission factors</title>
-
-<para>Emission factors are created in SMOKE using MOBILE6, for a wide variety of emission processes and pollutants. Some of the MOBILE6 input commands implement control strategies (e.g., inspection and maintenance [I/M] programs, antitampering programs [ATPs], and reformulated gas [RFG]). Other MOBILE6 inputs define other factors contributing to the value of the emissions factors, such as vehicle registrations (which help define the mix of different vehicle types), fuel volatility parameters, speeds, and temperature. All of these different dependencies make mobile emissions processing more complex than other types of sources.</para>
-
-</section>
-
-<section id="sect_concepts_reference_counties">
-
-<title>Reference counties</title>
-
-<para>When running MOBILE6, each county in the mobile inventory is assigned a reference county using the <envar>MCREF</envar> file. All counties with the same reference county will use the same MOBILE6 input scenario. The MOBILE6 input scenario defines many aspects to be modeled, including I/M programs, ATPs, and fuel parameters.</para>
-
-<para>For a single county, SMOKE duplicates the MOBILE6 input scenario for all speeds in the inventory. It then inserts county-specific temperature, barometric pressure, and humidity data (see <xref linkend="sect_concepts_gridded_met_data" />), replaces speed information, and runs MOBILE6. The hourly emission factors are then matched to the individual sources and stored.</para>
-
-<comment>clarify preceeding paragraph in regards to next section</comment>
-
-</section>
-
-<section id="sect_concepts_gridded_met_data">
-
-<title>Use of gridded meteorology data</title>
-
-<para>SMOKE retains its performance benefits when processing mobile sources through the use of <quote>ungridded</quote> county-based meteorology data. SMOKE calculates averaged temperature, humidity, and barometric pressure data by averaging the individual data in the grid cells intersecting each county, weighted by the fraction of the VMT in that county intersecting those grid cells. The ungridding is implemented by building an <quote>ungridding matrix</quote>, <envar>MUMAT</envar>, which must be created by the <command>Grdmat</command> program.</para>
-
-<para>Because the MOBILE6 emission factors used by SMOKE are significantly influenced by temperature and, to a lesser extent, humidity, the most desirable approach from an accuracy standpoint is to model mobile emissions using gridded, temporalized data from a meteorological model. However, to retain the performance benefits of source-based SMOKE processing, SMOKE has been designed to <quote>ungrid</quote> the meteorology data to get county-based data. For processing of all kinds, SMOKE expects data from one of the gridded, hourly meteorology files <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>. The <envar>MET_CRO_2D</envar> file is used for ground, 1.5-meter, or 10-meter temperature data. The <envar>MET_CRO_3D</envar> data file is used for ambient temperature, barometric pressure, and water vapor mixing ratio data. These data can be used to calculate absolute and relative humidity data needed for MOBILE6. For on-road mobile processing, the surface temperature from the <envar>MET_CRO_2D</envar> file is usually used along with the pressure and mixing ratio data from the <envar>MET_CRO_3D</envar> file; these files must be combined into a single file using the <command>Metcombine</command> utility (see <xref linkend="sect_utilities_metcombine" />).</para>
-
-<para>MOBILE6 has the ability to use 24-hour temperature profiles, 24-hour relative humidity data, and daily barometric pressure data. SMOKE uses the gridded meteorology data to create these profiles for each county in the inventory. To save processing time, SMOKE can create spatially or temporally averaged 24-hour temperature and humidity profiles, resulting in fewer MOBILE6 runs.</para>
-
-<itemizedlist>
-<listitem>
-<para><emphasis role="bold">Spatial averaging:</emphasis> For each reference county, SMOKE can either create separate temperature and humidity profiles for each inventory county, or it can create one profile by averaging data from all counties sharing the reference county. Note that all counties sharing the same reference county are usually within the same state, so this kind of spatial averaging would not result in averaging counties from different states.</para>
-</listitem>
-<listitem>
-<para><emphasis role="bold">Temporal averaging:</emphasis> Using this type of averaging, SMOKE can create a 24-hour temperature and humidity profile for each day of the episode (no averaging), or a temperature and humidity profile for each week or month in the episode. Finally, SMOKE can create one temperature and humidity profile for the entire episode, averaging over all days within the episode.</para>
-</listitem>
-</itemizedlist>
-
-<para>Options for spatial and temporal averaging of meteorology data are independent by county, and are set in the <envar>MVREF</envar> settings file.</para>
 
 </section>
 
@@ -1994,7 +2774,6 @@ Additional data</programlisting>
 </section>
 
 </section>
-
 </section>
 
 <section id="sect_concepts_inventory_import">
@@ -2136,15 +2915,11 @@ Additional data</programlisting>
 
 <para>Note that in any discussion of the toxics inventory we have assumed that all emissions are annual total emissions, because the toxics inventory that is currently available does not include average-day emissions. We have also assumed that the inventory contains VOC emissions, but the same approach can be used to process TOG emissions.</para>
 
-<para>Only two chemical mechanisms support combining toxics and criteria inventories, and both are for the CMAQ model. The first is the <quote>current-CB4</quote> mechanism, which can refer to either the released version of CMAQ with CB4, or to an unreleased version that includes mercury. The second chemical mechanism is the <quote>toxics-CB4</quote> mechanism, which refers to a different unreleased version of CMAQ that includes toxics species that have been integrated into the chemical mechanism; these <quote>explicit</quote> toxics species are formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene. This CMAQ version also includes benzene as a separate species, but the benzene chemistry has not been integrated with the chemical mechanism. The data files for these chemical mechanisms are available for download; see <xref linkend="sect_dirs_example_data_files" /> for more information.</para>
-
 <para>During import of both toxics and criteria emission inventories, SMOKE matches the area/nonpoint, on-road mobile, and nonroad mobile emission inventories by country/state/county code and SCC. SMOKE also matches the toxics and criteria records for the point sources, provided that the point sources in the two inventories use identical fields for their source characteristics. You are required to ensure that the source characteristics for all source categories match between the two inventories for any sources that you wish to have matched. Once they are matched, SMOKE will have both a criteria VOC emissions value and toxics emission values for individual VOC chemical compounds.</para>
 
-<para>SMOKE can optionally compute a NONHAPVOC value by subtracting the sum of toxics VOC from the criteria VOC value. This same approach can be used to create a NONHAPTOG value if the inventory or MOBILE6 (when processing on-road mobile emissions using VMT data) uses a TOG value instead of a VOC value. (We will not mention NONHAPTOG again, but it could be used to replace NONHAPVOC throughout this section).</para>
+<para>SMOKE can optionally compute a NONHAPVOC value by subtracting the sum of toxics VOC from the criteria VOC value. This same approach can be used to create a NONHAPTOG value if the inventory or MOVES (when processing on-road mobile emissions using VMT data) uses a TOG value instead of a VOC value. (We will not mention NONHAPTOG again, but it could be used to replace NONHAPVOC throughout this section).</para>
 
-<para>The case of computing NONHAPVOC is called the <quote>integrate</quote> case because it involves integration of the VOC mass between the criteria and toxics inventories. Likewise, the case of not computing NONHAPVOC is called the <quote>no-integrate</quote> case. The example SMOKE input files are set up to integrate on-road mobile and nonroad mobile sources except for some SCCs; this is explained in <xref linkend="sect_scripts_nctox_case" />.</para>
-
-<para>With the <quote>integrate</quote> approach, the NONHAPVOC mass and the toxics VOC mass are independent from one another and will not double count emissions. The calculation must be performed for each source, and <command>Smkinven</command> will set the criteria VOC value to zero when it computes the NONHAPVOC value. <command>Smkinven</command> determines which pollutants should be subtracted from VOC using the <quote>VOC or TOG</quote> column in the inventory table (<envar>INVTABLE</envar>) file.</para>
+<para>The case of computing NONHAPVOC is called the <quote>integrate</quote> case because it involves integration of the VOC mass between the criteria and toxics inventories. Likewise, the case of not computing NONHAPVOC is called the <quote>no-integrate</quote> case. With the <quote>integrate</quote> approach, the NONHAPVOC mass and the toxics VOC mass are independent from one another and will not double count emissions. The calculation must be performed for each source, and <command>Smkinven</command> will set the criteria VOC value to zero when it computes the NONHAPVOC value. <command>Smkinven</command> determines which pollutants should be subtracted from VOC using the <quote>VOC or TOG</quote> column in the inventory table (<envar>INVTABLE</envar>) file.</para>
 
 <section>
 
@@ -2194,7 +2969,7 @@ Additional data</programlisting>
 </listitem>
 </itemizedlist>
 
-<para>Note that these criteria will always be true when SMOKE is driving MOBILE6 for on-road mobile processing, because all of the appropriate VOC HAPs can be computed when running MOBILE6. There will therefore not be any question about where the data came from or whether they are consistent. For more information on using MOBILE6, please refer to <xref linkend="sect_concepts_mobile_source_processing" />.</para>
+<para>Note that these criteria will always be true when SMOKE is driving MOBILE6 for on-road mobile processing, because all of the appropriate VOC HAPs can be computed when running MOBILE6. There will therefore not be any question about where the data came from or whether they are consistent. For more information on using MOBILE6, please refer to <xref linkend="sect_concepts_mobile_source_processing_moves" />.</para>
 
 <para>When the three above conditions are met for a given source, then the following processing steps will occur in <command>Smkinven</command> and other SMOKE programs:</para>
 
@@ -2266,7 +3041,7 @@ Additional data</programlisting>
 </listitem>
 </itemizedlist>
 
-<para>Note that these criteria will always be true when SMOKE is driving MOBILE6 for on-road mobile processing, because all of the appropriate VOC HAPs can be computed when running MOBILE6. There will therefore not be any question about where the data came from or whether they are consistent. For more information on using MOBILE6, please refer to <xref linkend="sect_concepts_mobile_source_processing" />.</para>
+<para>Note that these criteria will always be true when SMOKE is driving MOBILE6 for on-road mobile processing, because all of the appropriate VOC HAPs can be computed when running MOBILE6. There will therefore not be any question about where the data came from or whether they are consistent. For more information on using MOBILE6, please refer to <xref linkend="sect_concepts_mobile_source_processing_moves" />.</para>
 
 <para>When the three conditions just listed are met for a given source, then the following processing steps will occur in <command>Smkinven</command> and other SMOKE programs:</para>
 
@@ -2427,7 +3202,7 @@ Additional data</programlisting>
 
 <title>Convert coordinates from UTM to lat-lon</title>
 
-<para>The SMOKE ORL and EMS-95 point-source formats permit stack coordinates to be provided in UTM or lat-lon coordinates, and the SMOKE intermediate inventory stores the coordinates as lat-lon values. <command>Smkinven</command> converts the UTM coordinates to lat-lon coordinates using the I/O API routine <ulink url="http://www.cep.unc.edu/empd/EDSS/ioapi/LL2UTM.html">UTM2LL</ulink>. Lat-lon coordinates must be provided in decimal degrees, while UTM coordinates must be provided in meters.</para>
+<para>The SMOKE ORL and EMS-95 point-source formats permit stack coordinates to be provided in UTM or lat-lon coordinates, and the SMOKE intermediate inventory stores the coordinates as lat-lon values. <command>Smkinven</command> converts the UTM coordinates to lat-lon coordinates using the I/O API routine <ulink url="http://www.baronams.com/products/ioapi/LL2UTM.html">UTM2LL</ulink>. Lat-lon coordinates must be provided in decimal degrees, while UTM coordinates must be provided in meters.</para>
 
 </section>
 
@@ -2540,10 +3315,10 @@ Additional data</programlisting>
 
 <itemizedlist>
 <listitem>
-<para><emphasis role="bold">CEM data format:</emphasis> The CEM data format provides standard local time hourly emissions by ORIS identification code and boiler number. It was developed in conjunction with the Market Trading Division of EPA, and that division now provides this ASCII file format when the data are released. The CEM format is useable only with IDA-formatted annual and average-day inventories.</para>
+<para><emphasis role="bold">CEM data format:</emphasis> The CEM data format provides standard local time hourly emissions by ORIS identification code and boiler number. It was developed in conjunction with the Market Trading Division of EPA, and that division now provides this ASCII file format when the data are released.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">EMS-95 format:</emphasis> The EMS-95 hour-specific format can be input to SMOKE using either the EMS-95 average-day format or the IDA format for annual and average-day inventories. This format has also been adapted to provide SMOKE with day-specific instead of hour-specific data.</para>
+<para><emphasis role="bold">EMS-95 format:</emphasis> The EMS-95 hour-specific format can be input to SMOKE using either the EMS-95 average-day format or the IDA/ORL formats for annual and average-day inventories. This format has also been adapted to provide SMOKE with day-specific instead of hour-specific data.</para>
 </listitem>
 </itemizedlist>
 
@@ -2634,9 +3409,6 @@ Additional data</programlisting>
 <para>Holiday processing</para>
 </listitem>
 <listitem>
-<para>Special steps for MOBILE6 processing</para>
-</listitem>
-<listitem>
 <para>Monday-weekday-Saturday-Sunday (MWSS) processing</para>
 </listitem>
 <listitem>
@@ -2685,7 +3457,7 @@ Additional data</programlisting>
 
 <title>Time zone adjustments</title>
 
-<para>You can use the <envar>OUTZONE</envar> setting to control the output time zone that defines the hours in the output files. The one constraint on this setting is that it must be consistent with the time zone of the meteorology files. These files are used only when processing on-road mobile sources with MOBILE6 (optional), processing elevated point sources for the CMAQ-based approach (required), or processing biogenic emissions with SMOKE BEIS2 or BEIS3 (required). The time zones must be consistent among all source categories processed, so if one source category depends on the meteorology file, then all source categories must be processed with the same <envar>OUTZONE</envar> setting.</para>
+<para>You can use the <envar>OUTZONE</envar> setting to control the output time zone that defines the hours in the output files. The one constraint on this setting is that it must be consistent with the time zone of the meteorology files. These files are used only when processing on-road mobile sources with MOVES/MOBILE6 (optional), processing elevated point sources for the CMAQ-based approach (required), or processing biogenic emissions with SMOKE BEIS2 or BEIS3 (required). The time zones must be consistent among all source categories processed, so if one source category depends on the meteorology file, then all source categories must be processed with the same <envar>OUTZONE</envar> setting.</para>
 
 <para><command>Temporal</command> compares the <envar>OUTZONE</envar> value with the time zone of the source, which was set in <command>Smkinven</command> (see <xref linkend="sect_concepts_assign_countries" />) based on the county. Additionally, it assesses and accounts for whether the date being processed falls within the range of Daylight Savings Time, and whether the county of the source uses Daylight Savings Time. <command>Temporal</command> uses the <envar>COSTCY</envar> file to determine which counties use Daylight Savings Time and which do not; for example, the state of Arizona does not use it. Using these pieces of information, <command>Temporal</command> interprets the diurnal profiles assuming that they are local profiles in order to map the correct adjustment to the correct output hour in the output time zone. <command>Temporal</command> also uses the time zone of the source and the output time zone to determine the correct hour for switching from one month to the next and from one day of the week to the next.</para>
 
@@ -2787,20 +3559,6 @@ Additional data</programlisting>
 
 </section>
 
-<section>
-
-<title>Special steps for MOBILE6 processing</title>
-
-<para>On-road mobile processing using MOBILE6 requires a number of additional steps in the <command>Temporal</command> program. First, <command>Temporal</command> must determine which hours of emission factors are needed. Since emission factors are stored by local time, <command>Temporal</command> determines which hours are needed based on start and end time and output time zone. The earliest time needed will be the start time in the time zone farthest from the output time zone. If this time is before 6:00 a.m. local time, then <command>Temporal</command> needs the previous day&rsquo;s emission factors as well because the emission factor files start at 6:00 a.m. (based on the MOBILE6 convention). The latest time needed is the end time in the time zone closest to the output time zone; if this time is before 6:00 a.m. local time, then the last day is not needed because the previous day&rsquo;s emission factor file will cover through 5:00 a.m.</para>
-
-<para><command>Temporal</command> also uses the ungridding matrix (<envar>MUMAT</envar>) from the <command>Grdmat</command> program to identify sources that are outside of the grid. This is needed because the meteorology data used for computing emission factors depend on the grid, so emission factors are available only for those sources that are inside the grid.</para>
-
-<para><command>Temporal</command> must determine the correct names of the emission factors that it will use. To do this, it first reads the emission processes file (<envar>MEPROC</envar>) and creates a list of valid emission factor names. This file describes the correct process-pollutant combinations that are available from MOBILE6 for the pollutants of interest. Not all pollutants requested exist for all processes, so it is important for <command>Temporal</command> to know from this file what emission factors must be read. <command>Temporal</command> also checks the inventory table (<envar>INVTABLE</envar>) file to determine whether NONHAPVOC was calculated. This allows <command>Temporal</command> to know whether it should also expect and use emission factors for NONHAPVOC.</para>
-
-<para><command>Temporal</command> also must open and use the emission factor files, which are listed in a text file called the <envar>MEFLIST</envar> file. It checks to see which days each file covers and makes sure that all hours needed are covered. There can be emission factor files that use different temporal averaging for the meteorology data: episode average, monthly average, weekly average, and day-specific. If the correct time period of data is available, <command>Temporal</command> reads the emission factors for each source from the appropriate file, because different sources can use different temporal averaging approaches. Finally, <command>Temporal</command> multiplies the correct hourly emission factor for each source by that source&rsquo;s VMT to compute the hourly emissions by process and pollutant.</para>
-
-</section>
-
 <section id="sect_concepts_mwss_processing">
 
 <title>Monday, weekday, Saturday, Sunday processing</title>
@@ -2809,7 +3567,7 @@ Additional data</programlisting>
 
 <para>This approach relies heavily on scripting to select dates for each month&rsquo;s representative days and to ensure that the days that are run are consistent with the dates in the <envar>HOLIDAYS</envar> file. Scripting is also responsible for ensuring that the correct files are merged together by <command>Smkmerge</command> to create the model-ready files for all days of the episode. These scripting issues are described in more detail in <xref linkend="ch_scripts" />.</para>
 
-<para>There are some situations in which you cannot use the MWSS approach. In particular, on-road processing with MOBILE6 must be run for all days of the episode, although some steps can be sped up by using the meteorology averaging approach. Additionally, biogenic emissions processing obtains all of its temporal variation from the meteorology data, and therefore must be run for all days. Fortunately, biogenic emissions processing is very fast compared to processing for other source categories.</para>
+<para>There are some situations in which you cannot use the MWSS approach. In particular, on-road processing with MOVES must be run for all days of the episode, although some steps can be sped up by using the meteorology averaging approach. Additionally, biogenic emissions processing obtains all of its temporal variation from the meteorology data, and therefore must be run for all days. Fortunately, biogenic emissions processing is very fast compared to processing for other source categories.</para>
 
 </section>
 
@@ -2968,7 +3726,7 @@ Additional data</programlisting>
 <para>For area sources, county-total emissions are spread among the cells intersecting the county through the use of gridding surrogates.</para>
 </listitem>
 <listitem>
-<para>For mobile sources, the data can be provided by county (as area sources are), or the data can be provided as line sources (<quote>links</quote>). County-based mobile emissions are apportioned with gridding surrogates, preferably with surrogates based on the different road types for which the mobile emissions are provided. The line-source emissions are apportioned depending on the length of the link in each cell. For on-road mobile sources, <command>Grdmat</command> also computes an ungridding matrix, which is needed for processing using MOBILE6.</para>
+<para>For mobile sources, the data can be provided by county (as area sources are), or the data can be provided as line sources (<quote>links</quote>). County-based mobile emissions are apportioned with gridding surrogates, preferably with surrogates based on the different road types for which the mobile emissions are provided. The line-source emissions are apportioned depending on the length of the link in each cell.</para>
 </listitem>
 <listitem>
 <para>For point sources, emissions are apportioned to the grid cell intersecting the point.</para>
@@ -3002,9 +3760,6 @@ Additional data</programlisting>
 <para>Assigning sources to grid cells</para>
 </listitem>
 <listitem>
-<para>Computing an ungridding matrix for on-road mobile sources</para>
-</listitem>
-<listitem>
 <para>Creating the spatial allocation intermediate files</para>
 </listitem>
 </orderedlist>
@@ -3013,7 +3768,7 @@ Additional data</programlisting>
 
 <title>Defining the gridded region to output from SMOKE</title>
 
-<para>The grid for which the spatial allocation step outputs the gridding and ungridding matrices depends upon the <envar>IOAPI_GRIDNAME_1</envar> environment variable setting and the <envar>GRIDDESC</envar> input file. The file contains all of the settings needed by the I/O API to define each grid (together, these settings are called a grid definition), and it contains many such grid definitions. The <envar>IOAPI_GRIDNAME_1</envar> setting selects the specific grid to use during a specific run, and it must match the grid name provided in the <envar>GRIDDESC</envar> file. The settings used by the I/O API to define a grid are documented as part of the <ulink url="http://www.cep.unc.edu/empd/EDSS/ioapi/GRIDS.html">I/O API web site</ulink>.</para>
+<para>The grid for which the spatial allocation step outputs the gridding matrix depends upon the <envar>IOAPI_GRIDNAME_1</envar> environment variable setting and the <envar>GRIDDESC</envar> input file. The file contains all of the settings needed by the I/O API to define each grid (together, these settings are called a grid definition), and it contains many such grid definitions. The <envar>IOAPI_GRIDNAME_1</envar> setting selects the specific grid to use during a specific run, and it must match the grid name provided in the <envar>GRIDDESC</envar> file. The settings used by the I/O API to define a grid are documented as part of the <ulink url="http://www.baronams.com/products/ioapi/GRIDDESC.html">I/O API web site</ulink>.</para>
 
 <para>There is another file format, called the <envar>G_GRIDPATH</envar> file, that can be provided to <command>Grdmat</command> instead of the <envar>GRIDDESC</envar> file. However, the <envar>G_GRIDPATH</envar> format allows only one grid per file. It is included as an acceptable input to SMOKE to allow SMOKE to be backwardly compatible with previous versions. All new users are advised to use a single <envar>GRIDDESC</envar> file to store all of their modeling grids, instead of using multiple <envar>G_GRIDDPATH</envar> files, one for each grid. The <envar>IOAPI_GRIDNAME_1</envar> setting is not used by <command>Grdmat</command> when the <envar>G_GRIDPATH</envar> format is used.</para>
 
@@ -3105,11 +3860,12 @@ Additional data</programlisting>
 
 </section>
 
+<!--
 <section>
 
 <title>Computing an ungridding matrix for on-road mobile sources</title>
 
-<para>For on-road mobile sources when using MOBILE6, the gridded meteorology data must be converted to county-specific data to facilitate the very large number of MOBILE6 runs that will ultimately be performed. This is done in SMOKE by computing a weighted-average value for each county, with the weighting calculation being done using the VMT data. Each weighting factor is the VMT in the grid cell divided by the total county VMT, resulting in a factor for each grid cell that intersects the county. These factors are stored in the <quote>ungridding</quote> matrix created during spatial allocation by the <command>Grdmat</command> program when running on-road mobile sources in SMOKE. <xref linkend="fig_concepts_ungridding" /> shows how the spatially varied meteorology data at left would be averaged using the averaging weights to calculate a value for each county in the domain. The handling of meteorology data for MOBILE6 by SMOKE is further described in <xref linkend="sect_concepts_onroad_processing" />.</para>
+<para>For on-road mobile sources when using MOBILE6, the gridded meteorology data must be converted to county-specific data to facilitate the very large number of MOBILE6 runs that will ultimately be performed. This is done in SMOKE by computing a weighted-average value for each county, with the weighting calculation being done using the VMT data. Each weighting factor is the VMT in the grid cell divided by the total county VMT, resulting in a factor for each grid cell that intersects the county. These factors are stored in the <quote>ungridding</quote> matrix created during spatial allocation by the <command>Grdmat</command> program when running on-road mobile sources in SMOKE. <xref linkend="fig_concepts_ungridding" /> shows how the spatially varied meteorology data at left would be averaged using the averaging weights to calculate a value for each county in the domain.</para>
 
 <figure id="fig_concepts_ungridding">
 <title>Representation of ungridding</title>
@@ -3125,6 +3881,7 @@ Additional data</programlisting>
 </figure>
 
 </section>
+-->
 
 <section>
 
@@ -3248,7 +4005,7 @@ Additional data</programlisting>
 
 <title>Control processing</title>
 
-<para>The control processing operation applies control factors from a control input file (<envar>GCNTL</envar>) based on source characteristics in the inventory. A control scenario involves changing the values of emissions based on regulations affecting industrial activities or personal behaviors. The resulting control matrix, created by the <command>Cntlmat</command> program, takes the form of the matrix shown in <xref linkend="fig_concepts_growth_processing" />. The control matrix depends only upon the source characteristics in the SMOKE inventory and the set of controls chosen, so control processing can therefore be decoupled from the rest of the processing steps. The <command>Cntlmat</command> program performs control processing for SMOKE area, mobile, and point sources; however, much more complex controls for on-road mobile sources can also be implemented when using MOBILE6 through SMOKE to calculate emission factors and apply them to VMT.</para>
+<para>The control processing operation applies control factors from a control input file (<envar>GCNTL</envar>) based on source characteristics in the inventory. A control scenario involves changing the values of emissions based on regulations affecting industrial activities or personal behaviors. The resulting control matrix, created by the <command>Cntlmat</command> program, takes the form of the matrix shown in <xref linkend="fig_concepts_growth_processing" />. The control matrix depends only upon the source characteristics in the SMOKE inventory and the set of controls chosen, so control processing can therefore be decoupled from the rest of the processing steps. The <command>Cntlmat</command> program performs control processing for SMOKE area, mobile, and point sources; however, much more complex controls for on-road mobile sources can also be implemented when using MOVES through SMOKE to calculate emission factors and apply them to VMT.</para>
 
 <para>The emissions control factors can be applied in addition to the emissions growth factors (described in <xref linkend="sect_concepts_growth_processing" />), and the net effect of this growth and control is called <quote>projection</quote>. SMOKE control processing can create two types of control matrices during a given run: a multiplicative control matrix and a reactivity control matrix.</para>
 
@@ -3543,151 +4300,287 @@ Additional data</programlisting>
 
 </section>
 
-<section id="sect_concepts_onroad_processing">
+<section id="sect_concepts_onroad_processing_moves">
 
-<title>On-road mobile-source processing with MOBILE6</title>
-
-<para>As mentioned in <xref linkend="sect_concepts_mobile_source_processing" />, there are three programs specific to processing on-road mobile sources using MOBILE6. This processing is performed using the <command>Mbsetup</command>, <command>Premobl</command>, and <command>Emisfac</command> programs, which prepare the meteorology data and other SMOKE inputs for using the inventory with the MOBILE6 program, and compute emission factors that are needed when the on-road inventory includes VMT instead of, or in addition to, emissions. These programs are discussed in detail in <xref linkend="sect_programs_mbsetup" />, <xref linkend="sect_programs_premobl" />, and <xref linkend="sect_programs_emisfac" />.</para>
-
-<para>The <command>Mbsetup</command> program performs the following steps needed for MOBILE6 processing:</para>
-
-<orderedlist>
+<title>Mobile-source processing with MOVES</title>
+<para>MOVES is the U.S. Environmental Protection Agency's (EPA) Motor Vehicle Emission Simulator.  In the modeling process, the user specifies vehicle types, time periods, geographical areas, pollutants, vehicle operating characteristics, and road types to be modeled. The model then performs a series of calculations, which have been carefully developed to accurately reflect vehicle operating processes (such as cold start or extended idle) and provide estimates of bulk emissions or emission rates. </para> 
+<para>An important feature of MOVES is that it allows users to choose between (1) the Inventory calculation type, which provides emission rates in terms of total quantity of emissions for a given time period; and (2) Emission Rate calculation type, which gives emission rates in terms of grams/mile or grams/vehicle/hour. For large-scale emissions modeling such as that needed for regional- and national-scale air quality modeling projects, it is desirable to use the Emission Rate calculation type, which populates emission rate lookup tables that can then be applied to many times and places, thus reducing the total number of MOVES runs required.</para>
+<para>To reduce the time and effort and to help the user obtain more accurate modeling results, users need to prepare and post-process MOVES runs for a reference county (see <xref linkend="sect_concepts_reference_counties_moves" /> and reference fuel month (see <xref linkend="sect_concepts_moves_reference_fuel_month" />. This approach consists of a set of scripts that automate the proper use of the Emission Rate calculations for the purpose of estimating mobile-source emissions for air quality (AQ) modeling.</para>
+<para>Integrating MOVES into SMOKE modeling system consists of three major parts:</para>
+<para></para>
+1) Meteorological data processing
+<itemizedlist>
 <listitem>
-<para>Group reference counties</para>
+<para>The meteorological data preprocessor program <link linkend="sect_programs_met4moves"><command>Met4moves</command></link> prepares spatially and temporally averaged temperatures and relative humidity data to set up the meteorological input conditions for MOVES and SMOKE using the Meteorology-Chemistry Interface Processor (MCIP) output files.</para>
 </listitem>
-<listitem>
-<para>Set up for the user-defined spatial and temporal averaging approach for meteorology data</para>
-</listitem>
-<listitem>
-<para>Assign the speed profiles to the sources</para>
-</listitem>
-<listitem>
-<para>Create the speed summary file</para>
-</listitem>
-</orderedlist>
-
-<para>In MOBILE6 processing, the <command>Premobl</command> program handles the step:</para>
-
-<orderedlist continuation="continues">
-<listitem>
-<para>Process the meteorology data for use by MOBILE6</para>
-</listitem>
-</orderedlist>
-
-<para>Finally, the <command>Emisfac</command> program addresses the following step:</para>
-
-<orderedlist continuation="continues">
-<listitem>
-<para>Compute the criteria and toxics emission factors using MOBILE6</para>
-</listitem>
-</orderedlist>
-
-<para>The following sections explain the concepts involved with these processing steps in more detail.</para>
-
+</itemizedlist>
+2) MOVES model processing
+<itemizedlist>
+ <listitem><link linkend="section_moves_utilities">The MOVES driver script </link>   <command><quote>Runspec_generator.pl</quote></command> creates data importer files and the MOVES input file (runspec), which specifies the characteristics of the particular scenario to be modeled.</listitem>
+ <listitem><link linkend="section_moves_utilities">The MOVES postprocessing scripts </link>  <command><quote>Moves2smkEF.pl</quote></command> and <command><quote>SmkEFsum.pl</quote></command> formats the MOVES emission rate lookup tables for SMOKE.</listitem>
+</itemizedlist>
+3) SMOKE model processing
+<itemizedlist>
+ <listitem>The SMOKE postprocessing program <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> estimates emissions from on-road mobile sources based on MOVES-based emission rate lookup tables and meteorology data from <command>Met4moves</command>.</listitem>
+ <listitem>Creates hourly gridded speciated air quality model-ready input files.</listitem>
+ <listitem>Produces various types of reports for users.</listitem>
+</itemizedlist>
+<para></para>
 <section>
-
-<title>Group reference counties</title>
-
-<para>The first major task for the <command>Mbsetup</command> program is to set the reference counties (defined in <xref linkend="sect_concepts_reference_counties" />). To do this, it reads the user-defined county cross-reference file (<envar>MCREF</envar>). This file assigns a reference county to each county in the inventory. When reading <envar>MCREF</envar>, SMOKE checks that all state and county FIPS codes in the file are integer values (no nonnumeric characters). Next, it looks for any duplicate inventory counties and gives an error message if any are found. <command>Mbsetup</command> will ignore any inventory counties that are not inside the grid or do not have any VMT data. <command>Mbsetup</command> also makes sure that all valid inventory counties (i.e., those that are inside the grid and have VMT data) have been assigned a reference county.</para>
-
+	<title>Meteorology Data Processing</title>
+		<para>With the specified reference county and reference fuel month approach for temperature and RH calculation for MOVES and SMOKE modeling systems, <command>Met4moves</command> uses hourly min/max temperatures and averaged RH over the spatial region that includes all of the inventory counties in a county group over the user-defined modeling period. The current version of <command>Met4moves</command> supports only the monthly averaging method (versus daily or episodic) to create min/max temperatures and averaged RH for all inventory counties in the county group(s). <command>Met4moves</command> determines the min/max grid cell temperatures and associated RH for both SMOKE and MOVES, and computes average 24-hour temperature profiles using Meteorology-Chemistry Interface Processor (MCIP) output files for use in MOVES. These <command>Met4moves</command> program is discussed in detail in <xref linkend="sect_programs_met4moves" />. </para>
+		<para>The 24-hour temperature profiles are averaged over a user-specified time period and grid cells for all reference counties. For the MOVES model driver scripts, <command>Met4moves</command> outputs monthly average RH, min/max temperatures, and 24-hour temperature profiles in local time for all reference counties into one output file. For the SMOKE model, <command>Met4moves</command> outputs county-specific min/max temperatures and averaged RH values in local time for every inventory county and averaging period in the modeling inventory.</para>
+	</section>
+<section>
+	<title>MOVES Model Processing</title>
+	<section>
+	<title>MOVES Driver Script</title>
+	<para>The inputs to the MOVES Driver Script (<command>Runspec_generator.pl</command>) include the temperature and humidity conditions output from <command>Met4moves</command> and two additional inputs, the RunControl and RepCounty files.  The RunControl file contains pollutant selections and the file path location to the <command>Met4moves</command> output.  The RepCounty file contains file path locations to user-created MOVES-formatted inputs for age distribution, fuel supply and formulation, inspection and maintenance programs, county level population and annual VMT for each reference county.  Precise formats of the RunControl and RepCounty files can be found in the <xref linkend="sect_input_refcountyfile" /> and <xref linkend="sect_input_runctlfile" />.</para>
 </section>
 
 <section>
+	<title>MOVES Post-Processing Script</title>
+		<para>A MOVES Driver Script to automates the MOVES run setups and prepare two kinds of batch files.  When launched, the batch files instruct MOVES to:</para>
+	<itemizedlist>
+		<listitem>
+		<para>import data into MySQL County Scale databases</para>
+		</listitem>
+		<listitem>
+		<para>run MOVES for each runspec file</para>
+		</listitem>
+	</itemizedlist>
+	<para>The resulting RatePerDistance, RatePerVehicle, and RatePerProfile tables, after enhancement from the Post-processing script, contain all the conditions needed for regional modeling using SMOKE.</para>
+	<para>Once a MOVES batch run completes, MOVES populates the three output lookup tables with formats listed in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" />.   A MOVES Post-Processing Script in Perl interacts with MySQL to modify the default formats shown in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" /> into a format readable by SMOKE, shown in <xref linkend="tbl_concepts_moves_lookup_tbl_sm_format" />.</para>
+<table id="tbl_concepts_moves_lookup_tbl_mv_format">
+<title>MOVES Emission Rate Lookup Table (MOVES Format)</title>
 
-<title>Set up for the user-defined spatial and temporal averaging approach for meteorology data</title>
+<tgroup cols="3">
+<colspec colname="c1" colwidth="20*" />
+<colspec colname="c2" colwidth="20*" />
+<colspec colname="c3" colwidth="20*" />
 
-<para>The <command>Mbsetup</command> program&rsquo;s second major task is to preprocess the information about the spatial and temporal averaging approach for meteorology data, as previously introduced in <xref linkend="sect_concepts_gridded_met_data" />. Using the county settings input file (<envar>MVREF</envar>), <command>Mbsetup</command> determines both the spatial and temporal averaging for each county. All assignments are made by reference county; this means that all counties assigned the same reference county must use the same averaging approaches.</para>
+<thead>
+<row>
+<entry morerows="1" valign="bottom" align="center">RatePerDistance       (grams/mile)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerVehicle (grams/vehicle/hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerProfile (grams/vehicle/hour)</entry>
+</row>
+</thead>
 
+<tbody>
+<row>
+<entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
+</row>
+<row>
+<entry>MOVESRunID</entry>
+<entry>MOVESRunID</entry>
+<entry>MOVESRunID</entry>
+</row>
+<row>
+	<entry>yearID</entry>
+	<entry>yearID</entry>
+	<entry>temperatureProfileID</entry>
+</row>
+<row>
+	<entry>monthID</entry>
+	<entry>monthID</entry>
+	<entry>yearID</entry>
+</row>
+<row>
+		<entry>dayID</entry>
+		<entry>dayID</entry>
+		<entry>dayID</entry>
+</row>
+<row>
+    <entry>hourID</entry>
+    <entry>hourID</entry>
+    <entry>hourID</entry>
+</row>
+<row>
+	<entry>linkID</entry>
+	<entry>zoneID</entry>
+	<entry>pollutantID</entry>
+</row>
+<row>
+	<entry>pollutantID</entry>
+	<entry>pollutantID</entry>
+	<entry>processID</entry>
+</row>
+<row>
+	<entry>processID</entry>
+	<entry>processID</entry>
+	<entry>sourceTypeID</entry>
+</row>
+<row>
+	<entry>sourceTypeID</entry>
+	<entry>sourceTypeID</entry>
+	<entry>SCC</entry>
+</row>
+<row>
+		<entry>SCC</entry>
+	<entry>SCC</entry>
+	<entry>fuelTypeID</entry>
+</row>
+<row>
+	<entry>fuelTypeID</entry>
+	<entry>fuelTypeID</entry>
+	<entry>modelYearID</entry>
+</row>
+<row>
+	<entry>modelYearID</entry>
+	<entry>modelYearID</entry>
+	<entry>Temperature</entry>
+</row>
+<row>
+	<entry>roadTypeID</entry>
+	<entry>Temperature</entry>
+	<entry>ratePerProfile</entry>
+</row> 
+<row>
+		<entry>avgSpeedBinID</entry>
+	<entry>ratePerVehicle</entry>
+</row>  
+<row>
+		<entry>Temperature</entry>
+</row> 
+<row>
+		<entry>relHumidity</entry>
+</row>  
+<row>
+		<entry>ratePerDistance</entry>
+</row> 
+</tbody>
+</tgroup>
+</table>
+
+<para>The MOVES Post Processing Script converts the MOVES format Emission Rate Lookup Table to the SMOKE format Emission Rate Table by performing the following:</para>
 <itemizedlist>
+	<listitem>
+		<para>Parses the state-county FIPS code from linkID, zoneID and TemperatureProfileID and stores it as a unique field, countyID.</para>
+	</listitem>
 <listitem>
-<para>The spatial averaging can be either (1) averaging within a county, or (2) averaging over all counties assigned to a given reference county.</para>
+	<para>Converts the partially speciated exhaust particulate matter (PM) output by MOVES into the species needed for air quality modeling (PNO3, METAL, NH4, POC, PMFINE, PMC).  The speciation equations were developed by EPA OTAG and OAQPS.  The advantage of using this approach over the approach used for speciating total PM2.5 is that this approach allows the speciated emissions from MOVES; i.e., elemental carbon and particulate sulfate to be retained and only the remainder of the PM2.5 to rely on speciation profiles.  The speciation equations are available in the SMOKE-TOOLS User Guide <![CDATA[href="http://www.smoke-model.org/smoke_moves_tool/SMOKE-MOVES_Tool_Users_Guide.htm"]]></para>
+	</listitem>
+<listitem>
+	<para>Removes fields that are uninformative to SMOKE, including the MOVES source type,  fuel type and road type,  hourID in RatePerDistance, TemperatureProfileID in RatePerProfile.</para>
 </listitem>
 <listitem>
-<para>The temporal averaging creates 24-hour temperature and humidity profiles to represent one of the following time periods: (1) a day (no averaging), (2) a week (weekly averaging), (3) a month (monthly averaging), and/or (4) an episode (episodic averaging).</para>
+	<para>Reduces the output database table size by performing a cross-tab query on the pollutant emissions, listing each pollutant in a separate field rather than in a single column with a higher number of data records.  The script also sorts the lookup tables by countyID, monthID and SCC for more efficient processing in SMOKE.</para>
+</listitem>
+<listitem>
+	<para>Write out to an ASCII file the three processed tables RatePerDistance_smoke, RatePerVehicle_smoke, and RatePerProfile_smoke.</para>
 </listitem>
 </itemizedlist>
 
-<para>The <envar>MVREF</envar> file also allows you to set how to handle rural and urban local roads, and you have the choice of using MOBILE6 local roads or using arterial roads with your local road speeds. When reading the file, <command>Mbsetup</command> checks to be sure that the reference county FIPS code and the three settings (spatial averaging, temporal averaging, and local road handling) are all integers. The program gives an error for any duplicate reference counties in the file. Any lines with reference counties that are not in the <envar>MCREF</envar> file are ignored. Finally, <command>Mbsetup</command> checks that all reference counties have been assigned settings.</para>
+<table id="tbl_concepts_moves_lookup_tbl_sm_format">
+<title>MOVES Emission Rate Lookup Table (SMOKE Format)</title>
+<tgroup cols="3">
+<colspec colname="c1" colwidth="20*" />
+<colspec colname="c2" colwidth="20*" />
+<colspec colname="c3" colwidth="20*" />
 
-<para><command>Mbsetup</command> creates the time period group files (<envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and/or <envar>EPISODEGROUP</envar>) based on the settings in the <envar>MVREF</envar> file. These SMOKE intermediate files are used by <command>Premobl</command> to determine what type of meteorology averaging is used for each inventory county. Each file contains a list of the inventory counties using that type of averaging (e.g., counties in the <envar>DAILYGROUP</envar> file will use daily temperature and humidity profiles), along with the reference county for that inventory county and the local road setting (this setting is not related to meteorology averaging, but needs to be read by <command>Emisfac</command> later on). If no counties use a particular type of averaging, the corresponding <envar>*GROUP</envar> file will not be created by <command>Mbsetup</command>.</para>
+<thead>
+<row>
+<entry morerows="1" valign="bottom" align="center">RatePerDistance_smoke       (grams/mile)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerVehicle_smoke (grams/vehicle/hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerProfile_smoke (grams/vehicle/hour)</entry>
+</row>
+</thead>
 
+<tbody>
+<row>
+<entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
+</row>
+<row>
+<entry>MOVESRunID</entry>
+<entry>MOVESRunID</entry>
+<entry>MOVESRunID</entry>
+</row>
+<row>
+	<entry>yearID</entry>
+	<entry>yearID</entry>
+	<entry>yearID</entry>
+</row>
+<row>
+	<entry>monthID</entry>
+	<entry>monthID</entry>
+	<entry>monthID</entry>
+</row>
+<row>
+		<entry>countyID</entry>
+		<entry>dayID</entry>
+		<entry>dayID</entry>
+</row>
+<row>
+    <entry>SCC</entry>
+    <entry>hourID</entry>
+    <entry>hourID</entry>
+</row>
+<row>
+	<entry>processName</entry>
+	<entry>countyID</entry>
+	<entry>countyID</entry>
+</row>
+<row>
+	<entry>avgSpeedBinIn</entry>
+	<entry>SCC</entry>
+	<entry>SCC</entry>
+</row>
+<row>
+	<entry>Temperature</entry>
+	<entry>processName</entry>
+	<entry>processName</entry>
+</row>
+<row>
+	<entry>relHumidity</entry>
+	<entry>Temperature (for each grid cell)</entry>
+	<entry>Temperature (24hr temporal profile)</entry>
+</row>
+<row>
+	<entry>CO</entry>
+	<entry>CO</entry>
+	<entry>THC</entry>
+</row>
+<row>
+	<entry>TOG</entry>
+	<entry>NOX</entry>
+	<entry>TOG</entry>
+</row>
+<row>
+	<entry>BENZENE</entry>
+	<entry>PM10OC</entry>
+	<entry>VOC</entry>
+</row> 
+<row>
+		<entry>...</entry>
+	<entry>...</entry>
+	<entry>...</entry>
+</row>  
+</tbody>
+</tgroup>
+</table>
 </section>
-
-<section>
-
-<title>Assign the speed profiles to the sources</title>
-
-<para>The third major <command>Mbsetup</command> task is to preprocess speed profiles, if they are provided. Speed profiles, which can be used instead of the average-speed values in the inventory, permit hourly speeds to be assigned and used in computing the emission factors. <command>Mbsetup</command> first checks if the <envar>USE_SPEED_PROFILES</envar> option is set to Y, and if it is, reads and uses a user-defined speed profiles cross-reference file (<envar>SPDREF</envar>). Speed profiles must be used if the on-road mobile inventory does not contain any speed information.</para>
-
-<para>If speed profiles are being used, <command>Mbsetup</command> reads the speed profile cross-reference file and assigns a speed profile to each source. Each line of this cross-reference file requires a FIPS code, an SCC, and a speed profile code; <command>Mbsetup</command> verifies that the FIPS code is an integer, the SCC is 10 digits long, and the speed profile code is also an integer and is greater than zero. Note that <command>Mbsetup</command> does not read or process the actual speed profiles; that is handled later by <command>Emisfac</command>, so any inconsistencies in profile numbering will not be discovered until then. After reading the speed profile cross-reference file, SMOKE assigns the appropriate speed profile code to each source in the inventory by matching different combinations of FIPS codes and SCCs.</para>
-
 </section>
-
 <section>
-
-<title>Create the speed summary file</title>
-
-<para>The final major task for <command>Mbsetup</command> is to create the speed summary SMOKE intermediate file (<envar>SPDSUM</envar>), which is needed by both <command>Premobl</command> and <command>Emisfac</command>. The file lists all the sources in the inventory that need speeds, and the speed value to use for the source <emphasis>or</emphasis> the speed profile code for that source; the source&rsquo;s MOBILE6 facility type (freeway, arterial, local, or ramp); and the reference county to be used for that source. This file is created in such a way that sources in the same reference county that share the same speeds will be grouped together, so that the MOBILE6 calculation of their emission factors will need to be done only once in the <command>Emisfac</command> step.</para>
-
-</section>
-
-<section>
-
-<title>Process the meteorology data for use by MOBILE6</title>
-
-<para>The <command>Premobl</command> program processes hourly, gridded meteorology data to get them ready for use by MOBILE6 in the <command>Emisfac</command> program. The major purposes of the processing are to spatially and temporally aggregate the temperature, humidity, and pressure data and to align the data&rsquo;s time steps with the local 6 AM to 5 AM hour range needed by MOBILE6.</para>
-
-<para>The <command>Premobl</command> program must first determine whether the available meteorology data are sufficient for the calculations being requested. It compares the list of meteorology data files given in the <envar>METLIST</envar> file with the episode start date (<envar>EPI_STDATE</envar>) and episode duration (<envar>EPI_RUNLEN</envar>), calculating the required coverage period for the meteorology data. Since MOBILE6 expects hourly data to be provided from 6 AM to 5 AM local time, <command>Premobl</command> considers this in its assessment of the available meteorology data. The earliest time needed in the meteorology data will be 6 AM in the time zone closest to GMT (assuming that the meteorology data are in GMT). If this earliest time is earlier than the user-defined episode starting time, then the episode start date must be moved back one day. Correspondingly, the latest time needed in the meteorology data will be 5 AM in the time zone farthest from GMT (again assuming that the meteorology data are in GMT). If this latest time is later than the episode end time, the episode ending date is moved forward one day. Using these adjusted start and end dates and times, <command>Premobl</command> can then determine the total number of time periods that the meteorology data must cover.</para>
-
-<para>Before computing the averaged temperatures and humidities, <command>Premobl</command> checks several aspects of the input files to ensure that the averaging will be able to work properly. It verifies that the meteorology files are valid by ensuring that the user-defined temperature, pressure, and mixing ratio variables to use in processing are actually in the files. <command>Premobl</command> also ensures that the grids of the meteorology files are the same and that the time span covered by all of the files is contiguous and that the files have the proper start and ends dates and times. If there are missing meteorology data files (missing days), <command>Premobl</command> generates an error message. <command>Premobl</command> also verifies that the ungridding matrix is consistent with the inventory (i.e., the number of sources match between the two) and that the grid matches the meteorology grid.</para>
-
-<para>To compute the averaged meteorology data, <command>Premobl</command> first finds the <envar>*GROUP</envar> files created by <command>Mbsetup</command> to see which types of averaging are needed. Using the information from these files, <command>Premobl</command> assigns the correct type of averaging to each county in the domain and inventory. The program then reads the hourly meteorology data and applies the ungridding matrix to calculate county-based data, checking that the temperatures are within the minimum and maximum range allowed by MOBILE6. As each hour of data is read, <command>Premobl</command> shifts the data for each source to the appropriate local time based on the time zone of the source. <comment>This shifting accounts for Daylight Savings Time; however, the current version of <command>Premobl</command> does not check to see if some counties are exempt from Daylight Savings Time.</comment> For averaging types other than daily averaging, data corresponding to the same source and hour of the day (1-24) are summed across the days in the episode and a count is kept of the total days. Once all hours for the averaging period (week, month, or episode) have been processed, the summed value is divided by the total number of days in the averaging period. Additionally, the data for each hour are summed for all sources assigned to a county or reference county (depending on the spatial averaging used), then divided by the total number of sources summed.</para>
-
-<para>After computing the average 24-hour temperature and humidity profiles, <command>Premobl</command> outputs the data to the appropriate file depending on averaging type. For daily profiles (no temporal averaging), each day is written to a separate file. Weekly profiles are written by week starting on Sunday and ending on Saturday. Monthly profiles follow the calendar dates, so a separate file is written for each month using the date for the first of the month in the file. The weekly or monthly files will never begin before the adjusted episode start date or end after the adjusted episode end date; for example, if the episode starts on a Tuesday, the first weekly file will also start on Tuesday (not the previous Sunday) and the subsequent files will start on a Sunday. Finally, for episode-based averaging, a single file is written that covers the entire episode.</para>
-
-</section>
-
-<section>
-
-<title>Compute the criteria and toxics emission factors using MOBILE6</title>
-
-<para>After <command>Premobl</command> has been run, the <command>Emisfac</command> program runs MOBILE6 and creates the emission factor files needed for on-road mobile-source processing by the <command>Temporal</command> program. <command>Emisfac</command> performs a number of input file and other checks, then creates a concatenated MOBILE6 input file; it concludes by running MOBILE6 and writing an emission factors file. These steps are described in more detail in the following paragraphs. <command>Emisfac</command> must be run once for each averaging group (daily, weekly, monthly, and episodic), and it outputs emission factors at the same temporal resolution as the meteorology data that are input.</para>
-
-<para>First, <command>Emisfac</command> performs setup and internal checks. It opens and reads the inventory file, speed summary file (<envar>SPDSUM</envar>), list of MOBILE6 scenarios (<envar>M6LIST</envar>), emission processes file (<envar>MEPROC</envar>), inventory table (<envar>INVTABLE</envar>), speed profiles file (<envar>SPDPRO</envar>), and first hourly meteorology file. It also opens a <envar>*GROUP</envar> file, depending on what setting is given to the <envar>GROUP_TYPE</envar> environment variable, which sets the averaging group. Using the emission processes file (<envar>MEPROC</envar>), <command>Emisfac</command> sets up a list of the process-pollutant combinations that will be generated by the program&rsquo;s run and ensures that this list is valid in MOBILE6. It also checks to see which hydrocarbon type it should create, using the <envar>MB_HC_TYPE</envar> setting.</para>
-
-<para><command>Emisfac</command> also uses the inventory table (<envar>INVTABLE</envar>) to create a list of pollutants to be subtracted from VOC or TOG to calculate NONHAPVOC or NONHAPTOG. If the output hydrocarbon type is not TOG or VOC, this step is skipped. Otherwise, any pollutants listed as part of VOC or TOG in the inventory table and also listed in the <envar>MEPROC</envar> file (i.e., actually calculated by MOBILE6) are subtracted from TOG to create NONHAPTOG. Pollutants listed only as part of VOC in the inventory table and listed in the <envar>MEPROC</envar> file will be subtracted from VOC to create NONHAPVOC - hence, these two files must be consistent. <command>Emisfac</command> also prints these listed pollutants to the log file.</para>
-
-<para><command>Emisfac</command> next creates a concatenated MOBILE6 input file by taking the following steps:</para>
-
+	<title>SMOKE Model Processing</title>
+	<para>Once the <command>Met4moves</command> meteorology preprocessor and the MOVES model processing that results in the SMOKE-formatted emissions factor lookup tables are completed, we address the remaining major component of the SMOKE-MOVES tool: the SMOKE model processing step. The goals of this step are (1) to estimate emissions from on-road mobile sources based on MOVES-based emissions lookup tables and meteorology data, (2) to create hourly gridded speciated air quality model-ready input files, and (3) to produce various types of reports for the user.</para>
+	<para>As some readers are aware, MOBILE6 and MOVES are both vehicle emissions modeling systems used with SMOKE. However, they differ in their approaches to calculating off-network evaporative emissions. In MOBILE6, off-network emissions processes are calculated as emission factors in grams/mile, which is related to VMT. MOVES, on the other hand, uses the source (vehicle) type population (VPOP) to calculate start and off-network evaporative emissions, which are assigned to off-network emissions processes; these processes are hour-dependent due to VPOP (activity) assumptions built into the MOVES model. Thus, compared to the SMOKE-MOBILE6 approach, the SMOKE-MOVES approach requires additional vehicle population inventory data as input for estimating mobile-source emissions from off-network emissions processes. This requirement is reflected in the discussion below.</para>
+  <para>When processing mobile-source emissions from MOVES, SMOKE performs the following basic steps.</para>
 <itemizedlist>
-<listitem>
-<para>First, <command>Emisfac</command> creates the header for the MOBILE6 input file; this header indicates what type of output to create and which pollutants should be calculated, based on the <envar>MEPROC</envar> file. Pollutants that are in the <envar>MEPROC</envar> file but are not intrinsic to MOBILE6 are assumed to be user-defined toxics and a warning is written to that effect in the log file. This section of the MOBILE6 input is concluded by writing the RUN DATA command.</para>
-</listitem>
-<listitem>
-<para>Next, <command>Emisfac</command> loops through the reference counties and opens the appropriate MOBILE6 input scenario (as set by the <envar>M6LIST</envar> file) for a given county. The user must provide separate MOBILE6 input scenarios for each reference county. SMOKE chooses the correct scenario by comparing the state and county FIPS code for the reference county with the scenario file names. After reading the data from the scenario file, SMOKE checks the scenario for various commands, and comments out the commands that it overrides - for example, SCENARIO RECORD, PARTICLE SIZE, and AVERAGE SPEED. <command>Emisfac</command> also overrides the CALENDAR YEAR command to use the <envar>EF_YEAR</envar> environment variable setting. If the temperatures in the MOBILE6 scenario are to be replaced with values calculated by <command>Premobl</command>, <command>Emisfac</command> will find the MIN/MAX TEMPERATURE or HOURLY TEMPERATURES command in the scenario and replace it with the appropriate hourly temperatures from the average-temperature input file for the temperature group being processed. Likewise, if the humidity data are to be replaced, <command>Emisfac</command> replaces the BAROMETRIC PRESSURE and RELATIVE HUMIDITY commands with the appropriate data calculated by <command>Premobl</command>.</para>
-</listitem>
-<listitem>
-<para>Any run-level commands, such as I/M or anti-tampering program commands in the MOBILE6 inputs, are then passed through to the concatenated input file. Run-level commands are any commands that appear before the SCENARIO RECORD command in the user-provided scenario files. <command>Emisfac</command> also inserts the appropriate EXPRESS HC AS * command, depending on the desired hydrocarbon output type.</para>
-</listitem>
-<listitem>
-<para><command>Emisfac</command> next uses data from the speed summary file to determine which speeds are needed for the current county. A new external data file to be used with the SPEED VMT command is created for each combination of freeway and arterial speeds. The location of the speed VMT files is determined by the <envar>SMK_SPDPATH</envar> environment variable. If speed profiles are being used, the speed profile number has been stored in the speed summary file, and <command>Emisfac</command> will look for the corresponding speed profile in the speed profiles file. Otherwise, <command>Emisfac</command> will use the single speed from the speed summary file as the speed for each hour. The hourly speeds are then converted to the format required by the SPEED VMT command, the ramp component of the speeds is optionally removed, and the values are written to the external data file. Whether or not the ramp component is removed is controlled by the <envar>ADJUST_INV_SPEED</envar> and <envar>ADJUST_HR_SPEED</envar> environment variables for inventory speeds and speed profiles respectively.</para>
-</listitem>
-<listitem>
-<para>Each speed combination corresponds to a new scenario in the concatenated MOBILE6 file. <command>Emisfac</command> writes the SCENARIO RECORD command with a new scenario number, and then writes the remaining lines of the original scenario file to the concatenated input file. Finally, the SPEED VMT command is written; it includes the name of the external data file created in the previous step.</para>
-</listitem>
-<listitem>
-<para>After all speed combinations have been accounted for, <command>Emisfac</command> writes the END OF RUN command to the concatenated input file. It then goes on to the next reference county and repeats the process.</para>
-</listitem>
+	<listitem><link linkend="sect_programs_smkinven"><command>Smkinven</command></link> imports county-total VMT and average speed data by SCC for On-roadway Emission Processes and county-total vehicle population (VPOP) by vehicle type for Off-network Emission Processes.</listitem>
+  <listitem><link linkend="sect_programs_spcmat"><command>Spcmat</command></link> computes the chemical speciation factors for each county, source (=vehicle) type, road type, emission process, and pollutant, and stores the necessary factors for the VMT-to-species and VPOP-to-species transformations.</listitem>
+  <listitem><link linkend="sect_programs_grdmat"><command>Grdmat</command></link> allocates the county sources to grid cells and uses spatial surrogates to allocate county-total VMT and VPOP to grid cells, storing the factors needed for these allocations.</listitem>
+  <listitem><link linkend="sect_programs_temporal"><command>Temporal</command></link> computes hourly VMT data for On-roadway Emission Processes. Off-network Emission Processes (RPV and RPP tables) do not require the <command>Temporal</command> program because vehicle population does not need to be temporally allocated.</listitem>
 </itemizedlist>
-
-<para>The last major processing step for <command>Emisfac</command> is to compute the emission factors. Before running MOBILE6, <command>Emisfac</command> opens the output file, so that if there is any problem opening the file (e.g., the directory assigned to contain the file does not exist), this problem is discovered before time is invested in running the MOBILE6 program. The emission factor files are stored using an internally defined name in the user-defined directory (set with the <envar>SMK_EMISPATH</envar> setting).</para>
-
-<para><command>Emisfac</command> runs MOBILE6 as a function call. MOBILE6 reads the concatenated input file created by <command>Emisfac</command> and calculates the appropriate emission factors. The version of MOBILE6 used by SMOKE has been modified to aggregate the emission factors to the eight vehicle types needed by SMOKE, because these are the vehicle types for which VMT data are currently available. Any warnings or errors generated by MOBILE6 are written to the <command>Emisfac</command> log file and the standard output (e.g., the screen). When particulate emission factors need to be computed, <command>Emisfac</command> runs MOBILE6 twice to calculate emission factors for both particle sizes (2.5 and 10 microns), since MOBILE6 can generate emission factors for only one particle size at a time. <command>Emisfac</command> calculates a coarse PM value (PMC) from PM<subscript>2.5</subscript> and PM<subscript>10</subscript> using the formula PMC = PM<subscript>10</subscript> - PM<subscript>2.5</subscript>. For each hour and source, <command>Emisfac</command> locates the correct emission factors based on vehicle type, road type, and speed. For freeway sources, <command>Emisfac</command> computes a composite emission factor that includes the effects of ramps. <command>Emisfac</command> will also compute NONHAPVOC or NONHAPTOG if needed, by subtracting the appropriate toxics emission factors from the VOC or TOG emission factors. Last, <command>Emisfac</command> writes the hourly emission factors.</para>
-
-<para>If additional days of meteorology files are available, <command>Emisfac</command> regenerates the concatenated MOBILE6 input file and performs the processing steps again. All 24-hour emission factor sets for each averaging group are written to separate files. When there are no more averaged meteorology files available (no more days, weeks, or months to process), the program completes.</para>
-
+<para>The way the MOVES-generated emissions factor lookup tables are used varies according to whether SMOKE is modeling on-roadway emission processes or off-network emissions processes.</para>
+<para>On-roadway emission processes: When estimates of on-roadway emission processes (e.g., exhaust running, on-road evaporative, tire and brake wear) are needed, SMOKE requires county-total VMT and average hourly speed (SPEED) inventory data as inputs to a new SMOKE postprocessor called <command>Movesmrg</command> which is part of the SMOKE-MOVES tool. <command>Movesmrg</command> uses the MOVES <link linkend="tbl_concepts_moves_lookup_tbl_sm_format"><command>RatePerDistance (RPD) table (SMOKE format)</command></link> to estimate on-road sources emission. The key lookup fields for the factors are gridded hourly temperature and average hourly speed from the avgSpeedBinID field. SMOKE interpolates in the RPD table (in unit of grams/mile) based on gridded hourly temperature and average speed. Figure 2a shows processing steps for on-roadway emissions processes in the SMOKE system using VMT and SPEED inventory input data.</para>
+<para>Off-network emission processes: When estimates are needed for off-network emissions processes, including the off-network vapor venting emissions process, SMOKE uses county-total VPOP by vehicle type as input to <command>Movesmrg</command> together with the RatePerVehicle (RPV) and RatePerProfile (RPP) lookup tables <xref linkend="fig_concepts_mobile_moves_offroad"/>. A significant difference in the processing steps between the on-roadway emissions processes (RPD table) and the off-network emissions processes (RPV and RPP tables) is that off-network emissions processing does not require the <command>Temporal</command> program step because vehicle population (VPOP) does not need to be temporally allocated. In the RPV table, gridded hourly temperature and hour of the day are the key lookup fields SMOKE uses to estimate hourly off-network emissions in unit of grams/vehicle/hour. For the evaporative fuel off-network vapor venting emissions process only, <command>Movesmrg</command> uses the RPP lookup table to estimate the emission rates based on the minimum and maximum temperatures computed by <command>Met4moves</command>.</para>
+<para>For all three emission rate lookup tables (RPD, RPV, RPP), SMOKE performs linear interpolation when using them.</para>
 </section>
-
 </section>
 
 <section id="sect_concepts_biogenic_processing">
@@ -3724,7 +4617,7 @@ Additional data</programlisting>
 
 <para>Creating emissions with SMOKE that are ready for input to an AQM must always include merging the hourly emissions created during temporal processing with the gridding matrices and the speciation matrices. In addition, for point sources for CMAQ or MAQSIP, creating the model-ready emissions must also include merging with the layer fractions (see <xref linkend="sect_concepts_compute_layer_cmaq" />), and for UAM-based models it must include creating the ASCII elevated file (see <xref linkend="sect_concepts_create_elevated_uam" />). The <command>Smkmerge</command> program performs these processing steps using vector-matrix multiplication to combine the matrices and layer fractions with the hourly emissions vectors from the <command>Temporal</command> program.</para>
 
-<para>If the overall SMOKE processing setup includes running the nonroad mobile category (or other source categories) as separate runs (see <xref linkend="ch_scripts" />, then <command>Smkmerge</command> cannot be used to combine all source categories into a single output file. Instead, the <command>Mrggrid</command> program would combine the model-ready files from the individual source categories; for example, from separate SMOKE (including <command>Smkmerge</command>) runs for stationary area/nonpoint, nonroad mobile, windblown dust, wildfire, on-road mobile, and point sources. There is no limit to the number of model-ready files that <command>Mrggrid</command> can combine into a single model-ready file, and the input files can be 2-D or 3-D.</para>
+<para>If the overall SMOKE processing setup includes running the nonroad mobile category (or other source categories) as separate runs (see <xref linkend="ch_scripts" />, then <command>Smkmerge</command> cannot be used to combine all source categories into a single output file. Instead, the <link linkend="sect_programs_movesmrg"><command>Mrggrid</command></link> program would combine the model-ready files from the individual source categories; for example, from separate SMOKE (including <command>Smkmerge</command>) runs for stationary area/nonpoint, nonroad mobile, windblown dust, wildfire, on-road mobile, and point sources. There is no limit to the number of model-ready files that <command>Mrggrid</command> can combine into a single model-ready file, and the input files can be 2-D or 3-D.</para>
 
 <para><command>Smkmerge</command> can be run for any or all SMOKE source categories, but it can use only one of each SMOKE inventory type (area, biogenic, mobile, and point source) per run. You can run it to create model-ready files for only one SMOKE source category (area, biogenic, mobile, or point), or you can run it to create both the individual and combined model-ready files. The following list indicates the modes in which <command>Smkmerge</command> can be run:</para>
 
@@ -3751,6 +4644,37 @@ Additional data</programlisting>
 <para>Many processing steps in SMOKE are independent of one another; for example, chemical speciation and temporal allocation can change without affecting one another. This independence means that when one step changes, another step does not need to be rerun in many cases. However, because <command>Smkmerge</command> combines the data from all of these processing steps to create the model-ready emissions, if one of the earlier steps changes, then the merging step must also be rerun. This includes rerunning <command>Smkmerge</command> to generate model-ready files, and if the <command>Mrggrid</command> program was used, also rerunning that to merge data from multiple source categories together.</para>
 
 <para><command>Smkmerge</command> also has the ability to input hourly emissions by day of the week and reuse days that are the same. For example, it can input separate hourly emissions files for Monday, a weekday, Saturday, and Sunday, and use these four files to generate model-ready emissions for every day in an entire month. This is accomplished using the <envar>MRG_BYDAY</envar> SMOKE option, described further in <xref linkend="sect_programs_smkmerge" />. Special treatment can also be given to holidays in this case, since users generally wish to model holidays differently than other days. <comment><xref linkend="sect_scripts_mwss_approach" /> explains more about how to configure scripts for processing with a Monday, weekday, Saturday, and Sunday approach.</comment></para>
+
+</section>
+
+<section id="sect_concepts_merge_processing_moves">
+
+<title>Creating model-ready emissions using MOVES lookup tables</title>
+
+<para>Creating emissions with SMOKE using MOVES lookup tables (i.e., RatePerDistance(RPD), RatePerVehicle(RPV) and RatePerProfile(RPP) ) that are ready for input to an AQM must always include merging the gridding matrices and the speciation matrices. In addition, for RPD emissions based on VMT data by source for CMAQ or MAQSIP, creating the model-ready emissions must also include merging with the hourly VMT created during temporal processing (see <xref linkend="sect_concepts_temporal_processing" />). The <command>Movesmrg</command> program performs these processing steps using vector-matrix multiplication to combine the matrices and the hourly emissions vectors from the <command>Temporal</command> program to process RPD MOVES lookup table.</para>
+
+<para>If the overall SMOKE processing setup includes running the nonroad mobile category (or other source categories) as separate runs (see <xref linkend="ch_scripts" />, then <command>Movesmrg</command> cannot be used to combine all source categories into a single output file. Instead, the <link linkend="sect_programs_mrggrid"><command>Mrggrid</command></link> program would combine the model-ready files from the individual source categories; for example, from separate SMOKE (including <command>Movesmrg</command>) runs for RPD, RPV and RPP mobile sources. There is no limit to the number of model-ready files that <command>Mrggrid</command> can combine into a single model-ready file, and the input files can be 2-D or 3-D.</para>
+
+<para><command>Movesmrg</command> can be used only for MOVES-based mobile SMOKE source categories. It can use only one of each MOVES lookup table (RPD, RPV and RPV) per run. You can run it to create model-ready files for only one SMOKE source category (RPD, RPV, and RPP). The following list indicates the modes in which <command>Movesmrg</command> can be run:</para>
+
+<itemizedlist>
+<listitem>
+<para>Run for MOVES RPD mobile sources based on VMT data by vehicle and road types to create gridded, hourly, speciated emissions in moles/hour or moles/second.</para>
+</listitem>
+<listitem>
+<para>Run for MOVES RPV mobile sources based on Vehicle population (VPOP) data by vehicle to create gridded, hourly, speciated emissions in moles/hour or moles/second.</para>
+</listitem>
+<listitem>
+<para>Run for MOVES RPP mobile sources based on Vehicle population (VPOP) data by vehicle to create gridded, hourly, speciated emissions in moles/hour or moles/second.</para>
+</listitem>
+<listitem>
+<para>Run to create daily total emissions report by county, by state, and by SCC in the unit of tons/day or tons/hour.</para>
+</listitem>
+</itemizedlist>
+
+<para>Many processing steps in SMOKE are independent of one another; for example, chemical speciation and temporal allocation can change without affecting one another. This independence means that when one step changes, another step does not need to be rerun in many cases. However, because <command>Movesmrg</command> combines the data from all of these processing steps to create the model-ready emissions, if one of the earlier steps changes, then the merging step must also be rerun. This includes rerunning <command>Movesmrg</command> to generate model-ready files, and if the <command>Mrggrid</command> program was used, also rerunning that to merge data from multiple source categories together.</para>
+
+<para><command>Movesmrg</command> also has the ability to input hourly emissions by day of the week and reuse days that are the same. For example, it can input separate hourly emissions files for Monday, a weekday, Saturday, and Sunday, and use these four files to generate model-ready emissions for every day in an entire month. This is accomplished using the <envar>MRG_BYDAY</envar> SMOKE option, described further in <xref linkend="sect_programs_movesmrg" />. Special treatment can also be given to holidays in this case, since users generally wish to model holidays differently than other days. <comment><xref linkend="sect_scripts_mwss_approach" /> explains more about how to configure scripts for processing with a Monday, weekday, Saturday, and Sunday approach.</comment></para>
 
 </section>
 
@@ -3798,12 +4722,11 @@ Additional data</programlisting>
 <para>Perform other specific checks of <command>Smkreport</command> outputs, such as ensuring that the correct major point sources are in the inventory, comparing population-normalized emissions among the counties, and checking stack parameters from point sources.</para>
 </listitem>
 <listitem>
-<para>Ensure that the emissions data look reasonable by viewing them in the Package for Analysis and Visualization of Environmental data (PAVE).</para>
+<para>Ensure that the emissions data look reasonable by viewing them in the Visualization Environment for Rich Data Interpretation (VERDI).</para>
 </listitem>
 </orderedlist>
 
 <para><xref linkend="ch_quality_assurance" /> provides much additional detail about how to proceed with quality assuring your inventories and emissions processing.</para>
 
 </section>
-
 </chapter>

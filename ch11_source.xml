@@ -4,9 +4,9 @@
 
 <title>Source Code and Include Files</title>
 
-<para>The SMOKE modeling system consists of several core programs (described in <xref linkend="ch_programs" />), several utility programs (described in <xref linkend="ch_utilities" />), and the quality assurance program <command>Smkreport</command> (described in <xref linkend="ch_quality_assurance" />). The source code for all programs is available in the <filename class="directory"><envar>$SMKROOT</envar>/src</filename> directory.</para>
+<para>The SMOKE modeling system consists of several core programs (described in <xref linkend="ch_programs" />), several utility programs (described in <xref linkend="ch_utilities" />, and the quality assurance program <command>Smkreport</command> (described in <xref linkend="ch_quality_assurance" />). The source code for all programs is available in the <filename class="directory"><envar>$SMKROOT</envar>/src</filename> directory.</para>
 
-<para>SMOKE also uses several libraries for shared functionality. The I/O API and NetCDF libraries were discussed in <xref linkend="ch_installation" />. In addition, SMOKE is distributed with the FileSetAPI library (<xref linkend="sect_source_fileset" />), the EDSS Tools library (<xref linkend="sect_source_edss_tools" />), and a library version of MOBILE6 (<xref linkend="sect_source_mobile6" />).</para>
+<para>SMOKE also uses several libraries for shared functionality. The I/O API and NetCDF libraries were discussed in <xref linkend="ch_installation" />. In addition, SMOKE is distributed with the FileSetAPI library (<xref linkend="sect_source_fileset" />), and the EDSS Tools library (<xref linkend="sect_source_edss_tools" />).</para>
 
 <section id="sect_source_source">
 
@@ -86,14 +86,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 
 </section>
 
-<section id="sect_source_mobile6">
-
-<title>MOBILE6 library</title>
-
-<para>The code for the library version of MOBILE6 is in <filename class="directory"><envar>$SMKROOT</envar>/src/mo6</filename>, also accessible with the <envar>M6_SRC</envar> environment variable. This code is the stand-alone version of MOBILE6.2.03 with special aggregation code to create the emission factors at the resolution needed by SMOKE. In addition, we have added code to allow MOBILE6 to pass the emission factors back to SMOKE in memory, rather than writing an output file. The SMOKE version of MOBILE6 has also been updated to allow lowercase input file names and to look for external input files in the <filename class="directory"><envar>$SMK_M6PATH</envar></filename> directory.</para>
-
-</section>
-
 <section id="sect_source_programs">
 
 <title>SMOKE programs</title>
@@ -134,11 +126,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <entry><envar>PT_SRC</envar></entry>
 </row>
 <row>
-<entry><link linkend="sect_programs_emisfac"><command>Emisfac</command></link></entry>
-<entry><filename class="directory"><envar>$SMKROOT</envar>/src/mobile</filename></entry>
-<entry><envar>MB_SRC</envar></entry>
-</row>
-<row>
 <entry><link linkend="sect_utilities_extractida"><command>Extractida</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
 <entry><envar>UT_SRC</envar></entry>
@@ -169,11 +156,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <entry><envar>PT_SRC</envar></entry>
 </row>
 <row>
-<entry><link linkend="sect_programs_mbsetup"><command>Mbsetup</command></link></entry>
-<entry><filename class="directory"><envar>$SMKROOT</envar>/src/mobile</filename></entry>
-<entry><envar>MB_SRC</envar></entry>
-</row>
-<row>
 <entry><link linkend="sect_utilities_metcombine"><command>Metcombine</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
 <entry><envar>UT_SRC</envar></entry>
@@ -182,6 +164,16 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <entry><link linkend="sect_utilities_metscan"><command>Metscan</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
 <entry><envar>UT_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_met4moves"><command>Met4moves</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/movesmrg</filename></entry>
+<entry><envar>MV_SRC</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link></entry>
+<entry><filename class="directory"><envar>$SMKROOT</envar>/src/movesmrg</filename></entry>
+<entry><envar>MV_SRC</envar></entry>
 </row>
 <row>
 <entry><link linkend="sect_programs_mrggrid"><command>Mrggrid</command></link></entry>
@@ -197,11 +189,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <entry><link linkend="sect_utilities_pktreduc"><command>Pktreduc</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
 <entry><envar>UT_SRC</envar></entry>
-</row>
-<row>
-<entry><link linkend="sect_programs_premobl"><command>Premobl</command></link></entry>
-<entry><filename class="directory"><envar>$SMKROOT</envar>/src/mobile</filename></entry>
-<entry><envar>MB_SRC</envar></entry>
 </row>
 <row>
 <entry><link linkend="sect_programs_rawbio"><command>Rawbio</command></link></entry>

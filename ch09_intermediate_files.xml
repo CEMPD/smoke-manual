@@ -491,121 +491,6 @@
 
 </section>
 
-<section id="sect_intmed_emisfac">
-
-<title><command>Emisfac</command></title>
-
-<para>The <command>Emisfac</command> program is responsible for generating on-road mobile emission factors. <command>Emisfac</command> creates the following intermediate files.</para>
-
-<itemizedlist>
-<listitem>
-<para><xref linkend="sect_intmed_mobile6" /></para>
-</listitem>
-<listitem>
-<para><xref linkend="sect_intmed_emisfac_files" /></para>
-</listitem>
-</itemizedlist>
-
-<section id="sect_intmed_mobile6">
-
-<title>MOBILE6 intermediate files</title>
-
-<para>Type: ASCII</para>
-
-<para>Used by: MOBILE6</para>
-
-<para><command>Emisfac</command> creates a MOBILE6 input file that is read and processing by the MOBILE6 library. MOBILE6 also creates several files while it is running. These files are all placed in the <filename class="directory"><envar>$SMK_M6PATH</envar></filename> directory.</para>
-
-</section>
-
-<section id="sect_intmed_emisfac_files">
-
-<title>Emission factor files</title>
-
-<para>Type: I/O API NetCDF - adapted gridded format</para>
-
-<para>Used by: <command>Temporal</command></para>
-
-<table>
-<title>I/O API Header for emission factor files</title>
-<tgroup cols="3">
-<colspec colwidth="25*" />
-<colspec colwidth="35*" />
-<colspec colwidth="40*" />
-
-<thead>
-<row>
-<entry>I/O API Header variable</entry>
-<entry>Meaning</entry>
-<entry>Set by...</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>NROWS3D</entry>
-<entry>Number of on-road mobile sources using activity data</entry>
-<entry>Determined by the <envar>MOBL</envar> file</entry>
-</row>
-<row>
-<entry>NVARS3D</entry>
-<entry>Number of emission process and pollutant combinations + 1 (for source IDs)</entry>
-<entry>Determined by the <envar>MEPROC</envar> file</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<table>
-<title>Variables in <envar>EMISFACS</envar></title>
-<tgroup cols="4">
-<colspec colwidth="25*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="45*" />
-
-<thead>
-<row>
-<entry>Variable Name</entry>
-<entry>Type</entry>
-<entry>Units</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>SOURCES</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Inventory source ID</entry>
-</row>
-<row>
-<entry>Name of process/pollutant combination 1</entry>
-<entry>Real</entry>
-<entry>g/mi</entry>
-<entry>Emission factor for this source and process/pollutant 1</entry>
-</row>
-<row>
-<entry>...</entry>
-<entry>...</entry>
-<entry>...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry>Name of process/pollutant combination NVARS3D-1</entry>
-<entry>Real</entry>
-<entry>g/mi</entry>
-<entry>Emission factor for this source and process/pollutant NVARS3D-1</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-</section>
-
 <section id="sect_intmed_grdmat">
 
 <title><command>Grdmat</command></title>
@@ -615,9 +500,6 @@
 <itemizedlist>
 <listitem>
 <para>Gridding matrix file: <xref linkend="sect_intmed_ampgmat" /></para>
-</listitem>
-<listitem>
-<para>Ungridding matrix file (mobile sources only): <xref linkend="sect_intmed_mumat" /></para>
 </listitem>
 </itemizedlist>
 
@@ -691,20 +573,6 @@
 
 </section>
 
-<section id="sect_intmed_mumat">
-
-<title><envar>MUMAT</envar></title>
-
-<para>Type: I/O API NetCDF - adapted gridded format</para>
-
-<para>Used by: <command>Mbsetup</command>, <command>Premobl</command>, and <command>Temporal</command></para>
-
-<para>The ungridding matrix is used to produce county-level meteorology data from gridded files.</para>
-
-<comment>add description tables</comment>
-
-</section>
-
 </section>
 
 <section id="sect_intmed_grwinven">
@@ -728,7 +596,7 @@
 
 <para>Type: I/O API NetCDF - adapted gridded format</para>
 
-<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Emisfac</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Smkmerge</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
+<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Smkmerge</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
 
 <table>
 <title>I/O API Header for <envar>AREA_O</envar>, <envar>MOBL_O</envar>, and <envar>PNTS_O</envar></title>
@@ -1067,128 +935,32 @@
 
 </section>
 
-<section id="sect_intmed_mbsetup">
+<section id="sect_intmed_met4moves">
 
-<title><command>Mbsetup</command></title>
+<title><command>Met4moves</command></title>
 
-<para>The <command>Mbsetup</command> program is responsible for creating inputs for the <command>Premobl</command> and <command>Emisfac</command> programs. <command>Mbsetup</command> creates the following intermediate files:</para>
+<para>The <command>Met4moves</command> program is responsible for creating inputs for the MOVES Driver Script and the SMOKE <command>Movesmrg</command> program. <command>Met4moves</command> creates the following intermediate files:</para>
 
 <itemizedlist>
 <listitem>
-<para>Speed summary file: <xref linkend="sect_intmed_spdsum" /></para>
+<para><xref linkend="sect_intmed_moves_output" /></para>
 </listitem>
 <listitem>
-<para>Time period group files: <xref linkend="sect_intmed_time_group" /></para>
+<para><xref linkend="sect_intmed_smoke_output" /></para>
 </listitem>
 </itemizedlist>
 
-<section id="sect_intmed_spdsum">
+<section id="sect_intmed_moves_output">
 
-<title><envar>SPDSUM</envar></title>
+<title><envar>MOVES_OUTFILE</envar></title>
 
 <para>Type: ASCII - column-specific</para>
 
-<para>Used by: <command>Premobl</command> and <command>Emisfac</command></para>
+<para>Used by: MOVES driver script.</para>
+<para>The output file created by <command>Met4moves</command> for use by the MOVES driver script contains the absolute minimum and maximum temperatures and average RH values associated with each reference county.  The scope of these in/max temperatures extends across the selected grid cells in the county group associated with that reference county.  The min/max temperatures determine the MOVES runs that are needed for generating the RPD and RPV emission rates.  The temperature increments listed in the header are used to define the temperature bins used to optimize the MOVES runs. In addition, the output file prepared for the MOVES driver script contains sets of 24 hour diurnal temperature profiles based on combinations of min/max temperature bins for each reference county; these are necessary for the MOVES vapor-venting emissions calculation that is performed for the RPP emissions process.  For a specific reference county and fuel month, the monthly average RH value is identical for all the records.</para>
 
 <table>
-<title>File columns in <envar>SPDSUM</envar></title>
-<tgroup cols="5">
-<colspec colname="Line" colwidth="1*" />
-<colspec colname="Column" colwidth="1*" />
-<colspec colname="Type" colwidth="1*" />
-<colspec colname="Units" colwidth="1*" />
-<colspec colname="Description" colwidth="4*" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Column</entry>
-<entry>Type</entry>
-<entry>Units</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1+</entry>
-<entry>1-6</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>FIPS code</entry>
-</row>
-<row>
-<entry colname="Column">8</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Road class</entry>
-</row>
-<row>
-<entry colname="Column">10-15</entry>
-<entry>Real</entry>
-<entry>MPH</entry>
-<entry>Speed or speed profile number</entry>
-</row>
-<row>
-<entry colname="Column">17-22</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Source number with given FIPS, road class, and speed</entry>
-</row>
-<row>
-<entry colname="Column">24-29</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Source number with given FIPS, road class, and speed</entry>
-</row>
-<row>
-<entry colname="Column">31-36</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Source number with given FIPS, road class, and speed</entry>
-</row>
-<row>
-<entry colname="Column">38-43</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Source number with given FIPS, road class, and speed</entry>
-</row>
-<row>
-<entry colname="Column">45-50</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Source number with given FIPS, road class, and speed</entry>
-</row>
-<row>
-<entry colname="Column">52-57</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Source number with given FIPS, road class, and speed</entry>
-</row>
-<row>
-<entry colname="Column">59-64</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Source number with given FIPS, road class, and speed</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<para>*If line ends with a backward slash (\) then the next line is additional sources with the same FIPS, road class, and speed.</para>
-
-</section>
-
-<section id="sect_intmed_time_group">
-
-<title><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and <envar>EPISODEGROUP</envar></title>
-
-<para>Type: ASCII - list-directed</para>
-
-<para>Used by: <command>Premobl</command> and <command>Emisfac</command></para>
-
-<table>
-<title>File columns in <envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and <envar>EPISODEGROUP</envar></title>
+<title>File columns in <envar>MOVES_OUTFILE</envar></title>
 <tgroup cols="5">
 <colspec colname="Line" colwidth="1*" />
 <colspec colname="Column" colwidth="1*" />
@@ -1210,25 +982,166 @@
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Character</entry>
+<entry>Integer</entry>
 <entry>Unitless</entry>
-<entry>Inventory county</entry>
+<entry>Reference County</entry>
 </row>
 <row>
 <entry colname="Column">B</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>fuelMonth</entry>
+</row>
+<row>
+<entry colname="Column">C</entry>
 <entry>Character</entry>
 <entry>Unitless</entry>
-<entry>Reference county</entry>
+<entry>temperatureProfileID</entry>
+</row>
+<row>
+<entry colname="Column">D</entry>
+<entry>Real</entry>
+<entry>%</entry>
+<entry>RH</entry>
+</row>
+<row>
+<entry colname="Column">E</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Temp1(Min)</entry>
+</row>
+<row>
+<entry colname="Column">F</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Temp2(Max)</entry>
+</row>
+<row>
+<entry colname="Column">G</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Temp3</entry>
+</row>
+<row>
+<entry colname="Column">H</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Temp4</entry>
+</row>
+<row>
+<entry colname="Column">...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Column">AB</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Temp24</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+<section id="sect_intmed_smoke_output">
+
+<title><envar>SMOKE_OUTFILE(=METMOVES)</envar></title>
+
+<para>Type: ASCII - column-specific</para>
+
+<para>Used by: <command>Movesmrg</command> (if RPP_MODE=Y).</para>
+<para>The output file created by <command>Met4moves</command> program for use by the MOVES and SMOKE models contains county-specific min/max temperatures and averaged RH values in local time for every inventory county and daily or monthly averaging period in the modeling inventory.  SMOKE adjusts the native MCIP time zone (GMT) to local time in order to properly use the SMOKE-ready lookup tables, which are given in local time.  This output contains the calendar month (Month), the fuel month (fuelMonth) and Julian date (julianDate) used by SMOKE to generate the hourly gridded, speciated air quality model-ready emissions using SMOKE-ready MOVES lookup tables.  Averaging method could be set to daily or monthly. When it is set to monthly, julianDate column will contain the last Julian date of the averaging month.</para>
+<table>
+<title>File columns in <envar>SMOKE_OUTFILE</envar></title>
+<tgroup cols="5">
+<colspec colname="Line" colwidth="1*" />
+<colspec colname="Column" colwidth="1*" />
+<colspec colname="Type" colwidth="1*" />
+<colspec colname="Units" colwidth="1*" />
+<colspec colname="Description" colwidth="4*" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Column</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Inventory County</entry>
+</row>
+<row>
+<entry colname="Column">B</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>fuelMonth</entry>
 </row>
 <row>
 <entry colname="Column">C</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
-<entry>Local-to-arterial setting for reference county</entry>
+<entry>Month</entry>
+</row>
+<row>
+<entry colname="Column">D</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>julianDate</entry>
+</row>
+<row>
+<entry colname="Column">E</entry>
+<entry>Real</entry>
+<entry>%</entry>
+<entry>RH</entry>
+</row>
+<row>
+<entry colname="Column">F</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Minimum Temperature</entry>
+</row>
+<row>
+<entry colname="Column">G</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Maximum Temperature</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
+</section>
+</section>
+<section id="sect_intmed_movesmrg">
+
+<title><command>Movesmrg</command></title>
+
+<para>The <command>Movesmrg</command> program is responsible for creating model-ready emissions files. <command>Smkmerge</command> creates the following intermediate file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready emissions file: <xref linkend="sect_intmed_mvsmerged" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_mvsmerged">
+
+<title><envar>[M][G][T][S][_S][_L]</envar></title>
+
+<para>Type: ASCII - adapted gridded format</para>
+
+<para>Used by: <command>Mrggrid</command> and <command>Movesmrg</command></para>
+
+<para>These files can be model-ready emissions files from mobile source categories (MOVES).  See <xref linkend="sect_output_egts" /> for format information.</para>
 
 </section>
 
@@ -1605,101 +1518,6 @@
 
 </section>
 
-<section id="sect_intmed_premobl">
-
-<title><command>Premobl</command></title>
-
-<para>The <command>Premobl</command> program is responsible for preprocessing meteorology data for the <command>Emisfac</command> program. <command>Premobl</command> creates the following intermediate files:</para>
-
-<itemizedlist>
-<listitem>
-<para><xref linkend="sect_intmed_hourly_temp" /></para>
-</listitem>
-</itemizedlist>
-
-<section id="sect_intmed_hourly_temp">
-
-<title>Hourly meterology profile files</title>
-
-<para>Type: I/O API NetCDF - adapted gridded format</para>
-
-<para>Used by: <command>Emisfac</command></para>
-
-<table>
-<title>I/O API Header for hourly temperature files</title>
-<tgroup cols="3">
-<colspec colwidth="25*" />
-<colspec colwidth="35*" />
-<colspec colwidth="40*" />
-
-<thead>
-<row>
-<entry>I/O API Header variable</entry>
-<entry>Meaning</entry>
-<entry>Set by...</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>NROWS3D</entry>
-<entry>Number of reference counties for this time period group</entry>
-<entry><envar>DAILYGROUP</envar>, <envar>WEEKLYGROUP</envar>, <envar>MONTHLYGROUP</envar>, and <envar>EPISODEGROUP</envar> files</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<table>
-<title>Variables in hourly meteorology files</title>
-<tgroup cols="4">
-<colspec colwidth="25*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="45*" />
-
-<thead>
-<row>
-<entry>Variable Name</entry>
-<entry>Type</entry>
-<entry>Units</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>COUNTIES</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>FIPS code</entry>
-</row>
-<row>
-<entry>TKCOUNTY</entry>
-<entry>Real</entry>
-<entry>K</entry>
-<entry>Hourly temperature by county</entry>
-</row>
-<row>
-<entry>QVCOUNTY</entry>
-<entry>Real</entry>
-<entry>kg/kg</entry>
-<entry>Hourly water vapor mixing ratio by county</entry>
-</row>
-<row>
-<entry>BPCOUNTY</entry>
-<entry>Real</entry>
-<entry>Pa</entry>
-<entry>Hourly barometric pressure by county</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-</section>
-
 <section id="sect_intmed_rawbio">
 
 <title><command>Rawbio</command></title>
@@ -1835,7 +1653,7 @@
 
 <para>Type: I/O API NetCDF - adapted gridded format</para>
 
-<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Emisfac</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Smkmerge</command>, <command>Smkreport</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
+<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Smkmerge</command>, <command>Smkreport</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
 
 <table>
 <title>I/O API Header for <envar>AREA</envar>, <envar>MOBL</envar>, and <envar>PNTS</envar></title>
@@ -2083,7 +1901,7 @@
 
 <para>Type: ASCII - list-directed</para>
 
-<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Emisfac</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Mbsetup</command>, <command>Premobl</command>, <command>Smkmerge</command>, <command>Smkreport</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
+<para>Used by: <command>Cntlmat</command>, <command>Elevpoint</command>, <command>Grdmat</command>, <command>Grwinven</command>, <command>Laypoint</command>, <command>Smkmerge</command>, <command>Smkreport</command>, <command>Spcmat</command>, and <command>Temporal</command></para>
 
 <table>
 <title>File columns in <envar>ASRC</envar>, <envar>MSRC</envar>, and <envar>PSRC</envar></title>

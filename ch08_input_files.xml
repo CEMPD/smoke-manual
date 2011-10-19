@@ -10,7 +10,7 @@
 
 <para>This chapter contains format information for all input files used by SMOKE. <xref linkend="ch_intermediate_files" /> and <xref linkend="ch_output_files" /> provide documentation on SMOKE&rsquo;s intermediate and output file formats.</para>
 
-In this overview section, we first provide a few important notes about file formats (<xref linkend="sect_input_file_formats" />, and then discuss where to put SMOKE input files (<xref linkend="sect_input_file_locations" />). <xref linkend="sect_input_file_list" /> summarizes all the input files needed by SMOKE, organized by function. <xref linkend="sect_input_nctox_case" /> provides a list, organized by SMOKE program, of all the example input files provided with the nctox test case, which is described in <xref linkend="sect_scripts_nctox_case" />.
+In this overview section, we first provide a few important notes about file formats (<xref linkend="sect_input_file_formats" />, and then discuss where to put SMOKE input files (<xref linkend="sect_input_file_locations" />). <xref linkend="sect_input_file_list" /> summarizes all the input files needed by SMOKE, organized by function.
 
 <para>The remaining sections in this chapter are broken down as follows:</para>
 
@@ -34,7 +34,7 @@ In this overview section, we first provide a few important notes about file form
 <para>Special merging files used by <command>Mrggrid</command> (<xref linkend="sect_input_merging" />)</para>
 </listitem>
 <listitem>
-<para>Meteorology files used by <command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Premobl</command>, and <command>Laypoint</command> (<xref linkend="sect_input_meteorology" />)</para>
+<para>Meteorology files used by <command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Met4moves</command>, and <command>Laypoint</command> (<xref linkend="sect_input_meteorology" />)</para>
 </listitem>
 <listitem>
 <para>Source-specific files for biogenics, mobile, and point source processing (<xref linkend="sect_input_source_specific" />)</para>
@@ -76,9 +76,9 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Where to put SMOKE input files</title>
 
-<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE v2.0 and later, we have reduced the number of places in which you need to keep your raw input files. <xref linkend="sect_input_nctox_case" /> lists the all of the input directories for the files used in the example <quote>nctox</quote> case. In that section, we also define the path names relative to the <filename class="directory"><envar>SMK_HOME</envar></filename> directory, which is the directory in which you install SMOKE (and is different for every installation). In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
+<para>A common difficulty for new users is determining where to put the input files for their case. In SMOKE v2.0 and later, we have reduced the number of places in which you need to keep your raw input files. In <xref linkend="ch_dirs_files" />, we provide diagrams of the SMOKE directory structures, which help in visualizing the tree of directories that SMOKE uses. Additionally, <xref linkend="sect_scripts_how_use_smoke" /> contains instructions for getting set up for new runs, including the files that need to be created and where they should go.</para>
 
-<para>In summary, SMOKE input files must go into a handful of directories (see <xref linkend="sect_input_nctox_case" />). Multiple directories are needed because in some cases (such as speciation profiles and meteorology data), the data are to be shared across multiple runs. In other cases (such as inventory data), the data are specific to a case and should be stored independently to prevent corrupting other modeling runs. To change the directories used for input (or any other) files in SMOKE, you must modify the Assigns file as described in <xref linkend="sect_dirs_change_directory" />.</para>
+<para>In summary, SMOKE input files must go into a handful of directories. Multiple directories are needed because in some cases (such as speciation profiles and meteorology data), the data are to be shared across multiple runs. In other cases (such as inventory data), the data are specific to a case and should be stored independently to prevent corrupting other modeling runs. To change the directories used for input (or any other) files in SMOKE, you must modify the Assigns file as described in <xref linkend="sect_dirs_change_directory" />.</para>
 
 </section>
 
@@ -97,7 +97,7 @@ In this overview section, we first provide a few important notes about file form
 <listitem><xref linkend="tbl_input_merging_files" /></listitem>
 <listitem><xref linkend="tbl_input_meteorology_files" /></listitem>
 <listitem><xref linkend="tbl_input_biogenic_files" /></listitem>
-<listitem><xref linkend="tbl_input_mobile_files" /></listitem>
+<listitem><xref linkend="tbl_input_moves_files" /></listitem>
 <listitem><xref linkend="tbl_input_point_files" /></listitem>
 <listitem><xref linkend="tbl_input_other_files" /></listitem>
 </itemizedlist>
@@ -155,7 +155,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_mbinv"><envar>MBINV</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>M</entry>
-<entry>Mobile source raw inventory in IDA format for nonlink data, SMOKE list format for EMS-95 nonlink and link data, or SMOKE ORL format</entry>
+<entry>Mobile source raw inventory in IDA format for nonlink data, SMOKE list format for EMS-95 nonlink and link data, SMOKE ORL format, or an FF10 activity inventory format</entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
 
@@ -493,7 +493,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_meteorology"><envar>MET_CRO_2D</envar></link></entry>
-<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Premobl</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
+<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Met4moves</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
 <entry>B, M, P</entry>
 <entry>Meteorology 2-D cross-point file</entry>
 <entry><envar>$METDAT</envar></entry>
@@ -501,7 +501,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_meteorology"><envar>MET_CRO_3D</envar></link></entry>
-<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Premobl</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
+<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Met4moves</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
 <entry>B, M, P</entry>
 <entry>Meteorology 3-D cross-point file (optional for biogenics)</entry>
 <entry><envar>$METDAT</envar></entry>
@@ -517,7 +517,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_metlist"><envar>METLIST</envar></link></entry>
-<entry><command>Tmpbio</command>, <command>Premobl</command></entry>
+<entry><command>Tmpbio</command>, <command>Met4moves</command></entry>
 <entry>B, M</entry>
 <entry>Listing of meteorology files</entry>
 <entry><envar>$STATIC</envar></entry>
@@ -594,9 +594,9 @@ In this overview section, we first provide a few important notes about file form
 </tgroup>
 </table>
 
-<table id="tbl_input_mobile_files">
+<table id="tbl_input_moves_files">
 
-<title>Mobile-Specific Input File Locations</title>
+<title>MOVES-Specific Input File Locations</title>
 
 <tgroup cols="5">
 <colspec colwidth="15*" colname="Name" />
@@ -618,80 +618,48 @@ In this overview section, we first provide a few important notes about file form
 <tbody>
 
 <row>
-<entry><link linkend="sect_input_m6list"><envar>M6LIST</envar></link></entry>
-<entry><command>Emisfac</command></entry>
+<entry><link linkend="sect_input_mcxref"><envar>MCXREF</envar></link></entry>
+<entry><command>Movesmrg</command>, <command>Met4moves</command></entry>
 <entry>M</entry>
-<entry>List of MOBILE6 input scenarios</entry>
+<entry>MOVES source county cross-reference</entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
 
 <row>
-<entry><link linkend="sect_input_m6map"><envar>M6MAP</envar></link></entry>
-<entry><command>Emisfac</command></entry>
+<entry><link linkend="sect_input_meproc_moves"><envar>MEPROC</envar></link></entry>
+<entry><command>Movesmrg</command>, <command>Spcmat</command></entry>
 <entry>M</entry>
-<entry>MOBILE6 vehicle type mapping file</entry>
+<entry>Mobile emission processes (e.g., exhaust, evaporative, tire/break wear) with associated activities and pollutants</entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
 
 <row>
-<entry><link linkend="sect_input_mcodes"><envar>MCODES</envar></link></entry>
-<entry><command>Smkinven</command>, <command>Grdmat</command>, <command>Spcmat</command>, <command>Temporal</command></entry>
+<entry><link linkend="sect_input_mfmref"><envar>MFMREF</envar></link></entry>
+<entry><command>Movesmrg</command>, <command>Met4moves</command></entry>
 <entry>M</entry>
-<entry>Mobile vehicle type and road codes</entry>
+<entry>MOVES source fuel month cross-reference</entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
-
 <row>
-<entry><link linkend="sect_input_mcref"><envar>MCREF</envar></link></entry>
-<entry><command>Mbsetup</command></entry>
+<entry><link linkend="sect_input_mrclist"><envar>MRCLIST</envar></link></entry>
+<entry><command>Movesmrg</command></entry>
 <entry>M</entry>
-<entry>Mobile source county cross-reference</entry>
-<entry><envar>$MBDAT</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_meflist"><envar>MEFLIST</envar></link></entry>
-<entry><command>Temporal</command></entry>
-<entry>M</entry>
-<entry>List of emission factor files</entry>
-<entry><envar>$SMK_EMISPATH</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_meproc"><envar>MEPROC</envar></link></entry>
-<entry><command>Emisfac</command>, <command>Spcmat</command>, <command>Temporal</command></entry>
-<entry>M</entry>
-<entry>Mobile emission processes (e.g., exhaust, running loss, refueling) with associated activities and pollutants</entry>
-<entry><envar>$MBDAT</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_mvref"><envar>MVREF</envar></link></entry>
-<entry><command>Mbsetup</command></entry>
-<entry>M</entry>
-<entry>Mobile source county settings file</entry>
+<entry>List of MOVES lookup tables</entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
 
 <row>
 <entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link></entry>
-<entry><command>Emisfac</command></entry>
+<entry><command>Movesmrg</command></entry>
 <entry>M</entry>
-<entry>Hourly speed profiles</entry>
-<entry><envar>$MBDAT</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_spdref"><envar>SPDREF</envar></link></entry>
-<entry><command>Mbsetup</command></entry>
-<entry>M</entry>
-<entry>Hourly speed cross-reference</entry>
+<entry>Weekday/Weekend hourly speed profiles</entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
 
 </tbody>
 </tgroup>
 </table>
+
 
 <table id="tbl_input_point_files">
 
@@ -785,7 +753,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_invtable"><envar>INVTABLE</envar></link></entry>
-<entry><command>Smkinven</command>, <command>Emisfac</command>, <command>Spcmat</command>, <command>Temporal</command>, <command>Smkmerge</command></entry>
+<entry><command>Smkinven</command>, <command>Movesmrg</command>, <command>Spcmat</command>, <command>Temporal</command>, <command>Smkmerge</command></entry>
 <entry>A, M, P</entry>
 <entry>Pollutant and activity names and codes in order of output</entry>
 <entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
@@ -853,1103 +821,6 @@ In this overview section, we first provide a few important notes about file form
 
 </section>
 
-<section id="sect_input_nctox_case">
-
-<title>Input files for SMOKE nctox case</title>
-
-<para>In this section, we summarize the SMOKE input files for the nctox example case provided with SMOKE for processing ozone, PM, and toxics pollutants. You can adapt these tables to keep track of the raw input files needed for your cases, and to help you understand all the files that need to be prepared for input to SMOKE. <xref linkend="sect_scripts_nctox_case" /> is a description of the nctox case in more detail. The documentation in <xref linkend="sect_scripts_how_use_smoke" /> describes which input files need to be changed for adapting the test case scripts to a particular case.</para>
-
-<para>We list the raw SMOKE input files by program, with the programs listed in alphabetical order:</para>
-
-<itemizedlist spacing="compact">
-<listitem><xref linkend="tbl_input_nctox_cntlmat_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_elevpoint_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_emisfac_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_grdmat_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_grwinven_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_laypoint_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_mbsetup_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_mrggrid_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_normbeis3_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_premobl_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_smkinven_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_smkmerge_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_spcmat_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_temporal_files" /></listitem>
-<listitem><xref linkend="tbl_input_nctox_tmpbeis3_files" /></listitem>
-</itemizedlist>
-
-<para>Intermediate files (those output by one program and input to another) are not included in the list, but can be found with the program-specific documentation in <xref linkend="ch_programs" /> and in the intermediate file documentation in <xref linkend="ch_intermediate_files" />. The files that are shared among several programs are listed with each program for which they are used (i.e. listed multiple times), and noted with an asterisk adjacent to the logical file name. The file paths are listed using the path logical names, the definitions for which are available below the tables.</para>
-
-<table id="tbl_input_nctox_cntlmat_files">
-
-<title><command>Cntlmat</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>GCNTL</envar>: growth and/or control instructions</entry>
-<entry>
-<simplelist>
-<member>A (stationary)</member>
-<member>A (nonroad)</member>
-<member>M (on-road)</member>
-<member>P</member>
-</simplelist>
-</entry>
-<entry>
-<simplelist>
-<member><envar>$ARDAT</envar></member>
-<member><envar>$NRDAT</envar></member>
-<member><envar>$MBDAT</envar></member>
-<member><envar>$PTDAT</envar></member>
-</simplelist>
-</entry>
-<entry>
-<simplelist>
-<member><filename>gcntl.2001_2018.txt</filename></member>
-<member><filename>gcntl.1999_2018.txt</filename></member>
-<member><filename>gcntl.1999_2018.txt</filename></member>
-<member><filename>gcntl.2001_2018.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_elevpoint_files">
-
-<title><command>Elevpoint</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>GRIDDESC</filename></entry>
-</row>
-
-<row>
-<entry><envar>PELVCONFIG</envar>: elevated source selection instructions</entry>
-<entry>P</entry>
-<entry><envar>$PTDAT</envar></entry>
-<entry><filename>pelvconfig.top50.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>PTMPLIST</envar>: optional list of <envar>PTMP</envar> SMOKE intermediate files for selecting elevated point sources based on emissions</entry>
-<entry>P</entry>
-<entry><envar>$PTDAT</envar></entry>
-<entry><filename>ptmplist.txt</filename> (generated automatically by run script)</entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_emisfac_files">
-
-<title><command>Emisfac</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>INVTABLE</envar>*: inventory table</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry><filename>invtable_onroad.cb4.010804.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>M6LIST</envar>: List of MOBILE6 scenario files with path</entry>
-<entry>M</entry>
-<entry><envar>$MBDAT</envar></entry>
-<entry><filename>m6list.nctox.1999.txt</filename> (generated automatically by run script)</entry>
-</row>
-
-<row>
-<entry><envar>MEPROC</envar>*: mobile processes</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile</filename></entry>
-<entry><filename>meproc.txt</filename></entry>
-</row>
-
-<row>
-<entry>Required MOBILE6 input files. (Note that there are other MOBILE6 input files that are needed if you use certain settings in the <envar>M6LIST</envar> file).</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$SMK_M6PATH</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>ASMDATA.D</filename></member>
-<member><filename>HAP_BASE.CSV</filename></member>
-<member><filename>PMDDR1.CSV</filename></member>
-<member><filename>PMDDR2.CSV</filename></member>
-<member><filename>PMDZML.CSV</filename></member>
-<member><filename>PMGDR1.CSV</filename></member>
-<member><filename>PMGDR2.CSV</filename></member>
-<member><filename>PMGZML.CSV</filename></member>
-<member><filename>PMNH3BER.D</filename></member>
-<member><filename>PMNH3SDR.D</filename></member>
-<member><filename>SMOKE_flat_hr_vmt.def</filename></member>
-<member><filename>TECH12.D</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_grdmat_files">
-
-<title><command>Grdmat</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry>Area gridding surrogates</entry>
-<entry>A</entry>
-<entry><filename class="directory"><envar>$SRGPRO_PATH</envar>/</filename></entry>
-<entry><filename>Multiple surrogate files</filename></entry>
-</row>
-
-<row>
-<entry><envar>AGREF</envar>: gridding cross-reference</entry>
-<entry>A</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amgref_us_051704.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>GRIDDESC</filename></entry>
-</row>
-
-<row>
-<entry><envar>MCODES</envar>*: mobile code definitions</entry>
-<entry>M</entry>
-<entry><envar>$MBDAT</envar></entry>
-<entry><filename>mcodes.txt</filename></entry>
-</row>
-
-<row>
-<entry>Mobile gridding surrogates</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$SRGPRO_PATH</envar>/</filename></entry>
-<entry><filename>Multiple surrogate files</filename></entry>
-</row>
-
-<row>
-<entry><envar>MGREF</envar>: gridding cross-reference</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amgref_us_051704.txt</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_grwinven_files">
-
-<title><command>Grwinven</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>COSTCY</envar>*: country, state, and county names</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>costcy.txt</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_laypoint_files">
-
-<title><command>Laypoint</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>GRID_CRO_3D</envar>: 3-d cross-point grid data</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry><filename>GRIDCRO3D</filename></entry>
-</row>
-
-<row>
-<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>GRIDDESC</filename></entry>
-</row>
-
-<row>
-<entry><envar>MET_CRO_2D</envar>*: 2-d cross-point meteorology data</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>METCRO2D_2001191</filename></member>
-<member><filename>METCRO2D_2001192</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry><envar>MET_CRO_3D</envar>*: 3-d cross-point grid data</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>METCRO3D_2001191</filename></member>
-<member><filename>METCRO3D_2001192</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry><envar>MET_DOT_3D</envar>: 3-d dot-point grid data (for winds)</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>METDOT3D_2001191</filename></member>
-<member><filename>METDOT3D_2001192</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_mbsetup_files">
-
-<title><command>Mbsetup</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>MCREF</envar>: county cross-reference</entry>
-<entry>M</entry>
-<entry><envar>$MBDAT</envar></entry>
-<entry><filename>mcref.nctox.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>MVREF</envar>: county meteorology group settings</entry>
-<entry>M</entry>
-<entry><envar>$MBDAT</envar></entry>
-<entry><filename>mvref.nctox.txt</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_mrggrid_files">
-
-<title><command>Mrggrid</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>FILELIST</envar>: list of logical file names to merge</entry>
-<entry>All</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry><filename>filelist.mrggrid.txt</filename> (generated automatically by run script)</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_normbeis3_files">
-
-<title><command>Normbeis3</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>B3FAC</envar>: BEIS3 emissions factors</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>b3fac.beis3_efac_v0.98.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>BELD3_A</envar>: File A of biogenic gridded landuse</entry>
-<entry>B</entry>
-<entry><envar>$BGDAT</envar></entry>
-<entry><filename>beld3.US12NC_66X52.output_a.ncf</filename></entry>
-</row>
-
-<row>
-<entry><envar>BELD3_B</envar>: File B of biogenic gridded landuse</entry>
-<entry>B</entry>
-<entry><envar>$BGDAT</envar></entry>
-<entry><filename>beld3.US12NC_66X52.output_b.ncf</filename></entry>
-</row>
-
-<row>
-<entry><envar>BELD3_TOT</envar>: Landuse totals</entry>
-<entry>B</entry>
-<entry><envar>$BGDAT</envar></entry>
-<entry><filename>beld3.US12NC_66X52.output_tot.ncf</filename></entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_premobl_files">
-
-<title><command>Premobl</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>METLIST</envar>: meteorology file list</entry>
-<entry>M</entry>
-<entry><envar>$MBDAT</envar></entry>
-<entry><filename>metlist.premobl.txt</filename> (This list will include the paths of the <envar>METCOMBO</envar> meteorology files for the entire modeling episode and is generated automatically by the run script.)</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_smkinven_files">
-
-<title><command>Smkinven</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>ARINV</envar> (area): stationary area/nonpoint inventory (or list of inventories)</entry>
-<entry>A</entry>
-<entry><envar>$ARDAT</envar></entry>
-<entry><filename>arinv.stationary.lst</filename></entry>
-</row>
-
-<row>
-<entry><envar>ARINV</envar> (nonroad): nonroad inventory (or list of inventories)</entry>
-<entry>A</entry>
-<entry><envar>$NRDAT</envar></entry>
-<entry><filename>arinv.nonroad.lst</filename></entry>
-</row>
-
-<row>
-<entry><envar>ARTOPNT</envar>: area-to-point assignments</entry>
-<entry>A</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry><filename>ar2pt_14OCT03_1999.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>COSTCY</envar>*: time zones by county</entry>
-<entry>All</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>costcy.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>INVTABLE</envar>*: inventory table</entry>
-<entry>
-<simplelist>
-<member>A, P</member>
-<member>M</member>
-</simplelist>
-</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry><envar>MBINV</envar>: on-road mobile inventory (or list of inventories)</entry>
-<entry>M</entry>
-<entry><envar>$MBDAT</envar></entry>
-<entry><filename>mbinv.lst</filename></entry>
-</row>
-
-<row>
-<entry><envar>MCODES</envar>*: mobile code definitions</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry><filename>mcodes.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>NHAPEXCLUDE</envar>: exclusions from NONHAP calculation</entry>
-<entry>
-<simplelist>
-<member>A (nonroad), M</member>
-<member>A (stationary), P</member>
-</simplelist>
-</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>nhapexclude.1999.txt</filename></member>
-<member><filename>nhapexclude.all.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry><envar>ORISDESC</envar>: ORIS ID descriptions</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>oris_info.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>PTINV</envar>: point source inventory (or list of inventories)</entry>
-<entry>P</entry>
-<entry><envar>$PTDAT</envar></entry>
-<entry><filename>ptinv.lst</filename></entry>
-</row>
-
-<row>
-<entry><envar>PSTK</envar>: replacements for invalid stack parameters</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>pstk.m3.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>SCCDESC</envar>: SCC descriptions</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>scc_desc.txt</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_smkmerge_files">
-
-<title><command>Smkmerge</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>BGPRO</envar>: spatial surrogates with land-area surrogate</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>bgpro.12km_041604.nc.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>GRIDDESC</envar>*: grid descriptions</entry>
-<entry>All</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>GRIDDESC</filename></entry>
-</row>
-
-<row>
-<entry><envar>INVTABLE</envar>*: inventory table</entry>
-<entry>
-<simplelist>
-<member>A, P</member>
-<member>M</member>
-</simplelist>
-</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_spcmat_files">
-
-<title><command>Spcmat</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>GSCNV</envar>: pollutant-to-pollutant conversion</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>gscnv.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>GSPRO</envar>*: speciation profiles</entry>
-<entry>
-<simplelist>
-<member>M</member>
-<member>A, P</member>
-</simplelist>
-</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>gspro.cmaq.cb4p25_wtox.m.txt</filename></member>
-<member><filename>gspro.cmaq.cb4p25_wtox.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry><envar>GSREF</envar>: speciation cross-reference</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>gsref.cmaq.cb4p25_wtox.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>INVTABLE</envar>*: inventory table</entry>
-<entry>
-<simplelist>
-<member>A, P</member>
-<member>M</member>
-</simplelist>
-</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry><envar>MCODES</envar>*: mobile code definitions</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry><filename>mcodes.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>MEPROC</envar>*: mobile processes</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry><filename>meproc.txt</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_temporal_files">
-
-<title><command>Temporal</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>ATPRO</envar>: Temporal profiles</entry>
-<entry>A</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amptpro.m3.us+can.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>ATREF</envar>: Temporal cross-reference</entry>
-<entry>A</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amptref.m3.us+can.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>COSTCY</envar>*: Daylight time exemptions</entry>
-<entry>All</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>costcy.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>HOLIDAYS</envar>: Holidays date list</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>holidays.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>PROCDATES</envar>: Specifc dates to process</entry>
-<entry>A, M, P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>procdates.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>INVTABLE</envar>*: inventory table</entry>
-<entry>
-<simplelist>
-<member>A, P</member>
-<member>M</member>
-</simplelist>
-</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
-<entry>
-<simplelist>
-<member><filename>invtable_nonroad.cb4.120202.txt</filename></member>
-<member><filename>invtable_onroad.cb4.010804.txt</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry><envar>MCODES</envar>*: mobile code definitions</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry><filename>mcodes.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>MEFLIST</envar>: list of emission factors files</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$SMK_EMISPATH</envar>/</filename></entry>
-<entry><filename>meflist.txt</filename> (generated automatically by run script)</entry>
-</row>
-
-<row>
-<entry><envar>MEPROC</envar>*: mobile processes</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$INVDIR</envar>/mobile/</filename></entry>
-<entry><filename>meproc.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>MTPRO</envar>: Temporal profiles</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amptpro.m3.us+can.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>MTREF</envar>: Temporal cross-reference</entry>
-<entry>M</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amptref.m3.us+can.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>PTPRO</envar>: Temporal profiles</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amptpro.m3.us+can.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>PTREF</envar>: Temporal cross-reference</entry>
-<entry>P</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>amptref.m3.us+can.txt</filename></entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<table id="tbl_input_nctox_tmpbeis3_files">
-
-<title><command>Tmpbeis3</command> input files for nctox case</title>
-
-<tgroup cols="4">
-<colspec colwidth="30*" colname="Logical" />
-<colspec colwidth="15*" colname="Source" />
-<colspec colwidth="25*" colname="Path" />
-<colspec colwidth="30*" colname="Physical" />
-
-<thead>
-<row>
-<entry>Logical file name and description</entry>
-<entry>Source category</entry>
-<entry>Path</entry>
-<entry>Physical file name</entry>
-</row>
-</thead>
-
-<tbody>
-
-<row>
-<entry><envar>GRID_CRO_2D</envar>: 2-d cross-point grid data </entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$METDAT</envar>/</filename></entry>
-<entry><envar>GRIDCRO2D</envar></entry>
-</row>
-
-<row>
-<entry><envar>GSPRO</envar>*: Speciation profiles</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$GE_DAT</envar>/</filename></entry>
-<entry><filename>gspro.cmaq.cb4p25.txt</filename></entry>
-</row>
-
-<row>
-<entry><envar>MET_FILE1</envar>: Meteorology file containing temperature and radiation data</entry>
-<entry>B</entry>
-<entry><filename class="directory"><envar>$METDAT</envar></filename></entry>
-<entry>
-<simplelist>
-<member><filename>METCRO2D_2001191</filename></member>
-<member><filename>METCRO2D_2001192</filename></member>
-</simplelist>
-</entry>
-</row>
-
-<row>
-<entry namest="Logical" nameend="Physical">* This file is used by more than one program.</entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
-
-<para>There are several directories that contain the raw SMOKE inputs. These are:</para>
-
-<itemizedlist>
-<listitem>
-<para><envar>$ARDAT</envar>: Raw area inputs</para>
-</listitem>
-<listitem>
-<para><envar>$BGDAT</envar>: Raw biogenic inputs</para>
-</listitem>
-<listitem>
-<para><envar>$MBDAT</envar>: Raw on-road mobile inputs</para>
-</listitem>
-<listitem>
-<para><envar>$NRDAT</envar>: Raw nonroad mobile inputs (these can alternatively be included in the area directory)</para>
-</listitem>
-<listitem>
-<para><envar>$PTDAT</envar>: Raw point inputs</para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$INVDIR</envar>/other</filename>: Other raw inputs not associated with a specific source category</para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$GE_DAT</envar></filename>: Shared data</para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$SMK_M6PATH</envar></filename>: Raw MOBILE6 input files</para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$SMK_EMISPATH</envar></filename>: Emission factor inputs (the single file that is considered a raw input file is actually prepared by the SMOKE scripts, when these are being used).</para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$METDAT</envar></filename>: Meteorology data (this can be linked to a meteorology directory that is also used by the air quality model).</para>
-</listitem>
-</itemizedlist>
-
-<para>All of these directories are based on the <filename class="directory"><envar>$SMKDAT</envar></filename> directory, which is set by the Assigns file as <filename class="directory"><envar>$SMK_HOME</envar>/data</filename>. The <envar>SMK_HOME</envar> environment variable should be set as part of the SMOKE installation process, as described in <xref linkend="sect_install_install" />.</para>
-
-<para>For the nctox case, these directories (based on your <envar>SMK_HOME</envar> setting) are as follows:</para>
-
-<itemizedlist>
-<listitem>
-<para><filename class="directory"><envar>$SMKDAT</envar></filename>: <filename class="directory"><envar>$SMK_HOME</envar>/data</filename></para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$INVDIR</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/inventory/nctox</filename></para>
-  <itemizedlist>
-  <listitem>
-  <para><filename class="directory"><envar>$ARDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/area</filename></para>
-  </listitem>
-  <listitem>
-  <para><filename class="directory"><envar>$BGDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/biog</filename></para>
-  </listitem>
-  <listitem>
-  <para><filename class="directory"><envar>$MBDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/mobile</filename></para>
-  </listitem>
-  <listitem>
-  <para><filename class="directory"><envar>$NRDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/nonroad</filename></para>
-  </listitem>
-  <listitem>
-  <para><filename class="directory"><envar>$PTDAT</envar></filename>: <filename class="directory"><envar>$INVDIR</envar>/point</filename></para>
-  </listitem>
-  </itemizedlist>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$GE_DAT</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/ge_dat</filename></para>
-</listitem>
-<listitem>
-<para><filename class="direcory"><envar>$SMK_M6PATH</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/run_nctox/static/m6</filename></para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$SMK_EMISPATH</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/run_nctox/static/m6emfac</filename></para>
-</listitem>
-<listitem>
-<para><filename class="directory"><envar>$METDAT</envar></filename>: <filename class="directory"><envar>$SMKDAT</envar>/met/run_12km</filename></para>
-</listitem>
-</itemizedlist>
-
-</section>
-
 </section>
 
 <section id="sect_input_inventory">
@@ -1987,6 +858,7 @@ In this overview section, we first provide a few important notes about file form
 <listitem>#EMS-95 indicates that the file is in EMS-95 format</listitem>
 <listitem>#IDA indicates that the file is in IDA format</listitem>
 <listitem>#LIST indicates that the file is a list file</listitem>
+<listitem>#FF10 indicates that the file is in FF10 (Flat File 10) format for day-specific fires sources</listitem>
 <listitem>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
 <listitem>#ORL NONPOINT indicates that the file is in ORL format for nonpoint sources</listitem>
 <listitem>#ORL FIRE indicates that the file is in ORL format for fires sources</listitem>
@@ -2034,9 +906,9 @@ In this overview section, we first provide a few important notes about file form
 <title>Inventory header commands for IDA and ORL formats</title>
 
 <tgroup cols="3">
-<colspec colwidth="25*" />
+<colspec colwidth="35*" />
 <colspec colwidth="22*" />
-<colspec colwidth="53*" />
+<colspec colwidth="43*" />
 
 <thead>
 <row>
@@ -2051,6 +923,11 @@ In this overview section, we first provide a few important notes about file form
 <entry>
 <simplelist>
 <member>#IDA</member>
+<member>#FF10_ACTIVITY</member>
+<member>#FF10_NONPOINT</member>
+<member>#FF10_NONROAD</member>
+<member>#FF10_POINT</member>
+<member>#FF10_[NONPOINT|POINT]_[HOURLY|DAILY]</member>
 <member>#ORL</member>
 <member>#ORL NONPOINT</member>
 <member>#ORL FIRE</member>
@@ -2119,7 +996,7 @@ INVYEAR 1996
 
 <title><envar>ARINV</envar>: Area-source annual or average-day emissions</title>
 
-<para>The <envar>ARINV</envar> file is the input area source inventory file for annual or average-day data. This file can be in IDA, EMS-95, or ORL format.</para>
+<para>The <envar>ARINV</envar> file is the input area source inventory file for annual or average-day data. This file can be in IDA, EMS-95, ORL, or FF10 format.</para>
 
 <section>
 
@@ -2362,9 +1239,274 @@ INVYEAR 1996
 
 <section>
 
+<title>FF10 Formats</title>
+
+<para>This FF10 format supports both area nonpoint, nonroad and onroad mobile sources and shares the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for nonpoint sources are shown below:</para>
+
+<programlisting>#FORMAT=FF10_NONPOINT
+#COUNTRY=US
+#YEAR=2005
+#DESC     Nonpoint Source Inventory
+#DESC     FF10 Nonpont format</programlisting>
+
+<para>Sample header records for nonroad mobile sources:</para>
+
+<programlisting>#FORMAT=FF10_NONROAD
+#COUNTRY  US
+#YEAR     2005
+#DESC     Nonroad Source Inventory
+#DESC     FF10 Nonroad format</programlisting>
+
+<para>Sample header records for onroad mobile sources:</para>
+
+<programlisting>#FORMAT=FF10_ONROAD
+#COUNTRY  US
+#YEAR     2005
+#DESC     Onroad Mobile Source Inventory
+#DESC     FF10 Onroad format</programlisting>
+
+<section>
+
+<title>FF10 format</title>
+
+<para>The FF10 format for area nonpoint, nonroad and onroad mobiles sources is list-directed and shown in <xref linkend="tbl_input_arinv_mbinv_ff10" />.</para>
+
+<table id="tbl_input_arinv_mbinv_ff10">
+<title>FF10 Format for <envar>ARINV</envar> and <envar>MBINV</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+
+<row>
+<entry>A</entry>
+<entry>COUNTRY</entry>
+<entry>Char(2)</entry>
+<entry>Y</entry>
+<entry>Two-digit country code; default to "US"</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>FIPS</entry>
+<entry>Char(5)</entry>
+<entry>Y</entry>
+<entry>Five-digit FIPS code for state and county</entry>
+</row>
+<row>
+<entry>C</entry>
+<entry>TRIBAL CODE</entry>
+<entry>Char(3)</entry>
+<entry>N</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>D</entry>
+<entry>CENSUS_TRACT</entry>
+<entry>Char(20)</entry>
+<entry>N</entry>
+<entry>Not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>E</entry>
+<entry>SHAPE_ID</entry>
+<entry>Char(20)</entry>
+<entry>N</entry>
+<entry>Not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>F</entry>
+<entry>SCC</entry>
+<entry>Char(10)</entry>
+<entry>Y</entry>
+<entry>SCC</entry>
+</row>
+<row>
+<entry>G</entry>
+<entry>EMIS_TYPE</entry>
+<entry>Char(3)</entry>
+<entry>N</entry>
+<entry>Emissions type; Not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>H</entry>
+<entry>POLL</entry>
+<entry>Char(16)</entry>
+<entry>Y</entry>
+<entry>Pollutant Code</entry>
+</row>
+<row>
+<entry>I</entry>
+<entry>ANN_VALUE</entry>
+<entry>Real</entry>
+<entry>Y</entry>
+<entry>Annual emissions (tons/year)</entry>
+</row>
+<row>
+<entry>J</entry>
+<entry>ANN_PCT_RED</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>Percentage Control Measure Reduction Efficiency</entry>
+</row>
+<row>
+<entry>K</entry>
+<entry>CONTROL_IDS</entry>
+<entry>Char(100)</entry>
+<entry>N</entry>
+<entry>Control Measure Code</entry>
+</row>
+<row>
+<entry>L</entry>
+<entry>CONTROL_MEASURES</entry>
+<entry>Char(100)</entry>
+<entry>N</entry>
+<entry>N/A</entry>
+</row>
+<row>
+<entry>M</entry>
+<entry>CONTROL_COST</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>N/A</entry>
+</row>
+<row>
+<entry>N</entry>
+<entry>CURRENT_COST</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>N/A</entry>
+</row>
+<row>
+<entry>O</entry>
+<entry>CUMULATIVE_COST</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>N/A</entry>
+</row>
+<row>
+<entry>P</entry>
+<entry>PROJECTION_FACTOR</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>N/A</entry>
+</row>
+<row>
+<entry>Q</entry>
+<entry>REG_CODES</entry>
+<entry>Char(100)</entry>
+<entry>N</entry>
+<entry>Regulatory Code</entry>
+</row>
+<row>
+<entry>R</entry>
+<entry>CALC_METHOD</entry>
+<entry>Char(3)</entry>
+<entry>N</entry>
+<entry>Emission Calculation Method Code</entry>
+</row>
+<row>
+<entry>S</entry>
+<entry>CALC_YEAR</entry>
+<entry>Int</entry>
+<entry>N</entry>
+<entry>Emission Calculation Data Year</entry>
+</row>
+<row>
+<entry>T</entry>
+<entry>DATE_UPDATED</entry>
+<entry>Char(8)</entry>
+<entry>N</entry>
+<entry>Last time updated date in format of YYYYMMDD</entry>
+</row>
+<row>
+<entry>U</entry>
+<entry>DATA_SET_ID</entry>
+<entry>Int</entry>
+<entry>N</entry>
+<entry>Data set identifier</entry>
+</row>
+<row>
+<entry>V</entry>
+<entry>JAN_VALUE</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>Filled in only if data were provided for January in unit of tons/month</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>GG</entry>
+<entry>DEC_VALUE</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>Filled in only if data were provided for December in unit of tons/month</entry>
+</row>
+<row>
+<entry>HH</entry>
+<entry>JAN_PCTRED</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>SS</entry>
+<entry>DEC_PCTRED</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>TT</entry>
+<entry>COMMENT</entry>
+<entry>Char</entry>
+<entry>N</entry>
+<entry>Optional; not currently used by SMOKE</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
+<section>
+
 <title>ORL Formats</title>
 
 <para>Because area sources encompass both nonpoint and nonroad mobile sources, two different ORL formats are available depending on source type. Both formats use the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for nonpoint sources are shown below:</para>
+
+<section>
+
+<title>ORL Nonpoint Format</title>
+
+<para>The ORL nonpoint format is list-directed and shown in <xref linkend="tbl_input_arinv_orl_nonpoint" />.</para>
 
 <programlisting>#ORL NONPOINT
 #TYPE     Nonpoint Source Toxics Inventory
@@ -2372,19 +1514,6 @@ INVYEAR 1996
 #YEAR     1999
 #DESC     Draft 1999 version 2.0</programlisting>
 
-<para>Sample header records for nonroad sources:</para>
-
-<programlisting>#ORL
-#TYPE     Nonroad Source Toxics Inventory
-#COUNTRY  US
-#YEAR     1999
-#DESC     Draft 1999 version 2.0</programlisting>
-
-<section>
-
-<title>ORL Nonpoint Format</title>
-
-<para>The ORL nonpoint format is list-directed and shown in <xref linkend="tbl_input_arinv_orl_nonpoint" />.</para>
 
 <table id="tbl_input_arinv_orl_nonpoint">
 <title>ORL Nonpoint Format for <envar>ARINV</envar></title>
@@ -2641,11 +1770,21 @@ INVYEAR 1996
 
 </section>
 
+<para>Sample header records for nonroad sources:</para>
+
 <section>
 
 <title>ORL Nonroad Format</title>
 
 <para>The ORL nonroad format is list-directed and shown in <xref linkend="tbl_input_arinv_orl_nonroad" />.</para>
+
+<programlisting>#ORL
+#TYPE     Nonroad Source Toxics Inventory
+#COUNTRY  US
+#YEAR     1999
+#DESC     Draft 1999 version 2.0</programlisting>
+
+
 
 <table id="tbl_input_arinv_orl_nonroad">
 <title>ORL Nonroad Format for <envar>ARINV</envar></title>
@@ -3627,6 +2766,165 @@ INVYEAR 1996
 
 </section>
 
+<section>
+
+<title>FF10 Activity Inventory Format</title>
+
+<para>The FF10 format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
+
+<programlisting>#FF10
+#FORMAT   FF10_Activity
+#COUNTRY  US
+#YEAR     2008
+</programlisting>
+
+<para>The format for the data records is shown in <xref linkend="tbl_input_mbinv_ff10_activity" />.</para>
+
+<table id="tbl_input_mbinv_ff10_activity">
+<title>FF10 Format for <envar>MBINV</envar></title>
+
+<tgroup cols="5">
+<colspec colwidth="8*" colname="Position" />
+<colspec colwidth="25*" colname="Name" />
+<colspec colwidth="8*" colname="Type" />
+<colspec colwidth="8*" colname="Required" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Required?</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>COUNTRY</entry>
+<entry>Char(2)</entry>
+<entry>Y</entry>
+<entry>Two-digit country code; default to "US"</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>FIPS</entry>
+<entry>Char(5)</entry>
+<entry>Y</entry>
+<entry>Five-digit FIPS code for state and county</entry>
+</row>
+<row>
+<entry>C</entry>
+<entry>TRIBAL CODE</entry>
+<entry>Char(3)</entry>
+<entry>N</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>D</entry>
+<entry>CENSUS_TRACT</entry>
+<entry>Char(20)</entry>
+<entry>N</entry>
+<entry>Not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>E</entry>
+<entry>SHAPE_ID</entry>
+<entry>Char(20)</entry>
+<entry>N</entry>
+<entry>Not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>F</entry>
+<entry>SCC</entry>
+<entry>Char(10)</entry>
+<entry>Y</entry>
+<entry>SCC</entry>
+</row>
+<row>
+<entry>G</entry>
+<entry>ACT_PARM_TYPE</entry>
+<entry>Char(10)</entry>
+<entry>N</entry>
+<entry>Not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>H</entry>
+<entry>ACT_PARM_UOFMSR</entry>
+<entry>Char(20)</entry>
+<entry>N</entry>
+<entry></entry>
+</row>
+<row>
+<entry>I</entry>
+<entry>ACTIVITY_TYPE</entry>
+<entry>Char(16)</entry>
+<entry>Y</entry>
+<entry>Activity variable names are VMT, VPOP, and SPEED</entry>
+</row>
+<row>
+<entry>J</entry>
+<entry>ANN_PARM_VALUE</entry>
+<entry>Real</entry>
+<entry>Y</entry>
+<entry>Annual activity values in unit of miles/yr for annual VMT and miles/hr for SPEED</entry>
+</row>
+<row>
+<entry>K</entry>
+<entry>CALC_YEAR</entry>
+<entry>Int</entry>
+<entry>N</entry>
+<entry>Year of inventory</entry>
+</row>
+<row>
+<entry>L</entry>
+<entry>DATE_UPDATED</entry>
+<entry>Char(8)</entry>
+<entry>N</entry>
+<entry>Updated Date in fomrat of YYYYMMDD</entry>
+</row>
+<row>
+<entry>M</entry>
+<entry>DATA_SET_ID</entry>
+<entry>Int</entry>
+<entry>N</entry>
+<entry>Not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>N</entry>
+<entry>JAN_VALUE</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>Filled in only if data were provided for January in unit of miles/month for VMT and miles/hr for SPEED</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Y</entry>
+<entry>DEC_VALUE</entry>
+<entry>Real</entry>
+<entry>N</entry>
+<entry>>Filled in only if data were provided for December in unit of miles/month for VMT and miles/hr for SPEED</entry>
+</row>
+<row>
+<entry>Z</entry>
+<entry>COMMENT</entry>
+<entry>Char</entry>
+<entry>N</entry>
+<entry>Optional; not currently used by SMOKE</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
 </section>
 
 <section id="sect_input_ptday">
@@ -6455,7 +5753,7 @@ INVYEAR 1995
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Six digit Run lenght (HHMMSS) (required)</entry>
+<entry>Six digit Run length (HHMMSS) (required)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -6476,7 +5774,7 @@ INVYEAR 1995
 
 <itemizedlist>
 <listitem>
-<para>The <ulink url="http://www.cep.unc.edu/empd/projects/mims/spatial/">MIMS Spatial Allocator</ulink> can create surrogates and prepare BELD3 inputs files for any modeling grid.</para>
+<para>The MIMS Spatial Allocator can create surrogates and prepare BELD3 inputs files for any modeling grid.</para>
 </listitem>
 
 <listitem>
@@ -6789,32 +6087,11 @@ INVYEAR 1995
 
 <title><envar>BELD3_A</envar>, <envar>BELD3_B</envar>, <envar>BELD3_TOT</envar>: BELD3 land use data files</title>
 
-<para><envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> files are I/O API netCDF files that contain gridded BELD3 data. The BELD3 data comprise 230 land use types. Because the I/O API limit on the number of variables in one netCDF file is 120, the gridded BELD3 data is broken up into two files (<envar>BELD_A</envar> and <envar>BELD_B</envar>). The <envar>BELD_TOT</envar> file contains additional information on the BELD3 data for the same grid as the <envar>BELD3_A</envar> and <envar>BELD3_B</envar> files. For a list of the BELD3 land use types, look in the <envar>B3XRF</envar> (<xref linkend="sect_input_b3xrf" />) or <envar>B3FAC</envar> (<xref linkend="sect_input_b3fac" />) file. The <envar>BELD3_TOT</envar> file contains the following variables and descriptions:</para>
+<para><envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> files are I/O API netCDF files that contain gridded BELD3 data. The BELD3 data comprise 230 land use types. Because the I/O API limit on the number of variables in one netCDF file is 120, the gridded BELD3 data is broken up into two files (<envar>BELD_A</envar> and <envar>BELD_B</envar>). The <envar>BELD_TOT</envar> file contains additional information on the BELD3 data for the same grid as the <envar>BELD3_A</envar> and <envar>BELD3_B</envar> files. For a list of the BELD3 land use types, look in the <envar>B3XRF</envar> (<xref linkend="sect_input_b3xrf" />) or <envar>B3FAC</envar> (<xref linkend="sect_input_b3fac" />) file. The <envar>BELD3_TOT</envar> file contains the following variable and description:</para>
 
 <itemizedlist>
 <listitem>
-<para>FIPCODE: Dominant FIPS code for each grid cell</para>
-</listitem>
-<listitem>
-<para>URW_FLAG: Flag to indicate if grid cells are predominantly urban, rural, or water</para>
-</listitem>
-<listitem>
-<para>USGS_TYPE: Dominant USGS land type for each grid cell</para>
-</listitem>
-<listitem>
-<para>USGS_TOTAL: Percentage of USGS area in each grid cell</para>
-</listitem>
-<listitem>
 <para>FOREST: Percentage of forest area in each grid cell</para>
-</listitem>
-<listitem>
-<para>AGRICULTURE: Percentage of agricultural area in each grid cell</para>
-</listitem>
-<listitem>
-<para>TOTAL_AREA: Percentage of total area in each grid cell</para>
-</listitem>
-<listitem>
-<para>LAND: Percentage of total land area in each grid cell</para>
 </listitem>
 </itemizedlist>
 
@@ -7024,7 +6301,7 @@ INVYEAR 1995
 
 <para>The <envar>GSCNV</envar> file is not needed if there is no mismatch between the inventory and the pollutants in the speciation profiles file. The <command>Spcmat</command> program will input and use this file only when the <envar>POLLUTANT_CONVERSION</envar> environment variable is set to Y. </para>
 
-<para>If emissions types (emission process/pollutant combinations) are being used, as with mobile source processing using the <command>Emisfac</command> program (see <xref linkend="sect_concepts_emission_processes" />), the emission type must be listed instead of the pollutant. For example, if exhaust running VOC emissions were being converted to exhaust TOG, then EXR__VOC  and EXR__TOG would need to appear in their respective columns on the header line (line 1 in the "old" format below or in the first and second columns in the "new" format). It would not be correct to put only VOC and TOG. All emission types must be listed, or the conversion factor that will be applied is 1. This approach permits conversion factors that are specific to each emission process (e.g., different conversions for EXR and EXS).</para>
+<para>If emissions types (emission process/pollutant combinations) are being used, as with mobile source processing using the <command>Movesmrg</command> program (see <xref linkend="sect_concepts_moves_emission_processes" />), the emission type must be listed instead of the pollutant. For example, if exhaust running VOC emissions were being converted to exhaust TOG, then EXR__VOC  and EXR__TOG would need to appear in their respective columns on the header line (line 1 in the "old" format below or in the first and second columns in the "new" format). It would not be correct to put only VOC and TOG. All emission types must be listed, or the conversion factor that will be applied is 1. This approach permits conversion factors that are specific to each emission process (e.g., different conversions for EXR and EXS).</para>
 
 <para>The "old" format of the <envar>GSCNV</envar> file for FIPS/SCC assignments is shown in <xref linkend="tbl_input_gscnv" />.</para>
 
@@ -7329,7 +6606,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title>Area- and mobile-source speciation cross-reference file entries</title>
 
-<para>When emission type are used (as with mobile source processing using the <command>Emisfac</command> program), column C must contain the emission types instead of the pollutants. For example, if the <envar>MEPROC</envar> file contained processes EXR (exhaust running), EVR (evaporative running), and RFL (refueling), then in order to use pollutant-specific entries in the <envar>GSREF</envar> file for mobile sources, records would need to be added to the file that use the emission types EXR__TOG, EVR__TOG, and RFL__TOG in column C. Note that the separator within these process-pollutant combinations must be a double underscore. The format of the <envar>GSREF</envar> file for area and mobile sources is shown in <xref linkend="tbl_input_gsref_area" />.</para>
+<para>When emission type are used (as with mobile source processing using the <command>Movesmrg</command> program), column C must contain the emission types instead of the pollutants. For example, if the <envar>MEPROC</envar> file contained processes EXR (exhaust running), EPM (evaporative permeation), and CXR (crankcase running exhaust), then in order to use pollutant-specific entries in the <envar>GSREF</envar> file for mobile sources, records would need to be added to the file that use the emission types EXR__TOG, EPM__TOG, and CXR__TOG in column C. Note that the separator within these process-pollutant combinations must be a double underscore. The format of the <envar>GSREF</envar> file for area and mobile sources is shown in <xref linkend="tbl_input_gsref_area" />.</para>
 
 <table id="tbl_input_gsref_area">
 <title>Format for area- and mobile-source <envar>GSREF</envar></title>
@@ -8453,10 +7730,10 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>average friction velocity (m/s)</entry>
 </row>
 <row>
-<entry colname="Program"><command>Premobl</command></entry>
-<entry>TEMPG</entry>
-<entry>ground temperature (Kelvins)</entry>
-<entry>variable name is set by <envar>TVARNAME</envar>, all <command>Premobl</command> variables must be in same file</entry>
+<entry colname="Program"><command>Met4moves</command></entry>
+<entry>TEMP2</entry>
+<entry>temperature at 2m (Kelvins)</entry>
+<entry>variable name is set by <envar>TVARNAME</envar>, all <command>Met4moves</command> variables must be in same file</entry>
 </row>
 <row>
 <entry colname="Program"><command>Tmpbeis3</command></entry>
@@ -8503,15 +7780,16 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>mid-layer height above ground (m)</entry>
 </row>
 <row>
-<entry colname="Program"><command>Premobl</command></entry>
+<entry colname="Program"><command>Met4moves</command></entry>
 <entry>PRES</entry>
 <entry>pressure (Pascals)</entry>
-<entry>all <command>Premobl</command> variables must be in same file</entry>
+<entry>all <command>Met4moves</command> variables must be in same file</entry>
 </row>
 <row>
-<entry colname="Variable">QV</entry>
+<entry colname="Program"><command>Met4moves</command></entry>
+<entry>QV</entry>
 <entry>water vapor mixing ratio (kg/kg)</entry>
-<entry>all <command>Premobl</command> variables must be in same file</entry>
+<entry>all <command>Met4moves</command> variables must be in same file</entry>
 </row>
 <row>
 <entry colname="Program"><command>Tmpbeis3</command></entry>
@@ -8575,7 +7853,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>METLIST</envar>: List of meteorology files</title>
 
-<para>The <envar>METLIST</envar> file is used to provide the file names of available meteorology files to the <command>Tmpbio</command> and <command>Premobl</command> programs. <command>Premobl</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. If <command>Tmpbio</command> is being run for a period longer than the individual meteorology files, the <envar>METLIST</envar> file is used to combine multiple meteorology files so that <command>Tmpbio</command> can find the data it needs. The meteorology files provided to <command>Premobl</command> and <command>Tmpbio</command> must cover the desired episode and contain the requested variables. In the example SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
+<para>The <envar>METLIST</envar> file is used to provide the file names of available meteorology files to the <command>Tmpbio</command> and <command>Met4moves</command> programs. <command>Met4moves</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. If <command>Tmpbio</command> is being run for a period longer than the individual meteorology files, the <envar>METLIST</envar> file is used to combine multiple meteorology files so that <command>Tmpbio</command> can find the data it needs. The meteorology files provided to <command>Met4moves</command> and <command>Tmpbio</command> must cover the desired episode and contain the requested variables. In the example SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
 
 <table id="tbl_input_metlist">
 <title>Format for <envar>METLIST</envar></title>
@@ -9944,185 +9222,776 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 </section>
 
+
 <section id="sect_input_source_mobile">
-
 <title>Mobile</title>
+<section id="sect_input_dummy_avgspeeddistribution">
 
-<para>The directories where the mobile-specific input files should be stored are listed in <xref linkend="tbl_input_mobile_files" />. The table also lists the programs that use each input file.</para>
+<title>Dummy Average Speed Distribution file</title>
 
-<section id="sect_input_m6list">
+<para>The Dummy Average Speed Distribution file is a file that contains the average speed bin ID and average speed fraction for each reference counties. Its format is shown in <xref linkend="tbl_input_dummy_avgspeeddistribution" />.</para>
 
-<title><envar>M6LIST</envar>: MOBILE6 input scenario list file</title>
+<table id="tbl_input_dummy_avgspeeddistribution">
+<title>Format for <envar>dummyavgspeeddistribution.csv</envar></title>
 
-<para>The <envar>M6LIST</envar> file lists the available MOBILE6 input scenario files. The scenario file name must include the six digit FIPS code of the county. Its format is shown in <xref linkend="tbl_input_m6list" />.</para>
-
-<table id="tbl_input_m6list">
-<title>Format for <envar>M6LIST</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
 
 <thead>
 <row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>1+</entry>
-<entry>A</entry>
-<entry>Full name and path of MOBILE6 input scenario</entry>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one-digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>hourDayID</entry>
+<entry>Two-digit hour day ID (Integer)</entry>
+</row>
+<row>
+<entry>avgSpeedBinID</entry>
+<entry>average speed bin ID (Integer)</entry>
+</row>
+<row>
+<entry>avgSpeedFraction</entry>
+<entry>decimal fraction representing the proportion of vechicles that travel at within each of the speed bins for a specific road typeID and hourDayID for the reference county</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
 <example>
-<title><envar>M6LIST</envar> file</title>
+<title><envar>dummy_avgspeeddistribution.csv</envar> example file</title>
 
 <programlisting>
-/smoke/data/inventory/mobile/scenarios/summer037001.in
-/smoke/data/inventory/mobile/scenarios/summer037057.in
-</programlisting>
-</example>
-
-<section id="sect_input_mobile6_scenario">
-
-<title>MOBILE6 input scenario format</title>
-
-<para>A MOBILE6 input scenario file must be provided for each reference county in the <envar>MCREF</envar> file. These files follow the same format as MOBILE6 input files; all commands are allowed except for the following:</para>
-
-<itemizedlist spacing="compact">
-<listitem>AGGREGATED OUTPUT</listitem>
-<listitem>AIR TOXICS</listitem>
-<listitem>DAILY OUTPUT</listitem>
-<listitem>DATABASE *</listitem>
-<listitem>EMISSIONS TABLE</listitem>
-<listitem>END OF RUN</listitem>
-<listitem>EXPAND *</listitem>
-<listitem>EXPRESS HC AS *</listitem>
-<listitem>IDLE PM EMISSIONS</listitem>
-<listitem>MOBILE6 BATCH FILE</listitem>
-<listitem>MOBILE6 INPUT FILE</listitem>
-<listitem>NO DESC OUTPUT</listitem>
-<listitem>NO REFUELING</listitem>
-<listitem>PARTICULATES</listitem>
-<listitem>POLLUTANTS</listitem>
-<listitem>REPORT FILE</listitem>
-<listitem>RUN DATA</listitem>
-<listitem>SPREADSHEET</listitem>
-<listitem>WITH FIELDNAMES</listitem>
-</itemizedlist>
-
-<para>The file must include either the MIN/MAX TEMPERATURES or HOURLY TEMPERATURE command and must have a SCENARIO RECORD command. SMOKE will ignore SPEED VMT, AVERAGE SPEED, or PARTICLE SIZE.</para>
-
-<example>
-<title>MOBILE6 scenario file</title>
-
-<programlisting>
-SCENARIO RECORD    : 01001 96 07                                                                    
-CALENDAR YEAR      : 1996                                                                           
-EVALUATION MONTH   : 7                                                                              
-DIESEL SULFUR      : 500                                                                            
-MIN/MAX TEMPERATURE: 70.0 90.0                                                                      
-ALTITUDE           : 1                                                                              
-PARTICULATE EF     : PMGZML.CSV PMGDR1.CSV PMGDR2.CSV PMDZML.CSV PMDDR1.CSV PMDDR2.CSV              
-FUEL RVP           : 7.8                                                                            
-GAS AROMATIC%      : 25.0
-GAS OLEFIN%        : 15.0
-GAS BENZENE%       : 1.5
-E200               : 50.0
-E300               : 85.0
-OXYGENATE          : MTBE  15.1  0.50
-                   : ETBE  17.6  0.05
-                   : ETOH  10.0  0.45
-                   : TAME   6.0  0.00
+sourceTypeID,roadTypeID,hourDayID,avgSpeedBinID,avgSpeedFraction
+11,2,12,1,0
+11,2,12,2,0
+11,2,12,3,0
+11,2,12,4,0
+11,2,12,5,0
+11,2,12,6,0
+11,2,12,7,0
+11,2,12,8,0
+11,2,12,9,0
+11,2,12,10,0
+11,2,12,11,0
+11,2,12,12,0.0091073
+11,2,12,13,0.0285067
+11,2,12,14,0.0988925
+11,2,12,15,0.248298
+11,2,12,16,0.615196
+11,2,15,1,0
+11,2,15,2,0
+11,2,15,3,0
+11,2,15,4,0
+11,2,15,5,0
+11,2,15,6,0
+11,2,15,7,0
+11,2,15,8,0
+11,2,15,9,0
+11,2,15,10,0
+11,2,15,11,0
+11,2,15,12,0.0091073
+11,2,15,13,0.0285067
+11,2,15,14,0.0988925
+11,2,15,15,0.248298
+11,2,15,16,0.615196
+....
 </programlisting>
 </example>
 
 </section>
+<section id="sect_input_sourcetypeyear">
 
-</section>
+<title>MOVES Vehicle Population by source type input file</title>
 
-<section id="sect_input_m6map">
+<para>The MOVES Population by source type file contains the year, source and population for each reference county. Its format is shown in <xref linkend="tbl_input_sourcetypeyear" />.</para>
 
-<title><envar>M6MAP</envar>: Mobile source vehicle mapping file</title>
+<table id="tbl_input_sourcetypeyear">
+<title>Format for <envar>population_13217.csv</envar></title>
 
-<para>The <envar>M6MAP</envar> file maps the 28 MOBILE6 vehicle types to the vehicle types in the mobile-source inventory. The format of the <envar>M6MAP</envar> file is shown in <xref linkend="tbl_input_m6map" />.</para>
-
-<table id="tbl_input_m6map">
-<title>Format for <envar>M6MAP</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Name" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
 
 <thead>
 <row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>A</entry>
-<entry>M6TYPE</entry>
-<entry>Char (6)</entry>
-<entry>MOBILE6 vehicle type</entry>
+<entry>yearID</entry>
+<entry>Four-digit source type ID (Integer)</entry>
 </row>
 <row>
-<entry>B</entry>
-<entry>INVTYPE</entry>
-<entry>Char (6)</entry>
-<entry>Inventory vehicle type</entry>
+<entry>sourceTypeID</entry>
+<entry>two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>sourceTypePopulationID</entry>
+<entry>Three-digit source type population ID (Integer)</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
 <example>
-<title><envar>M6MAP</envar> file</title>
+<title><envar>population_13121.csv</envar> example file</title>
 
-<programlisting># MOBILE6 to SMOKE vehicle type mapping file
-# base 8 vehicle types from SMOKE User's Manual
-LDGV    LDGV
-LDGT1   LDGT1
-LDGT2   LDGT1
-LDGT3   LDGT2
-LDGT4   LDGT2
-HDGV2b  HDGV
-HDGV3   HDGV
-HDGV4   HDGV
-HDGV5   HDGV
-HDGV6   HDGV
-HDGV7   HDGV
-HDGV8a  HDGV
-HDGV8b  HDGV
-HDGB    HDGV
-LDDV    LDDV
-LDDT12  LDDT
-LDDT34  LDDT
-HDDV2b  HDDV
-HDDV3   HDDV
-HDDV4   HDDV
-HDDV5   HDDV
-HDDV6   HDDV
-HDDV7   HDDV
-HDDV8a  HDDV
-HDDV8b  HDDV
-HDDBT   HDDV
-HDDBS   HDDV
-MC      MC</programlisting>
+<programlisting>
+yearID,sourceTypeID,sourceTypePopulation
+2009,11,100
+2009,21,100
+2009,31,100
+2009,32,100
+2009,41,100
+2009,42,100
+2009,43,100
+2009,51,100
+2009,52,100
+2009,53,100
+2009,54,100
+2009,61,100
+2009,62,100
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_dayvmtfraction">
+
+<title>Dummy Day VMT Fraction file</title>
+
+<para>The Dummy Day VMT Fraction file is a file that contains specifies whether the VMT are weekday or weekend. Its format is shown in <xref linkend="tbl_input_dummy_dayvmtfraction" />.</para>
+
+<table id="tbl_input_dummy_dayvmtfraction">
+<title>Format for <envar>dummydayvmtfraction.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>monthID</entry>
+<entry>one or two-digit month ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>dayID</entry>
+<entry>2 - weekday, 5 - weekend</entry>
+</row>
+<row>
+<entry>dayVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled for the weekday or weekend day type</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_roadtypedistribution.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,monthID,roadTypeID,dayID,dayVMTFraction
+11,7,1,2,0.237635
+11,7,1,5,0.762365
+11,7,2,2,0.27882
+11,7,2,5,0.72118
+11,7,3,2,0.27882
+11,7,3,5,0.72118
+11,7,4,2,0.237635
+11,7,4,5,0.762365
+11,7,5,2,0.237635
+11,7,5,5,0.762365
+21,7,1,2,0.237635
+21,7,1,5,0.762365
+21,7,2,2,0.27882
+21,7,2,5,0.72118
+21,7,3,2,0.27882
+21,7,3,5,0.72118
+21,7,4,2,0.237635
+21,7,4,5,0.762365
+21,7,5,2,0.237635
+21,7,5,5,0.762365
+..
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_hourvmtfraction">
+
+<title>Dummy Hour VMT Fraction file</title>
+
+<para>The Dummy Hour VMT Fraction file is a file that contains specifies the VMT fraction associated with each hour of the day. Its format is shown in <xref linkend="tbl_input_dummy_hourvmtfraction" />.</para>
+
+<table id="tbl_input_dummy_hourvmtfraction">
+<title>Format for <envar>dummyhourvmtfraction.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>dayID</entry>
+<entry>one digit day type ID (Integer), 2 - weekday, 5 - weekend</entry>
+</row>
+<row>
+<entry>hourID</entry>
+<entry>1-24 hours</entry>
+</row>
+<row>
+<entry>hourVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled are associated with a particular hour of the day for each source type, road type and day type (weekday or weekend)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_hourvmtfraction.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,roadTypeID,dayID,hourID,hourVMTFraction
+11,1,2,1,0.0214739
+11,1,2,2,0.0144428
+11,1,2,3,0.0109684
+11,1,2,4,0.00749451
+11,1,2,5,0.00683855
+11,1,2,6,0.0103588
+11,1,2,7,0.0184304
+11,1,2,8,0.0268117
+11,1,2,9,0.0363852
+11,1,2,10,0.0475407
+11,1,2,11,0.0574664
+11,1,2,12,0.0650786
+11,1,2,13,0.0713228
+11,1,2,14,0.0714917
+11,1,2,15,0.0717226
+11,1,2,16,0.0720061
+11,1,2,17,0.0711487
+11,1,2,18,0.0678874
+11,1,2,19,0.0617718
+11,1,2,20,0.0516882
+11,1,2,21,0.0428658
+11,1,2,22,0.0380302
+11,1,2,23,0.0322072
+11,1,2,24,0.0245677
+11,1,5,1,0.00986211
+11,1,5,2,0.00627248
+11,1,5,3,0.00505767
+11,1,5,4,0.00466686
+11,1,5,5,0.00699469
+11,1,5,6,0.018494
+11,1,5,7,0.0459565
+11,1,5,8,0.0696444
+11,1,5,9,0.0608279
+11,1,5,10,0.0502862
+11,1,5,11,0.0499351
+11,1,5,12,0.0543654
+11,1,5,13,0.0576462
+11,1,5,14,0.0580319
+11,1,5,15,0.0622554
+11,1,5,16,0.0710049
+11,1,5,17,0.0769725
+11,1,5,18,0.077432
+11,1,5,19,0.059783
+11,1,5,20,0.0443923
+11,1,5,21,0.0354458
+11,1,5,22,0.031824
+11,1,5,23,0.0249419
+11,1,5,24,0.0179068
+...
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_monthvmtfraction">
+
+<title>Dummy Month VMT Fraction file</title>
+
+<para>The Dummy Month VMT Fraction file is a file that contains specifies the VMT fraction associated with each hour of the day. Its format is shown in <xref linkend="tbl_input_dummy_monthvmtfraction" />.</para>
+
+<table id="tbl_input_dummy_monthvmtfraction">
+<title>Format for <envar>dummymonthvmtfraction.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>isLeapYear</entry>
+<entry>Y or N</entry>
+</row>
+<row>
+<entry>monthID</entry>
+<entry>one digit day type ID (Integer), 2 - weekday, 5 - weekend</entry>
+</row>
+<row>
+<entry>monthVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled are associated with a specific month for each source type.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_monthvmtfraction.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,isLeapYear,monthID,monthVMTFraction
+11,N,1,0.083333333
+11,N,2,0.083333333
+11,N,3,0.083333333
+11,N,4,0.083333333
+11,N,5,0.083333333
+11,N,6,0.083333333
+11,N,7,0.083333333
+11,N,8,0.083333333
+11,N,9,0.083333333
+11,N,10,0.083333333
+11,N,11,0.083333333
+11,N,12,0.083333333
+21,N,1,0.083333333
+21,N,2,0.083333333
+21,N,3,0.083333333
+21,N,4,0.083333333
+21,N,5,0.083333333
+21,N,6,0.083333333
+21,N,7,0.083333333
+21,N,8,0.083333333
+21,N,9,0.083333333
+21,N,10,0.083333333
+21,N,11,0.083333333
+21,N,12,0.083333333
+...
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_roadtypedistribution">
+
+<title>Dummy Road Type Distribution file</title>
+
+<para>The Road Type Distribution file is a file that contains the average speed bin ID and average speed fraction. Its format is shown in <xref linkend="tbl_input_dummy_roadtypedistribution" />.</para>
+
+<table id="tbl_input_dummy_roadtypedistribution">
+<title>Format for <envar>dummyroadtypedistribution.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one-digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled that occur on a specific road type</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_roadtypedistribution.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,roadTypeID,roadTypeVMTFraction
+11,1,0.2
+11,2,0.2
+11,3,0.2
+11,4,0.2
+11,5,0.2
+21,1,0.2
+21,2,0.2
+21,3,0.2
+21,4,0.2
+21,5,0.2
+..
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_fuelsupply">
+
+<title>Fuel Supply file</title>
+
+<para>The Fuel Supply file is a list directed file used to define the fuel supply and the months that the fuels are used for each reference counties. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
+
+<table id="tbl_input_fuelsupply">
+<title>Format for <envar>FuelSupply.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>countyID</entry>
+<entry>Five-digit country FIPS code for reference county (Integer)</entry>
+</row>
+<row>
+<entry>fuelYearID</entry>
+<entry>Four-digit fuel year ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>monthGroupID</entry>
+<entry>One-digit month group ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>fuelFormulationID</entry>
+<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>marketShare</entry>
+<entry>decimal fraction of marketShare for the fuel/month for the reference county</entry>
+</row>
+<row>
+<entry>marketShareCV</entry>
+<entry>decimal fraction (.5)? </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>fuelsupply_13121.csv</envar> example file</title>
+
+<programlisting>
+"countyID","fuelYearID","monthGroupID","fuelFormulationID","marketShare","marketShareCV"^M
+13121,2009,1,8124,0.428571,0.5
+13121,2009,1,2722,0.571429,0.5
+13121,2009,1,20043,1.0,0.5
+13121,2009,4,8136,0.428571,0.5
+13121,2009,4,2734,0.571429,0.5
+13121,2009,4,20043,1.0,0.5
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_fuelformulation">
+
+<title>Fuel Formulation file (optional)</title>
+
+<para>The Fuel Formulation file is a list directed file used to specify a new fuelFormulation ID if a local fuel does not match the list of nearly 9,000 predefined fuels in MOVES. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
+
+<table id="tbl_input_fuelformulation">
+<title>Format for <envar>FuelFormulation.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>FuelFormulationID</entry>
+<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>fuelSubtypeID</entry>
+<entry>Four-digit fuel Subtype ID (Integer)</entry>
+</row>
+<row>
+<entry>RVP</entry>
+<entry>?-digit  (Integer)</entry>
+</row>
+<row>
+<entry>sulfurLevel</entry>
+<entry> (Integer)</entry>
+</row>
+<row>
+<entry>ETOHVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>MTBEVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>ETBEVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>TAMEVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>aromaticContent</entry>
+<entry></entry>
+</row>
+<row>
+<entry>olefinContent</entry>
+<entry></entry>
+</row>
+<row>
+<entry>benzeneContent</entry>
+<entry></entry>
+</row>
+<row>
+<entry>e200</entry>
+<entry></entry>
+</row>
+<row>
+<entry>e300</entry>
+<entry></entry>
+</row>
+<row>
+<entry>bioDieselEsterVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>acetaneIndex</entry>
+<entry></entry>
+</row>
+<row>
+<entry>PAHContent</entry>
+<entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>fuelformulation.csv</envar> example file</title>
+
+<programlisting>
+"fuelFormulationID","fuelSubtypeID","RVP","sulfurLevel","ETOHVolume","MTBEVolume","TAMEVolume","aromaticContent","olefinContent","benzeneContent","e200","e300","bioDieselEsterVolume","acetaneIndex","PAHContent"
+
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_HPMSVTypeYear">
+
+<title>HPMSV Type</title>
+
+<para>The HPMSV file is a list directed file used to define the annual VMT by Highway Performance Monitoring System (HPMS) vehicle type. Its format is shown in <xref linkend="tbl_input_HPMSVtype" />.</para>
+
+<table id="tbl_input_HPMSVtype">
+<title>Format for <envar>HPMSVtypeyear_countyrep.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>HPMSVtypeID</entry>
+<entry>Two-digit HPMSV type IDs within the reference county (Integer)</entry>
+</row>
+<row>
+<entry>yearID</entry>
+<entry>year ID for the reference county (Integer)</entry>
+</row>
+<row>
+<entry>HPMSVBaseYearVMT</entry>
+<entry></entry>
+</row>
+<row>
+<entry>baseYearOffNetVMT</entry>
+<entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>hpmsvtypeyear_13121.csv</envar> example file</title>
+
+<programlisting>
+HPMSVtypeID,yearID,HPMSBaseYearVMT,baseYearOffNetVMT
+10,2009,100,0
+20,2009,100,0
+30,2009,100,0
+40,2009,100,0
+50,2009,100,0
+60,2009,100,0
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_IMcoverage">
+
+<title>IM Coverage file</title>
+
+<para>The IM Coverage file is a list directed file used to define the inspection and maintanance data available for each reference counties. Its format is shown in <xref linkend="tbl_input_IMcoverage" />.</para>
+
+<table id="tbl_input_IMcoverage">
+<title>Format for <envar>imcoverage_referencecountyID.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>polProcessID</entry>
+<entry>Three-digit pol process in the reference county (Integer)</entry>
+</row>
+<row>
+<entry>stateID</entry>
+<entry>Two-digit state ID in the reference county (Integer)</entry>
+</row>
+<row>
+<entry>countyID</entry>
+<entry>Five-digit county ID for the reference county (Integer)</entry>
+</row>
+<row>
+<entry>yearID</entry>
+<entry>Four-digit year ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>sourceTypeID</entry>
+<entry>Two-digit source type ID for the reference county</entry>
+</row>
+<row>
+<entry>fuelTypeID</entry>
+<entry>One-digit fuel type ID </entry>
+</row>
+<row>
+<entry>IMProgramID</entry>
+<entry>One or two-digit inspection and maintance program ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>inspectFreq</entry>
+<entry>One-digit inspection frequency ID for the reference county</entry>
+</row>
+<row>
+<entry>testStandardsID</entry>
+<entry>Two-digit test standards ID for the reference county </entry>
+</row>
+<row>
+<entry>begModelYearID</entry>
+<entry>Four-digit beginning model year ID </entry>
+</row>
+<row>
+<entry>endModelYearID</entry>
+<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>useIMyn</entry>
+<entry>Y - "does use I/M program", N - "does not use I/M program"</entry>
+</row>
+<row>
+<entry>complianceFactor</entry>
+<entry>decimal percentage compliance factor</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>imcoverage_13121.csv</envar> example file</title>
+
+<programlisting>
+polProcessID,stateID,countyID,yearID,sourceTypeID,fuelTypeID,IMProgramID,inspectFreq,testStandardsID,begModelYearID,endModelYearID,useIMyn,complianceFactor
+113,13,13121,2009,31,1,8,1,43,1996,2005,Y,97
+113,13,13121,2009,31,1,7,1,41,1975,1995,Y,97
+113,13,13121,2009,21,1,8,1,43,1996,2005,Y,97
+113,13,13121,2009,21,1,7,1,41,1975,1995,Y,97
+301,13,13121,2009,31,1,10,1,51,1996,2005,Y,94.09
+301,13,13121,2009,31,1,4,1,24,1975,1995,Y,94.09
+301,13,13121,2009,21,1,10,1,51,1996,2005,Y,94.09
+301,13,13121,2009,21,1,4,1,24,1975,1995,Y,94.09
+.....
+</programlisting>
 </example>
 
 </section>
@@ -10148,7 +10017,6 @@ MC      MC</programlisting>
 <entry>Description</entry>
 </row>
 </thead>
-
 <tbody>
 <row>
 <entry>1</entry>
@@ -10224,7 +10092,7 @@ MC      MC</programlisting>
 
 <example>
 <title><envar>MCODES</envar> file</title>
- 
+
 <programlisting>
 /VEHICLE TYPES/
 LDGV   0100   Y
@@ -10281,14 +10149,14 @@ LDGT   0106   N
 
 </section>
 
-<section id="sect_input_mcref">
+<section id="sect_input_mcxref">
 
-<title><envar>MCREF</envar>: Mobile county cross-reference file</title>
+<title><envar>MCXREF</envar>: Mobile reference county cross-reference file</title>
 
-<para>The <envar>MCREF</envar> file is a list-directed file used to assign reference counties to inventory counties. Its format is shown in <xref linkend="tbl_input_mcref" />.</para>
+<para>The <envar>MCXREF</envar> file is a list-directed file used to assign reference counties to inventory counties. Its format is shown in <xref linkend="tbl_input_mcxref" />.</para>
 
-<table id="tbl_input_mcref">
-<title>Format for <envar>MCREF</envar></title>
+<table id="tbl_input_mcxref">
+<title>Format for <envar>MCXREF</envar></title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -10306,19 +10174,27 @@ LDGT   0106   N
 <tbody>
 <row>
 <entry>1+</entry>
-<entry>A</entry>
-<entry>Two-digit state FIPS code for inventory county (Integer)</entry>
+<entry colname="Position">A</entry>
+<entry>One-digit country FIPS code for inventory county (Integer)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Three-digit county FIPS code for inventory county (Integer)</entry>
+<entry>Two-digit state FIPS code for inventory county (Integer)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Two-digit state FIPS code for reference county (Integer)</entry>
+<entry>Three-digit county FIPS code for inventory county (Integer)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
+<entry>One-digit country FIPS code for reference county (Integer)</entry>
+</row>
+<row>
+<entry colname="Position">E</entry>
+<entry>Two-digit state FIPS code for reference county (Integer)</entry>
+</row>
+<row>
+<entry colname="Position">F</entry>
 <entry>Three-digit county FIPS code for reference county (Integer)</entry>
 </row>
 </tbody>
@@ -10326,65 +10202,32 @@ LDGT   0106   N
 </table>
 
 <example>
-<title><envar>MCREF</envar> file</title>
+<title><envar>MCXREF</envar> file</title>
 
 <programlisting>
-01 001  01 001
-01 003  01 001
-01 005  01 001
-01 007  01 001
-01 009  01 001
-01 011  01 001
-01 013  01 001
-01 015  01 001
-01 017  01 001
-01 019  01 001
+0  13  101  0   13  121
+0  13  102  0   13  121
+0  13  103  0   13  121
+0  13  121  0   13  121
+0  13  123  0   13  217
+0  13  125  0   13  217
+0  13  127  0   13  217
+0  13  015  0   13  217
+0  13  017  0   13  217
+0  13  019  0   13  217
+.. ..   ..  ..  ..  ..
 </programlisting>
 </example>
 
 </section>
 
-<section id="sect_input_meflist">
-
-<title><envar>MEFLIST</envar>: Mobile emission factors list file</title>
-
-<para>The <envar>MEFLIST</envar> file is used to provide the file names of available emission factors files to the <command>Temporal</command> program. This file cannot be created very easily until the <command>Emisfac</command> program has been run. Therefore, this file is generated automatically by the example SMOKE run scripts. The format of the <envar>MEFLIST</envar> file i shown in <xref linkend="tbl_input_meflist" />.</para>
-
-<table id="tbl_input_meflist">
-<title>Format for <envar>MEFLIST</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1+</entry>
-<entry>A</entry>
-<entry>Full name and path of emission factors file</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section id="sect_input_meproc">
+<section id="sect_input_meproc_moves">
 
 <title><envar>MEPROC</envar>: List of mobile emission processes and associated activities and pollutants</title>
 
-<para>The <envar>MEPROC</envar> file lists the emission processes and pollutants that will be generated by MOBILE6 for modeling on-road mobile sources. The available emission processes are listed in <xref linkend="sect_concepts_emission_processes" />. The format of the <envar>MEPROC</envar> file is shown in <xref linkend="tbl_input_meproc" />.</para>
+<para>The <envar>MEPROC</envar> file, used by <command>Spcmat</command> lists the emission processes and pollutants that will be generated by MOVES for modeling on-roadway and off-network mobile sources. The available emission processes are listed in <xref linkend="sect_concepts_moves_emission_processes" />. The format of the <envar>MEPROC</envar> file is shown in <xref linkend="tbl_input_meproc_moves" />.</para>
 
-<table id="tbl_input_meproc">
+<table id="tbl_input_meproc_moves">
 <title>Format for <envar>MEPROC</envar></title>
 
 <tgroup cols="3">
@@ -10411,7 +10254,7 @@ LDGT   0106   N
 <entry>Mobile emissions process (Character)</entry>
 </row>
 <row>
-<entry colname="Position">C+</entry>
+<entry colname="Position">C</entry>
 <entry>Associated pollutant name(s) for activity and process combination (Character)</entry>
 </row>
 </tbody>
@@ -10419,30 +10262,32 @@ LDGT   0106   N
 </table>
 
 <example>
-<title><envar>MEPROC</envar> file</title>
+<title><envar>MEPROC</envar> example file for RatePerDistance MOVES table</title>
 
 <programlisting>
-VMT EXR CO NOX TOG
-VMT EXS CO NOX TOG
-VMT HOT TOG
-VMT DNL TOG
-VMT RST TOG
-VMT EVR TOG
-VMT CRC TOG
-VMT RFL TOG
+VMT  EXH CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
+VMT  EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
+VMT  BRK PM25BRAKE
+VMT  TIR PM25TIRE
+</programlisting>
+</example>
+<example>
+<title><envar>MEPROC</envar> example file for RatePerVehicle MOVES table</title>
+
+<programlisting>
+VPOP EXH CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
+VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 </programlisting>
 </example>
 
 </section>
+<section id="sect_input_mfmref">
 
-<section id="sect_input_mvref">
+<title><envar>MFMREF</envar>: Mobile fuel month file for MOVES</title>
 
-<title><envar>MVREF</envar>: Mobile source county settings file</title>
-
-<para>The <envar>MVREF</envar> file is a list-directed file that assigns settings for various options to each reference county defined in the <envar>MCREF</envar> file. Its format is shown in <xref linkend="tbl_input_mvref" />.</para>
-
-<table id="tbl_input_mvref">
-<title>Format for <envar>MVREF</envar></title>
+<para>The <envar>MFMREF</envar> file specifies reference fuel months to assign to calendar months being simulated for each reference county.  The file specifies the representative month where the fuel formulation mix is representative for other months. The file serves the purpose of grouping months of the year by fuel parameters. The format of the <envar>MFMREF</envar> file shown in <xref linkend="tbl_input_mfmref" />.</para>
+<table id="tbl_input_mfmref">
+<title>Format for <envar>MFMREF</envar></title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -10461,73 +10306,378 @@ VMT RFL TOG
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Two-digit state FIPS code for reference county (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Three-digit county FIPS code of reference county (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry><para>Setting for spatial averaging of meteorology data</para>
-
-<itemizedlist spacing="compact">
-<listitem>1 - data are county specific</listitem>
-<listitem>2 - data are averaged over all counties sharing a reference county</listitem>
-</itemizedlist>
-
-</entry>
-</row>
-<row>
-<entry colname="Position">D</entry>
-<entry><para>Setting for temporal averaging of meteorology data</para>
-
-<itemizedlist spacing="compact">
-<listitem>1 - no averaging; create hourly profiles for each day</listitem>
-<listitem>2 - average data over weeks</listitem>
-<listitem>3 - average data over months</listitem>
-<listitem>4 - average data over entire episode</listitem>
-</itemizedlist>
-
-</entry>
+<entry>Six-digit county-specific code for reference county (integer)</entry>
 </row>
 <row>
 <entry></entry>
-<entry>E</entry>
-<entry><para>Setting for local roads</para>
-
-<itemizedlist spacing="compact">
-<listitem>1 - model both rural and urban local roads using MOBILE6 local road type (uses default average speed)</listitem>
-<listitem>2 - model both rural and urban local roads using MOBILE6 arterial road type with speeds from mobile inventory</listitem>
-<listitem>3 - model rural local roads using MOBILE6 arterial road type and urban local roads using MOBILE6 local road type</listitem>
-<listitem>4 - model rural local roads using MOBILE6 local road type and urban local roads using MOBILE6 arterial road type</listitem>
-</itemizedlist>
-
-</entry>
+<entry>B</entry>
+<entry>Reference county fuel month (integer)</entry>
+</row>
+<row>
+<entry></entry>
+<entry>C</entry>
+<entry>Calendar month (integer)</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
 <example>
-<title><envar>MVREF</envar> file</title>
+<title><envar>MFMREF</envar> file</title>
 
 <programlisting>
-01 001 2 2 1
-04 001 2 2 1
-04 013 2 2 1
-04 019 2 2 1
-05 001 2 2 1
+013121  1   1
+013121  1   2
+013121  4   3
+013121  4   4
+013121  6   5
+013121  6   6
 </programlisting>
 </example>
 
 </section>
 
+<section id="sect_input_mrclist">
+
+<title><envar>MRCLIST</envar>: List of MOVES Lookup Tables</title>
+
+<para>The <envar>MRCLIST</envar> file is an input file for <command>Movesmrg</command> that contains the list of MOVES-based lookup tables from the MOVES processing script associated with reference county and fuel month.  The format of the <envar>MRCLIST</envar> file is shown in <xref linkend="tbl_input_mrclist" />.</para>
+
+<table id="tbl_input_mrclist">
+<title>Format for <envar>MRCLIST</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Six-digit county code (Integer)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Fuel Month (Inetger)</entry>
+</row>
+<row>
+<entry colname="Position">C+</entry>
+<entry>Associated MOVES-based lookup table filename (Character)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>MRCLIST</envar> example file for <command>Movesmrg</command> (MOVES RPD lookup table)</title>
+
+<programlisting>
+13121 4 rateperdistance_13121_apr.txt
+13121 7 rateperdistance_13121_jul.txt
+</programlisting>
+</example>
+
+<example>
+<title><envar>MRCLIST</envar> example file for <command>Movesmrg</command> (MOVES RPV lookup table)</title>
+
+<programlisting>
+13121 4 ratepervehicle_13121_apr.txt
+13121 7 ratepervehicle_13121_jul.txt
+</programlisting>
+</example>
+
+<example>
+<title><envar>MRCLIST</envar> example file for <command>Movesmrg</command> (MOVES RPP lookup table)</title>
+
+<programlisting>
+13121 4 rateperprofile_13121_apr.txt
+13121 7 rateperprofile_13121_jul.txt
+</programlisting>
+</example>
+
+</section>
+
+<section id="sect_input_runctlfile">
+
+<title><envar>RUNCTL</envar>: Runcontrol File (control.in)</title>
+
+<para>The <envar>RUNCTL</envar> file is used to specify the calendar year, pollutants, and day type (weekday or weekend); and the Met4moves output temperature file for the batch run of MOVES. Its format is shown in <xref linkend="tbl_input_runctl" />.</para>
+
+<table id="tbl_input_runctl">
+<title>Format for <envar>RUNCTL</envar> (control.in)</title>
+
+<tgroup cols="2">
+<colspec colwidth="15*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>DBHOST</entry>
+<entry>Database Hostname</entry>
+</row>
+<row>
+<entry>MOVESHOME</entry>
+<entry>Full pathname of MOVES installation directory</entry>
+</row>
+<row>
+<entry>BATCHRUN</entry>
+<entry>Character string that is the name for the MOVES batch files</entry>
+</row>
+<row>
+<entry>OUTDIR</entry>
+<entry>Full pathname where all output files will be written; batch files, MOVES runspec files, MOVES data importer files</entry>
+</row>
+<row>
+<entry>ModelYear</entry>
+<entry>Episode modeling year</entry>
+</row>
+<row>
+<entry>Pollutants</entry>
+<entry>One or more keywords: PM, OZONE, TOXICS, GHG</entry>
+</row>
+<row>
+<entry>DayofWeek</entry>
+<entry>Keywords WEEKDAY and/or WEEKEND. Optional input. If not specified, then both weekday and weekend estimates will be generated</entry>
+</row>
+<row>
+<entry>Met data file</entry>
+<entry>Full pathname of input meterological data (output from <command>Met4moves</command> processor).</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>RUNCTL</envar> file</title>
+
+<programlisting>
+DBHOST         =localhost
+MOVESHOME      =/netscr/MOVES2010
+BATCHRUN       =GEORGIA
+OUTDIR         =/netscr/MOVES2010/runspec_files/georgia
+MODEL YEAR     =2005
+POLLUTANTS     =OZONE
+DAYOFWEEK      =WEEKDAY, WEEKEND
+METFILE        =netscr/MOVESDATA/georgia/2005/2005_repcounty_met.in
+</programlisting>
+</example>
+
+
+</section>
+
+<section id="sect_input_refcountyfile">
+
+<title><envar>countyrep.in</envar>: Reference County File</title>
+
+<para>The <envar>countyrep.in</envar> file is used to specify the list of reference counties as separate REPCOUNTY packets, as shown below. Each reference county needs entries for the FIPS field and the full path and file names for csv files containing the MOVES data for AGE, IM, FUELSUPPLY, POP, Highway Performance Monitoring System (HPMS) and Vehicle Miles Travelled (VMT), and FUELFORM (optional). Every county specified in the Met4moves output file must be specified in the reference county file or an error will occur. The format is shown in <xref linkend="tbl_input_refcountyfile" />.</para>
+
+<table id="tbl_input_refcountyfile">
+<title>Format for <envar>countyrep.in</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>FIPS</entry>
+<entry>Five-digit county FIPS code for reference county (Integer)</entry>
+</row>
+<row>
+<entry>AGE</entry>
+<entry>Full filename and pathname for age distribution csv file</entry>
+</row>
+<row>
+<entry>IM</entry>
+<entry>Full filename and pathname for the im coverage csv file</entry>
+</row>
+<row>
+<entry>FUELSUPPLY</entry>
+<entry>Full pathname and filename for the fuel supply csv file</entry>
+</row>
+<row>
+<entry>POP</entry>
+<entry>Full pathname and filename for the population csv file</entry>
+</row>
+<row>
+<entry>HPMSVMT</entry>
+<entry>Full pathname and filename for the HPMS Road Type and VMT csv file</entry>
+</row>
+<row>
+<entry>FUELFORM (optional)</entry>
+<entry>Full pathname and filename for the HPMS Road Type and VMT csv file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>countyrep.in</envar> file</title>
+
+<programlisting>
+&lt;REPCOUNTY&gt;
+FIPS =13121
+AGE  =/netscr/MOVES2010/runspec_files/georgia/agedistribution_13121.csv
+IM   =/netscr/MOVES2010/runspec_files/georgia/imcoverage_13121.csv
+FUELSUPPLY =/netscr/MOVES2010/runspec_files/georgia/fuelsupply_13121.csv
+POP =/netscr/MOVES2010/runspec_files/georgia/population_13121.csv
+HPMSVMT =/netscr/MOVES2010/runspec_files/georgia/hpmsvtypeyear_13121.csv
+FUELFOR M =
+&lt;ENDREPCOUNTY&gt;
+&lt;REPCOUNTY&gt;
+FIPS =13127
+AGE =/netscr/MOVES2010/runspec_files/georgia/agedistribution_13127.csv
+IM =/netscr/MOVES2010/runspec_files/georgia/imcoverage_13127.csv
+FUELSUPPLY =/netscr/MOVES2010/runspec_files/georgia/fuelsupply_13127.csv
+POP =/netscr/MOVES2010/runspec_files/georgia/population_13127.csv
+HPMSVMT =/netscr/MOVES2010/runspec_files/georgia/hpmsvtypeyear_13127.csv
+FUELFOR M =
+&lt;ENDREPCOUNTY&gt;
+</programlisting>
+</example>
+
+
+</section>
+<section id="sect_input_sourceTypeAgeDist">
+
+<title><envar>agedistribution_repcountyID.csv</envar>: Age Distribution File for each Representative County</title>
+
+<para>The <envar>agedistribution_repcountyID.csv</envar> file shows the sourceTypeID, yearID, ageID, and ageFraction for the vehicles in each reference county.  The format is shown in <xref linkend="tbl_input_agedistribution" />.</para>
+
+<table id="tbl_input_agedistribution">
+<title>Format for <envar>agedistribution_referencecounty.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Environment Variable" />
+<colspec colwidth="15*" colname="Value" />
+<thead>
+<row>
+<entry>Environment Variable</entry>
+<entry>Value</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTypeID</entry>
+<entry>two-digit sourceTypeID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>yearID</entry>
+<entry>four-digit year IDs</entry>
+</row>
+<row>
+<entry>ageID</entry>
+<entry>two-digit ageIDs</entry>
+</row>
+<row>
+<entry>ageFraction</entry>
+<entry>fraction of the vehicle population that is associated with the ageID for a specified year and sourceTypeID</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>agedistribution_13121.csv</envar> file</title>
+
+<programlisting>
+sourceTypeID, yearID, ageID, ageFraction
+11,2009,0,0.032258065
+11,2009,1,0.032258065
+11,2009,2,0.032258065
+11,2009,3,0.032258065
+11,2009,4,0.032258065
+11,2009,5,0.032258065
+11,2009,6,0.032258065
+11,2009,7,0.032258065
+11,2009,8,0.032258065
+11,2009,9,0.032258065
+11,2009,10,0.032258065
+11,2009,11,0.032258065
+11,2009,12,0.032258065
+11,2009,13,0.032258065
+11,2009,14,0.032258065
+11,2009,15,0.032258065
+11,2009,16,0.032258065
+11,2009,17,0.032258065
+11,2009,18,0.032258065
+11,2009,19,0.032258065
+11,2009,20,0.032258065
+11,2009,21,0.032258065
+11,2009,22,0.032258065
+11,2009,23,0.032258065
+11,2009,24,0.032258065
+11,2009,25,0.032258065
+11,2009,26,0.032258065
+11,2009,27,0.032258065
+11,2009,28,0.032258065
+11,2009,29,0.032258065
+11,2009,30,0.032258065
+21,2009,0,0.032258065
+21,2009,1,0.032258065
+21,2009,2,0.032258065
+21,2009,3,0.032258065
+21,2009,4,0.032258065
+21,2009,5,0.032258065
+21,2009,6,0.032258065
+21,2009,7,0.032258065
+21,2009,8,0.032258065
+21,2009,9,0.032258065
+21,2009,10,0.032258065
+21,2009,11,0.032258065
+21,2009,12,0.032258065
+21,2009,13,0.032258065
+21,2009,14,0.032258065
+21,2009,15,0.032258065
+21,2009,16,0.032258065
+21,2009,17,0.032258065
+21,2009,18,0.032258065
+21,2009,19,0.032258065
+21,2009,20,0.032258065
+21,2009,21,0.032258065
+21,2009,22,0.032258065
+21,2009,23,0.032258065
+21,2009,24,0.032258065
+21,2009,25,0.032258065
+21,2009,26,0.032258065
+21,2009,27,0.032258065
+21,2009,28,0.032258065
+21,2009,29,0.032258065
+21,2009,30,0.032258065
+.....
+</programlisting>
+</example>
+
+
+</section>
 <section id="sect_input_spdpro">
 
-<title><envar>SPDPRO</envar>: Mobile hourly speed profiles file</title>
+<title><envar>SPDPRO</envar>: Mobile houlry speed profiles file</title>
 
-<para>The <envar>SPDPRO</envar> file is used to provide hourly speed profile data to MOBILE6. The format of this file is shown in <xref linkend="tbl_input_spdpro" />.</para>
+<para>The <envar>SPDPRO</envar> file is used to provide weekend/weekday hourly speed profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance lookup table. Its format is shown in <xref linkend="tbl_input_spdpro" />.</para>
 
 <table id="tbl_input_spdpro">
 <title>Format for <envar>SPDPRO</envar></title>
@@ -10548,70 +10698,66 @@ VMT RFL TOG
 <tbody>
 <row>
 <entry>1+</entry>
-<entry>A</entry>
-<entry>Profile number (Integer)</entry>
+<entry colname="Position">A</entry>
+<entry>Six-digit county code (Integer)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Hourly speed for midnight local time (Real)</entry>
+<entry>Source Category Code (SCC)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Hourly speed for 1 am local time (Real)</entry>
+<entry>"WEEKDAY" (Char)</entry>
+</row>
+<row>
+<entry colname="Position">D</entry>
+<entry>Weekday hourly average speed (mile per hour) in local hour 1</entry>
+</row>
+<row>
+<entry colname="Position">E</entry>
+<entry>Weekday hourly average speed (mile per hour) in local hour 2</entry>
 </row>
 <row>
 <entry colname="Position">...</entry>
 <entry>...</entry>
 </row>
 <row>
-<entry colname="Position">Y</entry>
-<entry>Hourly speed for 11 pm local time (Real)</entry>
+<entry colname="Position">AA</entry>
+<entry>Weekday hourly average speed (mile per hour) in local hour 24</entry>
+</row>
+<row>
+<entry colname="Position">AB</entry>
+<entry>"WEEKEND" (Char)</entry>
+</row>
+<row>
+<entry colname="Position">AC</entry>
+<entry>Weekend hourly average speed (mile per hour) in local hour 1</entry>
+</row>
+<row>
+<entry colname="Position">AD</entry>
+<entry>Weekend hourly average speed (mile per hour) in local hour 2</entry>
+</row>
+<row>
+<entry colname="Position">...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Position">AZ</entry>
+<entry>Weekend hourly average speed (mile per hour) in local hour 24</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
-</section>
+<example>
+<title><envar>SPDPRO</envar> file</title>
 
-<section id="sect_input_spdref">
-
-<title><envar>SPDREF</envar>: Mobile hourly speed cross-reference file</title>
-
-<para>The <envar>SPDREF</envar> file is used to match hourly speed profiles to the mobile sources. Its format is shown in <xref linkend="tbl_input_spdref" />.</para>
-
-<table id="tbl_input_spdref">
-<title>Format for <envar>SPDREF</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1+</entry>
-<entry>A</entry>
-<entry>Six digit country/state/county FIPS code (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Ten digit Source Classification Code (Character)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>Profile number (Integer)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
+<programlisting>
+13101,2201000330,WEEKDAY,35,,,,,,WEEKEND,34,,,,,,,,,
+13102,2201000330,WEEKDAY,35,,,,,,WEEKEND,33,,,,,,,,,
+13103,2201000330,WEEKDAY,36,,,,,,WEEKEND,38,,,,,,,,,,
+</programlisting>
+</example>
 
 </section>
 
@@ -11307,9 +11453,9 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>INVTABLE</envar>: Inventory table</title>
 
-<para>The <envar>INVTABLE</envar> file replaces the <envar>SIPOLS</envar> and <envar>ACTVNAMS</envar> files previously used by SMOKE. <command>Smkinven</command> uses the inventory table to select the inventory pollutants that will be output by <command>Smkinven</command>. The valid pollutants are again checked at the end of SMOKE processing by <command>Smkmerge</command>, to ensure that the program knows about all of the pollutants and also to set the order of the output variables (output species are sorted by the order of their pollutants in the inventory table and for multiple species per pollutant, by alphabetical order). You can use the <envar>INVTABLE</envar> to drop inventory pollutants in <command>Smkinven</command> without having to modify the inventory files, simply by modifying <envar>INVTABLE</envar>. The units used in the SMOKE intermediate files are listed in this file. The SMOKE programs <command>Spcmat</command>, <command>Temporal</command>, and <command>Emisfac</command> use this file to determine which pollutants should be included in the NONHAPVOC or NONHAPTOG calculation.</para>
+<para>The <envar>INVTABLE</envar> file replaces the <envar>SIPOLS</envar> and <envar>ACTVNAMS</envar> files previously used by SMOKE. <command>Smkinven</command> uses the inventory table to select the inventory pollutants that will be output by <command>Smkinven</command>. The valid pollutants are again checked at the end of SMOKE processing by <command>Smkmerge</command>, to ensure that the program knows about all of the pollutants and also to set the order of the output variables (output species are sorted by the order of the pollutants in the inventory table and for multiple species per pollutant, by alphabetical order). You can use the <envar>INVTABLE</envar> to drop inventory pollutants in <command>Smkinven</command> without having to modify the inventory files, simply by modifying <envar>INVTABLE</envar>. The units used in the SMOKE intermediate files are listed in this file. The SMOKE programs <command>Spcmat</command>, and <command>Movesmrg</command> use this file to determine which pollutants should be included in the NONHAPVOC or NONHAPTOG calculation.</para>
 
-<para>The inventory table also provides a way to assign the SPECIATE4 specie ID to any pollutant that is a Hazardous Air Pollutant (HAP) VOC. This assignment is not used directly by SMOKE, but rather is used by the Speciation Tool when creating VOC speciation profiles.  This is used only when creating speciation profiles to support SMOKE runs that will combine criteria VOC and HAP VOC emissions, using the <envar>NHAPEXCLUDE</envar> file in the <command>Smkinven</command> program. More specifically, this can be done for the purpose of using VOC HAP emissions to augment VOC speciation profiles. Since the Inventory Table provides information to the Speciation Tool, this field is not used by SMOKE, but is included for continued integration of SMOKE inputs with the Speciation Tool.</para>
+<para>The inventory table also provides a way to assign the SPECIATE4 species ID to any pollutant that is a Hazardous Air Pollutant (HAP) VOC. This assignment is not used directly by SMOKE, but rather is used by the Speciation Tool when creating VOC speciation profiles.  This is used only when creating speciation profiles to support SMOKE runs that will combine criteria VOC and HAP VOC emissions, using the <envar>NHAPEXCLUDE</envar> file in the <command>Smkinven</command> program. More specifically, this can be done for the purpose of using VOC HAP emissions to augment VOC speciation profiles. Since the Inventory Table provides information to the Speciation Tool, this field is not used by SMOKE, but is included for continued integration of SMOKE inputs with the Speciation Tool.</para>
 
 <para> As described in the <command>Smkinven</command> documentation in Chapter 6, <command>Smkinven</command> in some cases will create "no-integrate" (NOI) HAP pollutant emissions from the inventory data by renaming the pollutant with a "_NOI" suffix applied to the end of the Inventory Data Name from the Inventory Table for such pollutants. Similarly, <command>Smkinven</command> will automatically add all possibly needed "_NOI" pollutant names to the internal master list of valid pollutant names. This list would otherwise be limited to the contents of the <envar>INVTABLE</envar> file entries where the Keep column contains an "Y".  <command>Smkinven</command> inserts these names in the master list such that the "_NOI" version of the pollutant name appears in the list just after the polutant on which the name is based.  The inserted entries that include "_NOI" are made when the following values are included for the pollutant in the <envar>INVTABLE</envar> file.</para>
 
@@ -11443,7 +11589,7 @@ SOURCE > 100 AND SOURCE < 200
 <para>Inventory Pollutant Code: This code represents the pollutant that is provided in the inventory file input into SMOKE, and is sometimes the Chemical Abstracts Service (CAS) number when the inventory uses CAS numbers to identify pollutants. <command>Smkinven</command> matches this code to a ORL-formatted inventory file to assign the combination of Mode and Inventory Data Name (columns 2 and 1 as described in the previous bullet), which is used in all subsequent SMOKE intermediate files and reports. This code is not used by SMOKE in any other way.</para>
 </listitem>
 <listitem>
-<para>SPECIATE4 ID: The SPECIATE4 ID is the unique specie identifier in SPECIATE4 (the "ID" field in the SPECIE_PROPERTIES table). This code is not used by SMOKE, but rather is used during import of the Inventory Table to the Speciation Tool.</para>
+<para>SPECIATE4 ID: The SPECIATE4 ID is the unique species identifier in SPECIATE4 (the "ID" field in the SPECIES_PROPERTIES table). This code is not used by SMOKE, but rather is used during import of the Inventory Table to the Speciation Tool.</para>
 </listitem>
 <listitem>
 <para>Reactivity group: The reactivity group for the ASPEN model. It is not used in SMOKE.</para>
@@ -11578,7 +11724,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>NHAPEXCLUDE</envar>: NonHAP VOC calculation inclusions/exclusions file</title>
 
-<para>The <envar>NHAPEXCLUDE</envar> file provides a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. Starting in SMOKE version 2.6, a new special header in the <envar>NHAPEXCLUDE</envar>  file allows <command>Smkinven</command> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is defined as /INCLUDE/, <command>Smkinven</command> will treat selected sources as integrated sources; <command>Smkinven</command> will use the toxics pollutants from the selected sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed by appending <quote>_NOI</quote> to the species name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass. When the header is defined as /EXCLUDE/ which is the default setting, <command>Smkinven</command> willl exclude the selected sources from the HAP-CAP integratoin approach. All other inventory sources will be used to compute NONHAPVOC or NONHAPTOG.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file provides a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. For SMOKE versions 2.6 and higher, a new special header in the <envar>NHAPEXCLUDE</envar>  file to allow <command>Smkinven</command> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is defined as /INCLUDE/, <command>Smkinven</command> will treat selected sources as integrated sources; <command>Smkinven</command> will use the toxics pollutants from the selected sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed by appending <quote>_NOI</quote> to the species name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass. When the header is defined as /EXCLUDE/ which is the default setting, <command>Smkinven</command> willl exclude the selected sources from the HAP-CAP integratoin approach. All other inventory sources will be used to compute NONHAPVOC or NONHAPTOG.</para>
 
 <para>The <envar>NHAPEXCLUDE</envar> file is only used when <envar>SMK_PROCESS_HAPS</envar> is set to <envar>PARTIAL</envar>. If <envar>SMK_PROCESS_HAPS</envar> is set to <envar>ALL</envar> or <envar>NONE</envar>, the <envar>NHAPEXCLUDE</envar> file is not required (<xref linkend="sect_programs_smkinven_envar" />). Once integration/non-integration processing is done, <command>Smkreport</command> can create a report that separates integrated and non-integrated sources using the <envar>BY INTEGRATE</envar> instruction (<xref linkend="sect_qa_repconfig_create_report"/>).</para>
 
@@ -12079,10 +12225,7 @@ SOURCE > 100 AND SOURCE < 200
 <entry>SMOKE I/O API variable name</entry>
 </row>
 <row>
-<entry colname="Position">B</entry>
-<entry><command>Smk2emis</command> output name to be written to the UAM <quote>EMISSIONS</quote> file binary format</entry>
-</row>
-</tbody>
+<entry colname="Position">B</entry><entry><command>Smk2emis</command> output name to be written to the UAM <quote>EMISSIONS</quote> file binary format</entry></row></tbody>
 </tgroup>
 </table>
 

@@ -32,7 +32,7 @@
 <para>You will be sent to the CMAS Download Center. Select SMOKE as the product you wish to download and select your computer and compiler type.</para>
 </listitem>
 <listitem>
-<para>Download the installation script (<filename>smoke_install.csh</filename>), the source code, scripts, and executables archive (<filename>smoke.Linux2_x86pg.tar.gz</filename>), and the test case data files (<filename>smoke.nctox.data.tar.gz</filename>). Save these files in the same directory on your machine.</para>
+<para>Download the installation script (<filename>smoke_install.csh</filename>), the source code, scripts, and executables archive (<filename>smoke_v271.Linux2_x86_64ifort.tar.gz</filename>), and the test case data files (<filename>smoke_v271.nctox.MOVES.data.tar.gz</filename>). Save these files in the same directory on your machine.</para>
 </listitem>
 </orderedlist>
 
@@ -92,7 +92,7 @@
 </listitem>
 </orderedlist>
 
-<para>Now you are ready to run the SMOKE nctox case. Running SMOKE is described in <xref linkend="ch_scripts" />, which discusses using the SMOKE scripts. Please refer to <xref linkend="sect_scripts_run_example" /> for instructions on running the example scripts for the nctox case. The current SMOKE documentation can be found online at <ulink url="http://www.cep.unc.edu/empd/products/smoke/" />.</para>
+<para>Now you are ready to run the SMOKE nctox case. Running SMOKE is described in <xref linkend="ch_scripts" />, which discusses using the SMOKE scripts. Please refer to <xref linkend="sect_scripts_run_example" /> for instructions on running the example scripts for the nctox case. The current SMOKE documentation can be found online at <ulink url="http://www.smoke-model.org" />.</para>
 
 </section>
 
@@ -138,14 +138,20 @@
 
 <para>if you are not using the default Linux2_x86pg settings, you will need to check (or add) your Fortran compiler (using the environment variable <envar>FC</envar>) and the compiler options. The environment variable <envar>FFLAGS</envar> sets the Fortran compiler options for the optimized executables and the <envar>DBGFLAGS</envar> variable sets the options for the debug executables. You should set your options to match the options used for the Linux compile of SMOKE as closely as possible. First of all, set the environment variables listed below at the command line prior to invoking the SMOKE Assigns files.</para>
 
+<para><command>Linux2_x86_64ifort with Intel Fortran</command></para>
+<itemizedlist spacing="compact">
+<listitem><envar>setenv SMOKE_EXE Linux2_x86_x86ifort</envar></listitem>
+<listitem><envar>setenv FC ifort</envar></listitem>
+<listitem><envar>setenv FFLAG "-O3 -cm -132 -zero -save -common-args -i-static"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -cm -132 -zero -save -common-args -i-static"</envar></listitem>
+</itemizedlist>
+
 <para><command>Linux2_x86 with Intel Fortran</command></para>
 <itemizedlist spacing="compact">
 <listitem><envar>setenv SMOKE_EXE Linux2_x86ifc</envar></listitem>
 <listitem><envar>setenv FC ifort</envar></listitem>
 <listitem><envar>setenv FFLAG "-O2 -save -zero -extend_source -nbs -W0"</envar></listitem>
 <listitem><envar>setenv DBGFLAG "-g -CB -CS -CU -extend_source -save -zero –nbs"</envar></listitem>
-<listitem><envar>setenv M6_FFLAG "-O2 -save -zero -nbs -extend_source -W0 -mp1"</envar></listitem>
-<listitem><envar>setenv F_UFMTENDIAN big</envar></listitem>
 </itemizedlist>
 
 <para><command>32-bit SGI IRIX6</command></para>
@@ -261,7 +267,7 @@
 
 <para><userinput><command>cd</command> <filename class="directory"><envar>$SMK_HOME</envar>/subsys/smoke/assigns</filename></userinput></para>
 
-<para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb4p25.us12-nc</filename></userinput></para>
+<para><userinput><command>source</command> <filename>ASSIGNS.nctox.cmaq.cb05_soa.us12-nc</filename></userinput></para>
 </listitem>
 
 <listitem><para>At this point, you may need to create some symbolic links that are normally created by the <filename>smoke_install.csh</filename> script. If your system was not in the <filename>platform</filename> script, then these links would not have been created. You can use the following shell script to create the symbolic links.</para>
@@ -270,7 +276,7 @@
 
 cd $SMKROOT/src
 foreach dir ( biog cntlmat emmod emqa emutil grdmat inc lib \
-              mo6 mobile point smkinven smkmerge spcmat temporal )
+              movesmrg point smkinven smkmerge spcmat temporal )
     cd $dir
     ln -s ../../scripts/make/Makeit ./
     cd ..
@@ -281,20 +287,17 @@ echo "#LIST" > arinv.stationary.lst
 ls $ARDAT/arinv.nonpoint.nti99_NC.new.txt >> arinv.stationary.lst
 ls $ARDAT/arinv.stationary.nei96_NC.ida.txt >> arinv.stationary.lst
 
-cd $MBDAT
-echo "#LIST" > mbinv.lst
-ls $MBDAT/mbinv.nei99_NC.ida.txt >> mbinv.lst
-ln -s mcref.nctox.txt mcref.nctox_18.txt
-ln -s mvref.nctox.txt mvref.nctox_18.txt
-
 cd $INVDIR/nonroad
 echo "#LIST" > arinv.nonroad.lst
 ls $INVDIR/nonroad/arinv.nonroad.n* >> arinv.nonroad.lst
 
 cd $PTDAT
 echo "#LIST" > ptinv.lst
-ls $PTDAT/ptinv.n* >> ptinv.lst</programlisting>
+ls $PTDAT/ptinv.n* >> ptinv.lst
 
+.....
+
+</programlisting>
 </listitem>
 
 <listitem>
@@ -314,7 +317,7 @@ ls $PTDAT/ptinv.n* >> ptinv.lst</programlisting>
 <listitem>
 <para>After running the <filename>Makeall</filename> script, you should have the following executables in the <envar>$SMK_BIN</envar> directory:</para>
 
-<para><filename>aggwndw</filename>, <filename>beld3to2</filename>, <filename>bluesky2inv</filename>, <filename>cemscan</filename>, <filename>cntlmat</filename>, <filename>elevpoint</filename>, <filename>emisfac</filename>, <filename>extractida</filename>, <filename>grdmat</filename>, <filename>grwinven</filename>, <filename>invsplit</filename>, <filename>laypoint</filename>, <filename>mbsetup</filename>, <filename>metcombine</filename>, <filename>metscan</filename>, <filename>mrgelev</filename>, <filename>mrggrid</filename>, <filename>normbeis3</filename>, <filename>pktreduc</filename>, <filename>premobl</filename>, <filename>rawbio</filename>, <filename>smk2emis</filename>, <filename>smkinven</filename>, <filename>smkmerge</filename>, <filename>smkreport</filename>, <filename>spcmat</filename>, <filename>surgtool</filename>, <filename>temporal</filename>, <filename>tmpbeis3</filename>, <filename>tmpbio</filename>, <filename>uam2ncf</filename></para>
+<para><filename>aggwndw</filename>, <filename>beld3to2</filename>, <filename>bluesky2inv</filename>, <filename>cemscan</filename>, <filename>cntlmat</filename>, <filename>elevpoint</filename>,  <filename>extractida</filename>, <filename>geofac</filename>, <filename>grdmat</filename>, <filename>grwinven</filename>, <filename>invsplit</filename>, <filename>layalloc</filename>, <filename>laypoint</filename>, <filename>met4moves</filename>, <filename>metcombine</filename>, <filename>metscan</filename>, <filename>movesmrg</filename>, <filename>mrgelev</filename>, <filename>mrggrid</filename>, <filename>normbeis3</filename>, <filename>pktreduc</filename>,  <filename>rawbio</filename>, <filename>smk2emis</filename>, <filename>smkinven</filename>, <filename>smkmerge</filename>, <filename>smkreport</filename>, <filename>spcmat</filename>, <filename>surgtool</filename>, <filename>temporal</filename>, <filename>tmpbeis3</filename>, <filename>tmpbio</filename>, <filename>uam2ncf</filename></para>
 </listitem>
 
 <listitem>

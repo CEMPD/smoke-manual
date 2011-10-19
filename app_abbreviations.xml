@@ -25,11 +25,15 @@
 
 <seglistitem><seg>BELD3</seg><seg>Biogenic Emission Landcover Database, version 3</seg></seglistitem>
 
+<seglistitem><seg>BRK</seg><seg>particulate matter from brake component wear</seg></seglistitem>
+
 <seglistitem><seg>CAA</seg><seg>Clean Air Act</seg></seglistitem>
 
 <seglistitem><seg>CAM<subscript>X</subscript></seg><seg>Comprehensive Air Quality Model, with Extensions</seg></seglistitem>
 
 <seglistitem><seg>CB4</seg><seg>Carbon Bond 4</seg></seglistitem>
+
+<seglistitem><seg>CEI</seg><seg>crankcase extended idle exhaust</seg></seglistitem>
 
 <seglistitem><seg>CEP</seg><seg>Carolina Environmental Program</seg></seglistitem>
 
@@ -43,11 +47,21 @@
 
 <seglistitem><seg>CO</seg><seg>carbon monoxide</seg></seglistitem>
 
+<seglistitem><seg>CRC</seg><seg>evaporative crankcase emissions (blow-by)</seg></seglistitem>
+
 <seglistitem><seg>CTG</seg><seg>control technology guideline</seg></seglistitem>
+
+<seglistitem><seg>CXS</seg><seg>crankcase start exhaust</seg></seglistitem>
 
 <seglistitem><seg>DDDYYYY</seg><seg>date in Julian format (3-digit day plus 4-digit year)</seg></seglistitem>
 
+<seglistitem><seg>DNL</seg><seg>evaporative diurnal emissions (heat rise)</seg></seglistitem>
+
 <seglistitem><seg>EDSS</seg><seg>Environment Decision Support System</seg></seglistitem>
+
+<seglistitem><seg>EFL</seg><seg>evaporative fuel leaks</seg></seglistitem>
+
+<seglistitem><seg>EFV</seg><seg>evaporative fuel vapor venting</seg></seglistitem>
 
 <seglistitem><seg>EGU</seg><seg>electric generating utility</seg></seglistitem>
 
@@ -57,7 +71,15 @@
 
 <seglistitem><seg>EPA</seg><seg>U.S. Environmental Protection Agency</seg></seglistitem>
 
+<seglistitem><seg>EPM</seg><seg>Evaporative Permeation</seg></seglistitem>
+
 <seglistitem><seg>EPS</seg><seg>Emissions Processor System</seg></seglistitem>
+
+<seglistitem><seg>EXR</seg><seg>exhaust running emissions</seg></seglistitem>
+
+<seglistitem><seg>EXS</seg><seg>exhaust engine start emissions (trip start)</seg></seglistitem>
+
+<seglistitem><seg>EXT</seg><seg>extended idle exhaust</seg></seglistitem>
 
 <seglistitem><seg>FIA</seg><seg>Forest Inventory Area</seg></seglistitem>
 
@@ -74,6 +96,8 @@
 <seglistitem><seg>HHMMSS</seg><seg>hours (2 digits), minutes (2 digits), seconds (2 digits); other forms are HHHMMSS and HHHHMMSS, which differ only in the number of digits in the hours position</seg></seglistitem>
 
 <seglistitem><seg>HPC</seg><seg>high-performance computing</seg></seglistitem>
+
+<seglistitem><seg>HOT</seg><seg>evaporative hot soak emissions (trip end)</seg></seglistitem>
 
 <seglistitem><seg>IDA</seg><seg>Inventory Data Analyzer</seg></seglistitem>
 
@@ -105,6 +129,8 @@
 
 <seglistitem><seg>MMDDYYYY</seg><seg>date in Gregorian format (2-digit month plus 2-digit day plus 4-digit year)</seg></seglistitem>
 
+<seglistitem><seg>MOVES</seg><seg>Motor Vehicle Emission Simulator</seg></seglistitem>
+
 <seglistitem><seg>MWSS</seg><seg>Monday-weekday-Saturday-Sunday</seg></seglistitem>
 
 <seglistitem><seg>NAICS</seg><seg>North American Industrial Classification System</seg></seglistitem>
@@ -131,11 +157,11 @@
 
 <seglistitem><seg>ORL</seg><seg>one record per line</seg></seglistitem>
 
+<seglistitem><seg>OTAG</seg><seg>Ozone Transport and Assessment Group</seg></seglistitem>
+
 <seglistitem><seg>PAR</seg><seg>photosynthetic active radiation</seg></seglistitem>
 
 <seglistitem><seg>PAH</seg><seg>polynuclear aromatic hydrocarbons</seg></seglistitem>
-
-<seglistitem><seg>PAVE</seg><seg>Package for Analysis and Visualization of Environmental data</seg></seglistitem>
 
 <seglistitem><seg>PinG</seg><seg>plume in grid (same as MEPSE)</seg></seglistitem>
 
@@ -157,7 +183,19 @@
 
 <seglistitem><seg>RFG</seg><seg>reformulated gas</seg></seglistitem>
 
+<seglistitem><seg>RFL</seg><seg>evaporative refueling emissions (fuel displacement and spillage)</seg></seglistitem>
+
+<seglistitem><seg>RH</seg><seg>Relative Humidity</seg></seglistitem>
+
 <seglistitem><seg>RMC</seg><seg>Regional Modeling Center</seg></seglistitem>
+
+<seglistitem><seg>RPD</seg><seg>Rate Per Distance</seg></seglistitem>
+
+<seglistitem><seg>RPP</seg><seg>Rate Per Profile</seg></seglistitem>
+
+<seglistitem><seg>RPV</seg><seg>Rate Per Vehicle</seg></seglistitem>
+
+<seglistitem><seg>RST</seg><seg>evaporative running loss emissions</seg></seglistitem>
 
 <seglistitem><seg>SAPRC</seg><seg>Statewide Air Pollution Research Center</seg></seglistitem>
 
@@ -169,7 +207,11 @@
 
 <seglistitem><seg>SMOKE</seg><seg>Sparse Matrix Operator Kernel Emissions</seg></seglistitem>
 
+<seglistitem><seg>SPEED</seg><seg>Average Hourly Speed Inventory Data</seg></seglistitem>
+
 <seglistitem><seg>SO2</seg><seg>sulfur dioxide</seg></seglistitem>
+
+<seglistitem><seg>TIR</seg><seg>particulate matter from tire wear</seg></seglistitem>
 
 <seglistitem><seg>TOG</seg><seg>total organic gases</seg></seglistitem>
 
@@ -183,9 +225,13 @@
 
 <seglistitem><seg>UTM</seg><seg>Universal Transverse Mercator</seg></seglistitem>
 
+<seglistitem><seg>VERDI</seg><seg>Visualization Environment for Rich Data Interpretation</seg></seglistitem>
+
 <seglistitem><seg>VMT</seg><seg>vehicle miles traveled</seg></seglistitem>
 
 <seglistitem><seg>VOC</seg><seg>volatile organic compounds</seg></seglistitem>
+
+<seglistitem><seg>VPOP</seg><seg>Vehicle Population</seg></seglistitem>
 
 </segmentedlist>
 

@@ -1867,10 +1867,10 @@ Date      , Co/St/Cy, State         , CO            , NO      , NO2
 <para>Create reports by state/SCC for key states in your domain (the SELECT REGION statement in <command>Smkreport</command> can be used to isolate certain states for this report). Review these reports to ensure that the totals are consistent with expectations. Compare and contrast emissions by SCC among states.  Include per-capita reports as well as total emissions reports, and review these to determine if per-capita emissions differences make sense from state to state; this approach can often identify outliers in inventories (caused by improper units, double counting, or out-of-date inventory creation approach).</para>
 </listitem>
 <listitem>
-<para>Create spatial plots (e.g., using PAVE) of average-day emissions for each day (these daily-total emissions can be created by running <command>Smkmerge</command> with <envar>MRG_TEMPORAL</envar> set to N). Daily-total plots can also be created from the model-ready plots using the I/O API utility <command>m3tproc</command>. Do for all grids (if applicable) and compare.</para>
+<para>Create spatial plots (e.g., using VERDI) of average-day emissions for each day (these daily-total emissions can be created by running <command>Smkmerge</command> with <envar>MRG_TEMPORAL</envar> set to N). Daily-total plots can also be created from the model-ready plots using the I/O API utility <command>m3tproc</command>. Do for all grids (if applicable) and compare.</para>
 </listitem>
 <listitem>
-<para>Create temporal profile plots (e.g., using PAVE) of hourly, gridded data over the entire episode. Look for consistent patterns on consistent days (e.g., all non-holiday weekdays in a single month should have the same value). Do for all grids (if applicable) and compare. Check for holidays and ensure these were processed as Sundays.</para>
+<para>Create temporal profile plots (e.g., using VERDI) of hourly, gridded data over the entire episode. Look for consistent patterns on consistent days (e.g., all non-holiday weekdays in a single month should have the same value). Do for all grids (if applicable) and compare. Check for holidays and ensure these were processed as Sundays.</para>
 </listitem>
 </orderedlist>
 
