@@ -2427,15 +2427,6 @@ S<subscript>fraction</subscript> = smoldering fration
 </section>
 
 <section>
-<title>Run Syntax</title>
-<programlisting>
-cd $SCRIPTS/run
-./run_met4moves.MOVES.csh
-</programlisting>
-</section>
-
-<section>
-
 <title>Output Files</title>
 
 <informaltable>
@@ -2592,12 +2583,12 @@ cd $SCRIPTS/run
 <row>
 <entry><envar>MRCLIST</envar></entry>
 <entry>ASCII</entry>
-<entry>List of emission factors files by reference county file</entry>
+<entry>List of emission factors files (i.e., RPD, RPV and RPP Lookup tables) by reference county file</entry>
 </row>
 <row>
-<entry><envar>MET_CRO_2D</envar>(optional)</entry>
+<entry><envar>METLIST</envar>(optional)</entry>
 <entry>ASCII</entry>
-<entry>MCIP meteorology files</entry>
+<entry>List of MCIP meteorology files</entry>
 </row>
 <row>
 <entry><envar>MGMAT</envar></entry>
@@ -2615,24 +2606,27 @@ cd $SCRIPTS/run
 <entry>Speciation matrix from <command>Spcmat</command></entry>
 </row>
 <row>
-<entry>(<envar>METMOVES</envar> <link linkend="sect_intmed_smoke_output"><envar>=SMOKE_OUTFILE)</envar></link> (optional)</entry>
+<entry><envar>METMOVES</envar> (<link linkend="sect_intmed_smoke_output"><envar>=SMOKE_OUTFILE)</envar></link> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Meteorology file from <command>Met4moves</command></entry>
 </row>
 <row>
-<entry><envar>MOVES Lookup Tables</envar>(RPD, RPV, and RPP)</entry>
-<entry>ASCII</entry>
-<entry>MOVES Lookup Tables (RPD, RPV, and RPP) <command></command></entry>
-</row>
-<row>
-<entry><envar>MTMP_{day}</envar>(optional)</entry>
+<entry><envar>MTMP_{day}</envar></entry>
 <entry>ASCII</entry>
 <entry>Daily hour VMT files from <command>Temporal</command></entry>
+</row>
+<row>
+<entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link>(optional)</entry>
+<entry>ASCII</entry>
+<entry>Weekday and weekend hourly speed profiles</entry>
 </row>
 </tbody>
 </tgroup>
 </informaltable>
 
+</section>
+
+<section>
 <title>Input Environment Variables</title>
 
 <itemizedlist>
@@ -2733,15 +2727,27 @@ cd $SCRIPTS/run
 <para><envar>TMPVNAME</envar>: [default: TEMP2]</para>
 <para>  Name of temperature variable to read from the meteorology files for <command>Movesmrg</command>.</para>
 </listitem>
+<listitem>
+<para><envar>USE_HOURLY_SPEEDS</envar>: [default: N]</para>
+<para>  Determine whether processes weekday/weekend hourly speed profiles or not.</para>
+<itemizedlist>
+<listitem><para>Y: Process weekday/weekend hourly speed profiles</para></listitem>
+<listitem><para>N: Do not process hourly speed profiles</para></listitem>
 </itemizedlist>
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
 
 <title>Output Files</title>
 
 <informaltable>
 <tgroup cols="3">
-<colspec colwidth="30*" />
+<colspec colwidth="20*" />
 <colspec colwidth="18*" />
-<colspec colwidth="52*" />
+<colspec colwidth="62*" />
 
 <thead>
 <row>
@@ -2753,7 +2759,7 @@ cd $SCRIPTS/run
 
 <tbody>
 <row>
-<entry>MGTS_L or MGTS_S</entry>
+<entry>MGTS_L or MGTS_S </entry>
 <entry>I/O API NetCDF</entry>
 <entry>Model Ready Emissions File</entry>
 </row>
@@ -4164,7 +4170,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <listitem>
 <para><envar>NONHAP_TYPE</envar>: [default: VOC]</para>
-<para>Define the pollutant types either VOC or TOG for criteria/HAP VOC (or TOG) integration. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_NHAPEXCLUDE_YN</envar> or <envar>SMK_INTEGRATE_ALL_YN</envar> is set to Y. </para>
+<para>Define the name of organice compound inventory pollutant VOC or TOG for a proper integration between VOC or TOG, and hazardous air pollutants (HAPs) to compute NONHAPVOC or NONHAPTOG. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_NHAPEXCLUDE_YN</envar> or <envar>SMK_PROCESS_HAPS</envar> is set. </para>
 </listitem>
 
 <listitem>
@@ -5637,6 +5643,11 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
+</listitem>
+
+<listitem>
+<para><envar>SPCMAT_PERIOD</envar>: [default:1]</para>
+<para>Defines period number which could be month. It must match to the period number in (<xref linkend="sect_input_gspro_combo" />).</para>
 </listitem>
 
 <listitem>
