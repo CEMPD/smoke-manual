@@ -4028,7 +4028,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <itemizedlist>
 <listitem>
-<para>Y: Use <quote>Y</quote> when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole. Note that <envar>SMK_AVEDAY_YN</envar> should be set to N in other SMOKE programs when this option has been selected.</para>
+<para>Y: Use <quote>Y</quote> when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole.</para>
 </listitem>
 <listitem>
 <para>N: Do not fill in annual data based on average-day emissions values.</para>
