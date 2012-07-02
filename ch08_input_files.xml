@@ -3180,7 +3180,7 @@ INVYEAR 1996
 
 <para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
 
-<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wide EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wide" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wide format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wide format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar> for <command>Smkinven</command>.</para>
+<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wide EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wide" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wide format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wide format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
 <para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
 
 <para>When using hour-specific data in EMS-95 format with the IDA annual inventory, the fields in the <envar>PTHOUR</envar> file should line up with the fields in the <envar>PTINV</envar> file as follows:</para>
@@ -6543,7 +6543,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>C</entry>
 <entry>PERIOD</entry>
-<entry>Period number( e.g., month number)(integer) (required). Need to match SPCMAT_PERIOD settting in script for data that are not period specific, use1.</entry>
+<entry>Period number( e.g., month number)(integer) (required). Need to match SPCMAT_PERIOD settting in script for data that are not period specific, use 1 as default.</entry>
 </row>
 <row>
 <entry>D</entry>

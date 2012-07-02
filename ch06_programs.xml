@@ -4028,7 +4028,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <itemizedlist>
 <listitem>
-<para>Y: Use <quote>Y</quote> when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole.</para>
+<para>Y: Use <quote>Y</quote> when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole. Note that <envar>SMK_AVEDAY_YN</envar> should be set to N in other SMOKE programs when this option has been selected.</para>
 </listitem>
 <listitem>
 <para>N: Do not fill in annual data based on average-day emissions values.</para>
@@ -6048,22 +6048,6 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><command>Temporal</command> outputs a log file (<envar>LOGFILE</envar>), an hourly emissions file (<envar>PTMP</envar>), and a temporal allocation supplemental file (<envar>PTSUP</envar>).</para>
 
-<para>Optionally, <command>Temporal</command> may be run using <envar>PROCDATES</envar>.  This enables the processing of sequential or non-sequential user specified days. If <envar>PROCDATES</envar> is not assigned, the defaults apply. When running <command>Temporal</command> interactively, the following inputs will be requested. The default values for these are set by the <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar> environment variables.</para>
-
-<itemizedlist>
-<listitem>
-<para>Start date: Starting date of simulation in Julian (YYYYDDD) or Gregorian (YYYYMMDD) formats</para>
-</listitem>
-<listitem>
-<para>Start Time: Starting time of simulation in HHMMSS</para>
-</listitem>
-<listitem>
-<para>Duration: Simulation duration in hours</para>
-</listitem>
-</itemizedlist>
-
-<para><envar>PROCDATES</envar>: See description in <xref linkend="sect_input_procdates" />.</para>
-
 <section>
 
 <title>Input Files</title>
@@ -6240,6 +6224,30 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </listitem>
 </itemizedlist>
+
+</section>
+
+<section>
+
+<title>Other Input</title>
+
+<para>Optionally, <command>Temporal</command> may be run using <envar>PROCDATES</envar>.  This enables the processing of sequential or non-sequential user specified days. If PROCDATES is not assigned, the defaults apply.</para>
+
+<para>When running <command>Temporal</command> interactively, the following inputs will be requested. The default values for these are set by the <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar> environment variables.</para>
+
+<itemizedlist>
+<listitem>
+<para>Start date: Starting date of simulation in Julian (YYYYDDD) or Gregorian (YYYYMMDD) formats</para>
+</listitem>
+<listitem>
+<para>Start Time: Starting time of simulation in HHMMSS</para>
+</listitem>
+<listitem>
+<para>Duration: Simulation duration in hours</para>
+</listitem>
+</itemizedlist>
+
+<para><envar>PROCDATES</envar>: See description in <xref linkend="sect_input_procdates" />.</para>
 
 </section>
 
