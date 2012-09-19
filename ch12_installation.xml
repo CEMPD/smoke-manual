@@ -32,7 +32,7 @@
 <para>You will be sent to the CMAS Download Center. Select SMOKE as the product you wish to download and select your computer and compiler type.</para>
 </listitem>
 <listitem>
-<para>Download the installation script (<filename>smoke_install.csh</filename>), the source code, scripts, and executables archive (<filename>smoke_v271.Linux2_x86_64ifort.tar.gz</filename>), and the test case data files (<filename>smoke_v271.nctox.MOVES.data.tar.gz</filename>). Save these files in the same directory on your machine.</para>
+<para>Download the installation script (<filename>smoke_install.csh</filename>), the source code, scripts, and executables archive (<filename>smoke_${version}.Linux2_x86_64pg.tar.gz</filename>), and the test case data files (<filename>smoke_${version}.nctox.MOVES.data.tar.gz</filename>). Save these files in the same directory on your machine.</para>
 </listitem>
 </orderedlist>
 
@@ -136,14 +136,14 @@
 <listitem>-Bstatic: use static binding of libraries</listitem>
 </itemizedlist>
 
-<para>if you are not using the default Linux2_x86pg settings, you will need to check (or add) your Fortran compiler (using the environment variable <envar>FC</envar>) and the compiler options. The environment variable <envar>FFLAGS</envar> sets the Fortran compiler options for the optimized executables and the <envar>DBGFLAGS</envar> variable sets the options for the debug executables. You should set your options to match the options used for the Linux compile of SMOKE as closely as possible. First of all, set the environment variables listed below at the command line prior to invoking the SMOKE Assigns files.</para>
+<para>if you are not using the default Linux2_x86_64pg settings, you will need to check (or add) your Fortran compiler (using the environment variable <envar>FC</envar>) and the compiler options. The environment variable <envar>FFLAGS</envar> sets the Fortran compiler options for the optimized executables and the <envar>DBGFLAGS</envar> variable sets the options for the debug executables. You should set your options to match the options used for the Linux compile of SMOKE as closely as possible. First of all, set the environment variables listed below at the command line prior to invoking the SMOKE Assigns files.</para>
 
 <para><command>Linux2_x86_64ifort with Intel Fortran</command></para>
 <itemizedlist spacing="compact">
 <listitem><envar>setenv SMOKE_EXE Linux2_x86_x86ifort</envar></listitem>
 <listitem><envar>setenv FC ifort</envar></listitem>
-<listitem><envar>setenv FFLAG "-O3 -cm -132 -zero -save -common-args -i-static"</envar></listitem>
-<listitem><envar>setenv DBGFLAG "-g -cm -132 -zero -save -common-args -i-static"</envar></listitem>
+<listitem><envar>setenv FFLAG "-O3 -cm -132 -zero -save -common-args -i-static -convert big_endian"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -cm -132 -zero -save -common-args -i-static -convert big_endian"</envar></listitem>
 </itemizedlist>
 
 <para><command>Linux2_x86 with Intel Fortran</command></para>
@@ -238,7 +238,7 @@
 </comment>
 
 <listitem>
-<para>Download the I/O API library version 3.0 from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink> and compile with <filename>Makeinclude.Linux2_x86pg</filename>. The I/O API can be installed in <filename><envar>$SMK_HOME</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the <filename><envar>$SMK_HOME</envar>/subsys/ioapi/Linux2_x86pg/</filename> directory.</para>
+<para>Download the I/O API library version 3.0 from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink> and compile with <filename>Makeinclude.Linux2_x86_64pg</filename>. The I/O API can be installed in <filename><envar>$SMK_HOME</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the <filename><envar>$SMK_HOME</envar>/subsys/ioapi/Linux2_x86_64pg/</filename> directory.</para>
 </listitem>
 <listitem>
 <para>Create the directory <filename><envar>$SMK_HOME</envar>/subsys/ioapi_includes/</filename> and then copy the <filename>*.EXT</filename> files from the <filename>fixed_src</filename> directory of your I/O API installation to this new directory.</para>

@@ -2274,7 +2274,7 @@ S<subscript>fraction</subscript> = smoldering fration
 <section>
 
 <title>Processing Order</title>
-<para><command>Met4moves</command> must be run before the MOVES drive script <command>Runspec_generator.pl</command> and <command>Smkinven</command>, the SMOKE Utility program <link linkend="sect_utilities_metcombine">Metcombine</link> may need to be run prior to Met4moves.</para>
+<para><command>Met4moves</command> must be run prior to <link linkend="section_moves_utilities">MOVES processing scripts</link>. The SMOKE Utility program, <link linkend="sect_utilities_metcombine"><command>Metcombine</command></link>, needs to be run prior to <command>Met4moves</command>. <command>Metcombine</command> allows the user to combine ambient temperature, pressure and mixing ratio variables from two different MCIP files (METCRO_2D and METCRO_3D) that are needed to compute Relative Humidity (RH) in <command>Met4moves</command>.</para>
 </section>
 
 <section>
@@ -2318,12 +2318,27 @@ S<subscript>fraction</subscript> = smoldering fration
 <row>
 <entry><link linkend="sect_input_costcy"><envar>COSTCY</envar></link></entry>
 <entry>ASCII</entry>
-<entry>Country/State/County codes fil</entry>
+<entry>Country, state, county codes file, with time zones</entry>
 </row>
 <row>
 <entry><link linkend="sect_input_griddesc"><envar>GRIDDESC</envar></link></entry>
 <entry>ASCII</entry>
-<entry>Grid Description File</entry>
+<entry>Modeling Domain Grid Description File</entry>
+</row>
+<row>
+<entry><link linkend="sect_input_mcxref"><envar>MCXREF</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Reference county cross-reference file; NOTE: The list of counties in the MCXREF file used by <command>Met4moves</command> must match the list of inventory counties used by SMOKE</entry>
+</row>
+<row>
+<entry><link linkend="sect_input_metlist"><envar>METLIST</envar></link></entry>
+<entry>ASCII</entry>
+<entry>A list of meteorology files containing temperature, mixing ratio, and surface pressure data created by <command>Metcombine</command></entry>
+</row>
+<row>
+<entry><link linkend="sect_input_mfmref"><envar>MFMREF</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Reference county fuel monthcross-reference file; NOTE: The list of counties in the MFMREF file used by <command>Met4moves</command> must match the list of inventory counties used by SMOKE</entry>
 </row>
 <row>
 <entry><link linkend="sect_input_srgdesc"><envar>SRGDESC</envar></link></entry>
@@ -2331,24 +2346,9 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Surrogate Description File</entry>
 </row>
 <row>
-<entry><envar>Surrogate Files(s)</envar></entry>
+<entry><envar>Surrogate File(s)</envar></entry>
 <entry>ASCII</entry>
-<entry>Surrogate files(s) can be selected using <envar>SRG_LIST</envar></entry></row><row>
-<entry><link linkend="sect_input_metlist"><envar>METLIST</envar></link></entry>
-<entry>ASCII</entry><entry>File containing list of MCIP or METCOMBINE meteorology files</entry></row><row>
-<entry><link linkend="sect_input_mcxref"><envar>MCXREF</envar></link></entry>
-<entry>ASCII</entry>
-<entry>Reference county cross-reference file; NOTE the list of counties in the MCXREF file used by Met4moves must match the list of inventory counties used by SMOKE and listed in INVTABLE</entry>
-</row>
-<row>
-<entry><link linkend="sect_input_mfmref"><envar>MFMREF</envar></link></entry>
-<entry>ASCII</entry>
-<entry>Reference county Fuel Month cross-reference file</entry>
-</row>
-<row>
-<entry><link linkend="sect_input_costcy"><envar>COSTCY</envar></link></entry>
-<entry>ASCII</entry>
-<entry>List of Counties</entry>
+<entry>Surrogate file(s) selected by <envar>SRG_LIST</envar></entry>
 </row>
 </tbody>
 </tgroup>
@@ -2362,10 +2362,8 @@ S<subscript>fraction</subscript> = smoldering fration
 <itemizedlist>
 <listitem>
 <para><envar>STDATE</envar>: [default: 0]</para>
-
 <para>This environment variable sets the overall episode start date: Julian format (YYYYDDD) for <command>Movesmrg</command>.</para>
 </listitem>
-
 <listitem>
 <para><envar>ENDDATE</envar>: [default: 0]</para>
 <para>Sets the overall episode end date; Julian format (YYYYDDD).</para>
@@ -2373,24 +2371,15 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem>
 <para><envar>ENDTIME</envar>: [default: 230000]</para>
 </listitem>
-
-
 <listitem>
-<para><envar>AVERAGING_METHOD</envar>: [default: MONTHLY]</para>
-<para>Sets averaging method to create 24-h temperature profiles based on STDATE and ENDATE</para>
+<para><envar>AVERAGING_METHOD</envar>: [default: DAILY]</para>
+<para>Defines averaging method to create inventory county-specific averaged RH and min/max temperatures for MOVES RatePerProfile (RPP) processing</para>
 <itemizedlist>
 <listitem>
-<para>MONTHLY: Average data and profiles for each month within the user-specified modeling episode</para>
+<para>DAILY  : Daily averaged RH and min/max temperatures for each inventory county within the user-specified modeling episode</para>
+<para>MONTHLY: Monthly average RH and min/max temperatures for each invenotry county within the user-specified modeling episode</para>
 </listitem>
 </itemizedlist>
-</listitem>
-<listitem>
-<para>If <envar>MOVES_OUTFILE</envar> [default: N]</para>
-<para>Defines the output filename for MOVES.</para>
-</listitem>
-<listitem>
-<para><envar>SMOKE_OUTFILE</envar>: [default: N]</para>
-<para> Defines the output filename for SMOKE</para>
 </listitem>
 <listitem>
 <para><envar>PD_TEMP_INCREMENT</envar>: [default: 5]</para>
@@ -2403,7 +2392,9 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem>
 <para><envar>PP_TEMP_INCREMENT</envar>: [default: 10]</para>
 <para>Defines the temperature increment (in deg. F) for RPP lookup table to create combinations of min/max temperature bins</para>
-/sect
+</listitem>
+<listitem>
+<para><envar>RH_STR_HOUR</envar>: [default: 60000]</para>
 <para>Defines the start hour in local time for average RH over the user-speciied modeling episode</para>
 </listitem>
 <listitem>
@@ -2412,15 +2403,19 @@ S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 <listitem>
 <para><envar>SRG_LIST</envar>: [default: N]</para>
-<para>Specifies the name(s) of the spatial surrogate(s) to be used in selecting the grid cells for the county (example: setenv SRG_LIST '100,230').</para>
+<para>Specifies the code(s) of the spatial surrogate(s) to be used in selecting the grid cells for the county (example: setenv SRG_LIST '100,230').</para>
 </listitem>
 <listitem>
 <para><envar>SRGPRO_PATH</envar>: [default: N]</para>
-<para>Defines the location of spatial surrogate coefficient files.</para>
+<para>Defines the location of spatial surrogate files.</para>
+</listitem>
+<listitem>
+<para><envar>TEMP_BUFFER_BIN</envar>: [default: 0.0]</para>
+<para>Defines the temperature buffer value (°F). This value will allow <command>Met4moves</command> to expand the min/max temperature range for MOVES RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Met4moves</command>.</para>      
 </listitem>
 <listitem>
 <para><envar>TVARNAME</envar>: [default: TEMP2]</para>
-<para>Specifies the variable name for the temperature to extract from the Met4moves Output file (MOVES_OUTFILE).</para>
+<para>Specifies the variable name for the temperature to extract from the <command>Met4moves</command> output file (<envar>MOVES_OUTFILE</envar>).</para>
 </listitem>
 </itemizedlist>
 
@@ -2441,7 +2436,6 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>File Name</entry>
 <entry>Format</entry>
 <entry>Description</entry>
-<entry>Output Directory</entry>
 </row>
 </thead>
 
@@ -2450,7 +2444,6 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry><link linkend="sect_intmed_moves_output">MOVES_OUTFILE</link></entry>
 <entry>ASCII </entry>
 <entry>Contains the absolute minimum and maximum temperatures and average RH values and the 24 hour temperature profiles associated with each reference county (example filename: MOVES_12km_2009091-2009120.txt)</entry>
-<entry>$MET_ROOT/MOVES2010</entry>
 </row>
 <row>
 <entry><link linkend="sect_intmed_smoke_output">SMOKE_OUTFILE</link></entry>
@@ -2461,7 +2454,6 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry><envar>LOGFILE</envar></entry>
 <entry>ASCII</entry>
 <entry>Log generated from executing <command>Met4moves</command></entry>
-<entry>$MET_ROOT/MOVES2010</entry>
 </row>
 
 </tbody>
@@ -2556,9 +2548,14 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Country, state and county codes file</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_cfpro"><envar>CFPRO</envar></link> (optional)</entry>
+<entry>ASCII</entry>
+<entry>Control factor file</entry>
+</row>
+<row>
 <entry><envar>GRIDDESC</envar></entry>
 <entry>ASCII</entry>
-<entry>Grid Description File</entry>
+<entry>Grid description file</entry>
 </row>
 <row>
 <entry><envar>INVTABLE</envar></entry>
@@ -2586,7 +2583,7 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>List of emission factors files (i.e., RPD, RPV and RPP Lookup tables) by reference county file</entry>
 </row>
 <row>
-<entry><envar>METLIST</envar>(optional)</entry>
+<entry><envar>METLIST</envar></entry>
 <entry>ASCII</entry>
 <entry>List of MCIP meteorology files</entry>
 </row>
@@ -2616,7 +2613,7 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Daily hour VMT files from <command>Temporal</command></entry>
 </row>
 <row>
-<entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link>(optional)</entry>
+<entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Weekday and weekend hourly speed profiles</entry>
 </row>
@@ -2631,6 +2628,15 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <itemizedlist>
 <listitem>
+<para><envar>MEMORY_OPTIMIZE_YN: </envar>: [default: Y]</para>
+<para> Allows <command>Movesmrg</command> to use less RAM memory. However, it will increase computational time of RPD_MODE and RPV_MODE runs. </para>
+<itemizedlist>
+<listitem><para>Y: Runs <command>Movesmrg</command> in memory optimization mode.</para></listitem>
+<listitem><para>N: Runs <command>Movesmrg</command> faster mode using high capacity of RAM memory.</para></listitem>
+</itemizedlist> 
+</listitem>
+
+<listitem>
 <para><envar>MRG_BYDAY</envar>: [default: blank]</para>
 <para> String code that specifies which source category is to use a by-day approach for the hourly input files. It must be set to "M" for a <command>Movesmrg</command> to create an output file for each day.</para>
 </listitem>
@@ -2644,7 +2650,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>MRG_SPCOUT_YN:</envar>: [default: N]</para>
+<para><envar>MRG_SPCOUT_YN</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> produces a speciated output file.</para>
 <itemizedlist>
 <listitem><para>Y: Read the gridding matrix produced by the <command>Spcmat</command></para></listitem>
@@ -2652,7 +2658,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>MRG_REPCNY_YN:</envar>: [default: N]</para>
+<para><envar>MRG_REPCNY_YN</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> produces a report of emission totals by county</para>
 <itemizedlist>
 <listitem><para>Y: Produce the report by <command>Movesmrg</command></para></listitem>
@@ -2660,7 +2666,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>MRG_REPSTA_YN:</envar>: [default: N]</para>
+<para><envar>MRG_REPSTA_YN</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> produces a report of emission totals by state</para>
 <itemizedlist>
 <listitem><para>Y: Produce the report by <command>Movesmrg</command></para></listitem>
@@ -2668,7 +2674,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>MRG_REPSCC_YN:</envar>: [default: N]</para>
+<para><envar>MRG_REPSCC_YN</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> produces a report of emission totals by SCC</para>
 <itemizedlist>
 <listitem><para>Y: Produce the report by <command>Movesmrg</command></para></listitem>
@@ -2676,7 +2682,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>MRG_REPSRC_YN:</envar>: [default: N]</para>
+<para><envar>MRG_REPSRC_YN</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> produces a report of emission totals by source.</para>
 <itemizedlist>
 <listitem><para>Y: Produce the report by <command>Movesmrg</command>. It will reset <envar>MRG_REPCNY_YN</envar> and <envar>MRG_REPSCC_YN</envar> to N to avoid to outputing duplicate information into the report.</para></listitem>
@@ -2692,7 +2698,7 @@ S<subscript>fraction</subscript> = smoldering fration
 <para>  String code that permits user to change the unit of the state/county total report file.</para>
 </listitem>
 <listitem>
-<para><envar>RPD_MODE:</envar>: [default: N] </para>
+<para><envar>RPD_MODE:</envar> [default: N] </para>
 <para>Determines whether <command>Movesmrg</command> processes rate-per-distance emissions.</para>
 <itemizedlist>
 <listitem><para>Y: Process rate-per-distance emissions</para></listitem>
@@ -2700,7 +2706,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>RPV_MODE:</envar>: [default: N] </para>
+<para><envar>RPV_MODE</envar>: [default: N] </para>
 <para>Determines whether <command>Movesmrg</command> processes rate-per-vehicle emissions.</para>
 <itemizedlist>
 <listitem><para>Y: Process rate-per-vehicle emissions</para></listitem>
@@ -2708,11 +2714,19 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>RPP_MODE:</envar>: [default: N]</para>
+<para><envar>RPP_MODE</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> processes rate-per-profile emissions.</para>
 <itemizedlist>
 <listitem><para>Y: Process rate-per-profile emissions</para></listitem>
 <listitem><para>N: Do not process rate-per-profile emissions</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para><envar>USE_CONTROL_FACTORS</envar>: [default: N]</para>
+<para> Allows the user to apply control factor by region, SCC, pollutant, process mode, and month.</para>
+<itemizedlist>
+<listitem><para>Y: Apply control factors to MOVES emission rates from MOVES lookup tables.</para></listitem>
+<listitem><para>N: Do not apply control factor.</para></listitem>
 </itemizedlist>
 </listitem>
 <listitem>
@@ -2722,6 +2736,10 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem>
 <para><envar>SMK_SOURCE</envar>: [default: blank]</para>
 <para>  Sets the types of source category. It must be set to "M" for <command>Movesmrg</command>.</para>
+</listitem>
+<listitem>
+<para><envar>TEMP_BUFFER_BIN</envar>: [default: 0.0]</para>
+<para>Defines the temperature buffer value (°F). This value allows <command>Movesmrg</command> to cover the outside of min/max temperature range in <envar>SMOKE_OUTFILE</envar> from <command>Met4moves</command> for <command>Movesmrg</command> RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Movesmrg</command>. Emission rates for those temperatures outside of original temperature range will share the ones from original max/min temperatures.</para>      
 </listitem>
 <listitem>
 <para><envar>TMPVNAME</envar>: [default: TEMP2]</para>
@@ -3770,6 +3788,9 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <para>EMS-95 day-specific (modified hour-specific format) point (can also be used to match with IDA inventories)</para>
 </listitem>
 <listitem>
+<para>FF10 (Flat File 10) format for many different source categories including day-specific, hour-specific, monthly and annual for nonpoint, nonroad mobile, on-road mobile, and point sources (comma or semicolon delimited) </para>
+</listitem>
+<listitem>
 <para>ASCII Continuous Emissions Monitoring (CEM) format (hour-specific point-source emissions); must be used with IDA inventory files for annual or seasonal inventory data.</para>
 </listitem>
 <listitem>
@@ -3780,7 +3801,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </listitem>
 </itemizedlist>
 
-<para>It is not possible to import only day- or hour-specific data from EMS-95 input files. If only such data are to be used, mock annual files must be created; see <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" /> for more information on the required formats.</para>
+<para>It is not possible to import only day- or hour-specific data from FF10 or EMS-95 input files. If only such data are to be used, mock annual files must be created; see <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" /> for more information on the required formats.</para>
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
@@ -3977,9 +3998,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <listitem>
 <para><envar>ALLOW_NEGATIVE</envar>: [default: N]</para>
-
 <para>Indicates if <command>Smkinven</command> should permit negative emissions values to be input from inventory files and output to <envar>SMOKE</envar> intermediate files.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Accept negative emissions values and will allow compute variables (from the <envar>SMKINVEN_FORMULA</envar> variable) to be negative. <command>Smkinven</command> gives warnings for each negative value in the inventory input and each computed value, until triggering the <envar>SMK_MAXWARNING</envar> setting's values.</para>
@@ -4019,16 +4038,27 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <para>N: Do not import day-specific data</para>
 </listitem>
 </itemizedlist>
-
 </listitem>
+
 <listitem>
-<para><envar>FILL_ANNUAL</envar>: [default N]</para>
-
-<para>Allows annual data to be filled in with average-day data.</para>
-
+<para><envar>FF10_AVEDAY_ANNINV_YN</envar>: [default N]</para>
+<para>Uses area daily or hourly FF10-formatted invenotry as annual data. This will allow users to process ARDAY or ARHOUR invenotry data independently without artifical annual inventory data.</para>
 <itemizedlist>
 <listitem>
-<para>Y: Use <quote>Y</quote> when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole. Note that <envar>SMK_AVEDAY_YN</envar> should be set to N in other SMOKE programs when this option has been selected.</para>
+<para>Y: Use daily or hourly FF10-formatted inventory as annual data.</para>
+</listitem>
+<listitem>
+<para>N: Do not use daily or hourly FF10-formatted inventory as annual data. Just it as daily or hourly FF10-formatted inventory data.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>FILL_ANNUAL</envar>: [default N]</para>
+<para>Allows annual data to be filled in with average-day data.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use <quote>Y</quote> when annual emission numbers are blank for some records of the inventory but not all records. The emissions values will be filled in using the average-day emissions field, by multiplying the average-day number by the number of days in the inventory year (365 or 366). This option is useful when some sources have only annual data and some sources have only average-day data. Although the annual number will be filled in using the average-day one, the average-day emissions will be output from SMOKE as a whole.</para>
 </listitem>
 <listitem>
 <para>N: Do not fill in annual data based on average-day emissions values.</para>
@@ -4279,7 +4309,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <listitem>
 <para><envar>SMKINVEN_FORMULA</envar>: [default: blank]</para>
 
-<para>Allows you to specify a formula for computing one or more pollutant values from the values of other pollutants. To use, users should set the value of <envar>SMKINVEN_FORMULA</envar> to a double-quote-enclosed string of 512 characters or less, using a comma-delimited list of formulas.  No spaces are necessary in the formula list. Only formulas of a specific structure are accepted. Specifically, one of the following:</para>
+<para>Allows the user to specify a formula for computing one or more pollutant values from the values of other pollutants. To use, users should set the value of <envar>SMKINVEN_FORMULA</envar> to a double-quote-enclosed string of 512 characters or less, using a comma-delimited list of formulas.  No spaces are necessary in the formula list. Only formulas of a specific structure are accepted. Specifically, one of the following:</para>
 
 <itemizedlist>
 <listitem>
@@ -4289,14 +4319,17 @@ OUTPUT = INPUT1 + INPUT2
 OUTPUT = INPUT1 - INPUT2
 </listitem>
 </itemizedlist>
-
 <para>For example, if the formula is set to <quote>PMC=PM10-PM2_5,EXH__PMC=EXH__PM10-EXH__PM2_5</quote>, then <command>Smkinven</command> will compute two new variables: (1) PMC, as the difference between PM<subscript>10</subscript> and PM<subscript>2.5</subscript> and (2) EXH__PMC as the difference between exhaust PM<subscript>10</subscript> and exhaust PM<subscript>2.5</subscript>. The pollutant units are taken from the first variable in each formula. The variables used as input in the formula will still be output to the SMOKE inventory file. If the formula is not set, no additional variables will be written to the SMOKE inventory file. An output from one formula may not be used as an input to another formula. In the OUTPUT pollutant name is the same as an INPUT pollutant name from the inventory file, Smkinven will give an error indicating that the second pollutant could not be written (e.g. if computing PMC when PMC is already in the raw inventory data). If INPUT2 is ommitted, an error will also occur.  Formulas using multiplication and division are not yet implemented.</para>
 </listitem>
+
+<listitem>
+<para><envar>SMKINVEN_MONTH</envar>: [default: 0 ]</para>
+<para>Defines the number of month to process. The integer month number will allow users to pick monthly total inventory data in area FF10-formatted invenotry data listed at <xref linkend="tbl_input_arinv_ff10" />.</para> 
+</listitem>
+
 <listitem>
 <para><envar>VELOC_RECALC</envar>: [default: N]</para>
-
 <para>Defines whether stack velocity is recalculated in order to make the velocity consistent with the reported flow and diameter.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Recalculate stack velocity</para>
@@ -6048,6 +6081,22 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><command>Temporal</command> outputs a log file (<envar>LOGFILE</envar>), an hourly emissions file (<envar>PTMP</envar>), and a temporal allocation supplemental file (<envar>PTSUP</envar>).</para>
 
+<para>Optionally, <command>Temporal</command> may be run using <envar>PROCDATES</envar>.  This enables the processing of sequential or non-sequential user specified days. If <envar>PROCDATES</envar> is not assigned, the defaults apply. When running <command>Temporal</command> interactively, the following inputs will be requested. The default values for these are set by the <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar> environment variables.</para>
+
+<itemizedlist>
+<listitem>
+<para>Start date: Starting date of simulation in Julian (YYYYDDD) or Gregorian (YYYYMMDD) formats</para>
+</listitem>
+<listitem>
+<para>Start Time: Starting time of simulation in HHMMSS</para>
+</listitem>
+<listitem>
+<para>Duration: Simulation duration in hours</para>
+</listitem>
+</itemizedlist>
+
+<para><envar>PROCDATES</envar>: See description in <xref linkend="sect_input_procdates" />.</para>
+
 <section>
 
 <title>Input Files</title>
@@ -6137,6 +6186,20 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>HOUR_SPECIFIC_YN</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>
 </listitem>
+
+<listitem>
+<para><envar>HOURLY_TPROF_BASE</envar>: [default: blank]</para>
+<para>Defines the base of hourly temporal profiles. This flag is only applicable when hourly temporal profiles generated by <command>Gentpro</command> is available for <command>Temporal</command> to use. For a proper processing of hourly temporal profiles from <command>Gentpro</command>, user must let <command>Temporal</command> know the basis of hourly temporal profiles (i.e., hour of day, hour of month or hour of year). <command>Gentpro</command> outputs hourly temporal profiles IDs into temporal cross-reference input file (<envar>[A|M|P]TREF</envar>). See detail information at <xref linkend="sect_input_amptref"/>. If <envar>HOUR_PROFID</envar> column is filled by <command>Gentpro</command>, user must define the base of hourly profiles to correctly convert annual/monthly/daily inventories. If processing monthly inventory, user must set it to 'MONTH'.</para>
+<itemizedlist>
+<listitem>
+<para>YEAR: Convert annual inventory to hourly inventory values.</para>
+</listitem>
+<listitem>
+<para>MONTH: Convert monthly inventory to hourly inventory values.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>OUTZONE</envar>: : [default: 0]</para>
 <para>Indicates offset from Greenwich Mean Time (GMT) for episode start date and time. <envar>OUTZONE</envar> should be set to the standard time for the time zone of interest; SMOKE will adjust to Daylight Saving time for episodes that are during periods and in regions where Daylight Saving time applies.</para>
@@ -6145,11 +6208,10 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>Note that SMOKE expects <envar>OUTZONE</envar> to be set as a positive number for time zones in the Western Hemisphere, although standard notation would list these as negative values. For example, Eastern Standard Time is -5:00 hours from GMT, but <envar>OUTZONE</envar> for EST in SMOKE is 5.</para>
 </listitem>
+
 <listitem>
 <para><envar>RENORM_TPROF</envar>: [default: Y]</para>
-
 <para>Defines whether <command>Temporal</command> normalizes the temporal profiles or uses them as they exist in the data file. If the profiles are specified as decimal values and sum to 1, then specify N. Otherwise, specify Y and the program will sum the values associated with each profile and then divide each value by the sum, thereby creating a normalized profile.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Normalize the temporal profiles</para>
@@ -6158,8 +6220,8 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>N: Use the temporal profile values as they exist in the data file</para>
 </listitem>
 </itemizedlist>
-
 </listitem>
+
 <listitem>
 <para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
@@ -6167,8 +6229,8 @@ Defines whether the program produces a report of emission totals by state.</para
 <para><envar>SMK_AVEDAY_YN</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>SMK_EF_MODEL</envar>: [default: MOVES]</para>
-<para>Name of the emission factor model to use. NOTE: At this time only the default value can be used.</para>
+<para><envar>SMK_EF_MODEL</envar>: [default:blank]</para>
+<para>Name of the emission factor model to use. NOTE: User must set it to MOVES when processing activity inventory data (i.e., VMT, VPOP and SPEED).</para>
 </listitem>
 <listitem>
 <para><envar>SMK_MAXERROR</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>
@@ -6224,30 +6286,6 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </listitem>
 </itemizedlist>
-
-</section>
-
-<section>
-
-<title>Other Input</title>
-
-<para>Optionally, <command>Temporal</command> may be run using <envar>PROCDATES</envar>.  This enables the processing of sequential or non-sequential user specified days. If PROCDATES is not assigned, the defaults apply.</para>
-
-<para>When running <command>Temporal</command> interactively, the following inputs will be requested. The default values for these are set by the <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar> environment variables.</para>
-
-<itemizedlist>
-<listitem>
-<para>Start date: Starting date of simulation in Julian (YYYYDDD) or Gregorian (YYYYMMDD) formats</para>
-</listitem>
-<listitem>
-<para>Start Time: Starting time of simulation in HHMMSS</para>
-</listitem>
-<listitem>
-<para>Duration: Simulation duration in hours</para>
-</listitem>
-</itemizedlist>
-
-<para><envar>PROCDATES</envar>: See description in <xref linkend="sect_input_procdates" />.</para>
 
 </section>
 

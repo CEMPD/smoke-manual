@@ -575,6 +575,375 @@
 
 </section>
 
+<section id="sect_intmed_gentpro">
+
+<title><command>Gentpro</command></title>
+
+<para>The <command>Gentpro</command> program is responsible for creating the monthly, daily or hourly temporal profiles for <command>Temporal</command>. <command>Gentpro</command> creates the following intermediate files depending on the options:</para>
+
+<itemizedlist>
+<listitem>
+<para>Temporal cross-reference file: <xref linkend="sect_input_amptref" /></para>
+</listitem>
+<listitem>
+<para>Monthly temporal profile file: <xref linkend="sect_intmed_tpro_mon" /></para>
+</listitem>
+<listitem>
+<para>Daily temporal profile file: <xref linkend="sect_intmed_tpro_day" /></para>
+</listitem>
+<listitem>
+<para>Hourly temporal profile file: <xref linkend="sect_intmed_tpro_hour" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_tpro_mon">
+
+<title><envar>TPRO_MON</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Used by: <command>Temporal</command></para>
+
+<table>
+<title>File columns in <envar>TPRO_MON</envar></title>
+<tgroup cols="5">
+<colspec colname="Line" colwidth="1*" />
+<colspec colname="Column" colwidth="1*" />
+<colspec colname="Type" colwidth="1*" />
+<colspec colname="Units" colwidth="1*" />
+<colspec colname="Description" colwidth="4*" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Column</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Integer</entry>
+<entry>Unitless </entry>
+<entry>Temporal profile ID #1 (=FIPS #1)</entry>
+</row>
+<row>
+<entry colname="Column">B</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of annual emission in January</entry>
+</row>
+<row>
+<entry colname="Column">C</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of annual emission in February</entry>
+</row>
+<row>
+<entry colname="Column">...</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Column">M</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of annual emission in December</entry>
+</row>
+
+<row>
+<entry>2+</entry>
+<entry>A</entry>
+<entry>Integer</entry>
+<entry>Unitless </entry>
+<entry>Temporal profile ID #2 (=FIPS #2)</entry>
+</row>
+<row>
+<entry colname="Column">B</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of annual emission in January</entry>
+</row>
+<row>
+<entry colname="Column">C</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of annual emission in February</entry>
+</row>
+<row>
+<entry colname="Column">...</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Column">M</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of annual emission in December</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_tpro_day">
+
+<title><envar>TPRO_DAY</envar></title>
+
+<para>Type: ASCII - list-directed</para>
+
+<para>Used by: <command>Temporal</command></para>
+
+<table>
+<title>File columns in <envar>TPRO_DAY</envar></title>
+<tgroup cols="5">
+<colspec colname="Line" colwidth="1*" />
+<colspec colname="Column" colwidth="1*" />
+<colspec colname="Type" colwidth="1*" />
+<colspec colname="Units" colwidth="1*" />
+<colspec colname="Description" colwidth="4*" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Column</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>1</entry>
+<entry>Integer</entry>
+<entry>Unitless </entry>
+<entry>Temporal profile ID #1 (=FIPS #1)</entry>
+</row>
+<row>
+<entry colname="Column">2</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Month (i.e., January = 1)</entry>
+</row>
+<row>
+<entry colname="Column">3</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of January monthly total emission on Day 1</entry>
+</row>
+<row>
+<entry colname="Column">...</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Column">33</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of January monthly total emission on Day 31</entry>
+</row>
+
+<row>
+<entry>2+</entry>
+<entry>1</entry>
+<entry>Integer</entry>
+<entry>Unitless </entry>
+<entry>Temporal profile ID #2 (=FIPS #2)</entry>
+</row>
+<row>
+<entry colname="Column">2</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Month (i.e., February = 2)</entry>
+</row>
+<row>
+<entry colname="Column">3</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of February monthly total emission on Day 1</entry>
+</row>
+<row>
+<entry colname="Column">...</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Column">30</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of February monthly total emission on Day 28</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>100+</entry>
+<entry>1</entry>
+<entry>Integer</entry>
+<entry>Unitless </entry>
+<entry>Temporal profile ID #100 (=FIPS #100)</entry>
+</row>
+<row>
+<entry colname="Column">2</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Month (i.e., January = 1)</entry>
+</row>
+<row>
+<entry colname="Column">3</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of January monthly total emission on Day 1</entry>
+</row>
+<row>
+<entry colname="Column">...</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Column">33</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Fraction of January monthly total emission on Day 31</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_intmed_tpro_hour">
+
+<title><envar>TPRO_HOUR</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Temporal</command></para>
+
+<table>
+<title>I/O API Header for <envar>TPRO_HOUR</envar></title>
+<tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of Sources (=Counties)</entry>
+<entry>Determined by the <command>Gentpro</command></entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of temporal profiles types (i.e., Source ID (=FIPS), Hourly total (HRLSRC), Daily total (DAYTOT), Monthly total (MONTOT) and annual total (ANNTOT) )</entry>
+<entry>Determined by the <command>Gentpro</command></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>TPRO_HOUR</envar></title>
+<tgroup cols="4">
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>FIPS</entry>
+<entry>Integer</entry>
+<entry>Unitless</entry>
+<entry>Temporal profile ID (=FIPS code)</entry>
+</row>
+<row>
+<entry>HRLSRC</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Hourly total by source</entry>
+</row>
+<row>
+<entry>DAYTOT</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Daily total by source</entry>
+</row>
+<row>
+<entry>MONTOT</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Monthly total by source</entry>
+</row>
+<row>
+<entry>ANNTOT</entry>
+<entry>Real</entry>
+<entry>Unitless</entry>
+<entry>Annual total by source</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
 <section id="sect_intmed_grwinven">
 
 <title><command>Grwinven</command></title>
@@ -956,7 +1325,7 @@
 
 <para>Type: ASCII - column-specific</para>
 
-<para>Used by: MOVES driver script.</para>
+<para>Used by: <link linkend="section_moves_driver_script"> MOVES Driver Script</link></para>
 <para>The output file created by <command>Met4moves</command> for use by the MOVES driver script contains the absolute minimum and maximum temperatures and average RH values associated with each reference county.  The scope of these in/max temperatures extends across the selected grid cells in the county group associated with that reference county.  The min/max temperatures determine the MOVES runs that are needed for generating the RPD and RPV emission rates.  The temperature increments listed in the header are used to define the temperature bins used to optimize the MOVES runs. In addition, the output file prepared for the MOVES driver script contains sets of 24 hour diurnal temperature profiles based on combinations of min/max temperature bins for each reference county; these are necessary for the MOVES vapor-venting emissions calculation that is performed for the RPP emissions process.  For a specific reference county and fuel month, the monthly average RH value is identical for all the records.</para>
 
 <table>
@@ -1051,7 +1420,7 @@
 
 <para>Type: ASCII - column-specific</para>
 
-<para>Used by: <command>Movesmrg</command> (if RPP_MODE=Y).</para>
+<para>Used by: <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> (if RPP_MODE=Y).</para>
 <para>The output file created by <command>Met4moves</command> program for use by the MOVES and SMOKE models contains county-specific min/max temperatures and averaged RH values in local time for every inventory county and daily or monthly averaging period in the modeling inventory.  SMOKE adjusts the native MCIP time zone (GMT) to local time in order to properly use the SMOKE-ready lookup tables, which are given in local time.  This output contains the calendar month (Month), the fuel month (fuelMonth) and Julian date (julianDate) used by SMOKE to generate the hourly gridded, speciated air quality model-ready emissions using SMOKE-ready MOVES lookup tables.  Averaging method could be set to daily or monthly. When it is set to monthly, julianDate column will contain the last Julian date of the averaging month.</para>
 <table>
 <title>File columns in <envar>SMOKE_OUTFILE</envar></title>
@@ -1121,6 +1490,7 @@
 </table>
 </section>
 </section>
+
 <section id="sect_intmed_movesmrg">
 
 <title><command>Movesmrg</command></title>
@@ -1983,14 +2353,14 @@
 
 <section id="sect_intmed_pday">
 
-<title><envar>PDAY</envar> and <envar>PHOUR</envar></title>
+<title><envar>PDAY</envar>, <envar>PHOUR</envar>, <envar>ARDAY</envar>, and <envar>ARHOUR</envar></title>
 
 <para>Type: I/O API NetCDF - adapted gridded format</para>
 
 <para>Used by: <command>Laypoint</command> and <command>Temporal</command></para>
 
 <table>
-<title>I/O API Header for <envar>PDAY</envar> and <envar>PHOUR</envar></title>
+<title>I/O API Header for <envar>PDAY</envar>, <envar>PHOUR</envar>, <envar>ARDAY</envar>, and <envar>ARHOUR</envar></title>
 <tgroup cols="3">
 <colspec colwidth="25*" />
 <colspec colwidth="35*" />
@@ -2008,19 +2378,19 @@
 <row>
 <entry>NROWS3D</entry>
 <entry>Number of period-specific sources</entry>
-<entry><envar>PTDAY</envar> or <envar>PTHOUR</envar> files read in by <command>Smkinven</command></entry>
+<entry><envar>PTDAY</envar> or <envar>PTHOUR</envar> or <envar>ARDAY</envar> or <envar>ARHOUR</envar> files read in by <command>Smkinven</command></entry>
 </row>
 <row>
 <entry>NVARS3D</entry>
 <entry>Number of pollutants + 1</entry>
-<entry><envar>PTDAY</envar> or <envar>PTHOUR</envar> files read in by <command>Smkinven</command></entry>
+<entry><envar>PTDAY</envar> or <envar>PTHOUR</envar> or <envar>ARDAY</envar> or <envar>ARHOUR</envar> files read in by <command>Smkinven</command></entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
 <table>
-<title>Variables in <envar>PDAY</envar> and <envar>PHOUR</envar></title>
+<title>Variables in <envar>PDAY</envar>, <envar>PHOUR</envar>, <envar>ARDAY</envar>, and <envar>ARHOUR</envar></title>
 <tgroup cols="4">
 <colspec colwidth="30*" />
 <colspec colwidth="15*" />

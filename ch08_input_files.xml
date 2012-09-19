@@ -50,11 +50,11 @@ In this overview section, we first provide a few important notes about file form
 
 <itemizedlist>
 <listitem>
-<para>In the tables used to describe the file format for each file, the <quote>Position</quote> column lists either letters or numbers.</para>
+<para>In the tables used to describe the file format for each file, the <quote>Position</quote> column lists a single number or a range of numbers.</para>
 
-<para>When there are letters in the <quote>Position</quote> column, this indicates that the file must be <link linkend="sect_concepts_list_directed">list-directed</link>, and therefore the fields on each line need to be delimited by a space, comma, or semicolon. If there are fields that have embedded spaces, commas, or semicolons in a list-directed file, these entries must be surrounded by single or double quotation marks to prevent SMOKE from treating those characters as delimiters.</para>
+<para>When there is a letter or a single number in the <quote>Position</quote> column, this indicates that the file must be <link linkend="sect_concepts_list_directed">list-directed</link>, and therefore the fields on each line need to be delimited by a space, comma, or semicolon. If there are fields that have embedded spaces, commas, or semicolons in a list-directed file, these entries must be surrounded by single or double quotation marks to prevent SMOKE from treating those characters as delimiters.</para>
 
-<para>When there are numbers in the <quote>Position</quote> column, this indicates that the file is <link linkend="sect_concepts_column_specific">column-specific</link>, which means that the entry must be placed exactly within the columns listed.</para>
+<para>When a range of numbers is listed in the <quote>Position</quote> column, ie. (1-3), this indicates that the file is <link linkend="sect_concepts_column_specific">column-specific</link>, which means that the entry must be placed exactly within the columns listed.</para>
 </listitem>
 
 <listitem>
@@ -131,7 +131,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_arinv"><envar>ARINV</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>A</entry>
-<entry>Stationary area/nonpoint or nonroad raw inventory in IDA format, SMOKE list format for EMS-95 files, or SMOKE ORL format</entry>
+<entry>Stationary area/nonpoint or nonroad raw inventory in IDA format, SMOKE list format for EMS-95 files, or ORL format</entry>
 <entry><envar>$ARDAT</envar></entry>
 </row>
 
@@ -155,7 +155,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_mbinv"><envar>MBINV</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>M</entry>
-<entry>Mobile source raw inventory in IDA format for nonlink data, SMOKE list format for EMS-95 nonlink and link data, SMOKE ORL format, or an FF10 activity inventory format</entry>
+<entry>Mobile source raw inventory in IDA format for nonlink data, SMOKE list format for EMS-95 nonlink and link data, ORL format, or an FF10 activity inventory format</entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
 
@@ -179,7 +179,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_ptinv"><envar>PTINV</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Point source raw inventory in IDA format, SMOKE list format for EMS-95 files, or SMOKE ORL format</entry>
+<entry>Point source raw inventory in IDA format, SMOKE list format for EMS-95 files, or ORL format</entry>
 <entry><envar>$PTDAT</envar></entry>
 </row>
 
@@ -858,7 +858,7 @@ In this overview section, we first provide a few important notes about file form
 <listitem>#EMS-95 indicates that the file is in EMS-95 format</listitem>
 <listitem>#IDA indicates that the file is in IDA format</listitem>
 <listitem>#LIST indicates that the file is a list file</listitem>
-<listitem>#FF10 indicates that the file is in FF10 (Flat File 10) format for day-specific fires sources</listitem>
+<listitem>#FF10 indicates that the file is in FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.  The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</listitem>
 <listitem>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
 <listitem>#ORL NONPOINT indicates that the file is in ORL format for nonpoint sources</listitem>
 <listitem>#ORL FIRE indicates that the file is in ORL format for fires sources</listitem>
@@ -894,7 +894,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Header records</title>
 
-<para>The IDA and ORL formats used for the area-, mobile-, and point-source inventories require a set of header records at the beginning of each file. The general format of the header records is:</para>
+<para>The IDA, ORL and FF10 formats used for the area-, mobile-, and point-source inventories require a set of header records at the beginning of each file. The general format of the header records is:</para>
 
 <para>command parm1 parm2 ... parm <emphasis>n</emphasis></para>
 
@@ -903,7 +903,7 @@ In this overview section, we first provide a few important notes about file form
 <comment>The header records can appear anywhere in the file to change the parameters of the data. For example, the #COUNTRY value could change to allow for multiple countries in a single file, the #YEAR value could change to allow for multiple years, and the #DATA and #UNITS values could change to allow for different data fields in different parts of the inventory file.</comment>
 
 <table id="tbl_input_inventory_header">
-<title>Inventory header commands for IDA and ORL formats</title>
+<title>Inventory header commands for IDA, ORL, and FF10 formats</title>
 
 <tgroup cols="3">
 <colspec colwidth="35*" />
@@ -924,10 +924,8 @@ In this overview section, we first provide a few important notes about file form
 <simplelist>
 <member>#IDA</member>
 <member>#FF10_ACTIVITY</member>
-<member>#FF10_NONPOINT</member>
-<member>#FF10_NONROAD</member>
-<member>#FF10_POINT</member>
-<member>#FF10_[NONPOINT|POINT]_[HOURLY|DAILY]</member>
+<member>#FF10_[NONPOINT|POINT|NONROAD|ONROAD]</member>
+<member>#FF10_[HOURLY|DAILY]_[NONPOINT|POINT]</member>
 <member>#ORL</member>
 <member>#ORL NONPOINT</member>
 <member>#ORL FIRE</member>
@@ -992,12 +990,434 @@ INVYEAR 1996
 
 </section>
 
+<section id="sect_input_arday">
+<title><envar>ARDAY</envar>: Area source day-specific emissions</title>
+
+<section>
+<title>FF10 Format</title>
+<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
+<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</para>
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for daily nonpoint sources are shown below:</para>
+<programlisting>
+#FORMAT   FF10_DAILY_NONPOINT
+#COUNTRY  US
+#YEAR     2005
+#DESC     Nonpoint Daily Source Inventory
+#DESC     FF10 Nonpoint Daily format</programlisting>
+
+<table id="tbl_input_arday_FF10">
+<title>FF10 Format for individual day-specific data files</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>COUNTRY</entry>
+<entry>Char(2)</entry>
+<entry>2 character code: e.g., US, MX</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>REGION</entry>
+<entry>Int</entry>
+<entry>Five-digit FIPS code for state and county (required)</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>char(3)</entry>
+<entry>SCC or ASC code (required)</entry>
+</row>
+<row>
+<entry>4</entry>
+<entry>CENSUS_TRACT</entry>
+<entry>Char(20)</entry>
+<entry>FACILITY_ID (Optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>SHAPE_ID</entry>
+<entry>Char(20)</entry>
+<entry>UNIT_ID (required)</entry>
+</row>
+<row>
+<entry>6</entry>
+<entry>TBD</entry>
+<entry></entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>7</entry>
+<entry>EMIS_TYPE</entry>
+<entry>Char(20)</entry>
+<entry>PROCESS_ID (required)</entry>
+</row>
+<row>
+<entry>8</entry>
+<entry>SCC</entry>
+<entry>Char(12)</entry>
+<entry>SCC (required)</entry>
+</row>
+<row>
+<entry>9</entry>
+<entry>POLL</entry>
+<entry>Char(20)</entry>
+<entry>Pollutant Name (required)</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>OP_TYPE_CD</entry>
+<entry>Char(20)</entry>
+<entry>Operating type code for startup/shutdown/upset(required)</entry>
+</row>
+<row>
+<entry>11</entry>
+<entry>CALC_METHOD</entry>
+<entry>int(2)</entry>
+<entry>CALC_METHOD(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>12</entry>
+<entry>DATE_UPDATED</entry>
+<entry>int(8)</entry>
+<entry>Format YYYYMMDD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>13</entry>
+<entry>MONTHNUM</entry>
+<entry>Int(2)</entry>
+<entry>Format MM (required)</entry>
+</row>
+<row>
+<entry>14</entry>
+<entry>MONTHTOT</entry>
+<entry>Real</entry>
+<entry>Monthly Total (short tons/month) (required if SMKINVEN_MONTH is set to 1)</entry>
+</row>
+<row>
+<entry>15</entry>
+<entry>DAYVAL1</entry>
+<entry>Real</entry>
+<entry>Daily emissions for hour 1 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>16</entry>
+<entry>DAYVAL2</entry>
+<entry>Real</entry>
+<entry>Daily emissions for hour 2 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>17</entry>
+<entry>DAYVAL3</entry>
+<entry>Real</entry>
+<entry>Daily emissions for hour 3 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>18</entry>
+<entry>DAYVAL4</entry>
+<entry>Real</entry>
+<entry>Daily emissions for hour 4 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>19</entry>
+<entry>DAYVAL5</entry>
+<entry>Real</entry>
+<entry>Daily emissions for hour 5 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>20</entry>
+<entry>DAYVAL6</entry>
+<entry>Real</entry>
+<entry>Daily emissions for hour 6 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry></entry>
+<entry>..</entry>
+<entry></entry>
+<entry>..</entry>
+</row>
+<row>
+<entry>45</entry>
+<entry>DAYVAL31</entry>
+<entry>Real</entry>
+<entry>Daily emissions for hour 31 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>46</entry>
+<entry>COMMENT</entry>
+<entry>Char</entry>
+<entry>(optional)</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+</section>
+</section>
+
+<section id="sect_input_arhour">
+<title><envar>ARHOUR</envar>: Area source hour-specific emissions</title>
+<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
+<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONPOINT|ONROAD].</para>
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for daily nonpoint sources are shown below:</para>
+<programlisting>
+#FORMAT   FF10_HOURLY_NONPOINT
+#COUNTRY  US
+#YEAR     2005
+#DESC     Nonpoint Hourly Source Inventory
+#DESC     FF10 Nonpoint Hourly format</programlisting>
+
+<table id="tbl_input_arhour_FF10">
+<title>FF10 Format for individual hour-specific files</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>COUNTRY</entry>
+<entry>Char(2)</entry>
+<entry>2 character code: e.g., US, MX</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>REGION</entry>
+<entry>Int</entry>
+<entry>Five-digit FIPS code for state and county (required)</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>char(3)</entry>
+<entry>SCC or ASC code (required)</entry>
+</row>
+<row>
+<entry>4</entry>
+<entry>CENSUS_TRACT</entry>
+<entry>Char(20)</entry>
+<entry>FACILITY_ID (Optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>SHAPE_ID</entry>
+<entry>Char(20)</entry>
+<entry>UNIT_ID (required)</entry>
+</row>
+<row>
+<entry>6</entry>
+<entry>TBD</entry>
+<entry></entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>7</entry>
+<entry>EMIS_TYPE</entry>
+<entry>Char(20)</entry>
+<entry>PROCESS_ID (required)</entry>
+</row>
+<row>
+<entry>8</entry>
+<entry>SCC</entry>
+<entry>Char(12)</entry>
+<entry>SCC (required)</entry>
+</row>
+<row>
+<entry>9</entry>
+<entry>POLL</entry>
+<entry>Char(20)</entry>
+<entry>Pollutant Name (required)</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>OP_TYPE_CD</entry>
+<entry>Char(20)</entry>
+<entry>Operating type code for startup/shutdown/upset(required)</entry>
+</row>
+<row>
+<entry>11</entry>
+<entry>CALC_METHOD</entry>
+<entry>int(2)</entry>
+<entry>CALC_METHOD(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>12</entry>
+<entry>DATE_UPDATED</entry>
+<entry>int(8)</entry>
+<entry>Format YYYYMMDD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>13</entry>
+<entry>DATE</entry>
+<entry>int(8)</entry>
+<entry>Date in YYYYMMDD format. Years less than 70 are treated as century 2000. (required)</entry>
+</row>
+<row>
+<entry>14</entry>
+<entry>DAYTOT</entry>
+<entry>Real</entry>
+<entry>Daily Total (short tons/day) (required if SMKINVEN_MONTH is set to 0)</entry>
+</row>
+<row>
+<entry>15</entry>
+<entry>HRVAL0</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 1 (short tons/hour)(required)</entry>
+</row>
+<row>
+<entry>16</entry>
+<entry>HRVAL1</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>17</entry>
+<entry>HRVAL2</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>18</entry>
+<entry>HRVAL3</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 4 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>19</entry>
+<entry>HRVAL4</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 5 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>20</entry>
+<entry>HRVAL5</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 6 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry></entry>
+<entry>..</entry>
+<entry></entry>
+<entry>..</entry>
+</row>
+<row>
+<entry>34</entry>
+<entry>HRVAL23</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 24 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>35</entry>
+<entry>COMMENT</entry>
+<entry>Char</entry>
+<entry>(optional)</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+</section>
+
 <section id="sect_input_arinv">
 
 <title><envar>ARINV</envar>: Area-source annual or average-day emissions</title>
 
-<para>The <envar>ARINV</envar> file is the input area source inventory file for annual or average-day data. This file can be in IDA, EMS-95, ORL, or FF10 format.</para>
+<para>The <envar>ARINV</envar> file is the input area source inventory file for annual or average-day data. This file can be in EMS-95, IDA, FF10 or ORL Formats.</para>
 
+<section>
+<title>EMS-95 Format</title>
+<para><remark>For EMS-95 inputs, the <envar>ARINV</envar> file must be a list file and contain at least one INVYEAR packet (see <xref linkend="sect_input_inventory_invyear" />).</remark> The EMS-95 format for area-source inventories is column-specific and is shown in <xref linkend="tbl_input_arinv_ems" />. Note that we have only listed the columns used by SMOKE. In addition, these files can have a #COUNTRY header as the first line of the file to set the country code (see <xref linkend="sect_input_inventory_header" />). The default country code is 0, which the default <envar>COSTCY</envar> file defines as the United States.</para>
+
+<table id="tbl_input_arinv_ems">
+<title>EMS-95 Format for <envar>ARINV</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1-2 </entry>
+<entry>Int</entry>
+<entry>Five-digit FIPS code for state and county(required)</entry>
+</row>
+<row>
+<entry>3-5 </entry>
+<entry>Int</entry>
+<entry>FIPS county code (required)</entry>
+</row>
+<row>
+<entry>6-20 </entry>
+<entry>Char</entry>
+<entry>SCC or ASC code (required)</entry>
+</row>
+<row>
+<entry>21-25 </entry>
+<entry>Char</entry>
+<entry>Pollutant ID (e.g. VOC) (required)</entry>
+</row>
+<row>
+<entry>52-65 </entry>
+<entry>Real</entry>
+<entry>Actual emissions of specified pollutant (short tons/average annual day) (required)</entry>
+</row>
+<row>
+<entry>88-94 </entry>
+<entry>Real</entry>
+<entry>Control equipment efficiency (percent, give value of 0-100) (optional; SMOKE default is 0)</entry>
+</row>
+<row>
+<entry>95-96 </entry>
+<entry>Char</entry>
+<entry><para>Temporal basis: (required)</para>
+
+<itemizedlist spacing="compact">
+<listitem>AA = annual emissions</listitem>
+<listitem>AD = daily emissions with weekday normalizer</listitem>
+<listitem>DS = day-specific (will not cause SMOKE to crash, but may not be fully supported to give same behavior as EMS-95 - use with caution)</listitem>
+</itemizedlist></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
 <section>
 
 <title>IDA Format</title>
@@ -1167,91 +1587,26 @@ INVYEAR 1996
 
 </section>
 
-<section>
-
-<title>EMS-95 Format</title>
-
-<para><remark>For EMS-95 inputs, the <envar>ARINV</envar> file must be a list file and contain at least one INVYEAR packet (see <xref linkend="sect_input_inventory_invyear" />).</remark> The EMS-95 format for area-source inventories is column-specific and is shown in <xref linkend="tbl_input_arinv_ems" />. Note that we have only listed the columns used by SMOKE. In addition, these files can have a #COUNTRY header as the first line of the file to set the country code (see <xref linkend="sect_input_inventory_header" />). The default country code is 0, which the default <envar>COSTCY</envar> file defines as the United States.</para>
-
-<table id="tbl_input_arinv_ems">
-<title>EMS-95 Format for <envar>ARINV</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry>3-5 </entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>6-20 </entry>
-<entry>Char</entry>
-<entry>SCC or ASC code (required)</entry>
-</row>
-<row>
-<entry>21-25 </entry>
-<entry>Char</entry>
-<entry>Pollutant ID (e.g. VOC) (required)</entry>
-</row>
-<row>
-<entry>52-65 </entry>
-<entry>Real</entry>
-<entry>Actual emissions of specified pollutant (short tons/average annual day) (required)</entry>
-</row>
-<row>
-<entry>88-94 </entry>
-<entry>Real</entry>
-<entry>Control equipment efficiency (percent, give value of 0-100) (optional; SMOKE default is 0)</entry>
-</row>
-<row>
-<entry>95-96 </entry>
-<entry>Char</entry>
-<entry><para>Temporal basis: (required)</para>
-
-<itemizedlist spacing="compact">
-<listitem>AA = annual emissions</listitem>
-<listitem>AD = daily emissions with weekday normalizer</listitem>
-<listitem>DS = day-specific (will not cause SMOKE to crash, but may not be fully supported to give same behavior as EMS-95 - use with caution)</listitem>
-</itemizedlist></entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
 
 <section>
 
-<title>FF10 Formats</title>
+<title>FF10 Format</title>
+<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.</para>
+<para>For area nonpoint, nonroad and onroad mobile sources annual or monthly inventory data the user specifies the data provided using this command in the header: FF10_[NONPOINT|NONROAD|ONROAD]</para>
 
-<para>This FF10 format supports both area nonpoint, nonroad and onroad mobile sources and shares the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for nonpoint sources are shown below:</para>
-
-<programlisting>#FORMAT=FF10_NONPOINT
-#COUNTRY=US
-#YEAR=2005
+<para>Sample header records for nonpoint mobile sources:</para>
+<programlisting>
+#FORMAT   FF10_NONPOINT
+#COUNTRY  US
+#YEAR     2005
 #DESC     Nonpoint Source Inventory
-#DESC     FF10 Nonpont format</programlisting>
+#DESC     FF10 Nonpoint format</programlisting>
 
 <para>Sample header records for nonroad mobile sources:</para>
 
-<programlisting>#FORMAT=FF10_NONROAD
+<programlisting>
+#FORMAT   FF10_NONROAD
 #COUNTRY  US
 #YEAR     2005
 #DESC     Nonroad Source Inventory
@@ -1259,20 +1614,18 @@ INVYEAR 1996
 
 <para>Sample header records for onroad mobile sources:</para>
 
-<programlisting>#FORMAT=FF10_ONROAD
+<programlisting>
+#FORMAT   FF10_ONROAD
 #COUNTRY  US
 #YEAR     2005
 #DESC     Onroad Mobile Source Inventory
 #DESC     FF10 Onroad format</programlisting>
 
-<section>
 
-<title>FF10 format</title>
+<para>The FF10 format for area nonpoint, nonroad and onroad mobiles sources is list-directed and shown in <xref linkend="tbl_input_arinv_ff10" />.</para>
 
-<para>The FF10 format for area nonpoint, nonroad and onroad mobiles sources is list-directed and shown in <xref linkend="tbl_input_arinv_mbinv_ff10" />.</para>
-
-<table id="tbl_input_arinv_mbinv_ff10">
-<title>FF10 Format for <envar>ARINV</envar> and <envar>MBINV</envar></title>
+<table id="tbl_input_arinv_ff10">
+<title>FF10 Format for <envar>ARINV</envar></title>
 
 <tgroup cols="4">
 <colspec colwidth="15*" colname="Position" />
@@ -1292,178 +1645,147 @@ INVYEAR 1996
 <tbody>
 
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>COUNTRY</entry>
 <entry>Char(2)</entry>
-<entry>Y</entry>
-<entry>Two-digit country code; default to "US"</entry>
+<entry>Two-digit country code; default to "US" (required)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>FIPS</entry>
 <entry>Char(5)</entry>
-<entry>Y</entry>
-<entry>Five-digit FIPS code for state and county</entry>
+<entry>Five-digit FIPS code for state and county (required)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>TRIBAL CODE</entry>
 <entry>Char(3)</entry>
-<entry>N</entry>
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>CENSUS_TRACT</entry>
 <entry>Char(20)</entry>
-<entry>N</entry>
 <entry>Not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>SHAPE_ID</entry>
 <entry>Char(20)</entry>
-<entry>N</entry>
 <entry>Not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>SCC</entry>
 <entry>Char(10)</entry>
-<entry>Y</entry>
-<entry>SCC</entry>
+<entry>SCC (required)</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>EMIS_TYPE</entry>
 <entry>Char(3)</entry>
-<entry>N</entry>
 <entry>Emissions type; Not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>POLL</entry>
 <entry>Char(16)</entry>
-<entry>Y</entry>
-<entry>Pollutant Code</entry>
+<entry>Pollutant Code (required)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>ANN_VALUE</entry>
 <entry>Real</entry>
-<entry>Y</entry>
-<entry>Annual emissions (tons/year)</entry>
+<entry>Annual emissions (short tons/year) (required if SMKINVEN_MONTH is set to 0)</entry>
 </row>
 <row>
-<entry>J</entry>
+<entry>10</entry>
 <entry>ANN_PCT_RED</entry>
 <entry>Real</entry>
-<entry>N</entry>
-<entry>Percentage Control Measure Reduction Efficiency</entry>
+<entry>Percentage Control Measure Reduction Efficiency (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>11</entry>
 <entry>CONTROL_IDS</entry>
 <entry>Char(100)</entry>
-<entry>N</entry>
-<entry>Control Measure Code</entry>
+<entry>Control Measure Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>L</entry>
+<entry>12</entry>
 <entry>CONTROL_MEASURES</entry>
 <entry>Char(100)</entry>
-<entry>N</entry>
-<entry>N/A</entry>
+<entry>N/A (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>M</entry>
-<entry>CONTROL_COST</entry>
-<entry>Real</entry>
-<entry>N</entry>
-<entry>N/A</entry>
-</row>
-<row>
-<entry>N</entry>
+<entry>13</entry>
 <entry>CURRENT_COST</entry>
 <entry>Real</entry>
-<entry>N</entry>
-<entry>N/A</entry>
+<entry>N/A (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>O</entry>
+<entry>14</entry>
 <entry>CUMULATIVE_COST</entry>
 <entry>Real</entry>
-<entry>N</entry>
-<entry>N/A</entry>
+<entry>N/A (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>P</entry>
+<entry>15</entry>
 <entry>PROJECTION_FACTOR</entry>
 <entry>Real</entry>
-<entry>N</entry>
-<entry>N/A</entry>
+<entry>N/A (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>Q</entry>
+<entry>16</entry>
 <entry>REG_CODES</entry>
 <entry>Char(100)</entry>
-<entry>N</entry>
-<entry>Regulatory Code</entry>
+<entry>Regulatory Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>R</entry>
+<entry>17</entry>
 <entry>CALC_METHOD</entry>
 <entry>Char(3)</entry>
-<entry>N</entry>
-<entry>Emission Calculation Method Code</entry>
+<entry>Emission Calculation Method Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>S</entry>
+<entry>18</entry>
 <entry>CALC_YEAR</entry>
 <entry>Int</entry>
-<entry>N</entry>
-<entry>Emission Calculation Data Year</entry>
+<entry>Emission Calculation Data Year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>T</entry>
+<entry>19</entry>
 <entry>DATE_UPDATED</entry>
 <entry>Char(8)</entry>
-<entry>N</entry>
-<entry>Last time updated date in format of YYYYMMDD</entry>
+<entry>Last time updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>U</entry>
+<entry>20</entry>
 <entry>DATA_SET_ID</entry>
 <entry>Int</entry>
-<entry>N</entry>
-<entry>Data set identifier</entry>
+<entry>Data set identifier (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>V</entry>
+<entry>21</entry>
 <entry>JAN_VALUE</entry>
 <entry>Real</entry>
-<entry>N</entry>
-<entry>Filled in only if data were provided for January in unit of tons/month</entry>
+<entry>Filled in only if data were provided for January in unit of short tons/month (required if SMKINVEN_MONTH is set to 1)</entry>
 </row>
 <row>
 <entry>...</entry>
 <entry>...</entry>
 <entry>...</entry>
 <entry>...</entry>
-<entry>...</entry>
 </row>
 <row>
-<entry>GG</entry>
+<entry>33</entry>
 <entry>DEC_VALUE</entry>
 <entry>Real</entry>
-<entry>N</entry>
-<entry>Filled in only if data were provided for December in unit of tons/month</entry>
+<entry>Filled in only if data were provided for December in unit of short tons/month (required if SMKINVEN_MONTH is set to 1)</entry>
 </row>
 <row>
-<entry>HH</entry>
+<entry>34</entry>
 <entry>JAN_PCTRED</entry>
 <entry>Real</entry>
-<entry>N</entry>
 <entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
 </row>
 <row>
@@ -1471,28 +1793,23 @@ INVYEAR 1996
 <entry>...</entry>
 <entry>...</entry>
 <entry>...</entry>
-<entry>...</entry>
 </row>
 <row>
-<entry>SS</entry>
+<entry>47</entry>
 <entry>DEC_PCTRED</entry>
 <entry>Real</entry>
-<entry>N</entry>
 <entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>TT</entry>
+<entry>48</entry>
 <entry>COMMENT</entry>
 <entry>Char</entry>
-<entry>N</entry>
 <entry>Optional; not currently used by SMOKE</entry>
 </row>
 
 </tbody>
 </tgroup>
 </table>
-
-</section>
 
 </section>
 
@@ -1588,13 +1905,13 @@ INVYEAR 1996
 <entry>H</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
-<entry>Annual emissions (tons/year) (required)</entry>
+<entry>Annual emissions (short tons/year) (required)</entry>
 </row>
 <row>
 <entry>I</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
-<entry>Average-day emissions (tons/average day) (optional)</entry>
+<entry>Average-day emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
 <entry>J</entry>
@@ -1827,13 +2144,13 @@ INVYEAR 1996
 <entry>D</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
-<entry>Annual emissions (tons/year) (required)</entry>
+<entry>Annual emissions (short tons/year) (required)</entry>
 </row>
 <row>
 <entry>E</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
-<entry>Average-day emissions (tons/average day) (optional)</entry>
+<entry>Average-day emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
 <entry>F</entry>
@@ -1999,10 +2316,9 @@ INVYEAR 1996
 
 </section>
 
-</section>
 
 </section>
-
+</section>
 <section id="sect_input_bcuse">
 
 <title><envar>BCUSE</envar>: Biogenic county land use</title>
@@ -2163,7 +2479,7 @@ INVYEAR 1996
 
 <title><envar>MBINV</envar>: Mobile-source activity and emissions</title>
 
-<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data and one for emissions data. Note that although the IDA formats support the link ID field, SMOKE cannot read the IDA link definitions file, which contains the coordinates for the links. In order to use link data with SMOKE, the EMS-95 format must be used. SMOKE also supports the ORL format for reading on-road mobile emissions data.</para>
+<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data and one for emissions data. Note that although the IDA formats support the link ID field, SMOKE cannot read the IDA link definitions file, which contains the coordinates for the links. In order to use link data with SMOKE, the EMS-95 format must be used. SMOKE also supports the FF10 and ORL format for reading on-road mobile emissions data.</para>
 
 <section>
 
@@ -2678,13 +2994,13 @@ INVYEAR 1996
 <entry>D</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
-<entry>Annual emissions (tons/year) (required)</entry>
+<entry>Annual emissions (short tons/year) (required)</entry>
 </row>
 <row>
 <entry>E</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
-<entry>Average-day emissions (tons/average day) (optional)</entry>
+<entry>Average-day emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
 <entry>F</entry>
@@ -2772,10 +3088,12 @@ INVYEAR 1996
 
 <para>The FF10 format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
 
-<programlisting>#FF10
+<programlisting>
 #FORMAT   FF10_Activity
 #COUNTRY  US
 #YEAR     2008
+#DESC     Annual Mobile Source Source Inventory
+#DESC     FF10
 </programlisting>
 
 <para>The format for the data records is shown in <xref linkend="tbl_input_mbinv_ff10_activity" />.</para>
@@ -2802,98 +3120,98 @@ INVYEAR 1996
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>COUNTRY</entry>
 <entry>Char(2)</entry>
 <entry>Y</entry>
 <entry>Two-digit country code; default to "US"</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>FIPS</entry>
 <entry>Char(5)</entry>
 <entry>Y</entry>
 <entry>Five-digit FIPS code for state and county</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>TRIBAL CODE</entry>
 <entry>Char(3)</entry>
 <entry>N</entry>
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>CENSUS_TRACT</entry>
 <entry>Char(20)</entry>
 <entry>N</entry>
 <entry>Not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>SHAPE_ID</entry>
 <entry>Char(20)</entry>
 <entry>N</entry>
 <entry>Not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>SCC</entry>
 <entry>Char(10)</entry>
 <entry>Y</entry>
 <entry>SCC</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>ACT_PARM_TYPE</entry>
 <entry>Char(10)</entry>
 <entry>N</entry>
 <entry>Not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>ACT_PARM_UOFMSR</entry>
 <entry>Char(20)</entry>
 <entry>N</entry>
 <entry></entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>ACTIVITY_TYPE</entry>
 <entry>Char(16)</entry>
 <entry>Y</entry>
 <entry>Activity variable names are VMT, VPOP, and SPEED</entry>
 </row>
 <row>
-<entry>J</entry>
+<entry>10</entry>
 <entry>ANN_PARM_VALUE</entry>
 <entry>Real</entry>
 <entry>Y</entry>
 <entry>Annual activity values in unit of miles/yr for annual VMT and miles/hr for SPEED</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>11</entry>
 <entry>CALC_YEAR</entry>
 <entry>Int</entry>
 <entry>N</entry>
 <entry>Year of inventory</entry>
 </row>
 <row>
-<entry>L</entry>
+<entry>12</entry>
 <entry>DATE_UPDATED</entry>
 <entry>Char(8)</entry>
 <entry>N</entry>
 <entry>Updated Date in fomrat of YYYYMMDD</entry>
 </row>
 <row>
-<entry>M</entry>
+<entry>13</entry>
 <entry>DATA_SET_ID</entry>
 <entry>Int</entry>
 <entry>N</entry>
 <entry>Not currently used by SMOKE</entry>
 </row>
 <row>
-<entry>N</entry>
+<entry>14</entry>
 <entry>JAN_VALUE</entry>
 <entry>Real</entry>
 <entry>N</entry>
@@ -2907,14 +3225,14 @@ INVYEAR 1996
 <entry>...</entry>
 </row>
 <row>
-<entry>Y</entry>
+<entry>27</entry>
 <entry>DEC_VALUE</entry>
 <entry>Real</entry>
 <entry>N</entry>
-<entry>>Filled in only if data were provided for December in unit of miles/month for VMT and miles/hr for SPEED</entry>
+<entry>Filled in only if data were provided for December in unit of miles/month for VMT and miles/hr for SPEED</entry>
 </row>
 <row>
-<entry>Z</entry>
+<entry>28</entry>
 <entry>COMMENT</entry>
 <entry>Char</entry>
 <entry>N</entry>
@@ -2931,17 +3249,17 @@ INVYEAR 1996
 
 <title><envar>PTDAY</envar>: Point source day-specific emissions</title>
 
-<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, and ORL FIRE format. However, the format indicator for the day-specific files must be by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
+<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, FF10 or ORL FIRE format. However, the format indicator for the day-specific files must be by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95 or #LIST FF10). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
 
-<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
+<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the ORL file and the inventory table.</para>
 
 <section>
-<title>Day-specific file format</title>
+<title>EMS-95 Format</title>
 
 <para>SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file, and that the user has matched the sources between the annual data inventory and the day-specific data. <comment>See the documentation for the <envar>PTHOUR</envar> file for additional information on how to use this file with IDA annual inventories.</comment></para>
 
 <table id="tbl_input_ptday">
-<title>Format for individual day-specific data files</title>
+<title>EMS-95 Format for individual day-specific data files</title>
 
 <tgroup cols="4">
 <colspec colwidth="15*" />
@@ -3051,9 +3369,25 @@ INVYEAR 1996
 </table>
 </section>
 
+<section>
+<title> FF10 Format</title>
+<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint data.</para>  
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.
+<para>For daily or hourly specific emissions, the user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT].</para> 
+<para>Sample header records for daily point source data are shown below:</para>
+<programlisting>
+#FORMAT   FF10_DAILY_POINT
+#COUNTRY  US
+#YEAR     2005
+#DESC     Point Daily Source Inventory 
+#DESC     FF10 Point Daily format</programlisting>
+
+The format for the FF10 daily specific data records is shown in <xref linkend="tbl_input_arday_FF10" />.</para>
+</section>
+
 <section id="sect_input_ptday_fireemis">
 
-<title>Day-specific file format for fires</title>
+<title>ORL FIRE Emission Format</title>
 
 <para>The SMOKE requires that the sources in the day-specific fires inventory format (<envar>#ORL FIREEMIS</envar>) <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information, such as <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are used to adjust the hourly temporal profile.</para>
 <para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para>
@@ -3145,7 +3479,6 @@ INVYEAR 1996
 </table>
 
 </section>
-
 </section>
 
 <section id="sect_input_pthour">
@@ -3181,7 +3514,7 @@ INVYEAR 1996
 <para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
 
 <para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wide EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wide" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wide format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wide format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
-<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
+<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the ORL file and the inventory table.</para>
 
 <para>When using hour-specific data in EMS-95 format with the IDA annual inventory, the fields in the <envar>PTHOUR</envar> file should line up with the fields in the <envar>PTINV</envar> file as follows:</para>
 
@@ -3631,6 +3964,23 @@ INVYEAR 1996
 </itemizedlist>
 
 </section>
+
+<section>
+<title>FF10 hour-specific format</title>
+<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.</para>
+<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT].</para>
+
+Sample header records for hourly point sources are shown below:
+<programlisting>#FORMAT=FF10_HOURLY_POINT
+#COUNTRY  US  (if multiple countries, use comma separated list of 2 chr codes)
+#YEAR     year of inventory, e.g. 2008 
+#DESC     Point Hourly Source Inventory
+#DESC     FF10 Point Hourly format</programlisting>
+
+<para>The format for the FF10 hour specific data records is shown in <xref linkend="tbl_input_arhour_FF10" />.</para>
+
+</section>
 </section>
 
 <section id="sect_input_ptinv">
@@ -3639,396 +3989,6 @@ INVYEAR 1996
 
 <para>The <envar>PTINV</envar> file is the input point source inventory file for annual and average-day data. This file can be in IDA, EMS-95, ORL, or ORL FIRE format.</para>
 
-<section>
-
-<title>IDA Format</title>
-
-<para>This IDA format for point-source inventories is column-specific and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
-
-<programlisting>#IDA
-#TYPE     Point Source Inventory
-#COUNTRY  US
-#YEAR     1995
-#DESC     Alabama 1995
-#POLID    CO NH3 NOX PM10 PM2_5 SO2 VOC</programlisting>
-
-<para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_ida" />.</para>
-
-<table id="tbl_input_ptinv_ida">
-<title>IDA Format for <envar>PTINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Name" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>State Code (required)</entry>
-</row>
-<row>
-<entry>3-5</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>County Code (required)</entry>
-</row>
-<row>
-<entry>6-20</entry>
-<entry>PLANTID</entry>
-<entry>Char</entry>
-<entry>Plant Identification Code (required)</entry>
-</row>
-<row>
-<entry>21-35</entry>
-<entry>POINTID</entry>
-<entry>Char</entry>
-<entry>Point Identification Code (recommended)</entry>
-</row>
-<row>
-<entry>36-47</entry>
-<entry>STACKID</entry>
-<entry>Char</entry>
-<entry>Stack Identification Code (recommended)</entry>
-</row>
-<row>
-<entry>48-53</entry>
-<entry>ORISID</entry>
-<entry>Char</entry>
-<entry>DOE Plant ID (generally recommended, and required if matching to hour-specific CEM data)</entry>
-</row>
-<row>
-<entry>54-59</entry>
-<entry>BLRID</entry>
-<entry>Char</entry>
-<entry>Boiler Identification Code (recommended)</entry>
-</row>
-<row>
-<entry>60-61</entry>
-<entry>SEGMENT</entry>
-<entry>Char</entry>
-<entry>DOE ID (recommended)</entry>
-</row>
-<row>
-<entry>62-101</entry>
-<entry>PLANT</entry>
-<entry>Char</entry>
-<entry>Plant Name (recommended)</entry>
-</row>
-<row>
-<entry>102-111</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>SCC (required)</entry>
-</row>
-<row>
-<entry>112-115</entry>
-<entry>BEGYR</entry>
-<entry>Int</entry>
-<entry>Beginning Year of Plant Operation (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>116-119</entry>
-<entry>ENDYR</entry>
-<entry>Int</entry>
-<entry>Ending Year of Plant Operation (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>120-123</entry>
-<entry>STKHGT</entry>
-<entry>Real</entry>
-<entry>Stack Height (ft) (required)</entry>
-</row>
-<row>
-<entry>124-129</entry>
-<entry>STKDIAM</entry>
-<entry>Real</entry>
-<entry>Stack Diameter (ft) (required)</entry>
-</row>
-<row>
-<entry>130-133</entry>
-<entry>STKTEMP</entry>
-<entry>Real</entry>
-<entry>Stack Gas Exit Temperature (&deg;F) (required)</entry>
-</row>
-<row>
-<entry>134-143</entry>
-<entry>STKFLOW</entry>
-<entry>Real</entry>
-<entry>Stack Gas Flow Rate (ft<superscript>3</superscript>/s) (optional; automatically calculated by <command>Smkinven</command> from velocity and diameter if not given in file)</entry>
-</row>
-<row>
-<entry>144-152</entry>
-<entry>STKVEL</entry>
-<entry>Real</entry>
-<entry>Stack Gas Exit Velocity (ft/s) (required)</entry>
-</row>
-<row>
-<entry>153-160</entry>
-<entry>BOILCAP</entry>
-<entry>Real</entry>
-<entry>Design Capacity (mmBtu/h) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>161-161</entry>
-<entry>CAPUNITS</entry>
-<entry>Char</entry>
-<entry>Capacity Unit Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>162-163</entry>
-<entry>WINTHRU</entry>
-<entry>Real</entry>
-<entry>Winter throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>164-165</entry>
-<entry>SPRTHRU</entry>
-<entry>Real</entry>
-<entry>Spring throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>166-167</entry>
-<entry>SUMTHRU</entry>
-<entry>Real</entry>
-<entry>Summer throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>168-169</entry>
-<entry>FALTHRU</entry>
-<entry>Real</entry>
-<entry>Fall throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>170-171</entry>
-<entry>HOURS</entry>
-<entry>Int</entry>
-<entry>Normal Operating Time (hr/day) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>172-173</entry>
-<entry>START</entry>
-<entry>Int</entry>
-<entry>Normal Operation Start Time (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>174-174</entry>
-<entry>DAYS</entry>
-<entry>Int</entry>
-<entry>Normal Operating Time (days/wk) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>175-176</entry>
-<entry>WEEKS</entry>
-<entry>Int</entry>
-<entry>Normal Operating Time (wk/yr) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>177-187</entry>
-<entry>THRUPUT</entry>
-<entry>Real</entry>
-<entry>Throughput Rate (SCC units/yr) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>188-199</entry>
-<entry>MAXRATE</entry>
-<entry>Real</entry>
-<entry>Maximum O<subscript>3</subscript> Season Rate (units/day) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>200-207</entry>
-<entry>HEATCON</entry>
-<entry>Real</entry>
-<entry>Heat Content (mmBtu/SCC unit) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>208-212</entry>
-<entry>SULFCON</entry>
-<entry>Real</entry>
-<entry>Sulfur Content (mass percent) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>213-217</entry>
-<entry>ASHCON</entry>
-<entry>Real</entry>
-<entry>Ash Content (mass percent) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>218-226</entry>
-<entry>NETDC</entry>
-<entry>Real</entry>
-<entry>Maximum Nameplate Capacity (MW) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>227-230</entry>
-<entry>SIC</entry>
-<entry>Int</entry>
-<entry>Standard Industrial Classification Code (SIC) (required)</entry>
-</row>
-<row>
-<entry>231-239</entry>
-<entry>LATC</entry>
-<entry>Real</entry>
-<entry>Latitude (decimal degrees) (required)</entry>
-</row>
-<row>
-<entry>240-248</entry>
-<entry>LONC</entry>
-<entry>Real</entry>
-<entry>Longitude (decimal degrees) (required)</entry>
-</row>
-<row>
-<entry>249-249</entry>
-<entry>OFFSHORE</entry>
-<entry>Char</entry>
-<entry>Offshore Flag (fill in with <quote>X</quote> if source is offshore), (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>250-262</entry>
-<entry>ANN1</entry>
-<entry>Real</entry>
-<entry>pol1 Annual Emissions (short tons/yr) (required)</entry>
-</row>
-<row>
-<entry>263-275</entry>
-<entry>AVD1</entry>
-<entry>Real</entry>
-<entry>pol1 Average-day Emissions (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>276-282</entry>
-<entry>CE1</entry>
-<entry>Real</entry>
-<entry>pol1 Control Efficiency (give value of 0-100) (recommended; if left blank, SMOKE default is 0)</entry>
-</row>
-<row>
-<entry>283-285</entry>
-<entry>RE1</entry>
-<entry>Real</entry>
-<entry>pol1 Rule Effectiveness (give value of 0-100) (recommended; if left blank, SMOKE default is 100)</entry>
-</row>
-<row>
-<entry>286-295</entry>
-<entry>EMF1</entry>
-<entry>Real</entry>
-<entry>pol1 Emission Factors (SCC units) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>296-298</entry>
-<entry>CPRI1</entry>
-<entry>Int</entry>
-<entry>pol1 Primary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>299-301</entry>
-<entry>CSEC1</entry>
-<entry>Int</entry>
-<entry>pol1 Secondary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>302-314</entry>
-<entry>ANN2</entry>
-<entry>Real</entry>
-<entry>pol2 Annual Emissions (short tons/yr) (required)</entry>
-</row>
-<row>
-<entry>315-327</entry>
-<entry>AVD2</entry>
-<entry>Real</entry>
-<entry>pol2 Average-day Emissions (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>328-334</entry>
-<entry>CE2</entry>
-<entry>Real</entry>
-<entry>pol2 Control Efficiency (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>335-337</entry>
-<entry>RE2</entry>
-<entry>Real</entry>
-<entry>pol2 Rule Effectiveness (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>338-347</entry>
-<entry>EMF2</entry>
-<entry>Real</entry>
-<entry>pol2 Emission Factors (SCC units) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>348-350</entry>
-<entry>CPRI2</entry>
-<entry>Int</entry>
-<entry>pol2 Primary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>351-353</entry>
-<entry>CSEC2</entry>
-<entry>Int</entry>
-<entry>pol2 Secondary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>354-366</entry>
-<entry>ANN3</entry>
-<entry>Real</entry>
-<entry>pol3 Annual Emissions (short tons/yr) (required)</entry>
-</row>
-<row>
-<entry>367-379</entry>
-<entry>AVD3</entry>
-<entry>Real</entry>
-<entry>pol3 Average-day Emissions (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>380-386</entry>
-<entry>CE3</entry>
-<entry>Real</entry>
-<entry>pol3 Control Efficiency (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>387-389</entry>
-<entry>RE3</entry>
-<entry>Real</entry>
-<entry>pol3 Rule Effectiveness (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>390-399</entry>
-<entry>EMF3</entry>
-<entry>Real</entry>
-<entry>pol3 Emission Factors (SCC units) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>400-402</entry>
-<entry>CPRI3</entry>
-<entry>Int</entry>
-<entry>pol3 Primary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>403-405</entry>
-<entry>CSEC3</entry>
-<entry>Int</entry>
-<entry>pol3 Secondary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry namest="Position" nameend="Description">(Repeat for <emphasis>n</emphasis> pollutants)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
 
 <section>
 
@@ -4428,8 +4388,786 @@ INVYEAR 1995
 
 </section>
 
-<section>
 
+<section>
+<title>FF10 Format</title>
+<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
+<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</para>
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.
+Sample header records for daily point sources are shown below:</para>
+<programlisting>
+#FORMAT   FF10_DAILY_POINT
+#COUNTRY  US
+#YEAR     2005
+#DESC     Point Daily Source Inventory
+#DESC     FF10 Point Daily format</programlisting>
+
+
+
+<table id="tbl_input_ptinv_ff10">
+<title>FF10 Format for <envar>PTINV</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+
+<row>
+<entry>1</entry>
+<entry>COUNTRY</entry>
+<entry>Char(2)</entry>
+<entry>Two-digit country code; default to "US" (required)</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>FIPS</entry>
+<entry>Char(5)</entry>
+<entry>Five-digit FIPS code for state and county (required)</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>TRIBAL CODE</entry>
+<entry>Char(3)</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>4</entry>
+<entry>EIS_FACILITY_ID</entry>
+<entry>Char(20)</entry>
+<entry>Primary static code from EIS (required)</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>EIS_UNIT_ID</entry>
+<entry>Char(20)</entry>
+<entry>Same as the emission unit ID in the NIF (required)</entry>
+</row>
+<row>
+<entry>6</entry>
+<entry>EIS_REL_POINT_ID</entry>
+<entry>Char(20)</entry>
+<entry>Same as Emissions Release Point ID in the NIF (required)</entry>
+</row>
+<row>
+<entry>7</entry>
+<entry>EIS_PROCESS_ID</entry>
+<entry>Char(20)</entry>
+<entry>DOE Plant ID, same as Process ID in the NIF (required)</entry>
+</row>
+<row>
+<entry>8</entry>
+<entry>AGY_FACILITY_ID</entry>
+<entry>Char(20)</entry>
+<entry>Facility ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>9</entry>
+<entry>AGY_UNIT_ID</entry>
+<entry>Char(20)</entry>
+<entry>Unit ID submitted by responsible agency (required)</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>AGY_REL_POINT_ID</entry>
+<entry>Char(20)</entry>
+<entry>Release Point ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>11</entry>
+<entry>AGY_PROCESS_ID</entry>
+<entry>Char(20)</entry>
+<entry>Process ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>12</entry>
+<entry>SCC</entry>
+<entry>Char(12)</entry>
+<entry>Source Classification Code (required)</entry>
+</row>
+<row>
+<entry>13</entry>
+<entry>POLL</entry>
+<entry>Char(20)</entry>
+<entry>Pollutant Code (required)</entry>
+</row>
+<row>
+<entry>14</entry>
+<entry>ANN_VALUE</entry>
+<entry>Real</entry>
+<entry>Annual Emissions (short tons/year) (required)</entry>
+</row>
+<row>
+<entry>15</entry>
+<entry>ANN_PCT_RED</entry>
+<entry>Real</entry>
+<entry>Percent reduction to this source (annual basis) (required)</entry>
+</row>
+<row>
+<entry>16</entry>
+<entry>FACILITY_NAME</entry>
+<entry>Char(80)</entry>
+<entry>Plant Name (40 characters maximum) (required)</entry>
+</row>
+<row>
+<entry>17</entry>
+<entry>ERPTYPE</entry>
+<entry>Char(2)</entry>
+<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (required)</entry>
+</row>
+<row>
+<entry>18</entry>
+<entry>STKHGT</entry>
+<entry>Real</entry>
+<entry>Stack Height (ft) (required)</entry>
+</row>
+<row>
+<entry>19</entry>
+<entry>STKDIAM</entry>
+<entry>Real</entry>
+<entry>Stack Diameter (ft) (required)</entry>
+</row>
+<row>
+<entry>20</entry>
+<entry>STKTEMP</entry>
+<entry>Real</entry>
+<entry>Stack Gas Exit Temperature (Â°F (required))</entry>
+</row>
+<row>
+<entry>21</entry>
+<entry>STKFLOW</entry>
+<entry>Real</entry>
+<entry>Stack Gas Flow Rate (ft3/sec) (required)</entry>
+</row>
+<row>
+<entry>22</entry>
+<entry>STKVEL</entry>
+<entry>Real</entry>
+<entry>Stack Gas Exit Velocity (ft/sec) (required)</entry>
+</row>
+<row>
+<entry>23</entry>
+<entry>NAICS</entry>
+<entry>Char(6)</entry>
+<entry>North American Industrial Classification System Code (required)</entry>
+</row>
+<row>
+<entry>24</entry>
+<entry>LONGITUDE</entry>
+<entry>Real</entry>
+<entry>X location, If CTYPE = U, Easting value (meters); If CTYPE = L, Longitude (decimal degrees) (required)</entry>
+</row>
+<row>
+<entry>25</entry>
+<entry>LATITUDE</entry>
+<entry>Real</entry>
+<entry>Y location (required), If CTYPE = U, Northing value (meters), If CTYPE = L, Latitude (decimal degrees) (required)</entry>
+</row>
+<row>
+<entry>26</entry>
+<entry>LL_DATUM</entry>
+<entry>Char(3)</entry>
+<entry>001=NAD27, 002=NAD83, 003=WGS84 (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>27</entry>
+<entry>HORIZ_COLL_MTHD</entry>
+<entry>Char</entry>
+<entry>flag indicating how NEI defaulted locations (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>28</entry>
+<entry>DESIGN_CAPACITY</entry>
+<entry>Real</entry>
+<entry>Unit Design Capacity (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>29</entry>
+<entry>DESIGN_CAPACITY_UNITS</entry>
+<entry>Char(20)</entry>
+<entry>Unit Design Capacity Units (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>30</entry>
+<entry>REG_CODES</entry>
+<entry>Char(100)</entry>
+<entry>Regulatory Code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>31</entry>
+<entry>FAC_SOURCE_TYPE</entry>
+<entry>Real</entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>32</entry>
+<entry>UNIT_TYPE_CODE</entry>
+<entry>Real</entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>33</entry>
+<entry>CONTROL_IDS</entry>
+<entry>Char(100)</entry>
+<entry>Control Measure Code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>34</entry>
+<entry>CONTROL_MEASURES</entry>
+<entry>Char(100)</entry>
+<entry>Leave blank.  Used by CoST</entry>
+</row>
+<row>
+<entry>35</entry>
+<entry>CURRENT_COST</entry>
+<entry>Real</entry>
+<entry>Leave blank.  Used by CoST</entry>
+</row>
+<row>
+<entry>36</entry>
+<entry>CUMULATIVE_COST</entry>
+<entry>Real</entry>
+<entry>Leave blank.  Used by CoST</entry>
+</row>
+<row>
+<entry>37</entry>
+<entry>PROJECTION_FACTOR</entry>
+<entry>Real</entry>
+<entry>Leave blank.  Used by CoST</entry>
+</row>
+<row>
+<entry>38</entry>
+<entry>SUBMITTER_FAC_ID</entry>
+<entry>Char(20)</entry>
+<entry>Primary Facility ID (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>39</entry>
+<entry>CALC_METHOD</entry>
+<entry>Int</entry>
+<entry>Emission Calculation Method Code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>40</entry>
+<entry>DATA_SET_ID</entry>
+<entry>Int</entry>
+<entry>Data Set Identifier (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>41</entry>
+<entry>FACIL_CATEGORY_CODE</entry>
+<entry>Char(10)</entry>
+<entry>Facility Site Identifier (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>42</entry>
+<entry>ORIS_FACILITY_CODE</entry>
+<entry>Char</entry>
+<entry>Stack Gas Exit Velocity (ft/sec) (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>43</entry>
+<entry>ORIS_BOILER_ID</entry>
+<entry>Char</entry>
+<entry>ORIS Boiler ID (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>44</entry>
+<entry>IPM_YN</entry>
+<entry>Char</entry>
+<entry>Y if point source belongs to IPM Sector</entry>
+</row>
+<row>
+<entry>45</entry>
+<entry>CALC_YEAR</entry>
+<entry>Int</entry>
+<entry>Year used to represent 2002 emissions (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>46</entry>
+<entry>DATE_UPDATED</entry>
+<entry>Int</entry>
+<entry>Last updated date of emissions table (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>47</entry>
+<entry>FUG_HEIGHT</entry>
+<entry>Real</entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>48</entry>
+<entry>FUG_WIDTH_YDIM</entry>
+<entry>Real</entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>49</entry>
+<entry>FUG_LENGTH_XDIM</entry>
+<entry>Real</entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>50</entry>
+<entry>FUG_ANGLE</entry>
+<entry>Real</entry>
+<entry>(optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>51</entry>
+<entry>ZIPCODE</entry>
+<entry>Real</entry>
+<entry>Location Address Postal Code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>52</entry>
+<entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
+<entry>Real</entry>
+<entry>Annual Average Hours of Operation per Year (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>53</entry>
+<entry>JAN_VALUE</entry>
+<entry>Real</entry>
+<entry>TotalEmissions for ReportingPeriodTypeCode=JAN (required)</entry>
+</row>
+
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>66</entry>
+<entry>DEC_VALUE</entry>
+<entry>Real</entry>
+<entry>Filled in only if data were provided for December in unit of short tons/month</entry>
+</row>
+<row>
+<entry>67</entry>
+<entry>JAN_PCTRED</entry>
+<entry>Real</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>80</entry>
+<entry>DEC_PCTRED</entry>
+<entry>Real</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+
+<section>
+<title>IDA Format</title>
+
+<para>This IDA format for point-source inventories is column-specific and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
+
+<programlisting>#IDA
+#TYPE     Point Source Inventory
+#COUNTRY  US
+#YEAR     1995
+#DESC     Alabama 1995
+#POLID    CO NH3 NOX PM10 PM2_5 SO2 VOC</programlisting>
+
+<para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_ida" />.</para>
+
+<table id="tbl_input_ptinv_ida">
+<title>IDA Format for <envar>PTINV</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="55*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1-2</entry>
+<entry>STID</entry>
+<entry>Int</entry>
+<entry>State Code (required)</entry>
+</row>
+<row>
+<entry>3-5</entry>
+<entry>CYID</entry>
+<entry>Int</entry>
+<entry>County Code (required)</entry>
+</row>
+<row>
+<entry>6-20</entry>
+<entry>PLANTID</entry>
+<entry>Char</entry>
+<entry>Plant Identification Code (required)</entry>
+</row>
+<row>
+<entry>21-35</entry>
+<entry>POINTID</entry>
+<entry>Char</entry>
+<entry>Point Identification Code (recommended)</entry>
+</row>
+<row>
+<entry>36-47</entry>
+<entry>STACKID</entry>
+<entry>Char</entry>
+<entry>Stack Identification Code (recommended)</entry>
+</row>
+<row>
+<entry>48-53</entry>
+<entry>ORISID</entry>
+<entry>Char</entry>
+<entry>DOE Plant ID (generally recommended, and required if matching to hour-specific CEM data)</entry>
+</row>
+<row>
+<entry>54-59</entry>
+<entry>BLRID</entry>
+<entry>Char</entry>
+<entry>Boiler Identification Code (recommended)</entry>
+</row>
+<row>
+<entry>60-61</entry>
+<entry>SEGMENT</entry>
+<entry>Char</entry>
+<entry>DOE ID (recommended)</entry>
+</row>
+<row>
+<entry>62-101</entry>
+<entry>PLANT</entry>
+<entry>Char</entry>
+<entry>Plant Name (recommended)</entry>
+</row>
+<row>
+<entry>102-111</entry>
+<entry>SCC</entry>
+<entry>Char</entry>
+<entry>SCC (required)</entry>
+</row>
+<row>
+<entry>112-115</entry>
+<entry>BEGYR</entry>
+<entry>Int</entry>
+<entry>Beginning Year of Plant Operation (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>116-119</entry>
+<entry>ENDYR</entry>
+<entry>Int</entry>
+<entry>Ending Year of Plant Operation (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>120-123</entry>
+<entry>STKHGT</entry>
+<entry>Real</entry>
+<entry>Stack Height (ft) (required)</entry>
+</row>
+<row>
+<entry>124-129</entry>
+<entry>STKDIAM</entry>
+<entry>Real</entry>
+<entry>Stack Diameter (ft) (required)</entry>
+</row>
+<row>
+<entry>130-133</entry>
+<entry>STKTEMP</entry>
+<entry>Real</entry>
+<entry>Stack Gas Exit Temperature (&deg;F) (required)</entry>
+</row>
+<row>
+<entry>134-143</entry>
+<entry>STKFLOW</entry>
+<entry>Real</entry>
+<entry>Stack Gas Flow Rate (ft<superscript>3</superscript>/s) (optional; automatically calculated by <command>Smkinven</command> from velocity and diameter if not given in file)</entry>
+</row>
+<row>
+<entry>144-152</entry>
+<entry>STKVEL</entry>
+<entry>Real</entry>
+<entry>Stack Gas Exit Velocity (ft/s) (required)</entry>
+</row>
+<row>
+<entry>153-160</entry>
+<entry>BOILCAP</entry>
+<entry>Real</entry>
+<entry>Design Capacity (mmBtu/h) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>161-161</entry>
+<entry>CAPUNITS</entry>
+<entry>Char</entry>
+<entry>Capacity Unit Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>162-163</entry>
+<entry>WINTHRU</entry>
+<entry>Real</entry>
+<entry>Winter throughput (% of Annual) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>164-165</entry>
+<entry>SPRTHRU</entry>
+<entry>Real</entry>
+<entry>Spring throughput (% of Annual) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>166-167</entry>
+<entry>SUMTHRU</entry>
+<entry>Real</entry>
+<entry>Summer throughput (% of Annual) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>168-169</entry>
+<entry>FALTHRU</entry>
+<entry>Real</entry>
+<entry>Fall throughput (% of Annual) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>170-171</entry>
+<entry>HOURS</entry>
+<entry>Int</entry>
+<entry>Normal Operating Time (hr/day) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>172-173</entry>
+<entry>START</entry>
+<entry>Int</entry>
+<entry>Normal Operation Start Time (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>174-174</entry>
+<entry>DAYS</entry>
+<entry>Int</entry>
+<entry>Normal Operating Time (days/wk) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>175-176</entry>
+<entry>WEEKS</entry>
+<entry>Int</entry>
+<entry>Normal Operating Time (wk/yr) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>177-187</entry>
+<entry>THRUPUT</entry>
+<entry>Real</entry>
+<entry>Throughput Rate (SCC units/yr) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>188-199</entry>
+<entry>MAXRATE</entry>
+<entry>Real</entry>
+<entry>Maximum O<subscript>3</subscript> Season Rate (units/day) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>200-207</entry>
+<entry>HEATCON</entry>
+<entry>Real</entry>
+<entry>Heat Content (mmBtu/SCC unit) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>208-212</entry>
+<entry>SULFCON</entry>
+<entry>Real</entry>
+<entry>Sulfur Content (mass percent) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>213-217</entry>
+<entry>ASHCON</entry>
+<entry>Real</entry>
+<entry>Ash Content (mass percent) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>218-226</entry>
+<entry>NETDC</entry>
+<entry>Real</entry>
+<entry>Maximum Nameplate Capacity (MW) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>227-230</entry>
+<entry>SIC</entry>
+<entry>Int</entry>
+<entry>Standard Industrial Classification Code (SIC) (required)</entry>
+</row>
+<row>
+<entry>231-239</entry>
+<entry>LATC</entry>
+<entry>Real</entry>
+<entry>Latitude (decimal degrees) (required)</entry>
+</row>
+<row>
+<entry>240-248</entry>
+<entry>LONC</entry>
+<entry>Real</entry>
+<entry>Longitude (decimal degrees) (required)</entry>
+</row>
+<row>
+<entry>249-249</entry>
+<entry>OFFSHORE</entry>
+<entry>Char</entry>
+<entry>Offshore Flag (fill in with <quote>X</quote> if source is offshore), (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>250-262</entry>
+<entry>ANN1</entry>
+<entry>Real</entry>
+<entry>pol1 Annual Emissions (short tons/yr) (required)</entry>
+</row>
+<row>
+<entry>263-275</entry>
+<entry>AVD1</entry>
+<entry>Real</entry>
+<entry>pol1 Average-day Emissions (short tons/average day) (optional)</entry>
+</row>
+<row>
+<entry>276-282</entry>
+<entry>CE1</entry>
+<entry>Real</entry>
+<entry>pol1 Control Efficiency (give value of 0-100) (recommended; if left blank, SMOKE default is 0)</entry>
+</row>
+<row>
+<entry>283-285</entry>
+<entry>RE1</entry>
+<entry>Real</entry>
+<entry>pol1 Rule Effectiveness (give value of 0-100) (recommended; if left blank, SMOKE default is 100)</entry>
+</row>
+<row>
+<entry>286-295</entry>
+<entry>EMF1</entry>
+<entry>Real</entry>
+<entry>pol1 Emission Factors (SCC units) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>296-298</entry>
+<entry>CPRI1</entry>
+<entry>Int</entry>
+<entry>pol1 Primary Control Equipment Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>299-301</entry>
+<entry>CSEC1</entry>
+<entry>Int</entry>
+<entry>pol1 Secondary Control Equipment Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>302-314</entry>
+<entry>ANN2</entry>
+<entry>Real</entry>
+<entry>pol2 Annual Emissions (short tons/yr) (required)</entry>
+</row>
+<row>
+<entry>315-327</entry>
+<entry>AVD2</entry>
+<entry>Real</entry>
+<entry>pol2 Average-day Emissions (short tons/average day) (optional)</entry>
+</row>
+<row>
+<entry>328-334</entry>
+<entry>CE2</entry>
+<entry>Real</entry>
+<entry>pol2 Control Efficiency (0-100); see pol1 above</entry>
+</row>
+<row>
+<entry>335-337</entry>
+<entry>RE2</entry>
+<entry>Real</entry>
+<entry>pol2 Rule Effectiveness (0-100); see pol1 above</entry>
+</row>
+<row>
+<entry>338-347</entry>
+<entry>EMF2</entry>
+<entry>Real</entry>
+<entry>pol2 Emission Factors (SCC units) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>348-350</entry>
+<entry>CPRI2</entry>
+<entry>Int</entry>
+<entry>pol2 Primary Control Equipment Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>351-353</entry>
+<entry>CSEC2</entry>
+<entry>Int</entry>
+<entry>pol2 Secondary Control Equipment Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>354-366</entry>
+<entry>ANN3</entry>
+<entry>Real</entry>
+<entry>pol3 Annual Emissions (short tons/yr) (required)</entry>
+</row>
+<row>
+<entry>367-379</entry>
+<entry>AVD3</entry>
+<entry>Real</entry>
+<entry>pol3 Average-day Emissions (short tons/average day) (optional)</entry>
+</row>
+<row>
+<entry>380-386</entry>
+<entry>CE3</entry>
+<entry>Real</entry>
+<entry>pol3 Control Efficiency (0-100); see pol1 above</entry>
+</row>
+<row>
+<entry>387-389</entry>
+<entry>RE3</entry>
+<entry>Real</entry>
+<entry>pol3 Rule Effectiveness (0-100); see pol1 above</entry>
+</row>
+<row>
+<entry>390-399</entry>
+<entry>EMF3</entry>
+<entry>Real</entry>
+<entry>pol3 Emission Factors (SCC units) (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>400-402</entry>
+<entry>CPRI3</entry>
+<entry>Int</entry>
+<entry>pol3 Primary Control Equipment Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry>403-405</entry>
+<entry>CSEC3</entry>
+<entry>Int</entry>
+<entry>pol3 Secondary Control Equipment Code (not used by SMOKE)</entry>
+</row>
+<row>
+<entry namest="Position" nameend="Description">(Repeat for <emphasis>n</emphasis> pollutants)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+<section>
 <title>ORL Format</title>
 
 <para>The ORL format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
@@ -4638,13 +5376,13 @@ INVYEAR 1995
 <entry>W</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
-<entry>Annual Emissions (tons/year) (required)</entry>
+<entry>Annual Emissions (short tons/year) (required)</entry>
 </row>
 <row>
 <entry>X</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
-<entry>Average-day Emissions (tons/average day) (optional)</entry>
+<entry>Average-day Emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
 <entry>Y</entry>
@@ -5027,7 +5765,6 @@ INVYEAR 1995
 </tbody>
 </tgroup>
 </table>
-
 </section>
 </section>
 
@@ -5240,9 +5977,7 @@ INVYEAR 1995
 </table>
 
 </section>
-
 </section>
-
 </section>
 
 <section id="sect_input_temporal">
@@ -5446,7 +6181,7 @@ INVYEAR 1995
 
 <para>The <envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar> files contain the area-, mobile-, and point-source cross-reference records for assigning the temporal profiles to the sources. If needed, the same file can be used for area-, mobile-, or point-source categories, but more fields are used for mobile than for area, and more fields are used for point than for mobile. <xref linkend="sect_programs_temporal" /> provides a list of the matching hierarchies that SMOKE uses when applying the file to an inventory. <remark>If a field is blank, it must be set to -9.</remark></para>
 
-<para>The pollutant field allows you to assign a different temporal profile for each pollutant associated with a given source. This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you can put a <quote>-9</quote> in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.</para>
+<para>The pollutant field allows the user to assign a different temporal profile for each pollutant associated with a given source. This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you can put a <quote>-9</quote> in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.</para>
 
 <para>The country/state/county code is defined as follows:</para>
 
@@ -5505,6 +6240,22 @@ INVYEAR 1995
 <entry colname="Position">F</entry>
 <entry>Country/state/county code (6-digit Integer in format YSSCCC) (optional)</entry>
 </row>
+<row>
+<entry colname="Position">...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Position">M</entry>
+<entry>Monthly Temporal profile ID (=FIPS code) from <envar>TPRO_MON</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">N</entry>
+<entry>Daily Temporal profile ID (=FIPS code) from <envar>TPRO_DAY</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">O</entry>
+<entry>Hourly Temporal profile ID (=FIPS code) from <envar>TPRO_HOUR</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+</row>
 </tbody>
 </tgroup>
 </table>
@@ -5562,6 +6313,22 @@ INVYEAR 1995
 <row>
 <entry colname="Position">G</entry>
 <entry>Link ID (Character) (optional; leave blank or put zero for entry that is not link-specific)</entry>
+</row>
+<row>
+<entry colname="Position">...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Position">M</entry>
+<entry>Monthly Temporal profile ID (=FIPS code) from <envar>TPRO_MON</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">N</entry>
+<entry>Daily Temporal profile ID (=FIPS code) from <envar>TPRO_DAY</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">O</entry>
+<entry>Hourly Temporal profile ID (=FIPS code) from <envar>TPRO_HOUR</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5660,6 +6427,18 @@ INVYEAR 1995
 <row>
 <entry colname="Position">L</entry>
 <entry>Characteristic 5 (blank for IDA and ORL) (Character) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">M</entry>
+<entry>Monthly Temporal profile ID (=FIPS code) from <envar>TPRO_MON</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">N</entry>
+<entry>Daily Temporal profile ID (=FIPS code) from <envar>TPRO_DAY</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">O</entry>
+<entry>Hourly Temporal profile ID (=FIPS code) from <envar>TPRO_HOUR</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -6942,11 +7721,11 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Allowable emissions cap value [tons/day] (Real) (required if no <quote>replace</quote> emissions are given)</entry>
+<entry>Allowable emissions cap value [short tons/day] (Real) (required if no <quote>replace</quote> emissions are given)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Allowable emissions replacement value [tons/day] (Real) (required if no <quote>cap</quote> emissions are given)</entry>
+<entry>Allowable emissions replacement value [short tons/day] (Real) (required if no <quote>cap</quote> emissions are given)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
@@ -7158,7 +7937,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>CTG emissions cutoff for application of CTG, MACT, or RACT factor (tons/day) (Real)</entry>
+<entry>CTG emissions cutoff for application of CTG, MACT, or RACT factor (short tons/day) (Real)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
@@ -7534,7 +8313,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Replacement emissions for base year [tons/day] (Real)</entry>
+<entry>Replacement emissions for base year [short tons/day] (Real)</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
@@ -9225,777 +10004,83 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <section id="sect_input_source_mobile">
 <title>Mobile</title>
-<section id="sect_input_dummy_avgspeeddistribution">
 
-<title>Dummy Average Speed Distribution file</title>
+<section>
+<title> SMOKE-related Mobile Input Files</title>
+<section id="sect_input_cfpro">
 
-<para>The Dummy Average Speed Distribution file is a file that contains the average speed bin ID and average speed fraction for each reference counties. Its format is shown in <xref linkend="tbl_input_dummy_avgspeeddistribution" />.</para>
+<title><envar>CFPRO</envar>: Mobile source control factor input file</title>
 
-<table id="tbl_input_dummy_avgspeeddistribution">
-<title>Format for <envar>dummyavgspeeddistribution.csv</envar></title>
+<para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all three MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, and RatePerProfile). It's format is shown in <xref linkend="tbl_input_cfpro" />.</para>
 
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
+<table id="tbl_input_cfpro">
+<title>Format for <envar>CFPRO</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
+<entry>Column</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>sourceTyeID</entry>
-<entry>Two-digit source type ID (Integer)</entry>
+<entry>A</entry>
+<entry>FIPS</entry>
+<entry>Integer</entry>
+<entry>Five-digit FIPS code for state and county code</entry>
 </row>
 <row>
-<entry>roadTypeID</entry>
-<entry>one-digit road type ID (Integer)</entry>
+<entry>B</entry>
+<entry>SCC</entry>
+<entry>Char(10)</entry>
+<entry>Source Category Code (SCC)</entry>
 </row>
 <row>
-<entry>hourDayID</entry>
-<entry>Two-digit hour day ID (Integer)</entry>
+<entry>C</entry>
+<entry>POL</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant Code</entry>
 </row>
 <row>
-<entry>avgSpeedBinID</entry>
-<entry>average speed bin ID (Integer)</entry>
+<entry>D</entry>
+<entry>Mode</entry>
+<entry>Char(3)</entry>
+<entry>MOVES emission processes (ex; EXH, EVP, and so on)</entry>
 </row>
 <row>
-<entry>avgSpeedFraction</entry>
-<entry>decimal fraction representing the proportion of vechicles that travel at within each of the speed bins for a specific road typeID and hourDayID for the reference county</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>dummy_avgspeeddistribution.csv</envar> example file</title>
-
-<programlisting>
-sourceTypeID,roadTypeID,hourDayID,avgSpeedBinID,avgSpeedFraction
-11,2,12,1,0
-11,2,12,2,0
-11,2,12,3,0
-11,2,12,4,0
-11,2,12,5,0
-11,2,12,6,0
-11,2,12,7,0
-11,2,12,8,0
-11,2,12,9,0
-11,2,12,10,0
-11,2,12,11,0
-11,2,12,12,0.0091073
-11,2,12,13,0.0285067
-11,2,12,14,0.0988925
-11,2,12,15,0.248298
-11,2,12,16,0.615196
-11,2,15,1,0
-11,2,15,2,0
-11,2,15,3,0
-11,2,15,4,0
-11,2,15,5,0
-11,2,15,6,0
-11,2,15,7,0
-11,2,15,8,0
-11,2,15,9,0
-11,2,15,10,0
-11,2,15,11,0
-11,2,15,12,0.0091073
-11,2,15,13,0.0285067
-11,2,15,14,0.0988925
-11,2,15,15,0.248298
-11,2,15,16,0.615196
-....
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_sourcetypeyear">
-
-<title>MOVES Vehicle Population by source type input file</title>
-
-<para>The MOVES Population by source type file contains the year, source and population for each reference county. Its format is shown in <xref linkend="tbl_input_sourcetypeyear" />.</para>
-
-<table id="tbl_input_sourcetypeyear">
-<title>Format for <envar>population_13217.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>yearID</entry>
-<entry>Four-digit source type ID (Integer)</entry>
+<entry>E</entry>
+<entry>Month</entry>
+<entry>Integer</entry>
+<entry>Processing month (Jan=1, Feb=2, and so on)</entry>
 </row>
 <row>
-<entry>sourceTypeID</entry>
-<entry>two-digit source type ID (Integer)</entry>
-</row>
-<row>
-<entry>sourceTypePopulationID</entry>
-<entry>Three-digit source type population ID (Integer)</entry>
+<entry>F</entry>
+<entry>Control Factor</entry>
+<entry>Real</entry>
+<entry>Factor set by user to control hourly emission rates</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
-
 <example>
-<title><envar>population_13121.csv</envar> example file</title>
+<title><envar>CFPRO</envar> file</title>
 
 <programlisting>
-yearID,sourceTypeID,sourceTypePopulation
-2009,11,100
-2009,21,100
-2009,31,100
-2009,32,100
-2009,41,100
-2009,42,100
-2009,43,100
-2009,51,100
-2009,52,100
-2009,53,100
-2009,54,100
-2009,61,100
-2009,62,100
+13101,2201000330,TOG,EXH,7,0.5
+13102,2201000330,TOG,EVP,7,0.5
+13103,2201000330,BRK,PM25,7,0.25
 </programlisting>
 </example>
 
 </section>
-<section id="sect_input_dummy_dayvmtfraction">
-
-<title>Dummy Day VMT Fraction file</title>
-
-<para>The Dummy Day VMT Fraction file is a file that contains specifies whether the VMT are weekday or weekend. Its format is shown in <xref linkend="tbl_input_dummy_dayvmtfraction" />.</para>
-
-<table id="tbl_input_dummy_dayvmtfraction">
-<title>Format for <envar>dummydayvmtfraction.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>sourceTyeID</entry>
-<entry>Two-digit source type ID (Integer)</entry>
-</row>
-<row>
-<entry>monthID</entry>
-<entry>one or two-digit month ID (Integer)</entry>
-</row>
-<row>
-<entry>roadTypeID</entry>
-<entry>one digit road type ID (Integer)</entry>
-</row>
-<row>
-<entry>dayID</entry>
-<entry>2 - weekday, 5 - weekend</entry>
-</row>
-<row>
-<entry>dayVMTFraction</entry>
-<entry>decimal fraction representing the proportion of vehicle miles traveled for the weekday or weekend day type</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>dummy_roadtypedistribution.csv</envar> example file</title>
-
-<programlisting>
-sourceTypeID,monthID,roadTypeID,dayID,dayVMTFraction
-11,7,1,2,0.237635
-11,7,1,5,0.762365
-11,7,2,2,0.27882
-11,7,2,5,0.72118
-11,7,3,2,0.27882
-11,7,3,5,0.72118
-11,7,4,2,0.237635
-11,7,4,5,0.762365
-11,7,5,2,0.237635
-11,7,5,5,0.762365
-21,7,1,2,0.237635
-21,7,1,5,0.762365
-21,7,2,2,0.27882
-21,7,2,5,0.72118
-21,7,3,2,0.27882
-21,7,3,5,0.72118
-21,7,4,2,0.237635
-21,7,4,5,0.762365
-21,7,5,2,0.237635
-21,7,5,5,0.762365
-..
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_dummy_hourvmtfraction">
-
-<title>Dummy Hour VMT Fraction file</title>
-
-<para>The Dummy Hour VMT Fraction file is a file that contains specifies the VMT fraction associated with each hour of the day. Its format is shown in <xref linkend="tbl_input_dummy_hourvmtfraction" />.</para>
-
-<table id="tbl_input_dummy_hourvmtfraction">
-<title>Format for <envar>dummyhourvmtfraction.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>sourceTyeID</entry>
-<entry>Two-digit source type ID (Integer)</entry>
-</row>
-<row>
-<entry>roadTypeID</entry>
-<entry>one digit road type ID (Integer)</entry>
-</row>
-<row>
-<entry>dayID</entry>
-<entry>one digit day type ID (Integer), 2 - weekday, 5 - weekend</entry>
-</row>
-<row>
-<entry>hourID</entry>
-<entry>1-24 hours</entry>
-</row>
-<row>
-<entry>hourVMTFraction</entry>
-<entry>decimal fraction representing the proportion of vehicle miles traveled are associated with a particular hour of the day for each source type, road type and day type (weekday or weekend)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>dummy_hourvmtfraction.csv</envar> example file</title>
-
-<programlisting>
-sourceTypeID,roadTypeID,dayID,hourID,hourVMTFraction
-11,1,2,1,0.0214739
-11,1,2,2,0.0144428
-11,1,2,3,0.0109684
-11,1,2,4,0.00749451
-11,1,2,5,0.00683855
-11,1,2,6,0.0103588
-11,1,2,7,0.0184304
-11,1,2,8,0.0268117
-11,1,2,9,0.0363852
-11,1,2,10,0.0475407
-11,1,2,11,0.0574664
-11,1,2,12,0.0650786
-11,1,2,13,0.0713228
-11,1,2,14,0.0714917
-11,1,2,15,0.0717226
-11,1,2,16,0.0720061
-11,1,2,17,0.0711487
-11,1,2,18,0.0678874
-11,1,2,19,0.0617718
-11,1,2,20,0.0516882
-11,1,2,21,0.0428658
-11,1,2,22,0.0380302
-11,1,2,23,0.0322072
-11,1,2,24,0.0245677
-11,1,5,1,0.00986211
-11,1,5,2,0.00627248
-11,1,5,3,0.00505767
-11,1,5,4,0.00466686
-11,1,5,5,0.00699469
-11,1,5,6,0.018494
-11,1,5,7,0.0459565
-11,1,5,8,0.0696444
-11,1,5,9,0.0608279
-11,1,5,10,0.0502862
-11,1,5,11,0.0499351
-11,1,5,12,0.0543654
-11,1,5,13,0.0576462
-11,1,5,14,0.0580319
-11,1,5,15,0.0622554
-11,1,5,16,0.0710049
-11,1,5,17,0.0769725
-11,1,5,18,0.077432
-11,1,5,19,0.059783
-11,1,5,20,0.0443923
-11,1,5,21,0.0354458
-11,1,5,22,0.031824
-11,1,5,23,0.0249419
-11,1,5,24,0.0179068
-...
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_dummy_monthvmtfraction">
-
-<title>Dummy Month VMT Fraction file</title>
-
-<para>The Dummy Month VMT Fraction file is a file that contains specifies the VMT fraction associated with each hour of the day. Its format is shown in <xref linkend="tbl_input_dummy_monthvmtfraction" />.</para>
-
-<table id="tbl_input_dummy_monthvmtfraction">
-<title>Format for <envar>dummymonthvmtfraction.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>sourceTyeID</entry>
-<entry>Two-digit source type ID (Integer)</entry>
-</row>
-<row>
-<entry>isLeapYear</entry>
-<entry>Y or N</entry>
-</row>
-<row>
-<entry>monthID</entry>
-<entry>one digit day type ID (Integer), 2 - weekday, 5 - weekend</entry>
-</row>
-<row>
-<entry>monthVMTFraction</entry>
-<entry>decimal fraction representing the proportion of vehicle miles traveled are associated with a specific month for each source type.</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>dummy_monthvmtfraction.csv</envar> example file</title>
-
-<programlisting>
-sourceTypeID,isLeapYear,monthID,monthVMTFraction
-11,N,1,0.083333333
-11,N,2,0.083333333
-11,N,3,0.083333333
-11,N,4,0.083333333
-11,N,5,0.083333333
-11,N,6,0.083333333
-11,N,7,0.083333333
-11,N,8,0.083333333
-11,N,9,0.083333333
-11,N,10,0.083333333
-11,N,11,0.083333333
-11,N,12,0.083333333
-21,N,1,0.083333333
-21,N,2,0.083333333
-21,N,3,0.083333333
-21,N,4,0.083333333
-21,N,5,0.083333333
-21,N,6,0.083333333
-21,N,7,0.083333333
-21,N,8,0.083333333
-21,N,9,0.083333333
-21,N,10,0.083333333
-21,N,11,0.083333333
-21,N,12,0.083333333
-...
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_dummy_roadtypedistribution">
-
-<title>Dummy Road Type Distribution file</title>
-
-<para>The Road Type Distribution file is a file that contains the average speed bin ID and average speed fraction. Its format is shown in <xref linkend="tbl_input_dummy_roadtypedistribution" />.</para>
-
-<table id="tbl_input_dummy_roadtypedistribution">
-<title>Format for <envar>dummyroadtypedistribution.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>sourceTyeID</entry>
-<entry>Two-digit source type ID (Integer)</entry>
-</row>
-<row>
-<entry>roadTypeID</entry>
-<entry>one-digit road type ID (Integer)</entry>
-</row>
-<row>
-<entry>roadTypeVMTFraction</entry>
-<entry>decimal fraction representing the proportion of vehicle miles traveled that occur on a specific road type</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>dummy_roadtypedistribution.csv</envar> example file</title>
-
-<programlisting>
-sourceTypeID,roadTypeID,roadTypeVMTFraction
-11,1,0.2
-11,2,0.2
-11,3,0.2
-11,4,0.2
-11,5,0.2
-21,1,0.2
-21,2,0.2
-21,3,0.2
-21,4,0.2
-21,5,0.2
-..
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_fuelsupply">
-
-<title>Fuel Supply file</title>
-
-<para>The Fuel Supply file is a list directed file used to define the fuel supply and the months that the fuels are used for each reference counties. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
-
-<table id="tbl_input_fuelsupply">
-<title>Format for <envar>FuelSupply.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>countyID</entry>
-<entry>Five-digit country FIPS code for reference county (Integer)</entry>
-</row>
-<row>
-<entry>fuelYearID</entry>
-<entry>Four-digit fuel year ID for reference county (Integer)</entry>
-</row>
-<row>
-<entry>monthGroupID</entry>
-<entry>One-digit month group ID for reference county (Integer)</entry>
-</row>
-<row>
-<entry>fuelFormulationID</entry>
-<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
-</row>
-<row>
-<entry>marketShare</entry>
-<entry>decimal fraction of marketShare for the fuel/month for the reference county</entry>
-</row>
-<row>
-<entry>marketShareCV</entry>
-<entry>decimal fraction (.5)? </entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>fuelsupply_13121.csv</envar> example file</title>
-
-<programlisting>
-"countyID","fuelYearID","monthGroupID","fuelFormulationID","marketShare","marketShareCV"^M
-13121,2009,1,8124,0.428571,0.5
-13121,2009,1,2722,0.571429,0.5
-13121,2009,1,20043,1.0,0.5
-13121,2009,4,8136,0.428571,0.5
-13121,2009,4,2734,0.571429,0.5
-13121,2009,4,20043,1.0,0.5
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_fuelformulation">
-
-<title>Fuel Formulation file (optional)</title>
-
-<para>The Fuel Formulation file is a list directed file used to specify a new fuelFormulation ID if a local fuel does not match the list of nearly 9,000 predefined fuels in MOVES. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
-
-<table id="tbl_input_fuelformulation">
-<title>Format for <envar>FuelFormulation.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>FuelFormulationID</entry>
-<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
-</row>
-<row>
-<entry>fuelSubtypeID</entry>
-<entry>Four-digit fuel Subtype ID (Integer)</entry>
-</row>
-<row>
-<entry>RVP</entry>
-<entry>?-digit  (Integer)</entry>
-</row>
-<row>
-<entry>sulfurLevel</entry>
-<entry> (Integer)</entry>
-</row>
-<row>
-<entry>ETOHVolume</entry>
-<entry></entry>
-</row>
-<row>
-<entry>MTBEVolume</entry>
-<entry></entry>
-</row>
-<row>
-<entry>ETBEVolume</entry>
-<entry></entry>
-</row>
-<row>
-<entry>TAMEVolume</entry>
-<entry></entry>
-</row>
-<row>
-<entry>aromaticContent</entry>
-<entry></entry>
-</row>
-<row>
-<entry>olefinContent</entry>
-<entry></entry>
-</row>
-<row>
-<entry>benzeneContent</entry>
-<entry></entry>
-</row>
-<row>
-<entry>e200</entry>
-<entry></entry>
-</row>
-<row>
-<entry>e300</entry>
-<entry></entry>
-</row>
-<row>
-<entry>bioDieselEsterVolume</entry>
-<entry></entry>
-</row>
-<row>
-<entry>acetaneIndex</entry>
-<entry></entry>
-</row>
-<row>
-<entry>PAHContent</entry>
-<entry></entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>fuelformulation.csv</envar> example file</title>
-
-<programlisting>
-"fuelFormulationID","fuelSubtypeID","RVP","sulfurLevel","ETOHVolume","MTBEVolume","TAMEVolume","aromaticContent","olefinContent","benzeneContent","e200","e300","bioDieselEsterVolume","acetaneIndex","PAHContent"
-
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_HPMSVTypeYear">
-
-<title>HPMSV Type</title>
-
-<para>The HPMSV file is a list directed file used to define the annual VMT by Highway Performance Monitoring System (HPMS) vehicle type. Its format is shown in <xref linkend="tbl_input_HPMSVtype" />.</para>
-
-<table id="tbl_input_HPMSVtype">
-<title>Format for <envar>HPMSVtypeyear_countyrep.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>HPMSVtypeID</entry>
-<entry>Two-digit HPMSV type IDs within the reference county (Integer)</entry>
-</row>
-<row>
-<entry>yearID</entry>
-<entry>year ID for the reference county (Integer)</entry>
-</row>
-<row>
-<entry>HPMSVBaseYearVMT</entry>
-<entry></entry>
-</row>
-<row>
-<entry>baseYearOffNetVMT</entry>
-<entry></entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>hpmsvtypeyear_13121.csv</envar> example file</title>
-
-<programlisting>
-HPMSVtypeID,yearID,HPMSBaseYearVMT,baseYearOffNetVMT
-10,2009,100,0
-20,2009,100,0
-30,2009,100,0
-40,2009,100,0
-50,2009,100,0
-60,2009,100,0
-</programlisting>
-</example>
-
-</section>
-<section id="sect_input_IMcoverage">
-
-<title>IM Coverage file</title>
-
-<para>The IM Coverage file is a list directed file used to define the inspection and maintanance data available for each reference counties. Its format is shown in <xref linkend="tbl_input_IMcoverage" />.</para>
-
-<table id="tbl_input_IMcoverage">
-<title>Format for <envar>imcoverage_referencecountyID.csv</envar></title>
-
-<tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
-
-<thead>
-<row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>polProcessID</entry>
-<entry>Three-digit pol process in the reference county (Integer)</entry>
-</row>
-<row>
-<entry>stateID</entry>
-<entry>Two-digit state ID in the reference county (Integer)</entry>
-</row>
-<row>
-<entry>countyID</entry>
-<entry>Five-digit county ID for the reference county (Integer)</entry>
-</row>
-<row>
-<entry>yearID</entry>
-<entry>Four-digit year ID for reference county (Integer)</entry>
-</row>
-<row>
-<entry>sourceTypeID</entry>
-<entry>Two-digit source type ID for the reference county</entry>
-</row>
-<row>
-<entry>fuelTypeID</entry>
-<entry>One-digit fuel type ID </entry>
-</row>
-<row>
-<entry>IMProgramID</entry>
-<entry>One or two-digit inspection and maintance program ID for reference county (Integer)</entry>
-</row>
-<row>
-<entry>inspectFreq</entry>
-<entry>One-digit inspection frequency ID for the reference county</entry>
-</row>
-<row>
-<entry>testStandardsID</entry>
-<entry>Two-digit test standards ID for the reference county </entry>
-</row>
-<row>
-<entry>begModelYearID</entry>
-<entry>Four-digit beginning model year ID </entry>
-</row>
-<row>
-<entry>endModelYearID</entry>
-<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
-</row>
-<row>
-<entry>useIMyn</entry>
-<entry>Y - "does use I/M program", N - "does not use I/M program"</entry>
-</row>
-<row>
-<entry>complianceFactor</entry>
-<entry>decimal percentage compliance factor</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>imcoverage_13121.csv</envar> example file</title>
-
-<programlisting>
-polProcessID,stateID,countyID,yearID,sourceTypeID,fuelTypeID,IMProgramID,inspectFreq,testStandardsID,begModelYearID,endModelYearID,useIMyn,complianceFactor
-113,13,13121,2009,31,1,8,1,43,1996,2005,Y,97
-113,13,13121,2009,31,1,7,1,41,1975,1995,Y,97
-113,13,13121,2009,21,1,8,1,43,1996,2005,Y,97
-113,13,13121,2009,21,1,7,1,41,1975,1995,Y,97
-301,13,13121,2009,31,1,10,1,51,1996,2005,Y,94.09
-301,13,13121,2009,31,1,4,1,24,1975,1995,Y,94.09
-301,13,13121,2009,21,1,10,1,51,1996,2005,Y,94.09
-301,13,13121,2009,21,1,4,1,24,1975,1995,Y,94.09
-.....
-</programlisting>
-</example>
-
-</section>
-
 <section id="sect_input_mcodes">
 
 <title><envar>MCODES</envar>: Mobile source codes file</title>
@@ -10148,7 +10233,6 @@ LDGT   0106   N
 </example>
 
 </section>
-
 <section id="sect_input_mcxref">
 
 <title><envar>MCXREF</envar>: Mobile reference county cross-reference file</title>
@@ -10220,7 +10304,6 @@ LDGT   0106   N
 </example>
 
 </section>
-
 <section id="sect_input_meproc_moves">
 
 <title><envar>MEPROC</envar>: List of mobile emission processes and associated activities and pollutants</title>
@@ -10306,7 +10389,7 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Six-digit county-specific code for reference county (integer)</entry>
+<entry>Six-digit FIPS code for reference county (integer)</entry>
 </row>
 <row>
 <entry></entry>
@@ -10336,7 +10419,6 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 </example>
 
 </section>
-
 <section id="sect_input_mrclist">
 
 <title><envar>MRCLIST</envar>: List of MOVES Lookup Tables</title>
@@ -10363,7 +10445,7 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Six-digit county code (Integer)</entry>
+<entry>Six-digit FIPS code (Integer)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -10405,23 +10487,137 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 </example>
 
 </section>
+<section id="sect_input_spdpro">
 
-<section id="sect_input_runctlfile">
+<title><envar>SPDPRO</envar>: Mobile hourly speed profile input file</title>
 
-<title><envar>RUNCTL</envar>: Runcontrol File (control.in)</title>
+<para>The <envar>SPDPRO</envar> file is used to provide weekend/weekday hourly speed profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance lookup table. It's format is shown in <xref linkend="tbl_input_spdpro" />.</para>
 
-<para>The <envar>RUNCTL</envar> file is used to specify the calendar year, pollutants, and day type (weekday or weekend); and the Met4moves output temperature file for the batch run of MOVES. Its format is shown in <xref linkend="tbl_input_runctl" />.</para>
+<table id="tbl_input_spdpro">
+<title>Format for <envar>SPDPRO</envar></title>
 
-<table id="tbl_input_runctl">
-<title>Format for <envar>RUNCTL</envar> (control.in)</title>
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
 
-<tgroup cols="2">
-<colspec colwidth="15*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
 <thead>
 <row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
+<entry>Column</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>FIPS</entry>
+<entry>Char(5)</entry>
+<entry>Five-digit FIPS code for state and county code</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>SCC</entry>
+<entry>Char(10)</entry>
+<entry>Source Category Code (SCC)</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>Weekday</entry>
+<entry>Char(7)</entry>
+<entry>"WEEKDAY"</entry>
+</row>
+<row>
+<entry>4</entry>
+<entry>Hour 1</entry>
+<entry>Real</entry>
+<entry>Weekday hourly average speed (mile per hour) in local hour 1</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>Hour 2</entry>
+<entry>Real</entry>
+<entry>Weekday hourly average speed (mile per hour) in local hour 2</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>27</entry>
+<entry>Hour 24</entry>
+<entry>Real</entry>
+<entry>Weekday hourly average speed (mile per hour) in local hour 24</entry>
+</row>
+<row>
+<entry>28</entry>
+<entry>Weekend</entry>
+<entry>Char(7)</entry>
+<entry>"WEEKEND"</entry>
+</row>
+<row>
+<entry>29</entry>
+<entry>Hour 1</entry>
+<entry>Real</entry>
+<entry>Weekend hourly average speed (mile per hour) in local hour 1</entry>
+</row>
+<row>
+<entry>30</entry>
+<entry>Hour 2</entry>
+<entry>Real</entry>
+<entry>Weekend hourly average speed (mile per hour) in local hour 2</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>52</entry>
+<entry>Hour 24</entry>
+<entry>Real</entry>
+<entry>Weekend hourly average speed (mile per hour) in local hour 24</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>SPDPRO</envar> file</title>
+
+<programlisting>
+13101,2201000330,WEEKDAY,35,,,,,,WEEKEND,34,,,,,,,,,
+13102,2201000330,WEEKDAY,35,,,,,,WEEKEND,33,,,,,,,,,
+13103,2201000330,WEEKDAY,36,,,,,,WEEKEND,38,,,,,,,,,,
+</programlisting>
+</example>
+
+</section>
+</section>
+
+<section>
+<title> MOVES-related Mobile Input Files</title>
+<section id="sect_input_runctlfile">
+
+<title>Run Control File for MOVES Driver Script</title>
+
+<para>The Run Control file (a.k.a Control.in) is used to specify the calendar year, pollutants, and day type (weekday or weekend); and the Met4moves output temperature file for the batch run of MOVES. Its format is shown in <xref linkend="tbl_input_runctl" />.</para>
+
+<table id="tbl_input_runctl">
+<title>Format for <envar>Control.in</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="15*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
 </row>
 </thead>
 
@@ -10443,19 +10639,19 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 <entry>Full pathname where all output files will be written; batch files, MOVES runspec files, MOVES data importer files</entry>
 </row>
 <row>
-<entry>ModelYear</entry>
+<entry>MODELYEAR</entry>
 <entry>Episode modeling year</entry>
 </row>
 <row>
-<entry>Pollutants</entry>
+<entry>POLLUTANTS</entry>
 <entry>One or more keywords: PM, OZONE, TOXICS, GHG</entry>
 </row>
 <row>
-<entry>DayofWeek</entry>
+<entry>DAYOFWEEK</entry>
 <entry>Keywords WEEKDAY and/or WEEKEND. Optional input. If not specified, then both weekday and weekend estimates will be generated</entry>
 </row>
 <row>
-<entry>Met data file</entry>
+<entry>METFILE</entry>
 <entry>Full pathname of input meterological data (output from <command>Met4moves</command> processor).</entry>
 </row>
 
@@ -10464,39 +10660,38 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 </table>
 
 <example>
-<title><envar>RUNCTL</envar> file</title>
+<title><envar>Control.in</envar> file</title>
 
 <programlisting>
-DBHOST         =localhost
-MOVESHOME      =/netscr/MOVES2010
-BATCHRUN       =GEORGIA
-OUTDIR         =/netscr/MOVES2010/runspec_files/georgia
-MODEL YEAR     =2005
-POLLUTANTS     =OZONE
-DAYOFWEEK      =WEEKDAY, WEEKEND
-METFILE        =netscr/MOVESDATA/georgia/2005/2005_repcounty_met.in
+DBHOST         = localhost
+MOVESHOME      = /netscr/MOVES2010
+BATCHRUN       = GEORGIA
+OUTDIR         = /netscr/MOVES2010/runspec_files/georgia
+MODELYEAR      = 2005
+POLLUTANTS     = ozone
+DAYOFWEEK      = WEEKDAY, WEEKEND
+METFILE        = /netscr/MOVESDATA/georgia/2005/2005_repcounty_met4moves.in
 </programlisting>
 </example>
 
 
 </section>
-
 <section id="sect_input_refcountyfile">
 
-<title><envar>countyrep.in</envar>: Reference County File</title>
+<title>Reference County File for MOVES Driver Script</title>
 
-<para>The <envar>countyrep.in</envar> file is used to specify the list of reference counties as separate REPCOUNTY packets, as shown below. Each reference county needs entries for the FIPS field and the full path and file names for csv files containing the MOVES data for AGE, IM, FUELSUPPLY, POP, Highway Performance Monitoring System (HPMS) and Vehicle Miles Travelled (VMT), and FUELFORM (optional). Every county specified in the Met4moves output file must be specified in the reference county file or an error will occur. The format is shown in <xref linkend="tbl_input_refcountyfile" />.</para>
+<para>The Reference County file (a.k.a Countyrep.in) is used to specify the list of reference counties as separate REPCOUNTY packets, as shown below. Each reference county needs entries for the FIPS field and the full path and file names for csv files containing the MOVES data for AGE, IM, FUELSUPPLY, POP, Highway Performance Monitoring System (HPMS) and Vehicle Miles Travelled (VMT), and FUELFORM (optional). Every county specified in the Met4moves output file must be specified in the reference county file or an error will occur. The format is shown in <xref linkend="tbl_input_refcountyfile" />.</para>
 
 <table id="tbl_input_refcountyfile">
-<title>Format for <envar>countyrep.in</envar></title>
+<title>Format for <envar>Countyrep.in</envar></title>
 
 <tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
 <thead>
 <row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
+<entry>Variable</entry>
+<entry>Description</entry>
 </row>
 </thead>
 
@@ -10562,20 +10757,20 @@ FUELFOR M =
 </section>
 <section id="sect_input_sourceTypeAgeDist">
 
-<title><envar>agedistribution_repcountyID.csv</envar>: Age Distribution File for each Representative County</title>
+<title>Age Distribution File for Reference County for MOVES model</title>
 
-<para>The <envar>agedistribution_repcountyID.csv</envar> file shows the sourceTypeID, yearID, ageID, and ageFraction for the vehicles in each reference county.  The format is shown in <xref linkend="tbl_input_agedistribution" />.</para>
+<para>The Age Distribution file for each reference county shows the sourceTypeID, yearID, ageID, and ageFraction for the vehicles in each reference county.  The format is shown in <xref linkend="tbl_input_agedistribution" />.</para>
 
 <table id="tbl_input_agedistribution">
 <title>Format for <envar>agedistribution_referencecounty.csv</envar></title>
 
 <tgroup cols="2">
-<colspec colwidth="6*" colname="Environment Variable" />
-<colspec colwidth="15*" colname="Value" />
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
 <thead>
 <row>
-<entry>Environment Variable</entry>
-<entry>Value</entry>
+<entry>Variable</entry>
+<entry>Description</entry>
 </row>
 </thead>
 
@@ -10636,131 +10831,742 @@ sourceTypeID, yearID, ageID, ageFraction
 11,2009,28,0.032258065
 11,2009,29,0.032258065
 11,2009,30,0.032258065
-21,2009,0,0.032258065
-21,2009,1,0.032258065
-21,2009,2,0.032258065
-21,2009,3,0.032258065
-21,2009,4,0.032258065
-21,2009,5,0.032258065
-21,2009,6,0.032258065
-21,2009,7,0.032258065
-21,2009,8,0.032258065
-21,2009,9,0.032258065
-21,2009,10,0.032258065
-21,2009,11,0.032258065
-21,2009,12,0.032258065
-21,2009,13,0.032258065
-21,2009,14,0.032258065
-21,2009,15,0.032258065
-21,2009,16,0.032258065
-21,2009,17,0.032258065
-21,2009,18,0.032258065
-21,2009,19,0.032258065
-21,2009,20,0.032258065
-21,2009,21,0.032258065
-21,2009,22,0.032258065
-21,2009,23,0.032258065
-21,2009,24,0.032258065
-21,2009,25,0.032258065
-21,2009,26,0.032258065
-21,2009,27,0.032258065
-21,2009,28,0.032258065
-21,2009,29,0.032258065
-21,2009,30,0.032258065
 .....
 </programlisting>
 </example>
 
-
 </section>
-<section id="sect_input_spdpro">
+<section id="sect_input_fuelsupply">
 
-<title><envar>SPDPRO</envar>: Mobile houlry speed profiles file</title>
+<title>Fuel Supply file for MOVES model</title>
 
-<para>The <envar>SPDPRO</envar> file is used to provide weekend/weekday hourly speed profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance lookup table. Its format is shown in <xref linkend="tbl_input_spdpro" />.</para>
+<para>The Fuel Supply file is a list directed file used to define the fuel supply and the months that the fuels are used for each reference counties. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
 
-<table id="tbl_input_spdpro">
-<title>Format for <envar>SPDPRO</envar></title>
+<table id="tbl_input_fuelsupply">
+<title>Format for <envar>FuelSupply.csv</envar></title>
 
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
 
 <thead>
 <row>
-<entry>Line</entry>
-<entry>Position</entry>
+<entry>Variable</entry>
 <entry>Description</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>1+</entry>
-<entry colname="Position">A</entry>
-<entry>Six-digit county code (Integer)</entry>
+<entry>countyID</entry>
+<entry>Five-digit country FIPS code for reference county (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">B</entry>
-<entry>Source Category Code (SCC)</entry>
+<entry>fuelYearID</entry>
+<entry>Four-digit fuel year ID for reference county (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">C</entry>
-<entry>"WEEKDAY" (Char)</entry>
+<entry>monthGroupID</entry>
+<entry>One-digit month group ID for reference county (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">D</entry>
-<entry>Weekday hourly average speed (mile per hour) in local hour 1</entry>
+<entry>fuelFormulationID</entry>
+<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
 </row>
 <row>
-<entry colname="Position">E</entry>
-<entry>Weekday hourly average speed (mile per hour) in local hour 2</entry>
+<entry>marketShare</entry>
+<entry>decimal fraction of marketShare for the fuel/month for the reference county</entry>
 </row>
 <row>
-<entry colname="Position">...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry colname="Position">AA</entry>
-<entry>Weekday hourly average speed (mile per hour) in local hour 24</entry>
-</row>
-<row>
-<entry colname="Position">AB</entry>
-<entry>"WEEKEND" (Char)</entry>
-</row>
-<row>
-<entry colname="Position">AC</entry>
-<entry>Weekend hourly average speed (mile per hour) in local hour 1</entry>
-</row>
-<row>
-<entry colname="Position">AD</entry>
-<entry>Weekend hourly average speed (mile per hour) in local hour 2</entry>
-</row>
-<row>
-<entry colname="Position">...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry colname="Position">AZ</entry>
-<entry>Weekend hourly average speed (mile per hour) in local hour 24</entry>
+<entry>marketShareCV</entry>
+<entry>decimal fraction (.5)? </entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
 <example>
-<title><envar>SPDPRO</envar> file</title>
+<title><envar>fuelsupply_13121.csv</envar> example file</title>
 
 <programlisting>
-13101,2201000330,WEEKDAY,35,,,,,,WEEKEND,34,,,,,,,,,
-13102,2201000330,WEEKDAY,35,,,,,,WEEKEND,33,,,,,,,,,
-13103,2201000330,WEEKDAY,36,,,,,,WEEKEND,38,,,,,,,,,,
+"countyID","fuelYearID","monthGroupID","fuelFormulationID","marketShare","marketShareCV"^M
+13121,2009,1,8124,0.428571,0.5
+13121,2009,1,2722,0.571429,0.5
+13121,2009,1,20043,1.0,0.5
+13121,2009,4,8136,0.428571,0.5
+13121,2009,4,2734,0.571429,0.5
+13121,2009,4,20043,1.0,0.5
 </programlisting>
 </example>
 
 </section>
+<section id="sect_input_fuelformulation">
 
+<title>Fuel Formulation file for MOVES model (optional)</title>
+
+<para>The Fuel Formulation file is a list directed file used to specify a new fuelFormulation ID if a local fuel does not match the list of nearly 9,000 predefined fuels in MOVES. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
+
+<table id="tbl_input_fuelformulation">
+<title>Format for <envar>FuelFormulation.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>FuelFormulationID</entry>
+<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>fuelSubtypeID</entry>
+<entry>Four-digit fuel Subtype ID (Integer)</entry>
+</row>
+<row>
+<entry>RVP</entry>
+<entry>?-digit  (Integer)</entry>
+</row>
+<row>
+<entry>sulfurLevel</entry>
+<entry> (Integer)</entry>
+</row>
+<row>
+<entry>ETOHVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>MTBEVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>ETBEVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>TAMEVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>aromaticContent</entry>
+<entry></entry>
+</row>
+<row>
+<entry>olefinContent</entry>
+<entry></entry>
+</row>
+<row>
+<entry>benzeneContent</entry>
+<entry></entry>
+</row>
+<row>
+<entry>e200</entry>
+<entry></entry>
+</row>
+<row>
+<entry>e300</entry>
+<entry></entry>
+</row>
+<row>
+<entry>bioDieselEsterVolume</entry>
+<entry></entry>
+</row>
+<row>
+<entry>acetaneIndex</entry>
+<entry></entry>
+</row>
+<row>
+<entry>PAHContent</entry>
+<entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>fuelformulation.csv</envar> example file</title>
+
+<programlisting>
+"fuelFormulationID","fuelSubtypeID","RVP","sulfurLevel","ETOHVolume","MTBEVolume","TAMEVolume","aromaticContent","olefinContent","benzeneContent","e200","e300","bioDieselEsterVolume","acetaneIndex","PAHContent"
+
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_HPMSVTypeYear">
+
+<title>HPMSV Type for MOVES model</title>
+
+<para>The HPMSV file is a list directed file used to define the annual VMT by Highway Performance Monitoring System (HPMS) vehicle type. Its format is shown in <xref linkend="tbl_input_HPMSVtype" />.</para>
+
+<table id="tbl_input_HPMSVtype">
+<title>Format for <envar>HPMSVtypeyear_countyrep.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>HPMSVtypeID</entry>
+<entry>Two-digit HPMSV type IDs within the reference county (Integer)</entry>
+</row>
+<row>
+<entry>yearID</entry>
+<entry>year ID for the reference county (Integer)</entry>
+</row>
+<row>
+<entry>HPMSVBaseYearVMT</entry>
+<entry></entry>
+</row>
+<row>
+<entry>baseYearOffNetVMT</entry>
+<entry></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>hpmsvtypeyear_13121.csv</envar> example file</title>
+
+<programlisting>
+HPMSVtypeID,yearID,HPMSBaseYearVMT,baseYearOffNetVMT
+10,2009,100,0
+20,2009,100,0
+30,2009,100,0
+40,2009,100,0
+50,2009,100,0
+60,2009,100,0
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_IMcoverage">
+
+<title>IM Coverage file for MOVES Model</title>
+
+<para>The IM Coverage file is a list directed file used to define the inspection and maintanance data available for each reference counties. Its format is shown in <xref linkend="tbl_input_IMcoverage" />.</para>
+
+<table id="tbl_input_IMcoverage">
+<title>Format for <envar>imcoverage_referencecountyID.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>polProcessID</entry>
+<entry>Three-digit pol process in the reference county (Integer)</entry>
+</row>
+<row>
+<entry>stateID</entry>
+<entry>Two-digit state ID in the reference county (Integer)</entry>
+</row>
+<row>
+<entry>countyID</entry>
+<entry>Five-digit county ID for the reference county (Integer)</entry>
+</row>
+<row>
+<entry>yearID</entry>
+<entry>Four-digit year ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>sourceTypeID</entry>
+<entry>Two-digit source type ID for the reference county</entry>
+</row>
+<row>
+<entry>fuelTypeID</entry>
+<entry>One-digit fuel type ID </entry>
+</row>
+<row>
+<entry>IMProgramID</entry>
+<entry>One or two-digit inspection and maintance program ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>inspectFreq</entry>
+<entry>One-digit inspection frequency ID for the reference county</entry>
+</row>
+<row>
+<entry>testStandardsID</entry>
+<entry>Two-digit test standards ID for the reference county </entry>
+</row>
+<row>
+<entry>begModelYearID</entry>
+<entry>Four-digit beginning model year ID </entry>
+</row>
+<row>
+<entry>endModelYearID</entry>
+<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+</row>
+<row>
+<entry>useIMyn</entry>
+<entry>Y - "does use I/M program", N - "does not use I/M program"</entry>
+</row>
+<row>
+<entry>complianceFactor</entry>
+<entry>decimal percentage compliance factor</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>imcoverage_13121.csv</envar> example file</title>
+
+<programlisting>
+polProcessID,stateID,countyID,yearID,sourceTypeID,fuelTypeID,IMProgramID,inspectFreq,testStandardsID,begModelYearID,endModelYearID,useIMyn,complianceFactor
+113,13,13121,2009,31,1,8,1,43,1996,2005,Y,97
+113,13,13121,2009,31,1,7,1,41,1975,1995,Y,97
+113,13,13121,2009,21,1,8,1,43,1996,2005,Y,97
+113,13,13121,2009,21,1,7,1,41,1975,1995,Y,97
+301,13,13121,2009,31,1,10,1,51,1996,2005,Y,94.09
+301,13,13121,2009,31,1,4,1,24,1975,1995,Y,94.09
+301,13,13121,2009,21,1,10,1,51,1996,2005,Y,94.09
+301,13,13121,2009,21,1,4,1,24,1975,1995,Y,94.09
+.....
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_sourcetypeyear">
+
+<title>MOVES Vehicle Population by source type input file for MOVES model</title>
+
+<para>The MOVES Population by source type file contains the year, source and population for each reference county. Its format is shown in <xref linkend="tbl_input_sourcetypeyear" />.</para>
+
+<table id="tbl_input_sourcetypeyear">
+<title>Format for <envar>population_13217.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>yearID</entry>
+<entry>Four-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>sourceTypeID</entry>
+<entry>two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>sourceTypePopulationID</entry>
+<entry>Three-digit source type population ID (Integer)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>population_13121.csv</envar> example file</title>
+
+<programlisting>
+yearID,sourceTypeID,sourceTypePopulation
+2009,11,100
+2009,21,100
+2009,31,100
+2009,32,100
+2009,41,100
+2009,42,100
+2009,43,100
+2009,51,100
+2009,52,100
+2009,53,100
+2009,54,100
+2009,61,100
+2009,62,100
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_avgspeeddistribution">
+
+<title>Dummy Average Speed Distribution file for MOVES model</title>
+
+<para>The Dummy Average Speed Distribution file is a file that contains the average speed bin ID and average speed fraction for each reference counties. Its format is shown in <xref linkend="tbl_input_dummy_avgspeeddistribution" />.</para>
+
+<table id="tbl_input_dummy_avgspeeddistribution">
+<title>Format for <envar>dummyavgspeeddistribution.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one-digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>hourDayID</entry>
+<entry>Two-digit hour day ID (Integer)</entry>
+</row>
+<row>
+<entry>avgSpeedBinID</entry>
+<entry>average speed bin ID (Integer)</entry>
+</row>
+<row>
+<entry>avgSpeedFraction</entry>
+<entry>decimal fraction representing the proportion of vechicles that travel at within each of the speed bins for a specific road typeID and hourDayID for the reference county</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_avgspeeddistribution.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,roadTypeID,hourDayID,avgSpeedBinID,avgSpeedFraction
+11,2,12,1,0
+11,2,12,2,0
+11,2,12,3,0
+11,2,12,4,0
+11,2,12,5,0
+11,2,12,6,0
+11,2,12,7,0
+11,2,12,8,0
+11,2,12,9,0
+11,2,12,10,0
+11,2,12,11,0
+11,2,12,12,0.0091073
+11,2,12,13,0.0285067
+11,2,12,14,0.0988925
+11,2,12,15,0.248298
+11,2,12,16,0.615196
+..
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_dayvmtfraction">
+
+<title>Dummy Day VMT Fraction file for MOVES model</title>
+
+<para>The Dummy Day VMT Fraction file is a file that contains specifies whether the VMT are weekday or weekend. Its format is shown in <xref linkend="tbl_input_dummy_dayvmtfraction" />.</para>
+
+<table id="tbl_input_dummy_dayvmtfraction">
+<title>Format for <envar>dummydayvmtfraction.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>monthID</entry>
+<entry>one or two-digit month ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>dayID</entry>
+<entry>2 - weekday, 5 - weekend</entry>
+</row>
+<row>
+<entry>dayVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled for the weekday or weekend day type</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_roadtypedistribution.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,monthID,roadTypeID,dayID,dayVMTFraction
+11,7,1,2,0.237635
+11,7,1,5,0.762365
+11,7,2,2,0.27882
+11,7,2,5,0.72118
+11,7,3,2,0.27882
+11,7,3,5,0.72118
+11,7,4,2,0.237635
+11,7,4,5,0.762365
+11,7,5,2,0.237635
+11,7,5,5,0.762365
+21,7,1,2,0.237635
+21,7,1,5,0.762365
+21,7,2,2,0.27882
+21,7,2,5,0.72118
+21,7,3,2,0.27882
+21,7,3,5,0.72118
+21,7,4,2,0.237635
+21,7,4,5,0.762365
+21,7,5,2,0.237635
+21,7,5,5,0.762365
+..
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_hourvmtfraction">
+
+<title>Dummy Hour VMT Fraction file for MOVES model</title>
+
+<para>The Dummy Hour VMT Fraction file is a file that contains specifies the VMT fraction associated with each hour of the day. Its format is shown in <xref linkend="tbl_input_dummy_hourvmtfraction" />.</para>
+
+<table id="tbl_input_dummy_hourvmtfraction">
+<title>Format for <envar>dummyhourvmtfraction.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>dayID</entry>
+<entry>one digit day type ID (Integer), 2 - weekday, 5 - weekend</entry>
+</row>
+<row>
+<entry>hourID</entry>
+<entry>1-24 hours</entry>
+</row>
+<row>
+<entry>hourVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled are associated with a particular hour of the day for each source type, road type and day type (weekday or weekend)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_hourvmtfraction.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,roadTypeID,dayID,hourID,hourVMTFraction
+11,1,2,1,0.0214739
+11,1,2,2,0.0144428
+11,1,2,3,0.0109684
+11,1,2,4,0.00749451
+11,1,2,5,0.00683855
+11,1,2,6,0.0103588
+11,1,2,7,0.0184304
+11,1,2,8,0.0268117
+11,1,2,9,0.0363852
+11,1,2,10,0.0475407
+11,1,2,11,0.0574664
+11,1,2,12,0.0650786
+11,1,2,13,0.0713228
+11,1,2,14,0.0714917
+11,1,2,15,0.0717226
+11,1,2,16,0.0720061
+11,1,2,17,0.0711487
+11,1,2,18,0.0678874
+11,1,2,19,0.0617718
+11,1,2,20,0.0516882
+11,1,2,21,0.0428658
+11,1,2,22,0.0380302
+11,1,2,23,0.0322072
+11,1,2,24,0.0245677
+..
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_monthvmtfraction">
+
+<title>Dummy Month VMT Fraction file for MOVES model</title>
+
+<para>The Dummy Month VMT Fraction file is a file that contains specifies the VMT fraction associated with each hour of the day. Its format is shown in <xref linkend="tbl_input_dummy_monthvmtfraction" />.</para>
+
+<table id="tbl_input_dummy_monthvmtfraction">
+<title>Format for <envar>dummymonthvmtfraction.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>isLeapYear</entry>
+<entry>Y or N</entry>
+</row>
+<row>
+<entry>monthID</entry>
+<entry>one digit day type ID (Integer), 2 - weekday, 5 - weekend</entry>
+</row>
+<row>
+<entry>monthVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled are associated with a specific month for each source type.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_monthvmtfraction.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,isLeapYear,monthID,monthVMTFraction
+11,N,1,0.083333333
+11,N,2,0.083333333
+11,N,3,0.083333333
+11,N,4,0.083333333
+11,N,5,0.083333333
+11,N,6,0.083333333
+11,N,7,0.083333333
+11,N,8,0.083333333
+11,N,9,0.083333333
+11,N,10,0.083333333
+11,N,11,0.083333333
+11,N,12,0.083333333
+21,N,1,0.083333333
+21,N,2,0.083333333
+21,N,3,0.083333333
+21,N,4,0.083333333
+21,N,5,0.083333333
+21,N,6,0.083333333
+21,N,7,0.083333333
+21,N,8,0.083333333
+21,N,9,0.083333333
+21,N,10,0.083333333
+21,N,11,0.083333333
+21,N,12,0.083333333
+..
+</programlisting>
+</example>
+
+</section>
+<section id="sect_input_dummy_roadtypedistribution">
+
+<title>Dummy Road Type Distribution file for MOVES model</title>
+
+<para>The Road Type Distribution file is a file that contains the average speed bin ID and average speed fraction. Its format is shown in <xref linkend="tbl_input_dummy_roadtypedistribution" />.</para>
+
+<table id="tbl_input_dummy_roadtypedistribution">
+<title>Format for <envar>dummyroadtypedistribution.csv</envar></title>
+
+<tgroup cols="2">
+<colspec colwidth="6*" colname="Variable" />
+<colspec colwidth="15*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>sourceTyeID</entry>
+<entry>Two-digit source type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeID</entry>
+<entry>one-digit road type ID (Integer)</entry>
+</row>
+<row>
+<entry>roadTypeVMTFraction</entry>
+<entry>decimal fraction representing the proportion of vehicle miles traveled that occur on a specific road type</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>dummy_roadtypedistribution.csv</envar> example file</title>
+
+<programlisting>
+sourceTypeID,roadTypeID,roadTypeVMTFraction
+11,1,0.2
+11,2,0.2
+11,3,0.2
+11,4,0.2
+11,5,0.2
+21,1,0.2
+21,2,0.2
+21,3,0.2
+21,4,0.2
+21,5,0.2
+..
+</programlisting>
+</example>
+
+</section>
+</section>
 </section>
 
 <section id="sect_input_source_point">
@@ -11616,7 +12422,7 @@ SOURCE > 100 AND SOURCE < 200
 <para>NTI: Code identifying a HAP on the Clean Air Act HAP list (list of 188 HAPs). Not currently used by SMOKE; will be used in the future for growing HAP emissions to future years.</para>
 </listitem>
 <listitem>
-<para>Units: The units to store the data in the SMOKE intermediate files. This should be <quote>tons/year</quote> for emissions values, <quote>miles/year</quote> for VMT, and <quote>miles/hr</quote> for speed. Although this is provided as an input field to allow possible future changes, these values should <emphasis>not</emphasis> be changed by the user and are unrelated to the units of the emissions in the input files.</para>
+<para>Units: The units to store the data in the SMOKE intermediate files. This should be <quote>short tons/year</quote> for emissions values, <quote>miles/year</quote> for VMT, and <quote>miles/hr</quote> for speed. Although this is provided as an input field to allow possible future changes, these values should <emphasis>not</emphasis> be changed by the user and are unrelated to the units of the emissions in the input files.</para>
 </listitem>
 <listitem>
 <para>Inventory data descriptions: This is the description of the inventory data name listed in columns 1-11.</para>
@@ -11669,8 +12475,6 @@ SOURCE > 100 AND SOURCE < 200
 </tgroup>
 </table>
 
-<example>
-</example>
 
 </section>
 
@@ -11714,9 +12518,6 @@ SOURCE > 100 AND SOURCE < 200
 </tbody>
 </tgroup>
 </table>
-
-<example>
-</example>
 
 </section>
 
@@ -12012,6 +12813,48 @@ SOURCE > 100 AND SOURCE < 200
 
 </section>
 
+<section id="sect_input_rwc_county_temp">
+
+<title><envar>RWC_COUNTY_TEMP</envar>: County-specific minimum temperature for Residential Wood Combustion (RWC) Equations</title>
+
+<para>This file allows to county-specific minimum temperature that is required for RWC equations listed at <xref linkend="sect_utilities_gentpro" /> . The format of the <envar>MACTDESC</envar> file is shown in <xref linkend="tbl_input_rwc_county_temp" />.</para>
+
+<table id="tbl_input_rwc_county_temp">
+<title>Format for <envar>RWC_COUNTY_TEMP</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>FIPS</entry>
+<entry>Integer</entry>
+<entry>FIPS code (5-digit)</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>Value</entry>
+<entry>Real</entry>
+<entry>Minimum temperature</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+
 <section id="sect_input_sccdesc">
 
 <title><envar>SCCDESC</envar>: Source category code descriptions</title>
@@ -12230,7 +13073,5 @@ SOURCE > 100 AND SOURCE < 200
 </table>
 
 </section>
-
 </section>
-
 </chapter>

@@ -200,7 +200,7 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">doc</filename>: Contains the files that the SMOKE installation processes use to check that the installation and testing of SMOKE have worked properly.</para>
 </listitem>
 <listitem>
-<para><filename class="directory"><envar>$SMOKE_EXE</envar></filename>: This directory contains the executables for your particular system. Different directory names apply to different platforms (e.g., <filename class="directory">Linux2_x86pg</filename>, <filename class="directory">IRIXn32f90</filename>, <filename class="directory">SunOS5f90</filename>). For more information about the various platforms for which SMOKE is available, see <xref linkend="ch_installation" />.</para>
+<para><filename class="directory"><envar>$SMOKE_EXE</envar></filename>: This directory contains the executables for your particular system. Different directory names apply to different platforms (e.g., <filename class="directory">Linux2_x86_64pg</filename>, <filename class="directory">IRIXn32f90</filename>, <filename class="directory">SunOS5f90</filename>). For more information about the various platforms for which SMOKE is available, see <xref linkend="ch_installation" />.</para>
 </listitem>
 <listitem>
 <para><filename class="directory">scripts</filename>: Contains run scripts and other scripts</para>
@@ -400,6 +400,14 @@ source $ASSIGNS/set_dirs.scr
 <listitem>
 <para><envar>ARINV</envar> (raw area-source inventory file). If this is a list file, the files listed within it should also be included in this directory.</para>
 </listitem>
+<listitem>
+<para><envar>ARDAY</envar> (raw day-specific area-source inventory file). If this optional file is a list file, the files listed within it should also be included in this directory.</para>
+</listitem>
+<listitem>
+<para><envar>ARHOUR</envar> (raw hour-specific area-source inventory file). If this optional file is a list file, the files listed within it should also be included in this directory.</para>
+</listitem>
+
+
 
 <listitem>
 <para><envar>GCNTL</envar> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme for these files is described in the default SMOKE scripts.</para>
@@ -410,20 +418,7 @@ source $ASSIGNS/set_dirs.scr
 <listitem>
 <para><filename class="directory">biog</filename>: Contains the gridded BELD3 land use data. These files are listed in the Assigns files as <envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar>. This directory could optionally contain the gridded BELD2 land use data (if processing using BEIS2); this file is listed in the Assigns file as <envar>BGUSE</envar>.</para>
 </listitem>
-<listitem>
-<para><filename class="directory">nonroad</filename>: Optional directory for the nonroad mobile inventory, if it is not included with the other SMOKE area sources in the area directory. Files should include:</para>
 
-<itemizedlist>
-<listitem>
-<para><envar>GCNTL</envar> (control packet file). The growth and control packet files for each growth or control scenario. The default naming scheme for these files is described in the default SMOKE scripts.</para>
-</listitem>
-
-<listitem>
-<para><envar>NRINV</envar> (raw nonroad-mobile-source inventory file). If this is a list file, the files listed within it should also be included in this directory.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
 <listitem>
 <para><filename class="directory">mobile (MOVES)</filename>: Contains the on-road mobile inventory and other on-road mobile-specific input files. Files should include:</para>
 
@@ -559,6 +554,12 @@ source $ASSIGNS/set_dirs.scr
 <para><envar>AREA</envar>: Map-formatted SMOKE intermediate files for nonpoint/stationary area sources (from the <envar>ARINV</envar> input file) and/or nonroad mobile sources (from either the <envar>ARINV</envar> input file or from the <envar>NRINV</envar> input file if nonroad mobile sources are being run separately from other SMOKE area sources). Example file names include <filename>area.map.<envar>$INVOP</envar>.txt</filename> and <filename>nroad.map.<envar>$INVOP</envar>.txt</filename>.</para>
 
 <para>The data from the inventories is stored in several different files, both ASCII and I/O API format. The map-formatted intermediate files are used to organize and keep track of these separate files. See <xref linkend="ch_intermediate_files" /> for an example and further discussion of the intermediate inventory files. For the <envar>AREA</envar> file, the additional inventory files <filename>area.ncf</filename> and <filename>asrc.txt</filename> are stored in the <envar>$INVOPD</envar> directory. The pollutant-specific files are stored in the <filename class="directory">area_dat</filename> directory. For the <envar>NROAD</envar> file, the files are named <filename>nroad.ncf</filename> and <filename>nsrc.txt</filename> and the pollutant-specific files are placed in the <filename class="directory">nroad_dat</filename> directory.</para>
+</listitem>
+<listitem>
+<para><envar>ARDAY</envar>: The day-specific SMOKE area-source intermediate inventory.</para>
+</listitem>
+<listitem>
+<para><envar>ARHOUR</envar>:The hour-specific SMOKE area-source intermediate inventory.</para>
 </listitem>
 
 <listitem>

@@ -126,27 +126,27 @@
 <row>
 <entry>Nonpoint or stationary area</entry>
 <entry align="center">N/A</entry>
-<entry align="center">A, S</entry>
-<entry align="center">A, S</entry>
-<entry align="center">A, S</entry>
+<entry align="center">A, S, D, H</entry>
+<entry align="center">A, S, D, H</entry>
+<entry align="center">A, S, D, H</entry>
 <entry>Area</entry>
 </row>
 
 <row>
 <entry>Nonroad mobile</entry>
 <entry align="center">N/A</entry>
-<entry align="center">A, S</entry>
-<entry align="center">A, S</entry>
-<entry align="center">A, S</entry>
+<entry align="center">A, S, D, H</entry>
+<entry align="center">A, S, D, H</entry>
+<entry align="center">A, S, D, H</entry>
 <entry>Area</entry>
 </row>
 
 <row>
 <entry>On-road mobile (MOBILE 6)</entry>
 <entry align="center">A</entry>
-<entry align="center">A, S</entry>
-<entry align="center">A, S</entry>
-<entry align="center">A, S</entry>
+<entry align="center">A, S, D, H</entry>
+<entry align="center">A, S, D, H</entry>
+<entry align="center">A, S, D, H</entry>
 <entry>Mobile</entry>
 </row>
 
@@ -164,7 +164,7 @@
 <entry align="center">N/A</entry>
 <entry align="center">A, S, D, H</entry>
 <entry align="center">A, S, D, H</entry>
-<entry align="center">A, S</entry>
+<entry align="center">A, S, D, H</entry>
 <entry>Point</entry>
 </row>
 
@@ -173,7 +173,7 @@
 <entry align="center">N/A</entry>
 <entry align="center">A, S, D, H</entry>
 <entry align="center">A, S, D, H</entry>
-<entry align="center">A, S</entry>
+<entry align="center">A, S, D, H</entry>
 <entry>Point</entry>
 </row>
 
@@ -236,7 +236,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Source attributes:</emphasis> The inventory year is associated with all sources in the inventory input files. In addition, SMOKE assigns a time zone (see <xref linkend="sect_concepts_assign_countries" /> and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In the nonpoint toxics inventory only, Standard Industrial Classification (SIC) codes, Maximum Achievable Control Technology (MACT) codes, and North American Industrial Classification System (NAICS) codes are optional source attributes; the NAICS code is read by SMOKE but not otherwise used at this time. Additionally, a <quote>source type</quote> field is available in the nonpoint inventory to identify major and Clean Air Act (CAA) section 112 area sources. See <xref linkend="sect_concepts_sic_codes" /> for a description of SIC codes, <xref linkend="sect_concepts_mact_codes" /> for more about MACT codes, and <xref linkend="sect_concepts_section_112" /> for more about source types. We will refer to the CAA section 112 area sources as simply <quote>section-112 area sources</quote>.</para>
+<para><emphasis role="bold">Source attributes:</emphasis> The inventory year is associated with all sources in the inventory input files. In addition, SMOKE assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In the nonpoint toxics inventory only, Standard Industrial Classification (SIC) codes, Maximum Achievable Control Technology (MACT) codes, and North American Industrial Classification System (NAICS) codes are optional source attributes; the NAICS code is read by SMOKE but not otherwise used at this time. Additionally, a <quote>source type</quote> field is available in the nonpoint inventory to identify major and Clean Air Act (CAA) section 112 area sources. See <xref linkend="sect_concepts_sic_codes" /> for a description of SIC codes, <xref linkend="sect_concepts_mact_codes" /> for more about MACT codes, and <xref linkend="sect_concepts_section_112" /> for more about source types. We will refer to the CAA section 112 area sources as simply <quote>section-112 area sources</quote>.</para>
 </listitem>
 
 <listitem>
@@ -298,7 +298,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Source attributes:</emphasis> As with other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In addition, point sources have the following required source attributes not associated with other source categories: latitude, longitude, stack height, stack diameter (at the exit location), flue gas exit velocity, and flue gas exit temperature. Finally, the following optional source attributes are also used by SMOKE: SIC codes, MACT codes, plant descriptions, emissions release type point (e.g., horizontal stack, fugitive), source type (major or section-112 area), Office of Regulatory Information Systems (ORIS) identification codes, and boiler identification codes. Not all input formats support all types of optional source attributes. In particular, the ORIS and boiler codes (which are necessary for SMOKE to use in matching with Continuous Emissions Monitoring [CEM] hour-specific EGU data) are supported only by the IDA format. Also, the MACT code and source types are supported only by the SMOKE ORL format. See <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, and <xref linkend="sect_concepts_section_112" /> for more information.</para>
+<para><emphasis role="bold">Source attributes:</emphasis> As with other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In addition, point sources have the following required source attributes not associated with other source categories: latitude, longitude, stack height, stack diameter (at the exit location), flue gas exit velocity, and flue gas exit temperature. Finally, the following optional source attributes are also used by SMOKE: SIC codes, MACT codes, plant descriptions, emissions release type point (e.g., horizontal stack, fugitive), source type (major or section-112 area), Office of Regulatory Information Systems (ORIS) identification codes, and boiler identification codes. Not all input formats support all types of optional source attributes. In particular, the ORIS and boiler codes (which are necessary for SMOKE to use in matching with Continuous Emissions Monitoring [CEM] hour-specific EGU data) are supported only by the IDA format. Also, the MACT code and source types are supported only by the ORL format. See <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, and <xref linkend="sect_concepts_section_112" /> for more information.</para>
 </listitem>
 
 <listitem>
@@ -415,24 +415,24 @@
 
 <para>SMOKE supports a variety of inventory formats for criteria, particulate, toxics, and activity data inventories, which are described in detail in <xref linkend="sect_input_inventory" />. Here, we provide a brief introduction to these formats, which will be helpful as you read more about SMOKE in the remainder of this chapter and the chapters before <xref linkend="ch_input_files" />. All formats described here are text files. To convert your data to these formats, the best approach is to use a database or spreadsheet program to reformat and output the data in the requested format. There is not a standard format-conversion method that comes with SMOKE.</para>
 
-<para>With the exception of the on-road mobile formats for activity data (i.e. VMT and speed), none of the SMOKE inventory formats require specific inventory pollutants or limit the inventory pollutant types that can be imported. However, all formats have their <quote>typical</quote> purpose. The IDA format is usually used for criteria and particulate inventories and is appropriate for them because most sources have emissions for all criteria and particulate pollutants. However, there is no reason that mercury data, for example, could not be provided to SMOKE using this format (provided that the user does not need to have the MACT code associated with mercury emissions for other processing steps, since MACT codes are not part of the IDA format). Similarly, the SMOKE ORL format is usually used for importing toxics data, but could also be used to import criteria inventories. In the following paragraphs, we describe the formats available for nonpoint/stationary area, nonroad mobile, on-road mobile, point, and point-wildfire sources.</para>
+<para>With the exception of the on-road mobile formats for activity data (i.e. VMT and speed), none of the SMOKE inventory formats require specific inventory pollutants or limit the inventory pollutant types that can be imported. However, all formats have their <quote>typical</quote> purpose. The IDA format is usually used for criteria and particulate inventories and is appropriate for them because most sources have emissions for all criteria and particulate pollutants. However, there is no reason that mercury data, for example, could not be provided to SMOKE using this format (provided that the user does not need to have the MACT code associated with mercury emissions for other processing steps, since MACT codes are not part of the IDA format). Similarly, the ORL format is usually used for importing toxics data, but could also be used to import criteria inventories. In the following paragraphs, we describe the formats available for nonpoint/stationary area, nonroad mobile, on-road mobile, point, and point-wildfire sources.</para>
 
 <itemizedlist>
 
 <listitem>
-<para><emphasis role="bold">Nonpoint/stationary area sources:</emphasis> SMOKE supports three formats for nonpoint/stationary area sources. The first is the IDA format, which is intended for input of the criteria and particulate National Emission Inventory for stationary area sources. The second is the EMS-95 format, which is provided only for backward compatibility for people using EMS-95 emission files. The key difference between the two formats is that the IDA format has all inventory pollutants for each source on a single line, whereas the EMS-95 format has a different inventory pollutant on each line. The third format, SMOKE ORL, is typically used for nonpoint sources for toxics inventories. This format can be created using data fields from the NEI for HAPs. In some cases, a version of this inventory known as the <quote>modeler&rsquo;s files</quote> may be available, but will still require conversion to the SMOKE ORL format; additional conversion is needed because the <quote>modeler&rsquo;s files</quote> contain extra information not needed for SMOKE, but needed by other users of the files. The SMOKE ORL and IDA formats may be used together to combine the criteria, particulate, and toxics inventories into a single SMOKE run. Like the EMS-95 format (and unlike the IDA format), the SMOKE ORL format has a different inventory pollutant on each line.</para>
+<para><emphasis role="bold">Nonpoint/stationary area sources:</emphasis> SMOKE supports four formats for nonpoint/stationary area sources. The first is the IDA format, which is intended for input of the criteria and particulate National Emission Inventory for stationary area sources. The second is the EMS-95 format, which is provided only for backward compatibility for people using EMS-95 emission files. The key difference between the two formats is that the IDA format has all inventory pollutants for each source on a single line, whereas the EMS-95 format has a different inventory pollutant on each line. The third format, ORL, is typically used for nonpoint sources for toxics inventories. This format can be created using data fields from the NEI for HAPs. In some cases, a version of this inventory known as the <quote>modeler&rsquo;s files</quote> may be available, but will still require conversion to the ORL format; additional conversion is needed because the <quote>modeler&rsquo;s files</quote> contain extra information not needed for SMOKE, but needed by other users of the files. The ORL and IDA formats may be used together to combine the criteria, particulate, and toxics inventories into a single SMOKE run. Like the EMS-95 format (and unlike the IDA format), the ORL format has a different inventory pollutant on each line. The fourth format is the FF10 (Flat File 10) that is list directed (comma or semicolon delimited) and this file format may be used to represent many different sources. The header of the file indicates what source data are in the file.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Nonroad mobile sources:</emphasis> There are two available inventory formats for nonroad mobile sources. For criteria and particulate inventories, you can use the same IDA format or EMS-95 format as for stationary area sources. For toxics inventories, the SMOKE ORL format is available for providing nonroad data to SMOKE. These formats may be used together to combine the nonroad criteria, particulate, and toxics inventories into a single SMOKE run. Like the nonpoint toxics format, the nonroad mobile toxics format has a different inventory pollutant on each line and can be used to input any inventory data to SMOKE, including criteria or particulate emissions.</para>
+<para><emphasis role="bold">Nonroad mobile sources:</emphasis> There are three available inventory formats for nonroad mobile sources. For criteria and particulate inventories, you can use the same IDA format or EMS-95 format as for stationary area sources. For toxics inventories, the ORL format is available for providing nonroad data to SMOKE. These formats may be used together to combine the nonroad criteria, particulate, and toxics inventories into a single SMOKE run. Like the nonpoint toxics format, the nonroad mobile toxics format has a different inventory pollutant on each line and can be used to input any inventory data to SMOKE, including criteria or particulate emissions. The FF10 (Flat File 10) format is list directed (comma or semicolon delimeted) and the header of the file is used to indicate the nonroad mobile source data is within the file.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">On-road mobile sources:</emphasis> Five formats are possible for on-road mobile sources. There is an IDA format for activity data and one for emissions data. The IDA activity data format is used to input VMT and speed data to SMOKE for criteria, particulate, and toxics modeling. The IDA emissions data format is intended for criteria and particulate inventories, though other data can be provided in this format as well; this format has all inventory pollutants on each line of the file. Third, there is a SMOKE ORL format for toxics emissions data, which can also be used for input of any inventory data to SMOKE. All three of these formats expect VMT or emissions data to be provided by road class and vehicle type. Fourth, there is an EMS-95 format that can be used to provide SMOKE VMT data that are aggregated by road class and <emphasis>not</emphasis> vehicle type. In this case, SMOKE requires another input file, called the <envar>VMTMIX</envar> file, to disaggregate the emissions by vehicle type for each road class. The EMS-95 format also permits providing data by link, which includes data regarding the coordinates of the link start and end points. The EMS-95 format is the only way to import data by link. Fifth there is the Flat File (FF) format for activity inventory such as VMT, speed,  and vehicle population data.  This format requires VMT, SPEED, and VPOP inventory data.</para>
+<para><emphasis role="bold">On-road mobile sources:</emphasis> Five formats are possible for on-road mobile sources. There is an IDA format for activity data and one for emissions data. The IDA activity data format is used to input VMT and speed data to SMOKE for criteria, particulate, and toxics modeling. The IDA emissions data format is intended for criteria and particulate inventories, though other data can be provided in this format as well; this format has all inventory pollutants on each line of the file. Third, there is a ORL format for toxics emissions data, which can also be used for input of any inventory data to SMOKE. All three of these formats expect VMT or emissions data to be provided by road class and vehicle type. Fourth, there is an EMS-95 format that can be used to provide SMOKE VMT data that are aggregated by road class and <emphasis>not</emphasis> vehicle type. In this case, SMOKE requires another input file, called the <envar>VMTMIX</envar> file, to disaggregate the emissions by vehicle type for each road class. The EMS-95 format also permits providing data by link, which includes data regarding the coordinates of the link start and end points. The EMS-95 format is the only way to import data by link. Fifth there is the Flat File (FF) format for activity inventory such as VMT, speed,  and vehicle population data.  This format requires VMT, SPEED, and VPOP inventory data.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Point sources:</emphasis> SMOKE has formats for annual or average-day inventories, for day-specific inventories, and for hour-specific inventories. For annual or average-day inventories, the IDA format can be used for criteria and particulate inventories. An EMS-95 format can also be used for average-weekday criteria and particulate inventories; it requires five separate files for each state (SMOKE combines the information from these five files and across all of the states when importing the data). A SMOKE ORL format is available for importing toxics inventories. For day-specific data, we have adapted the EMS-95 format for use in all cases, whether the annual or average-day inventory is in IDA, EMS-95, or SMOKE ORL format. For hour-specific data, a very similar format can be used, again regardless of what format the annual or average-day emissions are provided in. Finally, the CEM data format can be used for day-specific or hour-specific data : SMOKE uses the ORIS codes and boiler codes in the annual inventory files to match sources from the CEM data files.</para>
+<para><emphasis role="bold">Point sources:</emphasis> SMOKE has formats for annual or average-day inventories, for day-specific inventories, and for hour-specific inventories. For annual or average-day inventories, the IDA format can be used for criteria and particulate inventories. An EMS-95 format can also be used for average-weekday criteria and particulate inventories; it requires five separate files for each state (SMOKE combines the information from these five files and across all of the states when importing the data). A ORL format is available for importing toxics inventories. For day-specific data, we have adapted the EMS-95 format for use in all cases, whether the annual or average-day inventory is in IDA, EMS-95, or ORL format. For hour-specific data, a very similar format can be used, again regardless of what format the annual or average-day emissions are provided in. Finally, the CEM data format can be used for day-specific or hour-specific data : SMOKE uses the ORIS codes and boiler codes in the annual inventory files to match sources from the CEM data files.</para>
 </listitem>
 
 <listitem>
@@ -1152,6 +1152,15 @@ Additional data</programlisting>
 <para>The disadvantage of using pregridded emissions for area-source processing is that there are no country/state/county codes and SCCs to use in the cross-referencing of any processing step. Therefore, temporal profiles, speciation profiles, growth factors, and control factors must be applied uniformly across the model grid by pollutant.</para>
 
 </section>
+
+<section>
+
+<title>Day-specific and hour-specific emissions</title>
+
+<para>Emissions from area sources are sometimes available as day- or hour-specific values. <command>Smkinven</command> can import the day- and hour-specific data, and it can also convert the hour-specific data to hour-specific temporal profiles. When these data are available, the <command>Temporal</command> program overrides the annual or daily emissions with the most specific data available. If day-specific data are available, <command>Temporal</command> uses them to overwrite the annual or average-day emissions during the time periods that these data are available. If hour-specific data are available, <command>Temporal</command> uses them to overwrite the annual, average-day emissions, or day-specific emissions data.</para>
+
+</section>
+
 </section>
 
 <section id="sect_concepts_biogenic_source_processing">
@@ -1204,7 +1213,7 @@ Additional data</programlisting>
 
 <para>The precomputed-emissions approach is quite similar to the processing method for area sources. In fact, <xref linkend="fig_concepts_area_base" />, <xref linkend="fig_concepts_area_growth" />, and <xref linkend="fig_concepts_area_projection" /> from <xref linkend="sect_concepts_area_source_processing" /> show exactly the processing steps needed for processing mobile sources using SMOKE and the precomputed-emissions approach. As in base-case processing for area sources, emissions in the inventory file are subdivided to hourly emissions during temporal allocation, assigned chemical speciation factors during speciation, and assigned spatial allocation factors during gridding. The merge step combines the hourly emissions, speciation matrix, and gridding matrix to create model-ready emissions. For future- or past-year processing, the growth and controls step is added to create the growth and control matrices, while the grow inventory step converts the inventory from the base year to a future or past year. The control matrix can be optionally used in the merge step to apply control factors to the future- or past-year emissions. Note that, unlike the VMT approach, in the precomputed-emissions approach SMOKE will not model the variations in emissions caused by temperature, humidity, or other meteorological settings.</para>
 
-<para>The MOVES approach is much different from the precomputed-emissions approach. <xref linkend="fig_concepts_mobile_moves_onroad" /> and <xref linkend="fig_concepts_mobile_moves_offroad" /> summarize the MOVES approach. First, county total VMT data by road class and vehicle type or county total VPOP by vehicle type are input to SMOKE. The chemical speciation step computes the chemical speciation factors for each county, road class, vehicle type, emissions process (e.g., exhaust start, exhaust running, evaporative processes, extended idle, and crankcase), and pollutant and stores the necessary factors for this transformation. The gridding step allocates the sources to grid cells and uses spatial surrogates to allocate county-total emissions to grid cells, storing the factors needed for these allocations.</para>
+<para>The MOVES approach is much different from the precomputed-emissions approach. <xref linkend="fig_concepts_mobile_moves_onroad" /> and <xref linkend="fig_concepts_mobile_moves_offroad" /> summarize the MOVES approach. First, county total activity inventory VMT data by road class and vehicle type or county total activity inventory VPOP by vehicle type are input to SMOKE. The chemical speciation step computes the chemical speciation factors for each county, road class, vehicle type, emissions process (e.g., exhaust start, exhaust running, evaporative processes, extended idle, and crankcase), and pollutant and stores the necessary factors for this transformation. The gridding step allocates the sources to grid cells and uses spatial surrogates to allocate county-total emissions to grid cells, storing the emission rates needed for these allocations based on hourly gridded ambient temperature meteorology.</para>
 
 <para>The approach for running MOVES for SMOKE relies on the concept of reference counties and fuel months. The concept of reference county refers to running MOVES for a single county, which is the reference county, to represent itself and other counties that share the same MOVES input parameters and thus have the same emission rates for any given speed, temperature and humidity.  A reference fuel month similarly refers to a reference fuel month's MOVES run that contains the temperatures that occur in neighboring months as well as the representative month. The mapping of calendar months to a representative month should be assigned on the basis of shared fuel parameters, because it is the interaction of fuel and temperature that is important.  For example, an average-hourly temperature of 70°F may occur in some hour of any day in each of four months: May, June, July and August.   If those four months share the same fuel properties (i.e. summer fuel) then an emission factor will be determined for just the representative month, reducing by a factor of four the number of calculations that MOVES needs to perform.</para>
 <para>Unlike MOBILE6, MOVES differentiates between on-roadway emission processes and off-network emission processes. <xref linkend="fig_concepts_mobile_moves_onroad" /> summarizes the approach used by MOVES for on-roadway mobile sources.  The on-roadway emission process includes county-total VMT and average speed inventory as input.  The off-network emission processes use the county-total vehicle population by vehicle type as input. <xref linkend="fig_concepts_mobile_moves_offroad" /> summarizes the approach used by MOVES for off-network mobile sources. Both on-roadway and off-network emission processes do require real gridded meteorology data from MCIP files to estimate temperature-dependent emission rates.</para>
@@ -1223,7 +1232,7 @@ Additional data</programlisting>
 </figure>
 
 <figure id="fig_concepts_mobile_moves_offroad">
-<title>MOVES mobile RatePerVehicle and RatPerProfile (off-network) processing steps</title>
+<title>MOVES mobile RatePerVehicle and RatPereProfile (off-network) processing steps</title>
 
 <mediaobject>
 <imageobject role="pdf">
@@ -1247,13 +1256,15 @@ Additional data</programlisting>
 
 </itemizedlist>
 
-<para>Processing mobile sources involves a number of concepts that are unique to mobile sources. These include a special classification of road types in MOVES, SMOKE and MOVES vehicle types, emissions processes, MOVES emission factors, reference counties, reference fuel months, and meteorological processing using <command>Met4moves</command>. The following subsections and sections 2.16 and 2.19 explain these topics in more detail.</para>
+<para>Processing mobile sources involves a number of concepts that are unique to mobile sources. These include a special classification of road types in MOVES, SMOKE and MOVES vehicle types, emissions processes, MOVES emission factors, reference counties, reference fuel months, and meteorological processing using <command>Met4moves</command>. The following subsections explain these topics in more detail.</para>
 
 <section>
 
 <title>Road types in MOVES</title>
 
 <para>MOVES can model five different road types: rural restricted/unrestricted access, urban restricted/unrestricted access, and off-network (used for emission processes that are not road dependent, such as exhaust start, extended idle, and crankcase). <xref linkend="tbl_concepts_moves_roads" /> indicates how the 13 SCC road classes are mapped to the five MOVES road types. The fractions for disaggregation are applied at the county level and can be found in the <emphasis role="bold">sccroadtypedistribution</emphasis> table in the MOVES model.</para>
+
+<para>Note that SMOKE assumes that a portion of the VMT data supplied for interstates and freeways are attributable to freeway ramps.  Therefore, SMOKE computes a composite emission factor from the freeway and freeway ramp emission factors from MOVES and maps the composite to the interstates and freeways.</para>
 
 <table id="tbl_concepts_moves_roads">
 <?dbfo table-width="4in"?>
@@ -1341,8 +1352,6 @@ Additional data</programlisting>
 </tbody>
 </tgroup>
 </table>
-
-<para>Note that SMOKE assumes that a portion of the VMT data supplied for interstates and freeways are attributable to freeway ramps.  Therefore, SMOKE computes a composite emission factor from the freeway and freeway ramp emission factors from MOVES and maps the composite to the interstates and freeways.</para>
 
 </section>
 
@@ -1453,10 +1462,7 @@ Additional data</programlisting>
 
 <para>In some cases, SMOKE errors and warnings that appear when processing on-road mobile sources will contain the internal SCC instead of the source&rsquo;s inventory SCC. The information provided in this section can help you determine which source is actually a concern.</para>
 
-<para>Although the <quote>X</quote> portion of the inventory SCC is not used as part of the cross-referencing assignments in SMOKE, it is important that any SCC that appears in the cross-reference file also appear in the inventory in exactly the same way. This is because SMOKE filters the cross-reference files before using them by comparing the SCC in the cross-reference file to the complete list of SCCs in the inventory. This comparison considers the <quote>X</quote> portion of the SCC, and if the SCC that you want to use is in the cross-reference with a different <quote>X</quote> than what is in the inventory, the cross-reference record will be dropped and will not be applied to the sources.</para>
-
 </section>
-
 
 <section id="sect_concepts_reference_counties_moves">
 <title>Reference Counties</title>
@@ -1466,10 +1472,11 @@ Additional data</programlisting>
 <title>Reference Fuel month</title>
 <para>Along with the concept of reference county approach, the concept of a fuel month is very important. It is used to indicate when a particular set of fuel properties should be used in a MOVES simulation. Similar to the reference county, the fuel month reduces the computational time of MOVES by using a single month to represent a set of months. To determine the fuel month and which months it corresponds to, the user should review the State-provided fuel supply data in the MOVES database for each reference county. If the fuel supply data change throughout the year, then group the months by fuel parameters. For example, if the grams/mile exhaust emission rates in January are identical to February's rates for a given reference county, then use a single fuel month to represent January and February. In other words, only one of the months needs to be modeled through MOVES.</para>
 </section>
+
 <section id="sect_concepts_moves_met_processing">
-	<title>Meteorological Data Processing</title>
-        <para>The meteorological data processor program <command>Met4moves</command> prepares spatially and temporally averaged temperatures and relative humidity data to set up the meteorological input conditions for MOVES and SMOKE using the Meteorology-Chemistry Interface Processor (MCIP) output files.</para>
-<para><link linkend="sect_programs_met4moves"><command>Met4moves</command></link> must be run after MCIP and before the MOVES driver script <command><quote>Runspec_generator.pl</quote></command> and <command>Smkinven</command>.</para>
+<title>Meteorological Data Processing</title>
+<para>The meteorological data processor program <command>Met4moves</command> prepares spatially and temporally averaged temperatures and relative humidity data to set up the meteorological input conditions for MOVES and SMOKE using the Meteorology-Chemistry Interface Processor (MCIP) output files.</para>
+<para><link linkend="sect_programs_met4moves"><command>Met4moves</command></link> must be run after MCIP and before the MOVES Driver script <command><quote>Runspec_generator.pl</quote></command> and SMOKE modeling system.</para>
 <para>The following are the major processing steps that <command>Met4moves</command> performs:</para>
 <itemizedlist>
 <listitem>
@@ -1495,12 +1502,12 @@ Additional data</programlisting>
 <para>Calculate average RH for the specified hour range over the modeling period. The default hour range is from 6 AM to 6 PM local time).</para>
 </listitem>
 <listitem>
-<para>Once min/max temperatures and averaged RH are estimated for all reference counties and all inventory counties in the county groups, estimate diurnal 24-hour temperature profiles for use by the MOVES driver script. The result is a normalized 24-hour shape profile over the user-specified period or fuel month.</para></listitem>
+<para>Once min/max temperatures and averaged RH are estimated for all reference counties and all inventory counties in the county groups, estimate diurnal 24-hour temperature profiles for use by the MOVES Driver script. The result is a normalized 24-hour shape profile over the user-specified period or fuel month.</para></listitem>
 </itemizedlist>
 </section>
 
 <section id="sect_concepts_moves_emission_processes">
-<title> MOVES Emission Processes</title>
+<title> MOVES Emission Processes by Emissoin Rate Tables</title>
 <para>When the MOVES model runs for SMOKE, it runs for all emissions processes (or modes), including on-roadway and off-network emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting) in MOVES are hour-dependent due to vehicle activity assumptions built into the MOVES model; the emission rate depends on both hour of the day and temperature. On-roadway emission processes (e.g., running exhaust, crankcase running exhaust, brake wear, tire wear, and on-road evaporative), on the other hand, do not depend on hour. In MOVES, these emission processes are categorized into three major groups:</para>
 <itemizedlist>
 <listitem>
@@ -1514,8 +1521,6 @@ Additional data</programlisting>
 </listitem>
 </itemizedlist>
 
-<section>
-<title>Emission Processes by Emission Rate Tables</title>
 <para>MOVES emission rates are organized into three tables (RPD, RPV, RPP), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
 
 <table id="tbl_concepts_moves_emission_rate_tbl">
@@ -1703,9 +1708,6 @@ Additional data</programlisting>
 </tbody>
 </tgroup>
 </table>  
-</section>
-
-<section>
 
 <table id="tbl_concepts_moves_emission_processes">
 	
@@ -2242,7 +2244,6 @@ Additional data</programlisting>
 </tgroup>
 </table>
 </section>
-</section>
 
 <section>
 <title>MOVES Pollutant Groups</title>
@@ -2685,7 +2686,7 @@ Additional data</programlisting>
 
 <title>Flexible source definitions</title>
 
-<para>Depending on the input format of the point-source emissions (e.g., IDA, EMS-95, SMOKE ORL), the set of characteristics that are used to uniquely identify a point source can be different. For example, the IDA-formatted inventories define a point source using a country, state, and county code, an SCC, a plant identifier, a stack number, a point identifier, and a segment number. The Emissions Modeling System, 95 (EMS-95), however, identifies a source using a FIPS state/county code, a plant code, a stack code, a device code, and a process code. To better support the formats and be adaptable if new formats are created in the future, SMOKE uses a flexible definition of point sources. This definition consists of the following source characteristics to uniquely define the sources:</para>
+<para>Depending on the input format of the point-source emissions (e.g., IDA, EMS-95, FF10, ORL), the set of characteristics that are used to uniquely identify a point source can be different. For example, the IDA-formatted inventories define a point source using a country, state, and county code, an SCC, a plant identifier, a stack number, a point identifier, and a segment number. The Emissions Modeling System, 95 (EMS-95), however, identifies a source using a FIPS state/county code, a plant code, a stack code, a device code, and a process code. To better support the formats and be adaptable if new formats are created in the future, SMOKE uses a flexible definition of point sources. This definition consists of the following source characteristics to uniquely define the sources:</para>
 
 <itemizedlist>
 <listitem>
@@ -2701,7 +2702,7 @@ Additional data</programlisting>
 
 <para>Depending on the input format, SMOKE assigns different variables from the input format to the parts of the SMOKE point-source definition. For example, for EMS-95 input format, the SMOKE plant ID comes from the EMS-95 facility ID. The assignments for the remaining characteristics are as follows:</para>
 
-<para><emphasis>IDA format and SMOKE ORL format:</emphasis></para>
+<para><emphasis>IDA format and ORL format:</emphasis></para>
 
 <itemizedlist spacing="compact">
 <listitem>Char 1: Point ID</listitem>
@@ -2855,7 +2856,7 @@ Additional data</programlisting>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">SMOKE ORL format:</emphasis> This set of input formats is used for inputting point, nonpoint, on-road, and nonroad HAP emissions inventories, also called toxics emission inventories. There is a different SMOKE ORL format for nonpoint, point, nonroad mobile, and on-road mobile sources.</para>
+<para><emphasis role="bold">ORL format:</emphasis> This set of input formats is used for inputting point, nonpoint, on-road, and nonroad HAP emissions inventories, also called toxics emission inventories. There is a different ORL format for nonpoint, point, nonroad mobile, and on-road mobile sources.</para>
 </listitem>
 
 <listitem>
@@ -2873,7 +2874,7 @@ Additional data</programlisting>
 
 <para><command>Smkinven</command> ensures that all file formats provided to SMOKE are correct and include the required data fields. The formats and their required fields are provided in <xref linkend="ch_input_files" />.</para>
 
-<para><command>Smkinven</command> also ensures that the files listed in list format input files do not include incompatible file formats. Usually, only one file format can be used for one <command>Smkinven</command> run. The major exception to this rule is that <command>Smkinven</command> can import the IDA and SMOKE ORL formats in the same run. The only other minor exception to the input rule is that the EMS-95 point-source format actually includes five separate formats, which can be input at the same time, when users follow the instructions about the order of these files provided in <xref linkend="sect_input_ptinv" />.</para>
+<para><command>Smkinven</command> also ensures that the files listed in list format input files do not include incompatible file formats. Usually, only one file format can be used for one <command>Smkinven</command> run. The major exception to this rule is that <command>Smkinven</command> can import the IDA and ORL formats in the same run. The only other minor exception to the input rule is that the EMS-95 point-source format actually includes five separate formats, which can be input at the same time, when users follow the instructions about the order of these files provided in <xref linkend="sect_input_ptinv" />.</para>
 
 </section>
 
@@ -2881,7 +2882,7 @@ Additional data</programlisting>
 
 <title>Assign pollutant names to data input by code numbers</title>
 
-<para>The SMOKE ORL formats use code numbers (usually Chemical Abstracts Service [CAS] numbers) to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table. The inventory table provides the inventory data names, such as the pollutant names that SMOKE uses in the remaining processing steps.  Note that the SMOKE inventory pollutants may not be identical to the pollutants in the inventory fed to SMOKE because of the aggregation/disaggregation that is performed by <command>Smkinven</command> (see <xref linkend="sect_concepts_aggregate_toxics" /> for more information).</para>
+<para>The ORL format use code numbers (usually Chemical Abstracts Service [CAS] numbers) to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the ORL file and the inventory table. The inventory table provides the inventory data names, such as the pollutant names that SMOKE uses in the remaining processing steps.  Note that the SMOKE inventory pollutants may not be identical to the pollutants in the inventory fed to SMOKE because of the aggregation/disaggregation that is performed by <command>Smkinven</command> (see <xref linkend="sect_concepts_aggregate_toxics" /> for more information).</para>
 
 <para>For toxics processing, if multiple inventory data names apply for the same CAS number, the Factor column of <envar>INVTABLE</envar> will contain the split factor used by <command>Smkinven</command> to disaggregate the emissions from that CAS number to multiple inventory data values. If multiple CAS numbers apply for the same pollutant name, then <command>Smkinven</command> will sum these emissions, but will not report duplicate records unless there are indeed duplicates in the inventory file. This is described more fully in <xref linkend="sect_concepts_aggregate_toxics" />. Duplicate reporting is described more in <xref linkend="sect_concepts_check_duplicates" />.</para>
 
@@ -3202,7 +3203,7 @@ Additional data</programlisting>
 
 <title>Convert coordinates from UTM to lat-lon</title>
 
-<para>The SMOKE ORL and EMS-95 point-source formats permit stack coordinates to be provided in UTM or lat-lon coordinates, and the SMOKE intermediate inventory stores the coordinates as lat-lon values. <command>Smkinven</command> converts the UTM coordinates to lat-lon coordinates using the I/O API routine <ulink url="http://www.baronams.com/products/ioapi/LL2UTM.html">UTM2LL</ulink>. Lat-lon coordinates must be provided in decimal degrees, while UTM coordinates must be provided in meters.</para>
+<para>The ORL and EMS-95 point-source formats permit stack coordinates to be provided in UTM or lat-lon coordinates, and the SMOKE intermediate inventory stores the coordinates as lat-lon values. <command>Smkinven</command> converts the UTM coordinates to lat-lon coordinates using the I/O API routine <ulink url="http://www.baronams.com/products/ioapi/LL2UTM.html">UTM2LL</ulink>. Lat-lon coordinates must be provided in decimal degrees, while UTM coordinates must be provided in meters.</para>
 
 </section>
 
@@ -3218,9 +3219,9 @@ Additional data</programlisting>
 
 <title>Convert units of emissions and activities</title>
 
-<para>Different input formats in SMOKE have different emissions units. The SMOKE intermediate inventory file stores all annual emissions values from the IDA and SMOKE ORL format in tons/year. These two formats also support average-day emissions values, which are stored separately in the SMOKE intermediate inventory in tons/day. The average-weekday emissions values input from EMS-95 format are also stored in tons/year, but SMOKE sets an internal variable called TPFLAG so that later SMOKE processing steps can properly treat the computed <quote>annual</quote> value as an average-day value. The annual VMT data are stored as miles/year. In all cases, <command>Smkinven</command> converts the units of the input emissions to the units used in the SMOKE intermediate inventory. When this conversion involves a day-to-year conversion, <command>Smkinven</command> considers leap years by using 366 instead of 365 days in the year. See <xref linkend="sect_input_inventory" /> for information about the units required for each inventory format.</para>
+<para>Different input formats in SMOKE have different emissions units. The SMOKE intermediate inventory file stores all annual emissions values from the IDA and ORL format in tons/year. These two formats also support average-day emissions values, which are stored separately in the SMOKE intermediate inventory in tons/day. The average-weekday emissions values input from EMS-95 format are also stored in tons/year, but SMOKE sets an internal variable called TPFLAG so that later SMOKE processing steps can properly treat the computed <quote>annual</quote> value as an average-day value. The annual VMT data are stored as miles/year. In all cases, <command>Smkinven</command> converts the units of the input emissions to the units used in the SMOKE intermediate inventory. When this conversion involves a day-to-year conversion, <command>Smkinven</command> considers leap years by using 366 instead of 365 days in the year. See <xref linkend="sect_input_inventory" /> for information about the units required for each inventory format.</para>
 
-<para>When emissions are provided as average-day values from the IDA or SMOKE ORL formats and these emissions are then used in later processing steps, SMOKE does not further adjust the emissions using the monthly profiles. SMOKE assumes that the average-day emissions from these two formats have been adjusted to a specific month already. In addition, when <command>Smkinven</command> is configured using the <envar>FILL_ANNUAL</envar> option to fill in missing annual values using average-day values, <command>Smkinven</command> sets the TPFLAG internal variable to indicate that monthly adjustments should not be applied and that the <quote>annual</quote> emissions should just be divided by the number of days of the year before being used. <command>Smkinven</command> makes this setting on a source-by-source basis.</para>
+<para>When emissions are provided as average-day values from the IDA or ORL formats and these emissions are then used in later processing steps, SMOKE does not further adjust the emissions using the monthly profiles. SMOKE assumes that the average-day emissions from these two formats have been adjusted to a specific month already. In addition, when <command>Smkinven</command> is configured using the <envar>FILL_ANNUAL</envar> option to fill in missing annual values using average-day values, <command>Smkinven</command> sets the TPFLAG internal variable to indicate that monthly adjustments should not be applied and that the <quote>annual</quote> emissions should just be divided by the number of days of the year before being used. <command>Smkinven</command> makes this setting on a source-by-source basis.</para>
 
 </section>
 
@@ -3230,7 +3231,7 @@ Additional data</programlisting>
 
 <para>There are two approaches for processing weekly temporal profiles: weekly normalization and weekday normalization. Although the actual normalization happens during temporal allocation, <command>Smkinven</command> sets the approach to use for each source. In the weekly approach, the <command>Temporal</command> program normalizes the weekly temporal profiles over every day of the week. This approach is appropriate for annual-total inventories or average-day inventories. Weekday normalization normalizes over just the weekdays (i.e., Monday through Friday) in the profile, or if the profile indicates no emissions on weekdays, then over just the weekend days in the profile. This approach is appropriate only for average-weekday inventories. <xref linkend="sect_concepts_temporal_processing" /> describes the two forms of weekly profile normalization in more detail.</para>
 
-<para>The default normalization setting for IDA and SMOKE ORL formats in <command>Smkinven</command> is weekly normalization. The default normalization setting for EMS-95 inventories is weekday normalization. The default settings can be changed using the <envar>WKDAY_NORMALIZE</envar> option in the SMOKE run scripts. When this option is set to Y, the sources will be set to instruct <command>Temporal</command> to use weekday normalization, and when this option is set to N, the sources will be set to cause weekly normalization. <command>Smkinven</command> gives a warning when an approach is being used that is inconsistent with the expected approach for the inventory format being used.</para>
+<para>The default normalization setting for IDA and ORL formats in <command>Smkinven</command> is weekly normalization. The default normalization setting for EMS-95 inventories is weekday normalization. The default settings can be changed using the <envar>WKDAY_NORMALIZE</envar> option in the SMOKE run scripts. When this option is set to Y, the sources will be set to instruct <command>Temporal</command> to use weekday normalization, and when this option is set to N, the sources will be set to cause weekly normalization. <command>Smkinven</command> gives a warning when an approach is being used that is inconsistent with the expected approach for the inventory format being used.</para>
 
 </section>
 
@@ -3264,7 +3265,7 @@ Additional data</programlisting>
 
 <title>Set the base year</title>
 
-<para><command>Smkinven</command> imports all data and then sets the inventory base year in the file as the year that has the most data values. The year of the inventories is set using the #YEAR header for IDA and SMOKE ORL inputs, or the /INVYEAR/ packet for EMS-95 input files (see <xref linkend="sect_input_inventory" /> for more information on this header and packet). Usually, the year of the data is the same for all sources, so you will know what <command>Smkinven</command> will assume is the base year. However, if multiple inventory years are provided, <command>Smkinven</command> will set it using the year that is associated with the largest number of sources.</para>
+<para><command>Smkinven</command> imports all data and then sets the inventory base year in the file as the year that has the most data values. The year of the inventories is set using the #YEAR header for IDA and ORL inputs, or the /INVYEAR/ packet for EMS-95 input files (see <xref linkend="sect_input_inventory" /> for more information on this header and packet). Usually, the year of the data is the same for all sources, so you will know what <command>Smkinven</command> will assume is the base year. However, if multiple inventory years are provided, <command>Smkinven</command> will set it using the year that is associated with the largest number of sources.</para>
 
 <para>If you provide a future-year inventory to SMOKE, you must override the base-year setting obtained from the values given by the #YEAR header or the /INVYEAR/ packet. This is accomplished with the <envar>SMK_BASEYR_OVERRIDE</envar> setting. This is necessary so that later SMOKE steps will be able to verify that the episode year is consistent with the base year.</para>
 
@@ -3311,7 +3312,7 @@ Additional data</programlisting>
 
 <title>Import day-specific and hour-specific data</title>
 
-<para>Another function of <command>Smkinven</command> that only applies to point sources is importing day- and hour-specific data. It can read two input ASCII formats:</para>
+<para>Another function of <command>Smkinven</command> that only applies to point sources is importing day- and hour-specific data. It can read three input ASCII formats:</para>
 
 <itemizedlist>
 <listitem>
@@ -3320,6 +3321,10 @@ Additional data</programlisting>
 <listitem>
 <para><emphasis role="bold">EMS-95 format:</emphasis> The EMS-95 hour-specific format can be input to SMOKE using either the EMS-95 average-day format or the IDA/ORL formats for annual and average-day inventories. This format has also been adapted to provide SMOKE with day-specific instead of hour-specific data.</para>
 </listitem>
+<listitem>
+<para><emphasis role="bold">FF10 format:</emphasis>The FF10 day- and hour-specific format can be input to SMOKE using either the FF10 annual or average-day inventories.</para> 
+</listitem>
+
 </itemizedlist>
 
 <para>In addition to reading the files, <command>Smkinven</command> ensures that the records listed in day- and hour-specific files match records provided in the annual inventory inputs. This is necessary because SMOKE builds its list of all point sources based on the annual and/or average-day inventory files, and these are the only sources that will be listed in the SMOKE intermediate inventory file. <command>Smkinven</command> requires that the year associated with the date of the day-specific and hour-specific emissions is the same as the base year. <command>Smkinven</command> generates an error message when it cannot match a day- or hour-specific source with an inventory source. Please refer to <xref linkend="sect_programs_smkinven" /> for more information about how <command>Smkinven</command> can be used to import these data.</para>
@@ -3425,7 +3430,7 @@ Additional data</programlisting>
 
 <title>Using annual or average-day data</title>
 
-<para>When using the IDA or SMOKE ORL inventory format, you may choose to use either the annual or the average-day emissions values when running the <command>Temporal</command> program. The default is to use the annual data. To apply average-day data instead, the <envar>SMK_AVEDAY</envar> setting is used (this setting is relevant only for IDA or SMOKE ORL inventories). These emissions are then used in the merge-processing step, resulting in model-ready emissions that depend on the data type selected. If part of your inventory is available as average-day data and part is available as annual data, you have used <command>Smkinven</command> to fill in annual values based on the average-day values. The <command>Temporal</command> program is then run using annual values. <command>Temporal</command> ensures that for those sources for which <quote>annual</quote> values were created, only day-of-week and hourly adjustments (not monthly profiles) are applied. <command>Temporal</command> assumes that any average-day data provided has already been adjusted for a specific month, and therefore does not apply the monthly profiles to them.</para>
+<para>When using the IDA, ORL or FF10 inventory format, you may choose to use either the annual or the average-day emissions values when running the <command>Temporal</command> program. The default is to use the annual data. To apply average-day data instead, the <envar>SMK_AVEDAY</envar> setting is used (this setting is relevant only for IDA, ORL or FF10 inventories). These emissions are then used in the merge-processing step, resulting in model-ready emissions that depend on the data type selected. If part of your inventory is available as average-day data and part is available as annual data, you have used <command>Smkinven</command> to fill in annual values based on the average-day values. The <command>Temporal</command> program is then run using annual values. <command>Temporal</command> ensures that for those sources for which <quote>annual</quote> values were created, only day-of-week and hourly adjustments (not monthly profiles) are applied. <command>Temporal</command> assumes that any average-day data provided has already been adjusted for a specific month, and therefore does not apply the monthly profiles to them.</para>
 
 </section>
 
@@ -3995,7 +4000,7 @@ Additional data</programlisting>
 
 <para><command>Grwinven</command> adds a header element to the I/O API part of the inventory file that indicates the file was created using <command>Grwinven</command> and a growth matrix. The header element is /FYEAR/, which is followed by the date of the future year (for example, /FYEAR/ 2018). Other programs (such as <command>Temporal</command>) will recognize the /FYEAR/ header element and alter its messages to indicate that a future year is being processed.</para>
 
-<para><command>Grwinven</command> can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad SMOKE ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format but output an ORL-formatted grown and/or controlled inventory when these formats were used to create the SMOKE intermediate inventory file. Currently only ORL nonpoint and point inventory formats are supported.</para>
+<para><command>Grwinven</command> can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format but output an ORL-formatted grown and/or controlled inventory when these formats were used to create the SMOKE intermediate inventory file. Currently only ORL nonpoint and point inventory formats are supported.</para>
 
 </section>
 
@@ -4140,7 +4145,7 @@ Additional data</programlisting>
 
 <para>After applying the control factors to the SMOKE intermediate inventory file, the <command>Grwinven</command> program writes a new SMOKE intermediate inventory file that contains the new, controlled emissions. <command>Grwinven</command> writes only the I/O API part of the inventory and not the ASCII part, because the ASCII part that contains the state/county codes, SCCs, and other character strings does not change between the base and future or past year. All of the sources in the base and controlled inventory files are the same; the difference is in their emissions values.</para>
 
-<para><command>Grwinven</command> can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad SMOKE ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format but output an ORL-formatted grown and/or controlled inventory when these formats were used to create the SMOKE intermediate inventory file. Currently only ORL nonpoint and point inventory formats are supported.</para>
+<para><command>Grwinven</command> can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format but output an ORL-formatted grown and/or controlled inventory when these formats were used to create the SMOKE intermediate inventory file. Currently only ORL nonpoint and point inventory formats are supported.</para>
 
 </section>
 
@@ -4305,7 +4310,7 @@ Additional data</programlisting>
 <title>Mobile-source processing with MOVES</title>
 <para>MOVES is the U.S. Environmental Protection Agency's (EPA) Motor Vehicle Emission Simulator.  In the modeling process, the user specifies vehicle types, time periods, geographical areas, pollutants, vehicle operating characteristics, and road types to be modeled. The model then performs a series of calculations, which have been carefully developed to accurately reflect vehicle operating processes (such as cold start or extended idle) and provide estimates of bulk emissions or emission rates. </para> 
 <para>An important feature of MOVES is that it allows users to choose between (1) the Inventory calculation type, which provides emission rates in terms of total quantity of emissions for a given time period; and (2) Emission Rate calculation type, which gives emission rates in terms of grams/mile or grams/vehicle/hour. For large-scale emissions modeling such as that needed for regional- and national-scale air quality modeling projects, it is desirable to use the Emission Rate calculation type, which populates emission rate lookup tables that can then be applied to many times and places, thus reducing the total number of MOVES runs required.</para>
-<para>To reduce the time and effort and to help the user obtain more accurate modeling results, users need to prepare and post-process MOVES runs for a reference county (see <xref linkend="sect_concepts_reference_counties_moves" /> and reference fuel month (see <xref linkend="sect_concepts_moves_reference_fuel_month" />. This approach consists of a set of scripts that automate the proper use of the Emission Rate calculations for the purpose of estimating mobile-source emissions for air quality (AQ) modeling.</para>
+<para>To reduce the time and effort and to help the user obtain more accurate modeling results, users need to prepare and post-process MOVES runs for a reference county (See <xref linkend="sect_concepts_reference_counties_moves" />) and reference fuel month (See <xref linkend="sect_concepts_moves_reference_fuel_month" />) This approach consists of a set of scripts that automate the proper use of the Emission Rate calculations for the purpose of estimating mobile-source emissions for air quality (AQ) modeling.</para>
 <para>Integrating MOVES into SMOKE modeling system consists of three major parts:</para>
 <para></para>
 1) Meteorological data processing
@@ -4316,30 +4321,31 @@ Additional data</programlisting>
 </itemizedlist>
 2) MOVES model processing
 <itemizedlist>
- <listitem><link linkend="section_moves_utilities">The MOVES driver script </link>   <command><quote>Runspec_generator.pl</quote></command> creates data importer files and the MOVES input file (runspec), which specifies the characteristics of the particular scenario to be modeled.</listitem>
- <listitem><link linkend="section_moves_utilities">The MOVES postprocessing scripts </link>  <command><quote>Moves2smkEF.pl</quote></command> and <command><quote>SmkEFsum.pl</quote></command> formats the MOVES emission rate lookup tables for SMOKE.</listitem>
+ <listitem><link linkend="section_moves_driver_script">The MOVES Driver script </link> : <command><quote>Runspec_generator.pl</quote></command> creates data importer files and the MOVES input file (runspec), which specifies the characteristics of the particular scenario to be modeled.</listitem>
+ <listitem><link linkend="section_moves_postprocessing_scripts">The MOVES postprocessing scripts </link> : <command><quote>Moves2smkEF.pl</quote></command> and <command><quote>SmkEFsum.pl</quote></command> formats the MOVES emission rate lookup tables for SMOKE.</listitem>
 </itemizedlist>
 3) SMOKE model processing
 <itemizedlist>
- <listitem>The SMOKE postprocessing program <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> estimates emissions from on-road mobile sources based on MOVES-based emission rate lookup tables and meteorology data from <command>Met4moves</command>.</listitem>
+ <listitem>Spatially and temporally allocate mobile onroad activity data (i.e., Vehicle Mileage Traveled and Vehicle population).</listitem>
+ <listitem>The MOVES postprocessing program, <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link>, estimates emissions from on-road mobile sources based on MOVES-based emission rate lookup tables and meteorology data from <command>Met4moves</command>.</listitem>
  <listitem>Creates hourly gridded speciated air quality model-ready input files.</listitem>
  <listitem>Produces various types of reports for users.</listitem>
 </itemizedlist>
 <para></para>
 <section>
 	<title>Meteorology Data Processing</title>
-		<para>With the specified reference county and reference fuel month approach for temperature and RH calculation for MOVES and SMOKE modeling systems, <command>Met4moves</command> uses hourly min/max temperatures and averaged RH over the spatial region that includes all of the inventory counties in a county group over the user-defined modeling period. The current version of <command>Met4moves</command> supports only the monthly averaging method (versus daily or episodic) to create min/max temperatures and averaged RH for all inventory counties in the county group(s). <command>Met4moves</command> determines the min/max grid cell temperatures and associated RH for both SMOKE and MOVES, and computes average 24-hour temperature profiles using Meteorology-Chemistry Interface Processor (MCIP) output files for use in MOVES. These <command>Met4moves</command> program is discussed in detail in <xref linkend="sect_programs_met4moves" />. </para>
-		<para>The 24-hour temperature profiles are averaged over a user-specified time period and grid cells for all reference counties. For the MOVES model driver scripts, <command>Met4moves</command> outputs monthly average RH, min/max temperatures, and 24-hour temperature profiles in local time for all reference counties into one output file. For the SMOKE model, <command>Met4moves</command> outputs county-specific min/max temperatures and averaged RH values in local time for every inventory county and averaging period in the modeling inventory.</para>
+		<para>With the specified reference county and reference fuel month approach for temperature and RH calculation for MOVES and SMOKE modeling systems, <command>Met4moves</command> uses hourly min/max temperatures and averaged RH over the spatial region that includes all of the inventory counties in a county group over the user-defined modeling period. <command>Met4moves</command> supports the averaging method (monthly or daily) to create min/max temperatures and averaged RH for all inventory counties in the county group(s). <command>Met4moves</command> determines the min/max grid cell temperatures and associated RH for both SMOKE and MOVES, and computes average 24-hour temperature profiles using Meteorology-Chemistry Interface Processor (MCIP) output files for use in MOVES. These <command>Met4moves</command> program is discussed in detail in <xref linkend="sect_programs_met4moves" />. </para>
+		<para>The 24-hour temperature profiles are averaged over a user-specified time period and grid cells for all reference counties. For <link linkend="section_moves_utilities">the MOVES Driver scripts</link>, <command>Met4moves</command> outputs monthly average RH, min/max temperatures, and 24-hour temperature profiles in local time for all reference counties into one output file. For the SMOKE model, <command>Met4moves</command> outputs county-specific min/max temperatures and averaged RH values in local time for every inventory county and averaging period in the modeling inventory.</para>
 	</section>
 <section>
 	<title>MOVES Model Processing</title>
 	<section>
 	<title>MOVES Driver Script</title>
-	<para>The inputs to the MOVES Driver Script (<command>Runspec_generator.pl</command>) include the temperature and humidity conditions output from <command>Met4moves</command> and two additional inputs, the RunControl and RepCounty files.  The RunControl file contains pollutant selections and the file path location to the <command>Met4moves</command> output.  The RepCounty file contains file path locations to user-created MOVES-formatted inputs for age distribution, fuel supply and formulation, inspection and maintenance programs, county level population and annual VMT for each reference county.  Precise formats of the RunControl and RepCounty files can be found in the <xref linkend="sect_input_refcountyfile" /> and <xref linkend="sect_input_runctlfile" />.</para>
+	<para>The inputs to <link linkend="section_moves_driver_script">the MOVES Driver Script</link> (<command>Runspec_generator.pl</command>) include the temperature and humidity conditions output from <command>Met4moves</command> and two additional inputs, the RunControl and RepCounty files.  The RunControl file contains pollutant selections and the file path location to the <command>Met4moves</command> output.  The RepCounty file contains file path locations to user-created MOVES-formatted inputs for age distribution, fuel supply and formulation, inspection and maintenance programs, county level population and annual VMT for each reference county.  Precise formats of the RunControl and RepCounty files can be found in the <xref linkend="sect_input_refcountyfile" /> and <xref linkend="sect_input_runctlfile" />.</para>
 </section>
 
 <section>
-	<title>MOVES Post-Processing Script</title>
+	<title>MOVES Post-processing Script</title>
 		<para>A MOVES Driver Script to automates the MOVES run setups and prepare two kinds of batch files.  When launched, the batch files instruct MOVES to:</para>
 	<itemizedlist>
 		<listitem>
@@ -4349,8 +4355,8 @@ Additional data</programlisting>
 		<para>run MOVES for each runspec file</para>
 		</listitem>
 	</itemizedlist>
-	<para>The resulting RatePerDistance, RatePerVehicle, and RatePerProfile tables, after enhancement from the Post-processing script, contain all the conditions needed for regional modeling using SMOKE.</para>
-	<para>Once a MOVES batch run completes, MOVES populates the three output lookup tables with formats listed in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" />.   A MOVES Post-Processing Script in Perl interacts with MySQL to modify the default formats shown in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" /> into a format readable by SMOKE, shown in <xref linkend="tbl_concepts_moves_lookup_tbl_sm_format" />.</para>
+	<para>The resulting RatePerDistance (RPD), RatePerVehicle (RPV), and RatePerProfile (RPP) tables contain all the conditions needed for regional modeling using SMOKE modeling system.</para>
+	<para>Once a MOVES batch run completes, MOVES populates the three output lookup tables with formats listed in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" />.   A <link linkend="section_moves_postprocessing_scripts"> MOVES Post-processing Script</link> (<command>Moves2smkEF.pl</command>) in Perl interacts with MySQL to modify the default formats shown in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" /> into a text ASCII-format readable by SMOKE, shown in <xref linkend="tbl_concepts_moves_lookup_tbl_sm_format" />.</para>
 <table id="tbl_concepts_moves_lookup_tbl_mv_format">
 <title>MOVES Emission Rate Lookup Table (MOVES Format)</title>
 
@@ -4455,13 +4461,13 @@ Additional data</programlisting>
 </tgroup>
 </table>
 
-<para>The MOVES Post Processing Script converts the MOVES format Emission Rate Lookup Table to the SMOKE format Emission Rate Table by performing the following:</para>
+<para>The MOVES Post-processing Script converts the MOVES format Emission Rate Lookup Table to the SMOKE format Emission Rate Table by performing the following:</para>
 <itemizedlist>
 	<listitem>
 		<para>Parses the state-county FIPS code from linkID, zoneID and TemperatureProfileID and stores it as a unique field, countyID.</para>
 	</listitem>
 <listitem>
-	<para>Converts the partially speciated exhaust particulate matter (PM) output by MOVES into the species needed for air quality modeling (PNO3, METAL, NH4, POC, PMFINE, PMC).  The speciation equations were developed by EPA OTAG and OAQPS.  The advantage of using this approach over the approach used for speciating total PM2.5 is that this approach allows the speciated emissions from MOVES; i.e., elemental carbon and particulate sulfate to be retained and only the remainder of the PM2.5 to rely on speciation profiles.  The speciation equations are available in the SMOKE-TOOLS User Guide <![CDATA[href="http://www.smoke-model.org/smoke_moves_tool/SMOKE-MOVES_Tool_Users_Guide.htm"]]></para>
+	<para>Converts the partially speciated exhaust particulate matter (PM) output by MOVES into the species needed for air quality modeling (PNO3, METAL, NH4, POC, PMFINE, PMC).  The PM speciation equations were developed by EPA OTAQ and OAQPS and find detail information at <xref linkend="section_moves_postprocessing_scripts"/>.  The advantage of using this approach over the approach used for speciating total PM2.5 is that this approach allows the speciated emissions from MOVES; i.e., elemental carbon and particulate sulfate to be retained and only the remainder of the PM2.5 to rely on speciation profiles.</para>
 	</listitem>
 <listitem>
 	<para>Removes fields that are uninformative to SMOKE, including the MOVES source type,  fuel type and road type,  hourID in RatePerDistance, TemperatureProfileID in RatePerProfile.</para>
@@ -4470,7 +4476,7 @@ Additional data</programlisting>
 	<para>Reduces the output database table size by performing a cross-tab query on the pollutant emissions, listing each pollutant in a separate field rather than in a single column with a higher number of data records.  The script also sorts the lookup tables by countyID, monthID and SCC for more efficient processing in SMOKE.</para>
 </listitem>
 <listitem>
-	<para>Write out to an ASCII file the three processed tables RatePerDistance_smoke, RatePerVehicle_smoke, and RatePerProfile_smoke.</para>
+	<para>Write out to the ASCII-formatted three processed SMOKE-ready MOVES lookup tables [RatePerDistance (RPD), RatePerVehicle (RPV), and RatePerProfile (RPP)].</para>
 </listitem>
 </itemizedlist>
 
@@ -4483,9 +4489,9 @@ Additional data</programlisting>
 
 <thead>
 <row>
-<entry morerows="1" valign="bottom" align="center">RatePerDistance_smoke       (grams/mile)</entry>
-<entry morerows="1" valign="bottom" align="center">RatePerVehicle_smoke (grams/vehicle/hour)</entry>
-<entry morerows="1" valign="bottom" align="center">RatePerProfile_smoke (grams/vehicle/hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerDistance       (grams/mile)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerVehicle (grams/vehicle/hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerProfile (grams/vehicle/hour)</entry>
 </row>
 </thead>
 
@@ -4577,9 +4583,9 @@ Additional data</programlisting>
   <listitem><link linkend="sect_programs_temporal"><command>Temporal</command></link> computes hourly VMT data for On-roadway Emission Processes. Off-network Emission Processes (RPV and RPP tables) do not require the <command>Temporal</command> program because vehicle population does not need to be temporally allocated.</listitem>
 </itemizedlist>
 <para>The way the MOVES-generated emissions factor lookup tables are used varies according to whether SMOKE is modeling on-roadway emission processes or off-network emissions processes.</para>
-<para>On-roadway emission processes: When estimates of on-roadway emission processes (e.g., exhaust running, on-road evaporative, tire and brake wear) are needed, SMOKE requires county-total VMT and average hourly speed (SPEED) inventory data as inputs to a new SMOKE postprocessor called <command>Movesmrg</command> which is part of the SMOKE-MOVES tool. <command>Movesmrg</command> uses the MOVES <link linkend="tbl_concepts_moves_lookup_tbl_sm_format"><command>RatePerDistance (RPD) table (SMOKE format)</command></link> to estimate on-road sources emission. The key lookup fields for the factors are gridded hourly temperature and average hourly speed from the avgSpeedBinID field. SMOKE interpolates in the RPD table (in unit of grams/mile) based on gridded hourly temperature and average speed. Figure 2a shows processing steps for on-roadway emissions processes in the SMOKE system using VMT and SPEED inventory input data.</para>
-<para>Off-network emission processes: When estimates are needed for off-network emissions processes, including the off-network vapor venting emissions process, SMOKE uses county-total VPOP by vehicle type as input to <command>Movesmrg</command> together with the RatePerVehicle (RPV) and RatePerProfile (RPP) lookup tables <xref linkend="fig_concepts_mobile_moves_offroad"/>. A significant difference in the processing steps between the on-roadway emissions processes (RPD table) and the off-network emissions processes (RPV and RPP tables) is that off-network emissions processing does not require the <command>Temporal</command> program step because vehicle population (VPOP) does not need to be temporally allocated. In the RPV table, gridded hourly temperature and hour of the day are the key lookup fields SMOKE uses to estimate hourly off-network emissions in unit of grams/vehicle/hour. For the evaporative fuel off-network vapor venting emissions process only, <command>Movesmrg</command> uses the RPP lookup table to estimate the emission rates based on the minimum and maximum temperatures computed by <command>Met4moves</command>.</para>
-<para>For all three emission rate lookup tables (RPD, RPV, RPP), SMOKE performs linear interpolation when using them.</para>
+<para>On-roadway emission processes: When estimates of on-roadway emission processes (e.g., exhaust running, on-road evaporative, tire and brake wear) are needed, SMOKE requires county-total VMT and average hourly speed (SPEED) inventory data as inputs to a SMOKE postprocessor called <command>Movesmrg</command> which is part of the SMOKE-MOVES tool. <command>Movesmrg</command> uses <link linkend="tbl_concepts_moves_lookup_tbl_sm_format">the SMOKE-ready MOVES RatePerDistance (RPD) lookup table</link> as an input to estimate on-road sources emission. The key lookup fields for the factors are gridded hourly temperature and average hourly speed from the avgSpeedBinID field. SMOKE interpolates in the RPD table (in unit of grams/mile) based on gridded hourly temperature and average speed. <xref linkend="fig_concepts_mobile_moves_onroad"/> shows processing steps for on-roadway emissions processes in the SMOKE system using VMT and SPEED activity inventory data.</para>
+<para>Off-network emission processes: When estimates are needed for off-network emissions processes, including the off-network vapor venting emissions process, SMOKE uses county-total VPOP by vehicle type as input to <command>Movesmrg</command> together with the SMOKE-ready RatePerVehicle (RPV) and RatePerProfile (RPP) lookup tables. <xref linkend="fig_concepts_mobile_moves_offroad"/> shows processing steps for off-network emissions processes in the SMOKE modeling system using vehicle population activity inventory data. A significant difference in the processing steps between the on-roadway emissions processes (RPD table) and the off-network emissions processes (RPV and RPP tables) is that off-network emissions processing does not require the <command>Temporal</command> program step because vehicle population (VPOP) does not need to be temporally allocated. In the RPV table, gridded hourly temperature and hour of the day are the key lookup fields SMOKE uses to estimate hourly off-network emissions in unit of grams/vehicle/hour. For the evaporative fuel off-network vapor venting emissions process only, <command>Movesmrg</command> uses the RPP lookup table to estimate the emission rates based on the minimum and maximum temperatures computed by <command>Met4moves</command>.</para>
+<para>For all SMOKE-ready three emission rate lookup tables (RPD, RPV, RPP), SMOKE performs linear interpolation when using them.</para>
 </section>
 </section>
 
@@ -4651,7 +4657,7 @@ Additional data</programlisting>
 
 <title>Creating model-ready emissions using MOVES lookup tables</title>
 
-<para>Creating emissions with SMOKE using MOVES lookup tables (i.e., RatePerDistance(RPD), RatePerVehicle(RPV) and RatePerProfile(RPP) ) that are ready for input to an AQM must always include merging the gridding matrices and the speciation matrices. In addition, for RPD emissions based on VMT data by source for CMAQ or MAQSIP, creating the model-ready emissions must also include merging with the hourly VMT created during temporal processing (see <xref linkend="sect_concepts_temporal_processing" />). The <command>Movesmrg</command> program performs these processing steps using vector-matrix multiplication to combine the matrices and the hourly emissions vectors from the <command>Temporal</command> program to process RPD MOVES lookup table.</para>
+<para>Creating emissions with SMOKE using MOVES lookup tables (i.e., RatePerDistance [RPD], RatePerVehicle [RPV] and RatePerProfile [RPP] ) must always include merging the gridding matrices from <command>Grdmat</command> and the chemical speciation matrices from <command>Spcmat</command>. In addition, for RPD emissions based on VMT data by source for CMAQ or MAQSIP, creating the model-ready emissions must also include merging with the hourly VMT from <command>Temporal</command>. The <command>Movesmrg</command> program performs these processing steps using vector-matrix multiplication to combine the matrices and the hourly emissions vectors to create CMAQ-ready gridded and speciated hourly emissions input data.</para>
 
 <para>If the overall SMOKE processing setup includes running the nonroad mobile category (or other source categories) as separate runs (see <xref linkend="ch_scripts" />, then <command>Movesmrg</command> cannot be used to combine all source categories into a single output file. Instead, the <link linkend="sect_programs_mrggrid"><command>Mrggrid</command></link> program would combine the model-ready files from the individual source categories; for example, from separate SMOKE (including <command>Movesmrg</command>) runs for RPD, RPV and RPP mobile sources. There is no limit to the number of model-ready files that <command>Mrggrid</command> can combine into a single model-ready file, and the input files can be 2-D or 3-D.</para>
 
