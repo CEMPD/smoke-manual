@@ -68,7 +68,7 @@
 
 <para><emphasis role="bold">point sources:</emphasis> 2005 NEI for CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript> from ptipm and ptnonipm sectors</para>
 
-<para><emphasis role="bold">mobile sources:</emphasis> Vehicle mileage traveled (VMT) and average sppeed (SPEED) for onroad mobile sources and vehicle population (VPOP) for offroad mobile sources</para>
+<para><emphasis role="bold">mobile sources:</emphasis> Vehicle mileage traveled (VMT) and average speed (SPEED) for onroad mobile sources and vehicle population (VPOP) for offroad mobile sources</para>
 
 <para><emphasis role="bold">biogenic sources:</emphasis> BELD3 data processed using BEIS3 (for entire grid, even those cells that are not in North Carolina)</para>
 
