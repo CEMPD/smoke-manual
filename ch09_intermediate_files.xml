@@ -312,11 +312,11 @@
 <table>
 <title>File columns in <envar>PELV</envar></title>
 <tgroup cols="5">
-<colspec colname="Line" colwidth="1*" />
-<colspec colname="Column" colwidth="1*" />
-<colspec colname="Type" colwidth="1*" />
-<colspec colname="Units" colwidth="1*" />
-<colspec colname="Description" colwidth="4*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -607,11 +607,11 @@
 <table>
 <title>File columns in <envar>TPRO_MON</envar></title>
 <tgroup cols="5">
-<colspec colname="Line" colwidth="1*" />
-<colspec colname="Column" colwidth="1*" />
-<colspec colname="Type" colwidth="1*" />
-<colspec colname="Units" colwidth="1*" />
-<colspec colname="Description" colwidth="4*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -711,11 +711,11 @@
 <table>
 <title>File columns in <envar>TPRO_DAY</envar></title>
 <tgroup cols="5">
-<colspec colname="Line" colwidth="1*" />
-<colspec colname="Column" colwidth="1*" />
-<colspec colname="Type" colwidth="1*" />
-<colspec colname="Units" colwidth="1*" />
-<colspec colname="Description" colwidth="4*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -1315,6 +1315,9 @@
 <para><xref linkend="sect_intmed_moves_output" /></para>
 </listitem>
 <listitem>
+<para><xref linkend="sect_intmed_moves_rh_output" /></para>
+</listitem>
+<listitem>
 <para><xref linkend="sect_intmed_smoke_output" /></para>
 </listitem>
 </itemizedlist>
@@ -1331,11 +1334,11 @@
 <table>
 <title>File columns in <envar>MOVES_OUTFILE</envar></title>
 <tgroup cols="5">
-<colspec colname="Line" colwidth="1*" />
-<colspec colname="Column" colwidth="1*" />
-<colspec colname="Type" colwidth="1*" />
-<colspec colname="Units" colwidth="1*" />
-<colspec colname="Description" colwidth="4*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="45*" />
 
 <thead>
 <row>
@@ -1359,7 +1362,7 @@
 <entry colname="Column">B</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
-<entry>fuelMonth</entry>
+<entry>Fuel Month</entry>
 </row>
 <row>
 <entry colname="Column">C</entry>
@@ -1371,31 +1374,31 @@
 <entry colname="Column">D</entry>
 <entry>Real</entry>
 <entry>%</entry>
-<entry>RH</entry>
+<entry>Average RH</entry>
 </row>
 <row>
 <entry colname="Column">E</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Temp1(Min)</entry>
+<entry>Temperature at hour 0</entry>
 </row>
 <row>
 <entry colname="Column">F</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Temp2(Max)</entry>
+<entry>Temperature at hour 1</entry>
 </row>
 <row>
 <entry colname="Column">G</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Temp3</entry>
+<entry>Temperature at hour 2</entry>
 </row>
 <row>
 <entry colname="Column">H</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Temp4</entry>
+<entry>Temperature at hour 3</entry>
 </row>
 <row>
 <entry colname="Column">...</entry>
@@ -1407,33 +1410,31 @@
 <entry colname="Column">AB</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Temp24</entry>
+<entry>Temperature at hour 23</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
 </section>
-<section id="sect_intmed_smoke_output">
+<section id="sect_intmed_moves_rh_output">
 
-<title><envar>SMOKE_OUTFILE(=METMOVES)</envar></title>
+<title><envar>MOVES_RH_OUTFILE</envar></title>
 
 <para>Type: ASCII - column-specific</para>
 
-<para>Used by: <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> (if RPP_MODE=Y).</para>
-<para>The output file created by <command>Met4moves</command> program for use by the MOVES and SMOKE models contains county-specific min/max temperatures and averaged RH values in local time for every inventory county and daily or monthly averaging period in the modeling inventory.  SMOKE adjusts the native MCIP time zone (GMT) to local time in order to properly use the SMOKE-ready lookup tables, which are given in local time.  This output contains the calendar month (Month), the fuel month (fuelMonth) and Julian date (julianDate) used by SMOKE to generate the hourly gridded, speciated air quality model-ready emissions using SMOKE-ready MOVES lookup tables.  Averaging method could be set to daily or monthly. When it is set to monthly, julianDate column will contain the last Julian date of the averaging month.</para>
+<para>Used by: <link linkend="section_moves_driver_script"> MOVES Driver Script</link></para>
+<para>The output file created by <command>Met4moves</command> program for use by the MOVES and SMOKE models contains fuel month-specific averaged, min, and max temperatures and averaged RH values in local time for all reference counties by temperature bin.</para>
 <table>
-<title>File columns in <envar>SMOKE_OUTFILE</envar></title>
+<title>File columns in <envar>MOVES_RH_OUTFILE</envar></title>
 <tgroup cols="5">
-<colspec colname="Line" colwidth="1*" />
-<colspec colname="Column" colwidth="1*" />
-<colspec colname="Type" colwidth="1*" />
-<colspec colname="Units" colwidth="1*" />
-<colspec colname="Description" colwidth="4*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="4*" />
 
 <thead>
 <row>
-<entry>Line</entry>
 <entry>Column</entry>
 <entry>Type</entry>
 <entry>Units</entry>
@@ -1443,47 +1444,124 @@
 
 <tbody>
 <row>
-<entry>1+</entry>
-<entry>A</entry>
+<entry colnam="Column">A</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
-<entry>Inventory County</entry>
+<entry>Reference County</entry>
 </row>
 <row>
 <entry colname="Column">B</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
-<entry>fuelMonth</entry>
+<entry>Fuel Month</entry>
 </row>
 <row>
 <entry colname="Column">C</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>Month</entry>
+<entry>Real</entry>
+<entry>%</entry>
+<entry>Average Relative Humidity</entry>
 </row>
 <row>
 <entry colname="Column">D</entry>
-<entry>Integer</entry>
-<entry>Unitless</entry>
-<entry>julianDate</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Lowest Minimum Temperature</entry>
 </row>
 <row>
 <entry colname="Column">E</entry>
 <entry>Real</entry>
-<entry>%</entry>
-<entry>RH</entry>
+<entry>Fahrenheit</entry>
+<entry>Highest Maximum Temperature</entry>
 </row>
 <row>
 <entry colname="Column">F</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Minimum Temperature</entry>
+<entry>Minimum Temperature for each temperature bin</entry>
 </row>
 <row>
 <entry colname="Column">G</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Maximum Temperature</entry>
+<entry>Maximum Temperature for each temperature bin</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
+
+<section id="sect_intmed_smoke_output">
+
+<title><envar>SMOKE_OUTFILE(=METMOVES)</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> (if RPP_MODE=Y).</para>
+<para>The output file created by <command>Met4moves</command> program for use by <command>Movesmrg</command>. It contains gridded daily min/max temperatures for every inventory county.  <command>Met4moves</command> adjusts the native MCIP time zone (GMT) to local time in order to properly use the SMOKE-ready lookup tables, which are given in local time.</para>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Smkmerge</command> and <command>Smkreport</command></para>
+
+<table>
+<title>I/O API Header for <envar>SMOKE_OUTFILE</envar></title>
+<tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of sources</entry>
+<entry>Determined by <envar>MOBL</envar> file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of temperature variables</entry>
+<entry>Determined by <envar>MOBL</envar> file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>SMOKE_OUTFILE</envar></title>
+<tgroup cols="4">
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>MINTEMP</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Daily minimum temperature</entry>
+</row>
+<row>
+<entry>MAXTEMP</entry>
+<entry>Real</entry>
+<entry>Fahrenheit</entry>
+<entry>Daily maximum temperature</entry>
 </row>
 </tbody>
 </tgroup>
@@ -1507,11 +1585,9 @@
 
 <title><envar>[M][G][T][S][_S][_L]</envar></title>
 
-<para>Type: ASCII - adapted gridded format</para>
+<para>Type: I/O API NetCDF - adapted gridded format</para>
 
-<para>Used by: <command>Mrggrid</command> and <command>Movesmrg</command></para>
-
-<para>These files can be model-ready emissions files from mobile source categories (MOVES).  See <xref linkend="sect_output_egts" /> for format information.</para>
+<para>Used by: <command>Mrggrid</command></para>
 
 </section>
 
@@ -2276,11 +2352,11 @@
 <table>
 <title>File columns in <envar>ASRC</envar>, <envar>MSRC</envar>, and <envar>PSRC</envar></title>
 <tgroup cols="5">
-<colspec colname="Line" colwidth="1*" />
-<colspec colname="Column" colwidth="1*" />
-<colspec colname="Type" colwidth="1*" />
-<colspec colname="Units" colwidth="1*" />
-<colspec colname="Description" colwidth="4*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="1*" />
+<colspec colwidth="4*" />
 
 <thead>
 <row>

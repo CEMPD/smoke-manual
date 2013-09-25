@@ -1491,8 +1491,6 @@ Additional data</programlisting>
 <listitem>
 <para>Set the dates of the modeling episode in local time using the flags <envar>STDATE</envar> and <envar>ENDATE</envar></para>
 </listitem>
-<listitem><para>Determine the averaging method <envar>AVERAGING_METHOD</envar> chosen by the user to create 24-hour temperature profiles (i.e., MONTHLY).</para>
-</listitem>
 <listitem>
 <para>Determine the fuel month for the reference county using the <link linkend="sect_input_mfmref"><envar>MFMREF</envar></link> input file.</para>
 </listitem>
@@ -2922,200 +2920,10 @@ Additional data</programlisting>
 
 <para>The case of computing NONHAPVOC is called the <quote>integrate</quote> case because it involves integration of the VOC mass between the criteria and toxics inventories. Likewise, the case of not computing NONHAPVOC is called the <quote>no-integrate</quote> case. With the <quote>integrate</quote> approach, the NONHAPVOC mass and the toxics VOC mass are independent from one another and will not double count emissions. The calculation must be performed for each source, and <command>Smkinven</command> will set the criteria VOC value to zero when it computes the NONHAPVOC value. <command>Smkinven</command> determines which pollutants should be subtracted from VOC using the <quote>VOC or TOG</quote> column in the inventory table (<envar>INVTABLE</envar>) file.</para>
 
-<section>
-
-<title>Affect of NONHAPVOC on chemical speciation</title>
-
-<para>Chemical speciation in SMOKE is greatly affected by the calculation of NONHAPVOC. Although we have not yet discussed much about chemical speciation, we provide information here about what happens in <command>Smkinven</command> and what happens in the chemical speciation step for the various possible cases of combining criteria and toxics inventories. This is intended to provide you with a complete picture of what happens to the emissions and sources when <command>Smkinven</command> imports both criteria and toxics inventories.</para>
-
-<para>Since the chemical speciation step involves converting the inventory pollutants to the model species, the input files to this step must include the NONHAPVOC pollutant and revised conversion factors that have been adjusted for the reduced mass in NONHAPVOC instead of VOC. The <envar>GSREF</envar> file is the chemical speciation cross-reference file and the <envar>GSPRO</envar> file is the chemical speciation profiles file. A key concern with the NONHAPVOC approach is ensuring that the definition of NONHAPVOC is the same for the data import step and the chemical speciation step. To address this concern, the speciation step compares a header in the <envar>GSPRO</envar> file with the <envar>INVTABLE</envar> settings for defining NONHAPVOC. This is explained in greater detail in <xref linkend="sect_concepts_chemical_processing" />.</para>
-
-<para>There are some situations in which users cannot or do not want to compute NONHAPVOC from the emission inventories and hence would want to use the <quote>no-integrate</quote> approach. These situations are as follows:</para>
-
-<itemizedlist>
-<listitem>
-<para>There are no toxics records that match the criteria records. In other words, the county/SCC combination present in the criteria inventory is not present in the toxics inventory. In this case, NONHAPVOC should not be calculated, and the emissions should be left as VOC.</para>
-</listitem>
-
-<listitem>
-<para>A particular SCC does not have the toxics mass provided with enough detail to properly compute NONHAPVOC. For instance, the <quote>commercial marine, residual</quote> SCCs for <quote>port emissions</quote> and <quote>underway emissions</quote> cannot be integrated because they contain the <quote>grouped</quote> pollutant 16-PAH (PAH stands for polynuclear aromatic hydrocarbons, and 16 refers to the <quote>sum of 16</quote> approach), only part of which is VOC. There is no way to know how much of 16-PAH is VOC, and subtracting all 16-PAH emissions would reduce the emissions too much. Consequently, we would want to exclude these SCCs from having NONHAPVOC computed, and leave the emissions as VOC. The available toxics data should still be used to supply emissions to the toxics model species of formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene.</para>
-</listitem>
-
-<listitem>
-<para>A particular state or county has provided toxics emissions data for one or more SCCs, and those data either are incomplete (not all toxics provided) or were created using a method that is not known to be consistent with the method used to create the VOC inventory. In this case, the state, county, and SCC combinations of state-provided data should be excluded from being integrated. The available toxics data should still be used to supply emissions to the toxics model species of formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene.</para>
-</listitem>
-</itemizedlist>
-
-<para>To accommodate these situations, SMOKE includes a method that permits users to exclude sources from the NONHAPVOC calculation (the <quote>no-integrate</quote> approach). The <envar>NHAPEXCLUDE</envar> file, described in <xref linkend="sect_input_nhapexclude" />, is used to tell <command>Smkinven</command> which sources to exclude. Users can specify sources using a cross-reference approach that lists states, counties, SCCs, and combinations of these to prevent <command>Smkinven</command> from computing NONHAPVOC for a given source.</para>
-
-<para>For handling the NONHAPVOC situations, SMOKE accounts for four cases: (1) current-CB4, integrate; (2) current-CB4, no-integrate; (3) toxics-CB4, integrate; and (4) toxics-CB4, no-integrate. For both of the CB4 mechnisms, both the integrate and no-integrate cases can be used for different sources in the same <command>Smkinven</command> run and inventory. The following sections describe how the toxics and criteria inventories can be combined in these four cases, and the additional key SMOKE processing steps needed in each case.</para>
-
-<section id="sect_concepts_current_cb_integrate">
-
-<title>Current-CB4, integrate</title>
-
-<para>The current-CB4, integrate case applies when the user believes that substituting toxics VOC mass for part of the VOC mass, mapping the toxics to the model species, and speciating the non-HAP remainder of the VOC will improve the emission estimates. This case can be used when all of the following conditions apply:</para>
-
-<itemizedlist>
-<listitem>
-<para>VOC and HAP estimates were made on a consistent basis for the given emission source (e.g., same activity data and modeling approach). For state-provided data, we generally do not know whether the approach used was consistent; therefore, this case would not usually be applicable to state-provided data.</para>
-</listitem>
-
-<listitem>
-<para>The emissions source has all of the gaseous HAP estimates that are expected.</para>
-</listitem>
-
-<listitem>
-<para>If the source emits PAHs, the emissions of the PAH components are reported individually (i.e., not as a PAH group).</para>
-</listitem>
-</itemizedlist>
-
-<para>Note that these criteria will always be true when SMOKE is driving MOBILE6 for on-road mobile processing, because all of the appropriate VOC HAPs can be computed when running MOBILE6. There will therefore not be any question about where the data came from or whether they are consistent. For more information on using MOBILE6, please refer to <xref linkend="sect_concepts_mobile_source_processing_moves" />.</para>
-
-<para>When the three above conditions are met for a given source, then the following processing steps will occur in <command>Smkinven</command> and other SMOKE programs:</para>
-
-<orderedlist>
-<listitem>
-<para><command>Smkinven</command> will compute NONHAPVOC, except when using VMT only for on-road mobile processing.</para>
-</listitem>
-<listitem>
-<para>For on-road mobile sources with VMT data, SMOKE will run MOBILE6 to create NONHAPVOC and the individual gaseous toxics that come out of MOBILE6. For this case, the MOBILE6.2 input files must include the following specific pollutants using the ADDITIONAL HAPS command: ethylbenzene, hexane, toluene, xylene, styrene, 2,2,4-trimethylpentane (iso octane), propionaldehyde, and 13 of the 16 <quote>16-PAHs</quote> (all except benzo(a)pyrene, pyrene, and fluoranthene).</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSPRO</envar> file to map toxics pollutants to standard CB4 species.</para>
-</listitem>
-<listitem>
-<para>For the CMAQ version of CB4 that includes mercury, SMOKE will use the <envar>GSPRO</envar> file to map the toxics mercury pollutants to the mercury species needed by CMAQ.</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSPRO</envar> file to also map NONHAPVOC to standard CB4 species.</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSREF</envar> file to assign all pollutants to the appropriate current-CB4 profiles.</para>
-</listitem>
-</orderedlist>
-
 </section>
 
 <section>
-
-<title>Current-CB4, no-integrate</title>
-
-<para>For the current-CB4, no-integrate mechanism, if one or more of the three criteria listed in <xref linkend="sect_concepts_current_cb_integrate" /> are not met for a given source, then <quote>no-integrate</quote> applies and the following processing steps will occur in <command>Smkinven</command> and other SMOKE programs:</para>
-
-<orderedlist>
-<listitem>
-<para><command>Smkinven</command> will <emphasis>not</emphasis> compute NONHAPVOC; VOC will remain in the inventory for that source, and the NONHAPVOC value will be zero.</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSPRO</envar> file entries to map VOC to the standard CB4 species (same as current approach for ozone modeling using CB4).</para>
-</listitem>
-<listitem>
-<para>SMOKE will zero out the toxics VOC pollutants.</para>
-</listitem>
-<listitem>
-<para>For the CMAQ version of CB4 that includes mercury, SMOKE will use the <envar>GSPRO</envar> file to map the toxics mercury pollutants to the mercury species needed by CMAQ.</para>
-</listitem>
-</orderedlist>
-
-</section>
-
-<section id="sect_concepts_toxics_cb4_integrate">
-
-<title>Toxics-CB4, integrate</title>
-
-<para>The toxics-CB4, integrate case handles the situation in which the user wants to use the toxics inventory for modeling toxics pollutant species in CMAQ; these species could either be explicitly part of the chemical mechanism (e.g., formaldehyde), or simply added on as a model species but not part of the chemistry (e.g., benzene). In these cases, the non-toxics part of the VOC mass is retained as NONHAPVOC and mapped to the toxics-CB4 species. The toxics VOC mass is mapped to either (1) the explicit toxics species that are a part of the chemistry (formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene), or (2) to other toxics species (e.g., benzene), and/or (3) to altered CB4 species whose definitions have been altered to account for the four new mechanism species. If the VOC mass is mapped to the explicit toxics species, then it is not mapped to anything else, whereas if it is mapped to other toxics species, it can also be mapped to altered CB4 species. Also, please note that we refer to <quote>altered CB4 species</quote> to include all CB4 species, even if some of these did not actually require any adjustments because of the explicit toxics species.</para>
-
-<para>The toxics-CB4, integrate case can be used when all of the following conditions apply:</para>
-
-<itemizedlist>
-<listitem>
-<para>VOC and HAP estimates were made on a consistent basis for the given emission source (e.g., same activity data and modeling approach). For state-provided data, we generally do not know whether the approach used was consistent; therefore, this case would not usually be applicable to state-provided data.</para>
-</listitem>
-
-<listitem>
-<para>The emissions source has all of the gaseous HAP estimates that are expected.</para>
-</listitem>
-
-<listitem>
-<para>If the source emits PAHs, the emissions of the PAH components are reported individually (i.e., not as a PAH group).</para>
-</listitem>
-</itemizedlist>
-
-<para>Note that these criteria will always be true when SMOKE is driving MOBILE6 for on-road mobile processing, because all of the appropriate VOC HAPs can be computed when running MOBILE6. There will therefore not be any question about where the data came from or whether they are consistent. For more information on using MOBILE6, please refer to <xref linkend="sect_concepts_mobile_source_processing_moves" />.</para>
-
-<para>When the three conditions just listed are met for a given source, then the following processing steps will occur in <command>Smkinven</command> and other SMOKE programs:</para>
-
-<orderedlist>
-<listitem>
-<para><command>Smkinven</command> will compute NONHAPVOC, except when using VMT only for on-road mobile processing.</para>
-</listitem>
-<listitem>
-<para>For on-road mobile sources with VMT data, SMOKE will run MOBILE6 to create NONHAPVOC and the individual gaseous toxics that come out of MOBILE6. For this case, the MOBILE6.2 input files must include the following specific pollutants using the ADDITIONAL HAPS command: ethylbenzene, hexane, toluene, xylene, styrene, 2,2,4-trimethylpentane (iso octane), propionaldehyde, and 13 of the 16 <quote>16-PAHs</quote> (all except benzo(a)pyrene, pyrene, and fluoranthene).</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSPRO</envar> file to map toxics pollutants to:</para>
-
-<itemizedlist>
-<listitem>
-<para>Toxics-CB4 explicit species for formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene</para>
-</listitem>
-<listitem>
-<para>Toxics-CB4 species for benzene</para>
-</listitem>
-<listitem>
-<para>Toxics-CB4 VOC species that have been modified from the standard CB4 definitions to account for explicit formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene</para>
-</listitem>
-</itemizedlist>
-
-<para>SMOKE will also use the <envar>GSPRO</envar> file to map NONHAPVOC to VOC species that have been modified from the standard CB4 definitions to account for explicit formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene.</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSREF</envar> file to assign all pollutants to the appropriate toxics-CB4 profiles based on the pollutant and SCC combinations. State/county/SCC combinations are also valid in SMOKE, although the available data do not have that additional detail.</para>
-</listitem>
-</orderedlist>
-
-</section>
-
-<section id="sect_concepts_toxics_cb4_no_integrate">
-
-<title>Toxics-CB4, no-integrate</title>
-
-<para>For the toxics-CB4 mechanism, if one or more of the three criteria listed in <xref linkend="sect_concepts_toxics_cb4_integrate" /> are not met for a given source, then <quote>no-integrate</quote> applies and the following processing steps will occur in <command>Smkinven</command> and other SMOKE programs:</para>
-
-<orderedlist>
-<listitem>
-<para>SMOKE will <emphasis>not</emphasis> compute NONHAPVOC, VOC will remain in the inventory for that source, and the NONHAPVOC value will be zero.</para>
-</listitem>
-<listitem>
-<para>SMOKE will drop toxics emissions for toxics VOC pollutants if they are not part of the chemical mechanism or if they are not model species. Note that formaldehyde, acetaldehyde, 1,3-butadiene, and acrolein will not be dropped because they are part of the chemical mechanism.</para>
-</listitem>
-<listitem>
-<para>SMOKE will rename the emissions by appending a <quote>_NOI</quote> (for no-integrate) to the pollutant name if the toxics pollutant is a model species but not part of the chemical mechanism (e.g., benzene).</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSPRO</envar> file to map toxics pollutants to toxics-CB4 explicit species for formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene.</para>
-</listitem>
-<listitem>
-<para>SMOKE will use <quote>_NOI</quote> entries in the <envar>GSREF</envar> and <envar>GSPRO</envar> files to map these pollutants to the toxics-CB4 model species (e.g., benzene).</para>
-</listitem>
-<listitem>
-<para>SMOKE will use the <envar>GSPRO</envar> file entries to map VOC to toxics-CB4 species that have been modified from the standard CB4 definitions to account for explicit formaldehyde, acetaldehyde, acrolein, and 1,3-butadiene.</para>
-</listitem>
-</orderedlist>
-
-<para>Note that in this case, if formaldehyde, acetaldehyde, acrolein, or 1,3-butadiene happen to be left out of the toxics inventory, then the overall mass of the VOC emissions will be reduced, because the VOC mass is being converted through the <envar>GSPRO</envar> file to adjusted CB4 species that are without mass for these compounds.</para>
-
-</section>
-
-</section>
-
-</section>
-
-<section>
-
 <title>Sort the inventory</title>
-
 <para>When <command>Smkinven</command> reads an inventory, it also puts its sources into a special sorted order prior to outputting the SMOKE intermediate inventory files. All programs that read <command>Smkinven</command> outputs, which includes most of the SMOKE programs, expect this order. The order is determined by sorting the source characteristics listed in <xref linkend="sect_concepts_summary_source_processing" /> in ascending order. For example, area sources will be sorted in order of increasing country/state/county code, and within a single country/state/county code will be sorted in order of increasing SCC. In <xref linkend="fig_concepts_sort_inventory" />, we show how the sorted order may be completely different from the order of the files and records provided to <command>Smkinven</command>. The figure shows the unsorted ASCII input files at left (provided to <command>Smkinven</command> by logical files <envar>ARINV</envar>, <envar>MBINV</envar>, or <envar>PTINV</envar>) and how the records can be rearranged by <command>Smkinven</command> to create the sorted I/O API output files (output from <command>Smkinven</command> as <envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>). Each record in this diagram represents a complete inventory record with all source characteristics, source attributes, and emissions.</para>
 
 <figure id="fig_concepts_sort_inventory">
@@ -3337,9 +3145,9 @@ Additional data</programlisting>
 
 <title>Processing hour-specific CEM data</title>
 
-<para><command>Smkinven</command> can allocate annual emissions to hourly data using the hourly heat input from the standard local time CEM data. <command>Smkinven</command> must match the ORIS/boiler combinations that appear in the standard local time CEM data to sources in the annual emissions inventory. Smkinven will first skip any ORIS/boiler combinations in the input CEM data that do not appear in the summary list (<envar>CEMSUM</envar>) created by CEMScan; it is important that users ensure that their input CEM data and CEM summary file remain consistent. Smkinven will also skip any CEM ORIS IDs that are not in the inventory and also any ORIS and boiler combinations that are not in the inventory. Note that the inventory may contain sources with valid ORIS IDs but blank boiler codes; none of these sources will be matched to the CEM data. The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
+<para><command>Smkinven</command> can allocate annual emissions to hourly data using the hourly heat input from the standard local time CEM data. <command>Smkinven</command> must match the ORIS/boiler combinations that appear in the standard local time CEM data to sources in the annual emissions inventory. <command>Smkinven</command> will first skip any ORIS/boiler combinations in the input CEM data that do not appear in the summary list (<envar>CEMSUM</envar>) created by CEMScan; it is important that users ensure that their input CEM data and CEM summary file remain consistent. <command>Smkinven</command> will also skip any CEM ORIS IDs that are not in the inventory and also any ORIS and boiler combinations that are not in the inventory. Note that the inventory may contain sources with valid ORIS IDs but blank boiler codes; none of these sources will be matched to the CEM data. The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
 
-<para><emphasis role="bold">Data Check :</emphasis> Before calculating the hourly emissions, <command>Smkinven</command> first checks if the hourly NOx emissions from the CEM data are zero or null. If so, all emissions and the hourly flow rates for the sources that match the ORIS/boiler combination are set to zero. Similarly, if the hourly heat input, gross load, and steam load values are zero or null, all output values will be set to zero. In this case a warning will be written to the <command>Smkinven</command> log file.</para>
+<para><emphasis role="bold">Data Check :</emphasis> Before calculating the hourly emissions, <command>Smkinven</command> first checks if the hourly NOx emissions from the CEM data are zero or null. If so, <command>Smkinven</command> checks if the hourly heat input, gross load, and steam load values are zero or null before all output values will be set to zero. In this case a warning will be written to the <command>Smkinven</command> log file.</para>
 
 <para>Special handling is needed when processing SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions. If the summed annual CEM SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions for a particular ORIS/boiler combination are zero or null, <command>Smkinven</command> will calculate hourly emissions based on the SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions in the annual inventory rather than using the hourly CEM data. If the summed annual SO<subscript>2</subscript> and NO<subscript>x</subscript>emissions are valid but a particular hour is missing the hourly SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions, <command>Smkinven</command> will set the hourly SO<subscript>2</subscript> and NO<subscript>x</subscript> emissions to zero and write a warning to the log file.</para>
 

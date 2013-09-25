@@ -1420,7 +1420,7 @@ grep ERROR *
 <para>Set the <envar>WKDAY_NORMALIZE</envar> setting to account for the desired weekday normalization approach to be used for hourly emissions. See <xref linkend="sect_programs_smkinven" /> for more information.</para>
 </listitem>
 <listitem>
-<para>Set the <envar>SMK_NHAPEXCLUDE_YN</envar> setting to Y to read the <envar>NHAPEXCLUDE</envar> file.</para>
+<para>Set the <envar>SMK_PROCESS_HAPS</envar> to read the <envar>NHAPEXCLUDE</envar> file.</para>
 
 <para>This setting is only relevant when importing both criteria and toxic inventories. In this case, if there are VOCs in both inventories and the <envar>INVTABLE</envar> has indicate which toxics are VOCs, <command>Smkinven</command> will attempt to integrate VOC emissions for all sources from the criteria and toxics inventories. The <envar>NHAPEXCLUDE</envar> file provides a list of SCCs for which <command>Smkinven</command> should not integrate the inventories and should instead drop the toxic VOC emissions to prevent double counting. Toxic emissions of explicit model species are never dropped, however. More information is available in <xref linkend="sect_concepts_combine_toxics" />.</para>
 </listitem>
@@ -1770,7 +1770,7 @@ grep ERROR *
 
 <para>The Area and Mobile spatial surrogates files located in <envar>SRGPRO_PATH</envar> and the <envar>BGPRO</envar> are one of the most difficult inputs to create for SMOKE. The gridded data in the files must match the definition in the <envar>GRIDDESC</envar> and <envar>SRGDESC</envar> files for the grid selected using the <envar>IOAPI_GRIDNAME_1</envar> variable.</para>
 
-<para>The best approach to creating this file is to obtain it from someone else who has created surrogates for your domain. For example, EPA has created 4-km national spatial surrogates available at <ulink url="http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html" />. Of course, using a national file has its limitations if your domain happens to be far away from the center of the U.S. since the map projection for the surrogates is more distorted further away from the center of the projection. However, for most users, this distortion will be a small price to pay for having readily available spatial surrogates.</para>
+<para>The best approach to creating this file is to obtain it from someone else who has created surrogates for your domain. For example, EPA has developed various spatial surrogates and available at EPA&rsquo;s Emission Modeling Clearinghouse (<ulink url="http://www.epa.gov/ttn/chief/emch/index.html">http://www.epa.gov/ttn/chief/emch/</ulink>). Of course, using a national file has its limitations if your domain happens to be far away from the center of the U.S. since the map projection for the surrogates is more distorted further away from the center of the projection. However, for most users, this distortion will be a small price to pay for having readily available spatial surrogates.</para>
 
 <para>The second best approach to creating this file is to use the MIMS Spatial Allocator (MSA). This tool can create SMOKE-ready surrogates using GIS shape files, which are provided with the tool for multiple surrogates. Please refer to the <ulink url="http://www.cmascenter.org">CMAS web site</ulink> for more information.</para>
 
@@ -2102,7 +2102,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for CMAQ modeling only with both criteria and toxics inventories for the <quote>toxics-CB4 version 1</quote> chemical mechanism. This works for all source categories, including BEIS2 and BEIS3 modeling. The <envar>GSPRO</envar> and <envar>GSREF</envar> files are different for on-road mobile sources, and the <envar>GSREF</envar> file is different for the point sources.</para>
+<para>Use for CMAQ modeling only with both criteria and toxics inventories for the <quote>toxics-CB4</quote> chemical mechanism. This works for all source categories, including BEIS2 and BEIS3 modeling. The <envar>GSPRO</envar> and <envar>GSREF</envar> files are different for on-road mobile sources, and the <envar>GSREF</envar> file is different for the point sources.</para>
 </listitem>
 </itemizedlist>
 
@@ -3245,7 +3245,7 @@ grep ERROR *
 
 <orderedlist>
 <listitem>
-<para>Heat Flux (BTU/hr/m<superscript>2</superscript>) = area burned (acre/day) x (1 acre/4046.86 m<superscript>2</superscript>) x fuel loading (tons/acre) x heat content (BTU/lb) x (2000lb/ton) x duration of fire (hr/day) </para>
+<para>Heat Flux (BTU/hr) = [ Area Burned (acre/day) x Fuel Loading (tons/acre) x Heat Content (BTU/lb) x (2000lb/ton) ] /  Duration of fire (hr/day) </para>
 </listitem>
 </orderedlist>
 

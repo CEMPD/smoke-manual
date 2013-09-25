@@ -134,6 +134,20 @@ In this overview section, we first provide a few important notes about file form
 <entry>Stationary area/nonpoint or nonroad raw inventory in IDA format, SMOKE list format for EMS-95 files, or ORL format</entry>
 <entry><envar>$ARDAT</envar></entry>
 </row>
+<row>
+<entry><link linkend="sect_input_arday"><envar>ARDAY</envar></link></entry>
+<entry><command>Smkinven</command></entry>
+<entry>A</entry>
+<entry>Area source raw day-specific inventory data (optional)</entry>
+<entry><envar>$ARDAY</envar></entry>
+</row>
+<row>
+<entry><link linkend="sect_input_arhour"><envar>ARHOUR</envar></link></entry>
+<entry><command>Smkinven</command></entry>
+<entry>A</entry>
+<entry>Area source raw hour-specific inventory data (optional)</entry>
+<entry><envar>$ARHOUR</envar></entry>
+</row>
 
 <row>
 <entry><link linkend="sect_input_bcuse"><envar>BCUSE</envar></link></entry>
@@ -925,7 +939,7 @@ In this overview section, we first provide a few important notes about file form
 <member>#IDA</member>
 <member>#FF10_ACTIVITY</member>
 <member>#FF10_[NONPOINT|POINT|NONROAD|ONROAD]</member>
-<member>#FF10_[HOURLY|DAILY]_[NONPOINT|POINT]</member>
+<member>#FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD]</member>
 <member>#ORL</member>
 <member>#ORL NONPOINT</member>
 <member>#ORL FIRE</member>
@@ -995,8 +1009,7 @@ INVYEAR 1996
 
 <section>
 <title>FF10 Format</title>
-<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
-<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</para>
+<para>The user specifies the data provided using this command in the header: FF10_DAILY_[NONPOINT|POINT|NONROAD|ONROAD].</para>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for daily nonpoint sources are shown below:</para>
 <programlisting>
 #FORMAT   FF10_DAILY_NONPOINT
@@ -1006,7 +1019,7 @@ INVYEAR 1996
 #DESC     FF10 Nonpoint Daily format</programlisting>
 
 <table id="tbl_input_arday_FF10">
-<title>FF10 Format for individual day-specific data files</title>
+<title>FF10 Format for individual area day-specific data files</title>
 
 <tgroup cols="4">
 <colspec colwidth="15*" />
@@ -1028,11 +1041,11 @@ INVYEAR 1996
 <entry>1</entry>
 <entry>COUNTRY</entry>
 <entry>Char(2)</entry>
-<entry>2 character code: e.g., US, MX</entry>
+<entry>2 character code: e.g., US  (required)</entry>
 </row>
 <row>
 <entry>2</entry>
-<entry>REGION</entry>
+<entry>FIPS</entry>
 <entry>Int</entry>
 <entry>Five-digit FIPS code for state and county (required)</entry>
 </row>
@@ -1040,109 +1053,91 @@ INVYEAR 1996
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
 <entry>char(3)</entry>
-<entry>SCC or ASC code (required)</entry>
+<entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>4</entry>
 <entry>CENSUS_TRACT</entry>
-<entry>Char(20)</entry>
-<entry>FACILITY_ID (Optional; not currently used by SMOKE)</entry>
+<entry>Char</entry>
+<entry>Census tract ID (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>SHAPE_ID</entry>
-<entry>Char(20)</entry>
-<entry>UNIT_ID (required)</entry>
+<entry>Char</entry>
+<entry>Shape ID (optional; not currently used by SMOKE</entry>
 </row>
 <row>
 <entry>6</entry>
-<entry>TBD</entry>
-<entry></entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>N/A (unused)</entry>
+<entry>N/A</entry>
+<entry>Leave blank (not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>EMIS_TYPE</entry>
-<entry>Char(20)</entry>
-<entry>PROCESS_ID (required)</entry>
+<entry>Char(3)</entry>
+<entry>Emissions type [ex: EXH, EVP, and so on] (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(12)</entry>
+<entry>Char(10)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
 <entry>9</entry>
 <entry>POLL</entry>
-<entry>Char(20)</entry>
-<entry>Pollutant Name (required)</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant Code (required)</entry>
 </row>
 <row>
 <entry>10</entry>
 <entry>OP_TYPE_CD</entry>
 <entry>Char(20)</entry>
-<entry>Operating type code for startup/shutdown/upset(required)</entry>
+<entry>Operating type code for startup/shutdown/upset (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>11</entry>
 <entry>CALC_METHOD</entry>
-<entry>int(2)</entry>
-<entry>CALC_METHOD(optional; not currently used by SMOKE)</entry>
+<entry>Int</entry>
+<entry>Calculation Method (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>12</entry>
 <entry>DATE_UPDATED</entry>
-<entry>int(8)</entry>
-<entry>Format YYYYMMDD (optional; not currently used by SMOKE)</entry>
+<entry>Int</entry>
+<entry>Updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>13</entry>
-<entry>MONTHNUM</entry>
-<entry>Int(2)</entry>
-<entry>Format MM (required)</entry>
+<entry>MONTH</entry>
+<entry>Int</entry>
+<entry>Month of inventory (required)</entry>
 </row>
 <row>
 <entry>14</entry>
 <entry>MONTHTOT</entry>
 <entry>Real</entry>
-<entry>Monthly Total (short tons/month) (required if SMKINVEN_MONTH is set to 1)</entry>
+<entry>Monthly Total (short tons/month) (required)</entry>
 </row>
 <row>
 <entry>15</entry>
 <entry>DAYVAL1</entry>
 <entry>Real</entry>
-<entry>Daily emissions for hour 1 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 1 (short tons/hour) (required)</entry>
 </row>
 <row>
 <entry>16</entry>
 <entry>DAYVAL2</entry>
 <entry>Real</entry>
-<entry>Daily emissions for hour 2 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 2 (short tons/hour) (required)</entry>
 </row>
 <row>
 <entry>17</entry>
 <entry>DAYVAL3</entry>
 <entry>Real</entry>
-<entry>Daily emissions for hour 3 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>18</entry>
-<entry>DAYVAL4</entry>
-<entry>Real</entry>
-<entry>Daily emissions for hour 4 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>19</entry>
-<entry>DAYVAL5</entry>
-<entry>Real</entry>
-<entry>Daily emissions for hour 5 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>20</entry>
-<entry>DAYVAL6</entry>
-<entry>Real</entry>
-<entry>Daily emissions for hour 6 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 3 (short tons/hour) (required)</entry>
 </row>
 <row>
 <entry></entry>
@@ -1154,7 +1149,7 @@ INVYEAR 1996
 <entry>45</entry>
 <entry>DAYVAL31</entry>
 <entry>Real</entry>
-<entry>Daily emissions for hour 31 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 31 (short tons/hour) (required)</entry>
 </row>
 <row>
 <entry>46</entry>
@@ -1162,7 +1157,6 @@ INVYEAR 1996
 <entry>Char</entry>
 <entry>(optional)</entry>
 </row>
-
 </tbody>
 </tgroup>
 </table>
@@ -1172,8 +1166,7 @@ INVYEAR 1996
 
 <section id="sect_input_arhour">
 <title><envar>ARHOUR</envar>: Area source hour-specific emissions</title>
-<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
-<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONPOINT|ONROAD].</para>
+<para>The user specifies the data provided using this command in the header: FF10_HOURLY_[NONPOINT|POINT|NONPOINT|ONROAD].</para>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for daily nonpoint sources are shown below:</para>
 <programlisting>
 #FORMAT   FF10_HOURLY_NONPOINT
@@ -1183,7 +1176,7 @@ INVYEAR 1996
 #DESC     FF10 Nonpoint Hourly format</programlisting>
 
 <table id="tbl_input_arhour_FF10">
-<title>FF10 Format for individual hour-specific files</title>
+<title>FF10 Format for individual area hour-specific files</title>
 
 <tgroup cols="4">
 <colspec colwidth="15*" />
@@ -1205,11 +1198,11 @@ INVYEAR 1996
 <entry>1</entry>
 <entry>COUNTRY</entry>
 <entry>Char(2)</entry>
-<entry>2 character code: e.g., US, MX</entry>
+<entry>2 character code: e.g., US  (required)</entry>
 </row>
 <row>
 <entry>2</entry>
-<entry>REGION</entry>
+<entry>FIPS</entry>
 <entry>Int</entry>
 <entry>Five-digit FIPS code for state and county (required)</entry>
 </row>
@@ -1217,109 +1210,97 @@ INVYEAR 1996
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
 <entry>char(3)</entry>
-<entry>SCC or ASC code (required)</entry>
+<entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>4</entry>
 <entry>CENSUS_TRACT</entry>
-<entry>Char(20)</entry>
-<entry>FACILITY_ID (Optional; not currently used by SMOKE)</entry>
+<entry>Char</entry>
+<entry>Census tract ID (optional; not currently used by SMOKE</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>SHAPE_ID</entry>
-<entry>Char(20)</entry>
-<entry>UNIT_ID (required)</entry>
+<entry>Char</entry>
+<entry>Shape ID (optional; not currently used by SMOKE</entry>
 </row>
 <row>
 <entry>6</entry>
-<entry>TBD</entry>
+<entry>N/A (unused)</entry>
 <entry></entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>Leave blank (Not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>EMIS_TYPE</entry>
-<entry>Char(20)</entry>
-<entry>PROCESS_ID (required)</entry>
+<entry>Char(3)</entry>
+<entry>Emissions type [ex: EXH, EVP, and so on] (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(12)</entry>
+<entry>Char(10)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
 <entry>9</entry>
 <entry>POLL</entry>
-<entry>Char(20)</entry>
-<entry>Pollutant Name (required)</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant Code (required)</entry>
 </row>
 <row>
 <entry>10</entry>
 <entry>OP_TYPE_CD</entry>
 <entry>Char(20)</entry>
-<entry>Operating type code for startup/shutdown/upset(required)</entry>
+<entry>Operating type code for startup/shutdown/upset (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>11</entry>
 <entry>CALC_METHOD</entry>
-<entry>int(2)</entry>
-<entry>CALC_METHOD(optional; not currently used by SMOKE)</entry>
+<entry>Int</entry>
+<entry>CALC_METHOD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>12</entry>
 <entry>DATE_UPDATED</entry>
-<entry>int(8)</entry>
-<entry>Format YYYYMMDD (optional; not currently used by SMOKE)</entry>
+<entry>Int</entry>
+<entry>Updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>13</entry>
 <entry>DATE</entry>
-<entry>int(8)</entry>
-<entry>Date in YYYYMMDD format. Years less than 70 are treated as century 2000. (required)</entry>
+<entry>Int</entry>
+<entry>Date of inventory in format of YYYYMMDD (required)</entry>
 </row>
 <row>
 <entry>14</entry>
 <entry>DAYTOT</entry>
 <entry>Real</entry>
-<entry>Daily Total (short tons/day) (required if SMKINVEN_MONTH is set to 0)</entry>
+<entry>Daily Total (short tons/day) (required if <envar>SMKINVEN_MONTH</envar> is set to 0)</entry>
 </row>
 <row>
 <entry>15</entry>
 <entry>HRVAL0</entry>
 <entry>Real</entry>
-<entry>Hourly emissions for hour 1 (short tons/hour)(required)</entry>
+<entry>Hourly emissions for hour 0 (short tons/hour)(required)</entry>
 </row>
 <row>
 <entry>16</entry>
 <entry>HRVAL1</entry>
 <entry>Real</entry>
-<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
+<entry>Hourly emissions for hour 1 (short tons/hour) (required)</entry>
 </row>
 <row>
 <entry>17</entry>
 <entry>HRVAL2</entry>
 <entry>Real</entry>
-<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
+<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
 </row>
 <row>
 <entry>18</entry>
 <entry>HRVAL3</entry>
 <entry>Real</entry>
-<entry>Hourly emissions for hour 4 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>19</entry>
-<entry>HRVAL4</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 5 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>20</entry>
-<entry>HRVAL5</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 6 (short tons/hour) (required)</entry>
+<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
 </row>
 <row>
 <entry></entry>
@@ -1328,13 +1309,13 @@ INVYEAR 1996
 <entry>..</entry>
 </row>
 <row>
-<entry>34</entry>
+<entry>38</entry>
 <entry>HRVAL23</entry>
 <entry>Real</entry>
-<entry>Hourly emissions for hour 24 (short tons/hour) (required)</entry>
+<entry>Hourly emissions for hour 23 (short tons/hour) (required)</entry>
 </row>
 <row>
-<entry>35</entry>
+<entry>39</entry>
 <entry>COMMENT</entry>
 <entry>Char</entry>
 <entry>(optional)</entry>
@@ -1591,7 +1572,6 @@ INVYEAR 1996
 <section>
 
 <title>FF10 Format</title>
-<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.</para>
 <para>For area nonpoint, nonroad and onroad mobile sources annual or monthly inventory data the user specifies the data provided using this command in the header: FF10_[NONPOINT|NONROAD|ONROAD]</para>
 
@@ -1620,7 +1600,6 @@ INVYEAR 1996
 #YEAR     2005
 #DESC     Onroad Mobile Source Inventory
 #DESC     FF10 Onroad format</programlisting>
-
 
 <para>The FF10 format for area nonpoint, nonroad and onroad mobiles sources is list-directed and shown in <xref linkend="tbl_input_arinv_ff10" />.</para>
 
@@ -1660,19 +1639,19 @@ INVYEAR 1996
 <entry>3</entry>
 <entry>TRIBAL CODE</entry>
 <entry>Char(3)</entry>
-<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+<entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>4</entry>
 <entry>CENSUS_TRACT</entry>
-<entry>Char(20)</entry>
-<entry>Not currently used by SMOKE</entry>
+<entry>Char</entry>
+<entry>Census tract ID (optional; not currently used by SMOKE</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>SHAPE_ID</entry>
-<entry>Char(20)</entry>
-<entry>Not currently used by SMOKE</entry>
+<entry>Char</entry>
+<entry>Shape ID (optional; not currently used by SMOKE</entry>
 </row>
 <row>
 <entry>6</entry>
@@ -1684,7 +1663,7 @@ INVYEAR 1996
 <entry>7</entry>
 <entry>EMIS_TYPE</entry>
 <entry>Char(3)</entry>
-<entry>Emissions type; Not currently used by SMOKE</entry>
+<entry>Emissions type [ex: EXH, EVP, and so on] (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -1696,54 +1675,54 @@ INVYEAR 1996
 <entry>9</entry>
 <entry>ANN_VALUE</entry>
 <entry>Real</entry>
-<entry>Annual emissions (short tons/year) (required if SMKINVEN_MONTH is set to 0)</entry>
+<entry>Annual emissions (short tons/year) (required if <envar>SMKINVEN_MONTH</envar> is set to 0)</entry>
 </row>
 <row>
 <entry>10</entry>
 <entry>ANN_PCT_RED</entry>
 <entry>Real</entry>
-<entry>Percentage Control Measure Reduction Efficiency (optional; not currently used by SMOKE)</entry>
+<entry>Percentage Control Measure Reduction Efficiency (optional)</entry>
 </row>
 <row>
 <entry>11</entry>
 <entry>CONTROL_IDS</entry>
-<entry>Char(100)</entry>
+<entry>Char</entry>
 <entry>Control Measure Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>12</entry>
 <entry>CONTROL_MEASURES</entry>
-<entry>Char(100)</entry>
-<entry>N/A (optional; not currently used by SMOKE)</entry>
+<entry>Char</entry>
+<entry>Control Measure Values (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>13</entry>
 <entry>CURRENT_COST</entry>
 <entry>Real</entry>
-<entry>N/A (optional; not currently used by SMOKE)</entry>
+<entry>Control Cost (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>14</entry>
 <entry>CUMULATIVE_COST</entry>
 <entry>Real</entry>
-<entry>N/A (optional; not currently used by SMOKE)</entry>
+<entry>Cumulative Cost (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>15</entry>
 <entry>PROJECTION_FACTOR</entry>
 <entry>Real</entry>
-<entry>N/A (optional; not currently used by SMOKE)</entry>
+<entry>Projection factor (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>16</entry>
 <entry>REG_CODES</entry>
-<entry>Char(100)</entry>
+<entry>Char</entry>
 <entry>Regulatory Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>17</entry>
 <entry>CALC_METHOD</entry>
-<entry>Char(3)</entry>
+<entry>Char</entry>
 <entry>Emission Calculation Method Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -1755,7 +1734,7 @@ INVYEAR 1996
 <row>
 <entry>19</entry>
 <entry>DATE_UPDATED</entry>
-<entry>Char(8)</entry>
+<entry>Int</entry>
 <entry>Last time updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -1768,25 +1747,25 @@ INVYEAR 1996
 <entry>21</entry>
 <entry>JAN_VALUE</entry>
 <entry>Real</entry>
-<entry>Filled in only if data were provided for January in unit of short tons/month (required if SMKINVEN_MONTH is set to 1)</entry>
+<entry>Filled in only if data were provided for January in unit of short tons/month (required if <envar>SMKINVEN_MONTH</envar> is set to 1)</entry>
 </row>
 <row>
 <entry>...</entry>
 <entry>...</entry>
 <entry>...</entry>
 <entry>...</entry>
+</row>
+<row>
+<entry>32</entry>
+<entry>DEC_VALUE</entry>
+<entry>Real</entry>
+<entry>Filled in only if data were provided for December in unit of short tons/month (required if <envar>SMKINVEN_MONTH</envar> is set to 12)</entry>
 </row>
 <row>
 <entry>33</entry>
-<entry>DEC_VALUE</entry>
-<entry>Real</entry>
-<entry>Filled in only if data were provided for December in unit of short tons/month (required if SMKINVEN_MONTH is set to 1)</entry>
-</row>
-<row>
-<entry>34</entry>
 <entry>JAN_PCTRED</entry>
 <entry>Real</entry>
-<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of % (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>...</entry>
@@ -1795,13 +1774,13 @@ INVYEAR 1996
 <entry>...</entry>
 </row>
 <row>
-<entry>47</entry>
+<entry>44</entry>
 <entry>DEC_PCTRED</entry>
 <entry>Real</entry>
-<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for December in unit of % (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>48</entry>
+<entry>45</entry>
 <entry>COMMENT</entry>
 <entry>Char</entry>
 <entry>Optional; not currently used by SMOKE</entry>
@@ -2086,8 +2065,6 @@ INVYEAR 1996
 </table>
 
 </section>
-
-<para>Sample header records for nonroad sources:</para>
 
 <section>
 
@@ -3199,7 +3176,7 @@ INVYEAR 1996
 <row>
 <entry>12</entry>
 <entry>DATE_UPDATED</entry>
-<entry>Char(8)</entry>
+<entry>Int</entry>
 <entry>N</entry>
 <entry>Updated Date in fomrat of YYYYMMDD</entry>
 </row>
@@ -3371,9 +3348,7 @@ INVYEAR 1996
 
 <section>
 <title> FF10 Format</title>
-<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint data.</para>  
-<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.
-<para>For daily or hourly specific emissions, the user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT].</para> 
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header"/>. For daily or hourly specific emissions, the user specifies the data provided using this command in the header: FF10_DAILY_POINT.</para> 
 <para>Sample header records for daily point source data are shown below:</para>
 <programlisting>
 #FORMAT   FF10_DAILY_POINT
@@ -3382,7 +3357,149 @@ INVYEAR 1996
 #DESC     Point Daily Source Inventory 
 #DESC     FF10 Point Daily format</programlisting>
 
-The format for the FF10 daily specific data records is shown in <xref linkend="tbl_input_arday_FF10" />.</para>
+<table id="tbl_input_ptday_FF10">
+<title>FF10 Format for individual point day-specific data files</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>COUNTRY</entry>
+<entry>Char(2)</entry>
+<entry>2 character code: e.g., US  (required)</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>FIPS</entry>
+<entry>Int</entry>
+<entry>Five-digit FIPS code for state and county (required)</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>char(3)</entry>
+<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>4</entry>
+<entry>FACILITY_ID</entry>
+<entry>Char</entry>
+<entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>UNIT_ID</entry>
+<entry>Char</entry>
+<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+</row>
+<row>
+<entry>6</entry>
+<entry>REL_POINT_ID</entry>
+<entry></entry>
+<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+</row>
+<row>
+<entry>7</entry>
+<entry>PROCESS_ID</entry>
+<entry>Char(3)</entry>
+<entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+</row>
+<row>
+<entry>8</entry>
+<entry>SCC</entry>
+<entry>Char(10)</entry>
+<entry>SCC (required)</entry>
+</row>
+<row>
+<entry>9</entry>
+<entry>POLL</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant Code (required)</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>OP_TYPE_CD</entry>
+<entry>Char(20)</entry>
+<entry>Operating type code for startup/shutdown/upset (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>11</entry>
+<entry>CALC_METHOD</entry>
+<entry>Int</entry>
+<entry>CALC_METHOD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>12</entry>
+<entry>DATE_UPDATED</entry>
+<entry>Int</entry>
+<entry>Updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>13</entry>
+<entry>MONTH</entry>
+<entry>Int</entry>
+<entry>Month of inventory (required)</entry>
+</row>
+<row>
+<entry>14</entry>
+<entry>MONTHTOT</entry>
+<entry>Real</entry>
+<entry>Monthly Total (short tons/month) (required)</entry>
+</row>
+<row>
+<entry>15</entry>
+<entry>DAYVAL1</entry>
+<entry>Real</entry>
+<entry>Daily emissions for day 1 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>16</entry>
+<entry>DAYVAL2</entry>
+<entry>Real</entry>
+<entry>Daily emissions for day 2 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>17</entry>
+<entry>DAYVAL3</entry>
+<entry>Real</entry>
+<entry>Daily emissions for day 3 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry></entry>
+<entry>..</entry>
+<entry></entry>
+<entry>..</entry>
+</row>
+<row>
+<entry>45</entry>
+<entry>DAYVAL31</entry>
+<entry>Real</entry>
+<entry>Daily emissions for day 31 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>46</entry>
+<entry>COMMENT</entry>
+<entry>Char</entry>
+<entry>(optional)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
 </section>
 
 <section id="sect_input_ptday_fireemis">
@@ -3967,18 +4084,159 @@ The format for the FF10 daily specific data records is shown in <xref linkend="t
 
 <section>
 <title>FF10 hour-specific format</title>
-<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.</para>
-<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT].</para>
+<para>The user specifies the data provided using this command in the header: FF10_HOURLY_POINT.</para>
 
 Sample header records for hourly point sources are shown below:
-<programlisting>#FORMAT=FF10_HOURLY_POINT
-#COUNTRY  US  (if multiple countries, use comma separated list of 2 chr codes)
+<programlisting>
+#FORMAT=FF10_HOURLY_POINT
+#COUNTRY  US
 #YEAR     year of inventory, e.g. 2008 
 #DESC     Point Hourly Source Inventory
 #DESC     FF10 Point Hourly format</programlisting>
 
-<para>The format for the FF10 hour specific data records is shown in <xref linkend="tbl_input_arhour_FF10" />.</para>
+<table id="tbl_input_pthour_FF10">
+<title>FF10 Format for individual point hour-specific data files</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="70*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>COUNTRY</entry>
+<entry>Char(2)</entry>
+<entry>2 character code: e.g., US  (required)</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>FIPS</entry>
+<entry>Int</entry>
+<entry>Five-digit FIPS code for state and county (required)</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>TRIBAL_CODE</entry>
+<entry>char(3)</entry>
+<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>4</entry>
+<entry>FACILITY_ID</entry>
+<entry>Char</entry>
+<entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>UNIT_ID</entry>
+<entry>Char</entry>
+<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+</row>
+<row>
+<entry>6</entry>
+<entry>REL_POINT_ID</entry>
+<entry></entry>
+<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+</row>
+<row>
+<entry>7</entry>
+<entry>PROCESS_ID</entry>
+<entry>Char(3)</entry>
+<entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+</row>
+<row>
+<entry>8</entry>
+<entry>SCC</entry>
+<entry>Char(10)</entry>
+<entry>SCC (required)</entry>
+</row>
+<row>
+<entry>9</entry>
+<entry>POLL</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant Code (required)</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>OP_TYPE_CD</entry>
+<entry>Char(20)</entry>
+<entry>Operating type code for startup/shutdown/upset (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>11</entry>
+<entry>CALC_METHOD</entry>
+<entry>Int</entry>
+<entry>CALC_METHOD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>12</entry>
+<entry>DATE_UPDATED</entry>
+<entry>Int</entry>
+<entry>Updated date in format of YYYYMMDD (optional; not currently used by SMOKE)</entry>
+</row>
+<row>
+<entry>13</entry>
+<entry>DATE</entry>
+<entry>Int</entry>
+<entry>Date of inventory in format of YYYYMMDD (required)</entry>
+</row>
+<row>
+<entry>14</entry>
+<entry>DAYTOT</entry>
+<entry>Real</entry>
+<entry>Daily Total (short tons/month) (required)</entry>
+</row>
+<row>
+<entry>15</entry>
+<entry>HRVAL0</entry>
+<entry>Real</entry>
+<entry>Hourly emission for hour 0 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>16</entry>
+<entry>HRVAL1</entry>
+<entry>Real</entry>
+<entry>Hourly emission for hour 1 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>17</entry>
+<entry>HRVAL2</entry>
+<entry>Real</entry>
+<entry>Hourly emission for hour 2 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry></entry>
+<entry>..</entry>
+<entry></entry>
+<entry>..</entry>
+</row>
+<row>
+<entry>34</entry>
+<entry>HRVAL23</entry>
+<entry>Real</entry>
+<entry>Hourly emission for hour 23 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>35</entry>
+<entry>COMMENT</entry>
+<entry>Char</entry>
+<entry>(optional)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 
 </section>
 </section>
@@ -4391,18 +4649,15 @@ INVYEAR 1995
 
 <section>
 <title>FF10 Format</title>
-<para> The FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.</para>
-<para>The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</para>
+<para>The user specifies the data provided using this command in the header: FF10_POINT.</para>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.
 Sample header records for daily point sources are shown below:</para>
 <programlisting>
-#FORMAT   FF10_DAILY_POINT
+#FORMAT   FF10_POINT
 #COUNTRY  US
 #YEAR     2005
-#DESC     Point Daily Source Inventory
-#DESC     FF10 Point Daily format</programlisting>
-
-
+#DESC     Point Source Inventory
+#DESC     FF10 Point format</programlisting>
 
 <table id="tbl_input_ptinv_ff10">
 <title>FF10 Format for <envar>PTINV</envar></title>
@@ -4440,91 +4695,91 @@ Sample header records for daily point sources are shown below:</para>
 <entry>3</entry>
 <entry>TRIBAL CODE</entry>
 <entry>Char(3)</entry>
-<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+<entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>4</entry>
-<entry>EIS_FACILITY_ID</entry>
-<entry>Char(20)</entry>
-<entry>Primary static code from EIS (required)</entry>
+<entry>FACILITY_ID</entry>
+<entry>Char(15)</entry>
+<entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
 </row>
 <row>
 <entry>5</entry>
-<entry>EIS_UNIT_ID</entry>
-<entry>Char(20)</entry>
-<entry>Same as the emission unit ID in the NIF (required)</entry>
+<entry>UNIT_ID</entry>
+<entry>Char(15)</entry>
+<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
-<entry>EIS_REL_POINT_ID</entry>
-<entry>Char(20)</entry>
-<entry>Same as Emissions Release Point ID in the NIF (required)</entry>
+<entry>REL_POINT_ID</entry>
+<entry>Char(15)</entry>
+<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>7</entry>
-<entry>EIS_PROCESS_ID</entry>
-<entry>Char(20)</entry>
-<entry>DOE Plant ID, same as Process ID in the NIF (required)</entry>
+<entry>PROCESS_ID</entry>
+<entry>Char(15)</entry>
+<entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>AGY_FACILITY_ID</entry>
-<entry>Char(20)</entry>
+<entry>Char</entry>
 <entry>Facility ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>9</entry>
 <entry>AGY_UNIT_ID</entry>
-<entry>Char(20)</entry>
-<entry>Unit ID submitted by responsible agency (required)</entry>
+<entry>Char</entry>
+<entry>Unit ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>10</entry>
 <entry>AGY_REL_POINT_ID</entry>
-<entry>Char(20)</entry>
+<entry>Char</entry>
 <entry>Release Point ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>11</entry>
 <entry>AGY_PROCESS_ID</entry>
-<entry>Char(20)</entry>
+<entry>Char</entry>
 <entry>Process ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>12</entry>
 <entry>SCC</entry>
-<entry>Char(12)</entry>
+<entry>Char(10)</entry>
 <entry>Source Classification Code (required)</entry>
 </row>
 <row>
 <entry>13</entry>
 <entry>POLL</entry>
-<entry>Char(20)</entry>
+<entry>Char(16)</entry>
 <entry>Pollutant Code (required)</entry>
 </row>
 <row>
 <entry>14</entry>
 <entry>ANN_VALUE</entry>
 <entry>Real</entry>
-<entry>Annual Emissions (short tons/year) (required)</entry>
+<entry>Annual Emissions (short tons/year) (required if <envar>SMKINVEN_MONTH</envar> is set to 0)</entry>
 </row>
 <row>
 <entry>15</entry>
 <entry>ANN_PCT_RED</entry>
 <entry>Real</entry>
-<entry>Percent reduction to this source (annual basis) (required)</entry>
+<entry>Percentage Control Measure Reduction Efficiency (optional)</entry>
 </row>
 <row>
 <entry>16</entry>
 <entry>FACILITY_NAME</entry>
-<entry>Char(80)</entry>
+<entry>Char(40)</entry>
 <entry>Plant Name (40 characters maximum) (required)</entry>
 </row>
 <row>
 <entry>17</entry>
 <entry>ERPTYPE</entry>
 <entry>Char(2)</entry>
-<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (required)</entry>
+<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>18</entry>
@@ -4542,13 +4797,13 @@ Sample header records for daily point sources are shown below:</para>
 <entry>20</entry>
 <entry>STKTEMP</entry>
 <entry>Real</entry>
-<entry>Stack Gas Exit Temperature (Â°F (required))</entry>
+<entry>Stack Gas Exit Temperature (°F) (required)</entry>
 </row>
 <row>
 <entry>21</entry>
 <entry>STKFLOW</entry>
 <entry>Real</entry>
-<entry>Stack Gas Flow Rate (ft3/sec) (required)</entry>
+<entry>Stack Gas Flow Rate (ft3/sec)  (optional; automatically calculated by <command>Smkinven</command> from velocity and diameter if not given in file)</entry>
 </row>
 <row>
 <entry>22</entry>
@@ -4560,19 +4815,19 @@ Sample header records for daily point sources are shown below:</para>
 <entry>23</entry>
 <entry>NAICS</entry>
 <entry>Char(6)</entry>
-<entry>North American Industrial Classification System Code (required)</entry>
+<entry>North American Industrial Classification System Code (optional)</entry>
 </row>
 <row>
 <entry>24</entry>
 <entry>LONGITUDE</entry>
 <entry>Real</entry>
-<entry>X location, If CTYPE = U, Easting value (meters); If CTYPE = L, Longitude (decimal degrees) (required)</entry>
+<entry>Longitude (decimal degrees) (required)</entry>
 </row>
 <row>
 <entry>25</entry>
 <entry>LATITUDE</entry>
 <entry>Real</entry>
-<entry>Y location (required), If CTYPE = U, Northing value (meters), If CTYPE = L, Latitude (decimal degrees) (required)</entry>
+<entry>Latitude (decimal degrees) (required)</entry>
 </row>
 <row>
 <entry>26</entry>
@@ -4584,7 +4839,7 @@ Sample header records for daily point sources are shown below:</para>
 <entry>27</entry>
 <entry>HORIZ_COLL_MTHD</entry>
 <entry>Char</entry>
-<entry>flag indicating how NEI defaulted locations (optional; not currently used by SMOKE)</entry>
+<entry>Flag indicating how NEI defaulted locations (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>28</entry>
@@ -4595,61 +4850,61 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>29</entry>
 <entry>DESIGN_CAPACITY_UNITS</entry>
-<entry>Char(20)</entry>
+<entry>Char</entry>
 <entry>Unit Design Capacity Units (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>30</entry>
 <entry>REG_CODES</entry>
-<entry>Char(100)</entry>
+<entry>Char</entry>
 <entry>Regulatory Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>31</entry>
 <entry>FAC_SOURCE_TYPE</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>Facility source type (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>32</entry>
 <entry>UNIT_TYPE_CODE</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>Unit type code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>33</entry>
 <entry>CONTROL_IDS</entry>
-<entry>Char(100)</entry>
+<entry>Char</entry>
 <entry>Control Measure Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>34</entry>
 <entry>CONTROL_MEASURES</entry>
-<entry>Char(100)</entry>
-<entry>Leave blank.  Used by CoST</entry>
+<entry>Char</entry>
+<entry>Control Measure Values (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>35</entry>
 <entry>CURRENT_COST</entry>
 <entry>Real</entry>
-<entry>Leave blank.  Used by CoST</entry>
+<entry>Control Cost (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>36</entry>
 <entry>CUMULATIVE_COST</entry>
 <entry>Real</entry>
-<entry>Leave blank.  Used by CoST</entry>
+<entry>Cumulative Cost (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>37</entry>
 <entry>PROJECTION_FACTOR</entry>
 <entry>Real</entry>
-<entry>Leave blank.  Used by CoST</entry>
+<entry>Projection factor (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>38</entry>
 <entry>SUBMITTER_FAC_ID</entry>
-<entry>Char(20)</entry>
+<entry>Char</entry>
 <entry>Primary Facility ID (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -4667,26 +4922,26 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>41</entry>
 <entry>FACIL_CATEGORY_CODE</entry>
-<entry>Char(10)</entry>
+<entry>Char</entry>
 <entry>Facility Site Identifier (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>42</entry>
 <entry>ORIS_FACILITY_CODE</entry>
 <entry>Char</entry>
-<entry>Stack Gas Exit Velocity (ft/sec) (optional; not currently used by SMOKE)</entry>
+<entry>DOE Plant ID (generally recommended, and required if matching to hour-specific CEM data)</entry>
 </row>
 <row>
 <entry>43</entry>
 <entry>ORIS_BOILER_ID</entry>
 <entry>Char</entry>
-<entry>ORIS Boiler ID (optional; not currently used by SMOKE)</entry>
+<entry>Boiler Identification Code (recommended)</entry>
 </row>
 <row>
 <entry>44</entry>
 <entry>IPM_YN</entry>
 <entry>Char</entry>
-<entry>Y if point source belongs to IPM Sector</entry>
+<entry>Y if point source belongs to IPM Sector (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>45</entry>
@@ -4727,20 +4982,20 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>51</entry>
 <entry>ZIPCODE</entry>
-<entry>Real</entry>
+<entry>Int</entry>
 <entry>Location Address Postal Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>52</entry>
 <entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
-<entry>Real</entry>
+<entry>Int</entry>
 <entry>Annual Average Hours of Operation per Year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>53</entry>
 <entry>JAN_VALUE</entry>
 <entry>Real</entry>
-<entry>TotalEmissions for ReportingPeriodTypeCode=JAN (required)</entry>
+<entry>Filled in only if data were provided for January in unit of short tons/month (required if <envar>SMKINVEN_MONTH</envar> is set to 1)</entry>
 </row>
 
 <row>
@@ -4750,16 +5005,16 @@ Sample header records for daily point sources are shown below:</para>
 <entry>...</entry>
 </row>
 <row>
-<entry>66</entry>
+<entry>64</entry>
 <entry>DEC_VALUE</entry>
 <entry>Real</entry>
-<entry>Filled in only if data were provided for December in unit of short tons/month</entry>
+<entry>Filled in only if data were provided for December in unit of short tons/month (required if <envar>SMKINVEN_MONTH</envar> is set to 12)</entry>
 </row>
 <row>
-<entry>67</entry>
+<entry>65</entry>
 <entry>JAN_PCTRED</entry>
 <entry>Real</entry>
-<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of % (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>...</entry>
@@ -4768,11 +5023,18 @@ Sample header records for daily point sources are shown below:</para>
 <entry>...</entry>
 </row>
 <row>
-<entry>80</entry>
+<entry>76</entry>
 <entry>DEC_PCTRED</entry>
 <entry>Real</entry>
-<entry>Month-specific percent reduction. Filled in only if data were provided for January in unit of %; not currently used by SMOKE</entry>
+<entry>Month-specific percent reduction. Filled in only if data were provided for December in unit of % (optional; not currently used by SMOKE)</entry>
 </row>
+<row>
+<entry>77</entry>
+<entry>COMMENT</entry>
+<entry>Char</entry>
+<entry>Optional; not currently used by SMOKE</entry>
+</row>
+
 </tbody>
 </tgroup>
 </table>
@@ -5172,7 +5434,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <para>The ORL format is list-directed and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
 
-<programlisting>#ORL
+<programlisting>#ORL POINT
 #TYPE     Point Source Toxics Inventory
 #COUNTRY  US
 #YEAR     1999
@@ -10074,9 +10336,9 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <title><envar>CFPRO</envar> file</title>
 
 <programlisting>
+13101,2201000330,CO,EXH,7,0.5
 13101,2201000330,TOG,EXH,7,0.5
 13102,2201000330,TOG,EVP,7,0.5
-13103,2201000330,BRK,PM25,7,0.25
 </programlisting>
 </example>
 

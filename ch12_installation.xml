@@ -238,7 +238,7 @@
 </comment>
 
 <listitem>
-<para>Download the I/O API library version 3.0 from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink> and compile with <filename>Makeinclude.Linux2_x86_64pg</filename>. The I/O API can be installed in <filename><envar>$SMK_HOME</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the <filename><envar>$SMK_HOME</envar>/subsys/ioapi/Linux2_x86_64pg/</filename> directory.</para>
+<para>Download the I/O API library from the <ulink url="http://www.baronams.com/products/ioapi/">I/O API home page</ulink> and compile with <filename>Makeinclude.Linux2_x86_64pg</filename>. The I/O API can be installed in <filename><envar>$SMK_HOME</envar>/subsys/ioapi</filename> or you can place symbolic links to the <filename>libioapi.a</filename> library file and <filename>datshift</filename> utility program in the <filename><envar>$SMK_HOME</envar>/subsys/ioapi/Linux2_x86_64pg/</filename> directory.</para>
 </listitem>
 <listitem>
 <para>Create the directory <filename><envar>$SMK_HOME</envar>/subsys/ioapi_includes/</filename> and then copy the <filename>*.EXT</filename> files from the <filename>fixed_src</filename> directory of your I/O API installation to this new directory.</para>
@@ -250,7 +250,7 @@
 <para>Note: If there are any error messages during compilation regarding <filename>CONST3.EXT</filename>, go to the <filename>fixed_src</filename> directory, edit <filename>CONST3.EXT</filename> and delete the second <command>&amp;</command> at the end of line 42.</para>
 </listitem>
 <listitem>
-<para>Collect or create the NetCDF library version 3.6.1 for your platform and create a symbolic link to the <filename>libnetcdf.a</filename> library file in the <filename><envar>$SMK_HOME</envar>/subsys/netcdf/<envar>$SMOKE_EXE</envar>/</filename> directory.</para>
+<para>Collect or create the NetCDF library for your platform and create a symbolic link to the <filename>libnetcdf.a</filename> library file in the <filename><envar>$SMK_HOME</envar>/subsys/netcdf/<envar>$SMOKE_EXE</envar>/</filename> directory.</para>
 </listitem>
 <listitem>
 <para>If needed, update the files</para>

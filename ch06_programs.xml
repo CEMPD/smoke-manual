@@ -57,6 +57,7 @@
 
 <para><link linkend="sect_programs_mrggrid"><command>Mrggrid</command></link> is used to combine gridded emission data files, which can be speciated or non-speciated, and hourly or time-independent. It can combine a 3-D point source file with any number of 2-D files from other source categories. This program is optional and provides a convenient way to merge model-ready output files outside of <command>Smkmerge</command>.</para>
 
+<para><link linkend="sect_programs_mrgpt"><command>Mrgpt</command></link> is used to combine multiple point sources inline-mode hourly speciated emission data and ASCII elevated files created by <command>Smkmerge</command>. This program is optional and allows the users to process multiple point sources separately in inline mode through <command>Smkmerge</command> prior to merging them for CMAQ model.</para>
 
 </section>
 
@@ -2372,16 +2373,6 @@ S<subscript>fraction</subscript> = smoldering fration
 <para><envar>ENDTIME</envar>: [default: 230000]</para>
 </listitem>
 <listitem>
-<para><envar>AVERAGING_METHOD</envar>: [default: DAILY]</para>
-<para>Defines averaging method to create inventory county-specific averaged RH and min/max temperatures for MOVES RatePerProfile (RPP) processing</para>
-<itemizedlist>
-<listitem>
-<para>DAILY  : Daily averaged RH and min/max temperatures for each inventory county within the user-specified modeling episode</para>
-<para>MONTHLY: Monthly average RH and min/max temperatures for each invenotry county within the user-specified modeling episode</para>
-</listitem>
-</itemizedlist>
-</listitem>
-<listitem>
 <para><envar>PD_TEMP_INCREMENT</envar>: [default: 5]</para>
 <para>Defines the temperature increment (in deg. F) for RPD lookup table to create combinations of min/max temperature bins</para>
 </listitem>
@@ -2394,12 +2385,12 @@ S<subscript>fraction</subscript> = smoldering fration
 <para>Defines the temperature increment (in deg. F) for RPP lookup table to create combinations of min/max temperature bins</para>
 </listitem>
 <listitem>
-<para><envar>RH_STR_HOUR</envar>: [default: 60000]</para>
-<para>Defines the start hour in local time for average RH over the user-speciied modeling episode</para>
+<para><envar>MIN_NO_RH_BY_TEMPBIN</envar>: [default: 1]</para>
+<para>Defines the minimum number of data point for computing averaged RH by tempearature bin</para>
 </listitem>
 <listitem>
-<para><envar>RH_END_HOUR</envar>: [default: 180000]</para>
-<para>Defines the end hour in local time for average RH over the user-speciied modeling episode</para>
+<para><envar>SPECIFIC_HUMIDITY_YN</envar>: [default: N]</para>
+<para>Defines whether compute specific humidity instead of relative humidity</para> 
 </listitem>
 <listitem>
 <para><envar>SRG_LIST</envar>: [default: N]</para>
@@ -2444,6 +2435,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry><link linkend="sect_intmed_moves_output">MOVES_OUTFILE</link></entry>
 <entry>ASCII </entry>
 <entry>Contains the absolute minimum and maximum temperatures and average RH values and the 24 hour temperature profiles associated with each reference county (example filename: MOVES_12km_2009091-2009120.txt)</entry>
+</row>
+<row>
+<entry><link linkend="sect_intmed_moves_rh_output">MOVES_RH_OUTFILE</link></entry>
+<entry>ASCII </entry>
+<entry>Contains the reference county-specific average RH, minimum and maximum temperature by temperature bin and by fuel month.</entry> 
 </row>
 <row>
 <entry><link linkend="sect_intmed_smoke_output">SMOKE_OUTFILE</link></entry>
@@ -3141,6 +3137,183 @@ PGTS_L, PAR, t3</programlisting></entry>
 
 </section>
 
+
+<section id="sect_programs_mrgpt">
+
+<title><command>Mrgpt</command></title>
+
+<section>
+
+<title>Description</title>
+
+<para><emphasis>Processing categories:</emphasis> Point</para>
+
+<para>The purpose of the <command>Mrgpt</command> program is to combine inline-mode model-ready multiple point speciated hourly emission data files (not gridded) created by <command>Smkmerge</command> and ASCII elevated files created by <command>Elevpoint</command>. The program merges whatever data variables are in the input files. These files can each have different sets of data variables; <command>Mrgpt</command> will sum values only for each variable that is common to two or more files.</para>
+
+<para><command>Mrgpt</command> checks several features of the input files to ensure that the data in these files are appropriate to be merged together. All input files must have use the same time step. <command>Mrgpt</command> compares the units of the variables with the same name and it creates an error message when the units are not identical. It is not sufficient to have units that are the same in meaning but different in syntax. For example, although tons/hour and tons/hr represent the same units, <command>Mrggrid</command> will not recognize this because of the different syntax. The user must resolve unit discrepancies before running the program.</para>
+
+</section>
+
+<section>
+
+<title>Processing Order</title>
+
+<para><command>Mrgpt</command> can be used with any hourly speciated emissions from <command>Smkmerge</command> and any ASCII elevated output files from <command>Elevpoint</command>.</para>
+
+<para>Output files from <command>Mrgpt</command> are inline-model model-ready input files that will be used in running an AQM.</para>
+
+</section>
+
+<section>
+
+<title>Files and Environment Variables</title>
+
+<figure id="fig_programs_mrgpt">
+<title><command>Mrgpt</command> input and output files</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/mrgpt_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/mrgpt_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_mrgpt" /> shows the input and output files for the <command>Mrgpt</command> program. The input files are a list of the logical file names for the speciated hourly emissions files  from <command>Smkmerge</command> to be merged (<envar>FILELIST_INLN</envar>) and a list of the logical file names for the ASCII elevated output files from <command>Elevpoint</command> to be merged (<envar>FILELIST_STACK</envar>). The program outputs a log file (<envar>LOGFILE</envar>), a merged specated hourly emissions file (<envar>OUTFILE_INLN</envar>), a merged ASCII elevated output file (<envar>OUTFILE_STACK</envar>), and if merging different days, a report file (<envar>REPMRGGRID</envar>).</para>
+
+<section>
+
+<title>Input Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>FILELIST_INLN</envar></entry>
+<entry>ASCII</entry>
+<entry>List of <emphasis>logical</emphasis> file name for hourly speciated I/O API NetCDF files; this file cannot contain the full paths and file names. Users should make sure that the logical file names that appear in <envar>FILELIST_INLN</envar> are defined prior to running <command>Mrgpt</command>.</entry>
+</row>
+<row>
+<entry><envar>FILELIST_STACK</envar></entry>
+<entry>ASCII</entry>
+<entry>List of <emphasis>logical</emphasis> file name for ASCII elevated output files; this file cannot contain the full paths and file names. Users should make sure that the logical file names that appear in <envar>FILELIST_STACK</envar> are defined prior to running <command>Mrgpt</command>.</entry>
+</row>
+
+<row>
+<entry><envar>ADJ_FACS</envar><para>(optional)</para></entry>
+<entry>ASCII</entry>
+<entry><para>File that lists the species name, the logical file name, and the factor to be applied to all grid cells. The species name must be in columns A, the logical file name in column B, and the factor in columns C. SMOKE will ignore the case of the text, treating lower- and uppercase characters as if they were the same. For example, the following <envar>ADJ_FACS</envar> file sample would multiply NO emissions from the PTIPMTS_L_INLN file by 1.3 (30% increase) and multiply PAR from the PTNONIPMTS_L_INLN file by 0.6 (40% decrease).</para>
+<programlisting>NO, PTNONIPMTS_L_INLN, 1.3
+PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
+</row>
+
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+<section>
+
+<title>Input Environment Variables</title>
+
+<itemizedlist>
+<listitem>
+<para><envar>MRG_DIFF_DAYS</envar>: [default: N]</para>
+<para>This environment variable allows <command>Mrgpt</command> to merge files with data from different days.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Allow data from different dates to be merged together</para>
+<para><command>Mrgpt</command> will use the environment variables <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, <envar>G_RUNLEN</envar>, and <envar>G_TSTEP</envar> to set the start date, start time, length, and time step of the output file. All input files must have the same starting time as <envar>G_STTIME</envar>, the same time step as <envar>G_TSTEP</envar>, and must contain more than <envar>G_RUNLEN</envar> steps of data. For each input file, if it contains data to cover the actual episode requested by <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar>, then the data for the actual episode will be used; otherwise, data starting at the first time step of the file will be used.</para>
+</listitem>
+<listitem>
+<para>N: Require all merged data to be from the same date</para>
+<para><command>Mrgpt</command> will determine the output file time period based on the latest starting input file and the earliest ending input file.</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
+<title>Output Files</title>
+
+<informaltable>
+<tgroup cols="3">
+<colspec colwidth="20*" />
+<colspec colwidth="18*" />
+<colspec colwidth="62*" />
+
+<thead>
+<row>
+<entry>File Name</entry>
+<entry>Format</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry><envar>LOGFILE</envar></entry>
+<entry>ASCII</entry>
+<entry>Log generated from executing <command>Mrgpt</command></entry>
+</row>
+<row>
+<entry><envar>OUTFILE_INLN</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Merged inline-mode hourly speciated emission file</entry>
+</row>
+<row>
+<entry><envar>OUTFILE_STACK</envar></entry>
+<entry>ASCII</entry>
+<entry>Merged inline-mode ASCII point elevated file</entry>
+</row>
+<row>
+<entry><envar>REPMRGGRID</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file generated when <envar>MRG_DIFF_DAYS</envar> is set to Y; the report lists the date and time for each output time step along with the actual date and time of the data read from each file</entry>
+</row>
+<row>
+<entry><envar>REPMERG_ADJ</envar></entry>
+<entry>ASCII</entry>
+<entry>Report file generated when <envar>ADJ_FACS</envar> is set; the report lists the date, the logical file name, the species name, the factor applied, a daily total of species before and after applying adjustment factor, and the ratio (after/ratio). The report only lists when the ratio is not equal to 1.0 </entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+
+</section>
+
+</section>
+
+<!--
+<section>
+
+<title>Earlier Versions</title>
+
+<para><command>Mrggrid</command> was first released with SMOKE v1.3.</para>
+
+</section>
+-->
+
+</section>
+
 <section id="sect_programs_normbeis3">
 
 <title><command>Normbeis3</command></title>
@@ -3791,7 +3964,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <para>FF10 (Flat File 10) format for many different source categories including day-specific, hour-specific, monthly and annual for nonpoint, nonroad mobile, on-road mobile, and point sources (comma or semicolon delimited) </para>
 </listitem>
 <listitem>
-<para>ASCII Continuous Emissions Monitoring (CEM) format (hour-specific point-source emissions); must be used with IDA inventory files for annual or seasonal inventory data.</para>
+<para>ASCII Continuous Emissions Monitoring (CEM) format (hour-specific point-source emissions)</para>
 </listitem>
 <listitem>
 <para>List format (for combining multiple files of the same or compatible formats) for area, mobile, and point</para>
@@ -4200,7 +4373,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <listitem>
 <para><envar>NONHAP_TYPE</envar>: [default: VOC]</para>
-<para>Define the name of organice compound inventory pollutant VOC or TOG for a proper integration between VOC or TOG, and hazardous air pollutants (HAPs) to compute NONHAPVOC or NONHAPTOG. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_NHAPEXCLUDE_YN</envar> or <envar>SMK_PROCESS_HAPS</envar> is set. </para>
+<para>Define the name of organice compound inventory pollutant VOC or TOG for a proper integration between VOC or TOG, and hazardous air pollutants (HAPs) to compute NONHAPVOC or NONHAPTOG. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_PROCESS_HAPS</envar> is set. </para>
 </listitem>
 
 <listitem>
@@ -4269,22 +4442,8 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </listitem>
 
 <listitem>
-<para><envar>SMK_NHAPEXCLUDE_YN</envar>: [default: N]</para>
-<para>For SMOKE version 2.6 and higher, this environment variable is replaced by <envar>SMK_PROCESS_HAPS</envar> to provide more options to <command>Smkinven</command> to include/exclude sources for NONHAP[VOC|TOG] calculations. Once <envar>SMK_PROCESS_HAPS</envar> is set, <envar>SMK_NHAPEXCLUDE_YN</envar> gets deactivated.</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Read <envar>NHAPEXCLUDE</envar> cross-reference file and do include or exclude the specified sources from the NONHAP[VOC|TOG] calculation depending on a header of the <envar>NHAPEXCLUDE</envar> file. See <xref linkend="sect_input_nhapexclude" />. The purpose of this operation is described in <xref linkend="sect_concepts_toxics_cb4_no_integrate" /></para>
-</listitem>
-<listitem>
-<para>N: Integrate all sources if a toxics inventory has been provided. This will lead double counting toxics. Does not require an <envar>NHAPEXCLUDE</envar> file</para>
-</listitem>
-</itemizedlist>
-</listitem>
-
-<listitem>
 <para><envar>SMK_PROCESS_HAPS</envar>: [default: blank]</para>
-<para>Defines how to treat sources for combining criteria VOC and hazardous air pollutants (HAP) together. See <xref linkend="sect_concepts_combine_toxics" /> for more detail. Once it is set, it will override the setting of <envar>SMK_NHAPEXCLUDE_YN</envar>.</para>
+<para>Defines how to treat sources for combining criteria VOC and hazardous air pollutants (HAP) together. See <xref linkend="sect_concepts_combine_toxics" /> for more detail. </para>
 <itemizedlist>
 <listitem>
 <para>ALL: Treate all sources as integrated if a toxics inventory has been provided. Does not require an <envar>NHAPEXCLUDE</envar> file</para>

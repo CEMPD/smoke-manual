@@ -672,7 +672,8 @@ localhost
 <para>Cross-tab pollutantID to reduce output table size</para>
 <para>Each of the three MOVES lookup tables contains a pollutantID field, and associated emission rates for each are listed in the ratePerDistance field or ratePerVehicle filed (depending on lookup table).  This table structure repeats the leftmost fields (e.g., MOVESRunID, yearID, monthID) for each pollutantID, which greatly increases the total number of rows.  The cross-tabbing postprocessing step replaces the column for 'ratePerDistance' (or 'ratePerVehicle', 'ratePerProfile') with additional pollutant-specific columns containing values of emission rates. For example, new field headings would include 'CO_ratePerDistance', 'NO<subscript>X</subscript>_ratePerDistance', 'BENZENE_ratePerDistance', etc. Performing this cross-tab on the pollutant emission rates significantly reduces the size of the tables for use by SMOKE.</para>
 </listitem>
-<listitem>
+
+<comment><listitem>
 <para>Estimate HONO based on NO and NO2 from MOVES using equations developed by U.S. EPA</para>
 <itemizedlist>
 <listitem>
@@ -682,7 +683,8 @@ localhost
 <para>NO2  = 0.992*NO2 - 0.008*NO</para>
 </listitem>
 </itemizedlist>
-</listitem>
+</listitem></comment>
+
 <listitem>
 <para>Augment the MOVES speciated PM emission factors to reflect the PM species needed for SMOKE modeling</para>
 <para>The following information developed by U.S. EPA to speciate the partially speciated PM2.5 exhaust emissions from MOVES2010. The advantage of using this approach over the approach used for speciating total PM2.5 is that it allows the speciated emissions from MOVES; i.e., elemental carbon and particulate sulfate to be retained and only the remainder of the PM2.5 to rely on speciation profiles.</para>
@@ -2024,8 +2026,8 @@ Use an optional ' OutputPath' flag to override the output path specified in Inpu
 
 <title>Description</title>
 
-<para>The <command>Gentpro</command> program estimates emissions temporal profiles for residential wood combustion (RWC), agricultural ammonia (AGNH3), or generic area sources by relating meteorology to air emission fluxes. <command>Gentpro</command> reads in hourly gridded meteorology data from the Meteorology-Chemistry Interface Processor (MCIP) and a gridded spatial surrogate (commonly used in SMOKE) to produce temporal profiles and cross-reference data in a comma separated value (CSV) format and/or a temporal data binary netCDF file. Annual MCIP input data are required to calculate temporal profiles with <command>Gentpro</command>. Spatial surrogate(s) are used to identify the grid cells for computing county averaged meteorology variables.</para>
-<para><command>Gentpro</command> provides an option to specify a profile method [<envar>PROFILE_METHOD</envar>], which can be set to generate RWC, AGHNH3, or generic meteorology-based temporal profiles. the RWC and AGNH3 temporal profiles are based on algorithms described by Adelman (2009 and 2010) and Mansell et al. (2000), respectively, while the MET profiles can ben generated from any user-selected meteorology variable. The RWC profile method produces county-specific daily temporal profiles to convert annual or monthly inventories to daily emissions estimates. Diurnal profiles must then be applied to estimate hourly RWC emissions from the daily estimates. <command>Gentpro</command> provides the option to aggregate the daily RWC profiles to month-of-year profiles as well, which can be used to compute monthly inventory estimates from annual inventory data. The AGNH3 profile method produces county-specific hourly temporal profiles to convert annual, monthly, or daily inventories to hourly emissions estimates. <command>Gentpro</command> provides the option to aggregate the hourly profiles to day-of-year or month-of-year profiles as well. The MET profile method represents time series of a selected meteorology variable as a temporal profile and can be used to convert annual, monthly, or daily inventories to hourly emissions estimates. Similar to the AGNH3 profile method, <command>Gentpro</command> provides the option to aggregate the hourly MET profiles to day-of-year or month-of-year profiles. All of the <command>Gentpro</command> profile options create temporal cross-reference files that associate county FIPS codes in a modeling domain to the new profiles.</para>   
+<para>The <command>Gentpro</command> program estimates emissions temporal profiles for residential wood combustion (RWC), agricultural ammonia (RC_NH3), livestock ammonia (BASH_NH3) or generic area sources by relating meteorology to air emission fluxes. <command>Gentpro</command> reads in hourly gridded meteorology data from the Meteorology-Chemistry Interface Processor (MCIP) and a gridded spatial surrogate (commonly used in SMOKE) to produce temporal profiles and cross-reference data in a comma separated value (CSV) format and/or a temporal data binary netCDF file. Annual MCIP input data are required to calculate temporal profiles with <command>Gentpro</command>. Spatial surrogate(s) are used to identify the grid cells for computing county averaged meteorology variables.</para>
+<para><command>Gentpro</command> provides an option to specify a profile method [<envar>PROFILE_METHOD</envar>], which can be set to generate RWC, BASH_NH3, RC_HNH3, or generic meteorology-based temporal profiles. the RWC, BASH_NH3 and RC_NH3 temporal profiles are based on algorithms described by Adelman (2009 and 2010), Mansell et al. (2000), and Bash et al. (2012) respectively, while the MET profiles can ben generated from any user-selected meteorology variable. The RWC profile method produces county-specific daily temporal profiles to convert annual or monthly inventories to daily emissions estimates. Diurnal profiles must then be applied to estimate hourly RWC emissions from the daily estimates. <command>Gentpro</command> provides the option to aggregate the daily RWC profiles to month-of-year profiles as well, which can be used to compute monthly inventory estimates from annual inventory data. The BASH_NH3 and RC_NH3 profile methods produce county-specific hourly temporal profiles to convert annual, monthly, or daily inventories to hourly emissions estimates. <command>Gentpro</command> provides the option to aggregate the hourly profiles to day-of-year or month-of-year profiles as well. The MET profile method represents time series of a selected meteorology variable as a temporal profile and can be used to convert annual, monthly, or daily inventories to hourly emissions estimates. <command>Gentpro</command> also provides the option to aggregate the hourly MET profiles to day-of-year or month-of-year profiles. All of the <command>Gentpro</command> profile options create temporal cross-reference files that associate county FIPS codes in a modeling domain to the new profiles.</para>   
 
 
 <para><command>[1] RWC</command></para>
@@ -2077,8 +2079,7 @@ Note: T<subscript><emphasis>i,m</emphasis></subscript> can be replaced by monthl
 
 <para><command>[2] NH3</command></para>
 <para>Russell and Cass (1986) developed a theoretical equation based on investigations of NH3 emissions from animal waste decomposition conducted by Muck and Steenhuis (1982) to predict diurnal NH3 emission variations as a function of daily meteorology. The Russell and Cass equation listed below is adapted for this application to use county average meteorology and implemented in <command>Gentpro</command> to estimate hourly emissions from county annual, monthly, or daily agricultural livestock NH<subscript>3</subscript> inventories.</para>
-<para>The bracketed portion of the Equation is implemented <command>Gentpro</command> to estimate hourly temporal allocation factors, which are output as temporal profiles to convert annual, monthly, or daily livestock ammonia inventories to hourly emissions for every county in the modeling domain. <command>Gentpro</command> can output hour-of-month and hour-of-year temporal profiles that can be input to the <command>Temporal</command>. The recommended application of the AGNH3 profiles is to convert monthly inventories to hourly emissions.</para>
-<para>Recommended spatial surrogates for computing the county-average meteorology for the AGNH3 profile algorithm include land area, agricultural land, and rural land area.</para>
+<para>The bracketed portion of the Equation is implemented <command>Gentpro</command> to estimate hourly temporal allocation factors, which are output as temporal profiles to convert annual, monthly, or daily livestock ammonia inventories to hourly emissions for every county in the modeling domain. <command>Gentpro</command> can output hour-of-month and hour-of-year temporal profiles that can be input to the <command>Temporal</command>. The recommended application of the BASH_NH3 and RC_NH3 profile methods are to convert monthly agricultural ammonia inventories to hourly emissions.</para>
 
 <orderedlist>
 <listitem>
@@ -2226,11 +2227,20 @@ m<subscript><emphasis>i,h</emphasis></subscript> = Meteorology variable in count
 
 <title>Input Environment Variables</title>
 <itemizedlist>
+<listitem>
+<para><envar>AERO_RESISTANCE_VAR</envar>: [default: blank]</para>
+<para>Define the aerodynamic resistance variable name for Bash's algorithm for livestock ammonia sources</para>
+</listitem>
 
 <listitem>
-<para><envar>CONSTANT</envar>: [default: 0.0]</para>
+<para><envar>SLOPE</envar>: [default: 0.79]</para>
+<para>Define the value of the slope of RWC equation</para>
+</listitem>
+<listitem>
+<para><envar>CONSTANT</envar>: [default: 42.12]</para>
 <para>Define the value of constant of RWC equation</para>
 </listitem>
+
 
 <listitem>
 <para><envar>ENDDATE</envar>: [default: 0]</para>
@@ -2245,7 +2255,10 @@ m<subscript><emphasis>i,h</emphasis></subscript> = Meteorology variable in count
 RWC: use the Adelman's regression equation to calculate temporal profiles for residential wood combustion (RWC) sources
 </listitem>
 <listitem>
-AGNH3: use the Russell and Cass algorithm to calculate temporal hourly profiles for agricultural ammonia sources
+BASH_NH3: use the Bash's algorithm to calculate temporal profiles for livestock ammonia sources
+</listitem>
+<listitem>
+RC_NH3: use the Russell and Cass algorithm to calculate temporal hourly profiles for agricultural ammonia sources
 </listitem>
 <listitem>
 MET: use the time series of the selected meteorology variable to calculate temporal profiles
@@ -2267,8 +2280,8 @@ N: do not use the county-specific minimum temperature for RWC equations.
 </listitem>
 
 <listitem>
-<para><envar>RWC_EQ_ALT_YN</envar>: [default: N]</para>
-<para>Allows the user to choose the Alternative RWC equation listed above to avoid negative RWC emissions.</para>
+<para><envar>RWC_EQ_ALT_YN</envar>: [default: Y]</para>
+<para>Allows the user to choose the alternative RWC equation listed above to avoid negative RWC emissions.</para>
 <itemizedlist>
 <listitem>
 Y: use the alternative RWC equation to compute RWC emissions.
@@ -2282,11 +2295,6 @@ N: use the original RWC equations to compute RWC emissions.
 <listitem>
 <para><envar>SCC_LIST</envar>: [default: blank]</para>
 <para>Defines a comma-separated list of SCCs that will use the temporal profiles generated by <command>Gentpro</command>, example: setenv SCC_LIST "2104008000,2104008001,2104008002"</para>
-</listitem>
-
-<listitem>
-<para><envar>SLOPE</envar>: [default: 0.0]</para>
-<para>Define the value of the slope of RWC equation</para>
 </listitem>
 
 <listitem>
@@ -2332,7 +2340,7 @@ HOURLY: generate hour of year temporal profiles
 Not applicable when PROF_METHOD = RWC
 </listitem>
 <listitem>
-Only applicable when PROF_METHOD = AGNH3
+Only applicable when PROF_METHOD = RC_NH3
 </listitem>
 </itemizedlist>
 </listitem>
@@ -2361,7 +2369,7 @@ If TPRO_OUTPUT = DAILY, day-of-year profiles will be generated by <command>Gentp
 If TPRO_OUTPUT = MONTH, month-of-year profiles will be generated by <command>Gentpro</command> and both weekly and diurnal profiles will be needed to estimate hourly emissions.  In this case, the weekly and diurnal profile IDs for the applicable FIPS/SCC combinations in TREF_IN will be written to the temporal cross-reference file output by <command>Gentpro</command>.
 </listitem>
 <listitem>
-If PROFILE_METHOD = AGNH3, hour-of-year profiles will be generated by <command>Gentpro</command> to estimate hourly emissions using monthly inventory
+If PROFILE_METHOD = BASH_NH3 or RC_NH3, hour-of-year profiles will be generated by <command>Gentpro</command> to estimate hourly emissions using monthly inventory
 </listitem>
 <listitem>
 If PROFILE_METHOD=MET and TPRO_OUTPUT=HOURLY[ALL], hour-of-year (HR_YEAR), hour-of-month (HR_MON) and hour-of-day (HR_DAY) temporal profiles will be output to netCDF TPRO_HOUR by <command>Gentpro</command>
@@ -2371,7 +2379,7 @@ If PROFILE_METHOD=MET and TPRO_OUTPUT=HOURLY[ALL], hour-of-year (HR_YEAR), hour-
 
 <listitem>
 <para><envar>WSPEED_VAR</envar>: [default: blank]</para>
-<para> Defines the name of wind speed variable from MET files. It is only used when PROFILE_METHOD is set to "AGNH3". example: setenv WSPEED_VAR "WSPD10" </para>
+<para> Defines the name of wind speed variable from MET files. It is only used when PROFILE_METHOD is set to "RC_NH3". example: setenv WSPEED_VAR "WSPD10" </para>
 </listitem>
 
 </itemizedlist>
