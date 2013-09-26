@@ -822,6 +822,14 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
+<entry><link linkend="sect_input_smkmerge_groups"><envar>SMKMERGE_GROUPS</envar></link></entry>
+<entry><command>Movesmrg, Smkreport</command></entry>
+<entry>A, B, M, P</entry>
+<entry>Source apportionment groups</entry>
+<entry><filename class="directory"><envar>$INVDIR</envar>/other/</filename></entry>
+</row>
+
+<row>
 <entry><link linknd="sect_input_vnammap"><envar>VNAMMAP</envar></link></entry>
 <entry><command>Smk2emis</command></entry>
 <entry>A, B, M, P</entry>
@@ -12793,7 +12801,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <para>NOTE: Whenever <envar>SMK_PROCESS_HAPS</envar> is set to process HAPs, a new inventory pollutant, <quote>VOC_INV</quote> or <quote>TOG_INV</quote>, will be created to retain the original VOC or TOG values for the purpose of creating quality assurance reports with <command>Smkreport</command>.</para>
 
-<para>The <envar>NHAPEXCLUDE</envar> file contains the country/state/county and SCC codes of thouses sources that SMOKE will include or exclude from the NONHAP calculation. The file format is shown in <xref linkend="tbl_input_nhapexclude" />.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file contains the country/state/county and SCC codes of those sources that SMOKE will include or exclude from the NONHAP calculation. The file format is shown in <xref linkend="tbl_input_nhapexclude" />.</para>
 
 <table id="tbl_input_nhapexclude">
 <title>Format for <envar>NHAPEXCLUDE</envar></title>
@@ -13296,6 +13304,83 @@ SOURCE > 100 AND SOURCE < 200
 
 <example>
 </example>
+
+</section>
+
+<section id="sect_input_smkmerge_groups">
+
+<title><envar>SMKMERGE_GROUPS</envar>: Source apportionment groups</title>
+
+<para>The <envar>SMKMERGE_GROUPS</envar> file is used to define groups of sources when processing emissions for source apportionment. See <xref linkend="sect_scripts_source_apportionment" /> for general information about using source apportionment in SMOKE. <command>Movesmrg</command> and <command>Smkmerge</command> read this file when <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y.</para>
+
+<para>When reading the <envar>SMKMERGE_GROUPS</envar> file, SMOKE will skip lines with data that doesn't apply to the current source category. Lines that contain a plant ID or point ID will be skipped when processing area, biogenic, or mobile sources. Lines containing an SCC will be skipped when processing biogenic sources.</para>
+
+<para>If SMOKE encounters lines with duplicate grouping information (i.e. FIPS, SCC, point source characteristics), an error will be printed to the log and the program will quit.</para>
+
+<para>Multiple grouping criteria can be assigned to the same source group ID by using additional lines. In the example below, all sources with SCCs 2102001000, 2102002000, and 2102004000 will be assigned to source group 1.</para>
+
+<programlisting>1 0 2102001000
+1 0 2102002000
+1 0 2102004000</programlisting>
+
+<para>If the source grouping file contains a line with all blank or zero source characteristics, SMOKE will use the given source group number as the default group rather than zero. For example, if the following line is included in the <envar>SMKMERGE_GROUPS</envar> file, the default source group number will be 40 instead of 0.</para>
+
+<programlisting>40 0 0 0 0  # default group number will be 40 instead of 0</programlisting>
+
+<para>The format of the <envar>SMKMERGE_GROUPS</envar> file is shown in <xref linkend="tbl_input_smkmerge_groups" />.</para>
+
+<table id="tbl_input_smkmerge_groups">
+<title>Format for <envar>SMKMERGE_GROUPS</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Source group number, zero is reserved for default source group (Integer) (required)</entry>
+</row>
+
+<row>
+<entry colname="Position">B</entry>
+<entry><para>Country/state/county code (6-digit Integer YSSCCC) (optional):</para>
+
+<itemizedlist spacing="compact">
+<listitem>leave blank or enter zero if not country/state-dependent</listitem>
+<listitem>set to YSS000 for country/state-dependent</listitem>
+<listitem>set to YSSCCC for county-dependent</listitem>
+</itemizedlist></entry>
+</row>
+
+<row>
+<entry colname="Position">C</entry>
+<entry>10-digit SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
+</row>
+
+<row>
+<entry colname="Position">D</entry>
+<entry>Plant ID (Character) (optional; leave blank for not plant-specific)</entry>
+</row>
+
+<row>
+<entry colname="Position">E</entry>
+<entry>Point ID (Character) (optional; leave blank for not point-specific)</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
 
 </section>
 

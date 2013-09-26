@@ -3785,6 +3785,81 @@ grep ERROR *
 
 </section>
 
+<section id="sect_scripts_source_apportionment">
+
+<title>Output source apportionment data</title>
+
+<para>Source apportionment in SMOKE consists of grouping sources by characteristics (i.e. FIPS code, SCC, and point source information) and then tagging the emissions from those groupings for further analysis in the air quality model. The SMOKE programs <command>Movesmrg</command> and <command>Smkmerge</command> can optionally output the emissions in special files used for later source apportionment processing.</para>
+
+<para>The following steps outline the process for creating the source apportionment output files:</para>
+
+<orderedlist>
+<listitem>
+<para>Define source groups using the <envar>SMKMERGE_GROUPS</envar> file</para>
+
+<para>The format for the <envar>SMKMERGE_GROUPS</envar> file is described in <xref linkend="sect_input_smkmerge_groups" />. When assigning sources to groups, SMOKE will match each source to the most specific line in the <envar>SMKMERGE_GROUPS</envar> file. The hierarchy of assignment priority is listed below.</para>
+
+<orderedlist spacing="compact">
+<listitem>
+<para>Country/state/county code, SCC, plant ID, point ID [point sources only]</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, SCC, plant ID [point sources only]</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, plant ID, point ID [point sources only]</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, plant ID [point sources only]</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, SCC [non-biogenic sources only]</para>
+</listitem>
+<listitem>
+<para>Country/state code, SCC [non-biogenic sources only]</para>
+</listitem>
+<listitem>
+<para>SCC [non-biogenic sources only]</para>
+</listitem>
+<listitem>
+<para>Country/state/county code</para>
+</listitem>
+<listitem>
+<para>Country/state code</para>
+</listitem>
+<listitem>
+<para>Default group (country/state/county code = 0, SCC = 0)</para>
+</listitem>
+</orderedlist>
+
+</listitem>
+
+<listitem>
+<para>Define locations for the output files <envar>STACK_GROUPS_OUT</envar> (source group information), <envar>SGINLNTS_L</envar> (emissions data), and <envar>SRCGRP_REPORT</envar> (source group report file)</para>
+</listitem>
+
+<listitem>
+<para>For point source processing, use in-line plume rise calculation</para>
+
+<para>Review <xref linkend="sect_in-line_model_cmaq" /> for instructions on configuring <command>Elevpoint</command> and <command>Laypoint</command> for in-line emissions processing.</para>
+</listitem>
+
+<listitem>
+<para>After completing other SMOKE processing, run <command>Movesmrg</command> (on-road mobile emissions using MOVES lookup tables) or <command>Smkmerge</command> with <envar>SMK_SRCGROUP_OUTPUT_YN</envar> set to Y</para>
+
+<para>When processing emissions using source apportionment, you can only run <command>Smkmerge</command> for a single source category (i.e. A, B, M, or P). For point source processing, <command>Smkmerge</command> cannot merge layers (<envar>MRG_LAYERS_YN</envar> must be N) and in-line emissions must be output (<envar>SMK_ELEV_METHOD</envar> must be 2). <command>Movesmrg</command> and <command>Smkmerge</command> will create both the source apportionment data files and the model-ready output files in a single run. For biogenics, if you are running <command>Smkmerge</command> for reporting purposes (i.e. to create state and county totals), make sure to set the units correctly for the source apportionment output data, typically the same as the model-ready output units.</para>
+</listitem>
+
+<listitem>
+<para>Review source grouping assignments</para>
+
+<para>After running <command>Movesmrg</command> or <command>Smkmerge</command>, the <envar>SRCGRP_REPORT</envar> file will list each source in the inventory and the group it was assigned to. You can review this report to verify that the sources were grouped as desired.</para>
+</listitem>
+
+</orderedlist>
+
+</section>
+
 </section>
 
 </chapter>

@@ -2519,6 +2519,8 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <para><command>Movesmrg</command> outputs a model-ready emissions file <envar>MGTS_L</envar> or <envar>MGTS_S</envar>, a report file <envar>REPMGTS_S</envar>, and a log file <envar>LOGFILE</envar>.</para>
 
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Movesmrg</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+
 <section>
 
 <title>Input Files</title>
@@ -2607,6 +2609,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry><envar>MTMP_{day}</envar></entry>
 <entry>ASCII</entry>
 <entry>Daily hour VMT files from <command>Temporal</command></entry>
+</row>
+<row>
+<entry><link linkend="sect_input_smkmerge_groups"><envar>SMKMERGE_GROUPS</envar></link> (optional)</entry>
+<entry>ASCII</entry>
+<entry>Source apportionment groups</entry>
 </row>
 <row>
 <entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link> (optional)</entry>
@@ -2733,6 +2740,16 @@ S<subscript>fraction</subscript> = smoldering fration
 <para><envar>SMK_SOURCE</envar>: [default: blank]</para>
 <para>  Sets the types of source category. It must be set to "M" for <command>Movesmrg</command>.</para>
 </listitem>
+
+<listitem>
+<para><envar>SMK_SRCGROUP_OUTPUT_YN</envar>: [default: N]</para>
+<para>Indicates if source apportionment emissions should be output</para>
+<itemizedlist>
+<listitem><para>Y: Group sources and output source apportionment files</para></listitem>
+<listitem><para>N: Do not perform any source apportionment processing</para></listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>TEMP_BUFFER_BIN</envar>: [default: 0.0]</para>
 <para>Defines the temperature buffer value (°F). This value allows <command>Movesmrg</command> to cover the outside of min/max temperature range in <envar>SMOKE_OUTFILE</envar> from <command>Met4moves</command> for <command>Movesmrg</command> RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Movesmrg</command>. Emission rates for those temperatures outside of original temperature range will share the ones from original max/min temperatures.</para>      
@@ -2773,19 +2790,34 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <tbody>
 <row>
-<entry>MGTS_L or MGTS_S </entry>
+<entry><envar>MGTS[_S|_L]</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Model Ready Emissions File</entry>
 </row>
 <row>
-<entry>REPMGTS_S</entry>
+<entry><envar>REPMGTS[_S|_L]</envar></entry>
 <entry>ASCII</entry>
 <entry>Report File</entry>
 </row>
 <row>
-<entry>LOGFILE</entry>
+<entry><envar>LOGFILE</envar></entry>
 <entry>ASCII</entry>
 <entry>Logfile</entry>
+</row>
+<row>
+<entry><envar>SGINLNTS[_S|_L]</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Emissions by source group, formatted as CMAQ in-line emissions data, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
+</row>
+<row>
+<entry><envar>STACK_GROUPS_OUT</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Source group information, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
+</row>
+<row>
+<entry><envar>SRCGRP_REPORT</envar></entry>
+<entry>ASCII</entry>
+<entry>Source group report file, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
 </row>
 
 </tbody>
@@ -4712,6 +4744,8 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>AG[T][S][C]_L</envar> or <envar>AG[T][S][C]_S</envar>), a log file (<envar>LOGFILE</envar>), and an optional report file (<envar>REPAG[T][S][C]_L</envar> or <envar>REPAG[T][S][C]_S</envar>).</para>
 
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+
 <figure id="fig_programs_smkmerge_biogenic">
 <title><command>Smkmerge</command> input and output files for biogenic sources</title>
 <mediaobject>
@@ -4727,6 +4761,8 @@ OUTPUT = INPUT1 - INPUT2
 <para><xref linkend="fig_programs_smkmerge_biogenic" /> shows the input and output files for the <command>Smkmerge</command> program for biogenic sources. The inputs are the optional surrogates file (<envar>BGPRO</envar>), the model-ready emissions file (<envar>BGTS</envar>), the country, state, and county file (<envar>COSTCY</envar>), the grid description file (<envar>GRIDDESC</envar>), and the inventory data table (<envar>INVTABLE</envar>).</para> 
 
 <para><command>Smkmerge</command> outputs either a mole-based emissions file (<envar>BGTS_L_O</envar>) or a mass-based emissions file (<envar>BGTS_S_O</envar>). Note that _O is appended to the output file name to distinguish it from the input file. The program also writes a log file (<envar>LOGFILE</envar>) and an optional report file (<envar>REPBGTS_L</envar> or <envar>REPBGTS_S</envar>).</para>
+
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_mobile">
 <title><command>Smkmerge</command> input and output files for mobile sources</title>
@@ -4744,6 +4780,8 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>), a data file that is determined by the inputs and can be a model-ready emissions file (<envar>MG[T][S][C]_L</envar> or <envar>MG[T][S][C]_S</envar>), and an optional report file (<envar>REPMG[T][S][C]_L</envar> or <envar>REPMG[T][S][C]_S</envar>).</para>
 
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+
 <figure id="fig_programs_smkmerge_point">
 <title><command>Smkmerge</command> input and output files for point sources</title>
 <mediaobject>
@@ -4759,6 +4797,8 @@ OUTPUT = INPUT1 - INPUT2
 <para><xref linkend="fig_programs_smkmerge_point" /> shows the input and output files for the <command>Smkmerge</command> program for point sources. The inputs include the country, state, and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the grid description file (<envar>GRIDDESC</envar>), and the optional multiplicative control matrix from <command>Cntlmat</command> (<envar>PCMAT</envar>). If using PinG or elevated sources, the <envar>PELV</envar> file is used. <command>Smkmerge</command> reads the gridding matrix output from <command>Grdmat</command> (<envar>PGMAT</envar>). The <envar>PLAY</envar> file is used to merge layer fractions, while the <envar>PLAY_EX</envar> file is used for explicit plumes. Other <command>Smkmerge</command> input files include the inventory file output from <command>Smkinven</command> (<envar>PNTS</envar>), the optional reactivity matrix from <command>Cntlmat</command> (<envar>PRMAT</envar>), and the optional speciation matrix from <command>Spcmat</command> (<envar>PSMAT</envar>). The hourly emissions from <command>Temporal</command> are provided either as the <envar>PTMP</envar> file or as hourly emissions for each day of the week (<envar>PTMP_{day}</envar>). Finally, <command>Smkmerge</command> can read the optional elevated stack groups file (<envar>STACK_GROUPS</envar>).</para>
 
 <para><command>Smkmerge</command> can output an elevated sources file (<envar>ELEV[T]S[_S|_L]</envar>) if requested. Like all other SMOKE programs, <command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>) detailing the program&rsquo;s execution. The main data file is determined by the inputs and can be include a model-ready emissions file (<envar>PG[T][S][C][3D]_L</envar> or <envar>PG[T][S][C][3D]_S</envar>). Other output files can be a PinG file (<envar>PING[T][S][C][_S][_L]</envar> and a report file (<envar>REPPG[T][S][C]_L</envar> or <envar>REPPG[T][S][C]_S</envar>).</para>
+
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and the stack groups file (<envar>STACK_GROUPS</envar>), and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_all">
 <title><command>Smkmerge</command> input and output files for all source categories</title>
@@ -4892,6 +4932,12 @@ OUTPUT = INPUT1 - INPUT2
 <entry>I/O API NetCDF</entry>
 <entry>P</entry>
 <entry>Elevated sources stack parameters file, output by <command>Elevpoint</command></entry>
+</row>
+<row>
+<entry><link linkend="sect_input_smkmerge_groups"><envar>SMKMERGE_GROUPS</envar></link> (optional)</entry>
+<entry>ASCII</entry>
+<entry>A, B, M, P</entry>
+<entry>Source apportionment groups</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5191,6 +5237,15 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
+<para><envar>SMK_SRCGROUP_OUTPUT_YN</envar>: [default: N]</para>
+<para>Indicates if source apportionment emissions should be output</para>
+<itemizedlist>
+<listitem><para>Y: Group sources and output source apportionment files</para></listitem>
+<listitem><para>N: Do not perform any source apportionment processing</para></listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
 <para><envar>SMKMERGE_CUSTOM_OUTPUT</envar>: [default: N]</para>
 
 <para>Defines his/her own output file names from <command>Smkmerge</command>. Manually define environment variables for those output file names below:</para>
@@ -5206,7 +5261,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para><envar>PING</envar> : CMAQ PinG file, produced if <envar>SMK_PING_METHOD</envar> is set to 1</para>
 </listitem>
 <listitem>
-<para><envar>INLN</envar> : CMAQ 2-D surface latyer emissions file, produced if <envar>SMK_ELEV_METHOD</envar> is set to 2. For in-line processing plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file for CMAQ version 4.7.</para>
+<para><envar>INLN</envar> : CMAQ 2-D surface layer emissions file, produced if <envar>SMK_ELEV_METHOD</envar> is set to 2. For in-line processing plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file for CMAQ version 4.7.</para>
 </listitem>
 <listitem>
 <para><envar>REP[E|A|M|P]G</envar> : Emission total report file, produced if either <envar>MRG_REPSTA_YN</envar> or <envar>MRG_REPCNY_YN</envar> is set to Y</para>
@@ -5386,6 +5441,21 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry><envar>REP[A|B|M|P|E]G[T][S][C][_S|_L]</envar></entry>
 <entry>ASCII</entry>
 <entry>Emission totals report file, produced if either <envar>MRG_REPSTA_YN</envar> or <envar>MRG_REPCNY_YN</envar> is set to Y</entry>
+</row>
+<row>
+<entry><envar>SGINLNTS[_S|_L]</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Emissions by source group, formatted as CMAQ in-line emissions data, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
+</row>
+<row>
+<entry><envar>STACK_GROUPS_OUT</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Source group information, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
+</row>
+<row>
+<entry><envar>SRCGRP_REPORT</envar></entry>
+<entry>ASCII</entry>
+<entry>Source group report file, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
 </row>
 </tbody>
 </tgroup>
