@@ -3347,7 +3347,7 @@ INVYEAR 1996
 <entry>103-118</entry>
 <entry>DATNAM</entry>
 <entry>Char</entry>
-<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the RAW IDA or ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the RAW IDA or ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant names are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -3792,7 +3792,7 @@ INVYEAR 1996
 <entry>261-276</entry>
 <entry>DATNAM</entry>
 <entry>Char</entry>
-<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant names are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -3930,7 +3930,7 @@ INVYEAR 1996
 <entry>381-396</entry>
 <entry>DATNAM</entry>
 <entry>Char</entry>
-<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant names are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
 </row>
 </tbody>
 </tgroup>

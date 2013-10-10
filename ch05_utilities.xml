@@ -43,7 +43,7 @@
 
 <orderedlist>
 <listitem>
-<para>Reads the output file from <command>Met4moves</command>. Find detail informatoin from <xref linkend="sect_intmed_moves_output"/></para>
+<para>Reads the output file from <command>Met4moves</command>. Find detail information from <xref linkend="sect_intmed_moves_output"/></para>
 </listitem>
 <listitem>
 <para>Import the name of pollutant group to model from the run control file (<link linkend="sect_input_runctlfile">contorl.in</link>) based on <xref linkend="tbl_concepts_moves_pollutant_groups"/></para>
