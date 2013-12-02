@@ -2296,7 +2296,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </figure>
 
 <para><xref linkend="fig_programs_met4moves" /> shows the input and output files for the <command>Met4moves</command> program. The input files are the Grid Description File from MCIP(<envar>GRIDDESC</envar>), the Surrogate Description file (<envar>SRGDESC</envar>), the MCIP List of Meteorology File <link linkend="sect_input_metlist">(<envar>METLIST</envar>)</link>, and the reference county cross-reference file <link linkend="sect_input_mcxref">(<envar>MCXREF</envar>)</link>.</para>
-<para><command>Met4moves</command> outputs datasets for SMOKE that contain the min/max temperatures and averaged RH associated for each inventory county. <command>Met4moves</command> outputs for MOVES datasets that provide all (min/max) temperature combinations for a reference county, reflecting all min/max combinations for all inventory counties in that county group.  The associated RH values are also included in these datasets.  In addition, the datasets include the 24-h diurnal profiles needed for the RPP emission process, and contain user-specified temperature increments for use by MOVES.</para>
+<para><command>Met4moves</command> outputs datasets for SMOKE that contain the daily gridded min/max temperatures and averaged RH. <command>Met4moves</command> outputs for MOVES datasets that provide all (min/max) temperature combinations for a reference county, reflecting all min/max combinations for all inventory counties in that county group.  The associated RH values are also included in these datasets.  In addition, the datasets include the 24-h diurnal profiles needed for the RPP emission process, and contain user-specified temperature increments for use by MOVES.</para>
 
 <section>
 <title>Input Files</title>
@@ -2439,12 +2439,12 @@ S<subscript>fraction</subscript> = smoldering fration
 <row>
 <entry><link linkend="sect_intmed_moves_rh_output">MOVES_RH_OUTFILE</link></entry>
 <entry>ASCII </entry>
-<entry>Contains the reference county-specific average RH, minimum and maximum temperature by temperature bin and by fuel month.</entry> 
+<entry>Contains the reference county-specific average RH, minimum and maximum temperature by temperature bin and fuel month.</entry> 
 </row>
 <row>
 <entry><link linkend="sect_intmed_smoke_output">SMOKE_OUTFILE</link></entry>
 <entry>ASCII</entry>
-<entry>Contains county-specific min/max temperatures and averaged RH values in local time for every inventory county and averaging period in the modeling inventory (example filename: SMOKE_12km_2009091-2009120.txt)</entry>
+<entry>Contains gridded daily min/max temperatures in local timei for RPP mode run in <command>Movesmrg</command></entry>
 </row>
 <row>
 <entry><envar>LOGFILE</envar></entry>
