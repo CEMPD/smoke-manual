@@ -4130,7 +4130,7 @@ Additional data</programlisting>
 2) MOVES model processing
 <itemizedlist>
  <listitem><link linkend="section_moves_driver_script">The MOVES Driver script </link> : <command><quote>Runspec_generator.pl</quote></command> creates data importer files and the MOVES input file (runspec), which specifies the characteristics of the particular scenario to be modeled.</listitem>
- <listitem><link linkend="section_moves_postprocessing_scripts">The MOVES postprocessing scripts </link> : <command><quote>Moves2smkEF.pl</quote></command> and <command><quote>SmkEFsum.pl</quote></command> formats the MOVES emission rate lookup tables for SMOKE.</listitem>
+ <listitem><link linkend="section_moves_postprocessing_scripts">The MOVES postprocessing scripts </link> : <command><quote>Moves2smkEF.pl</quote></command> formats the MOVES emission rate lookup tables for SMOKE. <command><quote>gen_8digit_scc.pl</quote></command> generates an SCC mapping file used when importing activity data.</listitem>
 </itemizedlist>
 3) SMOKE model processing
 <itemizedlist>
@@ -4163,8 +4163,8 @@ Additional data</programlisting>
 		<para>run MOVES for each runspec file</para>
 		</listitem>
 	</itemizedlist>
-	<para>The resulting RatePerDistance (RPD), RatePerVehicle (RPV), and RatePerProfile (RPP) tables contain all the conditions needed for regional modeling using SMOKE modeling system.</para>
-	<para>Once a MOVES batch run completes, MOVES populates the three output lookup tables with formats listed in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" />.   A <link linkend="section_moves_postprocessing_scripts"> MOVES Post-processing Script</link> (<command>Moves2smkEF.pl</command>) in Perl interacts with MySQL to modify the default formats shown in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" /> into a text ASCII-format readable by SMOKE, shown in <xref linkend="tbl_concepts_moves_lookup_tbl_sm_format" />.</para>
+	<para>The resulting RatePerDistance (RPD), RatePerVehicle (RPV), RatePerProfile (RPP), and RatePerHour (RPH) tables contain all the conditions needed for regional modeling using SMOKE modeling system.</para>
+	<para>Once a MOVES batch run completes, MOVES populates the four output lookup tables with formats listed in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" />.   A <link linkend="section_moves_postprocessing_scripts"> MOVES Post-processing Script</link> (<command>Moves2smkEF.pl</command>) in Perl interacts with MySQL to modify the default formats shown in <xref linkend="tbl_concepts_moves_lookup_tbl_mv_format" /> into a text ASCII-format readable by SMOKE, shown in <xref linkend="tbl_concepts_moves_lookup_tbl_sm_format" />.</para>
 <table id="tbl_concepts_moves_lookup_tbl_mv_format">
 <title>MOVES Emission Rate Lookup Table (MOVES Format)</title>
 
@@ -4172,12 +4172,14 @@ Additional data</programlisting>
 <colspec colname="c1" colwidth="20*" />
 <colspec colname="c2" colwidth="20*" />
 <colspec colname="c3" colwidth="20*" />
+<colspec colname="c4" colwidth="20*" />
 
 <thead>
 <row>
 <entry morerows="1" valign="bottom" align="center">RatePerDistance       (grams/mile)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerVehicle (grams/vehicle/hour)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerProfile (grams/vehicle/hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerHour (grams/activity-hour)</entry>
 </row>
 </thead>
 
@@ -4186,8 +4188,10 @@ Additional data</programlisting>
 <entry>MOVESScenarioID</entry>
 <entry>MOVESScenarioID</entry>
 <entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
 </row>
 <row>
+<entry>MOVESRunID</entry>
 <entry>MOVESRunID</entry>
 <entry>MOVESRunID</entry>
 <entry>MOVESRunID</entry>
@@ -4196,18 +4200,22 @@ Additional data</programlisting>
 	<entry>yearID</entry>
 	<entry>yearID</entry>
 	<entry>temperatureProfileID</entry>
+	<entry>yearID</entry>
 </row>
 <row>
 	<entry>monthID</entry>
 	<entry>monthID</entry>
 	<entry>yearID</entry>
+	<entry>monthID</entry>
 </row>
 <row>
 		<entry>dayID</entry>
 		<entry>dayID</entry>
 		<entry>dayID</entry>
+		<entry>dayID</entry>
 </row>
 <row>
+    <entry>hourID</entry>
     <entry>hourID</entry>
     <entry>hourID</entry>
     <entry>hourID</entry>
@@ -4216,47 +4224,60 @@ Additional data</programlisting>
 	<entry>linkID</entry>
 	<entry>zoneID</entry>
 	<entry>pollutantID</entry>
+	<entry>linkID</entry>
 </row>
 <row>
 	<entry>pollutantID</entry>
 	<entry>pollutantID</entry>
 	<entry>processID</entry>
+	<entry>pollutantID</entry>
 </row>
 <row>
 	<entry>processID</entry>
 	<entry>processID</entry>
 	<entry>sourceTypeID</entry>
+	<entry>processID</entry>
 </row>
 <row>
 	<entry>sourceTypeID</entry>
 	<entry>sourceTypeID</entry>
 	<entry>SCC</entry>
+	<entry>sourceTypeID</entry>
 </row>
 <row>
 		<entry>SCC</entry>
 	<entry>SCC</entry>
 	<entry>fuelTypeID</entry>
+	<entry>SCC</entry>
 </row>
 <row>
 	<entry>fuelTypeID</entry>
 	<entry>fuelTypeID</entry>
 	<entry>modelYearID</entry>
+	<entry>fuelTypeID</entry>
 </row>
 <row>
 	<entry>modelYearID</entry>
 	<entry>modelYearID</entry>
 	<entry>Temperature</entry>
+	<entry>modelYearID</entry>
 </row>
 <row>
 	<entry>roadTypeID</entry>
 	<entry>Temperature</entry>
 	<entry>ratePerProfile</entry>
+	<entry>roadTypeID</entry>
 </row> 
 <row>
 		<entry>avgSpeedBinID</entry>
 	<entry>ratePerVehicle</entry>
+	<entry></entry>
+	<entry>ratePerHour</entry>
 </row>  
 <row>
+		<entry>Temperature</entry>
+	<entry></entry>
+	<entry></entry>
 		<entry>Temperature</entry>
 </row> 
 <row>
@@ -4272,10 +4293,7 @@ Additional data</programlisting>
 <para>The MOVES Post-processing Script converts the MOVES format Emission Rate Lookup Table to the SMOKE format Emission Rate Table by performing the following:</para>
 <itemizedlist>
 	<listitem>
-		<para>Parses the state-county FIPS code from linkID, zoneID and TemperatureProfileID and stores it as a unique field, countyID.</para>
-	</listitem>
-<listitem>
-	<para>Converts the partially speciated exhaust particulate matter (PM) output by MOVES into the species needed for air quality modeling (PNO3, METAL, NH4, POC, PMFINE, PMC).  The PM speciation equations were developed by EPA OTAQ and OAQPS and find detail information at <xref linkend="section_moves_postprocessing_scripts"/>.  The advantage of using this approach over the approach used for speciating total PM2.5 is that this approach allows the speciated emissions from MOVES; i.e., elemental carbon and particulate sulfate to be retained and only the remainder of the PM2.5 to rely on speciation profiles.</para>
+		<para>Parses the state-county FIPS code from linkID, zoneID or TemperatureProfileID and stores it as a unique field, FIPS.</para>
 	</listitem>
 <listitem>
 	<para>Removes fields that are uninformative to SMOKE, including the MOVES source type,  fuel type and road type,  hourID in RatePerDistance, TemperatureProfileID in RatePerProfile.</para>
@@ -4284,7 +4302,10 @@ Additional data</programlisting>
 	<para>Reduces the output database table size by performing a cross-tab query on the pollutant emissions, listing each pollutant in a separate field rather than in a single column with a higher number of data records.  The script also sorts the lookup tables by countyID, monthID and SCC for more efficient processing in SMOKE.</para>
 </listitem>
 <listitem>
-	<para>Write out to the ASCII-formatted three processed SMOKE-ready MOVES lookup tables [RatePerDistance (RPD), RatePerVehicle (RPV), and RatePerProfile (RPP)].</para>
+  <para>Optionally calculates additional output pollutants or species by applying user-specified formulas to MOVES-created emission factors.
+	</listitem>
+<listitem>
+	<para>Write out to the ASCII-formatted four processed SMOKE-ready MOVES lookup tables [RatePerDistance (RPD), RatePerVehicle (RPV),  RatePerProfile (RPP), and RatePerHour (RPH)].</para>
 </listitem>
 </itemizedlist>
 
@@ -4294,12 +4315,14 @@ Additional data</programlisting>
 <colspec colname="c1" colwidth="20*" />
 <colspec colname="c2" colwidth="20*" />
 <colspec colname="c3" colwidth="20*" />
+<colspec colname="c3" colwidth="20*" />
 
 <thead>
 <row>
 <entry morerows="1" valign="bottom" align="center">RatePerDistance       (grams/mile)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerVehicle (grams/vehicle/hour)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerProfile (grams/vehicle/hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerHour (grams/activity-hour)</entry>
 </row>
 </thead>
 
@@ -4308,13 +4331,10 @@ Additional data</programlisting>
 <entry>MOVESScenarioID</entry>
 <entry>MOVESScenarioID</entry>
 <entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
 </row>
 <row>
-<entry>MOVESRunID</entry>
-<entry>MOVESRunID</entry>
-<entry>MOVESRunID</entry>
-</row>
-<row>
+	<entry>yearID</entry>
 	<entry>yearID</entry>
 	<entry>yearID</entry>
 	<entry>yearID</entry>
@@ -4323,54 +4343,59 @@ Additional data</programlisting>
 	<entry>monthID</entry>
 	<entry>monthID</entry>
 	<entry>monthID</entry>
+	<entry>monthID</entry>
 </row>
 <row>
-		<entry>countyID</entry>
+		<entry>FIPS</entry>
 		<entry>dayID</entry>
 		<entry>dayID</entry>
+		<entry>FIPS</entry>
 </row>
 <row>
     <entry>SCC</entry>
     <entry>hourID</entry>
     <entry>hourID</entry>
+    <entry>SCC</entry>
 </row>
 <row>
-	<entry>processName</entry>
-	<entry>countyID</entry>
-	<entry>countyID</entry>
+	<entry>avgSpeedBin</entry>
+	<entry>FIPS</entry>
+	<entry>FIPS</entry>
+	<entry>temperature</entry>
 </row>
 <row>
-	<entry>avgSpeedBinIn</entry>
+	<entry>temperature</entry>
 	<entry>SCC</entry>
 	<entry>SCC</entry>
-</row>
-<row>
-	<entry>Temperature</entry>
-	<entry>processName</entry>
-	<entry>processName</entry>
+	<entry>CO</entry>
 </row>
 <row>
 	<entry>relHumidity</entry>
-	<entry>Temperature (for each grid cell)</entry>
-	<entry>Temperature (24hr temporal profile)</entry>
+	<entry>temperature (for each grid cell)</entry>
+	<entry>temperature (24hr temporal profile)</entry>
+	<entry>TOG</entry>
 </row>
 <row>
 	<entry>CO</entry>
 	<entry>CO</entry>
 	<entry>THC</entry>
+	<entry>BENZENE</entry>
 </row>
 <row>
 	<entry>TOG</entry>
 	<entry>NOX</entry>
 	<entry>TOG</entry>
+	<entry>NOX</entry>
 </row>
 <row>
 	<entry>BENZENE</entry>
 	<entry>PM10OC</entry>
 	<entry>VOC</entry>
+	<entry>VOC</entry>
 </row> 
 <row>
 		<entry>...</entry>
+	<entry>...</entry>
 	<entry>...</entry>
 	<entry>...</entry>
 </row>  
