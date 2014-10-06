@@ -7833,7 +7833,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>GSTAG</envar>: Speciation tagging cross-reference file </title>
 
-<para>The speciation tagging cross-reference file allows <command>Spcmat</command> to tag existing model species based on the match between the source characteristics listed in the <envar>GSTAG</envar> file and source characteristics for each source in the inventory. The <command>Spcmat</command> program will append the characters of the tag label specified in the <envar>GSTAG</envar> file. Note that this approach will not address raw inventoy pollutants (VOC, NOX, PM2_5 and PM10) or any other model species from biogenic sources from the BEIS model. When the environment variable <envar>SRC_TAGGING</envar> is set to <quote>Y</quote>, <command>Spcmat</command> will look for the <envar>GSTAG</envar> file. The default setting for the <envar>SRC_TAGGING</envar> variable is <quote>N</quote> to support back-ward comparability. If an invalid character appears in a tag label in the <envar>GSTAG</envar> file, such as <quote>#</quote> or <quote>+</quote> is used, SMOKE will return an error.</para>
+<para>The speciation tagging cross-reference file allows <command>Spcmat</command> to tag existing model species based on the match between the source characteristics listed in the <envar>GSTAG</envar> file and source characteristics for each source in the inventory. The <command>Spcmat</command> program will append the characters of the tag label specified in the <envar>GSTAG</envar> file. Note that this approach will not address raw inventory pollutants (VOC, NOX, PM2_5 and PM10) or any other model species from biogenic sources from the BEIS model. When the environment variable <envar>SRC_TAGGING</envar> is set to <quote>Y</quote>, <command>Spcmat</command> will look for the <envar>GSTAG</envar> file. The default setting for the <envar>SRC_TAGGING</envar> variable is <quote>N</quote> to support back-ward comparability. If an invalid character appears in a tag label in the <envar>GSTAG</envar> file, such as <quote>#</quote> or <quote>+</quote> is used, SMOKE will return an error.</para>
 <para>The format of the <envar>GSTAG</envar> file is shown in <xref linkend="tbl_input_gstag" />.</para>
 
 <table id="tbl_input_gstag">
@@ -7868,7 +7868,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8- or 10-digic SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
+<entry>8- or 10-digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -10761,7 +10761,7 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 
 <title><envar>SPDPRO</envar>: Mobile hourly speed profile input file</title>
 
-<para>The <envar>SPDPRO</envar> file is used to provide weekend/weekday hourly speed profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance lookup table. It's format is shown in <xref linkend="tbl_input_spdpro" />.</para>
+<para>The <envar>SPDPRO</envar> file is used to provide weekend/weekday hourly speed profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance lookup table. Its format is shown in <xref linkend="tbl_input_spdpro" />.</para>
 
 <table id="tbl_input_spdpro">
 <title>Format for <envar>SPDPRO</envar></title>
@@ -11501,7 +11501,7 @@ yearID,sourceTypeID,sourceTypePopulation
 
 <tbody>
 <row>
-<entry>sourceTyeID</entry>
+<entry>sourceTypeID</entry>
 <entry>Two-digit source type ID (Integer)</entry>
 </row>
 <row>
@@ -11572,7 +11572,7 @@ sourceTypeID,roadTypeID,hourDayID,avgSpeedBinID,avgSpeedFraction
 
 <tbody>
 <row>
-<entry>sourceTyeID</entry>
+<entry>sourceTypeID</entry>
 <entry>Two-digit source type ID (Integer)</entry>
 </row>
 <row>
@@ -11647,7 +11647,7 @@ sourceTypeID,monthID,roadTypeID,dayID,dayVMTFraction
 
 <tbody>
 <row>
-<entry>sourceTyeID</entry>
+<entry>sourceTypeID</entry>
 <entry>Two-digit source type ID (Integer)</entry>
 </row>
 <row>
@@ -11726,7 +11726,7 @@ sourceTypeID,roadTypeID,dayID,hourID,hourVMTFraction
 
 <tbody>
 <row>
-<entry>sourceTyeID</entry>
+<entry>sourceTypeID</entry>
 <entry>Two-digit source type ID (Integer)</entry>
 </row>
 <row>
@@ -11801,7 +11801,7 @@ sourceTypeID,isLeapYear,monthID,monthVMTFraction
 
 <tbody>
 <row>
-<entry>sourceTyeID</entry>
+<entry>sourceTypeID</entry>
 <entry>Two-digit source type ID (Integer)</entry>
 </row>
 <row>
@@ -13087,7 +13087,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>RWC_COUNTY_TEMP</envar>: County-specific minimum temperature for Residential Wood Combustion (RWC) Equations</title>
 
-<para>This file allows to county-specific minimum temperature that is required for RWC equations listed at <xref linkend="sect_utilities_gentpro" /> . The format of the <envar>MACTDESC</envar> file is shown in <xref linkend="tbl_input_rwc_county_temp" />.</para>
+<para>This file allows to county-specific minimum temperature that is required for RWC equations listed at <xref linkend="sect_utilities_gentpro" /> . The format of the <envar>RWC_COUNTY_TEMP</envar> file is shown in <xref linkend="tbl_input_rwc_county_temp" />.</para>
 
 <table id="tbl_input_rwc_county_temp">
 <title>Format for <envar>RWC_COUNTY_TEMP</envar></title>

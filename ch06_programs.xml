@@ -4405,7 +4405,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 <listitem>
 <para><envar>NONHAP_TYPE</envar>: [default: VOC]</para>
-<para>Define the name of organice compound inventory pollutant VOC or TOG for a proper integration between VOC or TOG, and hazardous air pollutants (HAPs) to compute NONHAPVOC or NONHAPTOG. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_PROCESS_HAPS</envar> is set. </para>
+<para>Define the name of organic compound inventory pollutant VOC or TOG for a proper integration between VOC or TOG, and hazardous air pollutants (HAPs) to compute NONHAPVOC or NONHAPTOG. See <xref linkend="sect_concepts_combine_toxics" /> for a more detail description of criteria/HAP VOC integration. This option will be used only when <envar>SMK_PROCESS_HAPS</envar> is set. </para>
 </listitem>
 
 <listitem>
@@ -4478,7 +4478,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <para>Defines how to treat sources for combining criteria VOC and hazardous air pollutants (HAP) together. See <xref linkend="sect_concepts_combine_toxics" /> for more detail. </para>
 <itemizedlist>
 <listitem>
-<para>ALL: Treate all sources as integrated if a toxics inventory has been provided. Does not require an <envar>NHAPEXCLUDE</envar> file</para>
+<para>ALL: Treat all sources as integrated if a toxics inventory has been provided. Does not require an <envar>NHAPEXCLUDE</envar> file</para>
 </listitem>
 <listitem>
 <para>NONE: Treat all sources as non-integrate if a toxics inventory has been provided. Does not require an <envar>NHAPEXCLUDE</envar> file</para>
