@@ -340,7 +340,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para><envar>SPC_OVERRIDE</envar>: Sets a value for the <envar>SPC</envar> variable in the Assigns file that overrides whatever value is actually inside the Assigns file. The Assigns file invokes the override mechanism when this environment variable is defined, so to not use this scripting feature, the variable must not be defined. <emphasis role="bold">In other words, it is not acceptable to set this to a blank value.</emphasis></para>
 
-<para>In addition, the merge scripts that run the <command>Mrggrid</command> program can also use the <envar>A_SPC_OVERRIDE</envar>, <envar>N_SPC_OVERRIDE</envar>, <envar>B_SPC_OVERRIDE</envar>, <envar>M_SPC_OVERRIDE</envar>, and <envar>P_SPC_OVERRIDE</envar> settings. These settings override the <envar>SPC</envar> variable used <emphasis>only</emphasis> for the definition of the <envar>A_OUT</envar>, <envar>N_OUT</envar>, <envar>B_OUT</envar>, <envar>M_OUT</envar>, and <envar>P_OUT</envar> directories that contain the hourly, gridded, and speciated SMOKE output files. These settings can be used to pull multiple chemical mechanisms (such as toxics and non-toxics) into a single model-ready file. The user must determine which multiple mechanisms are appropriate to combine. It is acceptable to combine toxics-integrated and criteria-only current CB5 mechanisms, but inappropriate to combine CB4 and RADM mechanisms.</para>
+<para>In addition, the merge scripts that run the <command>Mrggrid</command> program can also use the <envar>A_SPC_OVERRIDE</envar>, <envar>N_SPC_OVERRIDE</envar>, <envar>B_SPC_OVERRIDE</envar>, <envar>M_SPC_OVERRIDE</envar>, and <envar>P_SPC_OVERRIDE</envar> settings. These settings override the <envar>SPC</envar> variable used <emphasis>only</emphasis> for the definition of the <envar>A_OUT</envar>, <envar>N_OUT</envar>, <envar>B_OUT</envar>, <envar>M_OUT</envar>, and <envar>P_OUT</envar> directories that contain the hourly, gridded, and speciated SMOKE output files. These settings can be used to pull multiple chemical mechanisms (such as toxics and non-toxics) into a single model-ready file. The user must determine which multiple mechanisms are appropriate to combine. It is acceptable to combine toxics-integrated and criteria-only current CB5 mechanisms, but inappropriate to combine CB5 and RADM mechanisms.</para>
 </listitem>
 <listitem>
 <para><envar>SRCABBR</envar>: Sets the source category abbreviation name for use in naming log files. The typical settings are ar (area sources), nr (nonroad sources), mb (mobile sources), bg (biogenic sources), and pt (point sources).</para>
@@ -643,7 +643,7 @@ grep ERROR *
 
 <title>Use new inventory data</title>
 
-<para>This section describes what steps are necessary to take when using new inventory data for anthropogenic sources. For information on biogenic sources, see <xref linkend="sect_scripts_use_beis2" /> and <xref linkend="sect_scripts_use_beis3" />. For more information about the details of each source category (e.g., what is the difference between using MOVES emission factors or precomputed on-road mobile emissions), see <xref linkend="sect_concepts_summary_source_processing" />.</para>
+<para>This section describes what steps are necessary to take when using new inventory data for anthropogenic sources. For information on biogenic sources, see <xref linkend="sect_scripts_use_beis3" />. For more information about the details of each source category (e.g., what is the difference between using MOVES emission factors or precomputed on-road mobile emissions), see <xref linkend="sect_concepts_summary_source_processing" />.</para>
 
 <para>Because this section is so spread out, we provide a small section guide here. This section includes the following subsections:</para>
 
@@ -743,9 +743,6 @@ grep ERROR *
 <para>ORL format. This format is most appropriate for non-point toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
-<para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format.</para>
-</listitem>
-<listitem>
 <para>Pregridded I/O API format. This format can only be used for pregridded data that has been converted to a time-independent, gridded I/O API file. The variables in the file are the pollutants. No SCCs or other source information can be provided with this format.</para>
 </listitem>
 </orderedlist>
@@ -832,7 +829,6 @@ grep ERROR *
 
 <orderedlist>
 <listitem>
-<para>Preformatted data considerations</para>
 
 <itemizedlist>
 <listitem>
@@ -873,13 +869,10 @@ grep ERROR *
 <para>List format. The list format is simply an ASCII file that lists all of the files that you want SMOKE to import in a single run.</para>
 </listitem>
 <listitem>
-<para>IDA format. This format is most appropriate for criteria inventories.</para>
+<para>ORL format. This format is most appropriate for criteria and toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
-<para>ORL format. This format is most appropriate for toxics inventories, but also can be used for any inventory data.</para>
-</listitem>
-<listitem>
-<para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format.</para>
+<para>FF10 format. This format is most appropriate for criteria and toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 </orderedlist>
 
@@ -932,62 +925,16 @@ grep ERROR *
 <para>Determine the file format that you have (for preformatted data) or want to create (for new data).</para>
 
 <orderedlist>
-<listitem>
-<para>Preformatted data considerations</para>
 
 <itemizedlist>
 <listitem>
-<para>If you have VMT data, it must be in IDA/ORL activity format or EMS-95 format.</para>
-</listitem>
-<listitem>
-<para>EMS-95 format requires a <envar>VMTMIX</envar> file as well. SMOKE&rsquo;s <envar>VMTMIX</envar> file cannot be hour-specific as can the file for EMS-95. The <envar>VMTMIX</envar> file includes a space-delimited format and fixed-column format.</para>
-</listitem>
-<listitem>
-<para>The IDA activity format can be used when computing toxic emissions using MOVES.</para>
-</listitem>
-<listitem>
-<para>The ORL activity format can be used when computing toxic emissions using MOVES.</para>
-</listitem>
-<listitem>
-<para>Precalculated on-road emissions data can be input in either IDA on-road emissions format, ORL format, or EMS-95 format.</para>
-
-<itemizedlist>
-<listitem>
-<para>When using VMT and precomputed criteria emissions, use IDA format for the emissions.</para>
-</listitem>
-<listitem>
-<para>When using VMT and precomputed toxic emissions, use ORL format for the emissions.</para>
-</listitem>
-<listitem>
-<para><remark>When using criteria and toxics emissions and integrating VOC emissions, use IDA format for the criteria emissions, ORL format for the toxic emissions, and a list file to combine the two inventories.</remark></para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>Pregridded data must be input as an area source.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>New data considerations</para>
-
-<itemizedlist>
-<listitem>
-<para>If using MOVES emission factors through SMOKE, create a VMT file in ORL on-road mobile activity format (or use in combination with list format).</para>
-</listitem>
-<listitem>
-<para>We recommend using the IDA format for criteria emissions inventories.</para>
+<para>If using MOVES emission factors through SMOKE, create a VMT file in FF10 on-road mobile activity format (or use in combination with list format).</para>
 </listitem>
 <listitem>
 <para>If using both VMT and emissions, you <emphasis>must</emphasis> use a list-format to import the two separate inventories together. <comment>Also, it is important to make sure that the same sources appear in both inventories. This can be done outside of SMOKE before importing the inventory, or with <command>Smkreport</command>, after importing the inventories. After import, both VMT and emissions should appear in a report by source.</comment></para>
 </listitem>
 <listitem>
-<para>We recommend using the ORL format for toxics inventories.</para>
-</listitem>
-<listitem>
-<para>If using both criteria and toxics data and wish to have the full functionality of SMOKE for both inventories, you must use the IDA format for criteria inventories and the ORL format for toxics inventories. You also must use a list file to list both inventory files (criteria and toxics) for SMOKE to combine.</para>
+<para>If using both criteria and toxics data and wish to have the full functionality of SMOKE for both inventories, you must use a list file to list both inventory files (criteria and toxics) for SMOKE to combine.</para>
 </listitem>
 
 <comment>
@@ -998,7 +945,6 @@ grep ERROR *
 
 </itemizedlist>
 
-</listitem>
 </orderedlist>
 
 </listitem>
@@ -1021,9 +967,7 @@ grep ERROR *
 <listitem>
 <para>ORL format. This format is most appropriate for toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
-<listitem>
-<para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format. Inventory files in this format will also require the <envar>VMTMIX</envar> file to be created or provided.</para>
-</listitem>
+
 </orderedlist>
 
 </listitem>
@@ -1055,9 +999,6 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para><envar>MCODES</envar></para>
-</listitem>
-<listitem>
 <para><envar>MCXREF</envar> (MOVES usage only)</para>
 </listitem>
 <listitem>
@@ -1070,22 +1011,6 @@ grep ERROR *
 
 <para>For all inputs needed for MOVES usage only, refer to <xref linkend="sect_scripts_use_moves" />.</para>
 
-</listitem>
-
-<listitem>
-<para>Ensure the Assigns file has the <envar>MBINV</envar> variable set to the <envar>MBINV</envar> file name for your new on-road mobile-source inventory file. If providing a <envar>VMTMIX</envar> file (for EMS-95 format only), also check that the file name matches the file name in your Assigns file.</para>
-</listitem>
-
-<listitem>
-<para>If using EMS-95 input format, set the <envar>SMK_VMTMIX_FIXFMT</envar> setting to be consistent with the format used for the <envar>VMTMIX</envar> file. See the <xref linkend="sect_programs_smkinven" /> and <xref linkend="sect_input_vmtmix" /> for more information.</para>
-</listitem>
-
-<listitem>
-<para>If using EMS-96 input format, set the <envar>REPORT_DEFAULTS</envar> setting to Y if you would like all of the default assignments of <envar>VMTMIX</envar> to be reported to the <command>Smkinven</command> log file.</para>
-
-<para>Setting <envar>REPORT_DEFAULTS</envar> to Y the first time you run with a new inventory is usually a good idea. Once you have convinced yourself that no default VMT mix profiles are used or that all of the default applications are acceptable, you can then reset the <envar>REPORT_DEFAULTS</envar> setting to N to prevent an excessive number of warning messages from being written to the <command>Smkinven</command> log file.</para>
-
-<para>Please note that the <envar>REPORT_DEFAULTS</envar> setting is also used by many other SMOKE programs, and that its value can be set only once in the run scripts for all programs.</para>
 </listitem>
 
 <listitem>
@@ -1545,7 +1470,7 @@ grep ERROR *
 
 </listitem>
 <listitem>
-<para>Set the <envar>BBASE</envar> setting in the Assigns file to select using BELD2 or BELD3 data. See <xref linkend="sect_scripts_use_beis2" /> and <xref linkend="sect_scripts_use_beis3" />.</para>
+<para>Set the <envar>BBASE</envar> setting in the Assigns file to select using BELD3 or BELD4 data. See <xref linkend="sect_scripts_use_beis3" />.</para>
 </listitem>
 <listitem>
 <para>Set the <envar>SPC</envar> setting in the Assigns file to change the output paths for all source categories.</para>
@@ -1631,14 +1556,6 @@ grep ERROR *
 <row>
 <entry><envar>RUN_SMKREPORT</envar></entry>
 <entry>Create default and/or custom reports of processed emissions.</entry>
-</row>
-<row>
-<entry><envar>RUN_RAWBIO</envar></entry>
-<entry>Import gridded or county landuse for use in creating BEIS2 emissions.</entry>
-</row>
-<row>
-<entry><envar>RUN_TMPBIO</envar></entry>
-<entry>Calculate BEIS2 emissions in gridded, hourly, speciated I/O API format.</entry>
 </row>
 <row>
 <entry><envar>RUN_NORMBEIS3</envar></entry>
@@ -1798,13 +1715,11 @@ grep ERROR *
 <listitem>
 <para>Create and install the biogenic gridded land use data</para>
 
-<para>You must create a gridded biogenic land use data (<envar>BGUSE</envar> for BEIS2 or <envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> for BEIS3) to use for your grid. The MSA described in step 2 is able to create these files using the BELD3 database. Please refer to step 2 for the web address of this tool. The outputs of the MSA can be used for BEIS3 modeling directory, or you can use the <command>Beld3to2</command> utility to convert the data for input to SMOKE/BEIS2.</para>
+<para>You must create a gridded biogenic land use data (<envar>BELD4</envar> for BEIS3.60 or <envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> for BEIS3.14) to use for your grid. The MSA described in step 2 is able to create these files using the BELD3 or BELD4 database. Please refer to step 2 for the web address of this tool. The outputs of the MSA can be used for BEIS3 modeling directory.</para>
 
 <para>The gridded land use data in the file must match the definition in the <envar>GRIDDESC</envar> file for the grid selected using the <envar>IOAPI_GRIDNAME_1</envar> variable. As with the spatial surrogates, the grid can be larger than the modeling grid, but it the cells must overlay exactly with the grid cells of the actual modeling grid, which includes the grid projection and cell sizes.</para>
 
-<para>A national 36-km gridded datasets in SMOKE-ready input format are included in the SMOKE installation for BELD2 and BELD3 data (<filename class="directory"><envar>$SMKDAT</envar>/inventory/beld2</filename> and <filename class="directory"><envar>$SMKDAT</envar>/inventory/beld3</filename>). If your grid aligns with the national grid, then these datasets can be used for your modeling case.</para>
-
-<para>The gridded biogenic land use file(s) should be installed in either the <filename class="directory"><envar>$SMKDAT</envar>/inventory/beld2</filename> directory for BEIS2 modeling or the <filename class="directory"><envar>$SMKDAT</envar>/inventory/beld3</filename> directory for BEIS3 modeling.</para>
+<para>The gridded biogenic land use file(s) should be installed in the <filename class="directory"><envar>$BGDAT</envar></filename> directory for BEIS3 modeling.</para>
 </listitem>
 <listitem>
 <para>Create and install the meteorology files.</para>
@@ -1887,7 +1802,7 @@ grep ERROR *
 <table id="tbl_scripts_spc_settings">
 <title>Valid <envar>SPC</envar> settings</title>
 
-<tgroup cols="9">
+<tgroup cols="8">
 <colspec colname="c1" colwidth="40*" />
 <colspec colname="c2" colwidth="15*" />
 <colspec colname="c3" colwidth="15*" />
@@ -1896,14 +1811,12 @@ grep ERROR *
 <colspec colname="c6" colwidth="5*" />
 <colspec colname="c7" colwidth="5*" />
 <colspec colname="c8" colwidth="5*" />
-<colspec colname="c9" colwidth="5*" />
 
 <thead>
 <row>
 <entry align="center" valign="bottom"><envar>SPC</envar> Setting (chemical mechanism)</entry>
 <entry align="center" valign="bottom">Air Quality Models</entry>
 <entry align="center" valign="bottom">Inventories</entry>
-<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>BEIS2</entry>
 <entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>BEIS3</entry>
 <entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Non-point/area</entry>
 <entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Nonroad mobile</entry>
@@ -1916,8 +1829,8 @@ grep ERROR *
 <row>
 <entry>
 <simplelist>
-<member>cmaq.cb4p25</member>
-<member>(CB4 with PM<subscript>2.5</subscript> speciation)</member>
+<member>cmaq.cb5p25</member>
+<member>(CB5 with PM<subscript>2.5</subscript> speciation)</member>
 </simplelist>
 </entry>
 <entry>
@@ -1934,13 +1847,12 @@ grep ERROR *
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
-<entry>X</entry>
 </row>
 <row>
 <entry>
 <simplelist>
-<member>cmaq.cb4p25_wtox</member>
-<member>(CB4 with PM<subscript>2.5</subscript> speciation, but inputs can include VOC toxics)</member>
+<member>cmaq.cb5p25_wtox</member>
+<member>(CB5 with PM<subscript>2.5</subscript> speciation, but inputs can include VOC toxics)</member>
 </simplelist>
 </entry>
 <entry>
@@ -1962,13 +1874,12 @@ grep ERROR *
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
-<entry>X</entry>
 </row>
 <row>
 <entry>
 <simplelist>
-<member>cmaq.cb4tx1p25</member>
-<member>(CB4 toxics version 1, with PM<subscript>2.5</subscript> speciation)</member>
+<member>cmaq.cb5tx1p25</member>
+<member>(CB5 toxics version 1, with PM<subscript>2.5</subscript> speciation)</member>
 </simplelist>
 </entry>
 <entry>CMAQ</entry>
@@ -1978,7 +1889,6 @@ grep ERROR *
 <member>toxics</member>
 </simplelist>
 </entry>
-<entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
@@ -1999,7 +1909,6 @@ grep ERROR *
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
-<entry>X</entry>
 </row>
 <row>
 <entry>
@@ -2015,7 +1924,6 @@ grep ERROR *
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
-<entry>X</entry>
 </row>
 <row>
 <entry>maqsip.radm2pm</entry>
@@ -2026,13 +1934,11 @@ grep ERROR *
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
-<entry>X</entry>
 </row>
 <row>
 <entry>remsad.cb4mpm</entry>
 <entry>REMSAD v6</entry>
 <entry>criteria</entry>
-<entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
@@ -2053,11 +1959,10 @@ grep ERROR *
 <entry>X</entry>
 <entry>X</entry>
 <entry>X</entry>
-<entry>X</entry>
 </row>
 
 <row>
-<entry namest="c1" nameend="c9">*Does not work for SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>2.5</subscript>, and PM<subscript>10</subscript> for this model and/or mechanism. These pollutants must not be included in the inventory when using this speciation setting for these models.</entry>
+<entry namest="c1" nameend="c8">*Does not work for SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>2.5</subscript>, and PM<subscript>10</subscript> for this model and/or mechanism. These pollutants must not be included in the inventory when using this speciation setting for these models.</entry>
 </row>
 </tbody>
 
@@ -2076,7 +1981,7 @@ grep ERROR *
 <para>Use for CMAQ for Carbon Bond 4 VOC speciation and PM<subscript>2.5</subscript> speciation (no mercury)</para>
 </listitem>
 <listitem>
-<para>Use for BEIS2 and BEIS3 modeling for all models for CB4</para>
+<para>Use for BEIS3 modeling for all models for CB5</para>
 </listitem>
 </itemizedlist>
 
@@ -2086,13 +1991,13 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for CMAQ for CB4 and PM, and for MAQSIP, UAM, and CAM<subscript>X</subscript> for CB4 only</para>
+<para>Use for CMAQ for CB5 and PM, and for MAQSIP, UAM, and CAM<subscript>X</subscript> for CB5 only</para>
 </listitem>
 <listitem>
-<para>Modeling with both criteria and toxics inventories for the standard CB4 chemical mechanism. The on-road mobile <envar>GSPRO</envar> file is different from that of the other source categories.</para>
+<para>Modeling with both criteria and toxics inventories for the standard CB5 chemical mechanism. The on-road mobile <envar>GSPRO</envar> file is different from that of the other source categories.</para>
 </listitem>
 <listitem>
-<para>Use for BEIS2 and BEIS3 modeling for all models for CB4.</para>
+<para>Use for BEIS3 modeling for all models for CB5.</para>
 </listitem>
 </itemizedlist>
 
@@ -2102,7 +2007,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for CMAQ modeling only with both criteria and toxics inventories for the <quote>toxics-CB4</quote> chemical mechanism. This works for all source categories, including BEIS2 and BEIS3 modeling. The <envar>GSPRO</envar> and <envar>GSREF</envar> files are different for on-road mobile sources, and the <envar>GSREF</envar> file is different for the point sources.</para>
+<para>Use for CMAQ modeling only with both criteria and toxics inventories for the <quote>toxics-CB5</quote> chemical mechanism. This works for all source categories, including BEIS3 modeling. The <envar>GSPRO</envar> and <envar>GSREF</envar> files are different for on-road mobile sources, and the <envar>GSREF</envar> file is different for the point sources.</para>
 </listitem>
 </itemizedlist>
 
@@ -2112,7 +2017,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for CMAQ with RADM2 chemical mechanism, with or without PM emissions. This works for all source categories, including BEIS2 and BEIS3 modeling.</para>
+<para>Use for CMAQ with RADM2 chemical mechanism, with or without PM emissions. This works for all source categories, including BEIS3 modeling.</para>
 </listitem>
 </itemizedlist>
 
@@ -2122,7 +2027,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for CMAQ with SAPRC 99 chemical mechanism. This works for all source categories, including BEIS2 and BEIS3 modeling. The <envar>GSPRO</envar> file is different for on-road mobile sources.</para>
+<para>Use for CMAQ with SAPRC 99 chemical mechanism. This works for all source categories, including BEIS3 modeling. The <envar>GSPRO</envar> file is different for on-road mobile sources.</para>
 </listitem>
 </itemizedlist>
 
@@ -2132,7 +2037,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for MAQSIP with RADM2 chemical mechanism, with or without PM emissions. This works for all source categories, including BEIS2 and BEIS3 modeling.</para>
+<para>Use for MAQSIP with RADM2 chemical mechanism, with or without PM emissions. This works for all source categories, including BEIS3 modeling.</para>
 </listitem>
 </itemizedlist>
 
@@ -2142,7 +2047,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for REMSAD version 6 with micro-CB4 and PM emissions. This works for all source categories, including BEIS2 and BEIS3 modeling.</para>
+<para>Use for REMSAD version 6 with micro-CB5 and PM emissions. This works for all source categories, including BEIS3 modeling.</para>
 </listitem>
 </itemizedlist>
 
@@ -2152,7 +2057,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>Use for REMSAD version 7 for micro-CB4 and speciated PM<subscript>2.5</subscript> emissions. Use also for mercury and cadmium modeling. This works for all source categories, including BEIS2 and BEIS3 modeling.</para>
+<para>Use for REMSAD version 7 for micro-CB5 and speciated PM<subscript>2.5</subscript> emissions. Use also for mercury and cadmium modeling. This works for all source categories, including BEIS3 modeling.</para>
 </listitem>
 </itemizedlist>
 
@@ -2653,9 +2558,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>The <envar>MEPROC</envar> file must have all of the process-pollutant combinations (e.g., EXH__CO, EXH__NOX, and so on) as an input file to <command>Movesmrg</command>. The <xref linkend="tbl_concepts_moves_emission_processes"/> explains which pollutants are associated with which processes.</para>
-
-<para>User has an option to choose whether aggregated SMOKE emissions process or not. If user chooses the aggregated emission process as EXH, we could potentially have EXR, EXS, CXR, CXS, CEI, and EXT. With an emission process of EVP, the corresponding SMOKE emission processes are EPM, EFV, EFL, and RFL.</para>
+<para>The <envar>MEPROC</envar> file must have all of the pollutants (e.g., CO, NOX, and so on) as an input file to <command>Movesmrg</command>.</para>
 </listitem>
 
 <listitem>
@@ -2677,14 +2580,6 @@ grep ERROR *
 <para>The <envar>MCXREF</envar> file should assign reference counties for all counties for which you provide VMT data in the inventory.</para>
 </listitem>
 </itemizedlist>
-
-</section>
-
-<section>
-
-<title>Changing and setting emission processes</title>
-
-<para>The emission processes that you can model are ultimately dependent upon the processes available in MOVES. In <xref linkend="tbl_concepts_moves_emission_processes" />, we have previously listed the available emission processes and which types of pollutants (criteria, VOC, PM, Toxics) are associated with each. You can change which processes are included in your modeling by adding or removing processing from the <envar>MEPROC</envar> file, as long as you are consistent with the documentation <xref linkend="sect_input_meproc_moves" />.</para>
 
 </section>
 
@@ -3082,61 +2977,6 @@ grep ERROR *
 </listitem>
 <listitem>
 <para>See model-specific settings in <xref linkend="sect_scripts_model_cmaq" /> and <xref linkend="sect_scripts_model_uam" />.</para>
-</listitem>
-</orderedlist>
-
-</section>
-
-<section id="sect_scripts_use_beis2">
-
-<title>Use BEIS2</title>
-
-<para>The steps you need to take to use BEIS2 for your modeling case are:</para>
-
-<orderedlist>
-<listitem>
-<para>Ensure that the land use file has been created and properly installed.</para>
-
-<para>See <xref linkend="sect_scripts_install_spatial_inputs" />, step 4) for more information on creating and installing the land use data.</para>
-</listitem>
-<listitem>
-<para>Ensure that the meteorology data are correct.</para>
-
-<para>See <xref linkend="sect_scripts_install_spatial_inputs" />, step 5) and <xref linkend="sect_scripts_change_meteorology" /> for more information on creating and installing the meteorology data.</para>
-</listitem>
-<listitem>
-<para>Ensure that summer and/or winter emission factors are in place.</para>
-
-<para>The <envar>BFAC</envar> and <envar>BFAC_W</envar> files are installed by SMOKE and do not need to be changed, so it is very unlikely that these files will not be in their <filename class="directory"><envar>GE_DAT</envar></filename> location. The example Assigns file sets the logical file names for these, which should not be changed.</para>
-</listitem>
-<listitem>
-<para>Set up your BEIS2 run script.</para>
-
-<para>To set up your BEIS2 run, copy the example BEIS2 run script listed in <xref linkend="sect_scripts_example_scripts" /> and reset the script settings. The settings that you may need to reset are as follows (see <xref linkend="ch_programs" /> for all program options):</para>
-
-<itemizedlist>
-<listitem>
-<para><envar>RUN_METSCAN</envar>: Set to Y if you need to use the <envar>BIOSEASON</envar> file (see <xref linkend="sect_scripts_install_spatial_inputs" />, step 6).</para>
-</listitem>
-<listitem>
-<para><command>Rawbio</command> options</para>
-</listitem>
-<listitem>
-<para><command>Tmpbio</command> options</para>
-</listitem>
-<listitem>
-<para><command>Smkmerge</command> options - this program is used to create state/county totals and/or to change units for CMAQ from moles/hr (output by <command>Tmpbio</command>) to moles/s. Depending on the purpose for running <command>Smkmerge</command> in your script, adjust the <command>Smkmerge</command> options accordingly. Please note that you cannot create gridded outputs in moles/s and state/county totals in tons/day in a single run.</para>
-
-<para>If creating state/county totals, make sure the <envar>AREA_SURROGATE_NUM</envar> setting is set to the cell-area surrogate number in your <envar>BGPRO</envar> file.</para>
-</listitem>
-<listitem>
-<para><envar>SPC_OVERRIDE</envar>: May be needed in some cases (see <xref linkend="sect_scripts_script_settings" />)</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>Run the BEIS2 script.</para>
 </listitem>
 </orderedlist>
 
@@ -3795,9 +3635,9 @@ grep ERROR *
 
 <orderedlist>
 <listitem>
-<para>Define source groups using the <envar>SMKMERGE_GROUPS</envar> file</para>
+<para>Define source groups using the <envar>SOURCE_GROUPS</envar> file</para>
 
-<para>The format for the <envar>SMKMERGE_GROUPS</envar> file is described in <xref linkend="sect_input_smkmerge_groups" />. When assigning sources to groups, SMOKE will match each source to the most specific line in the <envar>SMKMERGE_GROUPS</envar> file. The hierarchy of assignment priority is listed below.</para>
+<para>The format for the <envar>SOURCE_GROUPS</envar> file is described in <xref linkend="sect_input_smkmerge_groups" />. When assigning sources to groups, SMOKE will match each source to the most specific line in the <envar>SOURCE_GROUPS</envar> file. The hierarchy of assignment priority is listed below.</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -3835,7 +3675,7 @@ grep ERROR *
 </listitem>
 
 <listitem>
-<para>Define locations for the output files <envar>STACK_GROUPS_OUT</envar> (source group information), <envar>SGINLNTS_L</envar> (emissions data), and <envar>SRCGRP_REPORT</envar> (source group report file)</para>
+<para>Define locations for the output files <envar>SRCGROUPS_OUT</envar> (source group information), <envar>SGINLNTS_L</envar> (emissions data), and <envar>SRCGRP_REPORT</envar> (source group report file)</para>
 </listitem>
 
 <listitem>

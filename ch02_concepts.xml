@@ -1062,7 +1062,7 @@ Additional data</programlisting>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Mobile sources</emphasis> are defined by (1) <link linkend="sect_concepts_costcy_codes">country, state, and county codes</link>, (2) <link linkend="sect_concepts_scc_codes">SCCs</link>, and optionally (3) link codes.</para>
+<para><emphasis role="bold">Mobile sources</emphasis> are defined by (1) <link linkend="sect_concepts_costcy_codes">country, state, and county codes</link>, (2) <link linkend="sect_concepts_scc_codes">SCCs</link>, and (3) optionally link codes.</para>
 </listitem>
 
 <listitem>
@@ -1167,7 +1167,7 @@ Additional data</programlisting>
 
 <title>Biogenic-source processing</title>
 
-<para>SMOKE biogenic emissions modeling can be accomplished with two different approaches to the science used. The first is the Biogenic Emissions Inventory System, version 2 (BEIS2) approach, which uses an adaptation of the BEIS2 model that fits within the data flows of SMOKE and works with the meteorology and AQMs used with Models-3. The second approach uses version 3.09 or version 3.14 of BEIS. For either approach, the processing scheme is the same (<xref linkend="fig_concepts_biogenic_base" />). The raw land use inventory data are imported and output as normalized emissions.<comment>add description of normalized emissions</comment> Meteorology adjustments are then applied to the normalized emissions to create hourly model-ready emissions estimates.</para>
+<para>SMOKE biogenic emissions modeling can be accomplished with the Biogenic Emissions Inventory System, version 3 (BEIS3) approach using the processing scheme  (<xref linkend="fig_concepts_biogenic_base" />). The raw land use inventory data are imported and output as normalized emissions.<comment>add description of normalized emissions</comment> Meteorology adjustments are then applied to the normalized emissions to create hourly model-ready emissions estimates.</para>
 
 <figure id="fig_concepts_biogenic_base">
 <title>Biogenic-source processing steps and intermediate files</title>
@@ -1182,11 +1182,9 @@ Additional data</programlisting>
 </mediaobject>
 </figure>
 
-<para>For BEIS2 processing, the land use import can start with either the county-total land use data or gridded land use data. In both cases, the land use import step produces the same gridded normalized emissions output file (<envar>BGRD</envar>), which contains gridded time-independent emissions for groups of land use biomass data. The emissions are computed using emission factors from either a summer or winter emission factor lookup table, which are specific to BEIS2. BEIS2 processing uses the BELD2 land use categories. It is also possible to use the BELD3 land use data in BEIS2 processing by applying the <command>Beld3to2</command> SMOKE utility described in <xref linkend="sect_utilities_beld3to2" />. Meteorology adjustments and a single chemical speciation profile are applied to these normalized emissions to calculate model-ready emissions.</para>
+<para>The land use import can start with gridded BELD3 or BELD4 land use data and uses BEIS3 summer and winter emission factors.  In <xref linkend="sect_concepts_biogenic_processing" />, we provide additional details about the SMOKE programs used for BEIS3 processing and its capabilities.</para>
 
-<para>For BEIS3 processing, the land use import can start only with gridded BELD3 land use data and uses BEIS3 summer and winter emission factors.  In <xref linkend="sect_concepts_biogenic_processing" />, we provide additional details about the SMOKE programs used for BEIS2 and BEIS3 processing and their capabilities.</para>
-
-<para>For both BEIS2 and BEIS3, a variation can be run on the processing steps shown in <xref linkend="fig_concepts_biogenic_base" /> (see <xref linkend="fig_concepts_biogenic_seasons" />). In this variation, some grid cells use summer emission factors and some use winter emission factors. This is useful during the changes of seasons. Based on guidance from EPA, the summer emissions factors should be used for time periods after the last frost of the spring until the first frost of the fall, and winter emission factors should be used at other times of the year. To make such assignments by grid cell, the SMOKE utility <command>Metscan</command> analyzes the meteorology data for the entire year (or the period of interest) to establish which days each grid cell should use winter and summer emission factors. <command>Metscan</command> creates a winter/summer switch file that indicates the appropriate season for each grid cell for each day. More information on <command>Metscan</command> is available in <xref linkend="sect_utilities_metscan" />. The results of the meteorology analysis can then be used in the <xref linkend="fig_concepts_biogenic_seasons" /> processing approach, in which both the summer and winter normalized emissions are provided to the meteorology adjustments step, along with the winter/summer switch file. The resulting model-ready emissions data have used the winter emission factors for all grid cells of the domain that have experienced the first freeze date of the year but not the last (within a calendar year, this is the time periods January through March and November through December in many regions), and the summer emission factors for all grid cells between the last and first freeze dates.</para>
+<para>A variation can be run on the processing steps shown in <xref linkend="fig_concepts_biogenic_base" /> (see <xref linkend="fig_concepts_biogenic_seasons" />). In this variation, some grid cells use summer emission factors and some use winter emission factors. This is useful during the changes of seasons. Based on guidance from EPA, the summer emissions factors should be used for time periods after the last frost of the spring until the first frost of the fall, and winter emission factors should be used at other times of the year. To make such assignments by grid cell, the SMOKE utility <command>Metscan</command> analyzes the meteorology data for the entire year (or the period of interest) to establish which days each grid cell should use winter and summer emission factors. <command>Metscan</command> creates a winter/summer switch file that indicates the appropriate season for each grid cell for each day. More information on <command>Metscan</command> is available in <xref linkend="sect_utilities_metscan" />. The results of the meteorology analysis can then be used in the <xref linkend="fig_concepts_biogenic_seasons" /> processing approach, in which both the summer and winter normalized emissions are provided to the meteorology adjustments step, along with the winter/summer switch file. The resulting model-ready emissions data have used the winter emission factors for all grid cells of the domain that have experienced the first freeze date of the year but not the last (within a calendar year, this is the time periods January through March and November through December in many regions), and the summer emission factors for all grid cells between the last and first freeze dates.</para>
 
 <figure id="fig_concepts_biogenic_seasons">
 <title>Biogenic-source processing steps and intermediate files using both winter and summer emission factors</title>
@@ -1201,7 +1199,7 @@ Additional data</programlisting>
 </mediaobject>
 </figure>
 
-<para>In <xref linkend="sect_concepts_biogenic_processing" /> we describe the SMOKE programs that are needed for each of these processing types for both BEIS2 and BEIS3 processing, and additional details about what activities are accomplished during each step.</para>
+<para>In <xref linkend="sect_concepts_biogenic_processing" /> we describe the SMOKE programs that are needed for each of these processing types for BEIS3 processing, and additional details about what activities are accomplished during each step.</para>
 
 </section>
 
@@ -1258,179 +1256,9 @@ Additional data</programlisting>
 
 <para>Processing mobile sources involves a number of concepts that are unique to mobile sources. These include a special classification of road types in MOVES, SMOKE and MOVES vehicle types, emissions processes, MOVES emission factors, reference counties, reference fuel months, and meteorological processing using <command>Met4moves</command>. The following subsections explain these topics in more detail.</para>
 
-<section>
-
-<title>Road types in MOVES</title>
-
-<para>MOVES can model five different road types: rural restricted/unrestricted access, urban restricted/unrestricted access, and off-network (used for emission processes that are not road dependent, such as exhaust start, extended idle, and crankcase). <xref linkend="tbl_concepts_moves_roads" /> indicates how the 13 SCC road classes are mapped to the five MOVES road types. The fractions for disaggregation are applied at the county level and can be found in the <emphasis role="bold">sccroadtypedistribution</emphasis> table in the MOVES model.</para>
-
-<para>Note that SMOKE assumes that a portion of the VMT data supplied for interstates and freeways are attributable to freeway ramps.  Therefore, SMOKE computes a composite emission factor from the freeway and freeway ramp emission factors from MOVES and maps the composite to the interstates and freeways.</para>
-
-<table id="tbl_concepts_moves_roads">
-<?dbfo table-width="4in"?>
-<title>Road class and corresponding MOVES road type</title>
-
-<tgroup cols="3">
-<colspec colwidth="1*" />
-<colspec colwidth="2*" />
-<colspec colwidth="2*" />
-
-<thead>
-<row>
-<entry align="center">SCC Code</entry>
-<entry align="center">SCCRoadTypeID</entry>
-<entry align="center">MOVES roadTypeID</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>000</entry>
-<entry>Off-Network</entry>
-<entry>Off-Network</entry>
-</row>
-<row>
-<entry>110</entry>
-<entry>Rural Interstate </entry>
-<entry>Rural Restricted Access</entry>
-</row>
-<row>
-<entry>130</entry>
-<entry>Rural Principal Arterial </entry>
-<entry>Rural Unrestricted Access</entry>
-</row>
-<row>
-<entry>150</entry>
-<entry>Rural Minor Arterial </entry>
-<entry>Rural Unrestricted Access</entry>
-</row>
-<row>
-<entry>170</entry>
-<entry>Rural Major Collector </entry>
-<entry>Rural Unrestricted Access</entry>
-</row>
-<row>
-<entry>190</entry>
-<entry>Rural Minor Collector </entry>
-<entry>Rural Unrestricted Access</entry>
-</row>
-<row>
-<entry>210</entry>
-<entry>Rural Local </entry>
-<entry>Rural Unrestricted Access</entry>
-</row>
-<row>
-<entry>230</entry>
-<entry>Urban Interstate </entry>
-<entry>Urban Restricted Access</entry>
-</row>
-<row>
-<entry>250</entry>
-<entry>Urban Freeway</entry>
-<entry>Urban Restricted Access</entry>
-</row>
-<row>
-<entry>270</entry>
-<entry>Urban Principal Arterial </entry>
-<entry>Urban Unrestricted Access</entry>
-</row>
-<row>
-<entry>290</entry>
-<entry>Urban Minor Arterial </entry>
-<entry>Urban Unrestricted Access</entry>
-</row>
-<row>
-<entry>310</entry>
-<entry>Urban Collector </entry>
-<entry>Urban Unrestricted Access</entry>
-</row>
-<row>
-<entry>330</entry>
-<entry>Urban Local </entry>
-<entry>Urban Unrestricted Access</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>Vehicle types in MOVES</title>
-
-<para>The vehicle types used in SMOKE&rsquo;s on-road mobile source processing are described in <xref linkend="tbl_concepts_vehicle_types" />. The codes (e.g., 0100) should be used in the cross-reference files.</para>
-
-<table id="tbl_concepts_vehicle_types">
-<?dbfo table-width="3.5in"?>
-<title>Vehicle type codes and descriptions</title>
-
-<tgroup cols="3">
-<colspec colwidth="1*" />
-<colspec colwidth="2*" />
-<colspec colwidth="3*" />
-
-<thead>
-<row>
-<entry align="center">SCC Code</entry>
-<entry align="center">SCCvtypeID</entry>
-<entry align="center">Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>0100</entry>
-<entry>LDGV</entry>
-<entry>Light Duty Gasoline Vehicles</entry>
-</row>
-<row>
-<entry>0102</entry>
-<entry>LDGT1</entry>
-<entry>Light Duty Gasoline Trucks 1</entry>
-</row>
-<row>
-<entry>0104</entry>
-<entry>LDGT2</entry>
-<entry>Light Duty Gasoline Trucks 2</entry>
-</row>
-<row>
-<entry>0107</entry>
-<entry>HDGV</entry>
-<entry>Heavy Duty Gasoline Vehicles</entry>
-</row>
-<row>
-<entry>3000</entry>
-<entry>LDDV</entry>
-<entry>Light Duty Diesel Vehicles</entry>
-</row>
-<row>
-<entry>3006</entry>
-<entry>LDDT</entry>
-<entry>Light Duty Diesel Trucks</entry>
-</row>
-<row>
-<entry>3007</entry>
-<entry>HDDV</entry>
-<entry>Heavy Duty Diesel Vehicles</entry>
-</row>
-<row>
-<entry>0108</entry>
-<entry>MC</entry>
-<entry>Motorcycles</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<para>MOVES can produce emission factors for possible combinations between 13 MOVES vehicle types (sourceTypeID) and fuel types (fuelTypeID). For SMOKE to assign these emission factors to the mobile sources, the emission factors must be aggregated to the 8 vehicle types (SCCvtypeID) listed in <xref linkend="tbl_concepts_vehicle_types" />.  To perform this aggregation, MOVES disaggregates emission rate output into the 31 vehicle model years. Fractions that map MOVES sourceTypeID by model year and fuleTypeID to SCCVtypeID to SCCVtypeID are found in the <emphasis role="bold">sccvtypedistribution</emphasis> table of MOVES.</para>
-<para>Once the applicable SCC is determined by SCCvtypeID and SCCRoadTypeID, MOVES aggregates those emission rates by SCC over vehicle model years using travel fraction. Travel fractions are simply weighting factors that sum to 1 over all model years; they are used to aggregate emission rates over model years to produce a single SCC-wide emission rate instead of a rate for each of the 31 vehicle model years. Travel fractions are based on mileage accumulation by vehicle model year and/or age distribution by model year.</para>
-
-</section>
-
 <section id="sect_concepts_onroad_sccs">
 
-<title>Special approach for on-road mobile SCCs</title>
+<title>Special approach for on-road mobile MOVES SCCs</title>
 
 <para>SMOKE handles SCCs differently for on-road mobile sources compared with all other source categories. SMOKE programs assume that on-road mobile SCCs have the following form:</para>
 
@@ -1445,24 +1273,546 @@ Additional data</programlisting>
 </mediaobject>
 </informalfigure>
 
-<para>The <command>Smkinven</command> program populates SMOKE&rsquo;s internal fields for vehicle type (vehicle code) and road type by extracting them from the SCC and converting the 3-digit road class to the 2-digit road type (using the mapping provided in the <envar>MCODES</envar> file). During cross-referencing for any mobile-source processing step, SMOKE builds internal SCCs of the form:</para>
+</section>
 
-<informalfigure>
-<mediaobject>
-<imageobject role="pdf">
-<imagedata width="3in" fileref="images/concepts/scc_mobile_internal_pdf.jpg" />
-</imageobject>
-<imageobject role="html">
-<imagedata fileref="images/concepts/scc_mobile_internal_html.jpg" />
-</imageobject>
-</mediaobject>
-</informalfigure>
+<section>
 
-<para>These internal SCCs are created by SMOKE for both the inventory file and the cross-reference file. Therefore, any information included in the unused <quote>X</quote> portion of the inventory SCC will be ignored during the cross-referencing. If you refer to the on-road mobile cross-referencing hierarchies provided with each program that uses cross-referencing in <xref linkend="ch_programs" />, the vehicle type and road type are a part of the hierarchy, but the inventory SCC code is not. The internal SCCs are used so that the correct hierarchy can be used (in which the vehicle type is a more specific descriptor). See <xref linkend="sect_concepts_scc_codes" /> for a description of the <quote>left to right</quote> hierarchy of the parts of an SCC.</para>
+<title>Fuel types in MOVES</title>
 
-<para>In some cases, SMOKE errors and warnings that appear when processing on-road mobile sources will contain the internal SCC instead of the source&rsquo;s inventory SCC. The information provided in this section can help you determine which source is actually a concern.</para>
+<para>MOVES can model six different fuel types: Gasoline, Diesel, Compressed Natural Gas (CNG), Liquefied Petroleum Gas (LPG), Ethanol, and Electricity. <xref linkend="tbl_concepts_moves_fuel"/> indicates a list of original MOVES fule types. <xref linkend="tbl_concepts_moves_agg_fuel"/> shows how the four aggregated SCC fuel types are mapped to the six MOVES fuel types.</para>
+
+<table id="tbl_concepts_moves_fuel">
+<?dbfo table-width="4in"?>
+<title>MOVES Fuel Type</title>
+
+<tgroup cols="2">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center">MOVES Fuel Type ID</entry>
+<entry align="center">Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>01</entry>
+<entry>Gasoline</entry>
+</row>
+<row>
+<entry>02</entry>
+<entry>Diesel</entry>
+</row>
+<row>
+<entry>03</entry>
+<entry>Compressed Natural Gas (CNG)</entry>
+</row>
+<row>
+<entry>04</entry>
+<entry>Liquefied Petroleum Gas (LPG)</entry>
+</row>
+<row>
+<entry>05</entry>
+<entry>Ethanol (E-85)</entry>
+</row>
+<row>
+<entry>09</entry>
+<entry>Electricity</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+
+<table id="tbl_concepts_moves_agg_fuel">
+<?dbfo table-width="4in"?>
+<title>Aggregated SCC corresponding MOVES Fuel Type</title>
+
+<tgroup cols="3">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center"> SCC </entry>
+<entry align="center">Aggregated Fuel Type Description</entry>
+<entry align="center">MOVES Fuel Type ID</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>01</entry>
+<entry>All non-diesel fuels</entry>
+<entry>01; 03; 04; 05; 09</entry>
+</row>
+<row>
+<entry>02</entry>
+<entry>All gasoline and ethanol blends</entry>
+<entry>01; 05</entry>
+</row>
+<row>
+<entry>03</entry>
+<entry>All fossil fuels</entry>
+<entry>01; 02; 03; 04; 05</entry>
+</row>
+<row>
+<entry>00</entry>
+<entry>All fuels</entry>
+<entry>01; 02; 03; 04; 05; 09</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 
 </section>
+
+<section>
+
+<title>Vehicle types in MOVES</title>
+
+<para>The vehicle types used in SMOKE&rsquo;s on-road mobile source processing are described in <xref linkend="tbl_concepts_vehicle_types" />. <xref linkend="tbl_concepts_agg_vehicle_types"/> shows how the eight aggregated MOVES vehicle types are mapped to the original MOVES vehicle types.</para>
+
+<table id="tbl_concepts_vehicle_types">
+<?dbfo table-width="3.5in"?>
+<title>MOVES Vehicle type codes and descriptions</title>
+
+<tgroup cols="2">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center">MOVES Vehicle Type</entry>
+<entry align="center">Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>11</entry>
+<entry>Motorcycle</entry>
+</row>
+<row>
+<entry>21</entry>
+<entry>Passenger Car</entry>
+</row>
+<row>
+<entry>31</entry>
+<entry>Passenger Truck</entry>
+</row>
+<row>
+<entry>32</entry>
+<entry>Light Commercial Truck</entry>
+</row>
+<row>
+<entry>41</entry>
+<entry>Intercity Bus</entry>
+</row>
+<row>
+<entry>42</entry>
+<entry>Transit Bus</entry>
+</row>
+<row>
+<entry>43</entry>
+<entry>School Bus</entry>
+</row>
+<row>
+<entry>51</entry>
+<entry>Refuse Truck</entry>
+</row>
+<row>
+<entry>52</entry>
+<entry>Single Unit Short-haul Truck</entry>
+</row>
+<row>
+<entry>53</entry>
+<entry>Single Unit Long-haul Truck</entry>
+</row>
+<row>
+<entry>54</entry>
+<entry>Motor Home</entry>
+</row>
+<row>
+<entry>61</entry>
+<entry>Combination Short-haul Truck</entry>
+</row>
+<row>
+<entry>62</entry>
+<entry>Combination Long-haul Truck</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_concepts_agg_vehicle_types">
+<?dbfo table-width="3.5in"?>
+<title>MOVES Vehicle type codes and descriptions</title>
+
+<tgroup cols="3">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+<colspec colwidth="3*" />
+
+<thead>
+<row>
+<entry align="center"> SCC </entry>
+<entry align="center">Aggregated Vehicle Type Description</entry>
+<entry align="center">MOVES Vehicle Type</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>30</entry>
+<entry>Light Duty Trucks</entry>
+<entry>31; 32</entry>
+</row>
+<row>
+<entry>40</entry>
+<entry>Buses</entry>
+<entry>41; 42; 43</entry>
+</row>
+<row>
+<entry>70</entry>
+<entry>All Heavy Duty Trucks and Buses</entry>
+<entry>41; 42; 43; 51; 52; 53; 54; 61; 62 </entry>
+</row>
+<row>
+<entry>71</entry>
+<entry>All Heavy Duty Trucks</entry>
+<entry>51; 52; 53; 54; 61; 62 </entry>
+</row>
+<row>
+<entry>72</entry>
+<entry>All Combination Trucks</entry>
+<entry>61; 62 </entry>
+</row>
+<row>
+<entry>80</entry>
+<entry>All Trucks and Buses</entry>
+<entry>31; 32; 41; 42; 43; 51; 52; 53; 54; 61; 62 </entry>
+</row>
+<row>
+<entry>81</entry>
+<entry>All Trucks except Buses</entry>
+<entry>31; 32; 51; 52; 53; 54; 61; 62 </entry>
+</row>
+<row>
+<entry>00</entry>
+<entry>All Vehicles</entry>
+<entry>11; 21; 31; 32; 41; 42; 43; 51; 52; 53; 54; 61; 62 </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para>MOVES can produce emission factors for possible combinations between 13 MOVES vehicle types and fuel types. For the efficiency of SMOKE processing, the emission factors can be aggregated to a list of vehicle types listed in <xref linkend="tbl_concepts_agg_vehicle_types" />.</para>
+
+</section>
+
+<section>
+
+<title>Road types in MOVES</title>
+
+<para>MOVES can model nine different road types: rural restricted/unrestricted access with ramps, rural restricted/unrestricted access without ramps, urban restricted/unrestricted access with ramps, urban restricted/unrestricted access without ramps, and off-network (<xref linkend="tbl_concepts_moves_roads" />). <xref linkend="tbl_concepts_moves_agg_roads" /> indicates how the 6 aggregated MOVES road classes are mapped to the nine MOVES road types.</para>
+
+<table id="tbl_concepts_moves_roads">
+<?dbfo table-width="4in"?>
+<title>Road class and corresponding MOVES road type</title>
+
+<tgroup cols="2">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center">MOVES Road Type ID</entry>
+<entry align="center">Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>01</entry>
+<entry>Off-Network</entry>
+</row>
+<row>
+<entry>02</entry>
+<entry>Rural Restricted Access</entry>
+</row>
+<row>
+<entry>03</entry>
+<entry>Rural Unrestricted Access</entry>
+</row>
+<row>
+<entry>04</entry>
+<entry>Urban Restricted Access</entry>
+</row>
+<row>
+<entry>05</entry>
+<entry>Urban Unrestricted Access</entry>
+</row>
+<row>
+<entry>06</entry>
+<entry>Rural Restricted without Ramps</entry>
+</row>
+<row>
+<entry>07</entry>
+<entry>Urban Restricted without Ramps</entry>
+</row>
+<row>
+<entry>08</entry>
+<entry>Rural Restricted only Ramps</entry>
+</row>
+<row>
+<entry>09</entry>
+<entry>Urban Restricted only Ramps</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_concepts_moves_agg_roads">
+<?dbfo table-width="4in"?>
+<title>Road class and corresponding MOVES road type</title>
+
+<tgroup cols="3">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center"> SCC </entry>
+<entry align="center">Aggregated Road Type Description</entry>
+<entry align="center">MOVES Road Type</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>70</entry>
+<entry>Freeway</entry>
+<entry>2; 4 </entry>
+</row>
+<row>
+<entry>71</entry>
+<entry>freeway except ramps</entry>
+<entry>6; 7 </entry>
+</row>
+<row>
+<entry>72</entry>
+<entry>Ramps</entry>
+<entry>8; 9 </entry>
+</row>
+<row>
+<entry>80</entry>
+<entry>Non-Freeway</entry>
+<entry>3; 5 </entry>
+</row>
+<row>
+<entry>90</entry>
+<entry>All On-network</entry>
+<entry>2; 3; 4; 5 </entry>
+</row>
+<row>
+<entry>00</entry>
+<entry>All on and off-network</entry>
+<entry>1; 2; 3; 4; 5 </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section>
+
+<title>Process types in MOVES</title>
+
+<para>MOVES can model 14 different process types: including on-roadway and off-network emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting in MOVES (<xref linkend="tbl_concepts_moves_proc" />). <xref linkend="tbl_concepts_moves_agg_proc" /> indicates how the 14 aggregated MOVES process types are mapped to the 14 MOVES process types.</para>
+
+<table id="tbl_concepts_moves_proc">
+<?dbfo table-width="4in"?>
+<title>Process types and corresponding MOVES road type</title>
+
+<tgroup cols="2">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center">MOVES Process ID</entry>
+<entry align="center">Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>01</entry>
+<entry>Running Exhaust</entry>
+</row>
+<row>
+<entry>02</entry>
+<entry>Start Exhaust</entry>
+</row>
+<row>
+<entry>09</entry>
+<entry>Brakewear</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>Tirewear</entry>
+</row>
+<row>
+<entry>11</entry>
+<entry>Evaporative Permeation</entry>
+</row>
+<row>
+<entry>12</entry>
+<entry>Evaporative Fuel Vapor Venting</entry>
+</row>
+<row>
+<entry>13</entry>
+<entry>Evaporative Fuel Leaks</entry>
+</row>
+<row>
+<entry>15</entry>
+<entry>Crankcase Running Exhaust</entry>
+</row>
+<row>
+<entry>16</entry>
+<entry>Crankcase Start Exhaust</entry>
+</row>
+<row>
+<entry>17</entry>
+<entry>Crankcase Extended Idle Exhaust</entry>
+</row>
+<row>
+<entry>18</entry>
+<entry>Refueling Displacement Vapor Loss</entry>
+</row>
+<row>
+<entry>19</entry>
+<entry>Refueling Spillage Loss</entry>
+</row>
+<row>
+<entry>90</entry>
+<entry>Extended Idle Exhaust</entry>
+</row>
+<row>
+<entry>91</entry>
+<entry>Auxiliary Power Exhaust</entry>
+</row>
+
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_concepts_moves_agg_proc">
+<?dbfo table-width="4in"?>
+<title>Road class and corresponding MOVES road type</title>
+
+<tgroup cols="3">
+<colspec colwidth="1*" />
+<colspec colwidth="2*" />
+<colspec colwidth="2*" />
+
+<thead>
+<row>
+<entry align="center"> SCC </entry>
+<entry align="center">Aggregated Process Type Description</entry>
+<entry align="center">MOVES Process Type</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>50</entry>
+<entry>All Exhaust</entry>
+<entry>1; 2; 15; 16; 17; 90; 91 </entry>
+</row>
+<row>
+<entry>51</entry>
+<entry>All Exhaust except Hotelling</entry>
+<entry>1; 2; 15; 16 </entry>
+</row>
+<row>
+<entry>52</entry>
+<entry>All hotelling exhaust</entry>
+<entry>17; 90; 91 </entry>
+</row>
+<row>
+<entry>53</entry>
+<entry>All Extended Idle Exhaust</entry>
+<entry>17; 90 </entry>
+</row>
+<row>
+<entry>60</entry>
+<entry>All Evaporative and Refueling</entry>
+<entry>11; 12; 13; 18; 19 </entry>
+</row>
+<row>
+<entry>61</entry>
+<entry>All Evaporative except Refueling</entry>
+<entry>11; 12; 13 </entry>
+</row>
+<row>
+<entry>61</entry>
+<entry>All Evaporative except Refueling</entry>
+<entry>11; 12; 13 </entry>
+</row>
+<row>
+<entry>62</entry>
+<entry>All Refueling</entry>
+<entry>18; 19 </entry>
+</row>
+<row>
+<entry>63</entry>
+<entry>All Evaporative except Permeation and Refueling</entry>
+<entry>12; 13 </entry>
+</row>
+<row>
+<entry>70</entry>
+<entry>All Exhaust and Evaporative and Refueling</entry>
+<entry>1; 2; 11; 12; 13; 15; 16; 17; 18; 19; 90; 91 </entry>
+</row>
+<row>
+<entry>71</entry>
+<entry>All Exhaust and Evaporative except Refueling</entry>
+<entry>1; 2; 11; 12; 13; 15; 16; 17; 90; 91 </entry>
+</row>
+<row>
+<entry>72</entry>
+<entry>All Exhaust and Evaporative except Refueling and Hotelling</entry>
+<entry>1; 2; 11; 12; 13; 15; 16 </entry>
+</row>
+<row>
+<entry>80</entry>
+<entry>All Exhaust and Evaporative and Brake and Tire Wear except Refueling</entry>
+<entry>1; 2; 9; 10; 11; 12; 13; 15; 16; 17; 90; 91 </entry>
+</row>
+<row>
+<entry>81</entry>
+<entry>All Exhaust and Evaporative and Brake and Tire Wear except Refueling and Hotelling</entry>
+<entry>1; 2; 9; 10; 11; 12; 13; 15; 16; 17 </entry>
+</row>
+<row>
+<entry>00</entry>
+<entry>All Processes</entry>
+<entry>1; 2; 9; 10; 11; 12; 13; 15; 16; 17; 18; 19; 90; 91 </entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
 
 <section id="sect_concepts_reference_counties_moves">
 <title>Reference Counties</title>
@@ -1497,7 +1847,7 @@ Additional data</programlisting>
 <listitem><para>Read the country/state/county <link linkend="sect_input_costcy"><envar>COSTCY</envar></link> file to define the time zones for county groups.</para></listitem><listitem><para>Read the meteorology data that have been processed by MCIP.</para></listitem><listitem>
 <para>Calculate the min/max temperatures hourly and over the modeling period.</para></listitem>
 <listitem>
-<para>Calculate average RH for the specified hour range over the modeling period. The default hour range is from 6 AM to 6 PM local time).</para>
+<para>Calculate average RH for the specified hour range over the modeling period.</para>
 </listitem>
 <listitem>
 <para>Once min/max temperatures and averaged RH are estimated for all reference counties and all inventory counties in the county groups, estimate diurnal 24-hour temperature profiles for use by the MOVES Driver script. The result is a normalized 24-hour shape profile over the user-specified period or fuel month.</para></listitem>
@@ -1517,23 +1867,24 @@ Additional data</programlisting>
 <listitem>
 <emphasis role="bold">RatePerProfile (RPP) - </emphasis>The emission rate of vehicles off-network specifically, the evaporation from parked vehicles (vapor-venting emissions) from MOVES. The rate is expressed in grams/vehicle/hour.
 </listitem>
+<listitem>
+<emphasis role="bold">RatePerHour (RPH) - </emphasis>The emission rate of extended idle on-roadway vehicle from MOVES. The rate is expressed in grams/mile traveled.
+</listitem>
 </itemizedlist>
 
-<para>MOVES emission rates are organized into three tables (RPD, RPV, RPP), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
+<para>MOVES emission rates are organized into four lookup tables (RPD, RPV, RPP, RPH), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
 
 <table id="tbl_concepts_moves_emission_rate_tbl">
 <title>MOVES Emission Processes by Emission Rate Tables</title>
-<tgroup cols="4">
+<tgroup cols="3">
 <colspec colname="c1" colwidth="10*" />
 <colspec colname="c2" colwidth="10*" />
 <colspec colname="c3" colwidth="10*" />
-<colspec colname="c4" colwidth="20*" />
 
 <thead>
 <row>
 <entry morerows="1" valign="bottom" align="center">MOVES Lookup Table</entry>
 <entry morerows="1" valign="bottom" align="center">Units</entry>
-<entry morerows="1" valign="bottom" align="center">smokeProcID</entry>
 <entry morerows="1" valign="bottom" align="center">Emissions Process</entry>
 </row>
 </thead>
@@ -1542,17 +1893,6 @@ Additional data</programlisting>
 <row>
 <entry>RatePerDistance (RPD)</entry>
 <entry align="center">Grams/mile</entry>
-<entry align="center">
-	<simplelist>
-<member>EXR</member>
-<member>CXR</member>
-<member>TIR</member>
-<member>BRK</member>
-<member>EPM</member>
-<member>EFL</member>
-<member>EFV</member>
-</simplelist>
-</entry>
 <entry align="left">
 <simplelist>
 <member>Running Exhaust</member>
@@ -1569,16 +1909,6 @@ Additional data</programlisting>
 <row>
 <entry>RatePerVehicle (RPV)</entry>
 <entry align="center">Grams/vehicle/hour</entry>
-<entry align="center">
-	<simplelist>
-<member>EXS</member>
-<member>CXS</member>
-<member>EPM</member>
-<member>EFL</member>
-<member>CEI</member>
-<member>EXT</member>
-</simplelist>
-</entry>
 <entry align="left">
 <simplelist>
 <member>Start Exhaust</member>
@@ -1593,17 +1923,22 @@ Additional data</programlisting>
 <row>
 <entry>RatePerProfile (RPP)</entry>
 <entry align="center">Grams/vehicle/hour</entry>
-<entry align="center">EFV</entry>
 <entry align="left">Off-network Evaporative Fuel Vapor Venting</entry>
+</row>
+<row>
+<entry>RatePerHour (RPH)</entry>
+<entry align="center">Grams/mile</entry>
+<entry align="left">On-roadway Extended Idle Exhaust</entry>
 </row>
 </tbody>
 
 </tgroup>
 </table>
-  <para><emphasis>The RPD lookup table</emphasis> is used to provide estimates of on-roadway emissions processes from mobile sources, using a separate file for each reference county. The on-road running processes that appear in this table include running exhaust (EXR), crankcase running exhaust (CXR), brake wear (BRK), tire wear (TIR), on-road evaporative permeation (EPM), on-road evaporative fuel leaks (EFL), and on-road evaporative vapor venting (EFV). The units of the emission rates in this table are grams/mile. The lookup fields for the factors are temperature and average speed. There are 16 set speed bins defined in <xref linkend="tbl_moves_speed_bins" /> (i.e., avgSpeedBinID 1=2.5mph, 2=5mph, 3=10mph, …16=75mph). The avgBinSpeed is used for interpolation in the RPD table.</para>  
-  <para><emphasis>The RPV lookup table</emphasis> is used to provide estimates of off-network emission processes (parked engine-off, engine starts, and idling), except for the evaporative off-network vapor venting emissions process. A separate file is provided for each reference county. The off-network emission processes include start exhaust (EXS), crankcase start exhaust (CXS), off-network evaporative permeation (EPM), off-network evaporative fuel leaks (EFL), extended idle exhaust (EXT), and crankcase extended idle exhaust (CEI). Fuel month, temperature, and local hour are the lookup fields in this table, and hours are in the local time of the modeling county. The units of the emission rates are grams/vehicle/hour. Note: Although the units are grams/vehicle/hour, the number of vehicles (i.e., population) should not be temporally allocated to hours in SMOKE. Instead, a county total of vehicle population should be multiplied by emission rates at any given hour. The number of starts per vehicle by hour is already accounted for in the MOVES lookup table.</para>
-	<para><emphasis>The RPP table</emphasis> is used only to estimate emissions for off-network fuel vapor venting (EFV) when the vehicle is parked. This process type includes diurnal (when the vehicle is parked during the day) and hot soak (immediately after a trip when the vehicle parks) emissions types. The process depends on the rate of rise in temperature and the maximum temperature achieved during the day for the diurnal emissions type, and on the hourly temperatures for the hot soak emission type. The lookup fields for this table are reference fuel month and hour of day. As with the RPV table, the units of the emission rates are grams/vehicle/hour. The estimated emissions rates need to be multiplied by the county vehicle population. The reference county lookup tables contain 24-hour emission rates per hour per vehicle using a reference county temperature profile with different minimum and maximum temperatures. The average day county emissions are determined by interpolating between the minimum and maximum temperatures for the modeling county generated by <command>Met4moves</command>. <xref linkend="sect_concepts_moves_met_processing" /> summarizes how <command>Met4moves</command> processes meteorological data for both MOVES and SMOKE.</para>
 
+<para><emphasis>The RPD lookup table</emphasis> is used to provide estimates of on-roadway emissions processes from mobile sources, using a separate file for each reference county. The on-road running processes that appear in this table include running exhaust, crankcase running exhaust, brake wear, tire wear, on-road evaporative permeation, on-road evaporative fuel leaks, and on-road evaporative vapor venting. The units of the emission rates in this table are grams/mile. The lookup fields for the factors are temperature and average speed. There are 16 set speed bins defined in <xref linkend="tbl_moves_speed_bins" /> (i.e., avgSpeedBinID 1=2.5mph, 2=5mph, 3=10mph, …16=75mph). The avgBinSpeed is used for interpolation in the RPD table.</para>  
+<para><emphasis>The RPV lookup table</emphasis> is used to provide estimates of off-network emission processes (parked engine-off, engine starts, and idling), except for the evaporative off-network vapor venting emissions process. A separate file is provided for each reference county. The off-network emission processes include start exhaust, crankcase start exhaust, off-network evaporative permeation, off-network evaporative fuel leaks, extended idle exhaust, and crankcase extended idle exhaust. Fuel month, temperature, and local hour are the lookup fields in this table, and hours are in the local time of the modeling county. The units of the emission rates are grams/vehicle/hour. Note: Although the units are grams/vehicle/hour, the number of vehicles (i.e., population) should not be temporally allocated to hours in SMOKE. Instead, a county total of vehicle population should be multiplied by emission rates at any given hour. The number of starts per vehicle by hour is already accounted for in the MOVES lookup table.</para>
+<para><emphasis>The RPP table</emphasis> is used only to estimate emissions for off-network fuel vapor venting when the vehicle is parked. This process type includes diurnal (when the vehicle is parked during the day) and hot soak (immediately after a trip when the vehicle parks) emissions types. The process depends on the rate of rise in temperature and the maximum temperature achieved during the day for the diurnal emissions type, and on the hourly temperatures for the hot soak emission type. The lookup fields for this table are reference fuel month and hour of day. As with the RPV table, the units of the emission rates are grams/vehicle/hour. The estimated emissions rates need to be multiplied by the county vehicle population. The reference county lookup tables contain 24-hour emission rates per hour per vehicle using a reference county temperature profile with different minimum and maximum temperatures. The average day county emissions are determined by interpolating between the minimum and maximum temperatures for the modeling county generated by <command>Met4moves</command>. <xref linkend="sect_concepts_moves_met_processing" /> summarizes how <command>Met4moves</command> processes meteorological data for both MOVES and SMOKE.</para>
+<para><emphasis>The RPH table</emphasis> is used only to estimate emissions for on-roadway extended idle exhaust process from mobile sources, using a separate file for each reference county.</para>
 
 <table id="tbl_moves_speed_bins">
 <?dbfo table-width="6in"?>
@@ -1707,545 +2042,11 @@ Additional data</programlisting>
 </tgroup>
 </table>  
 
-<table id="tbl_concepts_moves_emission_processes">
-	
-<title>MOVES Pollutants associated with SMOKE Emissions Processes (<envar>SmokeProcIDs</envar>)</title>
-
-<tgroup cols="12">
-<colspec colname="c1" colwidth="15*" />
-<colspec colname="c2" colwidth="7*" />
-<colspec colname="c3" colwidth="7*" />
-<colspec colname="c4" colwidth="7*" />
-<colspec colname="c5" colwidth="7*" />
-<colspec colname="c6" colwidth="7*" />
-<colspec colname="c7" colwidth="7*" />
-<colspec colname="c8" colwidth="7*" />
-<colspec colname="c9" colwidth="7*" />
-<colspec colname="c10" colwidth="7*" />
-<colspec colname="c11" colwidth="7*" />
-<colspec colname="c12" colwidth="7*" />
-<thead>
-<row>
-<entry morerows="3" valign="center" align="center">SMOKE Name</entry>
-<entry namest="c2" nameend="c12" align="center">smokeProcIDs</entry>
-</row>
-<row>
-<entry align="center">EXR </entry>
-<entry align="center">EXS </entry>
-<entry align="center">CXR </entry>
-<entry align="center">CXS </entry>
-<entry align="center">CEI </entry>
-<entry align="center">EXT </entry>
-<entry align="center">EPM </entry>
-<entry align="center">EFV </entry>
-<entry align="center">EFL </entry>
-<entry align="center">BRK </entry>
-<entry align="center">TIR </entry>
-</row>
-<row>
-<entry namest="c2" nameend="c12" align="center">Aggregated smokeProcIDs</entry>
-</row>
-<row>
-<entry align="center">EXH</entry>
-<entry align="center">EXH</entry>
-<entry align="center">EXH</entry>
-<entry align="center">EXH</entry>
-<entry align="center">EXH</entry>
-<entry align="center">EXH</entry>
-<entry align="center">EVP</entry>
-<entry align="center">EVP</entry>
-<entry align="center">EVP</entry>
-<entry align="center">BRK</entry>
-<entry align="center">TIR</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>TOG</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>VOC_INV</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>CO</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>NOX</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>NH3</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>NO</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>NO2</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>SO2</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM10OM</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM10EC</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM10SO4</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM10BRAKE</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM10TIRE</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center">x</entry>
-</row>
-<row>
-<entry>PM25OM</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM25EC</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PSO4</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PNO3</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>NH4</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PMFINE</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PMC</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM25BRAKE</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>PM25TIRE</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center">x</entry>
-</row>
-<row>
-<entry>CH4</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>N2O</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>Atmos_CO2</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>CO2_Eqv</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>BENZENE</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>Ethanol</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>MTBE</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>NAPHTH</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>BUTADIE</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>FORMALD</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>ACETALD</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-<row>
-<entry>ACROLEI</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center">x</entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-<entry align="center"></entry>
-</row>
-
-</tbody>
-</tgroup>
-</table>
 </section>
 
 <section>
 <title>MOVES Pollutant Groups</title>
-<para>The following <xref linkend="tbl_concepts_moves_pollutant_groups"/> provides a list of available MOVES pollutant groups that the user can specify to model within MOVES. The choice of pollutant groups(s) determines what pollutants are included in the three emission rate lookup tables (RPD, RPV, and RPP) output by MOVES. The letter 'X' marks the key pollutants for inclusion, and a letter 'd' signifies that the pollutant is included in the MOVES run because a key pollutant depends on it.  The user modifies the <link linkend="sect_input_runctlfile">control.in</link> input file to specify the pollutant group.</para>
+<para>The following <xref linkend="tbl_concepts_moves_pollutant_groups"/> provides a list of available MOVES pollutant groups that the user can specify to model within MOVES. The choice of pollutant groups(s) determines what pollutants are included in the three emission rate lookup tables (RPD, RPV, and RPP) output by MOVES. The letter 'X' marks the key pollutants for inclusion, and a letter 'd' signifies that the pollutant is included as a default in the MOVES run because a key pollutant depends on it.  The user modifies the <link linkend="sect_input_runctlfile">control.in</link> input file to specify the pollutant group.</para>
 
 <table id="tbl_concepts_moves_pollutant_groups">
 <title>MOVES Pollutant Groups</title>
@@ -2779,7 +2580,7 @@ Additional data</programlisting>
 
 <title>Inventory import</title>
 
-<para>The importing of emission inventory and related data is the first processing step needed for any emissions processing effort. The <command>Smkinven</command> program imports data for anthropogenic sources, the <command>Rawbio</command> program imports BEIS2 land use data for biogenic sources, and the <command>Normbeis3</command> program imports BEIS3 land use data for biogenic sources. In this section, we focus on the import of the anthropogenic inventories using <command>Smkinven</command>. The biogenic import is further described in <xref linkend="sect_concepts_biogenic_processing" />.</para>
+<para>The importing of emission inventory and related data is the first processing step needed for any emissions processing effort. The <command>Smkinven</command> program imports data for anthropogenic sources, and the <command>Normbeis3</command> program imports BEIS3 land use data for biogenic sources. In this section, we focus on the import of the anthropogenic inventories using <command>Smkinven</command>. The biogenic import is further described in <xref linkend="sect_concepts_biogenic_processing" />.</para>
 
 <para><command>Smkinven</command> performs many types of activities during import of the anthropogenic inventories. Though the primary purpose is reading the data from ASCII formats and outputting and I/O API SMOKE intermediate inventory, there are many other actions that need to be performed duringthe inventory import stage of processing. These actions are the following:</para>
 
@@ -3001,7 +2802,7 @@ Additional data</programlisting>
 </listitem>
 
 <listitem>
-<para>If the stack parameters  are missing or zero, <command>Smkinven</command> uses the <envar>PSTK</envar> file to assign new stack parameters using country/state/county and SCC assignments. The example <envar>PSTK</envar> file is described in <xref linkend="sect_dirs_example_data_files" />.</para>
+<para>If the stack parameters  are missing or zero, <command>Smkinven</command> uses the <envar>PSTK</envar> file to assign new stack parameters using country/state/county and SCC assignments. The format of <envar>PSTK</envar> file is described in <xref linkend="sect_input_pstk" />.</para>
 </listitem>
 </itemizedlist>
 
@@ -3270,7 +3071,7 @@ Additional data</programlisting>
 
 <title>Time zone adjustments</title>
 
-<para>You can use the <envar>OUTZONE</envar> setting to control the output time zone that defines the hours in the output files. The one constraint on this setting is that it must be consistent with the time zone of the meteorology files. These files are used only when processing on-road mobile sources with MOVES/MOBILE6 (optional), processing elevated point sources for the CMAQ-based approach (required), or processing biogenic emissions with SMOKE BEIS2 or BEIS3 (required). The time zones must be consistent among all source categories processed, so if one source category depends on the meteorology file, then all source categories must be processed with the same <envar>OUTZONE</envar> setting.</para>
+<para>You can use the <envar>OUTZONE</envar> setting to control the output time zone that defines the hours in the output files. The one constraint on this setting is that it must be consistent with the time zone of the meteorology files. These files are used only when processing on-road mobile sources with MOVES/MOBILE6 (optional), processing elevated point sources for the CMAQ-based approach (required), or processing biogenic emissions with SMOKE BEIS3 (required). The time zones must be consistent among all source categories processed, so if one source category depends on the meteorology file, then all source categories must be processed with the same <envar>OUTZONE</envar> setting.</para>
 
 <para><command>Temporal</command> compares the <envar>OUTZONE</envar> value with the time zone of the source, which was set in <command>Smkinven</command> (see <xref linkend="sect_concepts_assign_countries" />) based on the county. Additionally, it assesses and accounts for whether the date being processed falls within the range of Daylight Savings Time, and whether the county of the source uses Daylight Savings Time. <command>Temporal</command> uses the <envar>COSTCY</envar> file to determine which counties use Daylight Savings Time and which do not; for example, the state of Arizona does not use it. Using these pieces of information, <command>Temporal</command> interprets the diurnal profiles assuming that they are local profiles in order to map the correct adjustment to the correct output hour in the output time zone. <command>Temporal</command> also uses the time zone of the source and the output time zone to determine the correct hour for switching from one month to the next and from one day of the week to the next.</para>
 
@@ -4302,8 +4103,8 @@ Additional data</programlisting>
 	<para>Reduces the output database table size by performing a cross-tab query on the pollutant emissions, listing each pollutant in a separate field rather than in a single column with a higher number of data records.  The script also sorts the lookup tables by countyID, monthID and SCC for more efficient processing in SMOKE.</para>
 </listitem>
 <listitem>
-  <para>Optionally calculates additional output pollutants or species by applying user-specified formulas to MOVES-created emission factors.
-	</listitem>
+  <para>Optionally calculates additional output pollutants or species by applying user-specified formulas to MOVES-created emission factors.</para>
+</listitem>
 <listitem>
 	<para>Write out to the ASCII-formatted four processed SMOKE-ready MOVES lookup tables [RatePerDistance (RPD), RatePerVehicle (RPV),  RatePerProfile (RPP), and RatePerHour (RPH)].</para>
 </listitem>
@@ -4427,18 +4228,6 @@ Additional data</programlisting>
 <title>Biogenic processing</title>
 
 <para>The SMOKE system uses a more advanced emissions modeling approach for biogenic processing than it uses for the other source types. For biogenic emissions, the temporal processing is a true simulation model driven by ambient meteorology and other data. SMOKE currently supports two methods for computing biogenic land use: BEIS2 and BEIS version 3.09 and version 3.14 (hereafter referred to as BEIS3). The overall processing performed by both these models is quite different from the processing done for anthropogenic source categories. BEIS2 and BEIS3 start with spatial allocation of land use data as the first processing step (which is the same as importing the raw inventory data for anthropogenic sources). They next compute normalized emissions for each grid cell and land use category. The final step is adjusting the normalized emissions based on gridded, hourly meteorology data and assigning the chemical species to output a model-ready biogenic emissions file. The following two subsections provide more detail about the two biogenic models in SMOKE and give references to additional detail elsewhere.</para>
-
-<section>
-
-<title>BEIS2 processing</title>
-
-<para>SMOKE/BEIS2 can use either county land use or gridded land use data to generate the normalized emissions values. The land use types that must be provided are specific to BEIS2 and can be created from either the BELD2 or BELD3 land coverage datasets. The SMOKE <command>Beld3to2</command> program can take the BELD3 data used in BEIS3 modeling and convert them for use in BEIS2 modeling. The <command>Rawbio</command> program uses either a county land use file (<envar>BCUSE</envar>) or gridded land use file (<envar>BGUSE</envar>), and it also uses BEIS2 normalized emission factors for either summer or winter. If the county land use data are used, <command>Rawbio</command> requires a spatial surrogates file (<envar>BGPRO</envar>) for spatially distributing the emissions to the grid cells. It combines these data and outputs normalized biogenic emissions. If both summer and winter emission estimates will be included in the temporal allocation step, then <command>Rawbio</command> must be run twice--once for summer and once for winter.</para>
-
-<para>The next step in creating biogenic emissions is making hour-specific adjustments to the normalized emissions based on the hourly gridded meteorology. The <command>Tmpbio</command> program reads the MCIP meteorology data and makes these adjustments; these include the effects of temperature and solar radiation. The winter emission factors are to be used during the winter period, which is defined as being after the first date of freezing ground temperature and before the last date of freezing ground temperature. The SMOKE <command>Metscan</command> program can determine this time period and create a gridded file that indicates whether each grid cell is in a winter or summer period for each day of the year. Using this file, which is optional, will cause <command>Tmpbio</command> to read and use both the winter and summer normalized emissions files from <command>Rawbio</command>. Whether the winter or summer normalized emissions are used for a given grid cell and hour is set by the output from the <command>Metscan</command> program.</para>
-
-<para>Users can define the chemical species that are output from <command>Tmpbio</command> using the speciation profiles file, <envar>GSPRO</envar>. In this file you can set an environment variable (<envar>BIOG_SPRO</envar>) that indicates which speciation profile code should be used for biogenic emissions. <command>Tmpbio</command> looks for the <quote>inventory pollutants</quote> OVOC, NO, and TERP in the <envar>GSPRO</envar> file and splits and/or aggregates these data as specified by the chosen speciation profile. <command>Tmpbio</command> outputs two files with hourly, gridded, and speciated data, one file in moles/hour and a second file in grams/hour. The moles/hour file must be combined with the anthropogenic files to create model-ready emissions and perhaps convert its units to moles/second for CMAQ, which is explained in <xref linkend="sect_concepts_merge_processing" />. The grams/hour file can be read by <command>Smkmerge</command> to create state and county total emissions reports.</para>
-
-</section>
 
 <section>
 

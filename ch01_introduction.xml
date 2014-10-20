@@ -18,28 +18,6 @@
 
 <para>The purpose of SMOKE (or any emissions processor) is to convert the resolution of the emission inventory data to the resolution needed by an air quality model. Emission inventories are typically available with an annual-total emissions value for each emissions source, or perhaps with an average-day emissions value. The AQMs, however, typically require emissions data on an hourly basis, for each model grid cell (and perhaps model layer), and for each model species. (Refer to <xref linkend="app_glossary" /> for definitions of these terms.) Consequently, emissions processing involves transforming an emission inventory through temporal allocation, chemical speciation, and spatial allocation, to achieve the input requirements of the AQM.</para>
 
-<para>Currently, SMOKE supports area-, mobile-, and point-source emissions processing and also includes biogenic emissions modeling through both a rewrite of the Biogenic Emission Inventory System, version 2 (BEIS2) and the BEIS3 system. SMOKE can process both criteria and toxic emissions data inventories. The terminology of source categories used by inventory developers is often different from that used in SMOKE. The list below clarifies how various inventory source categories map to the SMOKE source categories described in this manual.</para>
-
-<itemizedlist spacing="compact">
-<listitem>SMOKE <quote>area</quote> sources
-    <itemizedlist spacing="compact">
-    <listitem>Criteria stationary area sources</listitem>
-    <listitem>Toxics nonpoint sources</listitem>
-    <listitem>Criteria and toxics nonroad mobile sources</listitem>
-    </itemizedlist>
-</listitem>
-<listitem>SMOKE <quote>mobile</quote> sources
-    <itemizedlist spacing="compact">
-    <listitem>Criteria and toxics on-road mobile sources</listitem>
-    </itemizedlist>
-</listitem>
-<listitem>SMOKE <quote>point</quote> sources
-    <itemizedlist spacing="compact">
-    <listitem>Criteria and toxics point sources</listitem>
-    </itemizedlist>
-</listitem>
-</itemizedlist>
-
 </section>
 
 <section>
@@ -80,7 +58,7 @@
 
 <title>SMOKE Features</title>
 
-<para>SMOKE is primarily an emissions processing system and not an emission inventory preparation system. This means that its main purpose is to provide an efficient tool for converting emission inventory data into the formatted emission input files required by an AQM. However, for mobile and biogenic sources, SMOKE does offer emission inventory preparation functions. For mobile sources, SMOKE computes an emission inventory from mobile-source activity data, using emission factors from the MOVES model. Previous versions of SMOKE (version 2.7 and below) supported the MOBILE6 model. For biogenic sources, SMOKE includes both the BEIS2 and BEIS3 models for computation of hour-specific, meteorology-based biogenic emissions from vegetation and soils.</para>
+<para>SMOKE is primarily an emissions processing system and not an emission inventory preparation system. This means that its main purpose is to provide an efficient tool for converting emission inventory data into the formatted emission input files required by an AQM. However, for mobile and biogenic sources, SMOKE does offer emission inventory preparation functions. For mobile sources, SMOKE computes an emission inventory from mobile-source activity data, using emission factors from the MOVES model. Previous versions of SMOKE (version 2.7 and below) supported the MOBILE6 model. For biogenic sources, SMOKE includes BEIS3 model for computation of hour-specific, meteorology-based biogenic emissions from vegetation and soils.</para>
 <para>Below, we summarize the major features of SMOKE v3.0.</para>
 
 <itemizedlist>

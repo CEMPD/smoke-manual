@@ -223,7 +223,7 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">src/biog</filename>: <command>Normbeis3</command>, <command>Rawbio</command>, <command>Tmpbeis3</command>, <command>Tmpbio</command></para>
+<para><filename class="directory">src/biog</filename>: <command>Normbeis3</command>, <command>Tmpbeis3</command></para>
 </listitem>
 <listitem>
 <para><filename class="directory">src/cntlmat</filename>: <command>Cntlmat</command></para>
@@ -307,7 +307,7 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><envar>BGPRO</envar>: The spatial surrogates file biogenics (for using county-total land use in <command>Rawbio</command> and/or computing county-total emissions with <command>Smkmerge</command>).</para>
+<para><envar>BGPRO</envar>: The spatial surrogates file biogenics (for computing county-total emissions with <command>Smkmerge</command>).</para>
 </listitem>
 
 <listitem>
@@ -327,19 +327,11 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>B3FAC</envar>: The BEIS3 normalized emission factors.</para>
+<para><envar>B3FAC</envar>: The BEIS3.14 normalized emission factors.</para>
 </listitem>
 
 <listitem>
-<para><envar>B3XRF</envar>: The BELD3-to-BELD2 land use cross-reference.</para>
-</listitem>
-
-<listitem>
-<para><envar>BCUSE</envar>: The BEIS2 county-total land use for all U.S. counties.</para>
-</listitem>
-
-<listitem>
-<para><envar>BFAC</envar>, <envar>S_BFAC</envar>, <envar>W_BFAC</envar>: The default, summer, and winter BEIS2 normalized emission factors.</para>
+<para><envar>B360FAC</envar>: The BEIS3.60 normalized emission factors.</para>
 </listitem>
 
 <listitem>
@@ -416,7 +408,7 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory">biog</filename>: Contains the gridded BELD3 land use data. These files are listed in the Assigns files as <envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar>. This directory could optionally contain the gridded BELD2 land use data (if processing using BEIS2); this file is listed in the Assigns file as <envar>BGUSE</envar>.</para>
+<para><filename class="directory">biog</filename>: Contains the gridded BELD3 and/or BELD4 land use data. These files are listed in the Assigns files as <envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> for BEIS3.14. This directory could optionally contain the gridded BELD4 land use data if proceessing using BEIS3.60); this file is listed in the Assigns file as <envar>BELD4</envar>.</para>
 </listitem>
 
 <listitem>
@@ -429,10 +421,6 @@ source $ASSIGNS/set_dirs.scr
 
 <listitem>
 <para><envar>MBINV</envar> (raw on-road mobile-source inventory file). This is a FF10 activity inventory format for VMT, SPEED and VPOP inventory data. EAA - put in a link to input file description..  If this is a list file, the files listed within it should also be included in this directory.</para>
-</listitem>
-
-<listitem>
-<para><envar>MCODES</envar> (mobile-source codes file). Contains list of valid on-road SCCs, vehicle types, and road class codes.</para>
 </listitem>
 
 <listitem>
@@ -547,7 +535,7 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><filename class="directory">inventory/<envar>$INVEN</envar></filename>: This directory contains the SMOKE intermediate inventory files, including the directories associated with them. These files are the outputs from <command>Smkinven</command>, <command>Tmpbeis3</command>, and <command>Tmpbio</command>. The outputs from <command>Smkinven</command> are map-formatted (see below for more information) while the biogenic outputs are I/O API NetCDF format. The subdirectories <filename class="directory">area_dat</filename>, <filename class="directory">mobl_dat</filename>, <filename class="directory">nroad_dat</filename>, and <filename class="directory">pnts_dat</filename> contain the files that store the emissions values for each pollutant in the inventory. The intermediate files in this directory include:</para>
+<para><filename class="directory">inventory/<envar>$INVEN</envar></filename>: This directory contains the SMOKE intermediate inventory files, including the directories associated with them. These files are the outputs from <command>Smkinven</command>, and <command>Tmpbeis3</command>. The outputs from <command>Smkinven</command> are map-formatted (see below for more information) while the biogenic outputs are I/O API NetCDF format. The subdirectories <filename class="directory">area_dat</filename>, <filename class="directory">mobl_dat</filename>, <filename class="directory">nroad_dat</filename>, and <filename class="directory">pnts_dat</filename> contain the files that store the emissions values for each pollutant in the inventory. The intermediate files in this directory include:</para>
 
 <itemizedlist>
 <listitem>
@@ -600,7 +588,7 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">reports</filename>: Discussed in <xref linkend="sect_dirs_location_report_files" /></para>
 </listitem>
 <listitem>
-<para><filename class="directory">run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>: Contains the hourly, gridded, speciated biogenic emissions files. These are listed in this subsection for intermediate files because in some cases these are not ready for the AQM, because the units need to be converted. <command>Tmpbio</command> outputs emissions in moles/hr and <command>Tmpbeis3</command> can output emissions in either moles/hr or moles/s. The CMAQ model needs data in units of moles/s.</para>
+<para><filename class="directory">run_<envar>$BSCEN</envar>/output/<envar>$SPC</envar></filename>: Contains the hourly, gridded, speciated biogenic emissions files. These are listed in this subsection for intermediate files because in some cases these are not ready for the AQM, because the units need to be converted. <command>Tmpbeis3</command> can output emissions in either moles/hr or moles/s. The CMAQ model needs data in units of moles/s.</para>
 </listitem>
 <listitem>
 <para><filename class="directory">run_<envar>$ESCEN</envar>/output</filename>: Discussed in <xref linkend="sect_dirs_location_output_files" /></para>
@@ -811,15 +799,7 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>BGTS_L</envar> and <envar>BGTS_S</envar>: Biogenic hourly, gridded, speciated emissions in moles/hour and tons/hour (from the <command>Tmpbio</command> program).</para>
-</listitem>
-
-<listitem>
 <para><envar>B3GTS_L</envar> and <envar>B3GTS_S</envar>: Biogenic hourly, gridded, speciated emissions in moles/hour and tons/hour (from the <command>Tmpbeis3</command> program).</para>
-</listitem>
-
-<listitem>
-<para><envar>BGTS_L_O</envar> and <envar>BGTS_S_O</envar>: <command>Tmpbio</command> output with the correct units needed by the AQM (from the <command>Smkmerge</command> program).</para>
 </listitem>
 
 <listitem>
@@ -1117,25 +1097,25 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>gspro.cmaq.cb4p25_wtox.txt</filename></entry>
 <entry><envar>GSPRO</envar></entry>
-<entry>Speciation profiles for CMAQ CB4 chemical mechanism with additional toxics species for all source categories except on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>Speciation profiles for CMAQ CB5 chemical mechanism with additional toxics species for all source categories except on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gspro.cmaq.cb4p25_wtox.m.txt</filename></entry>
 <entry><envar>GSPRO</envar></entry>
-<entry>Speciation profiles for CMAQ CB4 chemical mechanism with additional toxics species for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>Speciation profiles for CMAQ CB5 chemical mechanism with additional toxics species for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gsref.cmaq.cb4p25_wtox.txt</filename></entry>
 <entry><envar>GSREF</envar></entry>
-<entry>Speciation cross-reference for CMAQ for CB4 with PM2.5 speciation and additional toxic species; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>Speciation cross-reference for CMAQ for CB5 with PM2.5 speciation and additional toxic species; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>b3fac.beis3_efac_v0.98.txt</filename></entry>
 <entry><envar>B3FAC</envar></entry>
-<entry>BEIS3.09 emission factors; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>BEIS3.14 emission factors.</entry>
 </row>
 
 <row>
@@ -1200,14 +1180,12 @@ source $ASSIGNS/set_dirs.scr
 <para>Additional speciation profile files and speciation cross-reference files are available with EPA&rsquo;s 2001 modeling platform. The files are described in <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/readme_2001.txt">readme_2001.txt</ulink>. The files in the archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink> support the following air quality models and chemical mechanisms:</para>
 
 <itemizedlist spacing="compact">
-<listitem>CAMx4: CB4 with PM2.5 speciation</listitem>
-<listitem>CMAQ: CB4 with PM2.5 speciation</listitem>
-<listitem>CMAQ: CB4 with integrated toxics and criteria inventories</listitem>
+<listitem>CAMx4: CB5 with PM2.5 speciation</listitem>
+<listitem>CMAQ: CB5 with PM2.5 speciation</listitem>
+<listitem>CMAQ: CB5 with integrated toxics and criteria inventories</listitem>
 <listitem>CMAQ: RADM2 with PM2.5 speciation</listitem>
 <listitem>CMAQ: SAPRC99</listitem>
 <listitem>MAQSIP: RADM2 with PM2.5 speciation</listitem>
-<listitem>REMSAD7: micro-CB4 with PM2.5 speciation</listitem>
-<listitem>REMSAD6: micro-CB4</listitem>
 </itemizedlist>
 
 </section>
