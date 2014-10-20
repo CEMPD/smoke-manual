@@ -24,9 +24,7 @@
 
 <para>The <link linkend="sect_programs_smkinven"><command>Smkinven</command></link> program, at left in <xref linkend="fig_programs_core_programs" />, is responsible for importing the stationary area/non-point, nonroad, on-road mobile, and point source inventory emissions data. For mobile sources, <command>Smkinven</command> can also import activity data in the form of VMT and vehicle speed for use in generating emission factors. For point sources, <command>Smkinven</command> can also import day- and hour-specific data. The output from <command>Smkinven</command> is used as input to nearly every other core SMOKE program.</para>
 
-<para>Also at left, the <link linkend="sect_programs_rawbio"><command>Rawbio</command></link> program imports the county or gridded land use data and computes normalized (time-independent) biogenic emissions.</para>
-
-<para>As an alternative to BEIS2 processing using <command>Rawbio</command>, SMOKE is capable of using the BEIS3 model. In this type of processing, <link linkend="sect_programs_normbeis3"><command>Normbeis3</command></link> creates gridded, normalized biogenic emissions from land use and biogenic emissions factors.</para>
+<para>Also at left, the <link linkend="sect_programs_normbeis3"><command>Normbeis3</command></link> program imports the gridded land use data and biogenic emissions factors ,and creates gridded, normalized (time-independent) biogenic emissions.</para>
 
 <para><link linkend="sect_programs_grdmat"><command>Grdmat</command></link> creates the gridding matrix for the anthropogenic source categories.</para>
 
@@ -41,8 +39,6 @@
 <para><link linkend="sect_programs_cntlmat"><command>Cntlmat</command></link> creates the growth matrices, multiplicative control matrices, and reactivity control matrices for the anthropogenic source categories. This program is not used for base-year emissions without controls.</para>
 
 <para><link linkend="sect_programs_grwinven"><command>Grwinven</command></link> is used to grow the emissions to past or future years using the growth matrix created by <command>Cntlmat</command> and the imported inventory data from <command>Smkinven</command>. It writes both SMOKE inventory format (I/O API NetCDF) and IDA format. The output from <command>Grwinven</command> is used in place of the original output from <command>Smkinven</command> when processing past or future years.</para>
-
-<para><link linkend="sect_programs_tmpbio"><command>Tmpbio</command></link> applies meteorology adjustments to the gridded, normalized biogenic emissions from <command>Rawbio</command>. It also applies the speciation factors needed for the user-selected chemical mechanism to create gridded, hourly, model-species biogenic emission files for use in <command>Smkmerge</command> or <command>Mrggrid</command>. The <command>Rawbio</command> and <command>Tmpbio</command> programs taken together are the equivalent of SMOKE-BEIS2.</para>
 
 <para><link linkend="sect_programs_tmpbeis3"><command>Tmpbeis3</command></link> applies meteorology adjustments to the normalized emissions created by <command>Normbeis3</command>.  <command>Tmpbeis3</command> also applies the speciation profiles needed for the user-selected chemical mechanism to create gridded, hourly, model-species biogenic emissions data for use in <command>Smkmerge</command> and <command>Mrggrid</command>. The <command>Normbeis3</command> and <command>Tmpbeis3</command> programs taken together are the equivalent of SMOKE-BEIS3.</para>
 
@@ -1495,7 +1491,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_grdmat" /> shows the input and output files for the <command>Grdmat</command> program. The input files are the spatial surrogates file (<envar>AGPRO</envar> or <envar>MGPRO</envar>), the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>), the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the surrogate description file (<envar>SRGDESC</envar>), and the grid description file (<envar>GRIDDESC</envar>). For mobile sources, the mobile codes file (<envar>MCODES</envar>) is also needed.</para>
+<para><xref linkend="fig_programs_grdmat" /> shows the input and output files for the <command>Grdmat</command> program. The input files are the spatial surrogates file (<envar>AGPRO</envar> or <envar>MGPRO</envar>), the spatial cross-reference file (<envar>AGREF</envar> or <envar>MGREF</envar>), the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the surrogate description file (<envar>SRGDESC</envar>), and the grid description file (<envar>GRIDDESC</envar>).</para>
 
 <para><command>Grdmat</command> outputs a gridding matrix file (<envar>AGMAT</envar>, <envar>MGMAT</envar>, or <envar>PGMAT</envar>) used by other SMOKE programs, and a supplemental gridding file (<envar>AGSUP</envar> or <envar>MGSUP</envar>) that includes all of the spatial surrogate codes assigned to each source. Like all SMOKE programs, <command>Grdmat</command> writes a program log (<envar>LOGFILE</envar>).</para>
 
@@ -1543,11 +1539,6 @@ H<subscript>S</subscript> = Physical stack height (m)
 <entry>ASCII</entry>
 <entry>Description of the modeling grid</entry>
 </row>
-<row>
-<entry><envar>MCODES</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>Mobile codes for converting inventory road classes and vehicle type names to SMOKE&rsquo;s road types and vehicle type numbers</entry>
-</row>
 </tbody>
 </tgroup>
 </informaltable>
@@ -1581,20 +1572,6 @@ H<subscript>S</subscript> = Physical stack height (m)
 </listitem>
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
-</listitem>
-<listitem>
-<para><envar>USE_MCODES_SCC_YN</envar>: [defual:Y]</para>
-<para>Define whether or not the program use <envar>MCODES</envar> input file to build internal SCC based on vehicle type and road type numbers. See detail information in <xref linkend="sect_input_mcodes"/></para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Construct internal SCC using vehicle type and road type numbers</para>
-</listitem>
-<listitem>
-<para>N: Do not construct internal SCC</para>
-</listitem>
-</itemizedlist>
-
 </listitem>
 </itemizedlist>
 
@@ -2519,7 +2496,7 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <para><command>Movesmrg</command> outputs a model-ready emissions file <envar>MGTS_L</envar> or <envar>MGTS_S</envar>, a report file <envar>REPMGTS_S</envar>, and a log file <envar>LOGFILE</envar>.</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Movesmrg</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Movesmrg</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <section>
 
@@ -2611,7 +2588,7 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Daily hour VMT files from <command>Temporal</command></entry>
 </row>
 <row>
-<entry><link linkend="sect_input_smkmerge_groups"><envar>SMKMERGE_GROUPS</envar></link> (optional)</entry>
+<entry><link linkend="sect_input_smkmerge_groups"><envar>SOURCE_GROUPS</envar></link> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Source apportionment groups</entry>
 </row>
@@ -2726,9 +2703,25 @@ S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 <listitem>
 <para><envar>USE_CONTROL_FACTORS</envar>: [default: N]</para>
-<para> Allows the user to apply control factor by region, SCC, pollutant, process mode, and month.</para>
+<para> Allows the user to apply control factor by region, SCC, pollutant, and month.</para>
 <itemizedlist>
 <listitem><para>Y: Apply control factors to MOVES emission rates from MOVES lookup tables.</para></listitem>
+<listitem><para>N: Do not apply control factor.</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para><envar>USE_EXP_CONTROL_FAC_YN</envar>: [default: N]</para>
+<para> Allows the user to optionally apply pollutant/species-specific explict control factor by region, SCC, and month when <envar>USE_CONTROL_FACTORS</envar> is set to Y.</para>
+<itemizedlist>
+<listitem><para>Y: Apply pollutant/species-specific explicit control factors to MOVES emission rates from MOVES lookup tables.</para></listitem>
+<listitem><para>N: Do not apply control factor.</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para><envar>USE_REF_CONTROL_FAC_YN</envar>: [default: N]</para>
+<para> Allows the user to optionally apply reference-county-level control factor by SCC, and month when <envar>USE_CONTROL_FACTORS</envar> is set to Y.</para>
+<itemizedlist>
+<listitem><para>Y: Apply reference-county-level control factors to MOVES emission rates from MOVES lookup tables.</para></listitem>
 <listitem><para>N: Do not apply control factor.</para></listitem>
 </itemizedlist>
 </listitem>
@@ -2810,7 +2803,7 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Emissions by source group, formatted as CMAQ in-line emissions data, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
 </row>
 <row>
-<entry><envar>STACK_GROUPS_OUT</envar></entry>
+<entry><envar>SRCGROUPS_OUT</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Source group information, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
 </row>
@@ -3004,7 +2997,7 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <para><command>Mrggrid</command> can be used with any gridded output files from <command>Smkmerge</command>. It can also be used with other I/O API NetCDF gridded files produced outside of SMOKE.</para>
 
-<para>Output files from <command>Mrggrid</command> are usually model-ready input files that will be used in running an AQM.</para>
+<para>Output files from <command>Mrggrid</command> are usually moodel-ready input files that will be used in running an AQM.</para>
 
 </section>
 
@@ -3357,47 +3350,10 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <para><emphasis>Processing categories:</emphasis> biogenic</para>
 
 <para>
-<command>Normbeis3</command> reads gridded land use data and emissions factors and produces gridded normalized biogenic emissions. <command>Normbeis3</command> is the first program in the SMOKE-BEIS3 model; <command>Rawbio</command> is the corresponding program for SMOKE-BEIS2. The gridded land use includes 230 different land use types. Emissions factors are provided for each land use type. The output gridded domain is the same as the input domain for the land use data. Emission fluxes are normalized to 30 &deg;C, and isoprene and methyl-butenol fluxes are also normalized to a photosynthetic active radiation (PAR) of 1000 &micro;mol/m<superscript>2</superscript>s. <command>Normbeis3</command> also computes normalized emissions for winter months, using a winter factor read in from the emissions factor table.
+<command>Normbeis3</command> reads gridded land use data and emissions factors and produces gridded normalized biogenic emissions. <command>Normbeis3</command> is the first program in the SMOKE-BEIS3 model. The gridded land use includes various number of land use types. Emissions factors are provided for each land use type. The output gridded domain is the same as the input domain for the land use data. Emission fluxes are normalized to 30 &deg;C, and isoprene and methyl-butenol fluxes are also normalized to a photosynthetic active radiation (PAR) of 1000 &micro;mol/m<superscript>2</superscript>s. <command>Normbeis3</command> also computes normalized emissions for winter months, using a winter factor read in from the emissions factor table.
 </para>
 
-<para>
-For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer normalized emissions for four species/compounds listed below, as well as winter and summer leaf area indices (LAI). The output units for ISOP, MONO and OVOC are grams of carbon per hour; the output units for NO are grams of nitrogen per hour; and the output units for LAI are meters squared per meters squared.
-</para>
-
-<informaltable>
-<tgroup cols="2">
-<colspec colwidth="30*" />
-<colspec colwidth="62*" />
-
-<thead>
-<row>
-<entry>Variable Name</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>ISOP</entry>
-<entry>Isoprene</entry>
-</row>
-<row>
-<entry>MONO</entry>
-<entry>All monoterpenes</entry>
-</row>
-<row>
-<entry>OVOC</entry>
-<entry>All other VOCs</entry>
-</row>
-<row>
-<entry>LAI</entry>
-<entry>Leaf area indices</entry>
-</row>
-</tbody>
-</tgroup>
-</informaltable>
-
-<para>For BEIS version 3.14, <command>Normbeis3</command> outputs winter and summer normalized emissions for the 35 species/compounds (including 14 monoterpenes and 1 sesquiterpene) listed below, as well as winter and summer leaf area indices (LAI). The output units for NO are grams of nitrogen per hour; the output units for LAI are meters squared per meters squared; the units for all other species/compounds are grams of carbon per hour.</para>
+<para>For BEIS version 3.14 and 3.60, <command>Normbeis3</command> outputs winter and summer normalized emissions for the 35 species/compounds (including 14 monoterpenes and 1 sesquiterpene) listed below, as well as winter and summer leaf area indices (LAI). The output units for NO are grams of nitrogen per hour; the output units for LAI are meters squared per meters squared; the units for all other species/compounds are grams of carbon per hour.</para>
 
 <informaltable>
 <tgroup cols="2">
@@ -3580,7 +3536,7 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 <title>Files and Environment Variables</title>
 
 <figure id="fig_programs_normbeis3">
-<title><command>Normbeis3</command> input and output files</title>
+<title><command>Normbeis3</command> input and output files for BEIS v3.14</title>
 <mediaobject>
 <imageobject role="pdf">
 <imagedata width="6.5in" fileref="images/programs/normbeis3_pdf.jpg" />
@@ -3591,7 +3547,21 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_normbeis3" /> shows the input and output files for the <command>Normbeis3</command> program. The input files are the emission factors file (<envar>B3FAC</envar>), the gridded land use file for the first 120 land use types (<envar>BELD3_A</envar>), the gridded land use types for the next 110 types (<envar>BELD3_B</envar>), and the land use totals data file (<envar>BELD3_TOT</envar>).</para>
+<para><xref linkend="fig_programs_normbeis360" /> shows the input and output files for the <command>Normbeis3</command> program for BEIS v3.14. The input files are the emission factors file (<envar>B3FAC</envar>), the gridded land use file for the first 120 land use types (<envar>BELD3_A</envar>), the gridded land use types for the next 110 types (<envar>BELD3_B</envar>), and the land use totals data file (<envar>BELD3_TOT</envar>).</para>
+
+<figure id="fig_programs_normbeis360">
+<title><command>Normbeis3</command> input and output files for BEIS v3.60</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/normbeis360_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/normbeis360_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_normbeis3" /> shows the input and output files for the <command>Normbeis3</command> program for BEIS v3.60. The input files are the emission factors file (<envar>B360FAC</envar>), the gridded land use file for the first 286 land use types (<envar>BELD4</envar>).</para>
 
 <para><command>Normbeis3</command> outputs a gridded, normalized biogenic emissions file (<envar>B3GRD</envar>) and a log file (<envar>LOGFILE</envar>).</para>
 
@@ -3619,23 +3589,35 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 <row>
 <entry><envar>B3FAC</envar></entry>
 <entry>ASCII</entry>
-<entry>Emission factors file</entry>
+<entry>Emission factors file for BEIS v3.14</entry>
 </row>
 <row>
 <entry><envar>BELD3_A</envar></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Gridded land use (first 120 land use types)</entry>
+<entry>Gridded land use (first 120 land use types) for BEIS v3.14</entry>
 </row>
 <row>
 <entry><envar>BELD3_B</envar></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Gridded land use (last 110 land use types)</entry>
+<entry>Gridded land use (last 110 land use types) for BEIS v3.14</entry>
 </row>
 <row>
 <entry><envar>BELD3_TOT</envar></entry>
 <entry>I/O API NetCDF</entry>
-<entry>Land use totals data</entry>
+<entry>Land use totals data for BEIS v3.14</entry>
 </row>
+<row>
+<entry><envar>B360FAC</envar></entry>
+<entry>ASCII</entry>
+<entry>Emission factors file for BEIS v3.60</entry>
+</row>
+<row>
+<entry><envar>BELD4</envar></entry>
+<entry>ASCII</entry>
+<entry>Gridded 286 land use for BEIS v3.60</entry>
+</row>
+
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -3653,10 +3635,6 @@ For BEIS version 3.09, <command>Normbeis3</command> outputs winter and summer no
 <section>
 
 <title>Output Files</title>
-
-<para>
-See <xref linkend="sect_programs_rawbio" /> for the output variables contained in <envar>B3GRD</envar> for BEIS version 3.09 and version 3.14.
-</para> 
 
 <informaltable>
 <tgroup cols="3">
@@ -3703,254 +3681,6 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 
 </section>
 
-<section id="sect_programs_rawbio">
-
-<title><command>Rawbio</command></title>
-
-<section>
-
-<title>Description</title>
-
-<para><emphasis>Processing categories:</emphasis> biogenic</para>
-
-<para><command>Rawbio</command> reads the county-level biomass/land use or gridded land use, the emissions factors (winter or summer table), and (optionally) gridding surrogate factors, and produces gridded normalized biogenic emissions. <command>Rawbio</command> is the first program in the SMOKE-BEIS2 model, while <command>Normbeis3</command> is the corresponding program in SMOKE-BEIS3. When the land use data is available only at the county level, the surrogate factors are used to produce gridded land use data. You can assign a surrogate code to be used for each of the following land coverage categories, using environment variables:</para>
-
-<itemizedlist>
-<listitem>
-<para>pine forest</para>
-</listitem>
-<listitem>
-<para>deciduous forest</para>
-</listitem>
-<listitem>
-<para>(other) coniferous forest</para>
-</listitem>
-<listitem>
-<para>all (other) forest</para>
-</listitem>
-<listitem>
-<para>agriculture</para>
-</listitem>
-<listitem>
-<para>grasslands</para>
-</listitem>
-<listitem>
-<para>wetlands</para>
-</listitem>
-<listitem>
-<para>other land uses</para>
-</listitem>
-<listitem>
-<para>LAI</para>
-</listitem>
-</itemizedlist>
-
-<para>The default surrogate code for all of these land coverage categories is 60, which is the EPA Models-3 area surrogate code. If surrogate data exist for these specific land coverage categories, better results may be achieved by careful choice of surrogate mapping.</para>
-
-<para>Gridded land use can be created using GIS software (such as ArcInfo) by someone with expertise in generating gridding surrogates. The <command>Beld3to2</command> utility can create gridded land use from BELD3 data (see <xref linkend="sect_utilities_beld3to2" />). <comment>Another tool that can be used to generate gridded land use data is the SMOKE Tool in Models-3 (see the Models-3 documentation).</comment></para>
-
-</section>
-
-<section>
-
-<title>Processing Order</title>
-
-<para><command>Rawbio</command> is the first program for processing biogenic emissions.</para>
-
-<para><command>Rawbio</command> must be run before <command>Tmpbio</command>.</para>
-
-<para>The <command>Beld3to2</command> utility program can be executed to produce gridded land use for input into <command>Rawbio</command>.</para>
-
-</section>
-
-<section>
-
-<title>Files and Environment Variables</title>
-
-<figure id="fig_programs_rawbio">
-<title><command>Rawbio</command> input and output files</title>
-<mediaobject>
-<imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/programs/rawbio_pdf.jpg" />
-</imageobject>
-<imageobject role="html">
-<imagedata fileref="images/programs/rawbio_html.jpg" />
-</imageobject>
-</mediaobject>
-</figure>
-
-<para><xref linkend="fig_programs_rawbio" /> shows the input and output files for the <command>Rawbio</command> program. If not using gridded land use, <command>Rawbio</command> reads county land use from the <envar>BCUSE</envar> file. The summer or winter emission factors are provided in the <envar>BFAC</envar> file. County land use requires gridding surrogates from the <envar>BGPRO</envar> file; otherwise, gridded land use can be input as the <envar>BGUSE</envar> file. <command>Rawbio</command> also requires the grid description file (<envar>GRIDDESC</envar>).</para>
-
-<para><command>Rawbio</command> outputs a gridded, normalized biogenic emissions file <envar>BGRD</envar>. Note that the default SMOKE scripts run <command>Rawbio</command> twice to create both summer and winter <envar>BGRD</envar> files. Like other SMOKE programs, <command>Rawbio</command> output a program log file, <envar>LOGFILE</envar>.</para>
-
-<section>
-
-<title>Input Files</title>
-
-<informaltable>
-<tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="18*" />
-<colspec colwidth="62*" />
-
-<thead>
-<row>
-<entry>File Name</entry>
-<entry>Format</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry><envar>BCUSE</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>County land use data</entry>
-</row>
-<row>
-<entry><envar>BFAC</envar></entry>
-<entry>ASCII</entry>
-<entry>Summer or winter emission factors file</entry>
-</row>
-<row>
-<entry><envar>BGPRO</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>Gridding surrogates data</entry>
-</row>
-<row>
-<entry><envar>BGUSE</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>Gridded land use data</entry>
-</row>
-<row>
-<entry><envar>GRIDDESC</envar></entry>
-<entry>ASCII</entry>
-<entry>Description of the modeling grid</entry>
-</row>
-</tbody>
-</tgroup>
-</informaltable>
-
-</section>
-
-<section>
-
-<title>Input Environment Variables</title>
-
-<itemizedlist>
-<listitem>
-<para><envar>AGRI_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for agriculture allocation.</para>
-</listitem>
-<listitem>
-<para><envar>ALLFOR_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for all (other) forest allocation.</para>
-</listitem>
-<listitem>
-<para><envar>CONF_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for (other) coniferous forest allocation.</para>
-</listitem>
-<listitem>
-<para><envar>DECD_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for deciduous forest allocation.</para>
-</listitem>
-<listitem>
-<para><envar>GLUSE_YN</envar>: [default: N]</para>
-
-<para>Indicates whether to use gridded land use data.</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Use gridded land use data</para>
-</listitem>
-<listitem>
-<para>N: Use county-total land use data and gridding surrogates</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para><envar>GRASS_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for grasslands allocation.</para>
-</listitem>
-<listitem>
-<para><envar>LAI_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for LAI allocation.</para>
-</listitem>
-<listitem>
-<para><envar>OTHER_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for other land uses allocation.</para>
-</listitem>
-<listitem>
-<para><envar>PINE_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for pine forest allocation.</para>
-</listitem>
-<listitem>
-<para><envar>WETL_SURG</envar>: [default: 60]</para>
-
-<para>Surrogate code to use for wetlands allocation.</para>
-</listitem>
-</itemizedlist>
-
-</section>
-
-<section>
-
-<title>Output Files</title>
-
-<informaltable>
-<tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="18*" />
-<colspec colwidth="62*" />
-
-<thead>
-<row>
-<entry>File Name</entry>
-<entry>Format</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry><envar>BGRD</envar></entry>
-<entry>I/O API NetCDF</entry>
-<entry>Gridded, normalized biogenic emissions</entry>
-</row>
-<row>
-<entry><envar>LOGFILE</envar></entry>
-<entry>ASCII</entry>
-<entry>Log generated from executing <command>Rawbio</command></entry>
-</row>
-</tbody>
-</tgroup>
-</informaltable>
-
-</section>
-
-</section>
-
-<!--
-<section>
-
-<title>Earlier Versions</title>
-
-<para>The SMOKE prototype version of <command>Rawbio</command> included an additional input file (<envar>BFIP</envar>) that contained a list of counties to use from the <envar>BCUSE</envar> file. Newer versions automatically create this list internally using the FIPS codes contained in the surrogates file <envar>BGPRO</envar>. A <envar>BGUSE</envar> input file can now be created using the utility program <command>Beld3to2</command> (see <xref linkend="sect_utilities_beld3to2" />).</para>
-
-</section>
--->
-
-</section>
-
 <section id="sect_programs_smkinven">
 
 <title><command>Smkinven</command></title>
@@ -3981,16 +3711,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <para>SMOKE one-record-per-line (ORL) format for fire point sources (modified to support wildfires and prescribed fires characteristics and pollutants)</para>
 </listitem>
 <listitem>
-<para>EMS-95 area, mobile nonlink (column-specific and list-directed), point</para>
-</listitem>
-<listitem>
 <para>Special mobile link format</para>
-</listitem>
-<listitem>
-<para>EMS-95 hour-specific point (can also be used to match with IDA inventories)</para>
-</listitem>
-<listitem>
-<para>EMS-95 day-specific (modified hour-specific format) point (can also be used to match with IDA inventories)</para>
 </listitem>
 <listitem>
 <para>FF10 (Flat File 10) format for many different source categories including day-specific, hour-specific, monthly and annual for nonpoint, nonroad mobile, on-road mobile, and point sources (comma or semicolon delimited) </para>
@@ -4064,7 +3785,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_smkinven_mobile" /> shows the input and output files for <command>Smkinven</command> for mobile sources. The input files include the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the raw inventory file (<envar>MBINV</envar>), and the mobile codes file (<envar>MCODES</envar>). The NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>) is optional as is the <envar>VMTMIX</envar> file.</para>
+<para><xref linkend="fig_programs_smkinven_mobile" /> shows the input and output files for <command>Smkinven</command> for mobile sources. The input files include the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the raw inventory file (<envar>MBINV</envar>), and the SCC reference input file (<envar>SCCXREF</envar>).</para>
 
 <para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), an annual and average-day inventory emissions file (<envar>MOBL</envar>), a file listing the inventory SCCs (<envar>MSCC</envar>), and a report containing various information about the processed inventory (<envar>REPINVEN</envar>).</para>
 
@@ -4142,12 +3863,6 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <entry>Inventory data table listing pollutant and activity names</entry>
 </row>
 <row>
-<entry><envar>MCODES</envar></entry>
-<entry>ASCII</entry>
-<entry>M</entry>
-<entry>Mobile codes for converting road class to road type and vehicle type name to vehicle type number</entry>
-</row>
-<row>
 <entry><envar>NHAPEXCLUDE</envar> (optional)</entry>
 <entry>ASCII</entry>
 <entry>A, M, P</entry>
@@ -4184,10 +3899,10 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 <entry>SCC descriptions, needed for reading CEM hour-specific data only, to select electric generator facilities in the inventory</entry>
 </row>
 <row>
-<entry><envar>VMTMIX</envar> (optional)</entry>
+<entry><envar>SCCXREF</envar> (optional)</entry>
 <entry>ASCII</entry>
 <entry>M</entry>
-<entry>Assigns fractions of VMT to individual vehicle types; used when importing EMS-95 mobile data</entry>
+<entry>SCC cross reference input file that maps SCC8 to SCC10 for mobile activity SCC</entry>
 </row>
 </tbody>
 </tgroup>
@@ -4232,9 +3947,20 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </listitem>
 <listitem>
 <para><envar>DAY_SPECIFIC_YN</envar>: [default: N]</para>
-
 <para>Defines whether to import day-specific inventory data.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Import day-specific data</para>
+</listitem>
+<listitem>
+<para>N: Do not import day-specific data</para>
+</listitem>
+</itemizedlist>
+</listitem>
 
+<listitem>
+<para><envar>EXCLUDE_REF_SCC_YN</envar>: [default: N]</para>
+<para>Defines whether to exclude a list of SCCs that are not listed in <xref linkend="sect_input_sccxref"/>. This option is only applicable when <envar>USE_REF_SCC_YN</envar> is set to Y.</para>
 <itemizedlist>
 <listitem>
 <para>Y: Import day-specific data</para>
@@ -4281,7 +4007,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </listitem>
 
 <listitem>
-<para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the <envar>ARTOPNT</envar>, <envar>NHAPEXCLUDE</envar>, and <envar>VMTMIX</envar> files by preventing left-7 SCC assignments. It also prevents left-2 and left-4 SCC assignments for NHAPEXCLUDE.</para>
+<para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the <envar>ARTOPNT</envar>, and <envar>NHAPEXCLUDE</envar> files by preventing left-7 SCC assignments. It also prevents left-2 and left-4 SCC assignments for NHAPEXCLUDE.</para>
 </listitem>
 
 <listitem>
@@ -4329,21 +4055,6 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </itemizedlist>
 
 </listitem>
-<listitem>
-<para><envar>HOURLY_WIDE_FMT</envar>: [default: N]</para>
-
-<para>Defines whether to import the hour-specific data in EMS-95 wide format or not.</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Import hour-specific data in <xref linkend="tbl_input_pthour_ems_wide" /></para>
-</listitem>
-<listitem>
-<para>N: Import hour-specific data in <xref linkend="tbl_input_pthour_ems" /></para>
-</listitem>
-</itemizedlist>
-
-</listitem>
 
 <listitem>
 <para><envar>IMPORT_AVEINV_YN</envar>: [default: Y]</para>
@@ -4375,21 +4086,7 @@ See <xref linkend="sect_programs_rawbio" /> for the output variables contained i
 </itemizedlist>
 
 </listitem>
-<listitem>
-<para><envar>IMPORT_VMTMIX_YN</envar>: [default: N]</para>
 
-<para>Indicates whether VMT mix data should be imported.</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Import <envar>VMTMIX</envar> file; required if using EMS-95 mobile format</para>
-</listitem>
-<listitem>
-<para>N: Do not import VMT mix data</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
 <listitem>
 <para><envar>INVNAME1</envar>: [default: none]</para>
 
@@ -4519,6 +4216,20 @@ OUTPUT = INPUT1 - INPUT2
 </listitem>
 
 <listitem>
+<para><envar>USE_REF_SCC_YN</envar>: [default: N]</para>
+<para>Defines whether use reference SCC (i.e., SCC8) to full SCC (i.e., SCC10) mapping input file to convert reference SCC-level inventory to full SCC inventory. See detail from <xref linkend="sect_input_sccxref"/></para>
+<itemizedlist>
+<listitem>
+<para>Y: Use reference SCC mapping input file to convert reference SCCs to full SCCs.</para>
+</listitem>
+<listitem>
+<para>N: Do not use SCCXREF input file.</para>
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>
 <para><envar>VELOC_RECALC</envar>: [default: N]</para>
 <para>Defines whether stack velocity is recalculated in order to make the velocity consistent with the reported flow and diameter.</para>
 <itemizedlist>
@@ -4531,6 +4242,7 @@ OUTPUT = INPUT1 - INPUT2
 </itemizedlist>
 
 </listitem>
+
 <listitem>
 <para><envar>WEST_HSPHERE</envar>: [default: Y]</para>
 
@@ -4744,7 +4456,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>AG[T][S][C]_L</envar> or <envar>AG[T][S][C]_S</envar>), a log file (<envar>LOGFILE</envar>), and an optional report file (<envar>REPAG[T][S][C]_L</envar> or <envar>REPAG[T][S][C]_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_biogenic">
 <title><command>Smkmerge</command> input and output files for biogenic sources</title>
@@ -4762,7 +4474,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs either a mole-based emissions file (<envar>BGTS_L_O</envar>) or a mass-based emissions file (<envar>BGTS_S_O</envar>). Note that _O is appended to the output file name to distinguish it from the input file. The program also writes a log file (<envar>LOGFILE</envar>) and an optional report file (<envar>REPBGTS_L</envar> or <envar>REPBGTS_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_mobile">
 <title><command>Smkmerge</command> input and output files for mobile sources</title>
@@ -4780,7 +4492,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>), a data file that is determined by the inputs and can be a model-ready emissions file (<envar>MG[T][S][C]_L</envar> or <envar>MG[T][S][C]_S</envar>), and an optional report file (<envar>REPMG[T][S][C]_L</envar> or <envar>REPMG[T][S][C]_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_point">
 <title><command>Smkmerge</command> input and output files for point sources</title>
@@ -4798,7 +4510,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> can output an elevated sources file (<envar>ELEV[T]S[_S|_L]</envar>) if requested. Like all other SMOKE programs, <command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>) detailing the program&rsquo;s execution. The main data file is determined by the inputs and can be include a model-ready emissions file (<envar>PG[T][S][C][3D]_L</envar> or <envar>PG[T][S][C][3D]_S</envar>). Other output files can be a PinG file (<envar>PING[T][S][C][_S][_L]</envar> and a report file (<envar>REPPG[T][S][C]_L</envar> or <envar>REPPG[T][S][C]_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SMKMERGE_GROUPS</envar>) and the stack groups file (<envar>STACK_GROUPS</envar>), and output the source group information <envar>STACK_GROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and the stack groups file (<envar>STACK_GROUPS</envar>), and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_all">
 <title><command>Smkmerge</command> input and output files for all source categories</title>
@@ -4934,7 +4646,7 @@ OUTPUT = INPUT1 - INPUT2
 <entry>Elevated sources stack parameters file, output by <command>Elevpoint</command></entry>
 </row>
 <row>
-<entry><link linkend="sect_input_smkmerge_groups"><envar>SMKMERGE_GROUPS</envar></link> (optional)</entry>
+<entry><link linkend="sect_input_smkmerge_groups"><envar>SOURCE_GROUPS</envar></link> (optional)</entry>
 <entry>ASCII</entry>
 <entry>A, B, M, P</entry>
 <entry>Source apportionment groups</entry>
@@ -5261,7 +4973,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para><envar>PING</envar> : CMAQ PinG file, produced if <envar>SMK_PING_METHOD</envar> is set to 1</para>
 </listitem>
 <listitem>
-<para><envar>INLN</envar> : CMAQ 2-D surface layer emissions file, produced if <envar>SMK_ELEV_METHOD</envar> is set to 2. For in-line processing plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file for CMAQ version 4.7.</para>
+<para><envar>INLN</envar> : CMAQ 2-D surface layer emissions file, produced if <envar>SMK_ELEV_METHOD</envar> is set to 2. For in-line processing plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file for CMAQ version 4.7 or later.</para>
 </listitem>
 <listitem>
 <para><envar>REP[E|A|M|P]G</envar> : Emission total report file, produced if either <envar>MRG_REPSTA_YN</envar> or <envar>MRG_REPCNY_YN</envar> is set to Y</para>
@@ -5448,7 +5160,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry>Emissions by source group, formatted as CMAQ in-line emissions data, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
 </row>
 <row>
-<entry><envar>STACK_GROUPS_OUT</envar></entry>
+<entry><envar>SRCGROUPS_OUT</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Source group information, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
 </row>
@@ -5595,8 +5307,8 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </orderedlist>
 
+<comment>
 <para>For mobile sources, the available combinations and their order are:</para>
-
 <orderedlist spacing="compact">
 <listitem>
 <para>Country/state/county code, road class, vehicle type, and process</para>
@@ -5665,6 +5377,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Ultimate default (no process, country/state/county code = 0, SCC = 0)</para>
 </listitem>
 </orderedlist>
+</comment>
 
 <para>For point sources, the available combinations depend on the source definition. A header in the speciation cross-reference file format allows you to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. For point sources, the available combinations and their order are:</para>
 
@@ -5798,7 +5511,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_spcmat" /> shows the input and output files for the <command>Spcmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the optional pollutant conversion file (<envar>GSCNV</envar>), the speciation profiles file (<envar>GSPRO</envar>), the speciation cross-reference file (<envar>GSREF</envar>), the combination speciation profiles file (<envar>GSPRO_COMBO</envar>), and the inventory data table (<envar>INVTABLE</envar>). For mobile sources only, <command>Spcmat</command> uses the mobile codes file (<envar>MCODES</envar>) and the mobile emission processes file (<envar>MEPROC</envar>). More informaton of <envar>GSPRO_COMBO</envar> file is available at <xref linkend="sect_input_gspro_combo" />.</para>
+<para><xref linkend="fig_programs_spcmat" /> shows the input and output files for the <command>Spcmat</command> program. The input files include the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>), the optional pollutant conversion file (<envar>GSCNV</envar>), the speciation profiles file (<envar>GSPRO</envar>), the speciation cross-reference file (<envar>GSREF</envar>), the combination speciation profiles file (<envar>GSPRO_COMBO</envar>), and the inventory data table (<envar>INVTABLE</envar>). For mobile sources only, <command>Spcmat</command> uses the mobile emission processes file (<envar>MEPROC</envar>). More informaton of <envar>GSPRO_COMBO</envar> file is available at <xref linkend="sect_input_gspro_combo" />.</para>
 
 <para><command>Spcmat</command> outputs a mole-based speciation matrix file (<envar>ASMAT_L</envar>, <envar>MSMAT_L</envar>, or <envar>PSMAT_L</envar>) and a mass-based speciation matrix file (<envar>ASMAT_S</envar>, <envar>MSMAT_S</envar>, or <envar>PSMAT_S</envar>). The program also outputs a speciation supplemental file (<envar>ASSUP</envar>, <envar>MSSUP</envar>, or <envar>PSSUP</envar>) and a log file (<envar>LOGFILE</envar>).</para>
 
@@ -5845,11 +5558,6 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry><envar>INVTABLE</envar></entry>
 <entry>ASCII</entry>
 <entry>Inventory data table listing activity and pollutant names</entry>
-</row>
-<row>
-<entry><envar>MCODES</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>Mobile codes file for converting road class numbers and vehicle type numbers to SMOKE internal standard</entry>
 </row>
 <row>
 <entry><envar>MEPROC</envar> (optional)</entry>
@@ -5923,20 +5631,6 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 <listitem>
 <para>N: Do not use speciation tagging cross-reference file</para>
-</listitem>
-</itemizedlist>
-</listitem>
-
-<listitem>
-<para><envar>USE_MCODES_SCC_YN</envar>: [defual:Y]</para>
-<para>Define whether or not the program use <envar>MCODES</envar> input file to build internal SCC based on vehicle type and road type numbers. See detail information in <xref linkend="sect_input_mcodes"/></para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Construct internal SCC using vehicle types and road type numbers</para>
-</listitem>
-<listitem>
-<para>N: Do not construct internal SCC</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -6033,10 +5727,13 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Monthly and day-of-week temporal profiles are applied.</para>
 </listitem>
 <listitem>
+<para>Month-to-day temporal profiles can be applied.</para>
+</listitem>
+<listitem>
 <para>Day-specific emissions or activities are read in and used to overwrite daily emissions for the appropriate sources</para>
 </listitem>
 <listitem>
-<para>Hourly temporal profiles are applied.</para>
+<para>Day-of-week specific hourly temporal profiles are applied.</para>
 </listitem>
 <listitem>
 <para>Hour-specific emissions or activities are read in and used to overwrite hourly emissions for the appropriate sources.</para>
@@ -6102,6 +5799,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </orderedlist>
 
+<comment>
 <para>For mobile sources, the available combinations are given below. To specify an entry that is to match by vehicle type, the road class part of the SCC must be filled with zeros. If any warnings or errors are written during the read of the mobile temporal cross-reference file, the messages will use the mobile internal SCCs.</para>
 
 <orderedlist spacing="compact">
@@ -6169,6 +5867,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Ultimate default (all values = 0)</para>
 </listitem>
 </orderedlist>
+</comment>
 
 <para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>.</para>
 
@@ -6198,6 +5897,9 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 <listitem>
 <para>Country/state/county code, 10-digit SCC, and plant ID</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, and plant ID</para>
 </listitem>
 <listitem>
 <para>Country/state/county code, 10-digit SCC, and pollutant</para>
@@ -6290,7 +5992,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_temporal_mobile" /> shows the input and output files for the <command>Temporal</command> program for mobile sources. The input files include the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), the optional process date file (<envar>PROCDATES</envar>) and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). <command>Temporal</command> also uses the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the temporal profiles file (<envar>MTPRO</envar>), and the temporal cross-reference file (<envar>MTREF</envar>). For mobile sources, <command>Temporal</command> reads the mobile codes file (<envar>MCODES</envar>).</para>
+<para><xref linkend="fig_programs_temporal_mobile" /> shows the input and output files for the <command>Temporal</command> program for mobile sources. The input files include the country, state, and county codes file (<envar>COSTCY</envar>), the holidays file (<envar>HOLIDAYS</envar>), the optional process date file (<envar>PROCDATES</envar>) and, if activity data are used, the inventory data table (<envar>INVTABLE</envar>). <command>Temporal</command> also uses the inventory file output from <command>Smkinven</command> (<envar>MOBL</envar>), the temporal profiles file (<envar>MTPRO</envar>), and the temporal cross-reference file (<envar>MTREF</envar>).</para>
 
 <para><command>Temporal</command> outputs a log file (<envar>LOGFILE</envar>), an hourly emissions file (<envar>MTMP</envar>), and a temporal allocation supplemental file (<envar>MTSUP</envar>).</para>
 
@@ -6351,9 +6053,29 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry>Intermediate inventory file produced by <command>Smkinven</command></entry>
 </row>
 <row>
-<entry><envar>[A|M|P]TPRO</envar></entry>
+<entry><envar>[A|M|P]TPRO_MONTHLY</envar></entry>
 <entry>ASCII</entry>
-<entry>Temporal profiles</entry>
+<entry>Monthly Temporal profiles</entry>
+</row>
+<row>
+<entry><envar>[A|M|P]TPRO_WEEKLY</envar></entry>
+<entry>ASCII</entry>
+<entry>Weekly Temporal profiles</entry>
+</row>
+<row>
+<entry><envar>[A|M|P]TPRO_DAILY</envar></entry>
+<entry>ASCII</entry>
+<entry>Month-to-day Temporal profiles</entry>
+</row>
+<row>
+<entry><envar>[A|M|P]TPRO_HOURLY</envar></entry>
+<entry>ASCII</entry>
+<entry>Day-to-hour Temporal profiles</entry>
+</row>
+<row>
+<entry><envar>[A|M|P]TPRO_HOURLY_NCF</envar></entry>
+<entry>ASCII</entry>
+<entry>Meteorological-based hourly Temporal profiles</entry>
 </row>
 <row>
 <entry><envar>[A|M|P]TREF</envar></entry>
@@ -6379,11 +6101,6 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry><envar>INVTABLE</envar> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Inventory data table listing pollutant and activity names; required only if activity data are used</entry>
-</row>
-<row>
-<entry><envar>MCODES</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>Mobile codes file for converting road class numbers and vehicle type numbers to SMOKE internal standard</entry>
 </row>
 <row>
 <entry><envar>PDAY</envar> (optional)</entry>
@@ -6484,21 +6201,6 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </itemizedlist>
 </listitem>
-
-<listitem>
-<para><envar>USE_MCODES_SCC_YN</envar>: [defual:Y]</para>
-<para>Define whether or not the program use <envar>MCODES</envar> input file to build internal SCC based on vehicle type and road type numbers. See detail information in <xref linkend="sect_input_mcodes"/></para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Construct internal SCC using vehicle type and road type numbers</para>
-</listitem>
-<listitem>
-<para>N: Do not construct internal SCC</para>
-</listitem>
-</itemizedlist>
-</listitem>
-
 <listitem>
 <para><envar>ZONE4WM</envar>: [default: Y]</para>
 
@@ -6586,7 +6288,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para><emphasis>Processing categories:</emphasis> biogenic</para>
 
-<para><command>Tmpbeis3</command> uses version 3.09 or version 3.14 of the BEIS3 model. <command>Tmpbeis3</command> reads the gridded, normalized emissions file <envar>B3GRD</envar> and meteorological data from <envar>MET_FILE1</envar> and optionally <envar>MET_FILE2</envar> (these files may be either <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>). Note that <command>Tmpbeis3</command> uses temperature and surface pressure data that must be in <envar>MET_FILE1</envar>, and radiation/cloud data that may be in <envar>MET_FILE1</envar> or <envar>MET_FILE2</envar>. Within <command>Tmpbeis3</command>, speciation profiles are used to speciate biogenic pollutants for appropriate chemical mechanisms. The speciation profiles used in SMOKE-BEIS3 are different than those used in SMOKE-BEIS2 modeling, and speciation profiles for the CB4, RADM2, and SAPRC99 mechanisms are available for BEIS3 modeling. The normalized emissions and meteorological data are used to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <envar>BIOSEASON</envar>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis.</para>
+<para><command>Tmpbeis3</command> uses version 3.14 or version 3.60 of the BEIS3 model. <command>Tmpbeis3</command> reads the gridded, normalized emissions file <envar>B3GRD</envar> and meteorological data from <envar>MET_FILE1</envar> and optionally <envar>MET_FILE2</envar> (these files may be either <envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>). Note that <command>Tmpbeis3</command> uses temperature and surface pressure data that must be in <envar>MET_FILE1</envar>, and radiation/cloud data that may be in <envar>MET_FILE1</envar> or <envar>MET_FILE2</envar>. Within <command>Tmpbeis3</command>, speciation profiles are used to speciate biogenic pollutants for appropriate chemical mechanisms. Various speciation profiles for the CB4, RADM2, and SAPRC99 mechanisms are available for BEIS3 modeling. The normalized emissions and meteorological data are used to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <envar>BIOSEASON</envar>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis.</para>
 
 </section>
 
@@ -6654,7 +6356,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <row>
 <entry><envar>GSPRO</envar></entry>
 <entry>ASCII</entry>
-<entry>Speciation profiles file (<emphasis role="bold">do not use the same profiles used in SMOKE-BEIS2; depending on the version used, <quote>BV309</quote> for CB04 speciation profile or <quote>B10C5</quote> for CB05 speciation profile.</emphasis>)</entry>
+<entry>Speciation profiles file (<emphasis role="bold">use <quote>BV309</quote> for CB04 speciation profile or <quote>B10C5</quote> for CB05 speciation profile.</emphasis>)</entry>
 </row>
 <row>
 <entry><envar>GRID_CRO_2D</envar></entry>
@@ -6689,11 +6391,11 @@ Defines whether the program produces a report of emission totals by state.</para
 <itemizedlist>
 
 <listitem>
-<para><envar>BEIS_VERSION</envar>: [default: 3.14]</para>
+<para><envar>BEIS_VERSION</envar>: [default: 3.60]</para>
 <para>Specifies which version of BEIS3 to use.</para>
 <itemizedlist>
 <listitem>
-<para>3.09: Use BEIS version 3.09.</para>
+<para>3.60: Use BEIS version 3.60.</para>
 </listitem>
 <listitem>
 <para>3.14: Use BEIS version 3.14.</para>
@@ -6712,11 +6414,11 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
-<para><envar>BIOG_SPRO</envar>: [default: BV309]</para>
+<para><envar>BIOG_SPRO</envar>: [default: BV310]</para>
 <para>Specifies the speciation profile for biogenic emissions from GSPRO.</para>
 <itemizedlist>
 <listitem>
-<para>BV309: Use BEIS version 3.09.</para>
+<para>B3V10: Use BEIS version 3.60.</para>
 </listitem>
 <listitem>
 <para>BV313: Use BEIS version 3.14.</para>
@@ -6762,6 +6464,11 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
+<para><envar>LAI_VAR</envar>: [default: LAI]</para>
+<para>Specifies the variable name for the leaf area index from the me model (e.g. WRF) used for the leaf temperature algorithm (Only for BEIS version 3.60)</para>
+</listitem>
+
+<listitem>
 <para><envar>OUTZONE</envar>: See description in <xref linkend="sect_programs_temporal_envar" /></para>
 </listitem>
 
@@ -6797,8 +6504,28 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
+<para><envar>Q2_VAR</envar>: [default: Q2]</para>
+<para>Specifies the variable name for the two meter water vapor mixing ratio (kg/kg) used for the leaf temperature algorithm (Only for BEIS version 3.60).</para>
+</listitem>
+
+<listitem>
 <para><envar>RAD_VAR</envar>: [default: RGRND]</para>
 <para>Specifies the variable name for radiation/cloud data to extract from either <envar>MET_FILE1</envar> or optional <envar>MET_FILE2</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>RADYNI_VAR</envar>: [default: RADYNI]</para>
+<para>Specifies the variable name for the aerodynamic resistance variable (s/m) used for the leaf temperature algorithm (Only for BEIS version 3.60).</para>
+</listitem>
+
+<listitem>
+<para><envar>RGRND_VAR</envar>: [default: RGRND]</para>
+<para>Specifies the variable name for the solar radiation reaching the ground used for the leaf temperature algorithm (Only for BEIS version 3.60).</para>
+</listitem>
+
+<listitem>
+<para><envar>RSTOMI_VAR</envar>: [default: RSTOMI]</para>
+<para>Specifies the variable name for the inverse of the stomatal resistance variable (m/s) used for the leaf temperature algorithm (Only for BEIS version 3.60).</para>
 </listitem>
 
 <listitem>
@@ -6835,8 +6562,18 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
+<para><envar>TEMPG_VAR</envar>: [default: TEMPG]</para>
+<para>Specifies the skin temperature at the ground level (K) used for the leaf temperature algorithm (Only for BEIS version 3.60).</para>
+</listitem>
+
+<listitem>
 <para><envar>TMPR_VAR</envar>: [default: TA]</para>
 <para>Specifies the variable name for temperature to extract from <envar>MET_FILE1</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>USTAR_VAR</envar>: [default: USTAR]</para>
+<para>Specifies the variable name for the surface friction velocity (m/s) used for the leaf temperature algorithm (Only for BEIS version 3.60).</para>
 </listitem>
 
 </itemizedlist>
@@ -6891,7 +6628,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <section>
 
-<title>Processing Multiple Days with BEIS3.14</title>
+<title>Processing Multiple Days with BEIS3</title>
 <para>The user must point to the <envar>SOILOUT</envar> file from one day&rsquo;s simulation as the <envar>SOILINP</envar> file for the next day. The user must also decide whether to write over <envar>SOILOUT</envar> files from previous days or create a uniquely named <envar>SOILOUT</envar> file for each day. The latter approach is recommended if the user wishes to retain the capability to restart simulations in the middle of a sequence of simulations.</para>
 
 </section>
@@ -6910,239 +6647,4 @@ Defines whether the program produces a report of emission totals by state.</para
 
 </section>
 
-<section id="sect_programs_tmpbio">
-
-<title><command>Tmpbio</command></title>
-
-<section>
-
-<title>Description</title>
-
-<para><emphasis>Processing categories:</emphasis> biogenic</para>
-
-<para><command>Tmpbio</command> is the second program in the SMOKE-BEIS2 model. <command>Tmpbio</command> reads the gridded, normalized emissions file <envar>BGRD</envar> and/or <envar>BGRDW</envar> produced by <command>Rawbio</command>, as well as meteorological data from <envar>MET_FILE1</envar> and/or <envar>MET_FILE2</envar> (<envar>MET_CRO_2D</envar> or <envar>MET_CRO_3D</envar>). Speciation profiles are used to speciate biogenic pollutants into appropriate chemical mechanisms; the CB4 and RADM2 mechanisms are supported. The normalized emissions and meteorological data are used to produce gridded, speciated, hourly biogenic emissions. Additionally, an optional seasonal switch file, <envar>BIOSEASON</envar>, can be used to determine when and where to use summer or winter normalized emissions data on a daily basis. Both the <envar>BGRD</envar> and <envar>BGRDW</envar> files are needed if the seasonal switch file is used.</para>
-
-</section>
-
-<section>
-
-<title>Processing Order</title>
-
-<para>The <command>Rawbio</command> program must be run before <command>Tmpbio</command>.</para>
-
-<para>If using the seasonal switch option, <command>Rawbio</command> must be run twice (once using the summer emissions factors file and once using the winter emissions factors file). Also, the seasonal switch file must be created using <command>Metscan</command> before running <command>Tmpbio</command>.</para>
-
-<para><command>Tmpbio</command> must be run before biogenic emissions can be used in <command>Smkmerge</command>.</para>
-
-</section>
-
-<section>
-
-<title>Files and Environment Variables</title>
-
-<figure id="fig_programs_tmpbio">
-<title><command>Tmpbio</command> input and output files</title>
-<mediaobject>
-<imageobject role="pdf">
-<imagedata width="6.5in" fileref="images/programs/tmpbio_pdf.jpg" />
-</imageobject>
-<imageobject role="html">
-<imagedata fileref="images/programs/tmpbio_html.jpg" />
-</imageobject>
-</mediaobject>
-</figure>
-
-<para><xref linkend="fig_programs_tmpbio" /> shows the input and output files for the <command>Tmpbio</command> program. The input files include the gridded, normalized biogenic emissions from <command>Rawbio</command> (<envar>BGRD</envar> and optionally <envar>BGRDW</envar>) and, if <envar>BIOSW_YN</envar> = Y, an optional gridded seasonal switch file output from <command>Metscan</command> (<envar>BIOSEASON</envar>). <command>Rawbio</command> also reads the optional meteorology file <envar>GRID_CRO_2D</envar> and the speciation profiles file (<envar>GSPRO</envar>). For inputting surface pressure and radiation/cloud data, <command>Tmpbio</command> can either use individual meteorology files (<envar>MET_FILE1</envar> and <envar>MET_FILE2</envar>) or list files (<envar>METLIST</envar> and <envar>RADLIST</envar>).</para>
-
-<para><command>Tmpbio</command> outputs gridded, speciated, hourly biogenic emissions files in moles/hour (<envar>BGTS_L</envar>) and tons/hour (<envar>BGTS_S</envar>) and a log file detailing the program&rsquo;s execution (<envar>LOGFILE</envar>).</para>
-
-<section>
-
-<title>Input Files</title>
-
-<informaltable>
-<tgroup cols="3">
-<colspec colwidth="25*" />
-<colspec colwidth="18*" />
-<colspec colwidth="57*" />
-
-<thead>
-<row>
-<entry>File Name</entry>
-<entry>Format</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry><envar>BGRD</envar></entry>
-<entry>I/O API NetCDF</entry>
-<entry>Gridded, normalized summer biogenic emissions, output from <command>Rawbio</command></entry>
-</row>
-<row>
-<entry><envar>BGRDW</envar></entry>
-<entry>I/O API NetCDF</entry>
-<entry>Gridded, normalized winter biogenic emissions, output from <command>Rawbio</command></entry>
-</row>
-<row>
-<entry><envar>BIOSEASON</envar> (optional)</entry>
-<entry>I/O API NetCDF</entry>
-<entry>Gridded seasonal switch file containing daily data, with <quote>0</quote> meaning use winter normalized emissions and <quote>1</quote> meaning use summer normalized emissions, produced by <command>Metscan</command></entry>
-</row>
-<row>
-<entry><envar>GRID_CRO_2D</envar> (optional)</entry>
-<entry>I/O API NetCDF</entry>
-<entry>Meteorology file containing latitude and longitude coordinates for each grid cell</entry>
-</row>
-<row>
-<entry><envar>GSPRO</envar></entry>
-<entry>ASCII</entry>
-<entry>Speciation profiles file</entry>
-</row>
-<row>
-<entry><envar>MET_FILE1</envar></entry>
-<entry>I/O API NetCDF</entry>
-<entry>Meteorology file containing temperature and surface pressure data and possibly radiation/cloud data as well (see <envar>BIOMET_SAME</envar> environment variable)</entry>
-</row>
-<row>
-<entry><envar>MET_FILE2</envar> (optional)</entry>
-<entry>I/O API NetCDF</entry>
-<entry>Meteorology file containing radiation/cloud data if not in <envar>MET_FILE1</envar></entry>
-</row>
-<row>
-<entry><envar>METLIST</envar></entry>
-<entry>ASCII</entry>
-<entry>List of meteorology files containing temperature and surface pressure data and possibly radiation/cloud data as well (see <envar>BIOMET_SAME</envar> environment variable)</entry>
-</row>
-<row>
-<entry><envar>RADLIST</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>List of meteorology files containing radiation/cloud data if not in the files listed by <envar>METLIST</envar></entry>
-</row>
-</tbody>
-</tgroup>
-</informaltable>
-
-</section>
-
-<section>
-
-<title>Input Environment Variables</title>
-
-<itemizedlist>
-<listitem>
-<para><envar>BG_CLOUD_TYPE</envar>: [default: 1]</para>
-
-<para>Specifies which meteorological data to use.</para>
-
-<itemizedlist>
-<listitem>
-<para>1: Use RGND or RSD (solar radiation reaching the ground) from MM5 to calculate PAR</para>
-</listitem>
-<listitem>
-<para>2: Use MM5 Kuo cloud fractions and surface pressure data to calculate PAR (untested)</para>
-</listitem>
-<listitem>
-<para>3: Use MM5 Kain-Fritsch cloud fractions and surface pressure data to calculate PAR (untested)</para>
-</listitem>
-<listitem>
-<para>4: Use MM5 cloud fractions with no deep convection parameterization and surface pressure data to calculate PAR (untested)</para>
-</listitem>
-<listitem>
-<para>5: Assume clear skies when calculating PAR; need <envar>GRID_CRO_2D</envar> file (latitude-longitude coordinates) for solar zenith angle calculation</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para><envar>BIOG_SPRO</envar>: [default: 0000]</para>
-
-<para>Specifies the speciation profile for biogenic emissions from <envar>GSPRO</envar>.</para>
-</listitem>
-<listitem>
-<para><envar>BIOMET_SAME</envar>: [default: N]</para>
-
-<para>Indicates whether the radiation/cloud data are in the same file as the temperature data (<envar>MET_FILE1</envar>) or a different file (<envar>MET_FILE2</envar>).</para>
-</listitem>
-<listitem>
-<para><envar>BIOSW_YN</envar>: [default: TRUE]</para>
-
-<para>Indicates whether to input a gridded seasonal switch file.</para>
-</listitem>
-<listitem>
-<para><envar>OUTZONE</envar>: See description in <xref linkend="sect_programs_temporal_envar" /></para>
-</listitem>
-<listitem>
-<para><envar>PRES_VAR</envar>: [default: PRSFC]</para>
-
-<para>Specifies the variable name for surface pressure data to extract from <envar>MET_FILE1</envar>.</para>
-</listitem>
-<listitem>
-<para><envar>RAD_VAR</envar>: [default: RGRND]</para>
-
-<para>Specifies the variable name for radiation/cloud data to extract from either <envar>MET_FILE1</envar> or optional <envar>MET_FILE2</envar>.</para>
-</listitem>
-<listitem>
-<para><envar>TMPR_VAR</envar>: [default: TA]</para>
-
-<para>Specifies the variable name for temperature data to extract from <envar>MET_FILE1</envar>.</para>
-</listitem>
-</itemizedlist>
-
-</section>
-
-<section>
-
-<title>Output Files</title>
-
-<informaltable>
-<tgroup cols="3">
-<colspec colwidth="20*" />
-<colspec colwidth="18*" />
-<colspec colwidth="62*" />
-
-<thead>
-<row>
-<entry>File Name</entry>
-<entry>Format</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry><envar>BGTS_L</envar></entry>
-<entry>I/O API NetCDF</entry>
-<entry>Gridded, speciated, hourly biogenic emissions, in moles/hour</entry>
-</row>
-<row>
-<entry><envar>BGTS_S</envar></entry>
-<entry>I/O API NetCDF</entry>
-<entry>Gridded, speciated, hourly biogenic emissions, in tons/hour</entry>
-</row>
-<row>
-<entry><envar>LOGFILE</envar></entry>
-<entry>ASCII</entry>
-<entry>Log generated from executing <command>Tmpbio</command></entry>
-</row>
-</tbody>
-</tgroup>
-</informaltable>
-
-</section>
-
-</section>
-
-<!--
-<section>
-
-<title>Earlier Versions</title>
-
-<para>The SMOKE prototype version of <command>Tmpbio</command> supported only UAM-BEIS2 processing for the CB4 mechanism. The prototype <command>Tmpbio</command> also allowed National Weather Service observational data to be used in estimating emissions; this option is no longer available due to lack of interest. Regarding the <envar>BG_CLOUD_TYPE</envar> environment variable, options 2, 3, and 4 above that use cloud fraction data have not been fully tested, so we strongly recommend setting <envar>BG_CLOUD_TYPE</envar> to 1. The <envar>OUTZONE</envar> environment variable was not in the prototype version of <command>Tmpbio</command>; the output time zone was the same time zone as the meteorological data. SMOKE v1.2 and earlier versions did not allow the input of a gridded seasonal switch file.</para>
-
-</section>
--->
-
-</section>
 </chapter>

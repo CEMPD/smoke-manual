@@ -16,13 +16,13 @@ In this overview section, we first provide a few important notes about file form
 
 <itemizedlist>
 <listitem>
-<para>Inventory files used by <command>Smkinven</command> and <command>Rawbio</command> (<xref linkend="sect_input_inventory" />)</para>
+<para>Inventory files used by <command>Smkinven</command> (<xref linkend="sect_input_inventory" />)</para>
 </listitem>
 <listitem>
 <para>Temporal allocation files used by <command>Temporal</command> (<xref linkend="sect_input_temporal" />)</para>
 </listitem>
 <listitem>
-<para>Spatial allocation files used by <command>Grdmat</command>, <command>Rawbio</command>, <command>Normbeis3</command>, and <command>Smkmerge</command> (<xref linkend="sect_input_spatial" />)</para>
+<para>Spatial allocation files used by <command>Grdmat</command>, <command>Normbeis3</command>, and <command>Smkmerge</command> (<xref linkend="sect_input_spatial" />)</para>
 </listitem>
 <listitem>
 <para>Chemical speciation files used by <command>Spcmat</command> (<xref linkend="sect_input_chemical" />)</para>
@@ -34,7 +34,7 @@ In this overview section, we first provide a few important notes about file form
 <para>Special merging files used by <command>Mrggrid</command> (<xref linkend="sect_input_merging" />)</para>
 </listitem>
 <listitem>
-<para>Meteorology files used by <command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Met4moves</command>, and <command>Laypoint</command> (<xref linkend="sect_input_meteorology" />)</para>
+<para>Meteorology files used by <command>Tmpbeis3</command>, <command>Met4moves</command>, and <command>Laypoint</command> (<xref linkend="sect_input_meteorology" />)</para>
 </listitem>
 <listitem>
 <para>Source-specific files for biogenics, mobile, and point source processing (<xref linkend="sect_input_source_specific" />)</para>
@@ -131,45 +131,29 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_arinv"><envar>ARINV</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>A</entry>
-<entry>Stationary area/nonpoint or nonroad raw inventory in IDA format, SMOKE list format for EMS-95 files, or ORL format</entry>
+<entry>Stationary area/nonpoint or nonroad raw inventory data</entry>
 <entry><envar>$ARDAT</envar></entry>
 </row>
 <row>
 <entry><link linkend="sect_input_arday"><envar>ARDAY</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>A</entry>
-<entry>Area source raw day-specific inventory data (optional)</entry>
+<entry>Area source raw day-specific inventory data</entry>
 <entry><envar>$ARDAY</envar></entry>
 </row>
 <row>
 <entry><link linkend="sect_input_arhour"><envar>ARHOUR</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>A</entry>
-<entry>Area source raw hour-specific inventory data (optional)</entry>
+<entry>Area source raw hour-specific inventory data</entry>
 <entry><envar>$ARHOUR</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_bcuse"><envar>BCUSE</envar></link></entry>
-<entry><command>Rawbio</command></entry>
-<entry>B</entry>
-<entry>Biogenic county land use data</entry>
-<entry><envar>$GE_DAT</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_bguse"><envar>BGUSE</envar></link></entry>
-<entry><command>Rawbio</command></entry>
-<entry>B</entry>
-<entry>Biogenic gridded land use data</entry>
-<entry><envar>$BGDAT</envar></entry>
 </row>
 
 <row>
 <entry><link linkend="sect_input_mbinv"><envar>MBINV</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>M</entry>
-<entry>Mobile source raw inventory in IDA format for nonlink data, SMOKE list format for EMS-95 nonlink and link data, ORL format, or an FF10 activity inventory format</entry>
+<entry>Mobile source raw inventory data </entry>
 <entry><envar>$MBDAT</envar></entry>
 </row>
 
@@ -177,7 +161,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_ptday"><envar>PTDAY</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Point source raw day-specific inventory data (optional)</entry>
+<entry>Point source raw day-specific inventory data</entry>
 <entry><envar>$PTDAT</envar></entry>
 </row>
 
@@ -185,7 +169,7 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_pthour"><envar>PTHOUR</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Point source raw hour-specific inventory data (optional)</entry>
+<entry>Point source raw hour-specific inventory data</entry>
 <entry><envar>$PTDAT</envar></entry>
 </row>
 
@@ -193,16 +177,8 @@ In this overview section, we first provide a few important notes about file form
 <entry><link linkend="sect_input_ptinv"><envar>PTINV</envar></link></entry>
 <entry><command>Smkinven</command></entry>
 <entry>P</entry>
-<entry>Point source raw inventory in IDA format, SMOKE list format for EMS-95 files, or ORL format</entry>
+<entry>Point source raw inventory data</entry>
 <entry><envar>$PTDAT</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_vmtmix"><envar>VMTMIX</envar></link></entry>
-<entry><command>Smkinven</command></entry>
-<entry>M</entry>
-<entry>Mobile source vehicle mix for EMS-95 files</entry>
-<entry><envar>$MBDAT</envar></entry>
 </row>
 
 </tbody>
@@ -325,7 +301,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_bgpro"><envar>BGPRO</envar></link></entry>
-<entry><command>Rawbio</command>, <command>Smkmerge</command></entry>
+<entry><command>Smkmerge</command></entry>
 <entry>B</entry>
 <entry>Biogenic spatial surrogates for county land use</entry>
 <entry><envar>$GE_DAT</envar></entry>
@@ -376,7 +352,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_gspro"><envar>GSPRO</envar></link></entry>
-<entry><command>Cntlmat</command>, <command>Spcmat</command>, <command>Tmpbio</command>, <command>Tmpbeis3</command></entry>
+<entry><command>Cntlmat</command>, <command>Spcmat</command>, <command>Tmpbeis3</command></entry>
 <entry>A, B, M, P</entry>
 <entry>Speciation profiles file</entry>
 <entry><envar>$GE_DAT</envar></entry>
@@ -491,7 +467,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_meteorology"><envar>GRID_CRO_2D</envar></link></entry>
-<entry><command>Tmpbio</command>, <command>Tmpbeis3</command></entry>
+<entry><command>Tmpbeis3</command></entry>
 <entry>B</entry>
 <entry>Grid 2-D cross-point file (optional)</entry>
 <entry><envar>$METDAT</envar></entry>
@@ -507,7 +483,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_meteorology"><envar>MET_CRO_2D</envar></link></entry>
-<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Met4moves</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
+<entry><command>Tmpbeis3</command>, <command>Met4moves</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
 <entry>B, M, P</entry>
 <entry>Meteorology 2-D cross-point file</entry>
 <entry><envar>$METDAT</envar></entry>
@@ -515,7 +491,7 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_meteorology"><envar>MET_CRO_3D</envar></link></entry>
-<entry><command>Tmpbio</command>, <command>Tmpbeis3</command>, <command>Met4moves</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
+<entry><command>Tmpbeis3</command>, <command>Met4moves</command>, <command>Laypoint</command>, <command>Metscan</command></entry>
 <entry>B, M, P</entry>
 <entry>Meteorology 3-D cross-point file (optional for biogenics)</entry>
 <entry><envar>$METDAT</envar></entry>
@@ -531,17 +507,9 @@ In this overview section, we first provide a few important notes about file form
 
 <row>
 <entry><link linkend="sect_input_metlist"><envar>METLIST</envar></link></entry>
-<entry><command>Tmpbio</command>, <command>Met4moves</command></entry>
+<entry><command>Met4moves</command></entry>
 <entry>B, M</entry>
 <entry>Listing of meteorology files</entry>
-<entry><envar>$STATIC</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_radlist"><envar>RADLIST</envar></link></entry>
-<entry><command>Tmpbio</command></entry>
-<entry>B</entry>
-<entry>Listing of meteorology files containing radiation data</entry>
 <entry><envar>$STATIC</envar></entry>
 </row>
 
@@ -581,24 +549,8 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry><link linkend="sect_input_b3xrf"><envar>B3XRF</envar></link></entry>
-<entry><command>Beld3to2</command></entry>
-<entry>B</entry>
-<entry>BELD3 to BELD2 cross-reference file</entry>
-<entry><envar>$GE_DAT</envar></entry>
-</row>
-
-<row>
-<entry><link linkend="sect_input_bfac"><envar>BFAC</envar></link></entry>
-<entry><command>Rawbio</command></entry>
-<entry>B</entry>
-<entry>Summer or winter biogenic emission factors</entry>
-<entry><envar>$GE_DAT</envar></entry>
-</row>
-
-<row>
 <entry><link linkend="sect_input_bioseason"><envar>BIOSEASON</envar></link></entry>
-<entry><command>Tmpbeis3</command>, <command>Tmpbio</command></entry>
+<entry><command>Tmpbeis3</command></entry>
 <entry>B</entry>
 <entry>Bioseason switch file</entry>
 <entry><envar>$GE_DAT</envar></entry>
@@ -822,7 +774,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-<entry><link linkend="sect_input_smkmerge_groups"><envar>SMKMERGE_GROUPS</envar></link></entry>
+<entry><link linkend="sect_input_smkmerge_groups"><envar>SOURCE_GROUPS</envar></link></entry>
 <entry><command>Movesmrg, Smkreport</command></entry>
 <entry>A, B, M, P</entry>
 <entry>Source apportionment groups</entry>
@@ -877,8 +829,6 @@ In this overview section, we first provide a few important notes about file form
 
 <itemizedlist>
 <listitem>#CEM indicates that the file is in CEM format</listitem>
-<listitem>#EMS-95 indicates that the file is in EMS-95 format</listitem>
-<listitem>#IDA indicates that the file is in IDA format</listitem>
 <listitem>#LIST indicates that the file is a list file</listitem>
 <listitem>#FF10 indicates that the file is in FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.  The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</listitem>
 <listitem>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
@@ -886,21 +836,6 @@ In this overview section, we first provide a few important notes about file form
 <listitem>#ORL FIRE indicates that the file is in ORL format for fires sources</listitem>
 <listitem>#ORL FIREEMIS indicates that the file is in ORL format for day-specific fires sources</listitem>
 </itemizedlist>
-
-<para>If you want to give the format information in the list file, you need to append an additional format label to the #LIST header. For example, #LIST IDA indicates that the current file is in list format and that the listed files are IDA format. List files can include multiple #LIST &lt;format&gt; entries to include multiple file types; The given format is assumed to apply to all files until another #LIST &lt;format&gt; is encountered. Format indicators in the individual inventory files will override settings in the list file. A sample list file is shown below.</para>
-
-<programlisting>#LIST IDA
-/apps/smoke/data/inventory/nei02/area/arinv.ida.txt
-#LIST ORL
-/apps/smoke/data/inventory/nti02/area/arinv.orl.txt</programlisting>
-
-<para>In this case, SMOKE will assume that the file <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename> is in IDA format and the file <filename>/apps/smoke/data/inventory/nti02/area/arinv.orl.txt</filename> is in ORL format. Alternatively, these files could be listed like so:</para>
-
-<programlisting>#LIST
-/apps/smoke/data/inventory/nei02/area/arinv.ida.txt
-/apps/smoke/data/inventory/nti02/area/arinv.orl.txt</programlisting>
-
-<para>In this case, the <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename> file must include the #IDA header and the <filename>/apps/smoke/data/inventory/nti02/area/arinv.orl.txt</filename> file must include the #ORL header.</para>
 
 </section>
 
@@ -944,7 +879,6 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>
 <simplelist>
-<member>#IDA</member>
 <member>#FF10_ACTIVITY</member>
 <member>#FF10_[NONPOINT|POINT|NONROAD|ONROAD]</member>
 <member>#FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD]</member>
@@ -994,19 +928,6 @@ In this overview section, we first provide a few important notes about file form
 </table>
 
 <para>Sample header records are given for each file in their respective sections.</para>
-
-</section>
-
-<section id="sect_input_inventory_invyear">
-
-<title>INVYEAR packet for EMS-95 format</title>
-
-<para>When using EMS-95 inventories, the <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar> files are usually a list file (see <xref linkend="sect_input_inventory_list" />) that lists individual inventory files in EMS-95 format. This list file must contain one or more INVYEAR packets. This packet acts as a switch that sets the inventory year for the files, each of which will get the year designated by the packet until another INVYEAR packet appears in the file. In this way, multiple years of inventory data can be combined into one SMOKE inventory. The format of the INVYEAR packet is INVYEAR &lt;four-digit year&gt; and is shown in the example below.</para>
-
-<programlisting>#LIST EMS-95
-INVYEAR 1996
-/apps/smoke/data/inventory/smraq95/area/arinv.ems95.txt
-</programlisting>
 
 </section>
 
@@ -1060,7 +981,7 @@ INVYEAR 1996
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>char(3)</entry>
+<entry>Char(3)</entry>
 <entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -1174,6 +1095,9 @@ INVYEAR 1996
 
 <section id="sect_input_arhour">
 <title><envar>ARHOUR</envar>: Area source hour-specific emissions</title>
+
+<section>
+<title>FF10 Format</title>
 <para>The user specifies the data provided using this command in the header: FF10_HOURLY_[NONPOINT|POINT|NONPOINT|ONROAD].</para>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for daily nonpoint sources are shown below:</para>
 <programlisting>
@@ -1217,7 +1141,7 @@ INVYEAR 1996
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>char(3)</entry>
+<entry>Char(3)</entry>
 <entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -1333,249 +1257,13 @@ INVYEAR 1996
 </tgroup>
 </table>
 </section>
+</section>
 
 <section id="sect_input_arinv">
 
 <title><envar>ARINV</envar>: Area-source annual or average-day emissions</title>
 
-<para>The <envar>ARINV</envar> file is the input area source inventory file for annual or average-day data. This file can be in EMS-95, IDA, FF10 or ORL Formats.</para>
-
-<section>
-<title>EMS-95 Format</title>
-<para><remark>For EMS-95 inputs, the <envar>ARINV</envar> file must be a list file and contain at least one INVYEAR packet (see <xref linkend="sect_input_inventory_invyear" />).</remark> The EMS-95 format for area-source inventories is column-specific and is shown in <xref linkend="tbl_input_arinv_ems" />. Note that we have only listed the columns used by SMOKE. In addition, these files can have a #COUNTRY header as the first line of the file to set the country code (see <xref linkend="sect_input_inventory_header" />). The default country code is 0, which the default <envar>COSTCY</envar> file defines as the United States.</para>
-
-<table id="tbl_input_arinv_ems">
-<title>EMS-95 Format for <envar>ARINV</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>Five-digit FIPS code for state and county(required)</entry>
-</row>
-<row>
-<entry>3-5 </entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>6-20 </entry>
-<entry>Char</entry>
-<entry>SCC or ASC code (required)</entry>
-</row>
-<row>
-<entry>21-25 </entry>
-<entry>Char</entry>
-<entry>Pollutant ID (e.g. VOC) (required)</entry>
-</row>
-<row>
-<entry>52-65 </entry>
-<entry>Real</entry>
-<entry>Actual emissions of specified pollutant (short tons/average annual day) (required)</entry>
-</row>
-<row>
-<entry>88-94 </entry>
-<entry>Real</entry>
-<entry>Control equipment efficiency (percent, give value of 0-100) (optional; SMOKE default is 0)</entry>
-</row>
-<row>
-<entry>95-96 </entry>
-<entry>Char</entry>
-<entry><para>Temporal basis: (required)</para>
-
-<itemizedlist spacing="compact">
-<listitem>AA = annual emissions</listitem>
-<listitem>AD = daily emissions with weekday normalizer</listitem>
-<listitem>DS = day-specific (will not cause SMOKE to crash, but may not be fully supported to give same behavior as EMS-95 - use with caution)</listitem>
-</itemizedlist></entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-<section>
-
-<title>IDA Format</title>
-
-<para>The IDA format for area-source inventories is column-specific and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
-
-<programlisting>#IDA
-#TYPE     Area Source Inventory
-#COUNTRY  US
-#YEAR     1995
-#DESC     Alabama 1995
-#POLID    CO NH3 NOX PM10 PM2_5 SO2 VOC</programlisting>
-
-<para>The format for the data records is shown in <xref linkend="tbl_input_arinv_ida" />.</para>
-
-<table id="tbl_input_arinv_ida">
-<title>IDA Format for <envar>ARINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Name" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>State Code (required)</entry>
-</row>
-<row>
-<entry>3-5</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>County Code (required)</entry>
-</row>
-<row>
-<entry>6-15</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>SCC (required)</entry>
-</row>
-<row>
-<entry>16-25</entry>
-<entry>ANN1</entry>
-<entry>Real</entry>
-<entry>pol1 Annual Emissions (short tons/yr) (required)</entry>
-</row>
-<row>
-<entry>26-35</entry>
-<entry>AVD1</entry>
-<entry>Real</entry>
-<entry>pol1 Average-day Emissions (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>36-46</entry>
-<entry>EMF1</entry>
-<entry>Real</entry>
-<entry>pol1 Emission Factors (SCC units) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>47-53</entry>
-<entry>CE1</entry>
-<entry>Real</entry>
-<entry>pol1 Control Efficiency (give value of 0-100) (optional; if left blank, SMOKE default is 0)</entry>
-</row>
-<row>
-<entry>54-56</entry>
-<entry>RE1</entry>
-<entry>Real</entry>
-<entry>pol1 Rule Effectiveness (give value of 0-100), (optional; if left blank, SMOKE default is 100)</entry>
-</row>
-<row>
-<entry>57-62</entry>
-<entry>RP1</entry>
-<entry>Real</entry>
-<entry>pol1 Rule Penetration (give value of 0-100) (optional; if left blank, SMOKE default is 100)</entry>
-</row>
-<row>
-<entry>63-72</entry>
-<entry>ANN2</entry>
-<entry>Real</entry>
-<entry>pol2 Annual Emissions (short tons/yr) </entry>
-</row>
-<row>
-<entry>73-82</entry>
-<entry>AVD2</entry>
-<entry>Real</entry>
-<entry>pol2 Average-day Emissions (short tons/average day)</entry>
-</row>
-<row>
-<entry>83-93</entry>
-<entry>EMF2</entry>
-<entry>Real</entry>
-<entry>pol2 Emission Factors (SCC units)</entry>
-</row>
-<row>
-<entry>94-100</entry>
-<entry>CE2</entry>
-<entry>Real</entry>
-<entry>pol2 Control Efficiency (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>101-103</entry>
-<entry>RE2</entry>
-<entry>Real</entry>
-<entry>pol2 Rule Effectiveness (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>104-109</entry>
-<entry>RP2</entry>
-<entry>Real</entry>
-<entry>pol2 Rule Penetration (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>110-119</entry>
-<entry>ANN3</entry>
-<entry>Real</entry>
-<entry>pol3 Annual Emissions (short tons/yr)</entry>
-</row>
-<row>
-<entry>120-129</entry>
-<entry>AVD3</entry>
-<entry>Real</entry>
-<entry>pol3 Average-day Emissions (short tons/average day)</entry>
-</row>
-<row>
-<entry>130-140</entry>
-<entry>EMF3</entry>
-<entry>Real</entry>
-<entry>pol3 Emission Factors (SCC units)</entry>
-</row>
-<row>
-<entry>141-147</entry>
-<entry>CE3</entry>
-<entry>Real</entry>
-<entry>pol3 Control Efficiency (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>148-150</entry>
-<entry>RE3</entry>
-<entry>Real</entry>
-<entry>pol3 Rule Effectiveness (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>151-156</entry>
-<entry>RP3</entry>
-<entry>Real</entry>
-<entry>pol3 Rule Penetration (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry namest="Position" nameend="Description">(Repeat for the rest of <emphasis>n</emphasis> pollutants)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
+<para>The <envar>ARINV</envar> file is the input area source inventory file for annual or average-day data. This file can be in FF10 or ORL Formats.</para>
 
 <section>
 
@@ -2304,625 +1992,12 @@ INVYEAR 1996
 
 </section>
 </section>
-<section id="sect_input_bcuse">
-
-<title><envar>BCUSE</envar>: Biogenic county land use</title>
-
-<para>The <envar>BCUSE</envar> file is the BEIS2-format ASCII biogenic county land use file input to the <command>Rawbio</command> program. This file is list-directed and its format is given in <xref linkend="tbl_input_bcuse" />.</para>
-
-<table id="tbl_input_bcuse">
-<title>Format for <envar>BCUSE</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>Country/state/county code (Integer)</entry>
-</row>
-<row>
-<entry>2</entry>
-<entry>A</entry>
-<entry>Rural forest land area (Real)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Rural forest number of subtypes (Integer)</entry>
-</row>
-<row>
-<entry namest="Line" nameend="Description">For each rural forest subtype:
-(These subtypes must match the emission factors in <envar>BFAC</envar>)</entry>
-</row>
-<row>
-<entry>3+</entry>
-<entry>A</entry>
-<entry>Name of land use subtype as per BEIS2 documentation</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Area within the county devoted to this land use subtype</entry>
-</row>
-<row>
-<entry namest="Line" nameend="Description">Repeat lines 2 and 3+ for each of the other land use types: urban forest, agriculture, and <quote>other</quote>.</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section id="sect_input_bguse">
-
-<title><envar>BGUSE</envar>: Biogenic gridded land use</title>
-
-<para>The <envar>BGUSE</envar> file is the BEIS2-format ASCII biogenic gridded land use file input to the <command>Rawbio</command> program. This file is list-directed and its format is given in <xref linkend="tbl_input_bguse" />.</para>
-
-<table id="tbl_input_bguse">
-<title>Format for <envar>BGUSE</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>#GRID header (see Area and Mobile spatial surrogate files) (required)</entry>
-</row>
-<comment>
-<row>
-<entry>optional</entry>
-<entry>A</entry>
-<entry><para>Header with text metadata sections including the following:</para>
-
-<simplelist>
-<member>Introduction</member>
-<member>Grid Definition</member>
-<member>File Description</member>
-<member>A list of <quote>VEGID</quote> names and descriptions, formatted <quote>(1X, A4, 3X, A)</quote></member>
-<member>Notes on VEGID</member>
-<member>Source of Data</member>
-<member>Version</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>2</entry>
-<entry>A</entry>
-<entry>ENDHEADER (this text is required even if there is no header)</entry>
-</row>
-</comment>
-<row>
-<entry namest="Line" nameend="Description">Repeat the following for each cell</entry>
-</row>
-<row>
-<entry>3+</entry>
-<entry>A</entry>
-<entry>Cell column number (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Cell row number (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>Cell area in hectares (Real)</entry>
-</row>
-<row>
-<entry namest="Line" nameend="Description">For a given cell, repeat the following for each land use type (rural forest, urban forest, agriculture, or <quote>other</quote>)</entry>
-</row>
-<row>
-<entry>4+</entry>
-<entry>A</entry>
-<entry>Area of land use type in the cell (hectares) (Real)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Number of land use subtypes for this land use type in the cell (Integer)</entry>
-</row>
-<row>
-<entry namest="Line" nameend="Description">Repeat the following for each land use subtype in the cell</entry>
-</row>
-<row>
-<entry>5+</entry>
-<entry>A</entry>
-<entry>4-character name of land use type (in quotes)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Area of land use subtype (hectares) (Real)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
 
 <section id="sect_input_mbinv">
 
 <title><envar>MBINV</envar>: Mobile-source activity and emissions</title>
 
-<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data and one for emissions data. Note that although the IDA formats support the link ID field, SMOKE cannot read the IDA link definitions file, which contains the coordinates for the links. In order to use link data with SMOKE, the EMS-95 format must be used. SMOKE also supports the FF10 and ORL format for reading on-road mobile emissions data.</para>
-
-<section>
-
-<title>IDA Format</title>
-
-<para>The two IDA formats for mobile-source inventories use the header described in <xref linkend="sect_input_inventory_header" />. Sample header records for activity data are shown below:</para>
-
-<programlisting>#IDA
-#TYPE     Motor Vehicle Activity Inventory
-#COUNTRY  US
-#YEAR     1996
-#DESC     1996 NET inventory, version 3.1
-#DATA     SPEED VMT
-#UNITS    "miles/hr" "10E6 miles/yr"</programlisting>
-
-<para>Sample header records for emissions data:</para>
-
-<programlisting>#IDA
-#TYPE     Motor Vehicle Emission Inventory
-#COUNTRY  US
-#YEAR     1996
-#DESC     1996 NET inventory, version 3.1
-#DATA     VOC NOX CO SO2 PM10 PM2_5 NH3</programlisting>
-
-<section>
-
-<title>IDA Activity Data Format</title>
-
-<para>The IDA activity data format is list-directed and shown in <xref linkend="tbl_input_mbinv_ida_activity" />.</para>
-
-<table id="tbl_input_mbinv_ida_activity">
-<title>IDA Activity Data Format for <envar>MBINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="55*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>A</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry>B</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>C</entry>
-<entry>LINK ID</entry>
-<entry>Char</entry>
-<entry>Link identifier (optional; put zero for non-link data)</entry>
-</row>
-<row>
-<entry>D</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>AMS SCC (required)</entry>
-</row>
-<row>
-<entry>E</entry>
-<entry>DATA(1)</entry>
-<entry>Real</entry>
-<entry>Data for the first field in the #DATA header list, given in the units of the first field in the #UNITS header list (required)</entry>
-</row>
-<row>
-<entry>F</entry>
-<entry>DATA(2)</entry>
-<entry>Real</entry>
-<entry>Data for the second field in the #DATA header list, given in the units of the second field in the #UNITS header list (required if <emphasis>n</emphasis> > 1)</entry>
-</row>
-<row>
-<entry>G</entry>
-<entry>DATA(3)</entry>
-<entry>Real</entry>
-<entry>Data for the third field... (required if <emphasis>n</emphasis> > 2)</entry>
-</row>
-<row>
-<entry>...</entry>
-<entry>DATA(<emphasis>n</emphasis>)</entry>
-<entry>Real</entry>
-<entry>Data for the final field... (required if <emphasis>n</emphasis> > 3)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>IDA Emissions Data Format</title>
-
-<para>The IDA emissions data format is column-specific and shown in <xref linkend="tbl_input_mbinv_ida_emissions" />.</para>
-
-<table id="tbl_input_mbinv_ida_emissions">
-<title>IDA Emissions Data Format for <envar>MBINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="55*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>State Code (required)</entry>
-</row>
-<row>
-<entry>3-5</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>County Code (required)</entry>
-</row>
-<row>
-<entry>6-15</entry>
-<entry>LINK ID</entry>
-<entry>Char</entry>
-<entry>Link identifier (optional; put zero for nonlink data)</entry>
-</row>
-<row>
-<entry>16-25</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>AMS SCC (required)</entry>
-</row>
-<row>
-<entry>26-35</entry>
-<entry>DATA(1)</entry>
-<entry>Real</entry>
-<entry>Data for the first field in the #DATA header list (short tons/year) (required)</entry>
-</row>
-<row>
-<entry>36-45</entry>
-<entry>AVD(1)</entry>
-<entry>Real</entry>
-<entry>Average-day data for the first field in the #DATA header list (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>46-55</entry>
-<entry>DATA(2)</entry>
-<entry>Real</entry>
-<entry>Data for the second field in the #DATA header list (short tons/yr)</entry>
-</row>
-<row>
-<entry>56-65</entry>
-<entry>AVD(2)</entry>
-<entry>Real</entry>
-<entry>Average-day data for the second field in the #DATA header list (short tons/average day)</entry>
-</row>
-<row>
-<entry>66-75</entry>
-<entry>DATA(3)</entry>
-<entry>Real</entry>
-<entry>Data for the third field (short tons/yr)</entry>
-</row>
-<row>
-<entry>76-85</entry>
-<entry>AVD(3)</entry>
-<entry>Real</entry>
-<entry>Average-day data for the third field (short tons/average day)</entry>
-</row>
-<row>
-<entry>...</entry>
-<entry>DATA(<emphasis>n</emphasis>)</entry>
-<entry>Real</entry>
-<entry>Data for the final field (short tons/yr)</entry>
-</row>
-<row>
-<entry>...</entry>
-<entry>AVD(<emphasis>n</emphasis>)</entry>
-<entry>Real</entry>
-<entry>Average-day data for the final field (short tons/average day)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-</section>
-
-<section>
-
-<title>EMS-95 Formats</title>
-
-<para><remark>For EMS-95 inputs, the <envar>MBINV</envar> file can either be a list file, to read in EMS-95 link and non-link data, or a single modified EMS-95 format that is list-directed.</remark> When using a list format, the <envar>MBINV</envar> file must contain at least one INVYEAR packet (see <xref linkend="sect_input_inventory_invyear" />). The individual data files that are referenced by the <envar>MBINV</envar> list file may also contain the following header fields: #COUNTRY, #YEAR, and/or #DATA, as described in <xref linkend="sect_input_inventory_header" />. The default country is 0 and the default year is set by the INVYEAR packet. The #DATA header must appear, even if the only data in the file are VMT data. The #UNITS header must NOT appear.</para>
-
-<section>
-
-<title>EMS-95 Nonlink Column-specific Format</title>
-
-<para>The EMS-95 nonlink column-specific format is shown in <xref linkend="tbl_input_mbinv_ems_nonlink_column" />.</para>
-
-<table id="tbl_input_mbinv_ems_nonlink_column">
-<title>EMS-95 Nonlink Column-specific Format for <envar>MBINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>1-8</entry>
-<entry>Char</entry>
-<entry>#NONLINK (required)</entry>
-</row>
-<row>
-<entry>2</entry>
-<entry>1-9</entry>
-<entry>Char</entry>
-<entry>#DATA VMT (required)</entry>
-</row>
-<row>
-<entry>3+</entry>
-<entry>1-2</entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry colname="Position">3-5</entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry colname="Position">6-6</entry>
-<entry>Int</entry>
-<entry>Area type code (required)</entry>
-</row>
-<row>
-<entry colname="Position">7-10</entry>
-<entry>Int</entry>
-<entry>Facility type code (required)</entry>
-</row>
-<row>
-<entry colname="Position">11-18</entry>
-<entry>Real</entry>
-<entry>VMT (miles/average annual weekday) (required)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>EMS-95 Nonlink List-directed Format</title>
-
-<para>The EMS-95 nonlink list-directed format is shown in <xref linkend="tbl_input_mbinv_ems_nonlink_list" />.</para>
-
-<table id="tbl_input_mbinv_ems_nonlink_list">
-<title>EMS-95 Nonlink List-directed Format for <envar>MBINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>Char</entry>
-<entry>#NONLINK (required)</entry>
-</row>
-<row>
-<entry>2</entry>
-<entry>A+</entry>
-<entry>Char</entry>
-<entry>#DATA VMT  PM10  PM2_5 ... Last data type (required)</entry>
-</row>
-<row>
-<entry>3+</entry>
-<entry>A</entry>
-<entry>Int</entry>
-<entry>Country, state, and county code (YSSCCC) (required)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Int</entry>
-<entry>Road type code (required)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>Real</entry>
-<entry>VMT (miles/average annual weekday) (required)</entry>
-</row>
-<row>
-<entry colname="Position">D</entry>
-<entry>Real</entry>
-<entry>PM10 (short tons/average annual weekday)</entry>
-</row>
-<row>
-<entry colname="Position">E</entry>
-<entry>Real</entry>
-<entry>PM2_5 (short tons/average annual weekday)</entry>
-</row>
-<row>
-<entry namest="Position" nameend="Description">additional columns for additional data types listed on the #DATA line</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>EMS-95 Link Format</title>
-
-<para>The EMS-95 link format is list-directed and is shown in <xref linkend="tbl_input_mbinv_ems_link" />.</para>
-
-<table id="tbl_input_mbinv_ems_link">
-<title>EMS-95 Link Format for <envar>MBINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>Char</entry>
-<entry>#LINK (required)</entry>
-</row>
-<row>
-<entry>2</entry>
-<entry>A+</entry>
-<entry>Char</entry>
-<entry>#DATA  VMT  PM10  PM2_5 ... Last data type (required)</entry>
-</row>
-<row>
-<entry>3+</entry>
-<entry>A</entry>
-<entry>Int</entry>
-<entry>Country, state, and county code (YSSCCC, required)</entry>
-</row>
-<row>
-<entry colname="Position">B </entry>
-<entry>Int</entry>
-<entry>Road type code (required)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>Char</entry>
-<entry>Link ID (15 characters) (required)</entry>
-</row>
-<row>
-<entry colname="Position">D</entry>
-<entry>Real</entry>
-<entry>Link start longitude (decimal degrees) or UTM Easting (m) (required)</entry>
-</row>
-<row>
-<entry colname="Position">E</entry>
-<entry>Real</entry>
-<entry>Link start latitude (decimal degrees) or UTM Northing (m) (required)</entry>
-</row>
-<row>
-<entry colname="Position">F</entry>
-<entry>Real</entry>
-<entry>Link end longitude (decimal degrees) or UTM Easting (m) (required)</entry>
-</row>
-<row>
-<entry colname="Position">G</entry>
-<entry>Real</entry>
-<entry>Link end latitude (decimal degrees) or UTM Northing (m) (required)</entry>
-</row>
-<row>
-<entry colname="Position">H</entry>
-<entry>Int</entry>
-<entry>UTM zone or zero for lat/lon coordinates (required)</entry>
-</row>
-<row>
-<entry colname="Position">I</entry>
-<entry>Real</entry>
-<entry>VMT (miles/average annual weekday) (required)</entry>
-</row>
-<row>
-<entry colname="Position">J</entry>
-<entry>Real</entry>
-<entry>PM10 (short tons/average annual weekday)</entry>
-</row>
-<row>
-<entry colname="Position">K</entry>
-<entry>Real</entry>
-<entry>PM2_5 (short tons/average annual weekday)</entry>
-</row>
-<row>
-<entry namest="Position" nameend="Description">additional columns for additional data types listed on the #DATA line</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-</section>
+<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data in FF10 format and one for emissions data in ORL format.</para>
 
 <section>
 
@@ -3234,125 +2309,7 @@ INVYEAR 1996
 
 <title><envar>PTDAY</envar>: Point source day-specific emissions</title>
 
-<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95, IDA, FF10 or ORL FIRE format. However, the format indicator for the day-specific files must be by #EMS-95 except for #ORL FIREEMIS (<xref linkend="sect_input_ptday_fireemis" />); this header can either appear in each individual file or in the <envar>PTDAY</envar> list file (#LIST EMS-95 or #LIST FF10). In addition, the day-specific files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
-
-<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the ORL file and the inventory table.</para>
-
-<section>
-<title>EMS-95 Format</title>
-
-<para>SMOKE requires that the sources in the <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file, and that the user has matched the sources between the annual data inventory and the day-specific data. <comment>See the documentation for the <envar>PTHOUR</envar> file for additional information on how to use this file with IDA annual inventories.</comment></para>
-
-<table id="tbl_input_ptday">
-<title>EMS-95 Format for individual day-specific data files</title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="55*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>State Code (required)</entry>
-</row>
-<row>
-<entry>3-5</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>County Code (required)</entry>
-</row>
-<row>
-<entry>6-20</entry>
-<entry>FCID</entry>
-<entry>Char</entry>
-<entry>Facility ID/Plant ID (required)</entry>
-</row>
-<row>
-<entry>21-32</entry>
-<entry>CHAR1</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Stack ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Point ID</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>33-44</entry>
-<entry>CHAR2</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Device ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Stack ID</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>45-56</entry>
-<entry>CHAR3</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Process ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Segment</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>57-61</entry>
-<entry>POLID</entry>
-<entry>Char</entry>
-<entry>Pollutant name (required)</entry>
-</row>
-<row>
-<entry>62-69</entry>
-<entry>DATE</entry>
-<entry>Char</entry>
-<entry>Date in MM/DD/YY. Years less than 70 are treated as century 2000. (required)</entry>
-</row>
-<row>
-<entry>70-72</entry>
-<entry>TZONNAM</entry>
-<entry>Char</entry>
-<entry>Time zone name. Valid entries GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, asd PST. (required)</entry>
-</row>
-<row>
-<entry>73-90</entry>
-<entry>DAYTOT</entry>
-<entry>Real</entry>
-<entry>Daily emissions total (short tons/day) (required)</entry>
-</row>
-<row>
-<entry>92-101</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>Only if <envar>PTINV</envar> in IDA format: SCC (required)</entry>
-</row>
-<row>
-<entry>103-118</entry>
-<entry>DATNAM</entry>
-<entry>Char</entry>
-<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the RAW IDA or ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant names are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-</section>
+<para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday_FF10" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in FF10 or ORL FIRE format. The day-specific files can have a #COUNTRY header entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
 
 <section>
 <title> FF10 Format</title>
@@ -3399,7 +2356,7 @@ INVYEAR 1996
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>char(3)</entry>
+<entry>Char(3)</entry>
 <entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -3423,8 +2380,8 @@ INVYEAR 1996
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char(3)</entry>
-<entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char</entry>
+<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -3612,331 +2569,7 @@ INVYEAR 1996
 
 <comment>add variables for hourly precomputed plume rise and hourly stack data</comment>
 
-<para>The <envar>PTHOUR</envar> file is the input point-source inventory file for hour-specific data and profiles. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTHOUR</envar> file must be in either EMS-95 format or Continuous Emissions Monitoring (CEM) format. Each file must have an format identifier (either #EMS-95 or #CEM) or the format can be specified in the <envar>PTHOUR</envar> list file (#LIST EMS-95 or #LIST CEM). The contents of the hour-specific data files vary depending on whether the <envar>PTINV</envar> file is in EMS-95 or IDA format. In addition, these files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />. The default country code is 0, which corresponds to the United States in the default <envar>COSTCY</envar> file.</para>
-
-<section>
-
-<title>Date range setting</title>
-
-<comment>check if this only applies to CEM data</comment>
-
-<para>The <envar>PTHOUR</envar> file may optionally contain a packet to control the range of dates for which <command>Smkinven</command> will read data. When this feature is needed, the following entry should appear on the first line of the <envar>PTHOUR</envar> file.</para>
-
-<para>DATERANGE  MMDD(start) MMDD(end)</para>
-
-<para>where MMDD is the two-digit month and day of the month at the start and end of the period of interest. For example, to request July 10th through 12th, the first line of the file should read:</para>
-
-<para>DATERANGE  0710  0712</para>
-
-<para>The year is implied by the data themselves; note that the files can only contain data for a single year. As an alternative to using the DATERANGE packet, you can manually break the year up into smaller periods in separate files, and only list the files of interest in the <envar>PTHOUR</envar> file. Note that reading in the whole year of data and extracting just a few days will take much more time than manually editing the file to contain just the days of interest. Also note that if you choose the manual editing option, you must select days that fully cover the modeling episode after accounting for time zone differences between the facility&rsquo;s time zone and the modeling time zone (set by the <envar>OUTZONE</envar> option).</para>
-
-</section>
-
-<section>
-
-<title>EMS-95 Format and EMS-95 Wide Format</title>
-
-<para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
-
-<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wide EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wide" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wide format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wide format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
-<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the ORL file and the inventory table.</para>
-
-<para>When using hour-specific data in EMS-95 format with the IDA annual inventory, the fields in the <envar>PTHOUR</envar> file should line up with the fields in the <envar>PTINV</envar> file as follows:</para>
-
-<itemizedlist>
-<listitem>
-<para><envar>PTHOUR</envar> Facility ID (FCID) maps to <envar>PTINV</envar> PLANTID</para>
-</listitem>
-<listitem>
-<para><envar>PTHOUR</envar> Stack ID (SKID) maps to <envar>PTINV</envar> POINTID</para>
-</listitem>
-<listitem>
-<para><envar>PTHOUR</envar> Device ID (DVID) maps to <envar>PTINV</envar> STACKID</para>
-</listitem>
-<listitem>
-<para><envar>PTHOUR</envar> Process ID (PRID) maps to <envar>PTINV</envar> SEGMENT</para>
-</listitem>
-<listitem>
-<para><envar>PTHOUR</envar> SCC (implied by Process ID in EMS-95 process file) maps to <envar>PTINV</envar> SCC</para>
-</listitem>
-</itemizedlist>
-
-<table id="tbl_input_pthour_ems">
-<title>EMS-95 Format for individual hour-specific files</title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="55*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>State Code (required)</entry>
-</row>
-<row>
-<entry>3-5</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>County Code (required)</entry>
-</row>
-<row>
-<entry>6-20</entry>
-<entry>FCID</entry>
-<entry>Char</entry>
-<entry>Facility ID (a.k.a. plant ID) (required)</entry>
-</row>
-<row>
-<entry>21-32</entry>
-<entry>SKID</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Stack ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Point ID</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>33-44</entry>
-<entry>DVID</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Device ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Stack ID</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>45-56</entry>
-<entry>PRID</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Process ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Segment</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>57-61</entry>
-<entry>POLID</entry>
-<entry>Char</entry>
-<entry>Pollutant name (required)</entry>
-</row>
-<row>
-<entry>62-69</entry>
-<entry>DATE</entry>
-<entry>Char</entry>
-<entry>Date in MM/DD/YY format. Years less than 70 are treated as century 2000 (required)</entry>
-</row>
-<row>
-<entry>70-72</entry>
-<entry>TZONNAM</entry>
-<entry>Char</entry>
-<entry>Time zone name associated with emissions data. Valid entries are GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, and PST. (required)</entry>
-</row>
-<row>
-<entry>73-79</entry>
-<entry>HRVAL1</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 1 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>80-86</entry>
-<entry>HRVAL2</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>87-93</entry>
-<entry>HRVAL3</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>...</entry>
-</row>
-<row>
-<entry>234-240</entry>
-<entry>HRVAL24</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 24 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>241-248</entry>
-<entry>DAYTOT</entry>
-<entry>Real</entry>
-<entry>Daily emissions total (short tons/day)</entry>
-</row>
-<row>
-<entry>250-259</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>SCC (required).</entry>
-</row>
-<row>
-<entry>261-276</entry>
-<entry>DATNAM</entry>
-<entry>Char</entry>
-<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant names are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-
-<table id="tbl_input_pthour_ems_wide">
-<title>EMS-95 Wide Format for individual hour-specific files</title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="55*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>State Code (required)</entry>
-</row>
-<row>
-<entry>3-5</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>County Code (required)</entry>
-</row>
-<row>
-<entry>6-20</entry>
-<entry>FCID</entry>
-<entry>Char</entry>
-<entry>Facility ID (a.k.a. plant ID) (required)</entry>
-</row>
-<row>
-<entry>21-32</entry>
-<entry>SKID</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Stack ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Point ID</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>33-44</entry>
-<entry>DVID</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Device ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Stack ID</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>45-56</entry>
-<entry>PRID</entry>
-<entry>Char</entry>
-<entry>
-<simplelist>
-<member>If <envar>PTINV</envar> in EMS-95 format: Process ID (required)</member>
-<member>If <envar>PTINV</envar> in IDA/ORL format: Segment</member>
-</simplelist>
-</entry>
-</row>
-<row>
-<entry>57-61</entry>
-<entry>     </entry>
-<entry>     </entry>
-<entry>Leave blank</entry>
-</row>
-<row>
-<entry>62-69</entry>
-<entry>DATE</entry>
-<entry>Char</entry>
-<entry>Date in MM/DD/YY format. Years less than 70 are treated as century 2000 (required)</entry>
-</row>
-<row>
-<entry>70-72</entry>
-<entry>TZONNAM</entry>
-<entry>Char</entry>
-<entry>Time zone name associated with emissions data. Valid entries are GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, and PST. (required)</entry>
-</row>
-<row>
-<entry>73-84</entry>
-<entry>HRVAL1</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 1 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>85-96</entry>
-<entry>HRVAL2</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>97-108</entry>
-<entry>HRVAL3</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>...</entry>
-</row>
-<row>
-<entry>349-360</entry>
-<entry>HRVAL24</entry>
-<entry>Real</entry>
-<entry>Hourly emissions for hour 24 (short tons/hour) (required)</entry>
-</row>
-<row>
-<entry>361-372</entry>
-<entry>DAYTOT</entry>
-<entry>Real</entry>
-<entry>Daily emissions total (short tons/day)</entry>
-</row>
-<row>
-<entry>373-380</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>SCC (required).</entry>
-</row>
-<row>
-<entry>381-396</entry>
-<entry>DATNAM</entry>
-<entry>Char</entry>
-<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant names are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
+<para>The <envar>PTHOUR</envar> file is the input point-source inventory file for hour-specific data and profiles. The file must be a list file (see <xref linkend="sect_input_inventory_list" /> and the files listed in the <envar>PTHOUR</envar> file must be in Continuous Emissions Monitoring (CEM) format when processing hourly CEM inventory data files with an format identifier (#CEM) or the format can be specified in the <envar>PTHOUR</envar> list file (#LIST CEM). In addition, these files can have a #COUNTRY entry to set the country code (see <xref linkend="sect_input_inventory_header" />. The default country code is 0, which corresponds to the United States in the default <envar>COSTCY</envar> file.</para>
 
 <section>
 
@@ -3967,7 +2600,7 @@ INVYEAR 1996
 <entry>A</entry>
 <entry>ORISID</entry>
 <entry>Char (6)</entry>
-<entry>DOE Plant ID (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
+<entry>DOE Plant Identification Code (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
 </row>
 <row>
 <entry>B</entry>
@@ -4137,7 +2770,7 @@ Sample header records for hourly point sources are shown below:
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>char(3)</entry>
+<entry>Char(3)</entry>
 <entry>Tribal code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -4161,8 +2794,8 @@ Sample header records for hourly point sources are shown below:
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char(3)</entry>
-<entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char</entry>
+<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -4253,407 +2886,7 @@ Sample header records for hourly point sources are shown below:
 
 <title><envar>PTINV</envar>: Point source annual or average day emissions</title>
 
-<para>The <envar>PTINV</envar> file is the input point source inventory file for annual and average-day data. This file can be in IDA, EMS-95, ORL, or ORL FIRE format.</para>
-
-
-<section>
-
-<title>EMS-95 Format</title>
-
-<para>For EMS-95 inputs, the <envar>PTINV</envar> file must be a list file (see <xref linkend="sect_input_inventory_list" /> and must list the different types of EMS-95 files in a specific order. The order of the EMS-95 files is the same as would be achieved using from the UNIX command <command>ls</command> (i.e. alphabetical): device file, emissions file, facility file, process file, and stack file. These five files must be grouped together for the files to work together; for example, the North Carolina files must be together to correctly match source characteristics between the files.</para>
-
-<para>Although it would be possible to create a single file of each type (i.e., a single device, emission, facility, process, or stack file with all records for all states), this approach is not recommended because <command>Smkinven</command> will be much slower than if the files are separated by state. This is because SMOKE must match the records among the various files, and it is much faster to do the matching with subsets of the data than with all of the data at once.</para>
-
-<para>The <envar>PTINV</envar> list file must also contain at least one INVYEAR packet (see <xref linkend="sect_input_inventory_invyear" />. The following is an example of a correct <envar>PTINV</envar> file when used for EMS-95 inputs.</para>
-
-<programlisting>#LIST EMS-95
-INVYEAR 1995
-/epserv/apps/smoke/inventory/smraq95/al/common/device.pt
-/epserv/apps/smoke/inventory/smraq95/al/common/emission.pt
-/epserv/apps/smoke/inventory/smraq95/al/common/facility.pt
-/epserv/apps/smoke/inventory/smraq95/al/common/process.pt
-/epserv/apps/smoke/inventory/smraq95/al/common/stack.pt
-/epserv/apps/smoke/inventory/smraq95/ar/common/device.pt
-/epserv/apps/smoke/inventory/smraq95/ar/common/emission.pt
-/epserv/apps/smoke/inventory/smraq95/ar/common/facility.pt
-/epserv/apps/smoke/inventory/smraq95/ar/common/process.pt
-/epserv/apps/smoke/inventory/smraq95/ar/common/stack.pt</programlisting>
-
-<section>
-
-<title>Format for EMS-95 <filename>device.pt</filename> file(s)</title>
-
-<para>The format of the <filename>device.pt</filename> file is column-specific and is shown in <xref linkend="tbl_input_ptinv_ems_device" />. The columns listed are only those that are used by SMOKE. <comment>These files <emphasis>cannot</emphasis> have a #COUNTRY entry. The default country code is 0 for the United States.</comment></para>
-
-<table id="tbl_input_ptinv_ems_device">
-<title>EMS-95 Format for <filename>device.pt</filename></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry>3-5 </entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>6-20 </entry>
-<entry>Char</entry>
-<entry>Facility ID (required)</entry>
-</row>
-<row>
-<entry>21-32 </entry>
-<entry>Char</entry>
-<entry>Stack ID (required)</entry>
-</row>
-<row>
-<entry>33-44 </entry>
-<entry>Char</entry>
-<entry>Device ID (required)</entry>
-</row>
-<row>
-<entry>45-48 </entry>
-<entry>Char</entry>
-<entry>SIC (required)</entry>
-</row>
-<row>
-<entry>121-122</entry>
-<entry>Int</entry>
-<entry>Diurnal profile code (optional; you may use the <envar>PTREF</envar> file instead)</entry>
-</row>
-<row>
-<entry>123-124</entry>
-<entry>Int</entry>
-<entry>Weekly profile code (optional; you may use the <envar>PTREF</envar> file instead)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>Format for EMS-95 <filename>emission.pt</filename> file(s)</title>
-
-<para>The format of the <filename>emission.pt</filename> file is column-specific and is shown in <xref linkend="tbl_input_ptinv_ems_emission" />. The columns listed are only those that are used by SMOKE.</para>
-
-<table id="tbl_input_ptinv_ems_emission">
-<title>EMS-95 Format for <filename>emission.pt</filename></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry>3-5 </entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>6-20 </entry>
-<entry>Char</entry>
-<entry>Facility ID (required)</entry>
-</row>
-<row>
-<entry>21-32 </entry>
-<entry>Char</entry>
-<entry>Stack ID (required)</entry>
-</row>
-<row>
-<entry>33-44 </entry>
-<entry>Char</entry>
-<entry>Device ID (required)</entry>
-</row>
-<row>
-<entry>45-56 </entry>
-<entry>Char</entry>
-<entry>Process ID (required)</entry>
-</row>
-<row>
-<entry>57-61 </entry>
-<entry>Char</entry>
-<entry>Pollutant ID (e.g., NOX) (required)</entry>
-</row>
-<row>
-<entry>88-100 </entry>
-<entry>Real</entry>
-<entry>Actual emissions of specified pollutant (short tons/average annual day) (required)</entry>
-</row>
-<row>
-<entry>114-115 </entry>
-<entry>Char</entry>
-<entry><para>Temporal basis (required)</para>
-
-<itemizedlist spacing="compact">
-<listitem>AA = annual emissions</listitem>
-<listitem>AD = daily emissions with weekday normalizer</listitem>
-<listitem>DS = day-specific emissions</listitem>
-</itemizedlist>
-
-</entry>
-</row>
-<row>
-<entry>126-132 </entry>
-<entry>Real</entry>
-<entry>Control equipment efficiency (percent, give value 0-100) (optional; SMOKE default is 0)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>Format for EMS-95 <filename>facility.pt</filename> file(s)</title>
-
-<para>The format of the <filename>facility.pt</filename> file is column-specific and in shown in <xref linkend="tbl_input_ptinv_ems_facility" />.The columns listed are only those that are used by SMOKE.</para>
-
-<table id="tbl_input_ptinv_ems_facility">
-<title>EMS-95 Format for <filename>facility.pt</filename></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry>3-5 </entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>6-20 </entry>
-<entry>Char</entry>
-<entry>Facility ID (required)</entry>
-</row>
-<comment><row>
-<entry>21-24 </entry>
-<entry>Int</entry>
-<entry>SIC (required)</entry>
-</row></comment>
-<row>
-<entry>25-33 </entry>
-<entry>Real</entry>
-<entry>UTM easting (m) (required)</entry>
-</row>
-<row>
-<entry>34-42 </entry>
-<entry>Real</entry>
-<entry>UTM northing (m) (required)</entry>
-</row>
-<row>
-<entry>43-44 </entry>
-<entry>Int</entry>
-<entry>UTM zone (required)</entry>
-</row>
-<row>
-<entry>45-84 </entry>
-<entry>Char</entry>
-<entry>Facility name (required)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>Format for EMS-95 <filename>process.pt</filename> file(s)</title>
-
-<para>The format of the <filename>process.pt</filename> is column-specific and is shown in <xref linkend="tbl_input_ptinv_ems_process" />. The columns listed are only those that are used by SMOKE.</para>
-
-<table id="tbl_input_ptinv_ems_process">
-<title>EMS-95 Format for <filename>process.pt</filename></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry>3-5 </entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>6-20 </entry>
-<entry>Char</entry>
-<entry>Facility ID (required)</entry>
-</row>
-<row>
-<entry>21-32 </entry>
-<entry>Char</entry>
-<entry>Stack ID (required)</entry>
-</row>
-<row>
-<entry>33-44 </entry>
-<entry>Char</entry>
-<entry>Device ID (required)</entry>
-</row>
-<row>
-<entry>45-56 </entry>
-<entry>Char</entry>
-<entry>Process ID (required)</entry>
-</row>
-<row>
-<entry>57-64 </entry>
-<entry>Char</entry>
-<entry>SCC (required)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>Format for EMS-95 <filename>stack.pt</filename> file(s)</title>
-
-<para>The format of the <filename>stack.pt</filename> is column-specific and is shown in <xref linkend="tbl_input_ptinv_ems_stack" />. The columns listed are only those that are used by SMOKE.</para>
-
-<table id="tbl_input_ptinv_ems_stack">
-<title>EMS-95 Format for <filename>stack.pt</filename></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>FIPS state code (required)</entry>
-</row>
-<row>
-<entry>3-5 </entry>
-<entry>Int</entry>
-<entry>FIPS county code (required)</entry>
-</row>
-<row>
-<entry>6-20 </entry>
-<entry>Char</entry>
-<entry>Facility ID (required)</entry>
-</row>
-<row>
-<entry>21-32 </entry>
-<entry>Char</entry>
-<entry>Stack ID (required)</entry>
-</row>
-<row>
-<entry>33-40 </entry>
-<entry>Real</entry>
-<entry>Stack diameter (ft) (required)</entry>
-</row>
-<row>
-<entry>41-47 </entry>
-<entry>Real</entry>
-<entry>Stack height above ground surface (ft) (required)</entry>
-</row>
-<row>
-<entry>48-54 </entry>
-<entry>Real</entry>
-<entry>Stack exit gas temperature (K) (required)</entry>
-</row>
-<row>
-<entry>55-61 </entry>
-<entry>Real</entry>
-<entry>Stack exit gas velocity (ft/s) (required)</entry>
-</row>
-<row>
-<entry>62-71 </entry>
-<entry>Real</entry>
-<entry>Stack exit flow rate (ft<superscript>3</superscript>/min) (optional)</entry>
-</row>
-<row>
-<entry>72-80 </entry>
-<entry>Real</entry>
-<entry>UTM easting of stack (m) (default is plant&rsquo;s value) (optional; SMOKE will use value from facility file)</entry>
-</row>
-<row>
-<entry>81-89 </entry>
-<entry>Real</entry>
-<entry>UTM northing of stack (m) (default is plant&rsquo;s value) (optional; SMOKE will use value from facility file)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-</section>
-
+<para>The <envar>PTINV</envar> file is the input point source inventory file for annual and average-day data. This file can be in FF10, ORL, or ORL FIRE format.</para>
 
 <section>
 <title>FF10 Format</title>
@@ -4690,7 +2923,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char(2)</entry>
+<entry>Char</entry>
 <entry>Two-digit country code; default to "US" (required)</entry>
 </row>
 <row>
@@ -4708,26 +2941,26 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char</entry>
 <entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char</entry>
 <entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char</entry>
 <entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char(15)</entry>
-<entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char</entry>
+<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -5048,395 +3281,6 @@ Sample header records for daily point sources are shown below:</para>
 </table>
 </section>
 
-<section>
-<title>IDA Format</title>
-
-<para>This IDA format for point-source inventories is column-specific and uses the header described in <xref linkend="sect_input_inventory_header" />. Sample header records are shown below:</para>
-
-<programlisting>#IDA
-#TYPE     Point Source Inventory
-#COUNTRY  US
-#YEAR     1995
-#DESC     Alabama 1995
-#POLID    CO NH3 NOX PM10 PM2_5 SO2 VOC</programlisting>
-
-<para>The format for the data records is shown in <xref linkend="tbl_input_ptinv_ida" />.</para>
-
-<table id="tbl_input_ptinv_ida">
-<title>IDA Format for <envar>PTINV</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Name" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Name</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1-2</entry>
-<entry>STID</entry>
-<entry>Int</entry>
-<entry>State Code (required)</entry>
-</row>
-<row>
-<entry>3-5</entry>
-<entry>CYID</entry>
-<entry>Int</entry>
-<entry>County Code (required)</entry>
-</row>
-<row>
-<entry>6-20</entry>
-<entry>PLANTID</entry>
-<entry>Char</entry>
-<entry>Plant Identification Code (required)</entry>
-</row>
-<row>
-<entry>21-35</entry>
-<entry>POINTID</entry>
-<entry>Char</entry>
-<entry>Point Identification Code (recommended)</entry>
-</row>
-<row>
-<entry>36-47</entry>
-<entry>STACKID</entry>
-<entry>Char</entry>
-<entry>Stack Identification Code (recommended)</entry>
-</row>
-<row>
-<entry>48-53</entry>
-<entry>ORISID</entry>
-<entry>Char</entry>
-<entry>DOE Plant ID (generally recommended, and required if matching to hour-specific CEM data)</entry>
-</row>
-<row>
-<entry>54-59</entry>
-<entry>BLRID</entry>
-<entry>Char</entry>
-<entry>Boiler Identification Code (recommended)</entry>
-</row>
-<row>
-<entry>60-61</entry>
-<entry>SEGMENT</entry>
-<entry>Char</entry>
-<entry>DOE ID (recommended)</entry>
-</row>
-<row>
-<entry>62-101</entry>
-<entry>PLANT</entry>
-<entry>Char</entry>
-<entry>Plant Name (recommended)</entry>
-</row>
-<row>
-<entry>102-111</entry>
-<entry>SCC</entry>
-<entry>Char</entry>
-<entry>SCC (required)</entry>
-</row>
-<row>
-<entry>112-115</entry>
-<entry>BEGYR</entry>
-<entry>Int</entry>
-<entry>Beginning Year of Plant Operation (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>116-119</entry>
-<entry>ENDYR</entry>
-<entry>Int</entry>
-<entry>Ending Year of Plant Operation (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>120-123</entry>
-<entry>STKHGT</entry>
-<entry>Real</entry>
-<entry>Stack Height (ft) (required)</entry>
-</row>
-<row>
-<entry>124-129</entry>
-<entry>STKDIAM</entry>
-<entry>Real</entry>
-<entry>Stack Diameter (ft) (required)</entry>
-</row>
-<row>
-<entry>130-133</entry>
-<entry>STKTEMP</entry>
-<entry>Real</entry>
-<entry>Stack Gas Exit Temperature (&deg;F) (required)</entry>
-</row>
-<row>
-<entry>134-143</entry>
-<entry>STKFLOW</entry>
-<entry>Real</entry>
-<entry>Stack Gas Flow Rate (ft<superscript>3</superscript>/s) (optional; automatically calculated by <command>Smkinven</command> from velocity and diameter if not given in file)</entry>
-</row>
-<row>
-<entry>144-152</entry>
-<entry>STKVEL</entry>
-<entry>Real</entry>
-<entry>Stack Gas Exit Velocity (ft/s) (required)</entry>
-</row>
-<row>
-<entry>153-160</entry>
-<entry>BOILCAP</entry>
-<entry>Real</entry>
-<entry>Design Capacity (mmBtu/h) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>161-161</entry>
-<entry>CAPUNITS</entry>
-<entry>Char</entry>
-<entry>Capacity Unit Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>162-163</entry>
-<entry>WINTHRU</entry>
-<entry>Real</entry>
-<entry>Winter throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>164-165</entry>
-<entry>SPRTHRU</entry>
-<entry>Real</entry>
-<entry>Spring throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>166-167</entry>
-<entry>SUMTHRU</entry>
-<entry>Real</entry>
-<entry>Summer throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>168-169</entry>
-<entry>FALTHRU</entry>
-<entry>Real</entry>
-<entry>Fall throughput (% of Annual) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>170-171</entry>
-<entry>HOURS</entry>
-<entry>Int</entry>
-<entry>Normal Operating Time (hr/day) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>172-173</entry>
-<entry>START</entry>
-<entry>Int</entry>
-<entry>Normal Operation Start Time (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>174-174</entry>
-<entry>DAYS</entry>
-<entry>Int</entry>
-<entry>Normal Operating Time (days/wk) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>175-176</entry>
-<entry>WEEKS</entry>
-<entry>Int</entry>
-<entry>Normal Operating Time (wk/yr) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>177-187</entry>
-<entry>THRUPUT</entry>
-<entry>Real</entry>
-<entry>Throughput Rate (SCC units/yr) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>188-199</entry>
-<entry>MAXRATE</entry>
-<entry>Real</entry>
-<entry>Maximum O<subscript>3</subscript> Season Rate (units/day) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>200-207</entry>
-<entry>HEATCON</entry>
-<entry>Real</entry>
-<entry>Heat Content (mmBtu/SCC unit) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>208-212</entry>
-<entry>SULFCON</entry>
-<entry>Real</entry>
-<entry>Sulfur Content (mass percent) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>213-217</entry>
-<entry>ASHCON</entry>
-<entry>Real</entry>
-<entry>Ash Content (mass percent) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>218-226</entry>
-<entry>NETDC</entry>
-<entry>Real</entry>
-<entry>Maximum Nameplate Capacity (MW) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>227-230</entry>
-<entry>SIC</entry>
-<entry>Int</entry>
-<entry>Standard Industrial Classification Code (SIC) (required)</entry>
-</row>
-<row>
-<entry>231-239</entry>
-<entry>LATC</entry>
-<entry>Real</entry>
-<entry>Latitude (decimal degrees) (required)</entry>
-</row>
-<row>
-<entry>240-248</entry>
-<entry>LONC</entry>
-<entry>Real</entry>
-<entry>Longitude (decimal degrees) (required)</entry>
-</row>
-<row>
-<entry>249-249</entry>
-<entry>OFFSHORE</entry>
-<entry>Char</entry>
-<entry>Offshore Flag (fill in with <quote>X</quote> if source is offshore), (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>250-262</entry>
-<entry>ANN1</entry>
-<entry>Real</entry>
-<entry>pol1 Annual Emissions (short tons/yr) (required)</entry>
-</row>
-<row>
-<entry>263-275</entry>
-<entry>AVD1</entry>
-<entry>Real</entry>
-<entry>pol1 Average-day Emissions (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>276-282</entry>
-<entry>CE1</entry>
-<entry>Real</entry>
-<entry>pol1 Control Efficiency (give value of 0-100) (recommended; if left blank, SMOKE default is 0)</entry>
-</row>
-<row>
-<entry>283-285</entry>
-<entry>RE1</entry>
-<entry>Real</entry>
-<entry>pol1 Rule Effectiveness (give value of 0-100) (recommended; if left blank, SMOKE default is 100)</entry>
-</row>
-<row>
-<entry>286-295</entry>
-<entry>EMF1</entry>
-<entry>Real</entry>
-<entry>pol1 Emission Factors (SCC units) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>296-298</entry>
-<entry>CPRI1</entry>
-<entry>Int</entry>
-<entry>pol1 Primary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>299-301</entry>
-<entry>CSEC1</entry>
-<entry>Int</entry>
-<entry>pol1 Secondary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>302-314</entry>
-<entry>ANN2</entry>
-<entry>Real</entry>
-<entry>pol2 Annual Emissions (short tons/yr) (required)</entry>
-</row>
-<row>
-<entry>315-327</entry>
-<entry>AVD2</entry>
-<entry>Real</entry>
-<entry>pol2 Average-day Emissions (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>328-334</entry>
-<entry>CE2</entry>
-<entry>Real</entry>
-<entry>pol2 Control Efficiency (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>335-337</entry>
-<entry>RE2</entry>
-<entry>Real</entry>
-<entry>pol2 Rule Effectiveness (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>338-347</entry>
-<entry>EMF2</entry>
-<entry>Real</entry>
-<entry>pol2 Emission Factors (SCC units) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>348-350</entry>
-<entry>CPRI2</entry>
-<entry>Int</entry>
-<entry>pol2 Primary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>351-353</entry>
-<entry>CSEC2</entry>
-<entry>Int</entry>
-<entry>pol2 Secondary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>354-366</entry>
-<entry>ANN3</entry>
-<entry>Real</entry>
-<entry>pol3 Annual Emissions (short tons/yr) (required)</entry>
-</row>
-<row>
-<entry>367-379</entry>
-<entry>AVD3</entry>
-<entry>Real</entry>
-<entry>pol3 Average-day Emissions (short tons/average day) (optional)</entry>
-</row>
-<row>
-<entry>380-386</entry>
-<entry>CE3</entry>
-<entry>Real</entry>
-<entry>pol3 Control Efficiency (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>387-389</entry>
-<entry>RE3</entry>
-<entry>Real</entry>
-<entry>pol3 Rule Effectiveness (0-100); see pol1 above</entry>
-</row>
-<row>
-<entry>390-399</entry>
-<entry>EMF3</entry>
-<entry>Real</entry>
-<entry>pol3 Emission Factors (SCC units) (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>400-402</entry>
-<entry>CPRI3</entry>
-<entry>Int</entry>
-<entry>pol3 Primary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry>403-405</entry>
-<entry>CSEC3</entry>
-<entry>Int</entry>
-<entry>pol3 Secondary Control Equipment Code (not used by SMOKE)</entry>
-</row>
-<row>
-<entry namest="Position" nameend="Description">(Repeat for <emphasis>n</emphasis> pollutants)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
 <section>
 <title>ORL Format</title>
 
@@ -6038,216 +3882,6 @@ Sample header records for daily point sources are shown below:</para>
 </section>
 </section>
 
-<section id="sect_input_vmtmix">
-
-<title><envar>VMTMIX</envar>: Mobile vehicle mix data</title>
-
-<para>The <envar>VMTMIX</envar> file is when the <envar>MBINV</envar> file is provided in EMS-95 format. It contains factors to disaggregate the data totals by vehicle type. This file can be in EMS-95 column-specific format, or in a list-directed format based on the EMS-95 column-specific format. The roadway type or road class codes used in either <envar>VMTMIX</envar> file format <emphasis>must</emphasis> match the codes that are used in the <envar>MBINV</envar> file.</para>
-
-<para>For both file formats, a header line is needed to indicate the number and order of vehicle types listed in the file. The standard EMS-95 structure is</para>
-
-<programlisting>#VTYPES  LDGV  LDGT1  LDGT2  HDGV  LDDV  LDDT  HDDV  MC</programlisting>
-
-<para>The above eight vehicle types are spelled out in <xref linkend="tbl_concepts_vehicle_types" />.</para>
-
-<comment>check how SMOKE distinguishes between column-specific and list-directed</comment>
-
-<section>
-
-<title>EMS-95 column-specific format</title>
-
-<para>The format of the EMS-95 column-specific <envar>VMTMIX</envar> file is shown in <xref linkend="tbl_input_vmtmix_column" />.</para>
-
-<table id="tbl_input_vmtmix_column">
-<title>EMS-95 Column-specific Format for <envar>VMTMIX</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>Char</entry>
-<entry>#VTYPES header line (required) (see example above)</entry>
-</row>
-<row>
-<entry>2+</entry>
-<entry>1-2 </entry>
-<entry>Int</entry>
-<entry>State code (required)</entry>
-</row>
-<row>
-<entry colname="Position">3-5</entry>
-<entry>Int</entry>
-<entry>County code (required)</entry>
-</row>
-<row>
-<entry colname="Position">6-6</entry>
-<entry>Int</entry>
-<entry>Area type code (required)</entry>
-</row>
-<row>
-<entry colname="Position">7-10</entry>
-<entry>Int</entry>
-<entry>Facility type code (required)</entry>
-</row>
-<row>
-<entry colname="Position">11-20</entry>
-<entry>Char</entry>
-<entry>Link ID (optional; zero if nonlink data)</entry>
-</row>
-<row>
-<entry colname="Position">21-25</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from gas vehicles (required)</entry>
-</row>
-<row>
-<entry colname="Position">26-30</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from light-duty gas trucks 1 (required)</entry>
-</row>
-<row>
-<entry colname="Position">31-35</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from light-duty gas trucks 2 (required)</entry>
-</row>
-<row>
-<entry colname="Position">36-40</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from heavy-duty gas vehicles (required)</entry>
-</row>
-<row>
-<entry colname="Position">41-45</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from light-duty diesel vehicles (required)</entry>
-</row>
-<row>
-<entry colname="Position">46-50</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from heavy-duty diesel trucks (required)</entry>
-</row>
-<row>
-<entry colname="Position">51-55</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from heavy-duty diesel vehicles (required)</entry>
-</row>
-<row>
-<entry colname="Position">56-60</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from motorcycles (required)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>EMS-95 list-directed format</title>
-
-<para>The format of the EMS-95 list-directed <envar>VMTMIX</envar> file is shown in <xref linkend="tbl_input_vmtmix_list" />.</para>
-
-<table id="tbl_input_vmtmix_list">
-<title>EMS-95 List-directed Format for <envar>VMTMIX</envar></title>
-
-<tgroup cols="4">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="55*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>Char</entry>
-<entry>#VTYPES header line (required) (see example above)</entry>
-</row>
-<row>
-<entry>2+</entry>
-<entry>A</entry>
-<entry>Int</entry>
-<entry>Country, state, and county code (required)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Int</entry>
-<entry>Roadway type or road class code (required)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>Char</entry>
-<entry>Link ID (optional; zero if nonlink data)</entry>
-</row>
-<row>
-<entry colname="Position">D</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from first vehicle type (required)</entry>
-</row>
-<row>
-<entry colname="Position">E</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from second vehicle type (required)</entry>
-</row>
-<row>
-<entry colname="Position">F</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from third vehicle type (required)</entry>
-</row>
-<row>
-<entry colname="Position">G</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from fourth vehicle type (required)</entry>
-</row>
-<row>
-<entry colname="Position">H</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from fifth vehicle type (required)</entry>
-</row>
-<row>
-<entry colname="Position">I</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from sixth vehicle type (required)</entry>
-</row>
-<row>
-<entry colname="Position">J</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from seventh vehicle type (required)</entry>
-</row>
-<row>
-<entry colname="Position">K</entry>
-<entry>Real</entry>
-<entry>Fraction of total VMT from eighth vehicle type (required)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-</section>
 </section>
 
 <section id="sect_input_temporal">
@@ -6258,190 +3892,368 @@ Sample header records for daily point sources are shown below:</para>
 
 <section id="sect_input_amptpro">
 
-<title><envar>[A|M|P]TPRO</envar>: Temporal profiles file</title>
+<title><envar>[A|M|P]TPRO</envar>: Temporal profiles files</title>
 
-<para>The <envar>ATPRO</envar>, <envar>MTPRO</envar>, and <envar>PTPRO</envar> files are used by the <command>Temporal</command> program for area, mobile, and point sources, respectively. These files contain the monthly, weekly, and diurnal temporal profiles used to convert the annual emissions stored in the inventory to hourly emissions. The files can contain the following types of records:</para>
+<para>The Temporal profiles files contain the monthly, weekly, diurnal and/or hourly temporal profiles used to convert the annual emissions stored in the inventory to hourly emissions. The files can contain the following types of records:</para>
 
 <itemizedlist>
 <listitem>
-<para>Monthly temporal weighting factors (exactly one /MONTHLY/ packet)</para>
+<para><command><envar>[A|MP]TPRO_MONTHLY</envar></command> : Year to month temporal weighting factors</para>
 </listitem>
 <listitem>
-<para>Weekly temporal weighting factors (exactly one /WEEKLY/ packet)</para>
+<para><command><envar>[A|MP]TPRO_WEEKLY</envar></command> : Month to Week temporal weighting factors</para>
 </listitem>
 <listitem>
-<para>Weekday diurnal temporal weighting factors (either one /DIURNAL WEEKDAY/ packet or one each of /DIURNAL MONDAY/, /DIURNAL TUESDAY/, /DIURNAL WEDNESDAY/, /DIURNAL THURSDAY/, and /DIURNAL FRIDAY/ packets)</para>
+<para><command><envar>[A|MP]TPRO_DAILY</envar></command> : Month to day temporal weighting factors</para>
 </listitem>
 <listitem>
-<para>Weekend diurnal temporal weighting factors (either one /DIURNAL WEEKEND/ packet or one each of /DIURNAL SATURDAY/ and /DIURNAL SUNDAY/ packets)</para>
+<para><command><envar>[A|MP]TPRO_HOURLY</envar></command> : Day to hour temporal weighting factors</para>
+</listitem>
+<listitem>
+<para><command><envar>[A|MP]TPRO_HOURLY_NCF</envar></command> : Date-specific hourly temporal weighting factors</para>
 </listitem>
 </itemizedlist>
 
-<para>The weekend diurnal temporal factors are optional if the /DIURNAL WEEKDAY/ packet is provided; in that case, the diurnal factors from the weekday packet will be used for both weekend days. If the monthly factors are not used because all of the inventory emissions are supplied as <quote>per day</quote> emissions, at least one monthly profile is still needed to prevent an error message.</para>
+<para>The month-to-day daily and date-specific hourly temporal factors are optional if the monthly, weekly and hourly profiles are provided.</para>
 
-<para>The file format is column-specific and shown in <xref linkend="tbl_input_amptpro" />. All three source categories use the same file format, and they can share the same file.</para>
+<para>xAll three source categories use the same file format, and they can share the same file.</para>
 
-<table id="tbl_input_amptpro">
-<title>Format for <envar>ATPRO</envar>, <envar>MTPRO</envar>, and <envar>PTPRO</envar></title>
+<section id="sect_input_tpro_monthly" > 
+<title>[A|M|P]TPRO_MONTHLY: Year-to-Monthk Temporal Profiles</title>
+
+<table id="tbl_input_tpro_monthly">
+<title>Format for <envar>ATPRO_MONTHLY</envar>, <envar>MTPRO_MONTHLY</envar>, and <envar>PTPRO_MONTHLY</envar></title>
 
 <tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
 <colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
 <colspec colwidth="70*" colname="Description" />
 
 <thead>
 <row>
-<entry>Line</entry>
 <entry>Position</entry>
+<entry>Type</entry>
 <entry>Description</entry>
 </row>
 </thead>
 
 <tbody>
-
 <row>
-<entry namest="Line" nameend="Description">/MONTHLY/ packet</entry>
+<entry>0</entry>
+<entry>Chars</entry>
+<entry>Monthly Temporal Profile ID (15 characters)</entry>
 </row>
-
 <row>
 <entry>1</entry>
-<entry>1-20</entry>
-<entry>Packet identifier = /MONTHLY/</entry>
+<entry>Real</entry>
+<entry>Temporal factor for January</entry>
 </row>
 <row>
-<entry>2+</entry>
-<entry>1-5</entry>
-<entry>Monthly temporal profile code (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">6-9</entry>
-<entry>Temporal weight for January (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">10-13</entry>
-<entry>Temporal weight for February (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry colname="Position">50-53</entry>
-<entry>Temporal weight for December (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">54-58</entry>
-<entry>Total of weights for entire year (Integer)</entry>
+<entry>2</entry>
+<entry>Real</entry>
+<entry>Temporal factor for February</entry>
 </row>
 <row>
 <entry>3</entry>
-<entry>1-20</entry>
-<entry>Packet terminator = /END/</entry>
+<entry>Real</entry>
+<entry>Temporal factor for March</entry>
 </row>
-
 <row>
-<entry namest="Line" nameend="Description">/WEEKLY/ packet</entry>
+<entry>...</entry>
+<entry>Real</entry>
+<entry>.....</entry>
+</row>
+<row>
+<entry>10</entry>
+<entry>Real</entry>
+<entry>Temporal factor for October</entry>
+</row>
+<row>
+<entry>11</entry>
+<entry>Real</entry>
+<entry>Temporal factor for November</entry>
+</row>
+<row>
+<entry>12</entry>
+<entry>Real</entry>
+<entry>Temporal factor for December</entry>
+</row>
+<row>
+<entry>13</entry>
+<entry>Chars</entry>
+<entry>Comments (optional: must be double (quoted)</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+</section>
+
+<section id="sect_input_tpro_weekly" > 
+<title>[A|M|P]TPRO_WEEKLY: Month-to-Week Temporal Profiles</title>
+
+<table id="tbl_input_tpro_weekly">
+<title>Format for <envar>ATPRO_WEEKLY</envar>, <envar>MTPRO_WEEKLY</envar>, and <envar>PTPRO_WEEKLY</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>0</entry>
+<entry>Chars</entry>
+<entry>Weekly Temporal Profile ID (15 characters)</entry>
+</row>
 <row>
 <entry>1</entry>
-<entry>1-20</entry>
-<entry>Packet identifier = /WEEKLY/</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Monday</entry>
 </row>
 <row>
-<entry>2+</entry>
-<entry>1-5</entry>
-<entry>Weekly temporal profile code (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">6-9</entry>
-<entry>Temporal weight for Monday (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">10-13</entry>
-<entry>Temporal weight for Tuesday (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry colname="Position">30-33</entry>
-<entry>Temporal weight for Sunday (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">34-38</entry>
-<entry>Total of weights for entire week (Integer)</entry>
+<entry>2</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Tuesday</entry>
 </row>
 <row>
 <entry>3</entry>
-<entry>1-20</entry>
-<entry>Packet terminator = /END/</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Wednesday</entry>
 </row>
-
 <row>
-<entry namest="Line" nameend="Description">/DIURNAL/ packets</entry>
+<entry>4</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Thursday</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Friday</entry>
+</row>
+<row>
+<entry>6</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Saturday</entry>
+</row>
+<row>
+<entry>7</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Sunday</entry>
+</row>
+<row>
+<entry>8</entry>
+<entry>Chars</entry>
+<entry>Comments (optional: must be double (quoted)</entry>
 </row>
 
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_input_tpro_daily" > 
+<title>[A|M|P]TPRO_DAILY: Month-to-Hour Temporal Profiles</title>
+
+<table id="tbl_input_tpro_daily">
+<title>Format for <envar>ATPRO_DAILY</envar>, <envar>MTPRO_DAILY</envar>, and <envar>PTPRO_DAILY</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>0</entry>
+<entry>Chars</entry>
+<entry>Month-to-day Temporal Profile ID (15 characters)</entry>
+</row>
 <row>
 <entry>1</entry>
-<entry>1-20</entry>
-<entry>Packet identifier = /DIURNAL WEEKDAY/, /DIURNAL WEEKEND/, ...</entry>
+<entry>Integer</entry>
+<entry>Calendar Month [ex: 1, 2,,,,12]</entry>
 </row>
 <row>
-<entry>2+</entry>
-<entry>1-5</entry>
-<entry>Diurnal temporal profile code (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">6-9</entry>
-<entry>Temporal weight for hour beginning 0000 (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">10-13</entry>
-<entry>Temporal weight for hour beginning 0100 (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry colname="Position">98-101</entry>
-<entry>Temporal weight for hour beginning 2300 (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">102-106</entry>
-<entry>Total of weights for entire day (Integer)</entry>
+<entry>2</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 1</entry>
 </row>
 <row>
 <entry>3</entry>
-<entry>1-20</entry>
-<entry>Packet terminator = /END/</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 2</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>Real</entry>
+<entry>.....</entry>
+</row>
+<row>
+<entry>30</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 29</entry>
+</row>
+<row>
+<entry>31</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 30</entry>
+</row>
+<row>
+<entry>32</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 31</entry>
+</row>
+<row>
+<entry>33</entry>
+<entry>Chars</entry>
+<entry>Comments (optional: must be double (quoted)</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
-<example>
-<title><envar>[A|M|P]TPRO</envar> file</title>
+</section>
 
-<programlisting>
-/MONTHLY/
-    1  83  83  83  83  83  83  83  83  83  83  83  83  996
-/END/
-/WEEKLY/
-    1   1   1   1   1   1   0   0    5
-    2   0   0   0   0   0   1   1    2
-    3   1   1   1   1   1   0   0    5
-/END/
-/DIURNAL WEEKDAY/
-    1   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   0   0   0   0   0   0   0   0    8
-    2   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   0   0   0   0   0   0   0   0    8
-   81 417 417 417 417 417 417 417 417 417 417 417 416 414 415 417 417 417 417 417 417 417 417 417 41510000
-   82 388 351 315 299 299 321 348 402 441 456 457 461 457 461 461 460 464 460 456 456 455 453 450 42910000
-/END/
-</programlisting>
-</example>
+<section id="sect_input_tpro_hourly" > 
+<title>[A|M|P]TPRO_HOURLY: Day-to-Hour Temporal Profiles</title>
+
+<table id="tbl_input_tpro_hourly">
+<title>Format for <envar>ATPRO_HOURLY</envar>, <envar>MTPRO_HOURLY</envar>, and <envar>PTPRO_HOURLY</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>0</entry>
+<entry>Chars</entry>
+<entry>Hourly Temporal Profile ID (15 characters)</entry>
+</row>
+<row>
+<entry>1</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Hour beginning 0000</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Hour beginning 0100</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Hour beginning 0200</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>Real</entry>
+<entry>.....</entry>
+</row>
+<row>
+<entry>22</entry>
+<entry>Real</entry>
+<entry>Temporal factor for] Hour beginning 2100</entry>
+</row>
+<row>
+<entry>23</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Hour beginning 2200</entry>
+</row>
+<row>
+<entry>24</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Hour beginning 2300</entry>
+</row>
+<row>
+<entry>25</entry>
+<entry>Chars</entry>
+<entry>Comments (optional: must be double (quoted)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_input_tpro_hourly_ncf" > 
+<title>[A|M|P]TPRO_HOURLY_NCF: Day-to-Hour Temporal Profiles</title>
+
+<para>This NetCDf hourly temporal profiles input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para>
+
+<table id="tbl_input_tpro_hourly_ncf">
+<title>Format for <envar>ATPRO_HOURLY_NCF</envar>, <envar>MTPRO_HOURLY_NCF</envar>, and <envar>PTPRO_HOURLY_NCF</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Variable Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Profile ID</entry>
+<entry>Integer</entry>
+<entry>Hourly Temporal Profile ID (a.k.a. FIPS code)</entry>
+</row>
+<row>
+<entry>ANNTOT</entry>
+<entry>Real</entry>
+<entry>Annual Total by profile ID</entry>
+</row>
+<row>
+<entry>MONTOT</entry>
+<entry>Real</entry>
+<entry>Monthl Total by profile ID</entry>
+</row>
+<row>
+<entry>DAYTOT</entry>
+<entry>Real</entry>
+<entry>Daily Total by profile ID</entry>
+</row>
+<row>
+<entry>HRLTOT</entry>
+<entry>Real</entry>
+<entry>Hourly Total by profile ID</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+</section>
 
 </section>
 
@@ -6450,6 +4262,8 @@ Sample header records for daily point sources are shown below:</para>
 <title><envar>[A|M|P]TREF</envar>: Temporal cross-reference file</title>
 
 <para>The <envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar> files contain the area-, mobile-, and point-source cross-reference records for assigning the temporal profiles to the sources. If needed, the same file can be used for area-, mobile-, or point-source categories, but more fields are used for mobile than for area, and more fields are used for point than for mobile. <xref linkend="sect_programs_temporal" /> provides a list of the matching hierarchies that SMOKE uses when applying the file to an inventory. <remark>If a field is blank, it must be set to -9.</remark></para>
+
+<para>Between weekly and daily temporal profiles, daily Profiles will overwrite weekly profiles. Within hourly diurnal profiles, the processing occurs as follows  (1) Day-to-hour hourly profiles, (2) day-specific hourly profiles (i.e., Monday,,,,,Sunday), (3) Weekday/Weekend hourly profiles, and (4)	all day (Monday-Sunday) hourly profiles.</para> 
 
 <para>The pollutant field allows the user to assign a different temporal profile for each pollutant associated with a given source. This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you can put a <quote>-9</quote> in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.</para>
 
@@ -6462,13 +4276,7 @@ Sample header records for daily point sources are shown below:</para>
 <member>YSSCCC = applies to county CCC in state SS and country Y</member>
 </simplelist>
 
-<section>
-
-<title>Area-source temporal cross-reference file</title>
-
-<para>The format for the <envar>ATREF</envar> file is shown in <xref linkend="tbl_input_atref" />.</para>
-
-<table id="tbl_input_atref">
+<table id="tbl_input_amptref">
 <title>Format for <envar>ATREF</envar></title>
 
 <tgroup cols="3">
@@ -6488,233 +4296,65 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character) (optional; put zero for entry that is not SCC-specific)</entry>
+<entry>10-digit SCC, or zeros filling the remaining digits (Character) (optional; put zero for entry that is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Monthly temporal profile code (Integer) (required)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>Weekly temporal profile code (Integer) (required)</entry>
-</row>
-<row>
-<entry colname="Position">D</entry>
-<entry>Weekday or weekend diurnal temporal profile code (Integer) (required)</entry>
-</row>
-<row>
-<entry colname="Position">E</entry>
-<entry>Pollutant name (Character) (optional; put zero if not pollutant-dependent)</entry>
-</row>
-<row>
-<entry colname="Position">F</entry>
 <entry>Country/state/county code (6-digit Integer in format YSSCCC) (optional)</entry>
 </row>
 <row>
-<entry colname="Position">...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry colname="Position">M</entry>
-<entry>Monthly Temporal profile ID (=FIPS code) from <envar>TPRO_MON</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">N</entry>
-<entry>Daily Temporal profile ID (=FIPS code) from <envar>TPRO_DAY</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">O</entry>
-<entry>Hourly Temporal profile ID (=FIPS code) from <envar>TPRO_HOUR</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>Mobile-source temporal cross-reference file</title>
-
-<para>The format for the <envar>MTREF</envar> file is shown in <xref linkend="tbl_input_mtref" />.</para>
-
-<table id="tbl_input_mtref">
-<title>Format for <envar>MTREF</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1+</entry>
-<entry>A</entry>
-<entry>10-digit SCC (Character) (optional; put zero for entry that is not SCC-specific)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Monthly temporal profile code (Integer) (required)</entry>
-</row>
-<row>
 <entry colname="Position">C</entry>
-<entry>Weekly temporal profile code (Integer) (required)</entry>
+<entry>Facility ID (for ORL, this is Plant ID) (Character) (optional; point source only, leave blank for not facility-specific)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Weekday or weekend diurnal temporal profile code (Integer) (required)</entry>
+<entry>Unit ID (for ORL, this is point ID) (Character) (optional: point source only )</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Pollutant name (Character) (optional; put zero if not pollutant-dependent)</entry>
+<entry>Release Point (for ORL, this is stack ID) (Character) (optional: point source only)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Country/state/county code (6-digit Integer in format YSSCCC) (optional)</entry>
+<entry>Process ID (forORL, this is segment ID) (Character) (optional: point source only)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
-<entry>Link ID (Character) (optional; leave blank or put zero for entry that is not link-specific)</entry>
+<entry>Pollutant name (Character) (optional; put zero if not pollutant-dependent)</entry>
 </row>
 <row>
-<entry colname="Position">...</entry>
-<entry>...</entry>
-</row>
-<row>
-<entry colname="Position">M</entry>
-<entry>Monthly Temporal profile ID (=FIPS code) from <envar>TPRO_MON</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">N</entry>
-<entry>Daily Temporal profile ID (=FIPS code) from <envar>TPRO_DAY</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">O</entry>
-<entry>Hourly Temporal profile ID (=FIPS code) from <envar>TPRO_HOUR</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section>
-
-<title>Point-source temporal cross-reference file</title>
-
-<para>For point sources, you can fill in whatever fields you need for the source characteristics after plant ID. It is important to ensure, however, that you are consistent between the <envar>PTINV</envar> and the <envar>PTREF</envar> file. For example, if you use the Process ID in place of the Stack ID field in the <envar>PTINV</envar> file, the same approach needs to be used in building the <envar>PTREF</envar> file. Remember that all of the field widths are limited to what is in the original <envar>PTINV</envar> input format (IDA, EMS-95, or ORL). Also remember that these fields are character strings, and therefore leading zeros are not ignored (this has caused other users problems in the past). The format of the <envar>PTREF</envar> file is shown in <xref linkend="tbl_input_ptref" />.</para>
-
-<table id="tbl_input_ptref">
-<title>Format for <envar>PTREF</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>/POINT DEFN/</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Number of point source characteristics in addition to plant ID in point source definition; for IDA and ORL inventories, this will always be 4 (integer) (required)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry><para>Number of point source characteristics in addition to plant ID (if SCC is a part of the source definition), zero otherwise.</para>
-
-<itemizedlist>
-<listitem>IDA and ORL inventories: 4</listitem>
-<listitem>EMS-95 inventories: 0</listitem>
-</itemizedlist>
+<entry colname="Position">H</entry>
+<entry>
+<simplelist>
+<member><quote><command><envar>MONTHLY</envar></command></quote>: Year to month temporal profile from <xref linkend="tbl_input_tpro_monthly" />.</member>
+<member><quote><command><envar>WEEKLY</envar></command></quote>: Month to week temporal profile from <xref linkend="tbl_input_tpro_weekly" />.</member>
+<member><quote><command><envar>DAILY</envar></command></quote>: Month to Day temporal profile from <xref linkend="tbl_input_tpro_daily" />.</member>
+<member><quote><command><envar>MONDAY</envar></command></quote>: Monday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>TUESDAY</envar></command></quote>: Tuesday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>WEDNESDAY</envar></command></quote>: Wednesday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>THURSDAY</envar></command></quote>: Thursday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>FRIDAY</envar></command></quote>: Friday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>SATURDAY</envar></command></quote>: Saturday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>SUNDAY</envar></command></quote>: Sunday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>WEEKDAY</envar></command></quote>: Weekday (Monday-Friday) diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>WEEKEND</envar></command></quote>: Weekend (Saturday-Sunday) diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>ALLDAYS</envar></command></quote>: All days (Monday-Sunday) diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
+<member><quote><command><envar>HOURLY</envar></command></quote>: Day-specific hourly diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly_ncf" />.</member>
+</simplelist>
 
 </entry>
 </row>
 <row>
-<entry>2+</entry>
-<entry>A</entry>
-<entry>10-digit SCC, or 5-digit SCC with zeros filling the remaining digits (Character) (optional; put zero for entry that is not SCC-specific)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Monthly temporal profile code (Integer) (required)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>Weekly temporal profile code (Integer) (required)</entry>
-</row>
-<row>
-<entry colname="Position">D</entry>
-<entry>Weekday or weekend diurnal temporal profile code (Integer) (required)</entry>
-</row>
-<row>
-<entry colname="Position">E</entry>
-<entry>Pollutant name (Character) (optional; put zero if not pollutant-dependent)</entry>
-</row>
-<row>
-<entry colname="Position">F</entry>
-<entry>Country/state/county code (6-digit Integer in format YSSCCC) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">G</entry>
-<entry>Plant ID (Character) (optional; leave blank for not plant-specific)</entry>
-</row>
-<row>
-<entry colname="Position">H</entry>
-<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (Character) (optional)</entry>
-</row>
-<row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (Character) (optional)</entry>
+<entry>Temporal Profile ID (Characters) (required)</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (Character) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">K</entry>
-<entry>Characteristic 4 (blank for IDA and ORL because SCC already given in column A of list line) (Character) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">L</entry>
-<entry>Characteristic 5 (blank for IDA and ORL) (Character) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">M</entry>
-<entry>Monthly Temporal profile ID (=FIPS code) from <envar>TPRO_MON</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">N</entry>
-<entry>Daily Temporal profile ID (=FIPS code) from <envar>TPRO_DAY</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
-</row>
-<row>
-<entry colname="Position">O</entry>
-<entry>Hourly Temporal profile ID (=FIPS code) from <envar>TPRO_HOUR</envar> generated by <command>Gentpro</command> (Integer) (optional)</entry>
+<entry>Comments (Characters) (optional; must be double quoted)</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
-
-</section>
 
 </section>
 
@@ -7136,7 +4776,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <title><envar>BELD3_A</envar>, <envar>BELD3_B</envar>, <envar>BELD3_TOT</envar>: BELD3 land use data files</title>
 
-<para><envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> files are I/O API netCDF files that contain gridded BELD3 data. The BELD3 data comprise 230 land use types. Because the I/O API limit on the number of variables in one netCDF file is 120, the gridded BELD3 data is broken up into two files (<envar>BELD_A</envar> and <envar>BELD_B</envar>). The <envar>BELD_TOT</envar> file contains additional information on the BELD3 data for the same grid as the <envar>BELD3_A</envar> and <envar>BELD3_B</envar> files. For a list of the BELD3 land use types, look in the <envar>B3XRF</envar> (<xref linkend="sect_input_b3xrf" />) or <envar>B3FAC</envar> (<xref linkend="sect_input_b3fac" />) file. The <envar>BELD3_TOT</envar> file contains the following variable and description:</para>
+<para><envar>BELD3_A</envar>, <envar>BELD3_B</envar>, and <envar>BELD3_TOT</envar> files are I/O API netCDF files that contain gridded BELD3 data. The BELD3 data comprise 230 land use types. Because the I/O API limit on the number of variables in one netCDF file is 120, the gridded BELD3 data is broken up into two files (<envar>BELD_A</envar> and <envar>BELD_B</envar>). The <envar>BELD_TOT</envar> file contains additional information on the BELD3 data for the same grid as the <envar>BELD3_A</envar> and <envar>BELD3_B</envar> files. The <envar>BELD3_TOT</envar> file contains the following variable and description:</para>
 
 <itemizedlist>
 <listitem>
@@ -7150,7 +4790,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <title><envar>BGPRO</envar>: Biogenic spatial surrogate file</title>
 
-<para>The <envar>BGPRO</envar> file must be provided to SMOKE when using county land use data, in order to provide a means of converting county land use to gridded land use. The format for the <envar>BGPRO</envar> file is the same as for the Area and Mobile spatial surrogate files (see <xref linkend="sect_input_amgpro" />). Typically, the same gridded surrogates file would be used, and the <command>Rawbio</command> options would be set to assign the county area, agriculture, or forest surrogates to the various biogenic land use groups.</para>
+<para>The <envar>BGPRO</envar> file must be provided to SMOKE when using county land use data, in order to provide a means of converting county land use to gridded land use. The format for the <envar>BGPRO</envar> file is the same as for the Area and Mobile spatial surrogate files (see <xref linkend="sect_input_amgpro" />).</para>
 
 </section>
 
@@ -8732,12 +6372,6 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>grid cell longitude (degrees)</entry>
 </row>
 <row>
-<entry colname="Program"><command>Tmpbio</command></entry>
-<entry>LAT</entry>
-<entry>grid cell latitude (degrees)</entry>
-<entry>only used if <envar>BG_CLOUD_TYPE</envar> = 1</entry>
-</row>
-<row>
 <entry colname="Variable">LON</entry>
 <entry>grid cell longitude (degrees)</entry>
 <entry>only used if <envar>BG_CLOUD_TYPE</envar> = 1</entry>
@@ -8789,12 +6423,6 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>RGRND</entry>
 <entry>solar radiation reaching surface (watts/m<superscript>2</superscript>)</entry>
 <entry>variable name is set by <envar>RAD_VAR</envar>, actual file used is determined by <envar>BIOMET_SAME</envar></entry>
-</row>
-<row>
-<entry colname="Program"><command>Tmpbio</command></entry>
-<entry>PRSFC</entry>
-<entry>surface pressure (Pascals)</entry>
-<entry>only used if <envar>BG_CLOUD_TYPE</envar> is not 1, variable name is set by <envar>PRES_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">RGRND</entry>
@@ -8877,7 +6505,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>variable name is set by <envar>TMPR_VAR</envar>, actual file opened depends on <envar>MET_FILE1</envar></entry>
 </row>
 <row>
-<entry colname="Program"><command>Tmpbio</command></entry>
+<entry colname="Program"><command>Tmpbeis3</command></entry>
 <entry>TA</entry>
 <entry>air temperature (Kelvins)</entry>
 <entry>variable name is set by <envar>TMPR_VAR</envar>, actual file opened depends on <envar>MET_FILE1</envar>/<envar>METLIST</envar></entry>
@@ -8902,7 +6530,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>METLIST</envar>: List of meteorology files</title>
 
-<para>The <envar>METLIST</envar> file is used to provide the file names of available meteorology files to the <command>Tmpbio</command> and <command>Met4moves</command> programs. <command>Met4moves</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. If <command>Tmpbio</command> is being run for a period longer than the individual meteorology files, the <envar>METLIST</envar> file is used to combine multiple meteorology files so that <command>Tmpbio</command> can find the data it needs. The meteorology files provided to <command>Met4moves</command> and <command>Tmpbio</command> must cover the desired episode and contain the requested variables. In the example SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
+<para>The <envar>METLIST</envar> file is used to provide the file names of available meteorology files to the <command>Met4moves</command> programs. <command>Met4moves</command> runs once for the entire modeling episode, and therefore needs all of the files at one time. The meteorology files provided to <command>Met4moves</command> must cover the desired episode and contain the requested variables. In the example SMOKE scripts, this file is generated automatically. The format of this file is shown in <xref linkend="tbl_input_metlist" />.</para>
 
 <table id="tbl_input_metlist">
 <title>Format for <envar>METLIST</envar></title>
@@ -8932,14 +6560,34 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 </section>
 
-<section id="sect_input_radlist">
+</section>
 
-<title><envar>RADLIST</envar>: List of meteorology files containing radiation data</title>
+<section id="sect_input_source_specific">
 
-<para>The <envar>RADLIST</envar> file is used to provide the file names of available radiation files to <command>Tmpbio</command>. As with the <envar>METLIST</envar> file, this file is only needed of you are running <command>Tmpbio</command> for a longer time period than each meteorology file. The format of this file is shown in <xref linkend="tbl_input_radlist" />.</para>
+<title>Source-Specific files</title>
 
-<table id="tbl_input_radlist">
-<title>Format for <envar>RADLIST</envar></title>
+<section id="sect_input_source_biogenics">
+
+<title>Biogenics</title>
+
+<para>The directories where the biogenic-specific input files should be stored are listed in <xref linkend="tbl_input_biogenic_files" />. The table also lists the programs that use each input file.</para>
+
+<section id="sect_input_bioseason">
+
+<title><envar>BIOSEASON</envar>: Bioseason switch file</title>
+
+<para>The <envar>BIOSEASON</envar> switch file is an I/O API netCDF file used to indicate how each day in a given year should be treated, either as summer or winter. This file can be created using the <command>Metscan</command> utility program. The <envar>BIOSEASON</envar> file is time-dependent and usually contains data for an entire year (365 or 366 days). It uses one variable, SEASON, which is either 0 (grid cell should use winter factors for current day) or 1 (grid cell should use summer factors for current day).</para>
+
+</section>
+
+<section id="sect_input_b360fac">
+
+<title><envar>B360FAC</envar>: Biogenic emissions factors file for BEIS v3.60 </title>
+
+<para>The <envar>B360FAC</envar> file for BEIS version 3.60 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds listed in <xref linkend="tbl_input_b360fac" />.</para>
+
+<table id="tbl_input_b360fac">
+<title>Format for <envar>B3FAC</envar>, BEIS version 3.60</title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -8958,93 +6606,33 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Full name and path of meteorology file with radiation data</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-</section>
-
-<section id="sect_input_source_specific">
-
-<title>Source-Specific files</title>
-
-<section id="sect_input_source_biogenics">
-
-<title>Biogenics</title>
-
-<para>The directories where the biogenic-specific input files should be stored are listed in <xref linkend="tbl_input_biogenic_files" />. The table also lists the programs that use each input file.</para>
-
-<section id="sect_input_b3fac">
-
-<title><envar>B3FAC</envar>: BEIS3 emissions factors file</title>
-
-<para>The <envar>B3FAC</envar> file for BEIS version 3.09 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for four different species/compounds (ISOP, OVOC, MONO, and NO).  The format of this file is shown in <xref linkend="tbl_input_b3fac" />.</para>
-
-<table id="tbl_input_b3fac">
-<title>Format for <envar>B3FAC</envar>, BEIS version 3.09</title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1+</entry>
-<entry>9-24</entry>
 <entry>Abbreviated name for land use type (Character)</entry>
 </row>
 <row>
-<entry colname="Position">A</entry>
-<entry>Leaf area index  (m<superscript>2</superscript>/m<superscript>2</superscript>) (Integer)</entry>
-</row>
-<row>
 <entry colname="Position">B</entry>
-<entry>Dry leaf biomass (g/m<superscript>2</superscript>) (Integer)</entry>
+<entry colname="Description">String indicating type (e.g. Leaf Area Index (LAI), Dry Leaf Biomass (LFBIO), Winter Biomass (WFAC), Specific Leaf Weight (SLW), Isoprene (ISOP), Sesquiterpene (SESQT) emissions, etc.) (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Winter biomass factor (Real)</entry>
+<entry colname="Description">Units or “none” if no units (Character)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Indicator of specific leaf weight (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">E</entry>
-<entry>Normalized emissions flux for ISOP (g C/km<superscript>2</superscript>-hr) (Real) </entry>
-</row>
-<row>
-<entry colname="Position">F</entry>
-<entry>Normalized emissions flux for MONO (g C/km<superscript>2</superscript>-hr) (Real)</entry>
-</row>
-<row>
-<entry colname="Position">G</entry>
-<entry>Normalized emissions flux for OVOC (g C/km<superscript>2</superscript>-hr) (Real)</entry>
-</row>
-<row>
-<entry colname="Position">H</entry>
-<entry>Normalized emissions flux for NO (g N/km<superscript>2</superscript>-hr) (Real)</entry>
+<entry colname="Description">Value of LAI, LFBIO, WFAC, SLW, or Normalized emissions (i.e., ISOP, SESQT, and son on) flux for item in position B (g C/km<superscript>2</superscript>-hr) (Real)</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
-<para>The <envar>B3FAC</envar> file for BEIS version 3.14 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds listed in <xref linkend="tbl_input_b313fac" />.</para>
+</section>
 
-<table id="tbl_input_b313fac">
+<section id="sect_input_b3fac">
+
+<title><envar>B3FAC</envar>: Biogenic emissions factors file for BEIS v3.14 or earlier</title>
+
+<para>The <envar>B3FAC</envar> file for BEIS version 3.14 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds listed in <xref linkend="tbl_input_b314fac" />.</para>
+
+<table id="tbl_input_b314fac">
 <title>Format for <envar>B3FAC</envar>, BEIS version 3.14</title>
 
 <tgroup cols="3">
@@ -9222,6 +6810,1183 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </tgroup>
 </table>
 
+</section>
+
+<section id="sect_input_source_beld4">
+
+<title><envar>BELD4</envar>: Landuse input file for BEIS v3.60</title>
+
+<para><xref linkend="tbl_input_landuse286" /> contains names and descriptions of the 286 land use categories in BELD4.</para>
+
+<table id="tbl_input_landuse286">
+<title>Land use categories in BELD4</title>
+
+<tgroup cols="2">
+<colspec colwidth="30*" colname="Land use category" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Land use category</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry colname="Land use category">NLCD_11</entry>
+<entry>Open Water</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_12</entry>
+<entry>Perennial Ice/Snow</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_21</entry>
+<entry>Developed Open Space</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_22</entry>
+<entry>Developed Low Intensity</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_23</entry>
+<entry>Developed Medium Intensity</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_24</entry>
+<entry>Developed High Intensity</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_31</entry>
+<entry>Barren Land (Rock/Sand/Clay)</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_32</entry>
+<entry>Unconsolidated Shore</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_41</entry>
+<entry>Deciduous Forest</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_42</entry>
+<entry>Evergreen Forest</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_43</entry>
+<entry>Mixed Forest</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_51</entry>
+<entry>Dwarf Scrub</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_52</entry>
+<entry>Shrub/Scrub</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_71</entry>
+<entry>Grassland/Herbaceous</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_72</entry>
+<entry>Sedge/Herbaceous</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_73</entry>
+<entry>Lichens</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_74</entry>
+<entry>Moss</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_75</entry>
+<entry>Tundra</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_81</entry>
+<entry>Pasture/Hay</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_82</entry>
+<entry>Cultivated Crops</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_90</entry>
+<entry>Woody Wetlands</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_91</entry>
+<entry>Palustrine Forested Wetland</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_92</entry>
+<entry>Palustrine Scrub/Shrub Wetland</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_93</entry>
+<entry>Estuarine Forested Wetland</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_94</entry>
+<entry>Estuarine Scrub/Shrub Wetland</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_95</entry>
+<entry>Emergent Herbaceous Wetlands</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_96</entry>
+<entry>Palustrine Emergent Wetland</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_97</entry>
+<entry>Estuarine Emergent Wetland</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_98</entry>
+<entry>Palustrine Aquatic Bed</entry>
+</row>
+<row>
+<entry colname="Land use category">NLCD_99</entry>
+<entry>Estuarine Aquatic Bed</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_0</entry>
+<entry>water</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_1</entry>
+<entry>Evergreen needleleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_2</entry>
+<entry>Evergreen broadleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_3</entry>
+<entry>Deciduous needleleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_4</entry>
+<entry>Deciduous broadleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_5</entry>
+<entry>Mixed forests</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_6</entry>
+<entry>Closed shrublands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_7</entry>
+<entry>Open shrublands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_8</entry>
+<entry>Woody savannas</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_9</entry>
+<entry>Savannas</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_10</entry>
+<entry>Grasslands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_11</entry>
+<entry>Permanent wetlands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_12</entry>
+<entry>Croplands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_13</entry>
+<entry>Urban and built up</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_14</entry>
+<entry>Cropland / natural vegetation mosaic</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_15</entry>
+<entry>Permanent snow and ice</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_16</entry>
+<entry>Barren or sparsely vegetated</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_17</entry>
+<entry>IGBP water</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_254</entry>
+<entry>Unclassified</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_255</entry>
+<entry>Fill value (normally ocean water)</entry>
+</row>
+<row>
+<entry colname="Land use category">Alfalfa</entry>
+<entry>Alfalfa</entry>
+</row>
+<row>
+<entry colname="Land use category">Acacia</entry>
+<entry>Acacia spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Ailanthus</entry>
+<entry>Ailanthus altissima</entry>
+</row>
+<row>
+<entry colname="Land use category">Alder</entry>
+<entry>Alnus</entry>
+</row>
+<row>
+<entry colname="Land use category">Alfalfa</entry>
+<entry>Alfalfa irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Alfalfa_ir</entry>
+<entry>Malus</entry>
+</row>
+<row>
+<entry colname="Land use category">Apple</entry>
+<entry>Malus</entry>
+</row>
+<row>
+<entry colname="Land use category">Ash</entry>
+<entry>Fraxinus</entry>
+</row>
+<row>
+<entry colname="Land use category">Barley</entry>
+<entry>Barley</entry>
+</row>
+<row>
+<entry colname="Land use category">Barley_ir</entry>
+<entry>Barley irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Basswood</entry>
+<entry>Tilia</entry>
+</row>
+<row>
+<entry colname="Land use category">Beans</entry>
+<entry>Beans</entry>
+</row>
+<row>
+<entry colname="Land use category">Beans_ir</entry>
+<entry>Beans irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">BeansEdible</entry>
+<entry>Beans edible</entry>
+</row>
+<row>
+<entry colname="Land use category">BeansEdible_ir</entry>
+<entry>Beans edible irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Beech</entry>
+<entry>Fagus</entry>
+</row>
+<row>
+<entry colname="Land use category">Birch</entry>
+<entry>Betula</entry>
+</row>
+<row>
+<entry colname="Land use category">Bumelia_gum</entry>
+<entry>Bumelia lanuginosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Cajeput</entry>
+<entry>Melaleuca quinquenervia</entry>
+</row>
+<row>
+<entry colname="Land use category">Califor_laurel</entry>
+<entry>Umbellularia californica</entry>
+</row>
+<row>
+<entry colname="Land use category">Cascara_buckthor</entry>
+<entry>Rhamnus purshiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Canola</entry>
+<entry>Canola</entry>
+</row>
+<row>
+<entry colname="Land use category">Canola_ir</entry>
+<entry>Canola irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Cascara_buckthor</entry>
+<entry>Rhamnus purshiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Castanea</entry>
+<entry>American chestnut or chinkapin</entry>
+</row>
+<row>
+<entry colname="Land use category">Catalpa</entry>
+<entry>Catalpa</entry>
+</row>
+<row>
+<entry colname="Land use category">Cedar_chamaecyp</entry>
+<entry>Orford, Alaska, and Atlantic white cedars</entry>
+</row>
+<row>
+<entry colname="Land use category">Cedar_thuja</entry>
+<entry>Northern white and western red cedars</entry>
+</row>
+<row>
+<entry colname="Land use category">Chestnut_buckeye</entry>
+<entry>Aesculus - Horse chestnut or buckeyes</entry>
+</row>
+<row>
+<entry colname="Land use category">Chinaberry</entry>
+<entry>Melia azedarach</entry>
+</row>
+<row>
+<entry colname="Land use category">CornGrain</entry>
+<entry>Corn Grain</entry>
+</row>
+<row>
+<entry colname="Land use category">CornGrain_ir</entry>
+<entry>Corn Grain irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">CornSilage</entry>
+<entry>Corn Silage</entry>
+</row>
+<row>
+<entry colname="Land use category">CornSilage_ir</entry>
+<entry>Corn Silage irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Cotton</entry>
+<entry>Cotton</entry>
+</row>
+<row>
+<entry colname="Land use category">Cotton_ir</entry>
+<entry>Cotton irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Cypress_cupress</entry>
+<entry>Cupressus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Cypress_taxodium</entry>
+<entry>Taxodium - bald and pond cypress and yew</entry>
+</row>
+<row>
+<entry colname="Land use category">Dogwood</entry>
+<entry>Cornus</entry>
+</row>
+<row>
+<entry colname="Land use category">Douglas_fir</entry>
+<entry>Pseudotsuga</entry>
+</row>
+<row>
+<entry colname="Land use category">East_hophornbean</entry>
+<entry>Ostrya virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Elder</entry>
+<entry>Sambucus</entry>
+</row>
+<row>
+<entry colname="Land use category">Elm</entry>
+<entry>Ulmus</entry>
+</row>
+<row>
+<entry colname="Land use category">Eucalyptus</entry>
+<entry>Eucalyptus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_balsam</entry>
+<entry>Abies balsamea</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_CA_red</entry>
+<entry>Abies magnifica</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_corkbark</entry>
+<entry>Abies lasiocarpa</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_fraser</entry>
+<entry>Abies fraseri</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_grand</entry>
+<entry>Abies grandis</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_noble</entry>
+<entry>Abies procera</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_Pacf_silver</entry>
+<entry>Abies amabilis</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_SantaLucia</entry>
+<entry>Abies bracteata</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_Shasta_red</entry>
+<entry>Abies magnifica shastensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_spp</entry>
+<entry>Abies spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_subalpine</entry>
+<entry>Abies lasiocarpa arizonica</entry>
+</row>
+<row>
+<entry colname="Land use category">Fir_white</entry>
+<entry>Abies concolor</entry>
+</row>
+<row>
+<entry colname="Land use category">Gleditsia_locust</entry>
+<entry>Waterlocust and Honeylocust</entry>
+</row>
+<row>
+<entry colname="Land use category">Hackberry</entry>
+<entry>Celtis</entry>
+</row>
+<row>
+<entry colname="Land use category">Hawthorn</entry>
+<entry>Crataegus</entry>
+</row>
+<row>
+<entry colname="Land use category">Hay</entry>
+<entry>Hay</entry>
+</row>
+<row>
+<entry colname="Land use category">Hay_ir</entry>
+<entry>Hay irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Hemlock</entry>
+<entry>Tsuga</entry>
+</row>
+<row>
+<entry colname="Land use category">Hickory</entry>
+<entry>Carya - includes pecan</entry>
+</row>
+<row>
+<entry colname="Land use category">Holly_American</entry>
+<entry>Ilex</entry>
+</row>
+<row>
+<entry colname="Land use category">Hornbeam</entry>
+<entry>Carpinus caroliniana</entry>
+</row>
+<row>
+<entry colname="Land use category">Incense_cedar</entry>
+<entry>Calocedrus decurrens</entry>
+</row>
+<row>
+<entry colname="Land use category">Juniper</entry>
+<entry>Juniperus - include Sou/Eas red cedar</entry>
+</row>
+<row>
+<entry colname="Land use category">KY_coffeetree</entry>
+<entry>Gymnocladus dioicus</entry>
+</row>
+<row>
+<entry colname="Land use category">Larch</entry>
+<entry>Larix</entry>
+</row>
+<row>
+<entry colname="Land use category">Loblolly_bay</entry>
+<entry>Gordonia lasianthus</entry>
+</row>
+<row>
+<entry colname="Land use category">Madrone</entry>
+<entry>Arbutus</entry>
+</row>
+<row>
+<entry colname="Land use category">Magnolia</entry>
+<entry>Magnolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Mahogany</entry>
+<entry>Cercocarpus</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_bigleaf</entry>
+<entry>Acer grandidentatum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_bigtooth</entry>
+<entry>Acer macrophyllum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_black</entry>
+<entry>Acer nigrum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_boxelder</entry>
+<entry>Acer negundo</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_FL</entry>
+<entry>Acer barbatum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_mtn</entry>
+<entry>Acer spicatum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_Norway</entry>
+<entry>Acer platanoides</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_red</entry>
+<entry>Acer rubrum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_RkyMtn</entry>
+<entry>Acer glabrum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_silver</entry>
+<entry>Acer saccharinum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_spp</entry>
+<entry>Acer spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_striped</entry>
+<entry>Acer pensylvanicum</entry>
+</row>
+<row>
+<entry colname="Land use category">Maple_sugar</entry>
+<entry>Acer saccharum</entry>
+</row>
+<row>
+<entry colname="Land use category">Mesquite</entry>
+<entry>Prosopis</entry>
+</row>
+<row>
+<entry colname="Land use category">Misc_hardwoods</entry>
+<entry>Misc hardwoods - undefined from FIA</entry>
+</row>
+<row>
+<entry colname="Land use category">Mixed_conifer_sp</entry>
+<entry>Mixed conifers - underfined from FIA</entry>
+</row>
+<row>
+<entry colname="Land use category">Mountain_ash</entry>
+<entry>Sorbus</entry>
+</row>
+<row>
+<entry colname="Land use category">Mulberry</entry>
+<entry>Morus</entry>
+</row>
+<row>
+<entry colname="Land use category">Nyssa</entry>
+<entry>Tupelo and blackgum</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_AZ_white</entry>
+<entry>Quercus arizonica</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_bear</entry>
+<entry>Quercus ilicifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_black</entry>
+<entry>Quercus velutina</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_blackjack</entry>
+<entry>Quercus marilandica</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_blue</entry>
+<entry>Quercus douglasii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_bluejack</entry>
+<entry>Quercus incana</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_bur</entry>
+<entry>Quercus macrocarpa</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_CA_black</entry>
+<entry>Quercus kelloggii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_CA_live</entry>
+<entry>Quercus agrifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_CA_white</entry>
+<entry>Quercus lobata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_canyon_live</entry>
+<entry>Quercus chrysolepis</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_chestnut</entry>
+<entry>Quercus prinus</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_chinkapin</entry>
+<entry>Quercus muehlenbergii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_delta_post</entry>
+<entry>Quercus stellata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Durand</entry>
+<entry>Quercus durandii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Emery</entry>
+<entry>Quercus emoryi</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Engelmann</entry>
+<entry>Quercus engelmannii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_evergreen_sp</entry>
+<entry>Quercus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Gambel</entry>
+<entry>Quercus gambelii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_interio_live</entry>
+<entry>Quercus wislizenni</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_laurel</entry>
+<entry>Quercus laurifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_live</entry>
+<entry>Quercus virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Mexicanblue</entry>
+<entry>Quercus oblongifolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Northrn_pin</entry>
+<entry>Quercus ellipsoidalis</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Northrn_red</entry>
+<entry>Quercus rubra</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_nuttall</entry>
+<entry>Quercus nuttallii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_OR_white</entry>
+<entry>Quercus garryana</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_overcup</entry>
+<entry>Quercus lyrata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_pin</entry>
+<entry>Quercus palustris</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_post</entry>
+<entry>Quercus stellata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_scarlet</entry>
+<entry>Quercus coccinea</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_scrub</entry>
+<entry>Quercus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_shingle</entry>
+<entry>Quercus imbricaria</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Shumrd_red</entry>
+<entry>Quercus shumardii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_silverleaf</entry>
+<entry>Quercus hypoleucoides</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_Southrn_red</entry>
+<entry>Quercus falcata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_spp</entry>
+<entry>Quercus spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_swamp_cnut</entry>
+<entry>Quercus michauxii</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_swamp_red</entry>
+<entry>Quercus falcata</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_swamp_white</entry>
+<entry>Quercus bicolor</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_turkey</entry>
+<entry>Quercus laevis</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_water</entry>
+<entry>Quercus nigra</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_white</entry>
+<entry>Quercus alba</entry>
+</row>
+<row>
+<entry colname="Land use category">Oak_willow</entry>
+<entry>Quercus phellos</entry>
+</row>
+<row>
+<entry colname="Land use category">Oaks</entry>
+<entry>Oaks</entry>
+</row>
+<row>
+<entry colname="Land use category">Oaks_ir</entry>
+<entry>Oaks irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Osage_orange</entry>
+<entry>Maclura pomifera</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_crop</entry>
+<entry>Other crops</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_crop_ir</entry>
+<entry>Other crops irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_grass</entry>
+<entry>Other grass</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_grass_ir</entry>
+<entry>Other grass irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Paulownia</entry>
+<entry>Paulownia tomentosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pawpaw</entry>
+<entry>Asimina triloba</entry>
+</row>
+<row>
+<entry colname="Land use category">Persimmon</entry>
+<entry>Diospyros virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Apache</entry>
+<entry>Pinus engelmannii</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Austrian</entry>
+<entry>Pinus nigra</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_AZ</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Bishop</entry>
+<entry>Pinus muricata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_blackjack</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_brstlcone</entry>
+<entry>Pinus aristata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_chihuahua</entry>
+<entry>Pinus leiophylla</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Coulter</entry>
+<entry>Pinus coulteri</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_digger</entry>
+<entry>Pinus sabiniana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Ewhite</entry>
+<entry>Pinus strobus</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_foxtail</entry>
+<entry>Pinus balfouriana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_jack</entry>
+<entry>Pinus banksiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Jeffrey</entry>
+<entry>Pinus jefferyi</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_knobcone</entry>
+<entry>Pinus attenuata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_limber</entry>
+<entry>Pinus flexilis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_loblolly</entry>
+<entry>Pinus taeda</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_lodgepole</entry>
+<entry>Pinus contorta</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_longleaf</entry>
+<entry>Pinus palustris</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Monterey</entry>
+<entry>Pinus radiata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pinyon</entry>
+<entry>Pinus monophylla</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pinyon_brdr</entry>
+<entry>Pinus discolor</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pinyon_cmn</entry>
+<entry>Pinus edulis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pitch</entry>
+<entry>Pinus rigida</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_pond</entry>
+<entry>Pinus serotina</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_ponderosa</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_red</entry>
+<entry>Pinus resinosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_sand</entry>
+<entry>Pinus clausa</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_scotch</entry>
+<entry>Pinus sylvestris</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_shortleaf</entry>
+<entry>Pinus echinata</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_slash</entry>
+<entry>Pinus elliottii</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_spruce</entry>
+<entry>Pinus glabra</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_sugar</entry>
+<entry>Pinus lambertiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Swwhite</entry>
+<entry>Pinus strobiformis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_tablemtn</entry>
+<entry>Pinus pungens</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_VA</entry>
+<entry>Pinus virginiana</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Washoe</entry>
+<entry>Pinus washoensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_whitebark</entry>
+<entry>Pinus albicaulis</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_Wwhite</entry>
+<entry>Pinus monticola</entry>
+</row>
+<row>
+<entry colname="Land use category">Pine_yellow</entry>
+<entry>Pinus ponderosa</entry>
+</row>
+<row>
+<entry colname="Land use category">Populus</entry>
+<entry>Cottonwood, poplars, and aspens</entry>
+</row>
+<row>
+<entry colname="Land use category">Potatoes</entry>
+<entry>Potatoes</entry>
+</row>
+<row>
+<entry colname="Land use category">Potatoes_ir</entry>
+<entry>Potatoes irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Prunus</entry>
+<entry>Cherry and plum</entry>
+</row>
+<row>
+<entry colname="Land use category">Redbud</entry>
+<entry>Cercis</entry>
+</row>
+<row>
+<entry colname="Land use category">Rice</entry>
+<entry>Rice</entry>
+</row>
+<row>
+<entry colname="Land use category">Rice_ir</entry>
+<entry>Rice irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Robinia_locust</entry>
+<entry>Black and NM locust</entry>
+</row>
+<row>
+<entry colname="Land use category">Rye</entry>
+<entry>Rye</entry>
+</row>
+<row>
+<entry colname="Land use category">Rye_ir</entry>
+<entry>Rye irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Sassafras</entry>
+<entry>Sassafras albidum</entry>
+</row>
+<row>
+<entry colname="Land use category">Sequoia</entry>
+<entry>Redwood and giant sequoia</entry>
+</row>
+<row>
+<entry colname="Land use category">Serviceberry</entry>
+<entry>Amelanchier arborea</entry>
+</row>
+<row>
+<entry colname="Land use category">Silverbell</entry>
+<entry>Halesia</entry>
+</row>
+<row>
+<entry colname="Land use category">Smoketree</entry>
+<entry>Cotinus obovatus</entry>
+</row>
+<row>
+<entry colname="Land use category">Soapberry_westrn</entry>
+<entry>Sapindus drummondii</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumGrain</entry>
+<entry>Sorghum Grain</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumGrain_ir</entry>
+<entry>Sorghum Grain irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumSilage</entry>
+<entry>Sorghum Silage</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumSilage_ir</entry>
+<entry>Sorghum Silage irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Sourwood</entry>
+<entry>Oxydendrum arboretum</entry>
+</row>
+<row>
+<entry colname="Land use category">Soybeans</entry>
+<entry>Soybeans</entry>
+</row>
+<row>
+<entry colname="Land use category">Soybeans_ir</entry>
+<entry>Soybeans irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Sparkleberry</entry>
+<entry>Vaccinium arboreum</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_black</entry>
+<entry>Picea marianna</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_blue</entry>
+<entry>Picea pungens</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Brewer</entry>
+<entry>Picea breweriana</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Englemann</entry>
+<entry>Picea engelmannii</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Norway</entry>
+<entry>Picea abies</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_red</entry>
+<entry>Picea rubens</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_Sitka</entry>
+<entry>Picea sitchensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_spp</entry>
+<entry>Picea spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Spruce_white</entry>
+<entry>Picea glauca</entry>
+</row>
+<row>
+<entry colname="Land use category">Sweetgum</entry>
+<entry>Liquidambar styraciflua</entry>
+</row>
+<row>
+<entry colname="Land use category">Sycamore</entry>
+<entry>Platanus</entry>
+</row>
+<row>
+<entry colname="Land use category">Tallowtree_chins</entry>
+<entry>Sapium sebiferum</entry>
+</row>
+<row>
+<entry colname="Land use category">Tamarix</entry>
+<entry>Tamarix chinensis</entry>
+</row>
+<row>
+<entry colname="Land use category">Tanoak</entry>
+<entry>Lithocarpus densiflorus</entry>
+</row>
+<row>
+<entry colname="Land use category">Torreya</entry>
+<entry>Torreya californica</entry>
+</row>
+<row>
+<entry colname="Land use category">Tung_oil_tree</entry>
+<entry>Aleurites fordii</entry>
+</row>
+<row>
+<entry colname="Land use category">Unknown_tree</entry>
+<entry>Unknown spp</entry>
+</row>
+<row>
+<entry colname="Land use category">Walnut</entry>
+<entry>Juglans - includes butternut</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_spring</entry>
+<entry>Wheat spring</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_spring_ir</entry>
+<entry>Wheat spring irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_winter</entry>
+<entry>Wheat winter</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_winter_ir</entry>
+<entry>Wheat winter irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Water_elm</entry>
+<entry>Planera aquatica</entry>
+</row>
+<row>
+<entry colname="Land use category">Willow</entry>
+<entry>Salix</entry>
+</row>
+<row>
+<entry colname="Land use category">Yellow_poplar</entry>
+<entry>Liriodendron tulipifera</entry>
+</row>
+<row>
+<entry colname="Land use category">Yellowwood</entry>
+<entry>Cladrastis lutea</entry>
+</row>
+<row>
+<entry colname="Land use category">Yucca_Mojave</entry>
+<entry>Yucca schidigera</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+<section id="sect_input_source_beld3">
+
+<title><envar>BELD3</envar>: Landuse input file for BEIS v3.14 or earlier</title>
+
 <para><xref linkend="tbl_input_landuse230" /> contains names and descriptions of the 230 land use categories in BELD3.</para>
 
 <table id="tbl_input_landuse230">
@@ -9324,8 +8089,12 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>Barley</entry>
 </row>
 <row>
-<entry colname="Land use category">Corn</entry>
-<entry>Corn</entry>
+<entry colname="Land use category">CornGrain</entry>
+<entry>CornGrain</entry>
+</row>
+<row>
+<entry colname="Land use category">Corn_ir</entry>
+<entry>CornGrain irrigated</entry>
 </row>
 <row>
 <entry colname="Land use category">Cotton</entry>
@@ -9616,8 +8385,8 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>Acer barbatum</entry>
 </row>
 <row>
-<entry colname="Land use category">Maple_mtn	Acer</entry>
-<entry>spicatum</entry>
+<entry colname="Land use category">Maple_mtn</entry>
+<entry>Acer spicatum</entry>
 </row>
 <row>
 <entry colname="Land use category">Maple_Norway</entry>
@@ -10028,7 +8797,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>Cherry and plum</entry>
 </row>
 <row>
-<entry colname="Land use category">Redbay</entry>
+<entry colname="Land use category">Redbud</entry>
 <entry>Cercis</entry>
 </row>
 <row>
@@ -10165,112 +8934,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 </section>
 
-<section id="sect_input_b3xrf">
-
-<title><envar>B3XRF</envar>: BELD3 to BELD2 cross-reference file</title>
-
-<para>The <envar>B3XRF</envar> file contains cross-reference information needed to convert the 230 BELD3 land use types into the 127 BELD2 land use types. This cross-reference file is used in the program <command>Beld3to2</command>. The <envar>B3XRF</envar> file contains 230 lines of data in the format shown in <xref linkend="tbl_input_b3xrf" />.</para>
-
-<table id="tbl_input_b3xrf">
-<title>Format for <envar>B3XRF</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1+</entry>
-<entry>1-4</entry>
-<entry>BELD2 land use type ID (Char)</entry>
-</row>
-<row>
-<entry colname="Position">6-8</entry>
-<entry>BELD2 category (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">10-25</entry>
-<entry>BELD3 land use type ID (Char)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
 </section>
-
-<section id="sect_input_bfac">
-
-<title><envar>BFAC</envar>: BEIS2 emission factors file</title>
-
-<para>The <envar>BFAC</envar> file contains BEIS2 emissions factor file. There are two different emission factor files available for use: winter and summer. Both files use the format shown in <xref linkend="tbl_input_bfac" />.</para>
-
-<table id="tbl_input_bfac">
-<title>Format for <envar>BFAC</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1+</entry>
-<entry>2-6</entry>
-<entry>Vegetation ID (Char)</entry>
-</row>
-<row>
-<entry colname="Position">7-15</entry>
-<entry>ISOP emission factor (Real)</entry>
-</row>
-<row>
-<entry colname="Position">16-24</entry>
-<entry>MONO emission factor (Real)</entry>
-</row>
-<row>
-<entry colname="Position">25-33</entry>
-<entry>OVOC emission factor (Real)</entry>
-</row>
-<row>
-<entry colname="Position">34-39</entry>
-<entry>NO emission factor (Real)</entry>
-</row>
-<row>
-<entry colname="Position">40-41</entry>
-<entry>LAI (Integer)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section id="sect_input_bioseason">
-
-<title><envar>BIOSEASON</envar>: Bioseason switch file</title>
-
-<para>The <envar>BIOSEASON</envar> switch file is an I/O API netCDF file used to indicate how each day in a given year should be treated, either as summer or winter. This file can be created using the <command>Metscan</command> utility program. The <envar>BIOSEASON</envar> file is time-dependent and usually contains data for an entire year (365 or 366 days). It uses one variable, SEASON, which is either 0 (grid cell should use winter factors for current day) or 1 (grid cell should use summer factors for current day).</para>
-
-</section>
-
-</section>
-
 
 <section id="sect_input_source_mobile">
 <title>Mobile</title>
@@ -10281,7 +8945,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>CFPRO</envar>: Mobile source control factor input file</title>
 
-<para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all three MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, and RatePerProfile). It's format is shown in <xref linkend="tbl_input_cfpro" />.</para>
+<para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all three MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, and RatePerProfile). Its format is shown in <xref linkend="tbl_input_cfpro" />.</para>
 
 <table id="tbl_input_cfpro">
 <title>Format for <envar>CFPRO</envar></title>
@@ -10321,18 +8985,12 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry>D</entry>
-<entry>Mode</entry>
-<entry>Char(3)</entry>
-<entry>MOVES emission processes (ex; EXH, EVP, and so on)</entry>
-</row>
-<row>
-<entry>E</entry>
 <entry>Month</entry>
 <entry>Integer</entry>
 <entry>Processing month (Jan=1, Feb=2, and so on)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>E</entry>
 <entry>Control Factor</entry>
 <entry>Real</entry>
 <entry>Factor set by user to control hourly emission rates</entry>
@@ -10344,165 +9002,14 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <title><envar>CFPRO</envar> file</title>
 
 <programlisting>
-13101,2201000330,CO,EXH,7,0.5
-13101,2201000330,TOG,EXH,7,0.5
-13102,2201000330,TOG,EVP,7,0.5
+13101,2201000330,CO,7,0.5
+13101,2201000330,TOG,7,0.5
+13102,2201000330,TOG,7,0.5
 </programlisting>
 </example>
 
 </section>
-<section id="sect_input_mcodes">
 
-<title><envar>MCODES</envar>: Mobile source codes file</title>
-
-<para>The <envar>MCODES</envar> file contains the codes for mobile source vehicle types and road classes. It is used to convert from the codes in the inventory to the codes used internally by SMOKE. The SCC section of the file maps the vehicle type and road class combinations to a mobile source SCC. The format of the <envar>MCODES</envar> file is shown in <xref linkend="tbl_input_mcodes" />.</para>
-
-<table id="tbl_input_mcodes">
-<title>Format for <envar>MCODES</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>/VEHICLE TYPES/ header</entry>
-</row>
-<row>
-<entry>2+</entry>
-<entry>A</entry>
-<entry>Name of vehicle type from <envar>MBINV</envar> file (Char)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Number of vehicle type used in SMOKE files (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>
-
-<simplelist>
-<member>Y - use vehicle type in modeling</member>
-<member>N - do not use vehicle type</member>
-</simplelist>
-
-</entry>
-</row>
-<row>
-<entry>3</entry>
-<entry>A</entry>
-<entry>/ROAD CLASSES/ header</entry>
-</row>
-<row>
-<entry>4+</entry>
-<entry>A</entry>
-<entry>Road class code from last 3 digits of SCC in <envar>MBINV</envar> file (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Road class code used in SMOKE files (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>
-
-<simplelist>
-<member>Y - use road class code in modeling</member>
-<member>N - do not use road class code</member>
-</simplelist>
-
-</entry>
-</row>
-<row>
-<entry>5</entry>
-<entry>A</entry>
-<entry>/SCC/ header</entry>
-</row>
-<row>
-<entry>6+</entry>
-<entry>A</entry>
-<entry>Road class (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">B</entry>
-<entry>Vehicle type name (Char)</entry>
-</row>
-<row>
-<entry colname="Position">C</entry>
-<entry>SCC (10-character)</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<example>
-<title><envar>MCODES</envar> file</title>
-
-<programlisting>
-/VEHICLE TYPES/
-LDGV   0100   Y
-LDGT1  0102   Y
-LDGT2  0104   Y
-HDGV   0107   Y
-LDDV   3000   Y
-LDDT   3006   Y
-HDDV   3007   Y
-MC     0108   Y
-LDGT   0106   N
-/ROAD CLASSES/
-110 01  Y
-111 01  Y
-130 02  Y
-150 06  Y
-170 07  Y
-190 08  Y
-210 09  Y
-230 11  Y
-250 12  Y
-270 14  Y
-290 16  Y
-310 17  Y
-330 19  Y
-/SCC/
-110 LDGV   2201001110
-130 LDGV   2201001130
-150 LDGV   2201001150
-170 LDGV   2201001170
-190 LDGV   2201001190
-210 LDGV   2201001210
-230 LDGV   2201001230
-250 LDGV   2201001250
-270 LDGV   2201001270
-290 LDGV   2201001290
-310 LDGV   2201001310
-330 LDGV   2201001330
-110 LDGT1  2201021110
-130 LDGT1  2201020130
-150 LDGT1  2201020150
-170 LDGT1  2201020170
-190 LDGT1  2201020190
-210 LDGT1  2201020210
-230 LDGT1  2201020230
-250 LDGT1  2201020250
-270 LDGT1  2201020270
-290 LDGT1  2201020290
-310 LDGT1  2201020310
-330 LDGT1  2201020330
-...
-</programlisting>
-</example>
-
-</section>
 <section id="sect_input_mcxref">
 
 <title><envar>MCXREF</envar>: Mobile reference county cross-reference file</title>
@@ -10578,7 +9085,7 @@ LDGT   0106   N
 
 <title><envar>MEPROC</envar>: List of mobile emission processes and associated activities and pollutants</title>
 
-<para>The <envar>MEPROC</envar> file, used by <command>Spcmat</command> lists the emission processes and pollutants that will be generated by MOVES for modeling on-roadway and off-network mobile sources. The available emission processes are listed in <xref linkend="sect_concepts_moves_emission_processes" />. The format of the <envar>MEPROC</envar> file is shown in <xref linkend="tbl_input_meproc_moves" />.</para>
+<para>The <envar>MEPROC</envar> file, used by <command>Spcmat</command> lists the pollutants that will be generated by MOVES for modeling on-roadway and off-network mobile sources. The available emission processes are listed in <xref linkend="sect_concepts_moves_emission_processes" />. The format of the <envar>MEPROC</envar> file is shown in <xref linkend="tbl_input_meproc_moves" />.</para>
 
 <table id="tbl_input_meproc_moves">
 <title>Format for <envar>MEPROC</envar></title>
@@ -10603,10 +9110,6 @@ LDGT   0106   N
 <entry>Activity name (Character)</entry>
 </row>
 <row>
-<entry colname="Position">B</entry>
-<entry>Mobile emissions process (Character)</entry>
-</row>
-<row>
 <entry colname="Position">C</entry>
 <entry>Associated pollutant name(s) for activity and process combination (Character)</entry>
 </row>
@@ -10618,18 +9121,14 @@ LDGT   0106   N
 <title><envar>MEPROC</envar> example file for RatePerDistance MOVES table</title>
 
 <programlisting>
-VMT  EXH CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
-VMT  EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
-VMT  BRK PM25BRAKE
-VMT  TIR PM25TIRE
+VMT CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 </programlisting>
 </example>
 <example>
 <title><envar>MEPROC</envar> example file for RatePerVehicle MOVES table</title>
 
 <programlisting>
-VPOP EXH CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
-VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
+VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 </programlisting>
 </example>
 
@@ -10761,7 +9260,7 @@ VPOP EVP CO NO NO2 HONO SO2 NH3 TOG VOC_INV
 
 <title><envar>SPDPRO</envar>: Mobile hourly speed profile input file</title>
 
-<para>The <envar>SPDPRO</envar> file is used to provide weekend/weekday hourly speed profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance lookup table. Its format is shown in <xref linkend="tbl_input_spdpro" />.</para>
+<para>The <envar>SPDPRO</envar> file is used to provide weekend/weekday hourly speed profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance lookup table. It's format is shown in <xref linkend="tbl_input_spdpro" />.</para>
 
 <table id="tbl_input_spdpro">
 <title>Format for <envar>SPDPRO</envar></title>
@@ -12795,7 +11294,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <title><envar>NHAPEXCLUDE</envar>: NonHAP VOC calculation inclusions/exclusions file</title>
 
-<para>The <envar>NHAPEXCLUDE</envar> file provides a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. For SMOKE versions 2.6 and higher, a new special header in the <envar>NHAPEXCLUDE</envar>  file to allow <command>Smkinven</command> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is defined as /INCLUDE/, <command>Smkinven</command> will treat selected sources as integrated sources; <command>Smkinven</command> will use the toxics pollutants from the selected sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed by appending <quote>_NOI</quote> to the species name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass. When the header is defined as /EXCLUDE/ which is the default setting, <command>Smkinven</command> willl exclude the selected sources from the HAP-CAP integration approach. All other inventory sources will be used to compute NONHAPVOC or NONHAPTOG.</para>
+<para>The <envar>NHAPEXCLUDE</envar> file provides a way to exclude sources from the NONHAPVOC or NONHAPTOG calculation. For SMOKE versions 2.6 and higher, a new special header in the <envar>NHAPEXCLUDE</envar>  file to allow <command>Smkinven</command> to either include or exclude sources from NONHAPVOC or NONHAPTOG calculation. When the header is defined as /INCLUDE/, <command>Smkinven</command> will treat selected sources as integrated sources; <command>Smkinven</command> will use the toxics pollutants from the selected sources to compute NONHAPVOC or NONHAPTOG. The toxic emissions will be retained or dropped by <command>Smkinven</command>, depending on the status of the pollutants in the <envar>INVTABLE</envar> file (see <xref linkend="sect_input_invtable" />). If the pollutant is a model species and an explicit species, then the toxic emissions will not be dropped. If the pollutant is only a model species but not an explicit species, it will be renamed by appending <quote>_NOI</quote> to the species name. If it is neither a model species nor an explicit species, the toxics mass will be dropped to prevent double counting of the inventory mass. When the header is defined as /EXCLUDE/ which is the default setting, <command>Smkinven</command> willl exclude the selected sources from the HAP-CAP integratoin approach. All other inventory sources will be used to compute NONHAPVOC or NONHAPTOG.</para>
 
 <para>The <envar>NHAPEXCLUDE</envar> file is only used when <envar>SMK_PROCESS_HAPS</envar> is set to <envar>PARTIAL</envar>. If <envar>SMK_PROCESS_HAPS</envar> is set to <envar>ALL</envar> or <envar>NONE</envar>, the <envar>NHAPEXCLUDE</envar> file is not required (<xref linkend="sect_programs_smkinven_envar" />). Once integration/non-integration processing is done, <command>Smkreport</command> can create a report that separates integrated and non-integrated sources using the <envar>BY INTEGRATE</envar> instruction (<xref linkend="sect_qa_repconfig_create_report"/>).</para>
 
@@ -13214,6 +11713,62 @@ SOURCE > 100 AND SOURCE < 200
 
 </section>
 
+<section id="sect_input_sccxref">
+
+<title><envar>SCCXREF</envar>: Reference SCC input file</title>
+
+<para>This file provides mapping between reference SCC (i.e., SCC8) and full SCC (i.e., SCC10) for <command>Smkinven</command> to convert reference SCC-level inventory to full SCC inventory:</para>
+
+<table id="tbl_input_sccxref">
+<title>Delimited format for <envar>SCCXREF</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Lines</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Full SCC (10-character string)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Reference SCC (10-character string)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>SCCXREF</envar> example file</title>
+
+<programlisting>
+Full_scc,Reference_scc
+"2201110262","2201110200"
+"2201110281","2201110200"
+"2201110362","2201110300"
+"2201110381","2201110300"
+"2201110462","2201110400"
+"2201110481","2201110400"
+"2201110562","2201110500"
+"2201110581","2201110500"
+"2201210262","2201210200"
+"2201210281","2201210200"
+....
+</programlisting>
+</example>
+</section>
+
 <section id="sect_input_sicdesc">
 
 <title><envar>SICDESC</envar>: SIC code descriptions</title>
@@ -13309,11 +11864,11 @@ SOURCE > 100 AND SOURCE < 200
 
 <section id="sect_input_smkmerge_groups">
 
-<title><envar>SMKMERGE_GROUPS</envar>: Source apportionment groups</title>
+<title><envar>SOURCE_GROUPS</envar>: Source apportionment groups</title>
 
-<para>The <envar>SMKMERGE_GROUPS</envar> file is used to define groups of sources when processing emissions for source apportionment. See <xref linkend="sect_scripts_source_apportionment" /> for general information about using source apportionment in SMOKE. <command>Movesmrg</command> and <command>Smkmerge</command> read this file when <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y.</para>
+<para>The <envar>SOURCE_GROUPS</envar> file is used to define groups of sources when processing emissions for source apportionment. See <xref linkend="sect_scripts_source_apportionment" /> for general information about using source apportionment in SMOKE. <command>Movesmrg</command> and <command>Smkmerge</command> read this file when <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y.</para>
 
-<para>When reading the <envar>SMKMERGE_GROUPS</envar> file, SMOKE will skip lines with data that doesn't apply to the current source category. Lines that contain a plant ID or point ID will be skipped when processing area, biogenic, or mobile sources. Lines containing an SCC will be skipped when processing biogenic sources.</para>
+<para>When reading the <envar>SOURCE_GROUPS</envar> file, SMOKE will skip lines with data that doesn't apply to the current source category. Lines that contain a plant ID or point ID will be skipped when processing area, biogenic, or mobile sources. Lines containing an SCC will be skipped when processing biogenic sources.</para>
 
 <para>If SMOKE encounters lines with duplicate grouping information (i.e. FIPS, SCC, point source characteristics), an error will be printed to the log and the program will quit.</para>
 
@@ -13323,14 +11878,14 @@ SOURCE > 100 AND SOURCE < 200
 1 0 2102002000
 1 0 2102004000</programlisting>
 
-<para>If the source grouping file contains a line with all blank or zero source characteristics, SMOKE will use the given source group number as the default group rather than zero. For example, if the following line is included in the <envar>SMKMERGE_GROUPS</envar> file, the default source group number will be 40 instead of 0.</para>
+<para>If the source grouping file contains a line with all blank or zero source characteristics, SMOKE will use the given source group number as the default group rather than zero. For example, if the following line is included in the <envar>SOURCE_GROUPS</envar> file, the default source group number will be 40 instead of 0.</para>
 
 <programlisting>40 0 0 0 0  # default group number will be 40 instead of 0</programlisting>
 
-<para>The format of the <envar>SMKMERGE_GROUPS</envar> file is shown in <xref linkend="tbl_input_smkmerge_groups" />.</para>
+<para>The format of the <envar>SOURCE_GROUPS</envar> file is shown in <xref linkend="tbl_input_smkmerge_groups" />.</para>
 
 <table id="tbl_input_smkmerge_groups">
-<title>Format for <envar>SMKMERGE_GROUPS</envar></title>
+<title>Format for <envar>SOURCE_GROUPS</envar></title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />

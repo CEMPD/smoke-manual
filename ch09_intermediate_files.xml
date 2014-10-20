@@ -632,24 +632,28 @@
 <entry>Temporal profile ID #1 (=FIPS #1)</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">B</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of annual emission in January</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">C</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of annual emission in February</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">...</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>...</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">M</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
@@ -664,24 +668,28 @@
 <entry>Temporal profile ID #2 (=FIPS #2)</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">B</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of annual emission in January</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">C</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of annual emission in February</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">...</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>...</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">M</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
@@ -736,25 +744,29 @@
 <entry>Temporal profile ID #1 (=FIPS #1)</entry>
 </row>
 <row>
-<entry colname="Column">2</entry>
+<entry></entry>
+<entry>2</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
 <entry>Month (i.e., January = 1)</entry>
 </row>
 <row>
-<entry colname="Column">3</entry>
+<entry></entry>
+<entry>3</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of January monthly total emission on Day 1</entry>
 </row>
 <row>
-<entry colname="Column">...</entry>
+<entry></entry>
+<entry>...</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>...</entry>
 </row>
 <row>
-<entry colname="Column">33</entry>
+<entry></entry>
+<entry>33</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of January monthly total emission on Day 31</entry>
@@ -768,24 +780,28 @@
 <entry>Temporal profile ID #2 (=FIPS #2)</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">2</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Month (i.e., February = 2)</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">3</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of February monthly total emission on Day 1</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">...</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>...</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">30</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
@@ -813,24 +829,28 @@
 <entry>Temporal profile ID #100 (=FIPS #100)</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">2</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
 <entry>Month (i.e., January = 1)</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">3</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>Fraction of January monthly total emission on Day 1</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">...</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
 <entry>...</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">33</entry>
 <entry>Real</entry>
 <entry>Unitless</entry>
@@ -860,16 +880,14 @@
 
 <table>
 <title>I/O API Header for <envar>TPRO_HOUR</envar></title>
-<tgroup cols="3">
+<tgroup cols="2">
 <colspec colwidth="25*" />
 <colspec colwidth="35*" />
-<colspec colwidth="40*" />
 
 <thead>
 <row>
 <entry>I/O API Header variable</entry>
 <entry>Meaning</entry>
-<entry>Set by...</entry>
 </row>
 </thead>
 
@@ -877,12 +895,10 @@
 <row>
 <entry>NROWS3D</entry>
 <entry>Number of Sources (=Counties)</entry>
-<entry>Determined by the <command>Gentpro</command></entry>
 </row>
 <row>
 <entry>NVARS3D</entry>
-<entry>Number of temporal profiles types (i.e., Source ID (=FIPS), Hourly total (HRLSRC), Daily total (DAYTOT), Monthly total (MONTOT) and annual total (ANNTOT) )</entry>
-<entry>Determined by the <command>Gentpro</command></entry>
+<entry>Number of temporal profiles</entry>
 </row>
 </tbody>
 </tgroup>
@@ -1648,63 +1664,12 @@
 </tgroup>
 </table>
 
-<para><xref linkend="tbl_input_b3grd_beis309" /> contains names and descriptions of variables in the <envar>B3GRD</envar> output file form <command>Normbeis3</command>, BEIS version 3.09.</para>
+<para><xref linkend="tbl_input_b3grd_beis314" /> contains names and descriptions of variables in the <envar>B3GRD</envar> output file form <command>Normbeis3</command>, BEIS3.</para>
 
-<table id="tbl_input_b3grd_beis309">
-<title>Variables in <envar>B3GRD</envar> for BEIS version 3.09</title>
-<tgroup cols="4">
-<colspec colwidth="30*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="40*" />
 
-<thead>
-<row>
-<entry>Variable Name</entry>
-<entry>Type</entry>
-<entry>Units</entry>
-<entry>Description</entry>
-</row>
-</thead>
+<para>For BEIS version 3.14, <command>Normbeis3</command> calculates normalized emissions for both the summer and winter seasons. For nitric acid (NO) calculations, however, emissions depend on a given grid cell&rsquo;s land use category (or categories). For agricultural land use portions of a grid cell, a determination is made of whether the given day is in the growing season or the non-growing season. The appropriate emissions factor is then applied to the NO emissions calculations. The agricultural land use categories USGS Cropgrass (a cropland/grassland mosaic) and USGS Cropwoodland (a cropland/woodland mosaic) represent grid cells with mixed vegetation and only half the area is assumed to be covered by crops. Accordingly, the corresponding emissions factors for these two categories are multiplied by 0.5 for NO calculations. (Note that the USGS Drycrop and USGS Irrcrop land use categories assume the vegetation is all crop.) For the non-growing season in agricultural areas, the emissions factor for the USGS Grassland land use category is used for NO emission calculations. Finally, for non-agricultural areas, the USGS Grassland emissions factor is used all year round. Table 9.21b contains the names and descriptions of variables in the B3GRD output file from <command>Normbeis3</command>, BEIS version 3.14</para>
 
-<tbody>
-<row>
-<entry>AVGISOP&lt;Season (S or W)&gt; </entry>
-<entry>Real</entry>
-<entry>g C/km<superscript>2</superscript>-hr</entry>
-<entry>Normalized ISOP emissions</entry>
-</row>
-<row>
-<entry>AVGMONO&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>g C/km<superscript>2</superscript>-hr</entry>
-<entry>Normalized MONO emissions</entry>
-</row>
-<row>
-<entry>AVGOVOC&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>g C/km<superscript>2</superscript>-hr</entry>
-<entry>Normalized OVOC emissions</entry>
-</row>
-<row>
-<entry>AVGNO&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>g N/km<superscript>2</superscript>-hr</entry>
-<entry>Normalized NO emissions</entry>
-</row>
-<row>
-<entry>AVGLAI&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>m<superscript>2</superscript>/m<superscript>2</superscript></entry>
-<entry>Normalized leaf area index</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<para>For BEIS version 3.14, <command>Normbeis3</command> calculates normalized emissions for both the summer and winter seasons. For nitric acid (NO) calculations, however, emissions depend on a given grid cell&rsquo;s land use category (or categories). For agricultural land use portions of a grid cell, a determination is made of whether the given day is in the growing season or the non-growing season. The appropriate emissions factor is then applied to the NO emissions calculations. The agricultural land use categories USGS Cropgrass (a cropland/grassland mosaic) and USGS Cropwoodland (a cropland/woodland mosaic) represent grid cells with mixed vegetation and only half the area is assumed to be covered by crops. Accordingly, the corresponding emissions factors for these two categories are multiplied by 0.5 for NO calculations. (Note that the USGS Drycrop and USGS Irrcrop land use categories assume the vegetation is all crop.) For the non-growing season in agricultural areas, the emissions factor for the USGS Grassland land use category is used for NO emission calculations. Finally, for non-agricultural areas, the USGS Grassland emissions factor is used all year round. Table 9.21b contains the names and descriptions of variables in the B3GRD output file from <command>Normbeis3</command>, BEIS version 3.13</para>
-
-<table id="tbl_input_b3grd_beis313">
+<table id="tbl_input_b3grd_beis314">
 <title>Variables in <envar>B3GRD</envar> for BEIS version 3.14</title>
 <tgroup cols="4">
 <colspec colwidth="30*" />
@@ -1955,117 +1920,6 @@
 <entry>Real</entry>
 <entry>g N/km<superscript>2</superscript>-hr</entry>
 <entry>Normalized nitric acid emissions in non-agricultural areas</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-</section>
-
-<section id="sect_intmed_rawbio">
-
-<title><command>Rawbio</command></title>
-
-<para>The <command>Rawbio</command> program is responsible for computing normalized biogenic emissions. <command>Rawbio</command> creates the following intermediate file:</para>
-
-<itemizedlist>
-<listitem>
-<para>Normalized biogenic emissions file: <xref linkend="sect_intmed_bgrd" /></para>
-</listitem>
-</itemizedlist>
-
-<section id="sect_intmed_bgrd">
-
-<title><envar>BGRD</envar> (summer) or <envar>BGRDW</envar> (winter)</title>
-
-<para>Type: I/O API NetCDF - adapted gridded format</para>
-
-<para>Used by: <command>Tmpbio</command></para>
-
-<table>
-<title>I/O API Header for <envar>BGRD</envar> and <envar>BGRDW</envar></title>
-<tgroup cols="3">
-<colspec colwidth="25*" />
-<colspec colwidth="35*" />
-<colspec colwidth="40*" />
-
-<thead>
-<row>
-<entry>I/O API Header variable</entry>
-<entry>Meaning</entry>
-<entry>Set by...</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>NROWS3D</entry>
-<entry>Number of rows in the grid</entry>
-<entry>NROWS3D from the gridded land use file</entry>
-</row>
-<row>
-<entry>NCOLS3D</entry>
-<entry>Number of columns in the grid</entry>
-<entry>NCOLS3D from the gridded land use file</entry>
-</row>
-<row>
-<entry>NVARS3D</entry>
-<entry>Number of biogenic emission species</entry>
-<entry><envar>B3DIMS3.EXT</envar> include file</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-<table>
-<title>Variables in <envar>BGRD</envar> and <envar>BGRDW</envar></title>
-<tgroup cols="4">
-<colspec colwidth="30*" />
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="40*" />
-
-<thead>
-<row>
-<entry>Variable Name</entry>
-<entry>Type</entry>
-<entry>Units</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>AVGISOP&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>g C/hour</entry>
-<entry>Normalized ISOP emissions</entry>
-</row>
-<row>
-<entry>AVGMONO&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>g C/hour</entry>
-<entry>Normalized MONO emissions</entry>
-</row>
-<row>
-<entry>AVGOVOC&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>g C/hour</entry>
-<entry>Normalized OVOC emissions</entry>
-</row>
-<row>
-<entry>AVGNO&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>g N/hour</entry>
-<entry>Normalized NO emissions</entry>
-</row>
-<row>
-<entry>AVGLAI&lt;Season (S or W)&gt;</entry>
-<entry>Real</entry>
-<entry>Index</entry>
-<entry>Normalized leaf area index</entry>
 </row>
 </tbody>
 </tgroup>
@@ -2833,32 +2687,6 @@
 <para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
 
 <para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="sect_output_b3gts" /> for format information.</para>
-
-</section>
-
-</section>
-
-<section id="sect_intmed_tmpbio">
-
-<title><command>Tmpbio</command></title>
-
-<para>The <command>Tmpbio</command> is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbio</command> creates the following intermediate files:</para>
-
-<itemizedlist>
-<listitem>
-<para>Model-ready biogenic emissions: <xref linkend="sect_intmed_bgts" /></para>
-</listitem>
-</itemizedlist>
-
-<section id="sect_intmed_bgts">
-
-<title><envar>BGTS_L</envar> and <envar>BGTS_S</envar></title>
-
-<para>Type: I/O API NetCDF - adapted gridded format</para>
-
-<para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
-
-<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="sect_output_bgts" /> for format information.</para>
 
 </section>
 
