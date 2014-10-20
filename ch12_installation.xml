@@ -142,8 +142,8 @@
 <itemizedlist spacing="compact">
 <listitem><envar>setenv SMOKE_EXE Linux2_x86_x86ifort</envar></listitem>
 <listitem><envar>setenv FC ifort</envar></listitem>
-<listitem><envar>setenv FFLAG "-O3 -cm -132 -zero -save -common-args -i-static -convert big_endian"</envar></listitem>
-<listitem><envar>setenv DBGFLAG "-g -cm -132 -zero -save -common-args -i-static -convert big_endian"</envar></listitem>
+<listitem><envar>setenv FFLAG "-O3 -cm -132 -zero -save -common-args -i-static -convert big_endian -assume byterecl"</envar></listitem>
+<listitem><envar>setenv DBGFLAG "-g -cm -132 -zero -save -common-args -i-static -convert big_endian -assume byterecl"</envar></listitem>
 </itemizedlist>
 
 <para><command>Linux2_x86 with Intel Fortran</command></para>

@@ -111,11 +111,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 
 <tbody>
 <row>
-<entry><link linkend="sect_utilities_beld3to2"><command>Beld3to2</command></link></entry>
-<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
-<entry><envar>UT_SRC</envar></entry>
-</row>
-<row>
 <entry><link linkend="sect_programs_cntlmat"><command>Cntlmat</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/cntlmat</filename></entry>
 <entry><envar>CL_SRC</envar></entry>
@@ -191,11 +186,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <entry><envar>UT_SRC</envar></entry>
 </row>
 <row>
-<entry><link linkend="sect_programs_rawbio"><command>Rawbio</command></link></entry>
-<entry><filename class="directory"><envar>$SMKROOT</envar>/src/biog</filename></entry>
-<entry><envar>BG_SRC</envar></entry>
-</row>
-<row>
 <entry><link linkend="sect_utilities_smk2emis"><command>Smk2emis</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
 <entry><envar>UT_SRC</envar></entry>
@@ -232,11 +222,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 </row>
 <row>
 <entry><link linkend="sect_programs_tmpbeis3"><command>Tmpbeis3</command></link></entry>
-<entry><filename class="directory"><envar>$SMKROOT</envar>/src/biog</filename></entry>
-<entry><envar>BG_SRC</envar></entry>
-</row>
-<row>
-<entry><link linkend="sect_programs_tmpbio"><command>Tmpbio</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/biog</filename></entry>
 <entry><envar>BG_SRC</envar></entry>
 </row>
