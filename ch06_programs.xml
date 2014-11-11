@@ -44,7 +44,7 @@
 
 <para><link linkend="sect_programs_smkmerge"><command>Smkmerge</command></link> is used to combine all emissions and matrices to create the gridded, hourly, model-species emissions needed for an AQM. It can merge for one source category at a time or all source categories at once, and it can read in the model-ready biogenic emissions to merge with the anthropogenic source categories. It can merge the matrices with the inventory data output from <command>Smkinven</command> or the hourly emissions from <command>Temporal</command>, and it can optionally merge the speciation, gridding, or control matrices, or any combination. It also writes state and county emissions totals.</para>
 
-<para><link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> is only used for mobile sources to compute hourly emissions using the hourly VMT from <command>Temporal</command>, the MOVES emission rates lookup tables (i.e., RPD, RPV and RPP), the gridded/averaged temperatures meteorology data and more. If VMT are not used, then the emissions from <command>Smkinven</command> are combined with the temporal factors, and the emission factors are not used at all.</para>
+<para><link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> is only used for mobile sources to compute hourly emissions using the hourly VMT from <command>Temporal</command>, the MOVES emission rates lookup tables (i.e., RPD, RPH, RPV and RPP), the gridded/averaged temperatures meteorology data and more. If VMT are not used, then the emissions from <command>Smkinven</command> are combined with the temporal factors, and the emission factors are not used at all.</para>
 
 <para>In the remaining sections of this chapter, we provide detailed program descriptions, in alphabetic order.</para>
 
@@ -2354,6 +2354,10 @@ S<subscript>fraction</subscript> = smoldering fration
 <para>Defines the temperature increment (in deg. F) for RPD lookup table to create combinations of min/max temperature bins</para>
 </listitem>
 <listitem>
+<para><envar>PH_TEMP_INCREMENT</envar>: [default: 5]</para>
+<para>Defines the temperature increment (in deg. F) for RPH lookup table to create combinations of min/max temperature bins</para>
+</listitem>
+<listitem>
 <para><envar>PV_TEMP_INCREMENT</envar>: [default: 5]</para>
 <para>Defines the temperature increment (in deg. F) for RPV lookup table to create combinations of min/max temperature bins</para>
 </listitem>
@@ -2447,11 +2451,11 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <para><emphasis>Processing categories:</emphasis> mobile</para>
 
- <para><command>Movesmrg</command> is a new, mobile-sources-only program, loosely based on the SMOKE program <command>Smkmerge</command>, that combines the intermediate files produced by the other SMOKE programs (i.e., <command>SmkInven</command>, <command>Grdmat</command>, <command>Spcmat</command>, <command>Temporal</command>). The <command>movesmrg</command> program is discussed in detail in <xref linkend="sect_programs_movesmrg" />. Similar to <link linkend="sect_programs_smkmerge"><command>Smkmerge</command></link>, the main goal of <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> is to create (1) gridded, speciated, hourly air quality model-ready input files and (2) county-level SCC summaries. The primary difference between <command>Movesmrg</command> and <command>Smkmerge</command> is that <command>Movesmrg</command> uses the SMOKE Formatted MOVES emission rate lookup tables to compute emissions on the fly, by multiplying the emissions factors by hourly VMT (for RPD) or by monthly or annual vehicle populations (for RPV or RPP).</para>
- <para><command>Movesmrg</command> must be run three times to compute on-roadway and off-network (including vapor venting) emissions processes individually, since the emission rate calculation methods in SMOKE for these categories are quite different. Once all three emissions processes have been computed, the emission output files can be merged (optionally along with other 2 D sectors separate from onroad) using <command>Mrggrid</command>, which combines any number of 2 D or 3 D hourly, gridded, and speciated emission data files. See the section <xref linkend="sect_programs_mrggrid" /> for more details on the above programs.</para>
+ <para><command>Movesmrg</command> is a new, mobile-sources-only program, loosely based on the SMOKE program <command>Smkmerge</command>, that combines the intermediate files produced by the other SMOKE programs (i.e., <command>SmkInven</command>, <command>Grdmat</command>, <command>Spcmat</command>, <command>Temporal</command>). The <command>movesmrg</command> program is discussed in detail in <xref linkend="sect_programs_movesmrg" />. Similar to <link linkend="sect_programs_smkmerge"><command>Smkmerge</command></link>, the main goal of <link linkend="sect_programs_movesmrg"><command>Movesmrg</command></link> is to create (1) gridded, speciated, hourly air quality model-ready input files and (2) county-level SCC summaries. The primary difference between <command>Movesmrg</command> and <command>Smkmerge</command> is that <command>Movesmrg</command> uses the SMOKE Formatted MOVES emission rate lookup tables to compute emissions on the fly, by multiplying the emissions factors by hourly VMT (for RatePerDistance [RPD]), annual or monthly hotelling hours (for RatePerHour [RPH]) or by monthly or annual vehicle populations (for RatePerVehicle [RPV] or RatePerProfile [RPP]).</para>
+ <para><command>Movesmrg</command> must be run four times to compute on-roadway and off-network (including vapor venting) emissions processes individually, since the emission rate calculation methods in SMOKE for these categories are quite different. Once all three emissions processes have been computed, the emission output files can be merged (optionally along with other 2D sectors separate from onroad) using <command>Mrggrid</command>, which combines any number of 2D or 3D hourly, gridded, and speciated emission data files. See the section <xref linkend="sect_programs_mrggrid" /> for more details on the above programs.</para>
   <itemizedlist>
-  	<listitem><emphasis role="bold">RPD and RPV Emission Calculations</emphasis>
-  		<para>For its RPD and RPV lookup table calculations, <command>Movesmrg</command> uses the gridded hourly temperatures in GMT, and then adjusts the hour of the RPD and RPV lookup tables from local time to GMT to get the emission rates for the reference county for the appropriate month.  The key lookup fields for the factors are hourly temperature and avarage speed for the RPD lookup table calculation, and hourly temperature and hour of the day in local time for the RPV table calculation.</para>
+  	<listitem><emphasis role="bold">RPD, RPH and RPV Emission Calculations</emphasis>
+  		<para>For its RPD, RPH and RPV lookup table calculations, <command>Movesmrg</command> uses the gridded hourly temperatures in GMT, and then adjusts the hour of the RPD, RPH and RPV lookup tables from local time to GMT to get the emission rates for the reference county for the appropriate month.  The key lookup fields for the factors are hourly temperature and avarage speed for the RPD lookup table calculation, hourly temperature for the RPH lookup table calculation, and hourly temperature and hour of the day in local time for the RPV table calculation.</para>
   		</listitem>
   	<listitem><emphasis role="bold">RPP Emission Calculations</emphasis>
   		<para>For the RPP lookup table calculations, <command>Movesmrg</command> uses the RPP lookup table as an input file for the emission rates that depend not on the gridded hourly temperatures, but on the temperature profiles output by the <command>Met4moves</command> program.  The emissions estimates based on the RPP table are computed for the temporal averaging period specified for the temperature profiles, rather than using hourly gridded meteorology.</para>
@@ -2464,20 +2468,10 @@ S<subscript>fraction</subscript> = smoldering fration
 <title>Processing Order</title>
 
 <para><command>Movesmrg</command> must be run after <command>Met4moves</command> and MOVES and before <command>Mrggrid</command>.</para>
-<para><command>Movesmrg</command> must be run three times to compute on-roadway and off-network (including vapor venting) emissions processes individually, since the emission rate calculation methods in SMOKE for these categories are quite different. Once all three emissions processes have been computed, the emission output files can be merged (optionally along with other 2-D sectors separate from onroad) using <command>Mrggrid</command> which combines any number of 2-D or 3-D hourly, gridded, and speciated emission data files.</para>
 
-<section>
-	<title>RatePerDistance (RPD) and RatePerVehicle (RPV) Emission Calculations</title>
-	<para>For its RPD and RPV (but not RPP) lookup table calculations, <command>Movesmrg</command> uses the gridded hourly temperatures in GMT, and then adjusts the hour of the RPD and RPV lookup tables from local time to GMT to get the emission rates for the reference county for the appropriate month. The key lookup fields for the factors are hourly temperature and average speed for the RPD lookup table calculation, and hourly temperature and hour of the day in local time for the RPV table calculation.</para>
-</section>
-<section>
-	<title>RatePerProfile (RPP) Emission Calculations</title>
-	<para>For its RPP (but not RPD or PPV) lookup table calculations, <command>Movesmrg</command> uses the RPP lookup table as an input file for the emission rates that depend not on the gridded hourly temperatures, but on the temperature profiles output by <command>Met4moves</command>. The emissions estimates based on the RPP table are computed for the temporal averaging period specified for the temperature profiles, rather than using hourly gridded meteorology.</para>
-</section>
 </section>
 
 <section>
-
 <title>Files and Environment Variables</title>
 
 <figure id="fig_programs_movesmrg_mobile">
@@ -2686,6 +2680,14 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
+<para><envar>RPH_MODE:</envar> [default: N] </para>
+<para>Determines whether <command>Movesmrg</command> processes rate-per-hour emissions.</para>
+<itemizedlist>
+<listitem><para>Y: Process rate-per-hour emissions</para></listitem>
+<listitem><para>N: Do not process rate-per-hour emissions</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
 <para><envar>RPV_MODE</envar>: [default: N] </para>
 <para>Determines whether <command>Movesmrg</command> processes rate-per-vehicle emissions.</para>
 <itemizedlist>
@@ -2700,6 +2702,31 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem><para>Y: Process rate-per-profile emissions</para></listitem>
 <listitem><para>N: Do not process rate-per-profile emissions</para></listitem>
 </itemizedlist>
+</listitem>
+<listitem>
+<para><envar>SMK_MVSPATH</envar>: [default: blank]</para>
+<para> Defines the temperature increment (in deg. F) for RPD lookup table to create combinations of min/max temperature bins</para>
+</listitem>
+<listitem>
+<para><envar>SMK_SOURCE</envar>: [default: blank]</para>
+<para>  Sets the types of source category. It must be set to "M" for <command>Movesmrg</command>.</para>
+</listitem>
+
+<listitem>
+<para><envar>SMK_SRCGROUP_OUTPUT_YN</envar>: [default: N]</para>
+<para>Indicates if source apportionment emissions should be output</para>
+<itemizedlist>
+<listitem><para>Y: Group sources and output source apportionment files</para></listitem>
+<listitem><para>N: Do not perform any source apportionment processing</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para><envar>TEMP_BUFFER_BIN</envar>: [default: 0.0]</para>
+<para>Defines the temperature buffer value (°F). This value allows <command>Movesmrg</command> to cover the outside of min/max temperature range in <envar>SMOKE_OUTFILE</envar> from <command>Met4moves</command> for <command>Movesmrg</command> RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Movesmrg</command>. Emission rates for those temperatures outside of original temperature range will share the ones from original max/min temperatures.</para>      
+</listitem>
+<listitem>
+<para><envar>TMPVNAME</envar>: [default: TEMP2]</para>
+<para>  Name of temperature variable to read from the meteorology files for <command>Movesmrg</command>.</para>
 </listitem>
 <listitem>
 <para><envar>USE_CONTROL_FACTORS</envar>: [default: N]</para>
@@ -2726,34 +2753,8 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
-<para><envar>SMK_MVSPATH</envar>: [default: blank]</para>
-<para> Defines the temperature increment (in deg. F) for RPD lookup table to create combinations of min/max temperature bins</para>
-</listitem>
-<listitem>
-<para><envar>SMK_SOURCE</envar>: [default: blank]</para>
-<para>  Sets the types of source category. It must be set to "M" for <command>Movesmrg</command>.</para>
-</listitem>
-
-<listitem>
-<para><envar>SMK_SRCGROUP_OUTPUT_YN</envar>: [default: N]</para>
-<para>Indicates if source apportionment emissions should be output</para>
-<itemizedlist>
-<listitem><para>Y: Group sources and output source apportionment files</para></listitem>
-<listitem><para>N: Do not perform any source apportionment processing</para></listitem>
-</itemizedlist>
-</listitem>
-
-<listitem>
-<para><envar>TEMP_BUFFER_BIN</envar>: [default: 0.0]</para>
-<para>Defines the temperature buffer value (°F). This value allows <command>Movesmrg</command> to cover the outside of min/max temperature range in <envar>SMOKE_OUTFILE</envar> from <command>Met4moves</command> for <command>Movesmrg</command> RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Movesmrg</command>. Emission rates for those temperatures outside of original temperature range will share the ones from original max/min temperatures.</para>      
-</listitem>
-<listitem>
-<para><envar>TMPVNAME</envar>: [default: TEMP2]</para>
-<para>  Name of temperature variable to read from the meteorology files for <command>Movesmrg</command>.</para>
-</listitem>
-<listitem>
 <para><envar>USE_HOURLY_SPEEDS</envar>: [default: N]</para>
-<para>  Determine whether processes weekday/weekend hourly speed profiles or not.</para>
+<para>Determine whether processes weekday/weekend hourly speed profiles or not.</para>
 <itemizedlist>
 <listitem><para>Y: Process weekday/weekend hourly speed profiles</para></listitem>
 <listitem><para>N: Do not process hourly speed profiles</para></listitem>
@@ -3785,7 +3786,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_smkinven_mobile" /> shows the input and output files for <command>Smkinven</command> for mobile sources. The input files include the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the raw inventory file (<envar>MBINV</envar>), and the SCC reference input file (<envar>SCCXREF</envar>).</para>
+<para><xref linkend="fig_programs_smkinven_mobile" /> shows the input and output files for <command>Smkinven</command> for mobile sources. The input files include the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), the raw inventory file (<envar>MBINV</envar>), and the SCC reference input file (<envar>SCCXREF</envar>) created by <link linkend="sect_moves_gen_sccxref"><envar>Gen_8digit_scc.pl</envar></link>.</para>
 
 <para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), an annual and average-day inventory emissions file (<envar>MOBL</envar>), a file listing the inventory SCCs (<envar>MSCC</envar>), and a report containing various information about the processed inventory (<envar>REPINVEN</envar>).</para>
 
@@ -3902,7 +3903,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <entry><envar>SCCXREF</envar> (optional)</entry>
 <entry>ASCII</entry>
 <entry>M</entry>
-<entry>SCC cross reference input file that maps SCC8 to SCC10 for mobile activity SCC</entry>
+<entry>SCC cross reference input file created by <link linkend="sect_moves_gen_sccxref"><envar>Gen_8digit_scc.pl</envar></link>. It maps aggregated mobile activity SCC8 to full SCC10.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5724,22 +5725,25 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Temporal profiles are assigned for all sources.</para>
 </listitem>
 <listitem>
-<para>Monthly and day-of-week temporal profiles are applied.</para>
+<para>Monthly (year-to-month) temporal profiles can be applied.</para>
 </listitem>
 <listitem>
-<para>Month-to-day temporal profiles can be applied.</para>
+<para>Daily (month-to-day) temporal profiles can be applied.</para>
+</listitem>
+<listitem>
+<para>Weekly (month-to-weekly) temporal profiles can be applied.</para>
+</listitem>
+<listitem>
+<para>Day-of-week specific hourly diurnal temporal profiles (Monday,,,Sunday, Weekday, Weekend, or All days) are applied.</para>
+</listitem>
+<listitem>
+<para>Date-specific hourly diurnal temporal profiles (year-to-hour, month-to-hour or day-to-hour) can be applied.</para>
 </listitem>
 <listitem>
 <para>Day-specific emissions or activities are read in and used to overwrite daily emissions for the appropriate sources</para>
 </listitem>
 <listitem>
-<para>Day-of-week specific hourly temporal profiles are applied.</para>
-</listitem>
-<listitem>
 <para>Hour-specific emissions or activities are read in and used to overwrite hourly emissions for the appropriate sources.</para>
-</listitem>
-<listitem>
-<para>Emission factors are applied to the hourly activity data (if any)</para>
 </listitem>
 </itemizedlist>
 
@@ -6058,14 +6062,14 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry>Monthly Temporal profiles</entry>
 </row>
 <row>
-<entry><envar>[A|M|P]TPRO_WEEKLY</envar></entry>
-<entry>ASCII</entry>
-<entry>Weekly Temporal profiles</entry>
-</row>
-<row>
 <entry><envar>[A|M|P]TPRO_DAILY</envar></entry>
 <entry>ASCII</entry>
 <entry>Month-to-day Temporal profiles</entry>
+</row>
+<row>
+<entry><envar>[A|M|P]TPRO_WEEKLY</envar></entry>
+<entry>ASCII</entry>
+<entry>Weekly Temporal profiles</entry>
 </row>
 <row>
 <entry><envar>[A|M|P]TPRO_HOURLY</envar></entry>
@@ -6138,10 +6142,10 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Defines the base of hourly temporal profiles. This flag is only applicable when hourly temporal profiles generated by <command>Gentpro</command> is available for <command>Temporal</command> to use. For a proper processing of hourly temporal profiles from <command>Gentpro</command>, user must let <command>Temporal</command> know the basis of hourly temporal profiles (i.e., hour of day, hour of month or hour of year). <command>Gentpro</command> outputs hourly temporal profiles IDs into temporal cross-reference input file (<envar>[A|M|P]TREF</envar>). See detail information at <xref linkend="sect_input_amptref"/>. If <envar>HOUR_PROFID</envar> column is filled by <command>Gentpro</command>, user must define the base of hourly profiles to correctly convert annual/monthly/daily inventories. If processing monthly inventory, user must set it to 'MONTH'.</para>
 <itemizedlist>
 <listitem>
-<para>YEAR: Convert annual inventory to hourly inventory values.</para>
+<para>YEAR: Convert raw annual inventory to hourly inventory values.</para>
 </listitem>
 <listitem>
-<para>MONTH: Convert monthly inventory to hourly inventory values.</para>
+<para>MONTH: Convert calculated monthly inventory to hourly inventory values.</para>
 </listitem>
 </itemizedlist>
 </listitem>

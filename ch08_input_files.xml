@@ -3898,25 +3898,23 @@ Sample header records for daily point sources are shown below:</para>
 
 <itemizedlist>
 <listitem>
-<para><command><envar>[A|MP]TPRO_MONTHLY</envar></command> : Year to month temporal weighting factors</para>
+<para><command><envar>[A|M|P]TPRO_MONTHLY</envar></command> : Year to month temporal weighting factors</para>
 </listitem>
 <listitem>
-<para><command><envar>[A|MP]TPRO_WEEKLY</envar></command> : Month to Week temporal weighting factors</para>
+<para><command><envar>[A|M|P]TPRO_DAILY</envar></command> : Year to day temporal weighting factors</para>
 </listitem>
 <listitem>
-<para><command><envar>[A|MP]TPRO_DAILY</envar></command> : Month to day temporal weighting factors</para>
+<para><command><envar>[A|M|P]TPRO_WEEKLY</envar></command> : Month to Week temporal weighting factors</para>
 </listitem>
 <listitem>
-<para><command><envar>[A|MP]TPRO_HOURLY</envar></command> : Day to hour temporal weighting factors</para>
+<para><command><envar>[A|M|P]TPRO_HOURLY</envar></command> : Day to hour temporal weighting factors</para>
 </listitem>
 <listitem>
-<para><command><envar>[A|MP]TPRO_HOURLY_NCF</envar></command> : Date-specific hourly temporal weighting factors</para>
+<para><command><envar>[A|M|P]TPRO_HOURLY_NCF</envar></command> : Date-specific hourly temporal weighting factors</para>
 </listitem>
 </itemizedlist>
 
-<para>The month-to-day daily and date-specific hourly temporal factors are optional if the monthly, weekly and hourly profiles are provided.</para>
-
-<para>xAll three source categories use the same file format, and they can share the same file.</para>
+<para>This optional date-specific hourly temporal profiles will take precedence over the default monthly, weekly and hourly profiles. Also users must to use FIPS and SCC cross-reference hiearchy to use these temporal profiles.</para>
 
 <section id="sect_input_tpro_monthly" > 
 <title>[A|M|P]TPRO_MONTHLY: Year-to-Monthk Temporal Profiles</title>
@@ -3989,6 +3987,77 @@ Sample header records for daily point sources are shown below:</para>
 </table>
 </section>
 
+<section id="sect_input_tpro_daily" > 
+<title>[A|M|P]TPRO_DAILY: Month-to-day Temporal Profiles</title>
+
+<table id="tbl_input_tpro_daily">
+<title>Format for <envar>ATPRO_DAILY</envar>, <envar>MTPRO_DAILY</envar>, and <envar>PTPRO_DAILY</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>0</entry>
+<entry>Chars</entry>
+<entry>Month-to-day Temporal Profile ID (15 characters)</entry>
+</row>
+<row>
+<entry>1</entry>
+<entry>Integer</entry>
+<entry>Calendar Month [ex: 1, 2,,,,12]</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 1</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 2</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>Real</entry>
+<entry>.....</entry>
+</row>
+<row>
+<entry>30</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 29</entry>
+</row>
+<row>
+<entry>31</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 30</entry>
+</row>
+<row>
+<entry>32</entry>
+<entry>Real</entry>
+<entry>Temporal factor for Day 31</entry>
+</row>
+<row>
+<entry>33</entry>
+<entry>Chars</entry>
+<entry>Comments (optional: must be double (quoted)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
 <section id="sect_input_tpro_weekly" > 
 <title>[A|M|P]TPRO_WEEKLY: Month-to-Week Temporal Profiles</title>
 
@@ -4055,77 +4124,6 @@ Sample header records for daily point sources are shown below:</para>
 <entry>Comments (optional: must be double (quoted)</entry>
 </row>
 
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section id="sect_input_tpro_daily" > 
-<title>[A|M|P]TPRO_DAILY: Month-to-Hour Temporal Profiles</title>
-
-<table id="tbl_input_tpro_daily">
-<title>Format for <envar>ATPRO_DAILY</envar>, <envar>MTPRO_DAILY</envar>, and <envar>PTPRO_DAILY</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="15*" colname="Type" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Position</entry>
-<entry>Type</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>0</entry>
-<entry>Chars</entry>
-<entry>Month-to-day Temporal Profile ID (15 characters)</entry>
-</row>
-<row>
-<entry>1</entry>
-<entry>Integer</entry>
-<entry>Calendar Month [ex: 1, 2,,,,12]</entry>
-</row>
-<row>
-<entry>2</entry>
-<entry>Real</entry>
-<entry>Temporal factor for Day 1</entry>
-</row>
-<row>
-<entry>3</entry>
-<entry>Real</entry>
-<entry>Temporal factor for Day 2</entry>
-</row>
-<row>
-<entry>...</entry>
-<entry>Real</entry>
-<entry>.....</entry>
-</row>
-<row>
-<entry>30</entry>
-<entry>Real</entry>
-<entry>Temporal factor for Day 29</entry>
-</row>
-<row>
-<entry>31</entry>
-<entry>Real</entry>
-<entry>Temporal factor for Day 30</entry>
-</row>
-<row>
-<entry>32</entry>
-<entry>Real</entry>
-<entry>Temporal factor for Day 31</entry>
-</row>
-<row>
-<entry>33</entry>
-<entry>Chars</entry>
-<entry>Comments (optional: must be double (quoted)</entry>
-</row>
 </tbody>
 </tgroup>
 </table>
@@ -4206,7 +4204,7 @@ Sample header records for daily point sources are shown below:</para>
 <section id="sect_input_tpro_hourly_ncf" > 
 <title>[A|M|P]TPRO_HOURLY_NCF: Day-to-Hour Temporal Profiles</title>
 
-<para>This NetCDf hourly temporal profiles input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para>
+<para>This NetCDF hourly temporal profiles input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para>
 
 <table id="tbl_input_tpro_hourly_ncf">
 <title>Format for <envar>ATPRO_HOURLY_NCF</envar>, <envar>MTPRO_HOURLY_NCF</envar>, and <envar>PTPRO_HOURLY_NCF</envar></title>
@@ -4263,8 +4261,37 @@ Sample header records for daily point sources are shown below:</para>
 
 <para>The <envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar> files contain the area-, mobile-, and point-source cross-reference records for assigning the temporal profiles to the sources. If needed, the same file can be used for area-, mobile-, or point-source categories, but more fields are used for mobile than for area, and more fields are used for point than for mobile. <xref linkend="sect_programs_temporal" /> provides a list of the matching hierarchies that SMOKE uses when applying the file to an inventory. <remark>If a field is blank, it must be set to -9.</remark></para>
 
-<para>Between weekly and daily temporal profiles, daily Profiles will overwrite weekly profiles. Within hourly diurnal profiles, the processing occurs as follows  (1) Day-to-hour hourly profiles, (2) day-specific hourly profiles (i.e., Monday,,,,,Sunday), (3) Weekday/Weekend hourly profiles, and (4)	all day (Monday-Sunday) hourly profiles.</para> 
+<para>Between weekly and daily temporal profiles, daily Profiles will take precedence weekly profiles. Within hourly diurnal profiles, the processing occurs as follows (1) day-to-hour hourly profiles (i.e., Monday,,,,,Sunday), (2) Weekday/Weekend hourly profiles, and (3) All days (Monday-Sunday) hourly profiles. However, date-specific houlry temporal profiles from <link linkend="sect_input_tpro_hourly_ncf"><envar>[A|M|P]TPRO_HOURLY_NCF</envar></link> input file will take precedence any types of temporal profiles. This date-specific hourly temporal profiles NetCDF input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para> 
 
+<para>Within the <command>Temporal</command> program, the processing occurs as follows:</para>
+<itemizedlist>
+<listitem>
+<para>Temporal profiles are assigned for all sources.</para>
+</listitem>
+<listitem>
+<para>Monthly (year-to-month) temporal profiles can be applied.</para>
+</listitem>
+<listitem>
+<para>Daily (month-to-day) temporal profiles can be applied.</para>
+</listitem>
+<listitem>
+<para>Weekly (month-to-weekly) temporal profiles can be applied.</para>
+</listitem>
+<listitem>
+<para>Day-of-week specific hourly diurnal temporal profiles (Monday,,,Sunday, Weekday, Weekend, or All days) are applied.</para>
+</listitem>
+<listitem>
+<para>Date-specific hourly diurnal temporal profiles (year-to-hour, month-to-hour or day-to-hour) can be applied.</para>
+</listitem>
+<listitem>
+<para>Day-specific emissions or activities are read in and used to overwrite daily emissions for the appropriate sources</para>
+</listitem>
+<listitem>
+<para>Hour-specific emissions or activities are read in and used to overwrite hourly emissions for the appropriate sources.</para>
+</listitem>
+</itemizedlist>
+
+<para>NOTE: Date-specific houlry diurnal temporal profiles require FIPS and SCC specific entries in <envar>[A|M|P]TREF</envar> input file.</para> 
 <para>The pollutant field allows the user to assign a different temporal profile for each pollutant associated with a given source. This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you can put a <quote>-9</quote> in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.</para>
 
 <para>The country/state/county code is defined as follows:</para>
@@ -4326,22 +4353,21 @@ Sample header records for daily point sources are shown below:</para>
 <entry colname="Position">H</entry>
 <entry>
 <simplelist>
-<member><quote><command><envar>MONTHLY</envar></command></quote>: Year to month temporal profile from <xref linkend="tbl_input_tpro_monthly" />.</member>
-<member><quote><command><envar>WEEKLY</envar></command></quote>: Month to week temporal profile from <xref linkend="tbl_input_tpro_weekly" />.</member>
-<member><quote><command><envar>DAILY</envar></command></quote>: Month to Day temporal profile from <xref linkend="tbl_input_tpro_daily" />.</member>
-<member><quote><command><envar>MONDAY</envar></command></quote>: Monday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>TUESDAY</envar></command></quote>: Tuesday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>WEDNESDAY</envar></command></quote>: Wednesday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>THURSDAY</envar></command></quote>: Thursday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>FRIDAY</envar></command></quote>: Friday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>SATURDAY</envar></command></quote>: Saturday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>SUNDAY</envar></command></quote>: Sunday diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>WEEKDAY</envar></command></quote>: Weekday (Monday-Friday) diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>WEEKEND</envar></command></quote>: Weekend (Saturday-Sunday) diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>ALLDAYS</envar></command></quote>: All days (Monday-Sunday) diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly" />.</member>
-<member><quote><command><envar>HOURLY</envar></command></quote>: Day-specific hourly diurnal temporal profile from <xref linkend="tbl_input_tpro_hourly_ncf" />.</member>
+<member><quote><command><envar>HOURLY</envar></command></quote>: Date-specific hourly diurnal temporal profile from <link linkend="tbl_input_tpro_hourly_ncf"><envar>[A|M|P]TPRO_HOURLY_NCF</envar></link>.</member>
+<member><quote><command><envar>MONTHLY</envar></command></quote>: Year to month temporal profile from <link linkend="sect_input_tpro_monthly"><envar>[A|M|P]TPRO_MONTHLY</envar></link>.</member>
+<member><quote><command><envar>DAILY</envar></command></quote>: Year to day temporal profile from <link linkend="tbl_input_tpro_daily"><envar>[A|M|P]TPRO_DAILY</envar></link>.</member>
+<member><quote><command><envar>WEEKLY</envar></command></quote>: Month to week temporal profile from <link linkend="tbl_input_tpro_weekly"><envar>[A|M|P]TPRO_WEEKLY</envar></link>.</member>
+<member><quote><command><envar>MONDAY</envar></command></quote>: Monday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>TUESDAY</envar></command></quote>: Tuesday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>WEDNESDAY</envar></command></quote>: Wendesday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>THURSDAY</envar></command></quote>: Thursday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>FRIDAY</envar></command></quote>: Friday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>SATURDAY</envar></command></quote>: Saturday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>SUNDAY</envar></command></quote>: Sunday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>WEEKDAY</envar></command></quote>: Weekday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>WEEKEND</envar></command></quote>: Weekend diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
+<member><quote><command><envar>ALLDAY</envar></command></quote>: All days diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
 </simplelist>
-
 </entry>
 </row>
 <row>
