@@ -2672,6 +2672,15 @@ S<subscript>fraction</subscript> = smoldering fration
 <para>  String code that permits user to change the unit of the state/county total report file.</para>
 </listitem>
 <listitem>
+<para><envar>MTMP_OUTPUT_YN</envar>: [default: N]</para>
+<para>Defines whether <command>Temporal</command> outputs the <command>Temporal</command> intermediate output file from <xref linkend="sect_intmed_temporal"/> for <command>Smkreport</command> to create hourly emissions summary report based on hourly gridded emissions estimated by <command>Movesmrg</command>.</para>
+<itemizedlist>
+<listitem><para>Y: Output Temporal intermediate output file</para></listitem>
+<listitem><para>N: Do not output Temporal intermediate output file</para></listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
 <para><envar>RPD_MODE:</envar> [default: N] </para>
 <para>Determines whether <command>Movesmrg</command> processes rate-per-distance emissions.</para>
 <itemizedlist>
@@ -2787,6 +2796,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry><envar>MGTS[_S|_L]</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Model Ready Emissions File</entry>
+</row>
+<row>
+<entry><envar>MTMP_INV</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Hourly emissions by source</entry>
 </row>
 <row>
 <entry><envar>REPMGTS[_S|_L]</envar></entry>
@@ -6149,16 +6163,13 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </itemizedlist>
 </listitem>
-
 <listitem>
 <para><envar>OUTZONE</envar>: : [default: 0]</para>
 <para>Indicates offset from Greenwich Mean Time (GMT) for episode start date and time. <envar>OUTZONE</envar> should be set to the standard time for the time zone of interest; SMOKE will adjust to Daylight Saving time for episodes that are during periods and in regions where Daylight Saving time applies.</para>
 
 <para><xref linkend="tbl_concepts_outzone" /> provides allowed values for <envar>OUTZONE</envar>. The CMAQ and MAQSIP models expect <envar>OUTZONE</envar> to be 0, while other models such as UAM-IV, UAM-V, REMSAD, and CAM<subscript>X</subscript> often use time zone 5. All models expect that the emissions and the meteorology data provided to the model will have a consistent time zone. SMOKE expects that the meteorology data will be in GMT.</para>
-
 <para>Note that SMOKE expects <envar>OUTZONE</envar> to be set as a positive number for time zones in the Western Hemisphere, although standard notation would list these as negative values. For example, Eastern Standard Time is -5:00 hours from GMT, but <envar>OUTZONE</envar> for EST in SMOKE is 5.</para>
 </listitem>
-
 <listitem>
 <para><envar>RENORM_TPROF</envar>: [default: Y]</para>
 <para>Defines whether <command>Temporal</command> normalizes the temporal profiles or uses them as they exist in the data file. If the profiles are specified as decimal values and sum to 1, then specify N. Otherwise, specify Y and the program will sum the values associated with each profile and then divide each value by the sum, thereby creating a normalized profile.</para>
