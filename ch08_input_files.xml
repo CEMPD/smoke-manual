@@ -3910,7 +3910,7 @@ Sample header records for daily point sources are shown below:</para>
 <para><command><envar>[A|M|P]TPRO_HOURLY</envar></command> : Day to hour temporal weighting factors</para>
 </listitem>
 <listitem>
-<para><command><envar>[A|M|P]TPRO_HOURLY_NCF</envar></command> : Date-specific hourly temporal weighting factors</para>
+<para><command><envar>[A|M|P]TPRO_HOURLY_NCF</envar></command> : Hourly temporal weighting factors</para>
 </listitem>
 </itemizedlist>
 
@@ -4202,7 +4202,7 @@ Sample header records for daily point sources are shown below:</para>
 </section>
 
 <section id="sect_input_tpro_hourly_ncf" > 
-<title>[A|M|P]TPRO_HOURLY_NCF: Day-to-Hour Temporal Profiles</title>
+<title>[A|M|P]TPRO_HOURLY_NCF: Hourly Temporal Profiles</title>
 
 <para>This NetCDF hourly temporal profiles input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para>
 

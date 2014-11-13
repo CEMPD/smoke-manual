@@ -1871,7 +1871,7 @@ Additional data</programlisting>
 <emphasis role="bold">RatePerProfile (RPP) - </emphasis>The emission rate of vehicles off-network specifically, the evaporation from parked vehicles (vapor-venting emissions) from MOVES. The rate is expressed in grams/vehicle/hour.
 </listitem>
 <listitem>
-<emphasis role="bold">RatePerHour (RPH) - </emphasis>The emission rate of extended idle on-roadway vehicle from MOVES. The rate is expressed in grams/mile traveled.
+<emphasis role="bold">RatePerHour (RPH) - </emphasis>The emission rate of extended idle exhaust from on-roadway vehicle. The rate is expressed in grams/hour traveled.
 </listitem>
 </itemizedlist>
 
@@ -1930,7 +1930,7 @@ Additional data</programlisting>
 </row>
 <row>
 <entry>RatePerHour (RPH)</entry>
-<entry align="center">Grams/mile</entry>
+<entry align="center">Grams/hour</entry>
 <entry align="left">On-roadway Extended Idle Exhaust</entry>
 </row>
 </tbody>
@@ -4049,7 +4049,7 @@ Additional data</programlisting>
 	<entry>sourceTypeID</entry>
 </row>
 <row>
-		<entry>SCC</entry>
+	<entry>SCC</entry>
 	<entry>SCC</entry>
 	<entry>fuelTypeID</entry>
 	<entry>SCC</entry>
@@ -4069,26 +4069,26 @@ Additional data</programlisting>
 <row>
 	<entry>roadTypeID</entry>
 	<entry>Temperature</entry>
-	<entry>ratePerProfile</entry>
+	<entry>RatePerProfile</entry>
 	<entry>roadTypeID</entry>
 </row> 
 <row>
-		<entry>avgSpeedBinID</entry>
-	<entry>ratePerVehicle</entry>
+	<entry>avgSpeedBinID</entry>
+	<entry>RatePerVehicle</entry>
 	<entry></entry>
-	<entry>ratePerHour</entry>
+	<entry>Temperature</entry>
 </row>  
 <row>
-		<entry>Temperature</entry>
+	<entry>Temperature</entry>
 	<entry></entry>
 	<entry></entry>
-		<entry>Temperature</entry>
+	<entry>RatePerHour</entry>
 </row> 
 <row>
-		<entry>relHumidity</entry>
+	<entry>relHumidity</entry>
 </row>  
 <row>
-		<entry>ratePerDistance</entry>
+	<entry>RatePerDistance</entry>
 </row> 
 </tbody>
 </tgroup>
@@ -4211,16 +4211,16 @@ Additional data</programlisting>
 <section>
 	<title>SMOKE Model Processing</title>
 	<para>Once the <command>Met4moves</command> meteorology preprocessor and the MOVES model processing that results in the SMOKE-formatted emissions factor lookup tables are completed, we address the remaining major component of the SMOKE-MOVES tool: the SMOKE model processing step. The goals of this step are (1) to estimate emissions from on-road mobile sources based on MOVES-based emissions lookup tables and meteorology data, (2) to create hourly gridded speciated air quality model-ready input files, and (3) to produce various types of reports for the user.</para>
-	<para>As some readers are aware, MOBILE6 and MOVES are both vehicle emissions modeling systems used with SMOKE. However, they differ in their approaches to calculating off-network evaporative emissions. In MOBILE6, off-network emissions processes are calculated as emission factors in grams/mile, which is related to VMT. MOVES, on the other hand, uses the source (vehicle) type population (VPOP) to calculate start and off-network evaporative emissions, which are assigned to off-network emissions processes; these processes are hour-dependent due to VPOP (activity) assumptions built into the MOVES model. Thus, compared to the SMOKE-MOBILE6 approach, the SMOKE-MOVES approach requires additional vehicle population inventory data as input for estimating mobile-source emissions from off-network emissions processes. This requirement is reflected in the discussion below.</para>
+	<para>As some readers are aware, MOBILE6 and MOVES are both vehicle emissions modeling systems used with SMOKE. However, they differ in their approaches to calculating off-network evaporative emissions. In MOBILE6, off-network emissions processes are calculated as emission factors in grams/mile, which is related to Vehicle Mileage Travelled (VMT). MOVES, on the other hand, uses the source (vehicle) type population (VPOP) to calculate start and off-network evaporative emissions, which are assigned to off-network emissions processes; these processes are hour-dependent due to VPOP (activity) assumptions built into the MOVES model. Thus, compared to the SMOKE-MOBILE6 approach, the SMOKE-MOVES approach requires additional vehicle population inventory data as input for estimating mobile-source emissions from off-network emissions processes. This requirement is reflected in the discussion below.</para>
   <para>When processing mobile-source emissions from MOVES, SMOKE performs the following basic steps.</para>
 <itemizedlist>
-	<listitem><link linkend="sect_programs_smkinven"><command>Smkinven</command></link> imports county-total VMT and average speed data by SCC for On-roadway Emission Processes and county-total vehicle population (VPOP) by vehicle type for Off-network Emission Processes.</listitem>
-  <listitem><link linkend="sect_programs_spcmat"><command>Spcmat</command></link> computes the chemical speciation factors for each county, source (=vehicle) type, road type, emission process, and pollutant, and stores the necessary factors for the VMT-to-species and VPOP-to-species transformations.</listitem>
-  <listitem><link linkend="sect_programs_grdmat"><command>Grdmat</command></link> allocates the county sources to grid cells and uses spatial surrogates to allocate county-total VMT and VPOP to grid cells, storing the factors needed for these allocations.</listitem>
-  <listitem><link linkend="sect_programs_temporal"><command>Temporal</command></link> computes hourly VMT data for On-roadway Emission Processes. Off-network Emission Processes (RPV and RPP tables) do not require the <command>Temporal</command> program because vehicle population does not need to be temporally allocated.</listitem>
+	<listitem><link linkend="sect_programs_smkinven"><command>Smkinven</command></link> imports county-total VMT and average speed, and county-total vehicle hotelling hours (HOTELLING) by SCC for On-roadway Emission Processes and county-total vehicle population (VPOP) by vehicle type for Off-network Emission Processes.</listitem>
+  <listitem><link linkend="sect_programs_spcmat"><command>Spcmat</command></link> computes the chemical speciation factors for each county, fuel type, source (=vehicle) type, road type, emission process, and pollutant, and stores the necessary factors for the VMT-to-species in RatePerDistance (RPD), HOTELLING-to-species in RatePerHour (RPH), and VPOP-to-species transformations in RatePerVehicle (RPV) and RatePerProfile (RPP).</listitem>
+  <listitem><link linkend="sect_programs_grdmat"><command>Grdmat</command></link> allocates the county sources to grid cells and uses spatial surrogates to allocate county-total VMT, HOTELLING, and VPOP to grid cells, storing the factors needed for these allocations.</listitem>
+  <listitem><link linkend="sect_programs_temporal"><command>Temporal</command></link> computes hourly VMT and HOTELLING activity data for On-roadway Emission Processes (RPD and RPH tables). Off-network Emission Processes (RPV and RPP tables) do not require the <command>Temporal</command> program because vehicle population does not need to be temporally allocated.</listitem>
 </itemizedlist>
 <para>The way the MOVES-generated emissions factor lookup tables are used varies according to whether SMOKE is modeling on-roadway emission processes or off-network emissions processes.</para>
-<para>On-roadway emission processes: When estimates of on-roadway emission processes (e.g., exhaust running, on-road evaporative, tire and brake wear) are needed, SMOKE requires county-total VMT and average hourly speed (SPEED) inventory data as inputs to a SMOKE postprocessor called <command>Movesmrg</command> which is part of the SMOKE-MOVES tool. <command>Movesmrg</command> uses <link linkend="tbl_concepts_moves_lookup_tbl_sm_format">the SMOKE-ready MOVES RatePerDistance (RPD) lookup table</link> as an input to estimate on-road sources emission. The key lookup fields for the factors are gridded hourly temperature and average hourly speed from the avgSpeedBinID field. SMOKE interpolates in the RPD table (in unit of grams/mile) based on gridded hourly temperature and average speed. <xref linkend="fig_concepts_mobile_moves_onroad"/> shows processing steps for on-roadway emissions processes in the SMOKE system using VMT and SPEED activity inventory data.</para>
+<para>On-roadway emission processes: When estimates of all on-roadway emission processes except for extended idle exhaust are needed, SMOKE requires county-total VMT and average hourly speed (SPEED) inventory data as inputs to a SMOKE postprocessor called <command>Movesmrg</command> which is part of the SMOKE-MOVES tool. When extended idle exhaust process is estimated, counthy-total HOTELLING activity data is needed for <command>Movesmrg</command>. <command>Movesmrg</command> uses <link linkend="tbl_concepts_moves_lookup_tbl_sm_format">the SMOKE-ready MOVES RPD and RPH lookup tables</link> as an input to estimate on-road sources emission. The key lookup fields for RPD are gridded hourly temperature and average hourly speed from the avgSpeedBinID field for RPD. SMOKE interpolates in the emission factors lookup table (in unit of grams/mile) based on gridded hourly temperature and average speed. <xref linkend="fig_concepts_mobile_moves_onroad"/> shows processing steps for on-roadway emissions processes in the SMOKE system using VMT and SPEED activity inventory data. For RPH, the gridded houlry temperature is used to interpolate in the emission factors lookup table (in unit of grams/hour).</para>
 <para>Off-network emission processes: When estimates are needed for off-network emissions processes, including the off-network vapor venting emissions process, SMOKE uses county-total VPOP by vehicle type as input to <command>Movesmrg</command> together with the SMOKE-ready RatePerVehicle (RPV) and RatePerProfile (RPP) lookup tables. <xref linkend="fig_concepts_mobile_moves_offroad"/> shows processing steps for off-network emissions processes in the SMOKE modeling system using vehicle population activity inventory data. A significant difference in the processing steps between the on-roadway emissions processes (RPD table) and the off-network emissions processes (RPV and RPP tables) is that off-network emissions processing does not require the <command>Temporal</command> program step because vehicle population (VPOP) does not need to be temporally allocated. In the RPV table, gridded hourly temperature and hour of the day are the key lookup fields SMOKE uses to estimate hourly off-network emissions in unit of grams/vehicle/hour. For the evaporative fuel off-network vapor venting emissions process only, <command>Movesmrg</command> uses the RPP lookup table to estimate the emission rates based on the minimum and maximum temperatures computed by <command>Met4moves</command>.</para>
 <para>For all SMOKE-ready three emission rate lookup tables (RPD, RPV, RPP), SMOKE performs linear interpolation when using them.</para>
 </section>
@@ -4282,15 +4282,18 @@ Additional data</programlisting>
 
 <title>Creating model-ready emissions using MOVES lookup tables</title>
 
-<para>Creating emissions with SMOKE using MOVES lookup tables (i.e., RatePerDistance [RPD], RatePerVehicle [RPV] and RatePerProfile [RPP] ) must always include merging the gridding matrices from <command>Grdmat</command> and the chemical speciation matrices from <command>Spcmat</command>. In addition, for RPD emissions based on VMT data by source for CMAQ or MAQSIP, creating the model-ready emissions must also include merging with the hourly VMT from <command>Temporal</command>. The <command>Movesmrg</command> program performs these processing steps using vector-matrix multiplication to combine the matrices and the hourly emissions vectors to create CMAQ-ready gridded and speciated hourly emissions input data.</para>
+<para>Creating emissions with SMOKE using MOVES lookup tables (i.e., RatePerDistance [RPD], RatePerHour [RPH], RatePerVehicle [RPV] and RatePerProfile [RPP] ) must always include merging the gridding matrices from <command>Grdmat</command> and the chemical speciation matrices from <command>Spcmat</command>. In addition, for RPD emissions based on VMT data by source for CMAQ or MAQSIP, creating the model-ready emissions must also include merging with the hourly VMT from <command>Temporal</command>. The <command>Movesmrg</command> program performs these processing steps using vector-matrix multiplication to combine the matrices and the hourly emissions vectors to create CMAQ-ready gridded and speciated hourly emissions input data.</para>
 
 <para>If the overall SMOKE processing setup includes running the nonroad mobile category (or other source categories) as separate runs (see <xref linkend="ch_scripts" />, then <command>Movesmrg</command> cannot be used to combine all source categories into a single output file. Instead, the <link linkend="sect_programs_mrggrid"><command>Mrggrid</command></link> program would combine the model-ready files from the individual source categories; for example, from separate SMOKE (including <command>Movesmrg</command>) runs for RPD, RPV and RPP mobile sources. There is no limit to the number of model-ready files that <command>Mrggrid</command> can combine into a single model-ready file, and the input files can be 2-D or 3-D.</para>
 
-<para><command>Movesmrg</command> can be used only for MOVES-based mobile SMOKE source categories. It can use only one of each MOVES lookup table (RPD, RPV and RPV) per run. You can run it to create model-ready files for only one SMOKE source category (RPD, RPV, and RPP). The following list indicates the modes in which <command>Movesmrg</command> can be run:</para>
+<para><command>Movesmrg</command> can be used only for MOVES-based mobile SMOKE source categories. It can use only one of each MOVES lookup table (RPD, RPH, RPV and RPV) per run. You can run it to create model-ready files for only one SMOKE source category (RPD, RPH, RPV, and RPP). The following list indicates the modes in which <command>Movesmrg</command> can be run:</para>
 
 <itemizedlist>
 <listitem>
 <para>Run for MOVES RPD mobile sources based on VMT data by vehicle and road types to create gridded, hourly, speciated emissions in moles/hour or moles/second.</para>
+</listitem>
+<listitem>
+<para>Run for MOVES RPH mobile sources based on vehicle hotelling (HOTELLING) hours activity data by vehicle and road types to create gridded, hourly, speciated emissions in moles/hour or moles/second.</para>
 </listitem>
 <listitem>
 <para>Run for MOVES RPV mobile sources based on Vehicle population (VPOP) data by vehicle to create gridded, hourly, speciated emissions in moles/hour or moles/second.</para>
