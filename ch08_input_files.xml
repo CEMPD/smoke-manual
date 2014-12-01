@@ -1054,19 +1054,19 @@ In this overview section, we first provide a few important notes about file form
 <entry>15</entry>
 <entry>DAYVAL1</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 1 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 1 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry>16</entry>
 <entry>DAYVAL2</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 2 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 2 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry>17</entry>
 <entry>DAYVAL3</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 3 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 3 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry></entry>
@@ -1078,7 +1078,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>45</entry>
 <entry>DAYVAL31</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 31 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 31 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry>46</entry>
@@ -2429,19 +2429,19 @@ In this overview section, we first provide a few important notes about file form
 <entry>15</entry>
 <entry>DAYVAL1</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 1 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 1 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry>16</entry>
 <entry>DAYVAL2</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 2 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 2 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry>17</entry>
 <entry>DAYVAL3</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 3 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 3 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry></entry>
@@ -2453,7 +2453,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>45</entry>
 <entry>DAYVAL31</entry>
 <entry>Real</entry>
-<entry>Daily emissions for day 31 (short tons/hour) (required)</entry>
+<entry>Daily emissions for day 31 (short tons/day) (required)</entry>
 </row>
 <row>
 <entry>46</entry>
