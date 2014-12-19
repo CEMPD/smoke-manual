@@ -1345,12 +1345,11 @@
 <para>Type: ASCII - column-specific</para>
 
 <para>Used by: <link linkend="section_moves_driver_script"> MOVES Driver Script</link></para>
-<para>The output file created by <command>Met4moves</command> for use by the MOVES driver script contains the absolute minimum and maximum temperatures and average RH values associated with each reference county.  The scope of these in/max temperatures extends across the selected grid cells in the county group associated with that reference county.  The min/max temperatures determine the MOVES runs that are needed for generating the RPD and RPV emission rates.  The temperature increments listed in the header are used to define the temperature bins used to optimize the MOVES runs. In addition, the output file prepared for the MOVES driver script contains sets of 24 hour diurnal temperature profiles based on combinations of min/max temperature bins for each reference county; these are necessary for the MOVES vapor-venting emissions calculation that is performed for the RPP emissions process.  For a specific reference county and fuel month, the monthly average RH value is identical for all the records.</para>
+<para>The output file created by <command>Met4moves</command> for RPP mode in the MOVES driver script contains the absolute minimum and maximum temperatures, and sets of 24 hour diurnal temperature profiles based on combinations of min/max temperature bins for all reference counties by temperature bin.</para>
 
 <table>
 <title>File columns in <envar>MOVES_OUTFILE</envar></title>
-<tgroup cols="5">
-<colspec colwidth="15*" />
+<tgroup cols="4">
 <colspec colwidth="15*" />
 <colspec colwidth="15*" />
 <colspec colwidth="15*" />
@@ -1358,7 +1357,6 @@
 
 <thead>
 <row>
-<entry>Line</entry>
 <entry>Column</entry>
 <entry>Type</entry>
 <entry>Units</entry>
@@ -1368,7 +1366,6 @@
 
 <tbody>
 <row>
-<entry>1+</entry>
 <entry>A</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
@@ -1389,29 +1386,23 @@
 <row>
 <entry colname="Column">D</entry>
 <entry>Real</entry>
-<entry>%</entry>
-<entry>Average RH</entry>
+<entry>Fahrenheit</entry>
+<entry>Temperature at hour 0</entry>
 </row>
 <row>
 <entry colname="Column">E</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Temperature at hour 0</entry>
+<entry>Temperature at hour 1</entry>
 </row>
 <row>
 <entry colname="Column">F</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Temperature at hour 1</entry>
-</row>
-<row>
-<entry colname="Column">G</entry>
-<entry>Real</entry>
-<entry>Fahrenheit</entry>
 <entry>Temperature at hour 2</entry>
 </row>
 <row>
-<entry colname="Column">H</entry>
+<entry colname="Column">G</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
 <entry>Temperature at hour 3</entry>
@@ -1423,7 +1414,7 @@
 <entry>...</entry>
 </row>
 <row>
-<entry colname="Column">AB</entry>
+<entry colname="Column">AC</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
 <entry>Temperature at hour 23</entry>
@@ -1440,10 +1431,10 @@
 <para>Type: ASCII - column-specific</para>
 
 <para>Used by: <link linkend="section_moves_driver_script"> MOVES Driver Script</link></para>
-<para>The output file created by <command>Met4moves</command> program for use by the MOVES and SMOKE models contains fuel month-specific averaged, min, and max temperatures and averaged RH values in local time for all reference counties by temperature bin.</para>
+<para>The output file created by <command>Met4moves</command> program for RPD, RPV and RPH modes in both MOVES and SMOKE models contains fuel month-specific min and max temperatures, and averaged RH values in local time for all reference counties by temperature bin.</para>
 <table>
 <title>File columns in <envar>MOVES_RH_OUTFILE</envar></title>
-<tgroup cols="5">
+<tgroup cols="4">
 <colspec colwidth="1*" />
 <colspec colwidth="1*" />
 <colspec colwidth="1*" />
@@ -1481,25 +1472,19 @@
 <entry colname="Column">D</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Lowest Minimum Temperature</entry>
+<entry>Lowest Minimum Temperature across all inventory counties</entry>
 </row>
 <row>
 <entry colname="Column">E</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Highest Maximum Temperature</entry>
+<entry>Highest Maximum Temperature across all inventory counties</entry>
 </row>
 <row>
 <entry colname="Column">F</entry>
 <entry>Real</entry>
 <entry>Fahrenheit</entry>
-<entry>Minimum Temperature for each temperature bin</entry>
-</row>
-<row>
-<entry colname="Column">G</entry>
-<entry>Real</entry>
-<entry>Fahrenheit</entry>
-<entry>Maximum Temperature for each temperature bin</entry>
+<entry>Temperature bin</entry>
 </row>
 </tbody>
 </tgroup>

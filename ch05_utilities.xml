@@ -43,7 +43,10 @@
 
 <orderedlist>
 <listitem>
-<para>Reads the output file from <command>Met4moves</command>. Find detail information from <xref linkend="sect_intmed_moves_output"/></para>
+<para>Reads the reference county min/max temperature and 24-hours temperature profiles output file from <command>Met4moves</command> for RPP mode. Find detail information from <xref linkend="sect_intmed_moves_output"/></para>
+</listitem>
+<listitem>
+<para>Reads the reference county specific min/max temperatures and average RH output file from <command>Met4moves</command> for RPD, RPV and RPH modes. Find detail information from <xref linkend="sect_intmed_moves_rh_output"/></para>
 </listitem>
 <listitem>
 <para>Import the name of pollutant group to model from the run control file (<link linkend="sect_input_runctlfile">contorl.in</link>) based on <xref linkend="tbl_concepts_moves_pollutant_groups"/></para>
@@ -110,9 +113,14 @@ MySQL output database names to be postprocessed.</para>
 <entry>Run control file that user specifies fields for the Database Host, Project Name, Model year, day type (weekday or weekend), pollutant and the met4moves MET output file for the batch run of MOVES</entry>
 </row>
 <row>
-<entry><link linkend="sect_intmed_met4moves">Met4moves output</link></entry>
+<entry><link linkend="sect_intmed_moves_output">MOVES_OUTFILE</link></entry>
 <entry>ASCII</entry>
-<entry><command>Met4moves</command> output for each fuel month for the MOVES Driver script (minimum and maximum temperatures, Average daytime relative humidity, multiple sets of 24-hour temperature profiles, Temperature increments)</entry>
+<entry><command>Met4moves</command> output for each fuel month for the MOVES Driver script (minimum and maximum temperatures, and 24-hour temperature profiles for all reference counties by temperature bin)</entry>
+</row>
+<row>
+<entry><link linkend="sect_intmed_moves_rh_output">MOVES_RH_OUTFILE</link></entry>
+<entry>ASCII</entry>
+<entry><command>Met4moves</command> outputs fuel month-specific averaged, min, and max temperatures and averaged RH values in local time for all reference counties by temperature bin</entry>
 </row>
 <row>
 <entry><link linkend="sect_input_sourceTypeAgeDist">sourceTypeAgeDistribution</link></entry>
