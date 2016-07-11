@@ -1291,7 +1291,7 @@ Additional data</programlisting>
 
 <thead>
 <row>
-<entry align="center">MOVES Fuel Type ID</entry>
+<entry align="center">MOVES Fuel Type</entry>
 <entry align="center">Description</entry>
 </row>
 </thead>
@@ -1328,7 +1328,7 @@ Additional data</programlisting>
 
 <table id="tbl_concepts_moves_agg_fuel">
 <?dbfo table-width="4in"?>
-<title>Aggregated SCC corresponding MOVES Fuel Type</title>
+<title>Example of aggregated fuel types and corresponding MOVES fuel types</title>
 
 <tgroup cols="3">
 <colspec colwidth="1*" />
@@ -1337,25 +1337,25 @@ Additional data</programlisting>
 
 <thead>
 <row>
-<entry align="center"> SCC </entry>
-<entry align="center">Aggregated Fuel Type Description</entry>
-<entry align="center">MOVES Fuel Type ID</entry>
+<entry align="center">SCC</entry>
+<entry align="center">Example of aggregated Fuel Type Description</entry>
+<entry align="center">MOVES Fuel Type</entry>
 </row>
 </thead>
 
 <tbody>
 <row>
-<entry>01</entry>
+<entry>x1</entry>
 <entry>All non-diesel fuels</entry>
 <entry>01; 03; 04; 05; 09</entry>
 </row>
 <row>
-<entry>02</entry>
+<entry>x2</entry>
 <entry>All gasoline and ethanol blends</entry>
 <entry>01; 05</entry>
 </row>
 <row>
-<entry>03</entry>
+<entry>x3</entry>
 <entry>All fossil fuels</entry>
 <entry>01; 02; 03; 04; 05</entry>
 </row>
@@ -1372,7 +1372,7 @@ Additional data</programlisting>
 
 <section>
 
-<title>Vehicle types in MOVES</title>
+<title>MOVES Vehicle Types</title>
 
 <para>The vehicle types used in SMOKE&rsquo;s on-road mobile source processing are described in <xref linkend="tbl_concepts_vehicle_types" />. <xref linkend="tbl_concepts_agg_vehicle_types"/> shows how the eight aggregated MOVES vehicle types are mapped to the original MOVES vehicle types.</para>
 
@@ -1450,7 +1450,7 @@ Additional data</programlisting>
 
 <table id="tbl_concepts_agg_vehicle_types">
 <?dbfo table-width="3.5in"?>
-<title>MOVES Vehicle type codes and descriptions</title>
+<title>Example of aggregated vehicle types and corresponding MOVES vehicle types</title>
 
 <tgroup cols="3">
 <colspec colwidth="1*" />
@@ -1460,7 +1460,7 @@ Additional data</programlisting>
 <thead>
 <row>
 <entry align="center"> SCC </entry>
-<entry align="center">Aggregated Vehicle Type Description</entry>
+<entry align="center">Example of aggregated Vehicle Type Description</entry>
 <entry align="center">MOVES Vehicle Type</entry>
 </row>
 </thead>
@@ -1516,7 +1516,7 @@ Additional data</programlisting>
 
 <section>
 
-<title>Road types in MOVES</title>
+<title>MOVES Road Types</title>
 
 <para>MOVES can model nine different road types: rural restricted/unrestricted access with ramps, rural restricted/unrestricted access without ramps, urban restricted/unrestricted access with ramps, urban restricted/unrestricted access without ramps, and off-network (<xref linkend="tbl_concepts_moves_roads" />). <xref linkend="tbl_concepts_moves_agg_roads" /> indicates how the 6 aggregated MOVES road classes are mapped to the nine MOVES road types.</para>
 
@@ -1530,7 +1530,7 @@ Additional data</programlisting>
 
 <thead>
 <row>
-<entry align="center">MOVES Road Type ID</entry>
+<entry align="center">MOVES Road Type</entry>
 <entry align="center">Description</entry>
 </row>
 </thead>
@@ -1579,7 +1579,7 @@ Additional data</programlisting>
 
 <table id="tbl_concepts_moves_agg_roads">
 <?dbfo table-width="4in"?>
-<title>Road class and corresponding MOVES road type</title>
+<title>Example of aggregated road types and corresponding MOVES road types</title>
 
 <tgroup cols="3">
 <colspec colwidth="1*" />
@@ -1589,7 +1589,7 @@ Additional data</programlisting>
 <thead>
 <row>
 <entry align="center"> SCC </entry>
-<entry align="center">Aggregated Road Type Description</entry>
+<entry align="center">Example of aggregated Road Type Description</entry>
 <entry align="center">MOVES Road Type</entry>
 </row>
 </thead>
@@ -1633,7 +1633,7 @@ Additional data</programlisting>
 
 <section>
 
-<title>Process types in MOVES</title>
+<title>MOVES Process Types</title>
 
 <para>MOVES can model 14 different process types: including on-roadway and off-network emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting in MOVES (<xref linkend="tbl_concepts_moves_proc" />). <xref linkend="tbl_concepts_moves_agg_proc" /> indicates how the 14 aggregated MOVES process types are mapped to the 14 MOVES process types.</para>
 
@@ -1647,7 +1647,7 @@ Additional data</programlisting>
 
 <thead>
 <row>
-<entry align="center">MOVES Process ID</entry>
+<entry align="center">MOVES Process</entry>
 <entry align="center">Description</entry>
 </row>
 </thead>
@@ -1719,7 +1719,7 @@ Additional data</programlisting>
 
 <table id="tbl_concepts_moves_agg_proc">
 <?dbfo table-width="4in"?>
-<title>Road class and corresponding MOVES road type</title>
+<title>Example of aggregated process types and corresponding MOVES process types</title>
 
 <tgroup cols="3">
 <colspec colwidth="1*" />
@@ -1729,7 +1729,7 @@ Additional data</programlisting>
 <thead>
 <row>
 <entry align="center"> SCC </entry>
-<entry align="center">Aggregated Process Type Description</entry>
+<entry align="center">Example of aggregated Process Type Description</entry>
 <entry align="center">MOVES Process Type</entry>
 </row>
 </thead>

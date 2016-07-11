@@ -2311,7 +2311,7 @@ In this overview section, we first provide a few important notes about file form
 
 <para>The <envar>PTDAY</envar> file is the input point-source inventory file for day-specific data. The file must be a list file (see <xref linkend="sect_input_inventory_list" />) and the files listed in the <envar>PTDAY</envar> file must be in the format shown in <xref linkend="tbl_input_ptday_FF10" /> and <xref linkend="tbl_input_ptday_fireemis" />. The contents of the day-specific data files vary depending on whether the <envar>PTINV</envar> file is in FF10 or ORL FIRE format. The day-specific files can have a #COUNTRY header entry to set the country code (see <xref linkend="sect_input_inventory_header" />). If no #COUNTRY header is used, then SMOKE will use the default country code of 0 (which corresponds to the United States in the default <envar>COSTCY</envar> file).</para>
 
-<section>
+<section id="sect_input_ptday_ff10">
 <title> FF10 Format</title>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header"/>. For daily or hourly specific emissions, the user specifies the data provided using this command in the header: FF10_DAILY_POINT.</para> 
 <para>Sample header records for daily point source data are shown below:</para>
@@ -2888,7 +2888,7 @@ Sample header records for hourly point sources are shown below:
 
 <para>The <envar>PTINV</envar> file is the input point source inventory file for annual and average-day data. This file can be in FF10, ORL, or ORL FIRE format.</para>
 
-<section>
+<section id="sect_input_ptinv_ff10">
 <title>FF10 Format</title>
 <para>The user specifies the data provided using this command in the header: FF10_POINT.</para>
 <para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header" />.
@@ -4304,7 +4304,7 @@ Sample header records for daily point sources are shown below:</para>
 </simplelist>
 
 <table id="tbl_input_amptref">
-<title>Format for <envar>ATREF</envar></title>
+<title>Format for <envar>[A|M|P]TREF</envar></title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -5201,7 +5201,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <itemizedlist>
 <listitem>
-<para>The speciation profile number is matched with the number in the <envar>GSREF</envar> file. This <quote>number</quote> is treated as a character string, so leading zeros must be the same in both the <envar>GSPRO</envar> and <envar>GSREF</envar> files. For BEIS3 modeling, you must use profile <quote>BV309</quote> in order to properly speciate for CB-IV modeling.  There are also BEIS3 speciation profiles for the RADM2 and SAPRC99 chemical mechanisms in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory.</para>
+<para>The speciation profile number is matched with the number in the <envar>GSREF</envar> file. This <quote>number</quote> is treated as a character string, so leading zeros must be the same in both the <envar>GSPRO</envar> and <envar>GSREF</envar> files.</para>
 </listitem>
 <listitem>
 <para>The pollutant ID must match the pollutant names in the SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>). These names are set by the #POLID or #DATA headers in the <command>Smkinven</command> input files.</para>
@@ -8972,13 +8972,81 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <title><envar>CFPRO</envar>: Mobile source control factor input file</title>
 
 <para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all three MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, and RatePerProfile). Its format is shown in <xref linkend="tbl_input_cfpro" />.</para>
+<para>A many-step hierarchy is used in applying the control factor cross-referencing. SMOKE preferentially matches each source to the most specific match in the file.</para>
+
+<orderedlist spacing="compact">
+<listitem>
+<para>Country/state/county code, 10-digit SCC, month, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, and month</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, 10-digit SCC, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, and 10-digit SCC</para>
+</listitem>
+<listitem>
+<para>Country/state code, 10-digit SCC, month, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state code, 10-digit SCC, and month</para>
+</listitem>
+<listitem>
+<para>Country/state code, 10-digit SCC, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state code, and 10-digit SCC</para>
+</listitem>
+<listitem>
+<para>10-digit SCC, month, and pollutant</para>
+</listitem>
+<listitem>
+<para>10-digit SCC, and month</para>
+</listitem>
+<listitem>
+<para>10-digit SCC, and pollutant</para>
+</listitem>
+<listitem>
+<para>10-digit SCC</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, month, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, and month</para>
+</listitem>
+<listitem>
+<para>Country/state/county code, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state/county code</para>
+</listitem>
+<listitem>
+<para>Country/state code, month, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/statecode, and month</para>
+</listitem>
+<listitem>
+<para>Country/state code, and pollutant</para>
+</listitem>
+<listitem>
+<para>Country/state code</para>
+</listitem>
+<listitem>
+<para>Ultimate default (no pollutant, no month, country/state/county code = 0, SCC = 0)</para>
+</listitem>
+</orderedlist>
 
 <table id="tbl_input_cfpro">
 <title>Format for <envar>CFPRO</envar></title>
 
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Column" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
 <colspec colwidth="70*" colname="Description" />
 
 <thead>
@@ -9291,9 +9359,10 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 <table id="tbl_input_spdpro">
 <title>Format for <envar>SPDPRO</envar></title>
 
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Column" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
 <colspec colwidth="70*" colname="Description" />
 
 <thead>
@@ -9465,7 +9534,8 @@ OUTDIR         = /netscr/MOVES2010/runspec_files/georgia
 MODELYEAR      = 2005
 POLLUTANTS     = ozone
 DAYOFWEEK      = WEEKDAY, WEEKEND
-METFILE        = /netscr/MOVESDATA/georgia/2005/2005_repcounty_met4moves.in
+METFILE        = /netscr/MOVESDATA/georgia/2005/2005_refcounty_MOVES_RH_OUTFILE.txt
+RPMETFILE      = /netscr/MOVESDATA/georgia/2005/2005_refcounty_MOVES_OUTFILE.txt
 </programlisting>
 </example>
 

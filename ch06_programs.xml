@@ -224,7 +224,7 @@
 
 <orderedlist spacing="compact">
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID, pollutant</para>
@@ -236,7 +236,7 @@
 <para>Country/State/County code, plant ID, point ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code, pollutant</para>
@@ -245,7 +245,7 @@
 <para>Country/State/County code, plant ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID</para>
@@ -257,7 +257,7 @@
 <para>Country/State/County code, plant ID, point ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, 8-digit SCC code</para>
+<para>Country/State/County code, plant ID, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code</para>
@@ -266,37 +266,37 @@
 <para>Country/State/County code, plant ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, MACT code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, 8-digit SCC code, pollutant</para>
+<para>Country/State code, MACT code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>MACT, 8-digit SCC code, pollutant</para>
+<para>MACT, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>MACT, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, 8-digit SCC code</para>
+<para>Country/State/County code, MACT code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, 8-digit SCC code</para>
+<para>Country/State code, MACT code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code</para>
 </listitem>
 <listitem>
-<para>MACT code, 8-digit SCC code</para>
+<para>MACT code, SCC code</para>
 </listitem>
 <listitem>
 <para>MACT code</para>
@@ -338,7 +338,7 @@
 <para>Left 2 of SIC code</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code, pollutant</para>
@@ -350,7 +350,7 @@
 <para>Country/State/County code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, 8-digit SCC code, pollutant</para>
+<para>Country/State code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code, pollutant</para>
@@ -362,7 +362,7 @@
 <para>Country/State code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>8-digit SCC code, pollutant</para>
+<para>SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code, pollutant</para>
@@ -374,7 +374,7 @@
 <para>Left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, 8-digit SCC code</para>
+<para>Country/State/County code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code</para>
@@ -386,7 +386,7 @@
 <para>Country/State/County code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>Country/State code, 8-digit SCC code</para>
+<para>Country/State code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code</para>
@@ -398,7 +398,7 @@
 <para>Country/State code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>8-digit SCC code</para>
+<para>SCC code</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code</para>
@@ -2714,7 +2714,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 <listitem>
 <para><envar>SMK_MVSPATH</envar>: [default: blank]</para>
-<para> Defines the temperature increment (in deg. F) for RPD lookup table to create combinations of min/max temperature bins</para>
+<para>Defines the location of MOVES emission factors lookup tables.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_SOURCE</envar>: [default: blank]</para>
@@ -2767,6 +2767,14 @@ S<subscript>fraction</subscript> = smoldering fration
 <itemizedlist>
 <listitem><para>Y: Process weekday/weekend hourly speed profiles</para></listitem>
 <listitem><para>N: Do not process hourly speed profiles</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para><envar>USE_SPCMAT_SPC_YN</envar>: [default: N]</para>
+<para>Determine whether estimate air quality model species using chemical speciation profiles or not.</para>
+<itemizedlist>
+<listitem><para>Y: Estimate model species emissions using GSPRO input file</para></listitem>
+<listitem><para>N: Estimate model species emissions directly from MOVES emission rates lookup tables</para></listitem>
 </itemizedlist>
 </listitem>
 </itemizedlist>
@@ -5637,9 +5645,20 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <listitem>
 <para><envar>SRC_TAGGING</envar>: [default: N]</para>
-
 <para>Defines whether the program uses the speciation tagging cross-reference file or not (<xref linkend="sect_input_gstag" />).</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use speciation tagging cross-reference file</para>
+</listitem>
+<listitem>
+<para>N: Do not use speciation tagging cross-reference file</para>
+</listitem>
+</itemizedlist>
+</listitem>
 
+<listitem>
+<para><envar>DEFAULT_CONV_FAC_ERROR</envar>: [default: N]</para>
+<para>Defines whether the program treats as an error when there is no matched VOC to TOG conversion factor available in the pollutant-to-pollutant conversion file (<xref linkend="sect_input_gscnv" />).</para>
 <itemizedlist>
 <listitem>
 <para>Y: Use speciation tagging cross-reference file</para>
