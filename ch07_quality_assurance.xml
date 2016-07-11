@@ -632,10 +632,13 @@
 <para>COUNTY [NAME]: Records are printed by county total. This option invokes use of the <envar>COSTCY</envar> file. NAME can be appended to the option to additionally output the county name instead of only the county number.</para>
 </listitem>
 <listitem>
-<para>DIUCODE: Records are printed by diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+<para>DOMCODE: Records are printed by Day of Month profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
 <para>ELEVSTAT [STACKGROUP]: Records include the status of sources as elevated (E), plume-in-grid (P), and low-level (L). All elevated statuses could appear in the same report, depending on the inventory and elevated source selection criteria. <envar>STACKGROUP</envar> can be appended to the option to additionally output stack group number from <envar>PELV</envar>. This instruction can be used for point sources only.</para>
+</listitem>
+<listitem>
+<para>FRICODE: Records are printed by Friday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
 <para>HOUR: Records are printed by hour total for each day. This option implies the TEMPORAL instruction, so <command>Smkreport</command> automatically adds that instruction even if it was not included in the input.</para>
@@ -653,7 +656,13 @@
 <para>MATBURNED: For wildfire point sources, records are printed by MATBURNED code.</para>
 </listitem>
 <listitem>
-<para>MONCODE: Records are printed by monthly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+<para>METCODE: Records are printed by Meteorology-based hourly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>MONCODE: Records are printed by Mothly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>MNDCODE: Records are printed by Monday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
 <para>NFDRSCODE: For wildfire point sources, records are printed by NFDRSCODE code.</para>
@@ -671,6 +680,9 @@
 </listitem>
 <listitem>
 <para>ROADCLASS: Records are printed by road class total. This option can only be used for mobile sources.</para>
+</listitem>
+<listitem>
+<para>SATCODE: Records are printed by Saturday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
 <para>SCC [N] [NAME]: Records are printed and summed by all or part of the SCC, depending on the value of N, which can be set to 1, 2, 3, or 4. These numbers correspond to the SCC levels described in <xref linkend="sect_concepts_scc_codes" />. When N = 4, the full SCC is used. When N = 1, 2, or 3, the records are summed and reported by the corresponding SCC level. Differences between point and nonpoint/mobile SCCs are handled as described by the SCC structures. If no value is given. N is assumed to be 4 by default.</para>
@@ -711,7 +723,19 @@
 <para>STATE [NAME]: Records are printed by state totals. This option invokes the use of the <envar>COSTCY</envar> file. NAME can be appended to the option to additionally output the state name instead of only the state number.</para>
 </listitem>
 <listitem>
-<para>WEKCODE: Records are printed by weekly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant. Note that this option spelling is <emphasis>not</emphasis> WEEKCODE.</para>
+<para>SUNCODE: Records are printed by Sunday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>THUCODE: Records are printed by Thursday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>TUECODE: Records are printed by Tuesday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>WEKCODE: Records are printed by Weekly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant. Note that this option spelling is <emphasis>not</emphasis> WEEKCODE.</para>
+</listitem>
+<listitem>
+<para>WEDCODE: Records are printed by Wednesday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 </itemizedlist>
 

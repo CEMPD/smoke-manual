@@ -1574,7 +1574,7 @@ Note: T<subscript><emphasis>i,m</emphasis></subscript> can be replaced by monthl
 <para>E<subscript><emphasis>i,h</emphasis></subscript> = [2.36<superscript>(T<subscript><emphasis>i,h</emphasis></subscript>-273)/10</superscript>] x V<subscript><emphasis>i,h</emphasis></subscript></para>
 </listitem>
 <listitem>
-<para>BASH_NH3 profile method: Zhu, Henze, et al. (2013) developed an empirical equation based on observations from the TES satelite instrument with the GEOS-Chem model and its adjoint to estimate diurnal NH3 emission variations from livestocks as a function of ambient temperature and arodynamic resistance meteorological variable. The equation is listed below.</para>
+<para>BASH_NH3 profile method: Zhu, Henze, et al. (2013) developed an empirical equation based on observations from the TES instrument with the GEOS-Chem model and its adjoint to estimate diurnal NH3 emission variations from livestocks as a function of ambient temperature and aerodynamic resistance meteorological variable. The equation is listed below.</para>
 <para>E<subscript><emphasis>i,h</emphasis></subscript> = [161500/T<subscript><emphasis>i,h</emphasis></subscript> x e<superscript>(-1380/T<subscript><emphasis>i,h</emphasis></subscript>)</superscript>] x AR<subscript><emphasis>i,h</emphasis></subscript></para>
 </listitem>
 </orderedlist>
@@ -1914,8 +1914,7 @@ If PROFILE_METHOD = MET and TPRO_OUTPUT = HOURLY[or ALL], hour-of-year, hour-of-
 <row>
 <entry><envar>TREF_OUT</envar></entry>
 <entry>ASCII</entry>
-<entry>Temporal cross-references input file (Only compatible with SMOKE v3.5.1 or older).</entry>
-<entry>Hourly temporal profiles</entry>
+<entry>Temporal cross-references input file.</entry>
 </row>
 <row>
 <entry><envar>LOGFILE</envar></entry>

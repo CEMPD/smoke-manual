@@ -68,7 +68,7 @@
 
 <para><emphasis role="bold">point sources:</emphasis> 2005 NEI for CO, NO<subscript>x</subscript>, VOC, SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>10</subscript>, and PM<subscript>2.5</subscript> from ptipm and ptnonipm sectors</para>
 
-<para><emphasis role="bold">mobile sources:</emphasis> Vehicle mileage traveled (VMT) and average speed (SPEED) for onroad mobile sources and vehicle population (VPOP) for offroad mobile sources</para>
+<para><emphasis role="bold">mobile sources:</emphasis> vehicle mileage traveled (VMT) and its average speed (SPEED), and vehicle average hotteling (HOTELLING) for onroad mobile sources, and vehicle population (VPOP) for offroad mobile sources</para>
 
 <para><emphasis role="bold">biogenic sources:</emphasis> BELD3 data processed using BEIS3 (for entire grid, even those cells that are not in North Carolina)</para>
 
@@ -394,11 +394,8 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para><userinput><filename>smk_point_nctox.csh</filename></userinput> <emphasis>(invoke the point run script)</emphasis></para>
 
-<para><userinput><filename>smk_rateperdistance_noRFL_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources on-roadway rate-per-distance (RPD) run script for all processes except for refueling mode [RFL])</emphasis></para>
-<para><userinput><filename>smk_rateperdistance_RFLonly_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources on-roadway rate-per-distance (RPD) run script just for refueling mode [RFL])</emphasis></para>
-
-<para><userinput><filename>smk_ratepervehicle_noRFL_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources off-network rate-per-vehicle (RPV) run script for all processes except for refueling mode [RFL])</emphasis></para>
-<para><userinput><filename>smk_ratepervehicle_RFLonly_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources off-network rate-per-vehicle (RPV) run script just for refueling mode [RFL])</emphasis></para>
+<para><userinput><filename>smk_rateperdistance_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources on-roadway rate-per-distance (RPD) run script for all processes)</emphasis></para>
+<para><userinput><filename>smk_ratepervehicle_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources off-network rate-per-vehicle (RPV) run script)</emphasis></para>
 
 <para><userinput><filename>smk_rateperprofile_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources off-network rate-per-profile (RPP) run script)</emphasis></para>
 
@@ -3081,7 +3078,7 @@ grep ERROR *
 
 <para>Starting with version 2.2, SMOKE contains an approach for computing plume rise for wildfire/prescribed fires using the Bluesky Pouliot-Godowitch plume rise algorithm (http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf).  In SMOKE version 2.2, SMOKE can compute hourly plume rise from precomputed hourly heat flux, fuel loading and area burned data using the Bluesky CONSUME model. The SMOKE preprocessor <command>Bluesky2Inv</command> that converts the output from the CONSUME model into SMOKE-readable annual and daily inventory files (<xref linkend="sect_utilities_bluesky2inv" />).</para>
 
-<para>Starting with SMOKE version 2.3, SMOKE can compute hourly plume rise from an intenally computed heat flux using area burned and fuel loading data. This approach allows SMOKE to compute hourly heat flux based upon daily area burned, fuel loading, material burned and a constant default heat content (8000 BTU/lb) (Equation 1). The daily heat flux and emissions are temporally allocated to hourly values based upon the duration of the fire (begining and ending hours).</para>
+<para>Starting with SMOKE version 2.3, SMOKE can compute hourly plume rise from an intenally computed heat flux using area burned and fuel loading data. This approach allows SMOKE to compute hourly heat flux based upon daily area burned, fuel loading, material burned and a constant default heat content (8000 BTU/lb) (Equation 1). The daily heat flux and emissions are temporally allocated to hourly values based upon the duration of the fire (begining and ending hours). However, if there is a precomputed heat flux available as a daily inventory, <command>Smkinven</command> will not internally compute the heat flux and drop the begin and end hours of fire.</para>
 
 <orderedlist>
 <listitem>
@@ -3089,8 +3086,12 @@ grep ERROR *
 </listitem>
 </orderedlist>
 
-<para>The SMOKE plume rise requires two ORL formatted files for wildfire/prescribed fires. The master #ORL FIRE file (<xref linkend="sect_input_ptinv_fire" />) contains the fire characteristics including country/state/county code, fire idenfication code, geographic coordinate, fire name, heat content, material burned and NFDRS code.  The day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>) includes daily pollutant emissions, area burned, fuel loading, and fire begining and ending time.</para>
-<para>NOTE: SMOKE requires that the fire inventory pollutant names are copied to the Chemical Absrtracts Service ( CAS ) number column in the inventory table (<envar>INVTABLE</envar>) file  (See <xref linkend="sect_input_invtable" />).</para> 
+<para>The SMOKE plume rise requires two ORL formatted files for wildfire/prescribed fires. The master #ORL FIRE file (<xref linkend="sect_input_ptinv_fire" />) contains the fire characteristics including country/state/county code, fire idenfication code, geographic coordinate, fire name, heat content, material burned and NFDRS code.  The day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>) includes daily pollutant emissions, area burned, fuel loading, optional heat flux, and fire begining and ending time. Starting with SMOKE version 3.7, <command>Smkinven</command> can process these master and daily fire inventories with precomputed heat flux using current point FF10 formats, #FF10_POINT file (<quote><xref linkend="sect_input_ptinv_ff10" /></quote>) and #FF10_DAILY_FF10 file (<quote><xref linkend="sect_input_ptday_ff10" /></quote>)</para>
+
+<para>Regardless whether the heat flux for wildfires is precomputed or internally computed, the fire-specific plume rise algorithm converts the heat flux to a bouyancy flux for use in the plume rise calculation. See more detail at <xref linkend="sect_programs_laypoint_plume_rise_fires"/></para>
+
+
+<para>NOTE: SMOKE requires that the fire inventory pollutant names are copied to the Chemical Abstracts Service (CAS) number column in the inventory table (<envar>INVTABLE</envar>) file  (See <xref linkend="sect_input_invtable" />).</para> 
 <orderedlist>
 <listitem>
 <para> To compute plume rise for fires using SMOKE, following these steps. Add the fire inventory variables to the <envar>INVTABLE</envar> file:</para>
@@ -3133,7 +3134,7 @@ grep ERROR *
 </listitem>
 
 <listitem>
-<para>Run <command>Laypoint</command> with these settings, See more detail at <xref linkend="sect_programs_laypoint_plume_rise_fires"/>. </para>
+<para>Run <command>Laypoint</command> with these settings, </para>
 <itemizedlist>
 <listitem>
 <para>Set <envar>RUN_LAYPOINT</envar> to Y</para>

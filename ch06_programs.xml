@@ -2714,7 +2714,7 @@ S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 <listitem>
 <para><envar>SMK_MVSPATH</envar>: [default: blank]</para>
-<para> Defines the temperature increment (in deg. F) for RPD lookup table to create combinations of min/max temperature bins</para>
+<para>Defines the location of MOVES emission factors lookup tables.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_SOURCE</envar>: [default: blank]</para>
@@ -2767,6 +2767,14 @@ S<subscript>fraction</subscript> = smoldering fration
 <itemizedlist>
 <listitem><para>Y: Process weekday/weekend hourly speed profiles</para></listitem>
 <listitem><para>N: Do not process hourly speed profiles</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
+<para><envar>USE_SPCMAT_SPC_YN</envar>: [default: N]</para>
+<para>Determine whether estimate air quality model species using chemical speciation profiles or not.</para>
+<itemizedlist>
+<listitem><para>Y: Estimate model species emissions using GSPRO input file</para></listitem>
+<listitem><para>N: Estimate model species emissions directly from MOVES emission rates lookup tables</para></listitem>
 </itemizedlist>
 </listitem>
 </itemizedlist>
@@ -5637,9 +5645,20 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <listitem>
 <para><envar>SRC_TAGGING</envar>: [default: N]</para>
-
 <para>Defines whether the program uses the speciation tagging cross-reference file or not (<xref linkend="sect_input_gstag" />).</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use speciation tagging cross-reference file</para>
+</listitem>
+<listitem>
+<para>N: Do not use speciation tagging cross-reference file</para>
+</listitem>
+</itemizedlist>
+</listitem>
 
+<listitem>
+<para><envar>DEFAULT_CONV_FAC_ERROR</envar>: [default: N]</para>
+<para>Defines whether the program treats as an error when there is no matched VOC to TOG conversion factor available in the pollutant-to-pollutant conversion file (<xref linkend="sect_input_gscnv" />).</para>
 <itemizedlist>
 <listitem>
 <para>Y: Use speciation tagging cross-reference file</para>
