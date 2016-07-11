@@ -224,7 +224,7 @@
 
 <orderedlist spacing="compact">
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID, pollutant</para>
@@ -236,7 +236,7 @@
 <para>Country/State/County code, plant ID, point ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code, pollutant</para>
@@ -245,7 +245,7 @@
 <para>Country/State/County code, plant ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID</para>
@@ -257,7 +257,7 @@
 <para>Country/State/County code, plant ID, point ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, 8-digit SCC code</para>
+<para>Country/State/County code, plant ID, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code</para>
@@ -266,37 +266,37 @@
 <para>Country/State/County code, plant ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, MACT code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, 8-digit SCC code, pollutant</para>
+<para>Country/State code, MACT code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>MACT, 8-digit SCC code, pollutant</para>
+<para>MACT, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>MACT, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, 8-digit SCC code</para>
+<para>Country/State/County code, MACT code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, 8-digit SCC code</para>
+<para>Country/State code, MACT code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code</para>
 </listitem>
 <listitem>
-<para>MACT code, 8-digit SCC code</para>
+<para>MACT code, SCC code</para>
 </listitem>
 <listitem>
 <para>MACT code</para>
@@ -338,7 +338,7 @@
 <para>Left 2 of SIC code</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, 8-digit SCC code, pollutant</para>
+<para>Country/State/County code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code, pollutant</para>
@@ -350,7 +350,7 @@
 <para>Country/State/County code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, 8-digit SCC code, pollutant</para>
+<para>Country/State code, SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code, pollutant</para>
@@ -362,7 +362,7 @@
 <para>Country/State code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>8-digit SCC code, pollutant</para>
+<para>SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code, pollutant</para>
@@ -374,7 +374,7 @@
 <para>Left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, 8-digit SCC code</para>
+<para>Country/State/County code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code</para>
@@ -386,7 +386,7 @@
 <para>Country/State/County code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>Country/State code, 8-digit SCC code</para>
+<para>Country/State code, SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code</para>
@@ -398,7 +398,7 @@
 <para>Country/State code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>8-digit SCC code</para>
+<para>SCC code</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code</para>
