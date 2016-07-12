@@ -476,9 +476,9 @@
 
 <title>Source Classification Codes</title>
 
-<para>EPA uses Source Classification Codes (SCCs) and area and mobile source (AMS) codes to classify different types of anthropogenic emission activities. SCCs have 8 digits for point sources, while AMS codes have 10 digits, and sometimes include a leading <quote>A</quote> as an eleventh character. In SMOKE, we refer to both kinds of codes as <quote>SCCs</quote>, and we ignore the leading <quote>A</quote> in the area and mobile codes. Additionally, SMOKE permits the nonpoint and point toxics inventories to use both 8-digit and 10-digit SCCs in the same inventory input file, because both 8- and 10-digit codes are contained in the nonpoint and point inventories in the 1999 NEI for HAPs. The maximum field width in SMOKE and its input files for SCCs is 10 characters.</para>
+<para>EPA uses Source Classification Codes (SCCs) and area and mobile source (AMS) codes to classify different types of anthropogenic emission activities. SCCs have 8 digits for point sources, while AMS codes have 10 digits, and sometimes include a leading <quote>A</quote> as an eleventh character. In SMOKE, we refer to both kinds of codes as <quote>SCCs</quote>, and we ignore the leading <quote>A</quote> in the area and mobile codes. Additionally, SMOKE permits the nonpoint and point toxics inventories to use both 8-digit and 10-digit SCCs in the same inventory input file, because both 8- and 10-digit codes are contained in the nonpoint and point inventories in the 1999 NEI for HAPs. The maximum field width in SMOKE and its input files for SCCs is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported.</para>
 
-<para>The codes use a hierarchical system in which the definition of the code gets increasingly more specific as you move from left to right. It is important to understand the hierarchy of the codes, because you can take advantage of the hierarchy in building cross-reference files for assigning emissions processing factors to inventory emission sources. In the diagrams below, level 1 is the least specific and level 4 is the most specific.</para>
+<para>For SCC's of size 10 characters or less, the codes use a hierarchical system in which the definition of the code gets increasingly more specific as you move from left to right. (NOTE: if the SCC is greater than 10 characters in length the hierarchial system is not used). For SCC's of 10 characters or less, it is important to understand the hierarchy of the codes, because you can take advantage of the hierarchy in building cross-reference files for assigning emissions processing factors to inventory emission sources. In the diagrams below, level 1 is the least specific and level 4 is the most specific.</para>
 
 <para>The code structure for the 8-digit point-source codes is:</para>
 
@@ -529,7 +529,7 @@
 
 <title>Standard Industrial Classification codes</title>
 
-<para>Although SIC codes are being replaced by NAICS codes in building emission inventories at EPA, SIC codes are still used in emissions processing. These 4-digit codes use a 2-level hierarchy that is recognized by SMOKE for application of growth, control, and chemical speciation factors. The two code levels are illustrated below.</para>
+<para>Although SIC codes are being replaced by NAICS codes in building emission inventories at EPA, SIC codes are still used in emissions processing. As of SMOKE v4.0, the SIC codes may be up to 20 characters in length, but for SIC codes greater than 4-digits, the hierarchial system is not used. For SICs of size 4-digits, a 2-level hierarchial system is recognized by SMOKE for application of growth, control, and chemical speciation factors. The two code levels are illustrated below.</para>
 
 <informalfigure>
 <mediaobject>
@@ -3972,11 +3972,11 @@ Additional data</programlisting>
 <table id="tbl_concepts_moves_lookup_tbl_mv_format">
 <title>MOVES Emission Rate Lookup Table (MOVES Format)</title>
 
-<tgroup cols="3">
-<colspec colname="c1" colwidth="20*" />
-<colspec colname="c2" colwidth="20*" />
-<colspec colname="c3" colwidth="20*" />
-<colspec colname="c4" colwidth="20*" />
+<tgroup cols="4">
+<colspec colname="c1" colwidth="10*" />
+<colspec colname="c2" colwidth="10*" />
+<colspec colname="c3" colwidth="10*" />
+<colspec colname="c4" colwidth="10*" />
 
 <thead>
 <row>
@@ -4115,11 +4115,11 @@ Additional data</programlisting>
 
 <table id="tbl_concepts_moves_lookup_tbl_sm_format">
 <title>MOVES Emission Rate Lookup Table (SMOKE Format)</title>
-<tgroup cols="3">
-<colspec colname="c1" colwidth="20*" />
-<colspec colname="c2" colwidth="20*" />
-<colspec colname="c3" colwidth="20*" />
-<colspec colname="c3" colwidth="20*" />
+<tgroup cols="4">
+<colspec colname="c1" colwidth="10*" />
+<colspec colname="c2" colwidth="10*" />
+<colspec colname="c3" colwidth="10*" />
+<colspec colname="c3" colwidth="10*" />
 
 <thead>
 <row>

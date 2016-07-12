@@ -1011,7 +1011,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -1171,7 +1171,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -1352,7 +1352,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>6</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -1535,25 +1535,25 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>B</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Source Classification Code (10 characters maximum) (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (20 characters maximum) (required)</entry>
 </row>
 <row>
 <entry>C</entry>
 <entry>SIC</entry>
-<entry>Int</entry>
+<entry>Int(4)</entry>
 <entry>Standard Industrial Code (recommended)</entry>
 </row>
 <row>
 <entry>D</entry>
 <entry>MACT</entry>
-<entry>Char</entry>
+<entry>Char(6)</entry>
 <entry>Maximum Available Control Technology Code (6 characters maximum) (recommended)</entry>
 </row>
 <row>
 <entry>E</entry>
 <entry>SRCTYPE</entry>
-<entry>Char</entry>
+<entry>Char(2)</entry>
 <entry><para>Source type (2 characaters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
 
 <itemizedlist>
@@ -1567,13 +1567,13 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>F</entry>
 <entry>NAICS</entry>
-<entry>Char</entry>
+<entry>Char(6)</entry>
 <entry>North American Industrial Classification System Code (6 characters maximum) (optional)</entry>
 </row>
 <row>
 <entry>G</entry>
 <entry>POLL</entry>
-<entry>Char</entry>
+<entry>Char(16)</entry>
 <entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
@@ -1651,13 +1651,13 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>T</entry>
 <entry>START_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>U</entry>
 <entry>END_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -1804,13 +1804,13 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>B</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Source Classification Code (10 characters maximum) (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (20 characters maximum) (required)</entry>
 </row>
 <row>
 <entry>C</entry>
 <entry>POLL</entry>
-<entry>Char</entry>
+<entry>Char(16)</entry>
 <entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
@@ -1872,19 +1872,19 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>L</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>Char</entry>
+<entry>Char(3)</entry>
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>M</entry>
 <entry>START_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>N</entry>
 <entry>END_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -2041,13 +2041,13 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>B</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Ten character SCC (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (20 characters maximum) (required)</entry>
 </row>
 <row>
 <entry>C</entry>
 <entry>POLL</entry>
-<entry>Char</entry>
+<entry>Char(16)</entry>
 <entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
@@ -2091,7 +2091,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>I</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>Char</entry>
+<entry>Char(3)</entry>
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -2217,7 +2217,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>6</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Y</entry>
 <entry>SCC</entry>
 </row>
@@ -2326,8 +2326,8 @@ In this overview section, we first provide a few important notes about file form
 <title>FF10 Format for individual point day-specific data files</title>
 
 <tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
+<colspec colwidth="10*" />
+<colspec colwidth="20*" />
 <colspec colwidth="15*" />
 <colspec colwidth="70*" />
 
@@ -2350,7 +2350,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
+<entry>Int(5)</entry>
 <entry>Five-digit FIPS code for state and county (required)</entry>
 </row>
 <row>
@@ -2368,25 +2368,25 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry></entry>
+<entry>Char(15)</entry>
 <entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -2529,13 +2529,13 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>E</entry>
 <entry>DATA</entry>
-<entry>Char</entry>
+<entry>Char(16)</entry>
 <entry>The pollutant codes, "ACRESCBURNED", or "FUEL_LOAD" (16 characters) (required)</entry>
 </row>
 <row>
 <entry>F</entry>
 <entry>DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>MM/DD/YY format. Years less than 70 are treated as century 2000 (8 characters) (required)</entry>
 </row>
 <row>
@@ -2764,7 +2764,7 @@ Sample header records for hourly point sources are shown below:
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
+<entry>Int(5)</entry>
 <entry>Five-digit FIPS code for state and county (required)</entry>
 </row>
 <row>
@@ -2782,25 +2782,25 @@ Sample header records for hourly point sources are shown below:
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry></entry>
+<entry>Char(15)</entry>
 <entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -2947,19 +2947,19 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
@@ -2989,7 +2989,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>12</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Source Classification Code (required)</entry>
 </row>
 <row>
@@ -3020,7 +3020,7 @@ Sample header records for daily point sources are shown below:</para>
 <entry>17</entry>
 <entry>ERPTYPE</entry>
 <entry>Char(2)</entry>
-<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (optional; not currently used by SMOKE)</entry>
+<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (optional; recommended)</entry>
 </row>
 <row>
 <entry>18</entry>
@@ -3200,25 +3200,25 @@ Sample header records for daily point sources are shown below:</para>
 <entry>47</entry>
 <entry>FUG_HEIGHT</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>(optional; recommended)</entry>
 </row>
 <row>
 <entry>48</entry>
 <entry>FUG_WIDTH_YDIM</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>(optional; recommended)</entry>
 </row>
 <row>
 <entry>49</entry>
 <entry>FUG_LENGTH_XDIM</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>(optional; recommended)</entry>
 </row>
 <row>
 <entry>50</entry>
 <entry>FUG_ANGLE</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>(optional; recommended)</entry>
 </row>
 <row>
 <entry>51</entry>
@@ -3322,44 +3322,44 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>B</entry>
 <entry>PLANTID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Plant Identification Code (15 characters maximum) (required; this is the same as the State Facility Identifier in the NIF)</entry>
 </row>
 <row>
 <entry>C</entry>
 <entry>POINTID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF)</entry>
 </row>
 <row>
 <entry>D</entry>
 <entry>STACKID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>E</entry>
 <entry>SEGMENT</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>F</entry>
 <entry>PLANT</entry>
-<entry>Char</entry>
+<entry>Char(40)</entry>
 <entry>Plant Name (40 characters maximum) (recommended)</entry>
 </row>
 <row>
 <entry>G</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Ten character Source Classification Code (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (20 characters maximum)(required)</entry>
 </row>
 <row>
 <entry>H</entry>
 <entry>ERPTYPE</entry>
-<entry>Char</entry>
-<entry><para>Emissions release point type (2 characters maximum); indicates type of stack (not used by SMOKE)</para>
+<entry>Char(2)</entry>
+<entry><para>Emissions release point type (2 characters maximum); indicates type of stack (optional; recommended)</para>
 
 <itemizedlist spacing="compact">
 <listitem>01 = fugitive</listitem>
@@ -3375,7 +3375,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>I</entry>
 <entry>SRCTYPE</entry>
-<entry>Char</entry>
+<entry>Char(2)</entry>
 <entry><para>Source type (2 characters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
 
 <itemizedlist spacing="compact">
@@ -3420,25 +3420,25 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>O</entry>
 <entry>SIC</entry>
-<entry>Int</entry>
+<entry>Int(4)</entry>
 <entry>Standard Industrial Classification Code (recommended)</entry>
 </row>
 <row>
 <entry>P</entry>
 <entry>MACT</entry>
-<entry>Char</entry>
+<entry>Char(6)</entry>
 <entry>Maximum Available Control Technology Code (6 characters maximum) (optional)</entry>
 </row>
 <row>
 <entry>Q</entry>
 <entry>NAICS</entry>
-<entry>Char</entry>
+<entry>Char(6)</entry>
 <entry>North American Industrial Classification System Code (6 characters maximum) (optional)</entry>
 </row>
 <row>
 <entry>R</entry>
 <entry>CTYPE</entry>
-<entry>Char</entry>
+<entry>Char(1)</entry>
 <entry><para>Coordinate system type (1 character maximum) (required)</para>
 
 <itemizedlist spacing="compact">
@@ -3483,7 +3483,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>V</entry>
 <entry>CAS</entry>
-<entry>Char</entry>
+<entry>Char(16)</entry>
 <entry>Pollutant CAS number or other code (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
@@ -3573,7 +3573,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>KK</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>Char</entry>
+<entry>Char(3)</entry>
 <entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -3609,7 +3609,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>QQ</entry>
 <entry>MACT_FLAG</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>MACT flag indicating the relationship of the MACT rule and the particular source (15 characters maximum)(optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -3651,13 +3651,13 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>XX</entry>
 <entry>START_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>YY</entry>
 <entry>END_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -3825,25 +3825,25 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>B</entry>
 <entry>FIREID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Fire Identification Code (15 characters maximum) (required)</entry>
 </row>
 <row>
 <entry>C</entry>
 <entry>LOCID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Location Identification Code (15 characters maximum) (required)</entry>
 </row>
 <row>
 <entry>D</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Source Classification Code (8 characters maximum) (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (20 characters maximum) (required)</entry>
 </row>
 <row>
 <entry>E</entry>
 <entry>FIRENAME</entry>
-<entry>Char</entry>
+<entry>Char(40)</entry>
 <entry>Fire name (40 characters maximum) (recommended)</entry>
 </row>
 <row>
@@ -3861,7 +3861,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>H</entry>
 <entry>NFDRSCODE</entry>
-<entry>Char</entry>
+<entry>Char(2)</entry>
 <entry>Code for the Vegetation type (2 characters maximum) (recommended)</entry>
 </row>
 <row>
@@ -3938,7 +3938,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Monthly Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4009,7 +4009,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Month-to-day Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4080,7 +4080,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Weekly Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4152,7 +4152,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Hourly Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4323,7 +4323,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>10-digit SCC, or zeros filling the remaining digits (Character) (optional; put zero for entry that is not SCC-specific)</entry>
+<entry>20-digit SCC, or 10-digit SCC or zeros filling the remaining digits (Character) (optional; put zero for entry that is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -4786,7 +4786,7 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>10-digit SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
+<entry>20-digit SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5058,9 +5058,9 @@ Sample header records for daily point sources are shown below:</para>
 <entry>
 
 <simplelist>
-<member>Area: 10-digit SCC (full SCC is needed) (Character)</member>
-<member>Mobile: 10-digit SCC (full SCC is needed) (Character)</member>
-<member>Point: 8-digit SCC (full SCC is needed) (Character)</member>
+<member>Area: 20-digit maximum SCC (full SCC is needed) (Character)</member>
+<member>Mobile: 20-digit maximum SCC (full SCC is needed) (Character)</member>
+<member>Point: 20-digit maximum SCC (full SCC is needed) (Character)</member>
 <member>Zero if entry is not SCC-specific</member>
 </simplelist>
 
@@ -5346,8 +5346,8 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>
 
 <simplelist>
-<member>Area: 10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character)</member>
-<member>Mobile: 10-digit SCC code (Character)</member>
+<member>Area: 20-digit SCC, or 10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character)</member>
+<member>Mobile: 20-digit SCC code or 10-digit SCC (Character)</member>
 <member>Set to zero if cross-reference entry is not SCC-specific</member>
 </simplelist>
 
@@ -5433,7 +5433,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>2+</entry>
 <entry>A</entry>
-<entry>8- or 10-digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
+<entry>8- or 10- or 20- digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -5481,7 +5481,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (for IDA and ORL, this is 10-digit SCC, or 5-digit with zeroes) (Character) (optional)</entry>
+<entry>Characteristic 4 (for IDA and ORL, this is 10-digit SCC, or 5-digit with zeroes, or 20-digit maximum SCC) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
@@ -5534,7 +5534,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8- or 10-digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
+<entry>20-digit maximum SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5645,7 +5645,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>8 or 10-digit SCC, (20 digit maximum) or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5739,7 +5739,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of  SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>8 or 10-digit SCC (20 digit maximum), or pieces of  SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5861,7 +5861,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>8 or 10-digit SCC (20 digit maximum), or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5948,7 +5948,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">6-9</entry>
-<entry>SIC code (Integer) or blank for missing; not supported by SMOKE at this time</entry>
+<entry>SIC code (4-digit Integer) or blank for missing; not supported by SMOKE at this time</entry>
 </row>
 <row>
 <entry colname="Position">10-17</entry>
@@ -6064,7 +6064,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of  SCC with remaining digits filled in with zeroes or 0 (Character)</entry>
+<entry>up to 20-digit maximum, or 8 or 10-digit SCC, or pieces of  SCC with remaining digits filled in with zeroes or 0 (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -6153,7 +6153,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>up to 20 digit maximum SCC, or 8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -6241,7 +6241,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>20 digit maximum SCC, or 8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -6257,7 +6257,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Future year 10-digit SCC code (or zero to set equal to base case) (Character)</entry>
+<entry>Future year 10-digit (up to a maximum of 20 digit) SCC code (or zero to set equal to base case) (Character)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
@@ -8972,7 +8972,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <title><envar>CFPRO</envar>: Mobile source control factor input file</title>
 
 <para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all three MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, and RatePerProfile). Its format is shown in <xref linkend="tbl_input_cfpro" />.</para>
-<para>A many-step hierarchy is used in applying the control factor cross-referencing. SMOKE preferentially matches each source to the most specific match in the file.</para>
+<para>A many-step hierarchy is used in applying the control factor cross-referencing. SMOKE preferentially matches each source to the most specific match in the file. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported.</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -9068,7 +9068,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>B</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Source Category Code (SCC)</entry>
 </row>
 <row>
@@ -9384,7 +9384,7 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 <row>
 <entry>2</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Source Category Code (SCC)</entry>
 </row>
 <row>
@@ -10727,7 +10727,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Ten-digit SCC (Character)</entry>
+<entry>Twenty-digit SCC (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -11434,7 +11434,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry></entry>
 <entry>B</entry>
-<entry>Source Classification Category (SCC) code (10-character)</entry>
+<entry>Source Classification Category (SCC) code (20-character maximum)</entry>
 </row>
 <row>
 <entry></entry>
@@ -11762,7 +11762,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>SCC (10-character string)</entry>
+<entry>SCC (20-character maximum string)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -11797,7 +11797,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>1-10</entry>
-<entry>SCC (10-character string)</entry>
+<entry>SCC (20-character maximum string)</entry>
 </row>
 <row>
 <entry colname="Position">101-300</entry>
@@ -11835,11 +11835,11 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Full SCC (10-character string)</entry>
+<entry>Full SCC (20-character maximum string)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Reference SCC (10-character string)</entry>
+<entry>Reference SCC (20-character maximum string)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -12016,7 +12016,7 @@ Full_scc,Reference_scc
 
 <row>
 <entry colname="Position">C</entry>
-<entry>10-digit SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
+<entry>20-digit maximum SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
 </row>
 
 <row>

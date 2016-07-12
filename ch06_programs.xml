@@ -218,13 +218,13 @@
 
 <title>Source Matching Hierarchy</title>
 
-<para>To match each sources with the appropriate control packet entry, <command>Cntlmat</command> uses a hierarchy of source characteristics, trying to match each source to the most specific control packet entry. Note that not all combinations are applicable to all control packets (for example, there is no MACT code associated with the /PROJECTION/ packet). <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
+<para>To match each sources with the appropriate control packet entry, <command>Cntlmat</command> uses a hierarchy of source characteristics, trying to match each source to the most specific control packet entry. Note that not all combinations are applicable to all control packets (for example, there is no MACT code associated with the /PROJECTION/ packet). <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.</para>
 
-<para>For point sources, the following hierarchy is used, in order of most specific to least specific.</para>
+<para>For point sources, the following hierarchy is used, in order of most specific to least specific. (NOTE: only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters) </para>
 
 <orderedlist spacing="compact">
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID, pollutant</para>
@@ -236,7 +236,7 @@
 <para>Country/State/County code, plant ID, point ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code, pollutant</para>
@@ -245,7 +245,7 @@
 <para>Country/State/County code, plant ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID</para>
@@ -257,7 +257,7 @@
 <para>Country/State/County code, plant ID, point ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, SCC code</para>
+<para>Country/State/County code, plant ID, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code</para>
@@ -266,37 +266,37 @@
 <para>Country/State/County code, plant ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, SCC code, pollutant</para>
+<para>Country/State/County code, MACT code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, SCC code, pollutant</para>
+<para>Country/State code, MACT code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>MACT, SCC code, pollutant</para>
+<para>MACT, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>MACT, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, SCC code</para>
+<para>Country/State/County code, MACT code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, SCC code</para>
+<para>Country/State code, MACT code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code</para>
 </listitem>
 <listitem>
-<para>MACT code, SCC code</para>
+<para>MACT code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>MACT code</para>
@@ -338,7 +338,7 @@
 <para>Left 2 of SIC code</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, SCC code, pollutant</para>
+<para>Country/State/County code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code, pollutant</para>
@@ -350,7 +350,7 @@
 <para>Country/State/County code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, SCC code, pollutant</para>
+<para>Country/State code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code, pollutant</para>
@@ -362,7 +362,7 @@
 <para>Country/State code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>SCC code, pollutant</para>
+<para>8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code, pollutant</para>
@@ -374,7 +374,7 @@
 <para>Left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, SCC code</para>
+<para>Country/State/County code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code</para>
@@ -386,7 +386,7 @@
 <para>Country/State/County code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>Country/State code, SCC code</para>
+<para>Country/State code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code</para>
@@ -398,7 +398,7 @@
 <para>Country/State code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>SCC code</para>
+<para>8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code</para>
@@ -426,7 +426,7 @@
 </listitem>
 </orderedlist>
 
-<para>For nonpoint/stationary area sources, the following hierarchy is used. Nonpoint SCCs can have either 8 or 10 digits, which is why there are two separate SCC levels mentioned for each of the SCC-based assignments.</para>
+<para>For nonpoint/stationary area sources, the following hierarchy is used. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.  Nonpoint SCCs can have either 8 or 10 digits, which is why there are two separate SCC levels mentioned for each of the SCC-based assignments.(NOTE: hierarchial approach is only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -590,7 +590,7 @@
 </listitem>
 </orderedlist>
 
-<para>On-road mobile and nonroad sources are matched to the control packet entries using the following hierarchy:</para>
+<para>On-road mobile and nonroad sources are matched to the control packet entries using the following hierarchy if the SCC length is less than 10 characters. As of SMOKE v4.0 the SCC character length may be up to 20 characters in length:(NOTE: this hierarchial approach is only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5230,7 +5230,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>The speciation cross-reference file input to <command>Spcmat</command> specifies the speciation profile to be used for transforming the inventory pollutants to the model species for each source or type of source. <command>Spcmat</command> permits profiles to be assigned based on the country, state, and county code, the SCC, and other source characteristics. In the hierarchical system used to apply the profiles, the most specific assignments are applied first, followed by the next most specific, and so on. This system ensures that the most-specific matches override the less-specific ones.</para>
 
-<para>For stationary area/nonpoint sources, the available combinations and their order are the following, starting with the most specific. <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
+<para>For stationary area/nonpoint sources, the available combinations and their order are the following, starting with the most specific. <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used. (NOTE: only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5786,7 +5786,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>A many-step hierarchy is used in applying the temporal cross-referencing. SMOKE preferentially matches each source to the most specific line in the cross-reference file. When there are missing entries in the cross-reference file, <command>Temporal</command> first looks for cross-reference entries for other species at the same level in the search hierarchy before descending to the next level in the hierarchy. For example, if a source has a temporal cross-reference entry for CO but not for NO<subscript>x</subscript>, <command>Temporal</command> uses the source-specific CO temporal cross reference entry for allocating NO<subscript>x</subscript> from that source in preference to using a default NO<subscript>x</subscript> temporal profile.</para>
 
-<para>For area sources, the available combinations are the following, starting with the most specific. <quote>7-digit SCC</quote> means a 10-digit SCC with the last three digits set to zero.</para>
+<para>For area sources, the available combinations are the following, starting with the most specific. <quote>7-digit SCC</quote> means a 10-digit SCC with the last three digits set to zero. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used. (NOTE: only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5906,9 +5906,9 @@ Defines whether the program produces a report of emission totals by state.</para
 </orderedlist>
 </comment>
 
-<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>.</para>
+<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.</para>
 
-<para>The hierarchy of cross-referencing is the following.</para>
+<para>The hierarchy of cross-referencing is the following. (NOTE: only for SCC less than or equal to 10 characters, SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
