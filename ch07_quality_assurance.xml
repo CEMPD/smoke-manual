@@ -1360,10 +1360,10 @@ METADATA
 <listitem>Weekly Prf (weekly temporal profile code)</listitem>
 <listitem>Diurnal Prf (diurnal temporal profile code)</listitem>
 <listitem>Spec Prf (speciation profile code)</listitem>
-<listitem>Plant ID (for point sources only) or Road (road class; for mobile sources only)</listitem>
-<listitem>Char 1 (for IDA inventories, the point-source stack ID) or Veh Type (vehicle type; for mobile sources only)</listitem>
-<listitem>Char 2 (for IDA inventories, the point-source point ID)</listitem>
-<listitem>Char 3 (for IDA inventories, the point-source segment ID)</listitem>
+<listitem>Plant ID (for ORL) or Facility ID (for FF10)</listitem>
+<listitem>Char 1 point-source stack ID (for ORL) or ?? (for FF10) </listitem>
+<listitem>Char 2 Stack ID (for ORL) or Release Point ID (for FF10)</listitem>
+<listitem>Char 3 Segment ID (for ORL) or Process ID (for FF10)</listitem>
 <listitem>Char 4 (for point sources only; may or may not be defined)</listitem>
 <listitem>Char 5 (for point sources only; may or may not be defined)</listitem>
 <listitem>Stk Ht (stack height; for point sources only)</listitem>

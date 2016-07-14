@@ -235,8 +235,7 @@ source $ASSIGNS/set_dirs.scr
 <para><filename class="directory">src/emqa</filename>: <command>Smkreport</command></para>
 </listitem>
 <listitem>
-<para><filename class="directory">src/emutil</filename>: <command>Aggwndw</command>, <command>Beld3to2</command>, <command>BlueSky2Inv</command>, <command>CEMScan</command>, <command>Extractida</command>, 
-<command>Geofac</command>, <command>Invsplit</command>, <command>Layalloc</command>, <command>Metcombine</command>, <command>Metscan</command>, <command>Pktreduc</command>, <command>Smk2emis</command>, <command>Surgtool</command>, <command>Uam2ncf</command></para>
+<para><filename class="directory">src/emutil</filename>: <command>Aggwndw</command>, <command>Beld3to2</command>, <command>BlueSky2Inv</command>, <command>CEMScan</command>, <command>Geofac</command>, <command>Invsplit</command>, <command>Layalloc</command>, <command>Metcombine</command>, <command>Metscan</command>, <command>Pktreduc</command>, <command>Smk2emis</command>, <command>Surgtool</command>, <command>Uam2ncf</command></para>
 </listitem>
 <listitem>
 <para><filename class="directory">src/grdmat</filename>: <command>Grdmat</command></para>
@@ -464,7 +463,7 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>PTINV</envar> (raw point-source inventory file). If this is a list file (required for EMS-95 inputs), the files listed within it should also be included in this directory.</para>
+<para><envar>PTINV</envar> (raw point-source inventory file). If this is a list file, the files listed within it should also be included in this directory.</para>
 </listitem>
 </itemizedlist>
 

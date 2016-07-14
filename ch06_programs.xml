@@ -38,7 +38,7 @@
 
 <para><link linkend="sect_programs_cntlmat"><command>Cntlmat</command></link> creates the growth matrices, multiplicative control matrices, and reactivity control matrices for the anthropogenic source categories. This program is not used for base-year emissions without controls.</para>
 
-<para><link linkend="sect_programs_grwinven"><command>Grwinven</command></link> is used to grow the emissions to past or future years using the growth matrix created by <command>Cntlmat</command> and the imported inventory data from <command>Smkinven</command>. It writes both SMOKE inventory format (I/O API NetCDF) and IDA format. The output from <command>Grwinven</command> is used in place of the original output from <command>Smkinven</command> when processing past or future years.</para>
+<para><link linkend="sect_programs_grwinven"><command>Grwinven</command></link> is used to grow the emissions to past or future years using the growth matrix created by <command>Cntlmat</command> and the imported inventory data from <command>Smkinven</command>. It writes both SMOKE inventory format (I/O API NetCDF) and ORL format. The output from <command>Grwinven</command> is used in place of the original output from <command>Smkinven</command> when processing past or future years.</para>
 
 <para><link linkend="sect_programs_tmpbeis3"><command>Tmpbeis3</command></link> applies meteorology adjustments to the normalized emissions created by <command>Normbeis3</command>.  <command>Tmpbeis3</command> also applies the speciation profiles needed for the user-selected chemical mechanism to create gridded, hourly, model-species biogenic emissions data for use in <command>Smkmerge</command> and <command>Mrggrid</command>. The <command>Normbeis3</command> and <command>Tmpbeis3</command> programs taken together are the equivalent of SMOKE-BEIS3.</para>
 
@@ -161,26 +161,6 @@
 <para>Fac<subscript>CONTROL</subscript> = B x (1 - C<subscript>eff</subscript> [packet] x R<subscript>eff</subscript> [packet] x R<subscript>pen</subscript> [packet])</para>
 
 <para>Unlike <quote>additive</quote> entries, the Fac<subscript>CONTROL</subscript> value for <quote>replacement</quote> entries replaces the factor calculated from the /MACT/ packet or  base year inventory (if any). The /CONTROL/ packet can be applied to stationary area/nonpoint, nonroad, on-road mobile, and point sources. On-road mobile source inventories do not include control efficiency, rule effectiveness, or rule penetration fields. However, the /CONTROL/ packet can still be used to apply adjustment factors to mobile sources. In this case, B in the above formula will be 1 when computing factor Fac<subscript>CONTROL</subscript> that is applied to the emissions.</para>
-
-</section>
-
-<section>
-
-<title>/EMS_CONTROL/ packet</title>
-
-<para>The /EMS_CONTROL/ packet is processed in a very similar way as <quote>replacement</quote> entries in the /CONTROL/ packet, with three differences:</para>
-
-<orderedlist>
-<listitem>
-<para>The base-year inventory control efficiency, rule effectiveness, and rule penetration values are not provided with the base-year inventory emission input files in EMS-95 format. Instead, these base-year values are provided as part of the control packet values (see the /EMS_CONTROL/ packet format). The base-year controls are <quote>backed out</quote> before the future-year controls from the /EMS_CONTROL/ packets are applied.</para>
-</listitem>
-<listitem>
-<para>The /EMS_CONTROL/ packet contains a <quote>control adjustment factor</quote> field, which overrides all other values in the packet. This override feature allows the user to precompute the control factor needed for each record instead of using the formula listed above for application of the controls. When a control adjustment factor is provided, the control efficiency, rule effectiveness, and rule penetration from both the base case and the future year are completely ignored.</para>
-</listitem>
-<listitem>
-<para>The factor computed from the /EMC_CONTROL/ packet will be applied in addition to any factors computed from the /MACT/ packet.</para>
-</listitem>
-</orderedlist>
 
 </section>
 
@@ -1631,9 +1611,9 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <para><emphasis>Processing catagories:</emphasis> area, mobile, point</para>
 
-<para>The <command>Grwinven</command> program grows and controls inventory emissions and activity data into the past/future by merging a SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) with its respective growth and control matrices. This optional program need not be used if these projections have been made outside of SMOKE. <command>Grwinven</command> outputs new SMOKE I/O API inventory files, but not the corresponding inventory ASCII files (because the program changes the data only in the I/O API inventory files, so there is no need to output the same ASCII files). The program can also output data in IDA or ORL format, or be used as a converter from SMOKE to IDA or ORL format. <command>Grwinven</command> does not merge the SMOKE inventory with reactivity matrices; this functionality is handled by <command>Smkmerge</command>.</para>
+<para>The <command>Grwinven</command> program grows and controls inventory emissions and activity data into the past/future by merging a SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) with its respective growth and control matrices. This optional program need not be used if these projections have been made outside of SMOKE. <command>Grwinven</command> outputs new SMOKE I/O API inventory files, but not the corresponding inventory ASCII files (because the program changes the data only in the I/O API inventory files, so there is no need to output the same ASCII files). The program can also output data in ORL format, or be used as a converter from SMOKE to ORL format. <command>Grwinven</command> does not merge the SMOKE inventory with reactivity matrices; this functionality is handled by <command>Smkmerge</command>.</para>
 
-<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an IDA- or ORL-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPDIR</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
+<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an ORL-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPDIR</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
 
 </section>
 
@@ -1665,7 +1645,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <para><xref linkend="fig_programs_grwinven" /> shows the input and output files for the <command>Grwinven</command> program. The input files include at least one growth or control matrix output from <command>Cntlmat</command> (<envar>ACMAT01</envar>, <envar>MCMAT01</envar>, or <envar>PCMAT01</envar>). If you are applying more than one growth or control matrix (i.e. <envar>SMK_NUM_CNTLMAT</envar> is greater than one), <command>Cntlmat</command> will open additional matrices as needed (<envar>ACMAT[xx]</envar>, <envar>MCMAT[xx]</envar>, or <envar>PCMAT[xx]</envar>). <command>Cntlmat</command> also uses the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) and the country, state and county file (<envar>COSTCY</envar>).</para>
 
-<para><command>Grwinven</command> outputs new SMOKE intermediate inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been controlled and/or grown into the past or future. Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files. You can also choose to output ASCII inventory files in IDA or ORL format (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). <command>Grwinven</command> also writes a log file (<envar>LOGFILE</envar>) and can create an ASCII inventory file for activity data (<envar>MBINV_AO</envar>).</para>
+<para><command>Grwinven</command> outputs new SMOKE intermediate inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been controlled and/or grown into the past or future. Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files. You can also choose to output ASCII inventory files in ORL format (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). <command>Grwinven</command> also writes a log file (<envar>LOGFILE</envar>) and can create an ASCII inventory file for activity data (<envar>MBINV_AO</envar>).</para>
 
 <section>
 
@@ -1731,19 +1711,6 @@ H<subscript>S</subscript> = Physical stack height (m)
 </listitem>
 
 <listitem>
-<para><envar>SMK_GRWIDAOUT_YN</envar>: [default: N]</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Output inventory in IDA format</para>
-</listitem>
-<listitem>
-<para>N: Do not output inventory in IDA format</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
 <para><envar>SMK_GRWORLOUT_YN</envar>: [default: N]</para>
 
 <para>Indicates if an ORL-formatted grown and/or controlled inventory should be output. Currently only ORL nonpoint ond point inventory formats are supported. <envar>SMK_GRWORLOUT_YN</envar> and <envar>SMK_GRWIDAOUT_YN</envar> cannot be both set to Y in the same run.  In SMOKE version 2.3, the Grwinven ORL output format was changed to use a more compact structure (eliminated spaces), uses commas, and includes semi-colons around all text fields. These changes make these files much smaller and easier to import to other software, but unfortunately harder to read in a text editor.</para>
@@ -1779,7 +1746,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <listitem>
 <para><envar>SMK_TMPDIR</envar>: [default: <filename class="directory">.</filename>]</para>
 
-<para>Defines the path to use for temporary files that are written out when supplying the IDA-formatted inventory. This setting is used only when <envar>SMK_GRWIDAOUT_YN</envar> is set to Y.</para>
+<para>Defines the path to use for temporary files that are written out when supplying the inventory.</para>
 </listitem>
 </itemizedlist>
 
@@ -3722,12 +3689,6 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <itemizedlist>
 <listitem>
-<para>IDA for area, mobile, point</para>
-</listitem>
-<listitem>
-<para>IDA mobile extended (modified to support VMT and pollutants)</para>
-</listitem>
-<listitem>
 <para>SMOKE one-record-per-line (ORL) format for nonpoint, nonroad mobile, on-road mobile, and point sources</para>
 </listitem>
 <listitem>
@@ -3750,7 +3711,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </listitem>
 </itemizedlist>
 
-<para>It is not possible to import only day- or hour-specific data from FF10 or EMS-95 input files. If only such data are to be used, mock annual files must be created; see <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" /> for more information on the required formats.</para>
+<para>It is not possible to import only day- or hour-specific data from FF10 input files. If only such data are to be used, mock annual files must be created; see <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" /> for more information on the required formats.</para>
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
@@ -3826,7 +3787,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <para><xref linkend="fig_programs_smkinven_point" /> shows the input and output files for <command>Smkinven</command> for point sources. The input files include the optional CEM summary file (<envar>CEMSUM</envar>) created by <command>CEMScan</command>, the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), and the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>). If importing hour-specific data, the ORIS facility description file <envar>ORISDESC</envar> is used. The <envar>PSTK</envar> file provides replacement stack parameters. Day-specific data is read from the <envar>PTDAY</envar> file, while hour-specific data comes from the <envar>PTHOUR</envar> file; the <envar>PTINV</envar> file provides the raw inventory data. For hour-specific data, the SCC description file (<envar>SCCDESC</envar>) is also needed.</para>
 
-<para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), and optional day-specific inventory (<envar>PDAY</envar>), and an optional hour-spceific inventory (<envar>PHOUR</envar>). The annual and average-day inventory emissions are stored in the <envar>PNTS</envar> file and the <envar>PSCC</envar> file lists the inventory SCCs.  For EMS-95 formatted inputs, an optional temporal profiles file (<envar>PTREF_ALT</envar>) is output. Finally, the <envar>REPINVEN</envar> report contains various information about the processed inventory.</para>
+<para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), and optional day-specific inventory (<envar>PDAY</envar>), and an optional hour-spceific inventory (<envar>PHOUR</envar>). The annual and average-day inventory emissions are stored in the <envar>PNTS</envar> file and the <envar>PSCC</envar> file lists the inventory SCCs. Finally, the <envar>REPINVEN</envar> report contains various information about the processed inventory.</para>
 
 <section>
 
@@ -4166,21 +4127,6 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <para>Defines the default time zone to use for sources that do not match entries in the <envar>COSTCY</envar> file.</para>
 </listitem>
-<listitem>
-<para><envar>SMK_EMS95_FIXFMT</envar>: [default: N]</para>
-
-<para>Indicates whether mobile EMS-95 inventory is fixed format (column-specific) or free format (delimited list).</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Mobile EMS-95 inventory is fixed format</para>
-</listitem>
-<listitem>
-<para>N: Mobile EMS-95 inventory is free format</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
 
 <listitem>
 <para><envar>SMK_MAXERROR</envar>: [default: 100]</para>
@@ -4281,9 +4227,9 @@ OUTPUT = INPUT1 - INPUT2
 
 </listitem>
 <listitem>
-<para><envar>WKDAY_NORMALIZE</envar>: [default: Y for EMS-95 input format, N for all other formats]</para>
+<para><envar>WKDAY_NORMALIZE</envar>: [default: N]</para>
 
-<para>Clarifies the nature of the <quote>average-day</quote> data read in by <command>Smkinven</command> and will impact the <command>Temporal</command> program processing of EMS-95 formatted data of type <quote>AD</quote> and average-day data for all other formats.</para>
+<para>Clarifies the nature of the <quote>average-day</quote> data read in by <command>Smkinven</command> and will impact the <command>Temporal</command> program processing of average-day data for all formats.</para>
 
 <itemizedlist>
 <listitem>
@@ -4357,11 +4303,6 @@ OUTPUT = INPUT1 - INPUT2
 <entry><envar>AHOUR | PHOUR</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Hour-specific inventory emissions assigned to sources in annual/average day files (optional)</entry>
-</row>
-<row>
-<entry><envar>PTREF_ALT</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>Temporal profile identification codes per source; available when EMS-95-formatted point-source data are input</entry>
 </row>
 <row>
 <entry><envar>REPINVEN</envar> (optional)</entry>
@@ -5402,7 +5343,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </orderedlist>
 </comment>
 
-<para>For point sources, the available combinations depend on the source definition. A header in the speciation cross-reference file format allows you to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. For point sources, the available combinations and their order are:</para>
+<para>For point sources, the available combinations depend on the source definition. A header in the speciation cross-reference file format allows you to indicate the source definition. For inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. For point sources, the available combinations and their order are:</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5906,7 +5847,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </orderedlist>
 </comment>
 
-<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.</para>
+<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. For inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.</para>
 
 <para>The hierarchy of cross-referencing is the following. (NOTE: only for SCC less than or equal to 10 characters, SIC less than or equal to 4 characters)</para>
 

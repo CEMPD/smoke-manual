@@ -811,7 +811,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Inventory list files</title>
 
-<para>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and other information) or they can contain a list of file names with full paths (i.e. <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename>); in the latter case, we call the file a <quote>list file</quote>. When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into one inventory. This is useful when the individual inventories are in different formats; for example, criteria emissions are typically in IDA format, while the ORL format is used for toxics emissions. You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this will be noted in the format descriptions.</para>
+<para>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and other information) or they can contain a list of file names with full paths (i.e. <filename>/apps/smoke/data/inventory/nei02/area/arinv.txt</filename>); in the latter case, we call the file a <quote>list file</quote>. When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into one inventory.  You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this will be noted in the format descriptions.</para>
 
 <para>An inventory list file can be created using the UNIX <command>ls</command>. The following command will create the <envar>ARINV</envar> file containing a list of all files starting with <filename>arinv</filename> in the <filename class="directory"><envar>$ARDAT</envar></filename> directory, complete with full paths.</para>
 
@@ -851,7 +851,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Header records</title>
 
-<para>The IDA, ORL and FF10 formats used for the area-, mobile-, and point-source inventories require a set of header records at the beginning of each file. The general format of the header records is:</para>
+<para>The ORL and FF10 formats used for the area-, mobile-, and point-source inventories require a set of header records at the beginning of each file. The general format of the header records is:</para>
 
 <para>command parm1 parm2 ... parm <emphasis>n</emphasis></para>
 
@@ -860,7 +860,7 @@ In this overview section, we first provide a few important notes about file form
 <comment>The header records can appear anywhere in the file to change the parameters of the data. For example, the #COUNTRY value could change to allow for multiple countries in a single file, the #YEAR value could change to allow for multiple years, and the #DATA and #UNITS values could change to allow for different data fields in different parts of the inventory file.</comment>
 
 <table id="tbl_input_inventory_header">
-<title>Inventory header commands for IDA, ORL, and FF10 formats</title>
+<title>Inventory header commands for ORL, and FF10 formats</title>
 
 <tgroup cols="3">
 <colspec colwidth="35*" />
@@ -914,14 +914,9 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
-<entry><para>In IDA-format files, it defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</para> 
+<entry>
 <para>In wild/Rx fires ORL format files (#ORL FIRE (<quote><xref linkend="sect_input_ptinv_fire" /></quote>) and day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para> 
 </entry>
-</row>
-<row>
-<entry>#UNITS</entry>
-<entry>units1 units2 ... units <emphasis>n</emphasis></entry>
-<entry>Only used for on-road mobile activity data in IDA format. Defines the units associated with the activity data; <quote>units1</quote> are the units for <quote>data1</quote>, <quote>units2</quote> are the units for <quote>data2</quote>, and so on. Not used for emissions data because the units are built into the file formats.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -1997,7 +1992,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title><envar>MBINV</envar>: Mobile-source activity and emissions</title>
 
-<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data in FF10 format and one for emissions data in ORL format.</para>
+<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two formats are available: one for activity data in FF10 format and one for emissions data in ORL format.</para>
 
 <section>
 
@@ -2363,25 +2358,25 @@ In this overview section, we first provide a few important notes about file form
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
 <entry>Char</entry>
-<entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
+<entry>Facility Identification Code (required; this is the same as the Plant ID in the ORL Format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+<entry>Unit Identification Code (required; this is the same as the Point ID in the ORL Format) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Release Point Identification Code (recommended; this is the same as the Stack ID in the ORL Format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
 <entry>Char(15)</entry>
-<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Process Identification Code characters (recommended; this is the same as the Segment ID in the ORL Format)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -2783,19 +2778,19 @@ Sample header records for hourly point sources are shown below:
 <entry>5</entry>
 <entry>UNIT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+<entry>Point Identification Code (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Stack Identification Code (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
 <entry>Char(15)</entry>
-<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Segment Identification Code (a.k.a DOE Plant ID) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -2948,19 +2943,19 @@ Sample header records for daily point sources are shown below:</para>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+<entry>Point Identification Code (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Stack Identification Code (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
 <entry>Char(15)</entry>
-<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Segment Identification Code (a.k.a DOE Plant ID) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -3014,7 +3009,7 @@ Sample header records for daily point sources are shown below:</para>
 <entry>16</entry>
 <entry>FACILITY_NAME</entry>
 <entry>Char(40)</entry>
-<entry>Plant Name (40 characters maximum) (required)</entry>
+<entry>Plant Name (required; example "Power Plant", note: use double quote around the name)</entry>
 </row>
 <row>
 <entry>17</entry>
@@ -3347,7 +3342,7 @@ Sample header records for daily point sources are shown below:</para>
 <entry>F</entry>
 <entry>PLANT</entry>
 <entry>Char(40)</entry>
-<entry>Plant Name (40 characters maximum) (recommended)</entry>
+<entry>Plant Name (recommended; example "Power Plant", note: use double quote around the name)</entry>
 </row>
 <row>
 <entry>G</entry>
@@ -3420,7 +3415,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>O</entry>
 <entry>SIC</entry>
-<entry>Int(4)</entry>
+<entry>Int(20)</entry>
 <entry>Standard Industrial Classification Code (recommended)</entry>
 </row>
 <row>

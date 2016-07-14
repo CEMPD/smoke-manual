@@ -290,7 +290,8 @@
 <itemizedlist>
 
 <listitem>
-<para><emphasis role="bold">Source characteristics:</emphasis> The source characteristics for point sources depend on the inventory input format. The Inventory Data Analyzer (IDA) format and SMOKE one-record-per-line (ORL) format identify sources by country/state/county code, plant code, point code, stack code, segment code, and SCC. The Emissions Modeling System, &lsquo;95 (EMS-95) format identifies sources by country/state/county code, facility code (same as plant code), stack code, device code, process code, and SCC.</para>
+	<para><emphasis role="bold">Source characteristics:</emphasis> The source characteristics for point sources depend on the inventory input format. The SMOKE one-record-per-line (ORL) and Flat File 10 Format (FF10) formats identify sources by country/state/county code, plant code, point code, stack code, segment code, and SCC. 95. 
+	</para>
 </listitem>
 
 <listitem>
@@ -298,7 +299,7 @@
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Source attributes:</emphasis> As with other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In addition, point sources have the following required source attributes not associated with other source categories: latitude, longitude, stack height, stack diameter (at the exit location), flue gas exit velocity, and flue gas exit temperature. Finally, the following optional source attributes are also used by SMOKE: SIC codes, MACT codes, plant descriptions, emissions release type point (e.g., horizontal stack, fugitive), source type (major or section-112 area), Office of Regulatory Information Systems (ORIS) identification codes, and boiler identification codes. Not all input formats support all types of optional source attributes. In particular, the ORIS and boiler codes (which are necessary for SMOKE to use in matching with Continuous Emissions Monitoring [CEM] hour-specific EGU data) are supported only by the IDA format. Also, the MACT code and source types are supported only by the ORL format. See <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, and <xref linkend="sect_concepts_section_112" /> for more information.</para>
+	<para><emphasis role="bold">Source attributes:</emphasis> As with other source categories, inventory year is associated with all sources in the inventory input files. SMOKE also assigns a time zone (see <xref linkend="sect_concepts_assign_countries" />) and an approach for normalization of temporal profiles (see <xref linkend="sect_concepts_set_weekday_approach" />). In addition, point sources have the following required source attributes not associated with other source categories: latitude, longitude, stack height, stack diameter (at the exit location), flue gas exit velocity, and flue gas exit temperature. Finally, the following optional source attributes are also used by SMOKE: SIC codes, MACT codes, plant descriptions, emissions release type point (e.g., horizontal stack, fugitive), source type (major or section-112 area), Office of Regulatory Information Systems (ORIS) identification codes, and boiler identification codes. Also, the MACT code and source types are supported only by the ORL format. See <xref linkend="sect_concepts_sic_codes" />, <xref linkend="sect_concepts_mact_codes" />, and <xref linkend="sect_concepts_section_112" /> for more information.</para>
 </listitem>
 
 <listitem>
@@ -415,30 +416,30 @@
 
 <para>SMOKE supports a variety of inventory formats for criteria, particulate, toxics, and activity data inventories, which are described in detail in <xref linkend="sect_input_inventory" />. Here, we provide a brief introduction to these formats, which will be helpful as you read more about SMOKE in the remainder of this chapter and the chapters before <xref linkend="ch_input_files" />. All formats described here are text files. To convert your data to these formats, the best approach is to use a database or spreadsheet program to reformat and output the data in the requested format. There is not a standard format-conversion method that comes with SMOKE.</para>
 
-<para>With the exception of the on-road mobile formats for activity data (i.e. VMT and speed), none of the SMOKE inventory formats require specific inventory pollutants or limit the inventory pollutant types that can be imported. However, all formats have their <quote>typical</quote> purpose. The IDA format is usually used for criteria and particulate inventories and is appropriate for them because most sources have emissions for all criteria and particulate pollutants. However, there is no reason that mercury data, for example, could not be provided to SMOKE using this format (provided that the user does not need to have the MACT code associated with mercury emissions for other processing steps, since MACT codes are not part of the IDA format). Similarly, the ORL format is usually used for importing toxics data, but could also be used to import criteria inventories. In the following paragraphs, we describe the formats available for nonpoint/stationary area, nonroad mobile, on-road mobile, point, and point-wildfire sources.</para>
+<para> In the following paragraphs, we describe the formats available for nonpoint/stationary area, nonroad mobile, on-road mobile, point, and point-wildfire sources.</para>
 
 <itemizedlist>
 
 <listitem>
-<para><emphasis role="bold">Nonpoint/stationary area sources:</emphasis> SMOKE supports four formats for nonpoint/stationary area sources. The first is the IDA format, which is intended for input of the criteria and particulate National Emission Inventory for stationary area sources. The second is the EMS-95 format, which is provided only for backward compatibility for people using EMS-95 emission files. The key difference between the two formats is that the IDA format has all inventory pollutants for each source on a single line, whereas the EMS-95 format has a different inventory pollutant on each line. The third format, ORL, is typically used for nonpoint sources for toxics inventories. This format can be created using data fields from the NEI for HAPs. In some cases, a version of this inventory known as the <quote>modeler&rsquo;s files</quote> may be available, but will still require conversion to the ORL format; additional conversion is needed because the <quote>modeler&rsquo;s files</quote> contain extra information not needed for SMOKE, but needed by other users of the files. The ORL and IDA formats may be used together to combine the criteria, particulate, and toxics inventories into a single SMOKE run. Like the EMS-95 format (and unlike the IDA format), the ORL format has a different inventory pollutant on each line. The fourth format is the FF10 (Flat File 10) that is list directed (comma or semicolon delimited) and this file format may be used to represent many different sources. The header of the file indicates what source data are in the file.</para>
+	<para><emphasis role="bold">Nonpoint/stationary area sources:</emphasis> SMOKE supports two formats for nonpoint/stationary area sources.  The ORL and FF10 (Flat File 10) format are list directed (comma or semicolon delimited) and these file formats may be used to represent many different sources. The header of the file indicates what source data are in the file.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Nonroad mobile sources:</emphasis> There are three available inventory formats for nonroad mobile sources. For criteria and particulate inventories, you can use the same IDA format or EMS-95 format as for stationary area sources. For toxics inventories, the ORL format is available for providing nonroad data to SMOKE. These formats may be used together to combine the nonroad criteria, particulate, and toxics inventories into a single SMOKE run. Like the nonpoint toxics format, the nonroad mobile toxics format has a different inventory pollutant on each line and can be used to input any inventory data to SMOKE, including criteria or particulate emissions. The FF10 (Flat File 10) format is list directed (comma or semicolon delimeted) and the header of the file is used to indicate the nonroad mobile source data is within the file.</para>
+	<para><emphasis role="bold">Nonroad mobile sources:</emphasis> There are three available inventory formats for nonroad mobile sources.  The FF10 (Flat File 10) format is list directed (comma or semicolon delimeted) and the header of the file is used to indicate the nonroad mobile source data is within the file.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">On-road mobile sources:</emphasis> Five formats are possible for on-road mobile sources. There is an IDA format for activity data and one for emissions data. The IDA activity data format is used to input VMT and speed data to SMOKE for criteria, particulate, and toxics modeling. The IDA emissions data format is intended for criteria and particulate inventories, though other data can be provided in this format as well; this format has all inventory pollutants on each line of the file. Third, there is a ORL format for toxics emissions data, which can also be used for input of any inventory data to SMOKE. All three of these formats expect VMT or emissions data to be provided by road class and vehicle type. Fourth, there is an EMS-95 format that can be used to provide SMOKE VMT data that are aggregated by road class and <emphasis>not</emphasis> vehicle type. In this case, SMOKE requires another input file, called the <envar>VMTMIX</envar> file, to disaggregate the emissions by vehicle type for each road class. The EMS-95 format also permits providing data by link, which includes data regarding the coordinates of the link start and end points. The EMS-95 format is the only way to import data by link. Fifth there is the Flat File (FF) format for activity inventory such as VMT, speed,  and vehicle population data.  This format requires VMT, SPEED, and VPOP inventory data.</para>
+	<para><emphasis role="bold">On-road mobile sources:</emphasis> The Flat File 10 (FF10) format is list directed (comma or semicolon delimited) and contains activity inventory such as VMT, speed, and vehicle population data.  This format requires VMT, SPEED, and VPOP inventory data.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Point sources:</emphasis> SMOKE has formats for annual or average-day inventories, for day-specific inventories, and for hour-specific inventories. For annual or average-day inventories, the IDA format can be used for criteria and particulate inventories. An EMS-95 format can also be used for average-weekday criteria and particulate inventories; it requires five separate files for each state (SMOKE combines the information from these five files and across all of the states when importing the data). A ORL format is available for importing toxics inventories. For day-specific data, we have adapted the EMS-95 format for use in all cases, whether the annual or average-day inventory is in IDA, EMS-95, or ORL format. For hour-specific data, a very similar format can be used, again regardless of what format the annual or average-day emissions are provided in. Finally, the CEM data format can be used for day-specific or hour-specific data : SMOKE uses the ORIS codes and boiler codes in the annual inventory files to match sources from the CEM data files.</para>
+	<para><emphasis role="bold">Point sources:</emphasis> SMOKE has formats for annual or average-day inventories, for day-specific inventories, and for hour-specific inventories. For annual or average-day inventories, the ORL and FF10 formats can be used for criteria, particulate, and toxics inventories. Finally, the CEM data format can be used for day-specific or hour-specific data : SMOKE uses the ORIS codes and boiler codes in the annual inventory files to match sources from the CEM data files.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Wildfire sources:</emphasis> There are two approches available that you can provide wildfire data that are being treated as point sources to SMOKE using the IDA or ORL point-source format.</para>
+<para><emphasis role="bold">Wildfire sources:</emphasis> There are two approches available that you can provide wildfire data that are being treated as point sources to SMOKE using the ORL and FF10 point-source formats.</para>
     <itemizedlist spacing="compact">
-        <listitem><emphasis role="bold">Precomputed plume rise approach:</emphasis> Certain fields must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the EMS-95 day-specific and hour-specific formats.</listitem>
+	    <listitem><emphasis role="bold">Precomputed plume rise approach:</emphasis> Certain fields must be left blank (such as stack parameters) because they do not apply to wildfire sources. When using wildfire data provided as point sources, you must also provide day-specific or hour-specific wildfire emissions and hour-specific precomputed plume rise using the FF10 day-specific and hour-specific formats.</listitem>
         <listitem><emphasis role="bold">Internal plume rise calculation approach:</emphasis> Requires two separate inventory files that are provided in a modified ORL format: (1) a list of fires with fire-specific characteristics including county/state/county, fire identification, location coordinate, fire name, SCC and others, as described in <xref linkend="sect_input_ptinv_fire" />, and (2) a day-specific fire data including size of area burned, fuel loading, and star/end hour of fire (<xref linkend="sect_input_ptday_fireemis" />). Unlike the approach listed above, this approach internally estimates the plume rise using the size of the area burned and fuel loading, and it adjusts temporal profiles using the start and end hours of the fire. See detail at <xref linkend="sect_ptfire_emis_cmaq" /></listitem>
     </itemizedlist>
 </listitem>
@@ -2488,7 +2489,7 @@ Additional data</programlisting>
 
 <title>Flexible source definitions</title>
 
-<para>Depending on the input format of the point-source emissions (e.g., IDA, EMS-95, FF10, ORL), the set of characteristics that are used to uniquely identify a point source can be different. For example, the IDA-formatted inventories define a point source using a country, state, and county code, an SCC, a plant identifier, a stack number, a point identifier, and a segment number. The Emissions Modeling System, 95 (EMS-95), however, identifies a source using a FIPS state/county code, a plant code, a stack code, a device code, and a process code. To better support the formats and be adaptable if new formats are created in the future, SMOKE uses a flexible definition of point sources. This definition consists of the following source characteristics to uniquely define the sources:</para>
+<para>Depending on the input format of the point-source emissions (e.g., FF10, ORL), the set of characteristics that are used to uniquely identify a point source can be different. For example, the ORL-formatted inventories define a point source using a country, state, and county code, an SCC, a plant identifier, a stack number, a point identifier, and a segment number. The FF10 format, however, identifies a source using a FIPS state/county code, a plant code, a unit ID, a segment ID, and SCC. To better support the formats and be adaptable if new formats are created in the future, SMOKE uses a flexible definition of point sources. This definition consists of the following source characteristics to uniquely define the sources:</para>
 
 <itemizedlist>
 <listitem>
@@ -2502,9 +2503,9 @@ Additional data</programlisting>
 </listitem>
 </itemizedlist>
 
-<para>Depending on the input format, SMOKE assigns different variables from the input format to the parts of the SMOKE point-source definition. For example, for EMS-95 input format, the SMOKE plant ID comes from the EMS-95 facility ID. The assignments for the remaining characteristics are as follows:</para>
+<para>Depending on the input format, SMOKE assigns different variables from the input format to the parts of the SMOKE point-source definition.  The assignments for the remaining characteristics are as follows:</para>
 
-<para><emphasis>IDA format and ORL format:</emphasis></para>
+<para><emphasis>ORL format:</emphasis></para>
 
 <itemizedlist spacing="compact">
 <listitem>Char 1: Point ID</listitem>
@@ -2514,13 +2515,13 @@ Additional data</programlisting>
 <listitem>Char 5: unused</listitem>
 </itemizedlist>
 
-<para><emphasis>EMS-95 format:</emphasis></para>
+<para><emphasis>FF10 format:</emphasis></para>
 
 <itemizedlist spacing="compact">
 <listitem>Char 1: Stack ID</listitem>
-<listitem>Char 2: Device ID</listitem>
-<listitem>Char 3: Process ID</listitem>
-<listitem>Char 4: unused</listitem>
+<listitem>Char 2: Unit ID</listitem>
+<listitem>Char 3: Segment ID</listitem>
+<listitem>Char 4: SCC</listitem>
 <listitem>Char 5: unused</listitem>
 </itemizedlist>
 
@@ -2654,15 +2655,7 @@ Additional data</programlisting>
 
 <itemizedlist>
 <listitem>
-<para><emphasis role="bold">Inventory Data Analyzer format:</emphasis> The IDA format is the SMOKE input format that is most similar to the NEI <quote>flat file</quote> format. EPA typically prepares the IDA format for officially released versions of the NEI. There is a different IDA format for each source category: area (including nonroad mobile), point, and on-road mobile.</para>
-</listitem>
-
-<listitem>
 <para><emphasis role="bold">ORL format:</emphasis> This set of input formats is used for inputting point, nonpoint, on-road, and nonroad HAP emissions inventories, also called toxics emission inventories. There is a different ORL format for nonpoint, point, nonroad mobile, and on-road mobile sources.</para>
-</listitem>
-
-<listitem>
-<para><emphasis role="bold">EMS-95 format:</emphasis> These are input formats used for EMS-95. They are provided to allow EMS-95 users to input their data to SMOKE. There are different formats for area(including nonroad mobile), point, and on-road mobile sources. The EMS-95 formats must be used in conjunction with the list format (below).</para>
 </listitem>
 
 <listitem>
@@ -2675,8 +2668,6 @@ Additional data</programlisting>
 </itemizedlist>
 
 <para><command>Smkinven</command> ensures that all file formats provided to SMOKE are correct and include the required data fields. The formats and their required fields are provided in <xref linkend="ch_input_files" />.</para>
-
-<para><command>Smkinven</command> also ensures that the files listed in list format input files do not include incompatible file formats. Usually, only one file format can be used for one <command>Smkinven</command> run. The major exception to this rule is that <command>Smkinven</command> can import the IDA and ORL formats in the same run. The only other minor exception to the input rule is that the EMS-95 point-source format actually includes five separate formats, which can be input at the same time, when users follow the instructions about the order of these files provided in <xref linkend="sect_input_ptinv" />.</para>
 
 </section>
 
@@ -2815,7 +2806,7 @@ Additional data</programlisting>
 
 <title>Convert coordinates from UTM to lat-lon</title>
 
-<para>The ORL and EMS-95 point-source formats permit stack coordinates to be provided in UTM or lat-lon coordinates, and the SMOKE intermediate inventory stores the coordinates as lat-lon values. <command>Smkinven</command> converts the UTM coordinates to lat-lon coordinates using the I/O API routine <ulink url="http://www.baronams.com/products/ioapi/LL2UTM.html">UTM2LL</ulink>. Lat-lon coordinates must be provided in decimal degrees, while UTM coordinates must be provided in meters.</para>
+<para>The ORL and FF10 point-source formats permit stack coordinates to be provided in UTM or lat-lon coordinates, and the SMOKE intermediate inventory stores the coordinates as lat-lon values. <command>Smkinven</command> converts the UTM coordinates to lat-lon coordinates using the I/O API routine <ulink url="http://www.baronams.com/products/ioapi/LL2UTM.html">UTM2LL</ulink>. Lat-lon coordinates must be provided in decimal degrees, while UTM coordinates must be provided in meters.</para>
 
 </section>
 
@@ -2831,9 +2822,9 @@ Additional data</programlisting>
 
 <title>Convert units of emissions and activities</title>
 
-<para>Different input formats in SMOKE have different emissions units. The SMOKE intermediate inventory file stores all annual emissions values from the IDA and ORL format in tons/year. These two formats also support average-day emissions values, which are stored separately in the SMOKE intermediate inventory in tons/day. The average-weekday emissions values input from EMS-95 format are also stored in tons/year, but SMOKE sets an internal variable called TPFLAG so that later SMOKE processing steps can properly treat the computed <quote>annual</quote> value as an average-day value. The annual VMT data are stored as miles/year. In all cases, <command>Smkinven</command> converts the units of the input emissions to the units used in the SMOKE intermediate inventory. When this conversion involves a day-to-year conversion, <command>Smkinven</command> considers leap years by using 366 instead of 365 days in the year. See <xref linkend="sect_input_inventory" /> for information about the units required for each inventory format.</para>
+<para>Different input formats in SMOKE have different emissions units. The SMOKE intermediate inventory file stores all annual and average-day emissions values from the ORL format in tons/year. These two formats also support average-day emissions values, which are stored separately in the SMOKE intermediate inventory in tons/day. The average-weekday emissions values input are also stored in tons/year, but SMOKE sets an internal variable called TPFLAG so that later SMOKE processing steps can properly treat the computed <quote>annual</quote> value as an average-day value. The annual VMT data are stored as miles/year. In all cases, <command>Smkinven</command> converts the units of the input emissions to the units used in the SMOKE intermediate inventory. When this conversion involves a day-to-year conversion, <command>Smkinven</command> considers leap years by using 366 instead of 365 days in the year. See <xref linkend="sect_input_inventory" /> for information about the units required for each inventory format.</para>
 
-<para>When emissions are provided as average-day values from the IDA or ORL formats and these emissions are then used in later processing steps, SMOKE does not further adjust the emissions using the monthly profiles. SMOKE assumes that the average-day emissions from these two formats have been adjusted to a specific month already. In addition, when <command>Smkinven</command> is configured using the <envar>FILL_ANNUAL</envar> option to fill in missing annual values using average-day values, <command>Smkinven</command> sets the TPFLAG internal variable to indicate that monthly adjustments should not be applied and that the <quote>annual</quote> emissions should just be divided by the number of days of the year before being used. <command>Smkinven</command> makes this setting on a source-by-source basis.</para>
+<para>When emissions are provided as average-day values from the ORL and FF10 formats and these emissions are then used in later processing steps, SMOKE does not further adjust the emissions using the monthly profiles. SMOKE assumes that the average-day emissions from these two formats have been adjusted to a specific month already. In addition, when <command>Smkinven</command> is configured using the <envar>FILL_ANNUAL</envar> option to fill in missing annual values using average-day values, <command>Smkinven</command> sets the TPFLAG internal variable to indicate that monthly adjustments should not be applied and that the <quote>annual</quote> emissions should just be divided by the number of days of the year before being used. <command>Smkinven</command> makes this setting on a source-by-source basis.</para>
 
 </section>
 
@@ -2843,8 +2834,7 @@ Additional data</programlisting>
 
 <para>There are two approaches for processing weekly temporal profiles: weekly normalization and weekday normalization. Although the actual normalization happens during temporal allocation, <command>Smkinven</command> sets the approach to use for each source. In the weekly approach, the <command>Temporal</command> program normalizes the weekly temporal profiles over every day of the week. This approach is appropriate for annual-total inventories or average-day inventories. Weekday normalization normalizes over just the weekdays (i.e., Monday through Friday) in the profile, or if the profile indicates no emissions on weekdays, then over just the weekend days in the profile. This approach is appropriate only for average-weekday inventories. <xref linkend="sect_concepts_temporal_processing" /> describes the two forms of weekly profile normalization in more detail.</para>
 
-<para>The default normalization setting for IDA and ORL formats in <command>Smkinven</command> is weekly normalization. The default normalization setting for EMS-95 inventories is weekday normalization. The default settings can be changed using the <envar>WKDAY_NORMALIZE</envar> option in the SMOKE run scripts. When this option is set to Y, the sources will be set to instruct <command>Temporal</command> to use weekday normalization, and when this option is set to N, the sources will be set to cause weekly normalization. <command>Smkinven</command> gives a warning when an approach is being used that is inconsistent with the expected approach for the inventory format being used.</para>
-
+<para>The default normalization setting for ORL and FF10 formats in <command>Smkinven</command> is weekly normalization.  The default settings can be changed using the <envar>WKDAY_NORMALIZE</envar> option in the SMOKE run scripts. When this option is set to Y, the sources will be set to instruct <command>Temporal</command> to use weekday normalization, and when this option is set to N, the sources will be set to cause weekly normalization. <command>Smkinven</command> gives a warning when an approach is being used that is inconsistent with the expected approach for the inventory format being used.</para> 
 </section>
 
 <section id="sect_concepts_assign_countries">
@@ -2877,7 +2867,7 @@ Additional data</programlisting>
 
 <title>Set the base year</title>
 
-<para><command>Smkinven</command> imports all data and then sets the inventory base year in the file as the year that has the most data values. The year of the inventories is set using the #YEAR header for IDA and ORL inputs, or the /INVYEAR/ packet for EMS-95 input files (see <xref linkend="sect_input_inventory" /> for more information on this header and packet). Usually, the year of the data is the same for all sources, so you will know what <command>Smkinven</command> will assume is the base year. However, if multiple inventory years are provided, <command>Smkinven</command> will set it using the year that is associated with the largest number of sources.</para>
+<para><command>Smkinven</command> imports all data and then sets the inventory base year in the file as the year that has the most data values. The year of the inventories is set using the #YEAR header for ORL and FF10 inputs, (see <xref linkend="sect_input_inventory" /> for more information on this header and packet). Usually, the year of the data is the same for all sources, so you will know what <command>Smkinven</command> will assume is the base year. However, if multiple inventory years are provided, <command>Smkinven</command> will set it using the year that is associated with the largest number of sources.</para>
 
 <para>If you provide a future-year inventory to SMOKE, you must override the base-year setting obtained from the values given by the #YEAR header or the /INVYEAR/ packet. This is accomplished with the <envar>SMK_BASEYR_OVERRIDE</envar> setting. This is necessary so that later SMOKE steps will be able to verify that the episode year is consistent with the base year.</para>
 
@@ -2929,9 +2919,6 @@ Additional data</programlisting>
 <itemizedlist>
 <listitem>
 <para><emphasis role="bold">CEM data format:</emphasis> The CEM data format provides standard local time hourly emissions by ORIS identification code and boiler number. It was developed in conjunction with the Market Trading Division of EPA, and that division now provides this ASCII file format when the data are released.</para>
-</listitem>
-<listitem>
-<para><emphasis role="bold">EMS-95 format:</emphasis> The EMS-95 hour-specific format can be input to SMOKE using either the EMS-95 average-day format or the IDA/ORL formats for annual and average-day inventories. This format has also been adapted to provide SMOKE with day-specific instead of hour-specific data.</para>
 </listitem>
 <listitem>
 <para><emphasis role="bold">FF10 format:</emphasis>The FF10 day- and hour-specific format can be input to SMOKE using either the FF10 annual or average-day inventories.</para> 
@@ -3042,7 +3029,7 @@ Additional data</programlisting>
 
 <title>Using annual or average-day data</title>
 
-<para>When using the IDA, ORL or FF10 inventory format, you may choose to use either the annual or the average-day emissions values when running the <command>Temporal</command> program. The default is to use the annual data. To apply average-day data instead, the <envar>SMK_AVEDAY</envar> setting is used (this setting is relevant only for IDA, ORL or FF10 inventories). These emissions are then used in the merge-processing step, resulting in model-ready emissions that depend on the data type selected. If part of your inventory is available as average-day data and part is available as annual data, you have used <command>Smkinven</command> to fill in annual values based on the average-day values. The <command>Temporal</command> program is then run using annual values. <command>Temporal</command> ensures that for those sources for which <quote>annual</quote> values were created, only day-of-week and hourly adjustments (not monthly profiles) are applied. <command>Temporal</command> assumes that any average-day data provided has already been adjusted for a specific month, and therefore does not apply the monthly profiles to them.</para>
+<para>When using the ORL or FF10 inventory format, you may choose to use either the annual or the average-day emissions values when running the <command>Temporal</command> program. The default is to use the annual data. To apply average-day data instead, the <envar>SMK_AVEDAY</envar> setting is used (this setting is relevant only for ORL or FF10 inventories). These emissions are then used in the merge-processing step, resulting in model-ready emissions that depend on the data type selected. If part of your inventory is available as average-day data and part is available as annual data, you have used <command>Smkinven</command> to fill in annual values based on the average-day values. The <command>Temporal</command> program is then run using annual values. <command>Temporal</command> ensures that for those sources for which <quote>annual</quote> values were created, only day-of-week and hourly adjustments (not monthly profiles) are applied. <command>Temporal</command> assumes that any average-day data provided has already been adjusted for a specific month, and therefore does not apply the monthly profiles to them.</para>
 
 </section>
 
@@ -3612,7 +3599,6 @@ Additional data</programlisting>
 
 <para><command>Grwinven</command> adds a header element to the I/O API part of the inventory file that indicates the file was created using <command>Grwinven</command> and a growth matrix. The header element is /FYEAR/, which is followed by the date of the future year (for example, /FYEAR/ 2018). Other programs (such as <command>Temporal</command>) will recognize the /FYEAR/ header element and alter its messages to indicate that a future year is being processed.</para>
 
-<para><command>Grwinven</command> can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format but output an ORL-formatted grown and/or controlled inventory when these formats were used to create the SMOKE intermediate inventory file. Currently only ORL nonpoint and point inventory formats are supported.</para>
 
 </section>
 
@@ -3757,7 +3743,8 @@ Additional data</programlisting>
 
 <para>After applying the control factors to the SMOKE intermediate inventory file, the <command>Grwinven</command> program writes a new SMOKE intermediate inventory file that contains the new, controlled emissions. <command>Grwinven</command> writes only the I/O API part of the inventory and not the ASCII part, because the ASCII part that contains the state/county codes, SCCs, and other character strings does not change between the base and future or past year. All of the sources in the base and controlled inventory files are the same; the difference is in their emissions values.</para>
 
-<para><command>Grwinven</command> can also output the IDA inventory format (in addition to I/O API format), which is also a SMOKE input format. This is possible only for inventories imported in EMS-95, IDA, or the nonroad ORL format. Because the point and nonpoint toxics inventories contain additional fields that are not supported by the IDA format, <command>Grwinven</command> cannot output IDA format but output an ORL-formatted grown and/or controlled inventory when these formats were used to create the SMOKE intermediate inventory file. Currently only ORL nonpoint and point inventory formats are supported.</para>
+<para><command>Grwinven</command> can also output the ORL inventory format (in addition to I/O API format), which is also a SMOKE input format. 
+</para>
 
 </section>
 
