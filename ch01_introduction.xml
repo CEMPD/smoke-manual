@@ -77,7 +77,7 @@
 <para>Below, we summarize the major features of SMOKE v2.6.</para>
 
 <itemizedlist>
-  <listitem><para><command>Smkinven</command> supports new extended EMS-95 point hourly fomrat to enhance the precision of low emissions values. The original EMS-95 format has 7 columns available for the emissions ivalues instead of the 12 columns.</para>
+  <listitem><para><command>Smkinven</command> supports new extended EMS-95 point hourly format to enhance the precision of low emissions values. The original EMS-95 format has 7 columns available for the emissions ivalues instead of the 12 columns.</para>
    </listitem>
   <listitem><para><command>Smkinven</command> has an option to integrate or non-integrate all criteria VOCs and hazardous air pollutants (HAPs) without additional NHAPEXCLUDE file. NHAPEXCLUDE file is only required when user partially combines CAP VOCs and HAPs inventories together.</para>
    </listitem>

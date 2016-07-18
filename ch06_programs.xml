@@ -4340,24 +4340,6 @@ OUTPUT = INPUT1 - INPUT2
 
 </section>
 
-<!--
-<section>
-
-<title>Earlier Versions</title>
-
-<para>The SMOKE prototype used separate programs for each type of source and input file format. These programs included RAWAREA, RAWMOBIL, and RAWPOINT for EPS-formatted files, and EMSAREA and EMSPOINT for EMS-95-formatted files.</para>
-
-<para>The SMOKE prototype stored VMT in the <envar>MOBL</envar> output file; SMOKE 1.0 stored either VMT or emission estimates, if available.</para>
-
-<para>Previous versions of SMOKE did not support hour-specific, day-specific, or gridded data import.</para>
-
-<para>Processing of toxic pollutants was added in versions 1.5 and 2.0, and required extensive changes to <command>Smkinven</command>, including a different intermediate inventory format. Previous versions of SMOKE used an intermediate inventory format consisting of one ASCII file and one I/O API file. Support for EPS 2.0 formatted inventories was dropped in SMOKE v1.5.</para>
-
-<para>A key bug fix was added in SMOKE version 2.3 that corrected the ORL on-road import to use wide field width buffers during import. The previous versions could import files in which all fields were 16 columns wide or smaller. Additionally, the reader of the <envar>INVTABLE</envar> file was updated to read in CAS number, even if a process-pollutant combination was included in column 1 of the file. This makes it possible to import ORL files with precomputed process-pollutant combinations such as EXH__VOC</para>
-
-</section>
--->
-
 </section>
 
 <section id="sect_programs_smkmerge">
