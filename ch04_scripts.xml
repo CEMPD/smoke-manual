@@ -651,7 +651,7 @@ grep ERROR *
 <listitem>Point inventories</listitem>
 <listitem>Day-specific and hour-specific point and fire inventories</listitem>
 <listitem>Future-year inventories</listitem>
-<listitem>Pre-gridded inventories</listitem>
+<listitem>Pre-gridded inventories (for same output modeling domain or for converting to a different modeling domain (example: EDGAR to CMAQ ready emissions file)</listitem>
 <listitem>Using seasonal and annual data in the same run</listitem>
 <listitem>Files and settings for all inventories</listitem>
 </itemizedlist>
@@ -685,7 +685,7 @@ grep ERROR *
 <para>If you want to combine nonroad mobile criteria and toxics inventories, you need to process nonroad mobile sources separately from area sources (see <xref linkend="sect_scripts_nonroad_invs" />).</para>
 </listitem>
 <listitem>
-<para>Pregridded data from any source category can be input to SMOKE as an area source, but you must convert the data to an I/O API NetCDF file format first. See <xref linkend="sect_scripts_pregridded_invs" /> for more information.</para>
+<para>Pregridded data from any source category can be input to SMOKE as an area source, but you must convert the data to an I/O API NetCDF file format first. See <xref linkend="sect_scripts_pregridded_invs_same" /> for more information.</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -722,7 +722,7 @@ grep ERROR *
 <para>File type (#TYPE header): The type is important because it helps SMOKE determine the file format. Make sure that the header has been set according to the directions in <xref linkend="sect_input_inventory_header" />.</para>
 </listitem>
 <listitem>
-<para>Country (#COUNTRY header): Make sure that this head has been used and that the country name used in this header matches the name in the country section of the <envar>COSTCY</envar> file.</para>
+	<para>Country (#COUNTRY header): Make sure that this head has been used and that the country name used in this header matches the name in the country section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file.</para>
 </listitem>
 <listitem>
 <para>Inventory year (#YEAR). Make sure that the inventory year is accurately reflected in the header. This is the only way SMOKE knows what year the data is for. <comment>If the year is not the same for all of your inventory files and you want to make them the same, you will have to use the inventory growth, which is described in <xref linkend="sect_scripts_use_projection" />.</comment> If this year is not a base year but a future-year, make sure to follow the additional instructions in <xref linkend="sect_scripts_future_invs" />.</para>
@@ -1192,11 +1192,12 @@ grep ERROR *
 
 </section>
 
-<section id="sect_scripts_pregridded_invs">
+<section>
+<section id="sect_scripts_pregridded_invs_same">
 
-<title>Pre-gridded inventories</title>
+<title>Pre-gridded inventories from the same modeling domain as an area source without source characterization or attributes</title>
 
-<para>SMOKE has a limited capability to import pre-gridded data. It can import the data if it is time-independent and if the grid cell and pollutant names are the only attributes needed to identify the emissions. If SCC or other attributes are available, SMOKE cannot use these directly; though in the case of SCCs, each SCC could conceivably be tediously input as a separate dataset and modeled as a separate inventory.</para>
+<para>SMOKE has a limited capability to import pre-gridded data from the same modeling domain. It can import the data if it is time-independent and if the grid cell and pollutant names are the only attributes needed to identify the emissions. If SCC or other attributes are available, SMOKE cannot use these directly; though in the case of SCCs, each SCC could conceivably be tediously input as a separate dataset and modeled as a separate inventory.</para>
 
 <para>If any source category is available as pre-gridded data, the following steps must be taken.</para>
 
@@ -1227,6 +1228,40 @@ grep ERROR *
 </listitem>
 </orderedlist>
 
+</section>
+<section id="sect_scripts_pregridded_invs_different">
+
+	<title>Pre-gridded inventories processing for converting between different modeling domains (EDGAR to CMAQ) with source characterization and attributes (SCC and GEOCODE_LEVEL)</title>
+	<para>SMOKE will regrid the data from the native data grid (e.g. lat-lon for global inventories) to the CMAQ modeling grid, and apply a unique source ID to each grid cell to allow SMOKE to perform chemical speciation, temporal allocation from annual to hourly timesteps, and elevated source selection and vertical allocation. The pre-gridded inventory (EDGAR) files each contain data for a different sector, the sector and pollutant contained in each pre-gridded inventory file is specified in the ARINV file using the #LIST GRID format.</para>
+	<para>To process pre-gridded data from different modeling domains, the following steps must be taken.</para>
+<orderedlist>
+<listitem>
+<para> Set the <envar>IMPORT_GRDNETCDF_YN</envar> to Y to read the native netCDF annual inventory files.</para>
+</listitem>
+<listitem>
+<para>Grdmat is used to convert the data from the input data grid (e.g. lat-lon for EDGAR) to the output modeling grid. Set the <envar>IOAPI_GRIDNAME_1</envar> to specify the output grid.</para>
+</listitem>
+<listitem>
+<para>SMOKE reads each grid cell in the gridded inventory file as a unique source that will have a unique source ID.  The lower left corner of inventory grid will be source 1, cell (2,1) will be source 2, cell (3,1) source 3, etc</para>
+</listitem>
+<listitem>
+<para> For each gridded inventory file, a Geographical Code Mask Input file (GRIDMASK) is provided by UNC for EDGAR inventory files that assigns a GEOGRID_LEVEL2 value to each grid cell.</para>
+</listitem>
+<listitem>
+<para> The ARINV file is used to read in a list of gridded inventory files and to specify the SCC associated with each gridded inventory file</para>
+</listitem>
+<listitem>
+<para> Set the <envar>NETCDF_POL_UNIT</envar> to kg m-2 -s</para>
+</listitem>
+<listitem>
+<para> Set the <envar>NETCDF_INV_YEAR</envar> to the year of the inventory (e.g. 2010)</para>
+</listitem>
+<listitem>
+<para> To apply control factors to adjust emissions by GEOCODE_LEVEL and SCC use the CONTROL packet in the GCNTL file </para>
+</listitem>
+</orderedlist>
+
+</section>
 </section>
 
 <section id="sect_scripts_all_invs">
@@ -1514,29 +1549,29 @@ grep ERROR *
 </listitem>
 </itemizedlist>
 
-<para>All codes provided in the emission inventories must be integers and must match entries in the <envar>COSTCY</envar> file, which is the master list of country, state, and county codes in any given SMOKE installation. The format for this file can be found in <xref linkend="ch_input_files" />. By default, the codes are shared by all scenarios installed in the same SMOKE system (using different <envar>COSTCY</envar> files requires changing the Assigns file to not share the same <envar>COSTCY</envar> file among all cases).</para>
+<para>All codes provided in the emission inventories must be integers and must match entries in the <envar>COSTCY</envar> or <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL4</envar></link> (if USE_EXP_GEOCODE Y) file, which is the master list of country, state, county and tribal codes in any given SMOKE installation. The format for the COSTCY file can be found in <xref linkend="ch_input_files" />. By default, the codes are shared by all scenarios installed in the same SMOKE system (using different <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> (if USE_EXP_GEOCODE Y) files requires changing the Assigns file to not share the same <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> (if USE_EXP_GEOCODE Y) file among all cases).</para>
 
-<para>The codes in the inventory must match the codes in this file. SMOKE assigns time zones, daylight saving time exemptions, state names, and county names using this file. Therefore, if one of the counties in the inventory does not match a valid country, state, and county code in the <envar>COSTCY</envar> file, it can cause errors in the modeling.</para>
+<para>The codes in the inventory must match the codes in this file. SMOKE assigns time zones, daylight saving time exemptions, state names, and county names using this file. Therefore, if one of the counties in the inventory does not match a valid country, state, and county code in the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y), it can cause errors in the modeling.</para>
 
 <para>The following list provides the steps that users should take to ensure that the file will work for their modeling case:</para>
 
 <orderedlist>
 <listitem>
-<para>Check whether the countries with data in the inventory are included in the /COUNTRY/ section of the <envar>COSTCY</envar> file.</para>
+	<para>Check whether the countries with data in the inventory are included in the /COUNTRY/ section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> (if USE_EXP_GEOCODE Y) file.</para>
 </listitem>
 <listitem>
 <para>Change country codes and names if necessary within the limitation of 10 countries per file. If the country codes change, the country-specific SMOKE temporal profile assignments made by <envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar> may no longer be valid.</para>
 </listitem>
 <listitem>
-<para>Check whether the states with data in the inventory are included in the /STATE/ section of the <envar>COSTCY</envar> file.</para>
+	<para>Check whether the states with data in the inventory are included in the /STATE/ section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file.</para>
 </listitem>
 <listitem>
 <para>Change or add state codes and names if necessary to ensure all states are listed for all countries.</para>
 </listitem>
 <listitem>
-<para>Check whether the counties with data in the inventory are included in the /COUNTY/ section of the <envar>COSTCY</envar> file and that all counties have assigned time zones.</para>
+	<para>Check whether the counties with data in the inventory are included in the /COUNTY/ section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file and that all counties have assigned time zones.</para>
 
-<para><command>Smkinven</command> will perform this function for you if needed and will list in the <command>Smkinven</command> log file all counties that are not included in the <envar>COSTCY</envar> file or that do not have time zones assigned. If county codes have changed for merged or separated counties (e.g., Miami/Dade county in Florida).</para>
+	<para><command>Smkinven</command> will perform this function for you if needed and will list in the <command>Smkinven</command> log file all counties that are not included in the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file or that do not have time zones assigned. If county codes have changed for merged or separated counties (e.g., Miami/Dade county in Florida).</para>
 </listitem>
 <listitem>
 <para>Change or add county codes and names if necessary to ensure all counties are included in the inventory for all states and countries and that time zones have been assigned to each.</para>

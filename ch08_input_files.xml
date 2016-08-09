@@ -716,6 +716,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>Country, state, and county names and time zones</entry>
 <entry><envar>$GE_DAT</envar></entry>
 </row>
+<row>
+	<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+	<entry><command>Smkinven</command>, <command>Grwinven</command>, <command>Temporal</command>, <command>Smkmerge</command>, <command>Smkreport</command></entry>
+	<entry>A, B, M, P</entry>
+	<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when GEOCODE_LEVEL[1-4] files are used)</entry>
+	<entry><envar>$GE_DAT</envar></entry>
+</row>
 
 <row>
 <entry><link linkend="sect_input_invtable"><envar>INVTABLE</envar></link></entry>
@@ -830,6 +837,7 @@ In this overview section, we first provide a few important notes about file form
 <itemizedlist>
 <listitem>#CEM indicates that the file is in CEM format</listitem>
 <listitem>#LIST indicates that the file is a list file</listitem>
+<listitem>#LIST GRID indicates that the file is a list of global gridded emission inventory files</listitem>
 <listitem>#FF10 indicates that the file is in FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.  The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</listitem>
 <listitem>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
 <listitem>#ORL NONPOINT indicates that the file is in ORL format for nonpoint sources</listitem>
@@ -899,7 +907,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#COUNTRY</entry>
 <entry>Country name</entry>
-<entry>Valid names are those in the <envar>COSTCY</envar> file (US, CANADA, MEXICO, etc.)</entry>
+<entry>Valid names are those in the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar>(FF10 Format only) file(s) (US, CANADA, MEXICO, etc.)</entry>
 </row>
 <row>
 <entry>#YEAR</entry>
@@ -10764,7 +10772,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">32-34</entry>
-<entry>Standard (non-Daylight-Saving) state time zone; see <xref linkend="tbl_input_costcy_zones" /> for valid time zones (Character) (optional)</entry>
+<entry>Standard (non-Daylight-Saving) state time zone; see <xref linkend="tbl_input_costcy_geocode4_timezones" /> for valid time zones (Character) (optional)</entry>
 </row>
 <row>
 <entry>5</entry>
@@ -10802,7 +10810,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">40-42</entry>
-<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="tbl_input_costcy_zones" /> for valid time zones (Character)</entry>
+<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="tbl_input_costcy_geocode4_timezones" /> for valid time zones (Character)</entry>
 </row>
 <row>
 <entry colname="Position">43</entry>
@@ -10843,79 +10851,339 @@ SOURCE > 100 AND SOURCE < 200
 </tbody>
 </tgroup>
 </table>
-
-<table id="tbl_input_costcy_zones">
-<title>Valid <envar>COSTCY</envar> time zones</title> 
+<table id="tbl_input_costcy_geocode4_timezones">
+<title>Valid <envar>COSTCY and GEOCODE_LEVEL4</envar> time zones</title>
 
 <tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>GMT</entry>
-<entry>Time zone</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>+0:00</entry>
-<entry>GMT</entry>
-<entry>Greenwich mean time (also known as Zulu time)</entry>
-</row>
-<row>
-<entry>-4:00</entry>
-<entry>AST</entry>
-<entry>Atlantic standard time</entry>
-</row>
-<row>
-<entry>-5:00</entry>
-<entry>EST</entry>
-<entry>Eastern standard time</entry>
-</row>
-<row>
-<entry>-6:00</entry>
-<entry>CST</entry>
-<entry>Central standard time</entry>
-</row>
-<row>
-<entry>-7:00</entry>
-<entry>MST</entry>
-<entry>Mountain standard time</entry>
-</row>
-<row>
-<entry>-8:00</entry>
-<entry>PST</entry>
-<entry>Pacific standard time</entry>
-</row>
-<row>
-<entry>-9:00</entry>
-<entry>YST</entry>
-<entry>Yukon standard time</entry>
-</row>
-<row>
-<entry>-10:00</entry>
-<entry>HST </entry>
-<entry>Hawaiian  standard time</entry>
-</row>
-<row>
-<entry>-10:00</entry>
-<entry>CAT</entry>
-<entry>Central Alaska time</entry>
-</row>
-<row>
-<entry>-11:00</entry>
-<entry>NT</entry>
-<entry>Nome time</entry>
-</row>
-</tbody>
+	<colspec colwidth="15*" />
+	<colspec colwidth="15*" />
+	<colspec colwidth="70*" />
+	<thead>
+		<row>
+			<entry>GMT</entry>
+			<entry>Time zone</entry>
+			<entry>Description</entry>
+		</row>
+	</thead>
+	<tbody>
+		<row>
+			<entry>+12:00</entry>
+			<entry>BIT</entry>
+			<entry>Baker Island Time</entry>
+		</row>
+		<row>
+			<entry>+11:00</entry>
+			<entry>SST</entry>
+			<entry>Samoa Standard Time</entry>
+		</row>
+		<row>
+			<entry>+10:00</entry>
+			<entry>HST</entry>
+			<entry>Hawaii Standard Time</entry>
+		</row>
+		<row>
+			<entry>+9:00</entry>
+			<entry>AKT</entry>
+			<entry>Alaska Standard Time</entry>
+		</row>
+		<row>
+		        <entry>+8:00</entry>
+		        <entry>PST</entry>
+		        <entry>Pacific Standard Time</entry>
+		</row>
+		<row>
+			<entry>+7:00</entry>
+			<entry>MST</entry>
+			<entry>Mountain Standard Time</entry>
+		</row>
+		<row>
+			<entry>+6:00</entry>
+			<entry>CST</entry>
+			<entry>Central Standard Time</entry>
+		</row>
+		<row>
+			<entry>+5:00</entry>
+			<entry>EST</entry> 
+			<entry>Eastern Standard Time</entry> 
+		</row>                                                                                      
+		<row>
+			<entry>+4:00</entry>
+			<entry>AST</entry>
+			<entry>Atlantic Standard Time</entry>
+		</row>
+		<row>
+			<entry>+3:00</entry>
+			<entry>ART</entry>
+			<entry>Argentina Time</entry>
+		</row>
+		<row>                                                                                       
+			<entry>+2:00</entry>
+			<entry>FNT </entry>                                                         
+			<entry>Fernando de Noronha Time</entry>
+		</row>                                                                                      
+		<row>                                                                                       
+			<entry>+1:00</entry>
+			<entry>EGT</entry>
+			<entry>Eastern Greenland Time</entry>
+		</row>
+		<row>
+			<entry>0:00</entry>
+			<entry>GMT</entry>
+			<entry>Greenwich Mean Time</entry>
+		</row>
+		<row>
+			<entry>-1:00</entry>
+			<entry>CET</entry>
+			<entry>Central European Time</entry>
+		</row> 
+		<row>           
+			<entry>-2:00</entry>                    
+			<entry>EET</entry>
+			<entry>Eastern European Time</entry>
+		</row>
+		<row>           
+			<entry>-3:00</entry>                    
+			<entry>MSK</entry>
+			<entry>Moscow Time</entry>
+		</row>
+		<row>           
+			<entry>-4:00</entry>                    
+			<entry>GST</entry>
+			<entry>Gulf Standard Time</entry>
+		</row>
+		<row>           
+			<entry>-5:00</entry>                    
+			<entry>PKT</entry>
+			<entry>Pakistan Standard Time</entry>
+		</row>
+		<row>           
+			<entry>-6:00</entry>                    
+			<entry>BST</entry>
+			<entry>Bangladesh Standard Time</entry>
+		</row>
+		<row>           
+			<entry>-7:00</entry>                    
+			<entry>THA</entry>
+			<entry>Thailand Time</entry>
+		</row>
+		<row>           
+			<entry>-8:00</entry>                    
+			<entry>HKT</entry>
+			<entry>China Standard Time</entry>
+		</row>
+		<row> 
+			<entry>-9:00</entry>
+			<entry>KST</entry>
+			<entry>Korean Standard Time</entry>
+		</row> 
+		<row>
+			<entry>-10:00</entry>
+			<entry>AET</entry>
+			<entry>Austrailian Eastern Time</entry>
+		</row>
+		<row>
+			<entry>-11:00</entry>
+			<entry>ADT</entry>
+			<entry>Austrailian Daylight Savings Time</entry>
+		</row>
+		<row>
+			<entry>-12:00</entry>
+			<entry>FJT</entry>
+			<entry>Fiji Time</entry>
+		</row>
+		<row>           
+			<entry>-13:00</entry>                      
+			<entry>NZT</entry>
+			<entry>New Zealand Daylight Time</entry>
+		</row>
+		<row>           
+			<entry>-14:00</entry>
+			<entry>LNT</entry>
+			<entry>Line Islands Time</entry>
+		</row>
+	</tbody>
 </tgroup>
 </table>
 
 </section>
+
+<section id="sect_input_geocode">
+	<title><envar>GEOCODE_LEVEL[1-4]: Geographical Input Files</envar></title>
+	<para>There are four GEOCODE_LEVEL files that are used to specify country level (<xref linkend="sect_input_geocode1" />), country/state-level (<xref linkend="sect_input_geocode2"/>), country/state/county-level (<xref linkend="sect_input_geocode3"/>) or country/state/county/tribal-level (<xref linkend="sect_input_geocode4"/>) Geographical codes and descriptions. These files are used if USE_EXP_GEO_CODES is set to Y, and they replace the (<xref linkend="sect_input_costcy"/>) file.</para>
+
+<section id="sect_input_geocode1">
+
+	<title><envar>GEOCODE_LEVEL1</envar></title>
+
+	<para>The GEOCODE_LEVEL1 input file contains a 3 character code used to specify the Country-level Geographical Code. The COSTCY file will not be used if the environment variable USE_EXP_GEO_CODES is set to Y. If the user would like to use chemical and temporal profiles that are specified for each country in the gridded inventory data then they would create a GEOCODE_LEVEL1 file.</para>
+
+	<para>The <envar>GEOCODE_LEVEL1</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode1" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL1</envar> file is shown in <xref linkend="tbl_input_geocode1" />.</para>
+
+	<programlisting>
+#GEOCODE_LEVEL1, Description
+"001","United States of America"
+"002","Mexico"
+"003","South Korea"
+"004","Ocean"
+	</programlisting>
+
+	<table id="tbl_input_geocode1">
+		<title>File Format for <envar>GEOCODE_LEVEL1</envar></title>
+
+		<tgroup cols="3">
+			<colspec colwidth="15*" colname="Line" />
+			<colspec colwidth="15*" colname="Position" />
+			<colspec colwidth="70*" colname="Description" />
+
+			<thead>
+				<row>
+					<entry>Lines</entry>
+					<entry>Position</entry>
+					<entry>Description</entry>
+				</row>
+			</thead>
+
+			<tbody>
+				<row>
+					<entry>1+</entry>
+					<entry>A</entry>
+					<entry>Country Code(3-character maximum string)</entry>
+				</row>
+				<row>
+					<entry colname="Position">B</entry>
+					<entry>Country Code Description (20-character string)</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</table>
+</section>
+
+<section id="sect_input_geocode2">
+
+	        <title><envar>GEOCODE_LEVEL2</envar></title>
+
+		<para>The GEOCODE_LEVEL2 input file contains up to 6 character code to specify the Country/State-level Geographical Codes which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. If the user would like to use chemical and temporal profiles that are specified for each state level region for each country in the gridded inventory data then they would create a GEOCODE_LEVEL2 file.</para>
+
+			        <para>The <envar>GEOCODE_LEVEL2</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode2" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL2</envar> file is shown in <xref linkend="tbl_input_geocode2" />.</para>
+
+    <programlisting>
+#GEOCODE_LEVEL2, Description
+"001006","California, USA"
+"001035","New Mexico, USA"
+"001048","Texas, USA"
+"002030","Veracruz, Mexico"
+   </programlisting>
+   <comment>not sure what examples to use, and or if these are correct - eaa</comment>
+   <table id="tbl_input_geocode2">
+   <title>File Format for <envar>GEOCODE_LEVEL2</envar></title>
+
+   <tgroup cols="3">
+         <colspec colwidth="15*" colname="Line" />
+         <colspec colwidth="15*" colname="Position" />
+         <colspec colwidth="70*" colname="Description" />
+
+         <thead>
+              <row>
+                                 <entry>Lines</entry>
+                                 <entry>Position</entry>
+                                 <entry>Description</entry>                                  
+              </row>                                                              
+         </thead>                                                                    
+        <tbody>                                                                     
+	      <row>                                                               
+	                        <entry>1+</entry>                                           
+	                        <entry>A</entry>                                            
+				<entry>Country Code(6-character maximum string)</entry>
+	      </row>                                                              
+	      <row>                                                               
+	                        <entry colname="Position">B</entry>                         
+			        <entry>Country Code Description (20-character string)</entry>
+		</row>                                                              
+	</tbody>                                                                    
+	</tgroup>                                                                           
+	</table>                                                                                    
+</section>                
+<section id="sect_input_geocode3">
+
+	<title><envar>GEOCODE_LEVEL3</envar></title>                        
+	<para>The GEOCODE_LEVEL3 input file contains up to 9 character code to specify the Country/State-level/County-level Geographical Code which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. </para>
+		<para>The <envar>GEOCODE_LEVEL3</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode3" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL3</envar> file is shown in <xref linkend="tbl_input_geocode3" />.</para>
+<programlisting>
+#GEOCODE_LEVEL3, Description
+"001006037","Los Angeles, California, USA"
+"001035028","Los Alamos, New Mexico, USA"
+"001048015","Austin, Texas, USA"
+</programlisting>
+<table id="tbl_input_geocode3">   <title>File Format for <envar>GEOCODE_LEVEL3</envar></title>
+     <tgroup cols="3">
+              <colspec colwidth="15*" colname="Line" />
+	      <colspec colwidth="15*" colname="Position" />
+	      <colspec colwidth="70*" colname="Description" />
+	      
+	      <thead>
+	              <row>
+		                  <entry>Lines</entry>
+				  <entry>Position</entry>
+				  <entry>Description</entry>                                                                         </row>                                                                                                 
+	  </thead> 
+		  <tbody>
+        	  <row>
+				  <entry>1+</entry>                                                                                                     <entry>A</entry>
+
+				  <entry>Country Code(9-character maximum string)</entry>                                            </row>                                                                                                                <row>                                                                                                                                   <entry colname="Position">B</entry>                                                                                   <entry>Country Code Description (20-character string)</entry>                                      </row>                                                                                                        </tbody>                                                                                                              </tgroup>                                                                                                             </table>                                                                                                      </section>
+
+<section id="sect_input_geocode4">
+	<title><envar>GEOCODE_LEVEL4</envar></title>
+	<para>The GEOCODE_LEVEL4 input file contains a 12 character code to specify the Country/State/County/Tribal-level Geographical Code which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. </para>
+	<para>The <envar>GEOCODE_LEVEL4</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode4" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL4</envar> file is shown in <xref linkend="tbl_input_geocode4" />.</para>
+<programlisting>
+#GEOCODE_LEVEL4, Description, Time Zone
+"001006037000","Los Angeles, CA, USA",PST        
+"001035028000","Los Alamos, NM, USA",CST        
+"001048015000","Austin, TX, USA",CST    
+</programlisting>
+	<table id="tbl_input_geocode4">   
+	<title>File Format for <envar>GEOCODE_LEVEL4</envar>
+	</title>     
+	<tgroup cols="3">
+        <colspec colwidth="15*" colname="Line" />
+        <colspec colwidth="15*" colname="Position" />
+	<colspec colwidth="70*" colname="Description" />
+        <thead>
+		<row>
+			<entry>Lines</entry>
+			<entry>Position</entry>
+			<entry>Description</entry>
+		</row>
+
+	</thead>
+	<tbody>
+		<row>
+			<entry>1+</entry>                                                          
+			<entry>A</entry>
+			<entry>Country Code(12-character maximum)</entry>                                            </row>
+		<row>
+			<entry></entry>
+			<entry>B</entry>
+	        	<entry>Country Code Description (20-character)</entry>
+	        </row>
+	       <row>
+		       <entry></entry>
+		       <entry>C</entry>
+		       <entry> Time Zone (3-character)</entry>
+	       </row>
+	       <row>
+		       <entry></entry>
+			<entry>D</entry>
+			<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="tbl_input_costcy_geocode4_timezones" /> for valid time zones (Character)</entry>
+	       </row>
+
+	</tbody>
+</tgroup>                                
+</table>
+</section>
+</section>
+
 
 <section id="sect_input_invtable">
 

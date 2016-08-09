@@ -1124,6 +1124,13 @@ source $ASSIGNS/set_dirs.scr
 </row>
 
 <row>
+	<entry><filename>geocode_level[1-4].txt</filename></entry>
+	<entry><envar>GEOCODE_LEVEL[1-4]</envar></entry>
+	<entry>Expanded Country, state, county and tribal codes.</entry>
+</row>
+
+
+<row>
 <entry><filename>GRIDDESC</filename></entry>
 <entry><envar>GRIDDESC</envar></entry>
 <entry>Grid descriptions file with nctox modeling domain. An unlimited number of domains can be added to this file.</entry>

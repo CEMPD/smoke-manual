@@ -1519,6 +1519,17 @@ H<subscript>S</subscript> = Physical stack height (m)
 <entry>ASCII</entry>
 <entry>Description of the modeling grid</entry>
 </row>
+<row>
+<entry><envar>GRIDMASK</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Geographic level code and Timezone for each grid cell</entry>
+</row>
+<row>
+<entry><envar>GRID_CRO_2D</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Layer definitions for the CMAQ model domain</entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -1686,6 +1697,12 @@ H<subscript>S</subscript> = Physical stack height (m)
 <entry>ASCII</entry>
 <entry>Country, state, and county file</entry>
 </row>
+<row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -1697,6 +1714,10 @@ H<subscript>S</subscript> = Physical stack height (m)
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
 
 <listitem>
 <para><envar>ORL_NONROAD_OUT</envar>: [default: N]</para>
@@ -2266,6 +2287,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Country, state, county codes file, with time zones</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><link linkend="sect_input_griddesc"><envar>GRIDDESC</envar></link></entry>
 <entry>ASCII</entry>
 <entry>Modeling Domain Grid Description File</entry>
@@ -2315,6 +2341,10 @@ S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 <listitem>
 <para><envar>ENDTIME</envar>: [default: 230000]</para>
+</listitem>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
 </listitem>
 <listitem>
 <para><envar>PD_TEMP_INCREMENT</envar>: [default: 5]</para>
@@ -2484,6 +2514,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Country, state and county codes file</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><link linkend="sect_input_cfpro"><envar>CFPRO</envar></link> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Control factor file</entry>
@@ -2568,6 +2603,10 @@ S<subscript>fraction</subscript> = smoldering fration
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
 <listitem>
 <para><envar>MEMORY_OPTIMIZE_YN: </envar>: [default: Y]</para>
 <para> Allows <command>Movesmrg</command> to use less RAM memory. However, it will increase computational time of RPD_MODE and RPV_MODE runs. </para>
@@ -3753,7 +3792,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_smkinven_area" /> shows the input and output files for <command>Smkinven</command> for area sources. If importing gridded data, <command>Smkinven</command> reads the <envar>AG</envar> file; for the annual inventory, <command>Smkinven</command> reads the <envar>ARINV</envar> file. The <envar>ARTOPNT</envar> file is used to assign point-source locations to area sources, and the <envar>COSTCY</envar> file is used to assign time zones to the annual inventory data. <command>Smkinven</command> also uses the inventory data table (<envar>INVTABLE</envar>), the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>), and the SCC description file (<envar>SCCDESC</envar>) if processing area-to-point sources.</para>
+<para><xref linkend="fig_programs_smkinven_area" /> shows the input and output files for <command>Smkinven</command> for area sources. If importing gridded data, <command>Smkinven</command> reads the <envar>AG</envar> file; for the annual inventory, <command>Smkinven</command> reads the <envar>ARINV</envar> file. The <envar>ARTOPNT</envar> file is used to assign point-source locations to area sources, and either the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL4</envar> file is used to assign time zones to the annual inventory data. <command>Smkinven</command> also uses the inventory data table (<envar>INVTABLE</envar>), the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>), and the SCC description file (<envar>SCCDESC</envar>) if processing area-to-point sources.</para>
 
 <para><command>Smkinven</command> outputs an annual and average-day inventory emissions file (<envar>AREA</envar>), a file listing the inventory SCCs (<envar>ASCC</envar>), a log file (<envar>LOGFILE</envar>), and a report containing various information about the processed inventory (<envar>REPINVEN</envar>).</para>
 
@@ -3841,6 +3880,18 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <entry>Country, state, and county codes file, with time zones</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>A, B, M, P</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
+<entry><envar>GRIDMASK</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>A, B, M, P</entry>
+<entry>Defines an integer geocode to specify the predominant country and state code covered by each grid cell (<envar>GEOCODE_LEVEL</envar>) and an integer <envar>TZONES</envar> to specify the predominant Time Zone for each grid cell.</entry>
+</row>
+<row>
 <entry><envar>INVTABLE</envar></entry>
 <entry>ASCII</entry>
 <entry>A, M, P</entry>
@@ -3899,7 +3950,10 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <title>Input Environment Variables</title>
 
 <itemizedlist>
-
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
 <listitem>
 <para><envar>ALLOW_NEGATIVE</envar>: [default: N]</para>
 <para>Indicates if <command>Smkinven</command> should permit negative emissions values to be input from inventory files and output to <envar>SMOKE</envar> intermediate files.</para>
@@ -4125,7 +4179,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <listitem>
 <para><envar>SMK_DEFAULT_TZONE</envar>: [default: 5]</para>
 
-<para>Defines the default time zone to use for sources that do not match entries in the <envar>COSTCY</envar> file.</para>
+<para>Defines the default time zone to use for sources that do not match entries in the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> file.</para>
 </listitem>
 
 <listitem>
@@ -4556,6 +4610,12 @@ OUTPUT = INPUT1 - INPUT2
 <entry>Country, state, and county file with time zones</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>A, B, M, P</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><envar>INVTABLE</envar></entry>
 <entry>ASCII</entry>
 <entry>A, B, M, P</entry>
@@ -4630,6 +4690,11 @@ OUTPUT = INPUT1 - INPUT2
 </itemizedlist>
 
 </listitem>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y, then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
+
 <listitem>
 <para><envar>MRG_BYDAY</envar>: [default: blank]</para>
 
@@ -6048,6 +6113,11 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry>Country/state/county codes file, used to determine counties that do not use Daylight Saving time.</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><envar>HOLIDAYS</envar></entry>
 <entry>ASCII</entry>
 <entry>Holidays file by Gregorian date, for applying holiday temporal profiles. </entry>
@@ -6088,6 +6158,10 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 <listitem>
 <para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the temporal cross-reference files by preventing left-7 SCC assignments.</para>
+</listitem>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
 </listitem>
 <listitem>
 <para><envar>HOUR_SPECIFIC_YN</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>

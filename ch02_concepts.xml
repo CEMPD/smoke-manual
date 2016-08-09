@@ -10,7 +10,7 @@
 
 <para>The purpose of SMOKE is to convert the resolution of the data in an emission inventory to the resolution needed by an air quality model. Emission inventories typically have an annual-total emissions value for each emissions source, or perhaps an average-day emissions value. The AQMs, however, typically require emissions data on an hourly basis, for each model grid cell (and perhaps model layer), and for each model species. Consequently, to achieve the input requirements of the AQM, emissions processing must (at a minimum) transform inventory data by temporal allocation, chemical speciation, spatial allocation, and perhaps layer assignment.</para>
 
-<para>In addition to changing the resolution of the data, SMOKE must also provide the AQM input files in the correct file format. SMOKE can create the Input/Output Applications Programming Interface (I/O API) Network Common Data Form (NetCDF) output format needed by the CMAQ and MAQSIP models. It can also create the Fortran binary format for the 2-D emissions needed by REMSAD, UAM, and CAM<subscript>X</subscript>, and the ASCII elevated-point-source format used by the Ptsrce preprocessor to these models. File format is also important for the input files used by SMOKE, most of which are ASCII files, but some of which are I/O API NetCDF files.</para>
+<para>In addition to changing the resolution of the data, SMOKE must also provide the AQM input files in the correct file format. SMOKE can create the Input/Output Applications Programming Interface (I/O API) Network Common Data Form (NetCDF) output format needed by the CMAQ and MAQSIP models. It can also create the Fortran binary format for the 2-D emissions needed by REMSAD, UAM, and CAM<subscript>X</subscript>, and the ASCII elevated-point-source format used by the Ptsrce preprocessor to these models. File format is also important for the input files used by SMOKE, most of which are ASCII files, but some of which are I/O API NetCDF or CF-compliant NetCDF format files.</para>
 
 <para>In this chapter, we introduce you to various concepts that are critical to understanding the technical description of emissions processing, as well as provide more detail about the processing capabilities of SMOKE. (Later, <xref linkend="ch_utilities" />, <xref linkend="ch_programs" />, <xref linkend="ch_quality_assurance" />, <xref linkend="ch_input_files" />, <xref linkend="ch_intermediate_files" />, and <xref linkend="ch_output_files" /> give more specifics about each program&rsquo;s capabilities and each file&rsquo;s format.) This chapter provides the context and framework for the rest of the user&rsquo;s manual. To assist you in reading and using this chapter, we provide <xref linkend="app_glossary" /> for definitions of emissions inventory and emissions modeling terminology.</para>
 
@@ -20,7 +20,7 @@
 
 <title>Assigns file and environment variables</title>
 
-<para>The Assigns file is a script used to set up the parameters of a SMOKE run. The file configures the UNIX environment so that all of the correct input, intermediate, and output directories and files can be identified and used by the SMOKE programs. It also sets things like the name of the grid and the time period that you will run SMOKE for a given case. It does this by setting many UNIX environment variables, explained in the next paragraph. The Assigns file also uses environment variables to configure compiler options, so that SMOKE can be compiled on operating system other than the ones provided with the SMOKE distribution (PC Linux and SGI IRIX as of August, 2003). More information on the Assigns file is provided in <xref linkend="sect_scripts_assigns_files" />.</para>
+<para>The Assigns file is a script used to set up the parameters of a SMOKE run. The file configures the UNIX environment so that all of the correct input, intermediate, and output directories and files can be identified and used by the SMOKE programs. It also sets things like the name of the grid and the time period that you will run SMOKE for a given case. It does this by setting many UNIX environment variables, explained in the next paragraph. The Assigns file also uses environment variables to configure compiler options, so that SMOKE can be compiled on operating system other than the ones provided with the SMOKE distribution. More information on the Assigns file is provided in <xref linkend="sect_scripts_assigns_files" />.</para>
 
 <para>Environment variables are aliases that can be set by a UNIX operating system. These variables are defined during a user&rsquo;s UNIX session, usually defined by an <command>xterm</command> or other UNIX terminal window. The environment variables that SMOKE uses store the input, intermediate, and output files and directories. For example, the environment variable for the directory that is the SMOKE root directory is <envar>SMKROOT</envar>. At the UNIX prompt, this environment variable could be defined to an actual path such as <filename class="directory">/home/mylogin/smoke</filename>. To set an environment variable, the UNIX <command>setenv</command> command is needed. In this example, the command to define <envar>SMKROOT</envar> as the given path is:</para>
 
@@ -227,12 +227,12 @@
 <itemizedlist>
 
 <listitem>
-<para><emphasis role="bold">Source characteristics:</emphasis> For all typical inventories, the source characteristics that identify these sources are country/state/county code and SCC. See 
-<xref linkend="sect_concepts_costcy_codes" /> and <xref linkend="sect_concepts_scc_codes" /> for further information.</para>
+	<para><emphasis role="bold">Source characteristics:</emphasis> For all typical inventories, the source characteristics that identify these sources are country/state/county code, SCC and/or GEOCODE_LEVEL[1-4]. See 
+	<xref linkend="sect_concepts_costcy_codes" /> and <xref linkend="sect_concepts_scc_codes" /> and <xref linkend="sect_concepts_geocodes" /> for further information.</para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Optional source characteristics:</emphasis> SMOKE can also use pregridded data as a SMOKE area source; this is described in more detail in <xref linkend="sect_concepts_pregridded_data" />. In this case, the country/state/county code and SCC are <emphasis>not</emphasis> used in SMOKE.</para>
+<para><emphasis role="bold">Optional source characteristics:</emphasis> SMOKE can also use pregridded data from the same modeling domain as a SMOKE area source; this is described in more detail in <xref linkend="sect_concepts_pregridded_data" />. In this case, the source characteristics and attributes, (country/state/county code and SCC) are <emphasis>not</emphasis> used in SMOKE. SMOKE can also use pregridded data from a different modeling domain along with geographical codes (GEOCODE_LEVEL[1-4]) and source information from the ARINV file to specify the source characteristics and associated source attributes for each grid cell.</para>
 </listitem>
 
 <listitem>
@@ -465,9 +465,9 @@
 </mediaobject>
 </informalfigure>
 
-<para>The SMOKE installation is set up to use U.S.-centered codes as defined in the <envar>COSTCY</envar> file, which contains the codes and their associated names and time zone settings. In this file, the U.S. country code is zero, which allows the U.S. country/state/county codes to be the same as the FIPS state/county codes that appear in U.S. inventories. See <xref linkend="sect_dirs_example_data_files" /> for more information about the example <envar>COSTCY</envar> file that comes with the SMOKE installation, and <xref linkend="sect_input_costcy" /> for more information on the <envar>COSTCY</envar> file format.</para>
+<para>The SMOKE installation is set up to use U.S.-centered codes as defined in the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> (if USE_EXP_GEOCODES Y) file, which contains the codes and their associated names and time zone settings. In this file, the U.S. country code is zero, which allows the U.S. country/state/county codes to be the same as the FIPS state/county codes that appear in U.S. inventories. See <xref linkend="sect_dirs_example_data_files" /> for more information about the example <envar>COSTCY</envar> file that comes with the SMOKE installation, and <xref linkend="sect_input_costcy" /> for more information on the <envar>COSTCY</envar> file format.</para>
 
-<para>To change the meaning of the country, state, or county codes in SMOKE, the <envar>COSTCY</envar> file must be modified to use different names associated with each country, state, and/or county number. All SMOKE input files must also use this new numbering scheme, including inventory files and cross-reference files.</para>
+<para>To change the meaning of the country, state, or county codes in SMOKE, the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> (if USE_EXP_GEOCODES Y) file must be modified to use different names associated with each country, state, county or tribal number. All SMOKE input files must also use this new numbering scheme, including inventory files and cross-reference files.</para>
 
 <para>Acceptable values in SMOKE for the country code are 0 through 9. Acceptable values of the state code are 1 through 99. Acceptable values of the county code are 1 through 999. No alphabetic codes are accepted, since SMOKE stores these values as integers.</para>
 
@@ -544,6 +544,25 @@
 </informalfigure>
 
 </section>
+
+<section id="sect_concepts_geocodes">
+
+	<title>Geographical Code (GEOCODE_LEVEL[1-4]</title>
+	<para> Geographical codes may be specified to the user's desired level of detail using the GEOCODE_LEVEL[1-4] files. GEOCODE_LEVEL1 contains three character codes for each country in the inventory. GEOCODE_LEVEL2 contains six character codes for each state that the user would like to track in the inventory. GEOCODE_LEVEL3 contains nine character codes for each county that the user would like to track in the inventory.  GEOCODE_LEVEL4 contains twelve character codes for each tribal region that the user would like to track in the inventory. </para> 
+
+	<informalfigure>
+		<mediaobject>
+			<imageobject role="pdf">
+				<imagedata width="3in" fileref="images/concepts/geocode_pdf.jpg" />
+			</imageobject>
+			<imageobject role="html">
+				<imagedata fileref="images/concepts/geocode_html.jpg" />
+			</imageobject>
+		</mediaobject>                                                                                                                       
+	</informalfigure>                                                                                                                    
+	                                                                                                                                     
+</section>
+
 
 <section id="sect_concepts_mact_codes">
 
@@ -1145,15 +1164,17 @@ Additional data</programlisting>
 </section>
 
 <section id="sect_concepts_pregridded_data">
-
-<title>Pregridded data route</title>
+<section>
+<title>Pregridded data route for same modeling domain</title>
 
 <para>The second processing approach for area sources involves using pregridded data. As indicated in <xref linkend="sect_concepts_summary_source_processing" />, area sources can be specified by grid cell instead of by country/state/county code and SCC. This optional approach to modeling area sources requires the inventory emissions data to be gridded prior to inventory import. The gridded area sources do <emphasis>not</emphasis> have country/state/county codes or SCCs, and can be provided via an I/O API time-independent gridded data file. <comment>Users are responsible for getting their data into this format, which is described in more detail in <xref linkend="ch_input_files" />.</comment> The flow diagrams that describe this type of processing are identical to those in <xref linkend="fig_concepts_area_base" />, <xref linkend="fig_concepts_area_growth" />, and <xref linkend="fig_concepts_area_projection" />. Although the gridding step is quite trivial when the grid cell numbers are already specified, the gridding step must still be run to create a gridding matrix required for the merge step.</para>
 
 <para>The disadvantage of using pregridded emissions for area-source processing is that there are no country/state/county codes and SCCs to use in the cross-referencing of any processing step. Therefore, temporal profiles, speciation profiles, growth factors, and control factors must be applied uniformly across the model grid by pollutant.</para>
-
 </section>
-
+<section><title>Pregridded data route converting to a different modeling domain (eg EDGAR to CMAQ ready emissions file)</title>
+	<para>The sequence for processing global emissions data for hemispheric CMAQ involves projecting the data from geographic (latlon) to polar stereographic coordinates, converting the inventory species to the terms required by the CMAQ chemical mechanism, and extrapolating the annual emissions to hourly estimates.	</para>
+</section>
+</section>
 <section>
 
 <title>Day-specific and hour-specific emissions</title>
@@ -1848,7 +1869,7 @@ Additional data</programlisting>
 <listitem>
 <para>Determine the fuel month for the reference county using the <link linkend="sect_input_mfmref"><envar>MFMREF</envar></link> input file.</para>
 </listitem>
-<listitem><para>Read the country/state/county <link linkend="sect_input_costcy"><envar>COSTCY</envar></link> file to define the time zones for county groups.</para></listitem><listitem><para>Read the meteorology data that have been processed by MCIP.</para></listitem><listitem>
+<listitem><para>Read the country/state/county <link linkend="sect_input_costcy"><envar>COSTCY</envar></link> or <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> (if USE_EXP_GEOCODES Y) file to define the time zones for county groups.</para></listitem><listitem><para>Read the meteorology data that have been processed by MCIP.</para></listitem><listitem>
 <para>Calculate the min/max temperatures hourly and over the modeling period.</para></listitem>
 <listitem>
 <para>Calculate average RH for the specified hour range over the modeling period.</para>
@@ -2629,7 +2650,7 @@ Additional data</programlisting>
 <para>Set the weekday averaging approach.</para>
 </listitem>
 <listitem>
-<para>Assign country codes, years, and time zones.</para>
+	<para>Assign country codes and/or geographic codes (GEOCODE_LEVEL[1-4]), years, and time zones.</para>
 </listitem>
 <listitem>
 <para>Handle inventories that have data for multiple years.</para>
@@ -2659,11 +2680,11 @@ Additional data</programlisting>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">List format:</emphasis> This is the input format used to provide multiple files of the previous three types to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files.</para>
+	<para><emphasis role="bold">List format:</emphasis> This is the input format used to provide multiple files to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files. To support input of multiple pre-gridded NetCDF files, the keyword #LIST GRID in the header of this file will switch SMOKE into gridded inventory processing mode. This approach is described more in <xref linkend="sect_concepts_pregridded_data" /></para>
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">Gridded I/O API format:</emphasis> This format is a gridded I/O API file for allowing the import of pregridded data. This approach is described more in <xref linkend="sect_concepts_pregridded_data" />.</para>
+<para><emphasis role="bold">Gridded I/O API format:</emphasis> This format is a gridded I/O API file for allowing the import of pregridded data from the same modeling domain. This approach is described more in <xref linkend="sect_concepts_pregridded_data" />.</para>
 </listitem>
 </itemizedlist>
 
@@ -2847,7 +2868,7 @@ Additional data</programlisting>
 
 <para>Users can also provide multiple inventory years in a single <command>Smkinven</command> run. This is necessary in some cases when an inventory for one region (e.g., Canada or Mexico) is unavailable for the same year as the majority of the inventory region (e.g., the U.S.). <command>Smkinven</command> stores the inventory year as part of the source attributes.</para>
 
-<para>In addition to country codes and years, <command>Smkinven</command> assigns a time zone to each source based on the county associated with the source. <command>Smkinven</command> uses the <envar>COSTCY</envar> file to get this information. It matches the county code from the inventory to the county code in this file. If a county code included in the inventory is missing from this file, or if the time zone is not provided in the <envar>COSTCY</envar> file, <command>Smkinven</command> uses the <envar>SMK_DEFAULT_TZONE</envar> setting to obtain a default time zone for sources in such a county. In some cases, the time zone set in the <envar>COSTCY</envar> file is an approximation, since counties that are bisected by two time zones have only the predominant zone represented in this file.</para>
+<para>In addition to country codes and years, <command>Smkinven</command> assigns a time zone to each source based on the county associated with the source. <command>Smkinven</command> uses the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> (if USE_EXP_GEOCODES Y) file to get this information. It matches the county code from the inventory to the county code in this file. If a county code included in the inventory is missing from this file, or if the time zone is not provided in the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL4</envar> file, <command>Smkinven</command> uses the <envar>SMK_DEFAULT_TZONE</envar> setting to obtain a default time zone for sources in such a county. In some cases, the time zone set in the <envar>COSTCY</envar> or  <envar>GEOCODE_LEVEL4</envar> file is an approximation, since counties that are bisected by two time zones have only the predominant zone represented in this file.</para>
 
 </section>
 
@@ -3063,7 +3084,7 @@ Additional data</programlisting>
 
 <para>You can use the <envar>OUTZONE</envar> setting to control the output time zone that defines the hours in the output files. The one constraint on this setting is that it must be consistent with the time zone of the meteorology files. These files are used only when processing on-road mobile sources with MOVES/MOBILE6 (optional), processing elevated point sources for the CMAQ-based approach (required), or processing biogenic emissions with SMOKE BEIS3 (required). The time zones must be consistent among all source categories processed, so if one source category depends on the meteorology file, then all source categories must be processed with the same <envar>OUTZONE</envar> setting.</para>
 
-<para><command>Temporal</command> compares the <envar>OUTZONE</envar> value with the time zone of the source, which was set in <command>Smkinven</command> (see <xref linkend="sect_concepts_assign_countries" />) based on the county. Additionally, it assesses and accounts for whether the date being processed falls within the range of Daylight Savings Time, and whether the county of the source uses Daylight Savings Time. <command>Temporal</command> uses the <envar>COSTCY</envar> file to determine which counties use Daylight Savings Time and which do not; for example, the state of Arizona does not use it. Using these pieces of information, <command>Temporal</command> interprets the diurnal profiles assuming that they are local profiles in order to map the correct adjustment to the correct output hour in the output time zone. <command>Temporal</command> also uses the time zone of the source and the output time zone to determine the correct hour for switching from one month to the next and from one day of the week to the next.</para>
+<para><command>Temporal</command> compares the <envar>OUTZONE</envar> value with the time zone of the source, which was set in <command>Smkinven</command> (see <xref linkend="sect_concepts_assign_countries" />) based on the county. Additionally, it assesses and accounts for whether the date being processed falls within the range of Daylight Savings Time, and whether the county of the source uses Daylight Savings Time. <command>Temporal</command> uses the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> (if USE_EXP_GEOCODES Y) file to determine which counties use Daylight Savings Time and which do not; for example, the state of Arizona does not use it. Using these pieces of information, <command>Temporal</command> interprets the diurnal profiles assuming that they are local profiles in order to map the correct adjustment to the correct output hour in the output time zone. <command>Temporal</command> also uses the time zone of the source and the output time zone to determine the correct hour for switching from one month to the next and from one day of the week to the next.</para>
 
 <para><xref linkend="tbl_concepts_outzone" /> lists a sampling of <envar>OUTZONE</envar> settings and the time zones that they represent. Note that SMOKE expects <envar>OUTZONE</envar> to be set as a positive number for time zones in the Western Hemisphere, although standard notation would list these as negative values. For example, Eastern Standard Time is listed in this table as -5:00 hours from GMT, but <envar>OUTZONE</envar> for EST in SMOKE is 5. One result of this implementation is that SMOKE does not work perfectly for time zones east of GMT.</para>
 
@@ -3088,34 +3109,28 @@ Additional data</programlisting>
 
 <tbody>
 <row>
-<entry>0</entry>
-<entry>+0:00</entry>
-<entry>GMT</entry>
-<entry>Greenwich Mean Time (also known as Zulu time)</entry>
+<entry>12</entry>
+<entry>-12:00</entry>
+<entry>BIT</entry>
+<entry>Baker Island Time</entry>
 </row>
 <row>
-<entry>4</entry>
-<entry>-4:00</entry>
-<entry>AST</entry>
-<entry>Atlantic Standard Time</entry>
+<entry>11</entry>
+<entry>-11:00</entry>
+<entry>SST</entry>
+<entry>Samoa Standard Time</entry>
 </row>
 <row>
-<entry>5</entry>
-<entry>-5:00</entry>
-<entry>EST</entry>
-<entry>Eastern Standard Time</entry>
+<entry>10</entry>
+<entry>-10:00</entry>
+<entry>HST</entry>
+<entry>Hawaii Standard Time</entry>
 </row>
 <row>
-<entry>6</entry>
-<entry>-6:00</entry>
-<entry>CST</entry>
-<entry>Central Standard Time</entry>
-</row>
-<row>
-<entry>7</entry>
-<entry>-7:00</entry>
-<entry>MST</entry>
-<entry>Mountain Standard Time</entry>
+<entry>9</entry>
+<entry>-9:00</entry>
+<entry>AKT</entry>
+<entry>Alaska Standard Time</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -3124,28 +3139,136 @@ Additional data</programlisting>
 <entry>Pacific Standard Time</entry>
 </row>
 <row>
-<entry>9</entry>
-<entry>-9:00</entry>
-<entry>YST</entry>
-<entry>Yukon Standard Time</entry>
+<entry>7</entry>
+<entry>-7:00</entry>
+<entry>MST</entry>
+<entry>Mountain Standard Time</entry>
 </row>
 <row>
-<entry>10</entry>
-<entry>-10:00</entry>
-<entry>HST</entry>
-<entry>Hawaiian Standard Time</entry>
+<entry>6</entry>
+<entry>-6:00</entry>
+<entry>CST</entry>
+<entry>Central Standard Time</entry>
 </row>
 <row>
-<entry>10</entry>
-<entry>-10:00</entry>
-<entry>CAT</entry>
-<entry>Central Alaska Time</entry>
+<entry>5</entry>
+<entry>-5:00</entry>
+<entry>EST</entry>
+<entry>Eastern Standard Time</entry>
 </row>
 <row>
-<entry>11</entry>
-<entry>-11:00</entry>
-<entry>NT</entry>
-<entry>Nome Time</entry>
+<entry>4</entry>
+<entry>-4:00</entry>
+<entry>AST</entry>
+<entry>Atlantic Standard Time</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>-3:00</entry>
+<entry>ART</entry>
+<entry>Argentina Time</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>-2:00</entry>
+<entry>FNT</entry>
+<entry>Fernando de Noronha Time</entry>
+</row>
+<row>
+<entry>1</entry>
+<entry>-1:00</entry>
+<entry>EGT</entry>
+<entry>Eastern Greenland Time</entry>
+</row>
+<row>
+<entry>0</entry>
+<entry>0:00</entry>
+<entry>GMT</entry>
+<entry>Greenwich Mean Time</entry>
+</row>
+<row>
+<entry>-1</entry>
+<entry>1:00</entry>
+<entry>CET</entry>
+<entry>Central European Time</entry>
+</row>
+<row>
+<entry>-2</entry>
+<entry>2:00</entry>
+<entry>EET</entry>
+<entry>Eastern European Time</entry>
+</row>
+<row>
+<entry>-3</entry>
+<entry>3:00</entry>
+<entry>MSK</entry>
+<entry>Moscow Time</entry>
+</row>
+<row>
+<entry>-4</entry>
+<entry>4:00</entry>
+<entry>GST</entry>
+<entry>Gulf Standard Time</entry>
+</row>
+<row>
+<entry>-5</entry>
+<entry>5:00</entry>
+<entry>PKT</entry>
+<entry>Pakistan Standard Time</entry>
+</row>
+<row>
+<entry>-6</entry>
+<entry>6:00</entry>
+<entry>BST</entry>
+<entry>Bangladesh Standard Time</entry>
+</row>
+<row>
+<entry>-7</entry>
+<entry>7:00</entry>
+<entry>THA</entry>
+<entry>Thailand Time</entry>
+</row>
+<row>
+<entry>-8</entry>
+<entry>8:00</entry>
+<entry>HKT</entry>
+<entry>China Standard Time</entry>
+</row>
+<row>
+<entry>-9</entry>
+<entry>9:00</entry>
+<entry>KST</entry>
+<entry>Korean Standard Time</entry>
+</row>
+<row>
+<entry>-10</entry>
+<entry>10:00</entry>
+<entry>AET</entry>
+<entry>Australian Eastern Time</entry>
+</row>
+<row>
+<entry>-11</entry>
+<entry>11:00</entry>
+<entry>ADT</entry>
+<entry>Australian Daylight Time</entry>
+</row>
+<row>
+<entry>-12</entry>
+<entry>12:00</entry>
+<entry>FJT</entry>
+<entry>Fiji Time</entry>
+</row>
+<row>
+<entry>-13</entry>
+<entry>13:00</entry>
+<entry>NZT</entry>
+<entry>New Zealand Daylight Time</entry>
+</row>
+<row>
+<entry>-14</entry>
+<entry>14:00</entry>
+<entry>LNT</entry>
+<entry>Line Islands Time</entry>
 </row>
 </tbody>
 </tgroup>

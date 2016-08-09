@@ -155,6 +155,13 @@
 <entry>Elevated point-source file written by <command>Smkmerge</command> for REMSAD, UAM, and CAM<subscript>X</subscript> modeling. See <envar>MRG_GRDOUT_UNIT</envar> environment variable setting in <xref linkend="sect_qa_smkreport_envar" />.</entry>
 </row>
 <row>
+	<entry><envar>GEOCODE_LEVEL[1-4]</envar></entry>
+	<entry>ASCII</entry>
+	<entry>A, B, M, P</entry>
+	<entry>Geographic level codes and descriptions (also contains Time Zone for GEOCODE_LEVEL4) note: used if USE_EXP_GEO_CODES set to Y and COSTCY file is ignored. See more detail about GEOCODE_LEVELS in <xref linkend="sect_input_geocode" />.</entry>
+</row>
+
+<row>
 <entry><envar>GRIDDESC</envar></entry>
 <entry>ASCII</entry>
 <entry>A, M, P</entry>
@@ -231,6 +238,13 @@
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+
+<para>If set to Y, this variable is used to specify the use of expanded 12-character geograpic codes contained in the <command>GEOCODE_LEVEL[1-4]</command> input files. For <command>Smkreport</command>, it controls which ASCII GEOCODE file to use. The user can select the data extraction summary format in the <envar>REPCONFIG</envar> file. If the REPCONFIG file contains <envar>CARB_QADEF</envar> setting, then <command>Smkreport</command> creates reports in the CARB QA Data Extraction Format. If the REPCONFIG file contains the <envar>BY GEOCODE_LEVEL1[NAME]</envar> or <envar>BY GEOCODE_LEVEL2[NAME]</envar> or <envar>BY GEOCODE_LEVEL3[NAME]</envar> or <envar>BY GEOCODE_LEVEL4[NAME]</envar> then <command>Smkreport</command> creates reports at each geographic level with its description and local time zone.
+</para>
+	</listitem>
+
 <listitem>
 <para><envar>MRG_GRDOUT_UNIT</envar>: [default: blank]</para>
 
@@ -639,6 +653,18 @@
 </listitem>
 <listitem>
 <para>FRICODE: Records are printed by Friday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
+</listitem>
+<listitem>
+<para>GEOCODE_LEVEL1: Records are printed by the Country-level geographic code.</para>
+</listitem>   
+<listitem>
+<para>GEOCODE_LEVEL2: Records are printed by the State-level geographic code.</para>
+</listitem>
+<listitem>
+<para>GEOCODE_LEVEL3: Records are printed by the County-level geographic code.</para>
+</listitem>
+<listitem>
+<para>GEOCODE_LEVEL4: Records are printed by the Tribal-level geographic code.</para>
 </listitem>
 <listitem>
 <para>HOUR: Records are printed by hour total for each day. This option implies the TEMPORAL instruction, so <command>Smkreport</command> automatically adds that instruction even if it was not included in the input.</para>
