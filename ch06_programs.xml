@@ -38,7 +38,7 @@
 
 <para><link linkend="sect_programs_cntlmat"><command>Cntlmat</command></link> creates the growth matrices, multiplicative control matrices, and reactivity control matrices for the anthropogenic source categories. This program is not used for base-year emissions without controls.</para>
 
-<para><link linkend="sect_programs_grwinven"><command>Grwinven</command></link> is used to grow the emissions to past or future years using the growth matrix created by <command>Cntlmat</command> and the imported inventory data from <command>Smkinven</command>. It writes both SMOKE inventory format (I/O API NetCDF) and IDA format. The output from <command>Grwinven</command> is used in place of the original output from <command>Smkinven</command> when processing past or future years.</para>
+<para><link linkend="sect_programs_grwinven"><command>Grwinven</command></link> is used to grow the emissions to past or future years using the growth matrix created by <command>Cntlmat</command> and the imported inventory data from <command>Smkinven</command>. It writes both SMOKE inventory format (I/O API NetCDF) and ORL format. The output from <command>Grwinven</command> is used in place of the original output from <command>Smkinven</command> when processing past or future years.</para>
 
 <para><link linkend="sect_programs_tmpbeis3"><command>Tmpbeis3</command></link> applies meteorology adjustments to the normalized emissions created by <command>Normbeis3</command>.  <command>Tmpbeis3</command> also applies the speciation profiles needed for the user-selected chemical mechanism to create gridded, hourly, model-species biogenic emissions data for use in <command>Smkmerge</command> and <command>Mrggrid</command>. The <command>Normbeis3</command> and <command>Tmpbeis3</command> programs taken together are the equivalent of SMOKE-BEIS3.</para>
 
@@ -166,26 +166,6 @@
 
 <section>
 
-<title>/EMS_CONTROL/ packet</title>
-
-<para>The /EMS_CONTROL/ packet is processed in a very similar way as <quote>replacement</quote> entries in the /CONTROL/ packet, with three differences:</para>
-
-<orderedlist>
-<listitem>
-<para>The base-year inventory control efficiency, rule effectiveness, and rule penetration values are not provided with the base-year inventory emission input files in EMS-95 format. Instead, these base-year values are provided as part of the control packet values (see the /EMS_CONTROL/ packet format). The base-year controls are <quote>backed out</quote> before the future-year controls from the /EMS_CONTROL/ packets are applied.</para>
-</listitem>
-<listitem>
-<para>The /EMS_CONTROL/ packet contains a <quote>control adjustment factor</quote> field, which overrides all other values in the packet. This override feature allows the user to precompute the control factor needed for each record instead of using the formula listed above for application of the controls. When a control adjustment factor is provided, the control efficiency, rule effectiveness, and rule penetration from both the base case and the future year are completely ignored.</para>
-</listitem>
-<listitem>
-<para>The factor computed from the /EMC_CONTROL/ packet will be applied in addition to any factors computed from the /MACT/ packet.</para>
-</listitem>
-</orderedlist>
-
-</section>
-
-<section>
-
 <title>/CTG/ packet</title>
 
 <para>The /CTG/ packet is processed next, as follows. The emission value (after application of /MACT/, /CONTROL/, and/or /EMS CONTROL/) is compared to the cutoff value specified as part of the /CTG/ packet record. If the emission value exceeds the cutoff value, then the control technology factor is applied to the emissions. If the resulting emissions value still exceeds the cutoff value, then either the MACT <emphasis>or</emphasis> the RACT factor is used. The MACT factor is used if it is defined (i.e., greater than zero); if it is not defined (less than or equal to zero), then the RACT factor is used. If neither the MACT nor RACT are defined, but the emissions are still greater than the cutoff, then the emissions are set to the cutoff value.</para>
@@ -218,13 +198,13 @@
 
 <title>Source Matching Hierarchy</title>
 
-<para>To match each sources with the appropriate control packet entry, <command>Cntlmat</command> uses a hierarchy of source characteristics, trying to match each source to the most specific control packet entry. Note that not all combinations are applicable to all control packets (for example, there is no MACT code associated with the /PROJECTION/ packet). <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
+<para>To match each sources with the appropriate control packet entry, <command>Cntlmat</command> uses a hierarchy of source characteristics, trying to match each source to the most specific control packet entry. Note that not all combinations are applicable to all control packets (for example, there is no MACT code associated with the /PROJECTION/ packet). <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.</para>
 
-<para>For point sources, the following hierarchy is used, in order of most specific to least specific.</para>
+<para>For point sources, the following hierarchy is used, in order of most specific to least specific. (NOTE: only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters) </para>
 
 <orderedlist spacing="compact">
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID, pollutant</para>
@@ -236,7 +216,7 @@
 <para>Country/State/County code, plant ID, point ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, SCC code, pollutant</para>
+<para>Country/State/County code, plant ID, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code, pollutant</para>
@@ -245,7 +225,7 @@
 <para>Country/State/County code, plant ID, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, SCC code</para>
+<para>Country/State/County code, plant ID, point ID, stack ID, segment ID, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, point ID, stack ID, segment ID</para>
@@ -257,7 +237,7 @@
 <para>Country/State/County code, plant ID, point ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, plant ID, SCC code</para>
+<para>Country/State/County code, plant ID, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, plant ID, MACT code</para>
@@ -266,37 +246,37 @@
 <para>Country/State/County code, plant ID</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, SCC code, pollutant</para>
+<para>Country/State/County code, MACT code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, SCC code, pollutant</para>
+<para>Country/State code, MACT code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code, pollutant</para>
 </listitem>
 <listitem>
-<para>MACT, SCC code, pollutant</para>
+<para>MACT, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>MACT, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, MACT code, SCC code</para>
+<para>Country/State/County code, MACT code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, MACT code</para>
 </listitem>
 <listitem>
-<para>Country/State code, MACT code, SCC code</para>
+<para>Country/State code, MACT code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, MACT code</para>
 </listitem>
 <listitem>
-<para>MACT code, SCC code</para>
+<para>MACT code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>MACT code</para>
@@ -338,7 +318,7 @@
 <para>Left 2 of SIC code</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, SCC code, pollutant</para>
+<para>Country/State/County code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code, pollutant</para>
@@ -350,7 +330,7 @@
 <para>Country/State/County code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State code, SCC code, pollutant</para>
+<para>Country/State code, 8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code, pollutant</para>
@@ -362,7 +342,7 @@
 <para>Country/State code, left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>SCC code, pollutant</para>
+<para>8-digit SCC code, pollutant</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code, pollutant</para>
@@ -374,7 +354,7 @@
 <para>Left 1 of SCC code, pollutant</para>
 </listitem>
 <listitem>
-<para>Country/State/County code, SCC code</para>
+<para>Country/State/County code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State/County code, left 6 of SCC code</para>
@@ -386,7 +366,7 @@
 <para>Country/State/County code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>Country/State code, SCC code</para>
+<para>Country/State code, 8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Country/State code, left 6 of SCC code</para>
@@ -398,7 +378,7 @@
 <para>Country/State code, left 1 of SCC code</para>
 </listitem>
 <listitem>
-<para>SCC code</para>
+<para>8-digit SCC code</para>
 </listitem>
 <listitem>
 <para>Left 6 of SCC code</para>
@@ -426,7 +406,7 @@
 </listitem>
 </orderedlist>
 
-<para>For nonpoint/stationary area sources, the following hierarchy is used. Nonpoint SCCs can have either 8 or 10 digits, which is why there are two separate SCC levels mentioned for each of the SCC-based assignments.</para>
+<para>For nonpoint/stationary area sources, the following hierarchy is used. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.  Nonpoint SCCs can have either 8 or 10 digits, which is why there are two separate SCC levels mentioned for each of the SCC-based assignments.(NOTE: hierarchial approach is only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -590,7 +570,7 @@
 </listitem>
 </orderedlist>
 
-<para>On-road mobile and nonroad sources are matched to the control packet entries using the following hierarchy:</para>
+<para>On-road mobile and nonroad sources are matched to the control packet entries using the following hierarchy if the SCC length is less than 10 characters. As of SMOKE v4.0 the SCC character length may be up to 20 characters in length:(NOTE: this hierarchial approach is only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -1539,6 +1519,17 @@ H<subscript>S</subscript> = Physical stack height (m)
 <entry>ASCII</entry>
 <entry>Description of the modeling grid</entry>
 </row>
+<row>
+<entry><envar>GRIDMASK</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Geographic level code and Timezone for each grid cell</entry>
+</row>
+<row>
+<entry><envar>GRID_CRO_2D</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Layer definitions for the CMAQ model domain</entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -1631,9 +1622,9 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <para><emphasis>Processing catagories:</emphasis> area, mobile, point</para>
 
-<para>The <command>Grwinven</command> program grows and controls inventory emissions and activity data into the past/future by merging a SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) with its respective growth and control matrices. This optional program need not be used if these projections have been made outside of SMOKE. <command>Grwinven</command> outputs new SMOKE I/O API inventory files, but not the corresponding inventory ASCII files (because the program changes the data only in the I/O API inventory files, so there is no need to output the same ASCII files). The program can also output data in IDA or ORL format, or be used as a converter from SMOKE to IDA or ORL format. <command>Grwinven</command> does not merge the SMOKE inventory with reactivity matrices; this functionality is handled by <command>Smkmerge</command>.</para>
+<para>The <command>Grwinven</command> program grows and controls inventory emissions and activity data into the past/future by merging a SMOKE inventory file (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) with its respective growth and control matrices. This optional program need not be used if these projections have been made outside of SMOKE. <command>Grwinven</command> outputs new SMOKE I/O API inventory files, but not the corresponding inventory ASCII files (because the program changes the data only in the I/O API inventory files, so there is no need to output the same ASCII files). The program can also output data in ORL format, or be used as a converter from SMOKE to ORL format. <command>Grwinven</command> does not merge the SMOKE inventory with reactivity matrices; this functionality is handled by <command>Smkmerge</command>.</para>
 
-<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an IDA- or ORL-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPDIR</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
+<para>The <command>Grwinven</command> program writes out temporary emissions files when creating an ORL-formatted inventory. You can set the directory to which these temporary files go by setting the <envar>SMK_TMPDIR</envar> environment variable. These files can be quite large; at least 100 MB should be available on the disk to which this environment variable is set.</para>
 
 </section>
 
@@ -1665,7 +1656,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <para><xref linkend="fig_programs_grwinven" /> shows the input and output files for the <command>Grwinven</command> program. The input files include at least one growth or control matrix output from <command>Cntlmat</command> (<envar>ACMAT01</envar>, <envar>MCMAT01</envar>, or <envar>PCMAT01</envar>). If you are applying more than one growth or control matrix (i.e. <envar>SMK_NUM_CNTLMAT</envar> is greater than one), <command>Cntlmat</command> will open additional matrices as needed (<envar>ACMAT[xx]</envar>, <envar>MCMAT[xx]</envar>, or <envar>PCMAT[xx]</envar>). <command>Cntlmat</command> also uses the inventory file output from <command>Smkinven</command> (<envar>AREA</envar>, <envar>MOBL</envar>, or <envar>PNTS</envar>) and the country, state and county file (<envar>COSTCY</envar>).</para>
 
-<para><command>Grwinven</command> outputs new SMOKE intermediate inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been controlled and/or grown into the past or future. Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files. You can also choose to output ASCII inventory files in IDA or ORL format (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). <command>Grwinven</command> also writes a log file (<envar>LOGFILE</envar>) and can create an ASCII inventory file for activity data (<envar>MBINV_AO</envar>).</para>
+<para><command>Grwinven</command> outputs new SMOKE intermediate inventory files (<envar>AREA_O</envar>, <envar>MOBL_O</envar>, or <envar>PNTS_O</envar>) that have been controlled and/or grown into the past or future. Note that the suffix _O is used to distinguish the <command>Grwinven</command> output files from the input files. You can also choose to output ASCII inventory files in ORL format (<envar>ARINV_O</envar>, <envar>MBINV_O</envar>, or <envar>PTINV_O</envar>). <command>Grwinven</command> also writes a log file (<envar>LOGFILE</envar>) and can create an ASCII inventory file for activity data (<envar>MBINV_AO</envar>).</para>
 
 <section>
 
@@ -1706,6 +1697,12 @@ H<subscript>S</subscript> = Physical stack height (m)
 <entry>ASCII</entry>
 <entry>Country, state, and county file</entry>
 </row>
+<row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -1717,6 +1714,10 @@ H<subscript>S</subscript> = Physical stack height (m)
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
 
 <listitem>
 <para><envar>ORL_NONROAD_OUT</envar>: [default: N]</para>
@@ -1730,19 +1731,6 @@ H<subscript>S</subscript> = Physical stack height (m)
 </itemizedlist>
 </listitem>
 
-<listitem>
-<para><envar>SMK_GRWIDAOUT_YN</envar>: [default: N]</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Output inventory in IDA format</para>
-</listitem>
-<listitem>
-<para>N: Do not output inventory in IDA format</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
 <listitem>
 <para><envar>SMK_GRWORLOUT_YN</envar>: [default: N]</para>
 
@@ -1779,7 +1767,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <listitem>
 <para><envar>SMK_TMPDIR</envar>: [default: <filename class="directory">.</filename>]</para>
 
-<para>Defines the path to use for temporary files that are written out when supplying the IDA-formatted inventory. This setting is used only when <envar>SMK_GRWIDAOUT_YN</envar> is set to Y.</para>
+<para>Defines the path to use for temporary files that are written out when supplying the inventory.</para>
 </listitem>
 </itemizedlist>
 
@@ -2299,6 +2287,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Country, state, county codes file, with time zones</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><link linkend="sect_input_griddesc"><envar>GRIDDESC</envar></link></entry>
 <entry>ASCII</entry>
 <entry>Modeling Domain Grid Description File</entry>
@@ -2348,6 +2341,10 @@ S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 <listitem>
 <para><envar>ENDTIME</envar>: [default: 230000]</para>
+</listitem>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
 </listitem>
 <listitem>
 <para><envar>PD_TEMP_INCREMENT</envar>: [default: 5]</para>
@@ -2517,6 +2514,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Country, state and county codes file</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><link linkend="sect_input_cfpro"><envar>CFPRO</envar></link> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Control factor file</entry>
@@ -2601,6 +2603,10 @@ S<subscript>fraction</subscript> = smoldering fration
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
 <listitem>
 <para><envar>MEMORY_OPTIMIZE_YN: </envar>: [default: Y]</para>
 <para> Allows <command>Movesmrg</command> to use less RAM memory. However, it will increase computational time of RPD_MODE and RPV_MODE runs. </para>
@@ -3722,12 +3728,6 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <itemizedlist>
 <listitem>
-<para>IDA for area, mobile, point</para>
-</listitem>
-<listitem>
-<para>IDA mobile extended (modified to support VMT and pollutants)</para>
-</listitem>
-<listitem>
 <para>SMOKE one-record-per-line (ORL) format for nonpoint, nonroad mobile, on-road mobile, and point sources</para>
 </listitem>
 <listitem>
@@ -3750,7 +3750,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </listitem>
 </itemizedlist>
 
-<para>It is not possible to import only day- or hour-specific data from FF10 or EMS-95 input files. If only such data are to be used, mock annual files must be created; see <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" /> for more information on the required formats.</para>
+<para>It is not possible to import only day- or hour-specific data from FF10 input files. If only such data are to be used, mock annual files must be created; see <xref linkend="sect_input_ptday" /> and <xref linkend="sect_input_pthour" /> for more information on the required formats.</para>
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
@@ -3792,7 +3792,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_smkinven_area" /> shows the input and output files for <command>Smkinven</command> for area sources. If importing gridded data, <command>Smkinven</command> reads the <envar>AG</envar> file; for the annual inventory, <command>Smkinven</command> reads the <envar>ARINV</envar> file. The <envar>ARTOPNT</envar> file is used to assign point-source locations to area sources, and the <envar>COSTCY</envar> file is used to assign time zones to the annual inventory data. <command>Smkinven</command> also uses the inventory data table (<envar>INVTABLE</envar>), the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>), and the SCC description file (<envar>SCCDESC</envar>) if processing area-to-point sources.</para>
+<para><xref linkend="fig_programs_smkinven_area" /> shows the input and output files for <command>Smkinven</command> for area sources. If importing gridded data, <command>Smkinven</command> reads the <envar>AG</envar> file; for the annual inventory, <command>Smkinven</command> reads the <envar>ARINV</envar> file. The <envar>ARTOPNT</envar> file is used to assign point-source locations to area sources, and either the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL4</envar> file is used to assign time zones to the annual inventory data. <command>Smkinven</command> also uses the inventory data table (<envar>INVTABLE</envar>), the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>), and the SCC description file (<envar>SCCDESC</envar>) if processing area-to-point sources.</para>
 
 <para><command>Smkinven</command> outputs an annual and average-day inventory emissions file (<envar>AREA</envar>), a file listing the inventory SCCs (<envar>ASCC</envar>), a log file (<envar>LOGFILE</envar>), and a report containing various information about the processed inventory (<envar>REPINVEN</envar>).</para>
 
@@ -3826,7 +3826,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <para><xref linkend="fig_programs_smkinven_point" /> shows the input and output files for <command>Smkinven</command> for point sources. The input files include the optional CEM summary file (<envar>CEMSUM</envar>) created by <command>CEMScan</command>, the country, state and county codes file (<envar>COSTCY</envar>), the inventory data table (<envar>INVTABLE</envar>), and the optional NONHAP exclusions file (<envar>NHAPEXCLUDE</envar>). If importing hour-specific data, the ORIS facility description file <envar>ORISDESC</envar> is used. The <envar>PSTK</envar> file provides replacement stack parameters. Day-specific data is read from the <envar>PTDAY</envar> file, while hour-specific data comes from the <envar>PTHOUR</envar> file; the <envar>PTINV</envar> file provides the raw inventory data. For hour-specific data, the SCC description file (<envar>SCCDESC</envar>) is also needed.</para>
 
-<para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), and optional day-specific inventory (<envar>PDAY</envar>), and an optional hour-spceific inventory (<envar>PHOUR</envar>). The annual and average-day inventory emissions are stored in the <envar>PNTS</envar> file and the <envar>PSCC</envar> file lists the inventory SCCs.  For EMS-95 formatted inputs, an optional temporal profiles file (<envar>PTREF_ALT</envar>) is output. Finally, the <envar>REPINVEN</envar> report contains various information about the processed inventory.</para>
+<para><command>Smkinven</command> outputs a log file (<envar>LOGFILE</envar>), and optional day-specific inventory (<envar>PDAY</envar>), and an optional hour-spceific inventory (<envar>PHOUR</envar>). The annual and average-day inventory emissions are stored in the <envar>PNTS</envar> file and the <envar>PSCC</envar> file lists the inventory SCCs. Finally, the <envar>REPINVEN</envar> report contains various information about the processed inventory.</para>
 
 <section>
 
@@ -3878,6 +3878,18 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <entry>ASCII</entry>
 <entry>A, M, P</entry>
 <entry>Country, state, and county codes file, with time zones</entry>
+</row>
+<row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>A, B, M, P</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
+<entry><envar>GRIDMASK</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>A, B, M, P</entry>
+<entry>Defines an integer geocode to specify the predominant country and state code covered by each grid cell (<envar>GEOCODE_LEVEL</envar>) and an integer <envar>TZONES</envar> to specify the predominant Time Zone for each grid cell.</entry>
 </row>
 <row>
 <entry><envar>INVTABLE</envar></entry>
@@ -3938,7 +3950,10 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <title>Input Environment Variables</title>
 
 <itemizedlist>
-
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
 <listitem>
 <para><envar>ALLOW_NEGATIVE</envar>: [default: N]</para>
 <para>Indicates if <command>Smkinven</command> should permit negative emissions values to be input from inventory files and output to <envar>SMOKE</envar> intermediate files.</para>
@@ -4164,22 +4179,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <listitem>
 <para><envar>SMK_DEFAULT_TZONE</envar>: [default: 5]</para>
 
-<para>Defines the default time zone to use for sources that do not match entries in the <envar>COSTCY</envar> file.</para>
-</listitem>
-<listitem>
-<para><envar>SMK_EMS95_FIXFMT</envar>: [default: N]</para>
-
-<para>Indicates whether mobile EMS-95 inventory is fixed format (column-specific) or free format (delimited list).</para>
-
-<itemizedlist>
-<listitem>
-<para>Y: Mobile EMS-95 inventory is fixed format</para>
-</listitem>
-<listitem>
-<para>N: Mobile EMS-95 inventory is free format</para>
-</listitem>
-</itemizedlist>
-
+<para>Defines the default time zone to use for sources that do not match entries in the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> file.</para>
 </listitem>
 
 <listitem>
@@ -4281,9 +4281,9 @@ OUTPUT = INPUT1 - INPUT2
 
 </listitem>
 <listitem>
-<para><envar>WKDAY_NORMALIZE</envar>: [default: Y for EMS-95 input format, N for all other formats]</para>
+<para><envar>WKDAY_NORMALIZE</envar>: [default: N]</para>
 
-<para>Clarifies the nature of the <quote>average-day</quote> data read in by <command>Smkinven</command> and will impact the <command>Temporal</command> program processing of EMS-95 formatted data of type <quote>AD</quote> and average-day data for all other formats.</para>
+<para>Clarifies the nature of the <quote>average-day</quote> data read in by <command>Smkinven</command> and will impact the <command>Temporal</command> program processing of average-day data for all formats.</para>
 
 <itemizedlist>
 <listitem>
@@ -4359,11 +4359,6 @@ OUTPUT = INPUT1 - INPUT2
 <entry>Hour-specific inventory emissions assigned to sources in annual/average day files (optional)</entry>
 </row>
 <row>
-<entry><envar>PTREF_ALT</envar> (optional)</entry>
-<entry>ASCII</entry>
-<entry>Temporal profile identification codes per source; available when EMS-95-formatted point-source data are input</entry>
-</row>
-<row>
 <entry><envar>REPINVEN</envar> (optional)</entry>
 <entry>ASCII</entry>
 <entry><para>Inventory report file; contents depend on the inventory being processed, but can include:</para>
@@ -4398,24 +4393,6 @@ OUTPUT = INPUT1 - INPUT2
 </section>
 
 </section>
-
-<!--
-<section>
-
-<title>Earlier Versions</title>
-
-<para>The SMOKE prototype used separate programs for each type of source and input file format. These programs included RAWAREA, RAWMOBIL, and RAWPOINT for EPS-formatted files, and EMSAREA and EMSPOINT for EMS-95-formatted files.</para>
-
-<para>The SMOKE prototype stored VMT in the <envar>MOBL</envar> output file; SMOKE 1.0 stored either VMT or emission estimates, if available.</para>
-
-<para>Previous versions of SMOKE did not support hour-specific, day-specific, or gridded data import.</para>
-
-<para>Processing of toxic pollutants was added in versions 1.5 and 2.0, and required extensive changes to <command>Smkinven</command>, including a different intermediate inventory format. Previous versions of SMOKE used an intermediate inventory format consisting of one ASCII file and one I/O API file. Support for EPS 2.0 formatted inventories was dropped in SMOKE v1.5.</para>
-
-<para>A key bug fix was added in SMOKE version 2.3 that corrected the ORL on-road import to use wide field width buffers during import. The previous versions could import files in which all fields were 16 columns wide or smaller. Additionally, the reader of the <envar>INVTABLE</envar> file was updated to read in CAS number, even if a process-pollutant combination was included in column 1 of the file. This makes it possible to import ORL files with precomputed process-pollutant combinations such as EXH__VOC</para>
-
-</section>
--->
 
 </section>
 
@@ -4633,6 +4610,12 @@ OUTPUT = INPUT1 - INPUT2
 <entry>Country, state, and county file with time zones</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>A, B, M, P</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><envar>INVTABLE</envar></entry>
 <entry>ASCII</entry>
 <entry>A, B, M, P</entry>
@@ -4707,6 +4690,11 @@ OUTPUT = INPUT1 - INPUT2
 </itemizedlist>
 
 </listitem>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y, then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+</listitem>
+
 <listitem>
 <para><envar>MRG_BYDAY</envar>: [default: blank]</para>
 
@@ -5230,7 +5218,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>The speciation cross-reference file input to <command>Spcmat</command> specifies the speciation profile to be used for transforming the inventory pollutants to the model species for each source or type of source. <command>Spcmat</command> permits profiles to be assigned based on the country, state, and county code, the SCC, and other source characteristics. In the hierarchical system used to apply the profiles, the most specific assignments are applied first, followed by the next most specific, and so on. This system ensures that the most-specific matches override the less-specific ones.</para>
 
-<para>For stationary area/nonpoint sources, the available combinations and their order are the following, starting with the most specific. <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.</para>
+<para>For stationary area/nonpoint sources, the available combinations and their order are the following, starting with the most specific. <quote>Left <emphasis>x</emphasis> of SCC</quote> refers to an 8- or 10-digit SCC with all digits except the first <emphasis>x</emphasis> set to 0. <quote>Left 2 of SIC code</quote> refers to a 4-digit SIC code with the third and fourth digits set to 0.The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used. (NOTE: only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5402,7 +5390,7 @@ Defines whether the program produces a report of emission totals by state.</para
 </orderedlist>
 </comment>
 
-<para>For point sources, the available combinations depend on the source definition. A header in the speciation cross-reference file format allows you to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. For point sources, the available combinations and their order are:</para>
+<para>For point sources, the available combinations depend on the source definition. A header in the speciation cross-reference file format allows you to indicate the source definition. For inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. For point sources, the available combinations and their order are:</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5786,7 +5774,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <para>A many-step hierarchy is used in applying the temporal cross-referencing. SMOKE preferentially matches each source to the most specific line in the cross-reference file. When there are missing entries in the cross-reference file, <command>Temporal</command> first looks for cross-reference entries for other species at the same level in the search hierarchy before descending to the next level in the hierarchy. For example, if a source has a temporal cross-reference entry for CO but not for NO<subscript>x</subscript>, <command>Temporal</command> uses the source-specific CO temporal cross reference entry for allocating NO<subscript>x</subscript> from that source in preference to using a default NO<subscript>x</subscript> temporal profile.</para>
 
-<para>For area sources, the available combinations are the following, starting with the most specific. <quote>7-digit SCC</quote> means a 10-digit SCC with the last three digits set to zero.</para>
+<para>For area sources, the available combinations are the following, starting with the most specific. <quote>7-digit SCC</quote> means a 10-digit SCC with the last three digits set to zero. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used. (NOTE: only for SCC less than or equal to 10 characters and SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -5906,9 +5894,9 @@ Defines whether the program produces a report of emission totals by state.</para
 </orderedlist>
 </comment>
 
-<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>.</para>
+<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. For inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported. The SIC may also be up to 20 characters in length, but if the SIC is larger than 4 characters then the hierarchial approach will not be used.</para>
 
-<para>The hierarchy of cross-referencing is the following.</para>
+<para>The hierarchy of cross-referencing is the following. (NOTE: only for SCC less than or equal to 10 characters, SIC less than or equal to 4 characters)</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -6125,6 +6113,11 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry>Country/state/county codes file, used to determine counties that do not use Daylight Saving time.</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+<entry>ASCII</entry>
+<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link> files are used)</entry>
+</row>
+<row>
 <entry><envar>HOLIDAYS</envar></entry>
 <entry>ASCII</entry>
 <entry>Holidays file by Gregorian date, for applying holiday temporal profiles. </entry>
@@ -6165,6 +6158,10 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 <listitem>
 <para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the temporal cross-reference files by preventing left-7 SCC assignments.</para>
+</listitem>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
 </listitem>
 <listitem>
 <para><envar>HOUR_SPECIFIC_YN</envar>: See description in <xref linkend="sect_programs_smkinven_envar" /></para>

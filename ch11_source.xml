@@ -121,11 +121,6 @@ All source code for SMOKE and its associated libraries can be found in the <file
 <entry><envar>PT_SRC</envar></entry>
 </row>
 <row>
-<entry><link linkend="sect_utilities_extractida"><command>Extractida</command></link></entry>
-<entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
-<entry><envar>UT_SRC</envar></entry>
-</row>
-<row>
 <entry><link linkend="sect_utilities_geofac"><command>Geofac</command></link></entry>
 <entry><filename class="directory"><envar>$SMKROOT</envar>/src/emutil</filename></entry>
 <entry><envar>UT_SRC</envar></entry>

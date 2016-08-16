@@ -651,7 +651,7 @@ grep ERROR *
 <listitem>Point inventories</listitem>
 <listitem>Day-specific and hour-specific point and fire inventories</listitem>
 <listitem>Future-year inventories</listitem>
-<listitem>Pre-gridded inventories</listitem>
+<listitem>Pre-gridded inventories (for same output modeling domain or for converting to a different modeling domain (example: EDGAR to CMAQ ready emissions file)</listitem>
 <listitem>Using seasonal and annual data in the same run</listitem>
 <listitem>Files and settings for all inventories</listitem>
 </itemizedlist>
@@ -673,10 +673,7 @@ grep ERROR *
 <para>If you have preexisting data in SMOKE input format, then you will most likely want to use that format to input to SMOKE, unless you discover that you need a different format to take advantage of a SMOKE feature not available in a different format.</para>
 </listitem>
 <listitem>
-<para>If you have IDA formatted criteria inventory and SMOKE toxics formatted toxics inventory, then you can use these two different formats using a list file.</para>
-</listitem>
-<listitem>
-<para>If you have multiple files in a single format, then you can combine these into a single SMOKE run using a list file. This is usually the case for users who have EMS-95 formatted data.</para>
+	<para>If you have multiple files in a single format, then you can combine these into a single SMOKE run using a list file.</para> 
 </listitem>
 <listitem>
 <para>If you have data in more than one format other than the case just mentioned, you must convert all files to the same format or process them separately in SMOKE, merging the hourly, gridded, speciated emissions files using <command>Mrggrid</command>.</para>
@@ -688,40 +685,11 @@ grep ERROR *
 <para>If you want to combine nonroad mobile criteria and toxics inventories, you need to process nonroad mobile sources separately from area sources (see <xref linkend="sect_scripts_nonroad_invs" />).</para>
 </listitem>
 <listitem>
-<para>Pregridded data from any source category can be input to SMOKE as an area source, but you must convert the data to an I/O API NetCDF file format first. See <xref linkend="sect_scripts_pregridded_invs" /> for more information.</para>
+<para>Pregridded data from any source category can be input to SMOKE as an area source, but you must convert the data to an I/O API NetCDF file format first. See <xref linkend="sect_scripts_pregridded_invs_same" /> for more information.</para>
 </listitem>
 </itemizedlist>
-
-</listitem>
-
-<listitem>
-<para>New data considerations</para>
-
-<itemizedlist>
-<listitem>
-<para>We recommend using the IDA format for criteria inventories.</para>
-</listitem>
-<listitem>
-<para>We recommend using the ORL format for toxics inventories.</para>
-</listitem>
-<listitem>
-<para>If using both criteria and toxics data and wish to have the full functionality of SMOKE for both inventories, you must use the IDA format for criteria inventories and the ORL format for toxics inventories. You also must use a list file to list both inventory files (criteria and toxics) for SMOKE to combine.</para>
-</listitem>
-
-<comment>
-<listitem>
-<para><remark>It is possible to use the ORL format for criteria inventories, but you will not be able to integrate your VOC emissions in this case. (See <xref linkend="sect_concepts_combine_toxics" />.)</remark>.</para>
-</listitem>
-</comment>
-
-<listitem>
-<para>It is possible to use any format for any type of data, provided that the fields that you want to use for cross-reference assignments are available in the format you select. For example, if you want to use MACT-based assignments for controls, you must use the ORL format for area/non-point sources, since it is the only format available that includes MACT code as a source attribute.</para>
-</listitem>
-</itemizedlist>
-
 </listitem>
 </orderedlist>
-
 </listitem>
 
 <listitem>
@@ -734,10 +702,7 @@ grep ERROR *
 <para>List format. The list format is simply an ASCII file that lists all of the files that you want SMOKE to import in a single run.</para>
 </listitem>
 <listitem>
-<para>IDA format. This format is most appropriate for criteria inventories for stationary area and nonroad mobile sources.</para>
-</listitem>
-<listitem>
-<para>ORL format. This format is most appropriate for non-point toxics inventories, but also can be used for any inventory data.</para>
+<para>ORL and FF10 formats. These formats are most appropriate for non-point toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
 <para>Pregridded I/O API format. This format can only be used for pregridded data that has been converted to a time-independent, gridded I/O API file. The variables in the file are the pollutants. No SCCs or other source information can be provided with this format.</para>
@@ -751,31 +716,26 @@ grep ERROR *
 
 <orderedlist>
 <listitem>
-<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only), #IDA, #EMS-95, or #TOXICS NONPOINT (see <xref linkend="sect_input_inventory_format" />).</para>
+<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only), #ORL, #FF10 (see <xref linkend="sect_input_inventory_format" />).</para>
 </listitem>
 <listitem>
-<para>File type (#TYPE header): The type is important because it helps SMOKE determine the file format (e.g., whether IDA point or IDA on-road activity). Make sure that the header has been set according to the directions in <xref linkend="sect_input_inventory_header" />.</para>
+<para>File type (#TYPE header): The type is important because it helps SMOKE determine the file format. Make sure that the header has been set according to the directions in <xref linkend="sect_input_inventory_header" />.</para>
 </listitem>
 <listitem>
-<para>Country (#COUNTRY header): Make sure that this head has been used and that the country name used in this header matches the name in the country section of the <envar>COSTCY</envar> file.</para>
+	<para>Country (#COUNTRY header): Make sure that this head has been used and that the country name used in this header matches the name in the country section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file.</para>
 </listitem>
 <listitem>
-<para>Inventory year (#YEAR). For IDA and ORL formats, make sure that the inventory year is accurately reflected in the header. This is the only way SMOKE knows what year the data is for. <comment>If the year is not the same for all of your inventory files and you want to make them the same, you will have to use the inventory growth, which is described in <xref linkend="sect_scripts_use_projection" />.</comment> If this year is not a base year but a future-year, make sure to follow the additional instructions in <xref linkend="sect_scripts_future_invs" />.</para>
+<para>Inventory year (#YEAR). Make sure that the inventory year is accurately reflected in the header. This is the only way SMOKE knows what year the data is for. <comment>If the year is not the same for all of your inventory files and you want to make them the same, you will have to use the inventory growth, which is described in <xref linkend="sect_scripts_use_projection" />.</comment> If this year is not a base year but a future-year, make sure to follow the additional instructions in <xref linkend="sect_scripts_future_invs" />.</para>
 
-<para>For EMS-95 format, this header does not apply. Instead, use the /INVYEAR/ packet in the list file.</para>
 </listitem>
 <listitem>
 <para>Description (#DESC header): Although this header is not required, it is good practice to take advantage of it and include as much information about the data as you have. There is no limit to the number of #DESC headers that can be included in the file.</para>
 </listitem>
 <listitem>
-<para>Data header (#POLID or #DATA header): For IDA format, make sure that this required header is included in the file. It should accurately reflect the data values provided on each line of the IDA-formatted file. If there are data fields at the end of the file that you want to drop from being imported, you can leave them off of the #POLID or #DATA header to cause them to not be imported by <command>Smkinven</command> (see also the <envar>INVTABLE</envar> file for dropping emissions during import).</para>
+<para>Data header (#POLID or #DATA header): Make sure that this required header is included in the file. It should accurately reflect the data values provided on each line of the file. If there are data fields at the end of the file that you want to drop from being imported, you can leave them off of the #POLID or #DATA header to cause them to not be imported by <command>Smkinven</command> (see also the <envar>INVTABLE</envar> file for dropping emissions during import).</para>
 
 <para>For ORL format, this header does not apply. The pollutants are designated by code number (i.e., CAS number) in the file format and therefore the header is not needed.</para>
 
-<para>For EMS-95 format, this header does not apply. The pollutants are listed by 5-character names in the format on each line of the file.</para>
-</listitem>
-<listitem>
-<para>Check for additional <quote>headers</quote> in the file. The IDA format permits multiple header sections in a single IDA file. Search for the <quote>#</quote> symbol to see if there are other header lines and to ensure that any additional header lines are correct. It is acceptable to have different years, countries, and pollutants in different sections of the file.</para>
 </listitem>
 </orderedlist>
 
@@ -880,7 +840,7 @@ grep ERROR *
 
 <orderedlist>
 <listitem>
-<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only), #IDA, #EMS-95, or #TOXICS.</para>
+<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only), #ORL, #FF10.</para>
 </listitem>
 <listitem>
 <para>For other headers, please refer to the documentation in step (3) of the area/non-point steps in <xref linkend="sect_scripts_area_invs" />.</para>
@@ -956,13 +916,7 @@ grep ERROR *
 <para>List format. The list format is simply an ASCII file that lists all of the files that you want SMOKE to import in a single run.</para>
 </listitem>
 <listitem>
-<para>IDA activity format. This format is for VMT inventories.</para>
-</listitem>
-<listitem>
-<para>IDA emissions format. This format is most appropriate for criteria emissions inventories.</para>
-</listitem>
-<listitem>
-<para>ORL format. This format is most appropriate for toxics inventories, but also can be used for any inventory data.</para>
+<para>ORL and FF10 format. These formats are most appropriate for toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 
 </orderedlist>
@@ -975,9 +929,6 @@ grep ERROR *
 <orderedlist>
 <listitem>
 <para>Please refer to the documentation in step (3) of the area/non-point steps in <xref linkend="sect_scripts_area_invs" />.</para>
-</listitem>
-<listitem>
-<para>For IDA activity format, make sure that the #UNITS header is being used to set the units of the activity fields. Please refer to <xref linkend="sect_input_inventory_header" /> for more information.</para>
 </listitem>
 </orderedlist>
 
@@ -1035,15 +986,6 @@ grep ERROR *
 <para>If you have preexisting data in SMOKE input format, then you will most likely want to use that format to input to SMOKE, unless you discover that you need a different format to take advantage of a SMOKE feature not available in a different format.</para>
 </listitem>
 <listitem>
-<para>If you want to integrate criteria VOC with toxics VOC, the IDA format must be used for the criteria inventory and the ORL format for the toxics inventory.</para>
-</listitem>
-<listitem>
-<para>If you have multiple files in a single format, then you can combine these into a single SMOKE run using a list file. This is always the case for users who have EMS-95 formatted data, since the EMS-95 point source format is actually five separate files - usually with separate files for each state.</para>
-</listitem>
-<listitem>
-<para>EMS-95 formatted data will not be able to be used with CEM-formatted inventories; IDA-formatted inventories <emphasis>must</emphasis> be used to work with CEM-formatted inventories because the ORIS ID and Boiler ID fields are used to match sources between the IDA and CEM-formatted inventories.</para>
-</listitem>
-<listitem>
 <para>Pregridded data must be input as an area source.</para>
 </listitem>
 </itemizedlist>
@@ -1053,15 +995,6 @@ grep ERROR *
 <para>New data considerations</para>
 
 <itemizedlist>
-<listitem>
-<para>We recommend using the IDA format for criteria inventories.</para>
-</listitem>
-<listitem>
-<para>We recommend using the ORL format for toxics inventories.</para>
-</listitem>
-<listitem>
-<para>If using both criteria and toxics data and wish to have the full functionality of SMOKE for both inventories, you must use the IDA format for criteria inventories and the SMOKE toxics format for toxics inventories. You also must use a list file to list both inventory files (criteria and toxics) for SMOKE to combine.</para>
-</listitem>
 
 <comment>
 <listitem>
@@ -1091,13 +1024,7 @@ grep ERROR *
 <para>List format. The list format is simply an ASCII file that lists all of the files that you want SMOKE to import in a single run.</para>
 </listitem>
 <listitem>
-<para>IDA format. This format is most appropriate for criteria inventories for point sources.</para>
-</listitem>
-<listitem>
 <para>ORL format. This format is most appropriate for point toxics inventories, but also can be used for any inventory data.</para>
-</listitem>
-<listitem>
-<para>EMS-95 format. This format is most appropriate for existing data sets when the user does not want to convert to a different format.</para>
 </listitem>
 </orderedlist>
 
@@ -1156,7 +1083,7 @@ grep ERROR *
 <para>For hour-specific emissions data that is <emphasis>not</emphasis> CEM data, create the list file <envar>PTHOUR</envar> and one or more files with hour-specific emissions in the format provided in <xref linkend="sect_input_pthour" />. The format requires that a list file be used to point to the actual data files, even if a single data file with emissions data is used.</para>
 </listitem>
 <listitem>
-<para>If using CEM data, the data files for 1995 through 2000 are available with SMOKE. A list file <envar>PTHOUR</envar> must be created to list the one or more CEM data files that will be input. To speed processing, the DATERANGE setting can be used in the list file <envar>PTHOUR</envar> to cause SMOKE to skip the dates in the CEM files that are not needed. When using this format, the annual inventory file must be provided in IDA format, so that SMOKE can assign stack parameters and other information from the IDA file based on the ORIS ID and the Boiler IDs that are used to match the CEM records to the IDA inventory. Detail information is described in <xref linkend="sect_concepts_hour_specific_cem" /></para>
+	<para>If using CEM data, the data files for 1995 through 2000 are available with SMOKE. A list file <envar>PTHOUR</envar> must be created to list the one or more CEM data files that will be input. To speed processing, the DATERANGE setting can be used in the list file <envar>PTHOUR</envar> to cause SMOKE to skip the dates in the CEM files that are not needed.  Detail information is described in <xref linkend="sect_concepts_hour_specific_cem" /></para>
 </listitem>
 <listitem>
 <para>If using hourly precomputed plume rise (e.g., for fire data), the <envar>PTHOUR</envar> file should be created as described above for emissions data, but specific variable names must be provided<comment>, as described in the file format documentation in <xref linkend="sect_input_pthour" /></comment>. The allowable data includes the fraction of the plume in layer 1, the plume bottom height, and the plume top height.</para>
@@ -1239,7 +1166,7 @@ grep ERROR *
 
 <para>For future-year modeling, you can choose to input future-year inventories to SMOKE. This is a different approach from importing a base-year inventory and using SMOKE growth to create a future-year inventory. The future-year inventory could be created outside of SMOKE and would need to be in one of the SMOKE input formats available for the source categories of interest.</para>
 
-<para>A future-year inventory could also be created by SMOKE, since the <command>Grwinven</command> program can output emissions in IDA format. In this section, we do not cover importing base year inventories and using SMOKE to grow them to a future year; that topic is covered in <xref linkend="sect_scripts_use_projection" />. Following the instructions in that section, it is feasible to create a future-year inventory in SMOKE raw input format and use it as we describe in this section.</para>
+<para>A future-year inventory could also be created by SMOKE, since the <command>Grwinven</command> program can output emissions in ORL format. In this section, we do not cover importing base year inventories and using SMOKE to grow them to a future year; that topic is covered in <xref linkend="sect_scripts_use_projection" />. Following the instructions in that section, it is feasible to create a future-year inventory in SMOKE raw input format and use it as we describe in this section.</para>
 
 <orderedlist>
 <listitem>
@@ -1265,11 +1192,12 @@ grep ERROR *
 
 </section>
 
-<section id="sect_scripts_pregridded_invs">
+<section>
+<section id="sect_scripts_pregridded_invs_same">
 
-<title>Pre-gridded inventories</title>
+<title>Pre-gridded inventories from the same modeling domain as an area source without source characterization or attributes</title>
 
-<para>SMOKE has a limited capability to import pre-gridded data. It can import the data if it is time-independent and if the grid cell and pollutant names are the only attributes needed to identify the emissions. If SCC or other attributes are available, SMOKE cannot use these directly; though in the case of SCCs, each SCC could conceivably be tediously input as a separate dataset and modeled as a separate inventory.</para>
+<para>SMOKE has a limited capability to import pre-gridded data from the same modeling domain. It can import the data if it is time-independent and if the grid cell and pollutant names are the only attributes needed to identify the emissions. If SCC or other attributes are available, SMOKE cannot use these directly; though in the case of SCCs, each SCC could conceivably be tediously input as a separate dataset and modeled as a separate inventory.</para>
 
 <para>If any source category is available as pre-gridded data, the following steps must be taken.</para>
 
@@ -1300,6 +1228,40 @@ grep ERROR *
 </listitem>
 </orderedlist>
 
+</section>
+<section id="sect_scripts_pregridded_invs_different">
+
+	<title>Pre-gridded inventories processing for converting between different modeling domains (EDGAR to CMAQ) with source characterization and attributes (SCC and GEOCODE_LEVEL)</title>
+	<para>SMOKE will regrid the data from the native data grid (e.g. lat-lon for global inventories) to the CMAQ modeling grid, and apply a unique source ID to each grid cell to allow SMOKE to perform chemical speciation, temporal allocation from annual to hourly timesteps, and elevated source selection and vertical allocation. The pre-gridded inventory (EDGAR) files each contain data for a different sector, the sector and pollutant contained in each pre-gridded inventory file is specified in the ARINV file using the #LIST GRID format.</para>
+	<para>To process pre-gridded data from different modeling domains, the following steps must be taken.</para>
+<orderedlist>
+<listitem>
+<para> Set the <envar>IMPORT_GRDNETCDF_YN</envar> to Y to read the native netCDF annual inventory files.</para>
+</listitem>
+<listitem>
+<para>Grdmat is used to convert the data from the input data grid (e.g. lat-lon for EDGAR) to the output modeling grid. Set the <envar>IOAPI_GRIDNAME_1</envar> to specify the output grid.</para>
+</listitem>
+<listitem>
+<para>SMOKE reads each grid cell in the gridded inventory file as a unique source that will have a unique source ID.  The lower left corner of inventory grid will be source 1, cell (2,1) will be source 2, cell (3,1) source 3, etc</para>
+</listitem>
+<listitem>
+<para> For each gridded inventory file, a Geographical Code Mask Input file (GRIDMASK) is provided by UNC for EDGAR inventory files that assigns a GEOGRID_LEVEL2 value to each grid cell.</para>
+</listitem>
+<listitem>
+<para> The ARINV file is used to read in a list of gridded inventory files and to specify the SCC associated with each gridded inventory file</para>
+</listitem>
+<listitem>
+<para> Set the <envar>NETCDF_POL_UNIT</envar> to kg m-2 -s</para>
+</listitem>
+<listitem>
+<para> Set the <envar>NETCDF_INV_YEAR</envar> to the year of the inventory (e.g. 2010)</para>
+</listitem>
+<listitem>
+<para> To apply control factors to adjust emissions by GEOCODE_LEVEL and SCC use the CONTROL packet in the GCNTL file </para>
+</listitem>
+</orderedlist>
+
+</section>
 </section>
 
 <section id="sect_scripts_all_invs">
@@ -1362,7 +1324,7 @@ grep ERROR *
 
 <title>Using average-day and annual data in the same run</title>
 
-<para>The IDA and ORL formats provide fields for both annual and average-day emissions values. SMOKE will import both values when either of these formats are used and store all emissions in the SMOKE intermediate inventory files. To configure the <command>Temporal</command> allocation step, you have the option of using the <envar>SMK_AVEDAY_YN</envar> setting to select using either the annual or average-day data when both are available. This option and its typical usage will be explained with the <command>Temporal</command> settings.</para>
+<para>The ORL and FF10 formats provide fields for both annual and average-day emissions values. SMOKE will import both values when either of these formats are used and store all emissions in the SMOKE intermediate inventory files. To configure the <command>Temporal</command> allocation step, you have the option of using the <envar>SMK_AVEDAY_YN</envar> setting to select using either the annual or average-day data when both are available. This option and its typical usage will be explained with the <command>Temporal</command> settings.</para>
 
 <para>This section describes what to do when both annual data and average-day data need to be used in the same SMOKE run. This can occur when part of an inventory has been provided using annual inventories only (the average-day values are missing or incorrect) and a different part with average-day inventories only (the annual values are missing). This is only a problem when you want to run all of the sources in a single run; so, if nonroad and stationary area sources are provided with the two different temporal resolutions, these can just be run with separate SMOKE runs. If two parts of the stationary area source inventory are provided with two different temporal resolutions, then this section can help to setup the modeling correctly.</para>
 
@@ -1404,8 +1366,7 @@ grep ERROR *
 
 <title>Select which pollutants in the inventory are kept</title>
 
-<para>Users have the option of deciding at run time which inventory pollutants will be kept from an inventory provided in ORL format. As explained in <xref linkend="sect_scripts_area_invs" />, the IDA #DATA or #POLID header provide a limited option for preventing pollutants from being imported. For ORL or EMS-95 format, the <envar>INVTABLE</envar> file provides a different mechanism. The <envar>INVTABLE</envar> file lists all possible criteria and toxic pollutants. While the example files are fairly comprehensive, it is possible users may need to add pollutants to this file using the <envar>INVTABLE</envar> file format description. Additionally, users can change which pollutants are kept for further processing in SMOKE. This is done by setting the Keep column of the file to Y for all pollutants that SMOKE should keep. The <envar>INVTABLE</envar> file does not affect which pollutants are kept from IDA files; all pollutants in these files must have the Keep column set to Y.</para>
-
+<para>Users have the option of deciding at run time which inventory pollutants will be kept from an inventory provided in ORL format.  The <envar>INVTABLE</envar> file lists all possible criteria and toxic pollutants. While the example files are fairly comprehensive, it is possible users may need to add pollutants to this file using the <envar>INVTABLE</envar> file format description. Additionally, users can change which pollutants are kept for further processing in SMOKE. This is done by setting the Keep column of the file to Y for all pollutants that SMOKE should keep, all pollutants in these files must have the Keep column set to Y.</para> 
 <para>Both the run time and intermediate file sizes can be reduced by keeping only the pollutants that you need to include for modeling purposes. In the bulleted list below, we provide several examples of why a user might want to change which pollutants are kept.</para>
 
 <itemizedlist>
@@ -1588,29 +1549,29 @@ grep ERROR *
 </listitem>
 </itemizedlist>
 
-<para>All codes provided in the emission inventories must be integers and must match entries in the <envar>COSTCY</envar> file, which is the master list of country, state, and county codes in any given SMOKE installation. The format for this file can be found in <xref linkend="ch_input_files" />. By default, the codes are shared by all scenarios installed in the same SMOKE system (using different <envar>COSTCY</envar> files requires changing the Assigns file to not share the same <envar>COSTCY</envar> file among all cases).</para>
+<para>All codes provided in the emission inventories must be integers and must match entries in the <envar>COSTCY</envar> or <link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL4</envar></link> (if USE_EXP_GEOCODE Y) file, which is the master list of country, state, county and tribal codes in any given SMOKE installation. The format for the COSTCY file can be found in <xref linkend="ch_input_files" />. By default, the codes are shared by all scenarios installed in the same SMOKE system (using different <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> (if USE_EXP_GEOCODE Y) files requires changing the Assigns file to not share the same <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> (if USE_EXP_GEOCODE Y) file among all cases).</para>
 
-<para>The codes in the inventory must match the codes in this file. SMOKE assigns time zones, daylight saving time exemptions, state names, and county names using this file. Therefore, if one of the counties in the inventory does not match a valid country, state, and county code in the <envar>COSTCY</envar> file, it can cause errors in the modeling.</para>
+<para>The codes in the inventory must match the codes in this file. SMOKE assigns time zones, daylight saving time exemptions, state names, and county names using this file. Therefore, if one of the counties in the inventory does not match a valid country, state, and county code in the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y), it can cause errors in the modeling.</para>
 
 <para>The following list provides the steps that users should take to ensure that the file will work for their modeling case:</para>
 
 <orderedlist>
 <listitem>
-<para>Check whether the countries with data in the inventory are included in the /COUNTRY/ section of the <envar>COSTCY</envar> file.</para>
+	<para>Check whether the countries with data in the inventory are included in the /COUNTRY/ section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> (if USE_EXP_GEOCODE Y) file.</para>
 </listitem>
 <listitem>
 <para>Change country codes and names if necessary within the limitation of 10 countries per file. If the country codes change, the country-specific SMOKE temporal profile assignments made by <envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar> may no longer be valid.</para>
 </listitem>
 <listitem>
-<para>Check whether the states with data in the inventory are included in the /STATE/ section of the <envar>COSTCY</envar> file.</para>
+	<para>Check whether the states with data in the inventory are included in the /STATE/ section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file.</para>
 </listitem>
 <listitem>
 <para>Change or add state codes and names if necessary to ensure all states are listed for all countries.</para>
 </listitem>
 <listitem>
-<para>Check whether the counties with data in the inventory are included in the /COUNTY/ section of the <envar>COSTCY</envar> file and that all counties have assigned time zones.</para>
+	<para>Check whether the counties with data in the inventory are included in the /COUNTY/ section of the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file and that all counties have assigned time zones.</para>
 
-<para><command>Smkinven</command> will perform this function for you if needed and will list in the <command>Smkinven</command> log file all counties that are not included in the <envar>COSTCY</envar> file or that do not have time zones assigned. If county codes have changed for merged or separated counties (e.g., Miami/Dade county in Florida).</para>
+	<para><command>Smkinven</command> will perform this function for you if needed and will list in the <command>Smkinven</command> log file all counties that are not included in the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar> file (if USE_EXP_GEOCODE Y) file or that do not have time zones assigned. If county codes have changed for merged or separated counties (e.g., Miami/Dade county in Florida).</para>
 </listitem>
 <listitem>
 <para>Change or add county codes and names if necessary to ensure all counties are included in the inventory for all states and countries and that time zones have been assigned to each.</para>
@@ -2708,9 +2669,9 @@ grep ERROR *
 <listitem>
 <para>Determine whether you are using an annual or average-day inventory.</para>
 
-<para>You are using an annual inventory if you are using the IDA or ORL format and you have <envar>SMK_AVEDAY_YN</envar> is set to N in your run scripts.</para>
+<para>You are using an annual inventory if you have <envar>SMK_AVEDAY_YN</envar> is set to N in your run scripts.</para>
 
-<para>You are using an average-day inventory if you are using the EMS-95 format or you are using the IDA or SMOKE Toxics format and you have <envar>SMK_AVE_DAY_YN</envar> set to Y in your run scripts.</para>
+<para>You are using an average-day inventory if you have <envar>SMK_AVE_DAY_YN</envar> set to Y in your run scripts.</para>
 </listitem>
 <listitem>
 <para>If using an annual inventory, use weekly normalization.</para>

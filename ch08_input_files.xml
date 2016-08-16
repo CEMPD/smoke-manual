@@ -716,6 +716,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>Country, state, and county names and time zones</entry>
 <entry><envar>$GE_DAT</envar></entry>
 </row>
+<row>
+	<entry><link linkend="sect_input_geocode"><envar>GEOCODE_LEVEL[1-4]</envar></link></entry>
+	<entry><command>Smkinven</command>, <command>Grwinven</command>, <command>Temporal</command>, <command>Smkmerge</command>, <command>Smkreport</command></entry>
+	<entry>A, B, M, P</entry>
+	<entry>Geographical level codes and descriptions for gridded inventories, only when USE_EXP_GEO_CODES is set to Y, (COSTCY is ignored when GEOCODE_LEVEL[1-4] files are used)</entry>
+	<entry><envar>$GE_DAT</envar></entry>
+</row>
 
 <row>
 <entry><link linkend="sect_input_invtable"><envar>INVTABLE</envar></link></entry>
@@ -811,7 +818,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Inventory list files</title>
 
-<para>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and other information) or they can contain a list of file names with full paths (i.e. <filename>/apps/smoke/data/inventory/nei02/area/arinv.ida.txt</filename>); in the latter case, we call the file a <quote>list file</quote>. When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into one inventory. This is useful when the individual inventories are in different formats; for example, criteria emissions are typically in IDA format, while the ORL format is used for toxics emissions. You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this will be noted in the format descriptions.</para>
+<para>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and other information) or they can contain a list of file names with full paths (i.e. <filename>/apps/smoke/data/inventory/nei02/area/arinv.txt</filename>); in the latter case, we call the file a <quote>list file</quote>. When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into one inventory.  You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this will be noted in the format descriptions.</para>
 
 <para>An inventory list file can be created using the UNIX <command>ls</command>. The following command will create the <envar>ARINV</envar> file containing a list of all files starting with <filename>arinv</filename> in the <filename class="directory"><envar>$ARDAT</envar></filename> directory, complete with full paths.</para>
 
@@ -830,6 +837,7 @@ In this overview section, we first provide a few important notes about file form
 <itemizedlist>
 <listitem>#CEM indicates that the file is in CEM format</listitem>
 <listitem>#LIST indicates that the file is a list file</listitem>
+<listitem>#LIST GRID indicates that the file is a list of global gridded emission inventory files</listitem>
 <listitem>#FF10 indicates that the file is in FF10 (Flat File 10) format is shared between different source categories for annual/monthly or daily/hourly and point/nonpoint/nonroad/onroad data.  The user specifies the data provided using this command in the header: FF10_[HOURLY|DAILY]_[NONPOINT|POINT|NONROAD|ONROAD].</listitem>
 <listitem>#ORL indicates that the file is in ORL format (usually used for toxics inventories)</listitem>
 <listitem>#ORL NONPOINT indicates that the file is in ORL format for nonpoint sources</listitem>
@@ -851,7 +859,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title>Header records</title>
 
-<para>The IDA, ORL and FF10 formats used for the area-, mobile-, and point-source inventories require a set of header records at the beginning of each file. The general format of the header records is:</para>
+<para>The ORL and FF10 formats used for the area-, mobile-, and point-source inventories require a set of header records at the beginning of each file. The general format of the header records is:</para>
 
 <para>command parm1 parm2 ... parm <emphasis>n</emphasis></para>
 
@@ -860,7 +868,7 @@ In this overview section, we first provide a few important notes about file form
 <comment>The header records can appear anywhere in the file to change the parameters of the data. For example, the #COUNTRY value could change to allow for multiple countries in a single file, the #YEAR value could change to allow for multiple years, and the #DATA and #UNITS values could change to allow for different data fields in different parts of the inventory file.</comment>
 
 <table id="tbl_input_inventory_header">
-<title>Inventory header commands for IDA, ORL, and FF10 formats</title>
+<title>Inventory header commands for ORL, and FF10 formats</title>
 
 <tgroup cols="3">
 <colspec colwidth="35*" />
@@ -899,7 +907,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#COUNTRY</entry>
 <entry>Country name</entry>
-<entry>Valid names are those in the <envar>COSTCY</envar> file (US, CANADA, MEXICO, etc.)</entry>
+<entry>Valid names are those in the <envar>COSTCY</envar> or <envar>GEOCODE_LEVEL[1-4]</envar>(FF10 Format only) file(s) (US, CANADA, MEXICO, etc.)</entry>
 </row>
 <row>
 <entry>#YEAR</entry>
@@ -914,14 +922,9 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
-<entry><para>In IDA-format files, it defines the pollutants for which emissions data is provided; <quote>data1</quote> in the ID of the first pollutant, <quote>data2</quote> is the ID of the second pollutant, and so on.</para> 
+<entry>
 <para>In wild/Rx fires ORL format files (#ORL FIRE (<quote><xref linkend="sect_input_ptinv_fire" /></quote>) and day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para> 
 </entry>
-</row>
-<row>
-<entry>#UNITS</entry>
-<entry>units1 units2 ... units <emphasis>n</emphasis></entry>
-<entry>Only used for on-road mobile activity data in IDA format. Defines the units associated with the activity data; <quote>units1</quote> are the units for <quote>data1</quote>, <quote>units2</quote> are the units for <quote>data2</quote>, and so on. Not used for emissions data because the units are built into the file formats.</entry>
 </row>
 </tbody>
 </tgroup>
@@ -969,20 +972,20 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char(2)</entry>
-<entry>2 character code: e.g., US  (required)</entry>
+<entry>Char(3)</entry>
+<entry>Country Code: e.g., US  (required)</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five-digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
 <entry>Char(3)</entry>
-<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+<entry>Tribal code (optional; recommended)</entry>
 </row>
 <row>
 <entry>4</entry>
@@ -1011,7 +1014,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -1129,20 +1132,20 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char(2)</entry>
-<entry>2 character code: e.g., US  (required)</entry>
+<entry>Char(3)</entry>
+<entry>Country code: e.g., US  (required)</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five-digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
 <entry>Char(3)</entry>
-<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+<entry>Tribal code (optional; recommended)</entry>
 </row>
 <row>
 <entry>4</entry>
@@ -1171,7 +1174,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -1322,20 +1325,20 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char(2)</entry>
-<entry>Two-digit country code; default to "US" (required)</entry>
+<entry>Char(3)</entry>
+<entry>Country code; default to "US" (required)</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
 <entry>Char(5)</entry>
-<entry>Five-digit FIPS code for state and county (required)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>TRIBAL CODE</entry>
 <entry>Char(3)</entry>
-<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+<entry>Tribal code (optional; recommended)</entry>
 </row>
 <row>
 <entry>4</entry>
@@ -1352,7 +1355,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>6</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -1527,33 +1530,33 @@ In this overview section, we first provide a few important notes about file form
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Source Classification Code (10 characters maximum) (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (required)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>SIC</entry>
-<entry>Int</entry>
+<entry>Char(20)</entry>
 <entry>Standard Industrial Code (recommended)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>MACT</entry>
-<entry>Char</entry>
+<entry>Char(6)</entry>
 <entry>Maximum Available Control Technology Code (6 characters maximum) (recommended)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>SRCTYPE</entry>
-<entry>Char</entry>
+<entry>Char(2)</entry>
 <entry><para>Source type (2 characaters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
 
 <itemizedlist>
@@ -1565,193 +1568,193 @@ In this overview section, we first provide a few important notes about file form
 </entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>NAICS</entry>
-<entry>Char</entry>
+<entry>Char(6)</entry>
 <entry>North American Industrial Classification System Code (6 characters maximum) (optional)</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>POLL</entry>
-<entry>Char</entry>
+<entry>Char(16)</entry>
 <entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
 <entry>Annual emissions (short tons/year) (required)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
 <entry>Average-day emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
-<entry>J</entry>
+<entry>10</entry>
 <entry>CEFF</entry>
 <entry>Real</entry>
 <entry>Control Efficiency percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 0)</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>11</entry>
 <entry>REFF</entry>
 <entry>Real</entry>
 <entry>Rule Effectiveness percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
 </row>
 <row>
-<entry>L</entry>
+<entry>12</entry>
 <entry>RPEN</entry>
 <entry>Real</entry>
 <entry>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
 </row>
 <row>
-<entry>M</entry>
+<entry>13</entry>
 <entry>PRIMARY_DEVICE_TYPE_CODE</entry>
 <entry>Char</entry>
 <entry>Primary Control Equipment Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>N</entry>
+<entry>14</entry>
 <entry>SECONDARY_DEVICE_TYPE_CODE</entry>
 <entry>Char</entry>
 <entry>Secondary Control Equipment Code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>O</entry>
+<entry>15</entry>
 <entry>DATA_SOURCE</entry>
 <entry>Char</entry>
 <entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>P</entry>
+<entry>16</entry>
 <entry>YEAR</entry>
 <entry>Char</entry>
 <entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>Q</entry>
+<entry>17</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>Char</entry>
-<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+<entry>Char(3)</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; recommended)</entry>
 </row>
 <row>
-<entry>R</entry>
+<entry>18</entry>
 <entry>MACT_FLAG</entry>
 <entry>Char</entry>
 <entry>MACT flag indicating the relationship of the MACT rule and the particular source (15 characters maximum)(optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>S</entry>
+<entry>19</entry>
 <entry>PROCESS_MACT_COMPLIANCE_STATUS</entry>
 <entry>Char</entry>
 <entry>Indicate the relationship of the MACT rule and the particular source  (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>T</entry>
+<entry>20</entry>
 <entry>START_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>U</entry>
+<entry>21</entry>
 <entry>END_DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>V</entry>
+<entry>22</entry>
 <entry>WINTER_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in winter (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>W</entry>
+<entry>23</entry>
 <entry>SPRING_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in spring (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>X</entry>
+<entry>24</entry>
 <entry>SUMMER_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in summer(optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>Y</entry>
+<entry>25</entry>
 <entry>FALL_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in fall (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>Z</entry>
+<entry>26</entry>
 <entry>ANNUAL_AVG_DAYS_PER_WEEK</entry>
 <entry>Real</entry>
 <entry>Annual average days of operation per week (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>AA</entry>
+<entry>27</entry>
 <entry>ANNUAL_AVG_WEEKS_PER_YEAR</entry>
 <entry>Real</entry>
 <entry>Annual average weeks of operation per year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>BB</entry>
+<entry>28</entry>
 <entry>ANNUAL_AVG_HOURS_PER_DAY</entry>
 <entry>Real</entry>
 <entry>Annual average hours of operation per day (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>CC</entry>
+<entry>29</entry>
 <entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
 <entry>Real</entry>
 <entry>Annual average hours of operation per year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>DD</entry>
+<entry>30</entry>
 <entry>PERIOD_DAYS_PER_WEEK</entry>
 <entry>Real</entry>
 <entry>Days per week operating during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>EE</entry>
+<entry>31</entry>
 <entry>PERIOD_WEEKS_PER_PERIOD</entry>
 <entry>Real</entry>
 <entry>Weeks per period operating during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>FF</entry>
+<entry>32</entry>
 <entry>PERIOD_HOURS_PER_DAY</entry>
 <entry>Real</entry>
 <entry>Hours of operation per day during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>GG</entry>
+<entry>33</entry>
 <entry>PERIOD_HOURS_PER_PERIOD</entry>
 <entry>Real</entry>
 <entry>Hours of operation per period during the period(optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>HH</entry>
+<entry>34</entry>
 <entry>CONTROL_MEASURES</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>II</entry>
+<entry>35</entry>
 <entry>PCT_REDUCTION</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>JJ</entry>
+<entry>36</entry>
 <entry>CURRENT_COST</entry>
 <entry>Char</entry>
 <entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>KK</entry>
+<entry>37</entry>
 <entry>CUMULATIVE_COST</entry>
 <entry>Char</entry>
 <entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
@@ -1796,58 +1799,58 @@ In this overview section, we first provide a few important notes about file form
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Source Classification Code (10 characters maximum) (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (required)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>POLL</entry>
-<entry>Char</entry>
-<entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant CAS number or other name (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
 <entry>Annual emissions (short tons/year) (required)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
 <entry>Average-day emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>CEFF</entry>
 <entry>Real</entry>
 <entry>Control Efficiency percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 0)</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>REFF</entry>
 <entry>Real</entry>
 <entry>Rule Effectiveness percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>RPEN</entry>
 <entry>Real</entry>
 <entry>Rule Penetration percentage (give value of 0-100) (optional; if missing will result in SMOKE default of 100)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>SRCTYPE</entry>
-<entry>Char</entry>
-<entry><para>Source type (2 characaters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
+<entry>Char(2)</entry>
+<entry><para>Source type ; used by SMOKE in determining applicable MACT-based controls (required)</para>
 
 <itemizedlist>
 <listitem>01 = major</listitem>
@@ -1858,127 +1861,127 @@ In this overview section, we first provide a few important notes about file form
 </entry>
 </row>
 <row>
-<entry>J</entry>
+<entry>10</entry>
 <entry>DATA_SOURCE</entry>
 <entry>Char</entry>
 <entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>11</entry>
 <entry>YEAR</entry>
 <entry>Char</entry>
 <entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>L</entry>
+<entry>12</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>Char</entry>
-<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+<entry>Char(3)</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; recommended)</entry>
 </row>
 <row>
-<entry>M</entry>
+<entry>13</entry>
 <entry>START_DATE</entry>
-<entry>Char</entry>
-<entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+<entry>Char(8)</entry>
+<entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>N</entry>
+<entry>14</entry>
 <entry>END_DATE</entry>
-<entry>Char</entry>
-<entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+<entry>Char(8)</entry>
+<entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>O</entry>
+<entry>15</entry>
 <entry>WINTER_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in winter (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>P</entry>
+<entry>16</entry>
 <entry>SPRING_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in spring (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>Q</entry>
+<entry>17</entry>
 <entry>SUMMER_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in summer(optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>R</entry>
+<entry>18</entry>
 <entry>FALL_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in fall (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>S</entry>
+<entry>19</entry>
 <entry>ANNUAL_AVG_DAYS_PER_WEEK</entry>
 <entry>Real</entry>
 <entry>Annual average days of operation per week (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>T</entry>
+<entry>20</entry>
 <entry>ANNUAL_AVG_WEEKS_PER_YEAR</entry>
 <entry>Real</entry>
 <entry>Annual average weeks of operation per year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>U</entry>
+<entry>21</entry>
 <entry>ANNUAL_AVG_HOURS_PER_DAY</entry>
 <entry>Real</entry>
 <entry>Annual average hours of operation per day (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>V</entry>
+<entry>22</entry>
 <entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
 <entry>Real</entry>
 <entry>Annual average hours of operation per year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>W</entry>
+<entry>23</entry>
 <entry>PERIOD_DAYS_PER_WEEK</entry>
 <entry>Real</entry>
 <entry>Days per week operating during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>X</entry>
+<entry>24</entry>
 <entry>PERIOD_WEEKS_PER_PERIOD</entry>
 <entry>Real</entry>
 <entry>Weeks per period operating during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>Y</entry>
+<entry>25</entry>
 <entry>PERIOD_HOURS_PER_DAY</entry>
 <entry>Real</entry>
 <entry>Hours of operation per day during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>Z</entry>
+<entry>26</entry>
 <entry>PERIOD_HOURS_PER_PERIOD</entry>
 <entry>Real</entry>
 <entry>Hours of operation per period during the period(optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>AA</entry>
+<entry>27</entry>
 <entry>CONTROL_MEASURES</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>BB</entry>
+<entry>28</entry>
 <entry>PCT_REDUCTION</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>CC</entry>
+<entry>29</entry>
 <entry>CURRENT_COST</entry>
 <entry>Char</entry>
 <entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>DD</entry>
+<entry>30</entry>
 <entry>CUMULATIVE_COST</entry>
 <entry>Char</entry>
 <entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
@@ -1997,7 +2000,7 @@ In this overview section, we first provide a few important notes about file form
 
 <title><envar>MBINV</envar>: Mobile-source activity and emissions</title>
 
-<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two IDA formats are available: one for activity data in FF10 format and one for emissions data in ORL format.</para>
+<para>The <envar>MBINV</envar> file is the input mobile-source inventory data file. Two formats are available: one for activity data in FF10 format and one for emissions data in ORL format.</para>
 
 <section>
 
@@ -2033,40 +2036,40 @@ In this overview section, we first provide a few important notes about file form
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Ten character SCC (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (required)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>POLL</entry>
-<entry>Char</entry>
-<entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant CAS number or other name (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
 <entry>Annual emissions (short tons/year) (required)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
 <entry>Average-day emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>SRCTYPE</entry>
-<entry>Char</entry>
-<entry><para>Source type (2 characaters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
+<entry>Char(2)</entry>
+<entry><para>Source type; used by SMOKE in determining applicable MACT-based controls (required)</para>
 
 <itemizedlist>
 <listitem>01 = major</listitem>
@@ -2077,61 +2080,61 @@ In this overview section, we first provide a few important notes about file form
 </entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>DATA_SOURCE</entry>
 <entry>Char</entry>
 <entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>YEAR</entry>
 <entry>Char</entry>
 <entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>Char</entry>
-<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+<entry>Char(3)</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; recommended)</entry>
 </row>
 <row>
-<entry>J</entry>
+<entry>10</entry>
 <entry>CEFF</entry>
 <entry>Real</entry>
 <entry>Control Efficiency percentage (give value of 0-100) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>11</entry>
 <entry>REFF</entry>
 <entry>Real</entry>
 <entry>Rule Effectiveness percentage (give value of 0-100) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>L</entry>
+<entry>12</entry>
 <entry>RPEN</entry>
 <entry>Real</entry>
 <entry>Rule Penetration percentage (give value of 0-100) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>M</entry>
+<entry>13</entry>
 <entry>CONTROL_MEASURES</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>N</entry>
+<entry>14</entry>
 <entry>PCT_REDUCTION</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>O</entry>
+<entry>15</entry>
 <entry>CURRENT_COST</entry>
 <entry>Char</entry>
 <entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>P</entry>
+<entry>16</entry>
 <entry>CUMULATIVE_COST</entry>
 <entry>Char</entry>
 <entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
@@ -2182,16 +2185,16 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char(2)</entry>
+<entry>Char(3)</entry>
 <entry>Y</entry>
-<entry>Two-digit country code; default to "US"</entry>
+<entry>Country code; default to "US"</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
 <entry>Char(5)</entry>
 <entry>Y</entry>
-<entry>Five-digit FIPS code for state and county</entry>
+<entry>FIPS code for state and county</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -2217,7 +2220,7 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>6</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Y</entry>
 <entry>SCC</entry>
 </row>
@@ -2326,8 +2329,8 @@ In this overview section, we first provide a few important notes about file form
 <title>FF10 Format for individual point day-specific data files</title>
 
 <tgroup cols="4">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
+<colspec colwidth="10*" />
+<colspec colwidth="20*" />
 <colspec colwidth="15*" />
 <colspec colwidth="70*" />
 
@@ -2344,49 +2347,49 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char(2)</entry>
-<entry>2 character code: e.g., US  (required)</entry>
+<entry>Char(3)</entry>
+<entry>Country code: e.g., US  (required)</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five-digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
 <entry>Char(3)</entry>
-<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+<entry>Tribal code (optional; recommended)</entry>
 </row>
 <row>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
-<entry>Char</entry>
-<entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Facility Identification Code (required; this is the same as the Plant ID in the ORL Format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char</entry>
-<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+<entry>Char(15)</entry>
+<entry>Unit Identification Code (required; this is the same as the Point ID in the ORL Format) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry></entry>
-<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Release Point Identification Code (recommended; this is the same as the Stack ID in the ORL Format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char</entry>
-<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Process Identification Code characters (recommended; this is the same as the Segment ID in the ORL Format)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -2503,55 +2506,55 @@ In this overview section, we first provide a few important notes about file form
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
+<entry>Char(5)</entry>
 <entry>State and County code (required)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>FIREID</entry>
 <entry>Char</entry>
 <entry>Fire idenfication code (required)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>LOCID</entry>
 <entry>Char</entry>
 <entry>Location identification code (required)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
+<entry>Char(20)</entry>
 <entry>SCC Flaming or Smoldering (required)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>DATA</entry>
-<entry>Char</entry>
+<entry>Char(16)</entry>
 <entry>The pollutant codes, "ACRESCBURNED", or "FUEL_LOAD" (16 characters) (required)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>DATE</entry>
-<entry>Char</entry>
+<entry>Char(8)</entry>
 <entry>MM/DD/YY format. Years less than 70 are treated as century 2000 (8 characters) (required)</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>DATAVALUE</entry>
 <entry>Real</entry>
 <entry>If the value of "DATA" is a particular pollutant, then this value represents the daily emissions associated with the particular pollutant (required)</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>BEGHOUR</entry>
 <entry>Int</entry>
 <entry>Hour of the day that the fire began (0 to 23) (required)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>ENDHOUR</entry>
 <entry>Int</entry>
 <entry>Hour of the day that the fire ended (0 to 23) (required)</entry>
@@ -2597,97 +2600,97 @@ In this overview section, we first provide a few important notes about file form
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>ORISID</entry>
 <entry>Char (6)</entry>
 <entry>DOE Plant Identification Code (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>BLRID</entry>
 <entry>Char (6)</entry>
 <entry>Boiler Identification Code (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>YYMMDD</entry>
 <entry>Int</entry>
 <entry>Date of data in YYMMDD format (required)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>HOUR</entry>
 <entry>Integer</entry>
 <entry>Hour value from 0 to 23</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>NOXMASS</entry>
 <entry>Real</entry>
 <entry>Nitrogen oxide emissions (lb/hr) (required)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>SO2MASS</entry>
 <entry>Real</entry>
 <entry>Sulfur dioxide emissions (lb/hr) (required)</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>NOXRATE</entry>
 <entry>Real</entry>
 <entry>Nitrogen oxide emissions rate (lb/MMBtu) (not used by SMOKE)</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>OPTIME</entry>
 <entry>Real</entry>
 <entry>Fraction of hour unit was operating (optional)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>GLOAD</entry>
 <entry>Real</entry>
 <entry>Gross load (MW) (optional)</entry>
 </row>
 <row>
-<entry>J</entry>
+<entry>10</entry>
 <entry>SLOAD</entry>
 <entry>Real</entry>
 <entry>Steam load (1000 lbs/hr) (optional)</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>11</entry>
 <entry>HTINPUT</entry>
 <entry>Real</entry>
 <entry>Heat input (mmBtu) (required)</entry>
 </row>
 <row>
-<entry>L</entry>
+<entry>12</entry>
 <entry>HTINPUTMEASURE</entry>
 <entry>Character(2)</entry>
 <entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
 </row>
 <row>
-<entry>M</entry>
+<entry>13</entry>
 <entry>SO2MEASURE</entry>
 <entry>Character(2)</entry>
 <entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
 </row>
 <row>
-<entry>N</entry>
+<entry>14</entry>
 <entry>NOXMMEASURE</entry>
 <entry>Character(2)</entry>
 <entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
 </row>
 <row>
-<entry>O</entry>
+<entry>15</entry>
 <entry>NOXRMEASURE</entry>
 <entry>Character(2)</entry>
 <entry>Code number indicating measured or substituted, not used by SMOKE.</entry>
 </row>
 <row>
-<entry>P</entry>
+<entry>16</entry>
 <entry>UNITFLOW</entry>
 <entry>Real</entry>
 <entry>Flow rate (ft3/sec) for the Boiler Unit (optional; must be present for all records or not any records  not yet used by SMOKE)</entry>
@@ -2696,7 +2699,7 @@ In this overview section, we first provide a few important notes about file form
 </tgroup>
 </table>
 
-<para> The code numbers used in columns L through O have the following meanings:</para>
+<para> The code numbers used in columns 12 through 15 have the following meanings:</para>
 <itemizedlist>
 <listitem>
 01 = 'Measured'
@@ -2758,49 +2761,49 @@ Sample header records for hourly point sources are shown below:
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char(2)</entry>
-<entry>2 character code: e.g., US  (required)</entry>
+<entry>Char(3)</entry>
+<entry>Country code: e.g., US  (required)</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five-digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required; example 037001)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>TRIBAL_CODE</entry>
 <entry>Char(3)</entry>
-<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+<entry>Tribal code (optional; recommended)</entry>
 </row>
 <row>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
-<entry>Char</entry>
-<entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Facility Identification Code (required; this is the same as the Plant Identification Code in the ORL Format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char</entry>
-<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+<entry>Char(15)</entry>
+<entry>Unit Identification Code (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry></entry>
-<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Release Point Identification Code (required; this is the same as the Stack Identification Code in the ORL Format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char</entry>
-<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Process Identification Code (recommended; this is the same as the Segment ID in the ORL Format)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>SCC (required)</entry>
 </row>
 <row>
@@ -2923,49 +2926,49 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>1</entry>
 <entry>COUNTRY</entry>
-<entry>Char</entry>
-<entry>Two-digit country code; default to "US" (required)</entry>
+<entry>Char(3)</entry>
+<entry>Country code; default to "US" (required)</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>FIPS</entry>
 <entry>Char(5)</entry>
-<entry>Five-digit FIPS code for state and county (required)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>TRIBAL CODE</entry>
 <entry>Char(3)</entry>
-<entry>Tribal code (optional; not currently used by SMOKE)</entry>
+<entry>Three-digit Tribal code (optional; recommended)</entry>
 </row>
 <row>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
-<entry>Char</entry>
-<entry>Plant identification code (required; this is the same as the State Facility Identifier in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Facility Identification Code (required; this is the same as Plant Identification Code in ORL Format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char</entry>
-<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+<entry>Char(15)</entry>
+<entry>Unit Identification Code (required; this is the same as the Point Identification Code in the ORL Format) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry>Char</entry>
-<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Relative Point Identification Code (recommended; this is the same as the Stack Identification Code in the ORL Format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char</entry>
-<entry>Segment Identification Code (a.k.a DOE Plant ID) (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Segment Identification Code (a.k.a DOE Plant ID) (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>AGY_FACILITY_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Facility ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -2989,7 +2992,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>12</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Source Classification Code (required)</entry>
 </row>
 <row>
@@ -3014,13 +3017,13 @@ Sample header records for daily point sources are shown below:</para>
 <entry>16</entry>
 <entry>FACILITY_NAME</entry>
 <entry>Char(40)</entry>
-<entry>Plant Name (40 characters maximum) (required)</entry>
+<entry>Plant Name (required; example "Power Plant", note: use double quote around the name)</entry>
 </row>
 <row>
 <entry>17</entry>
 <entry>ERPTYPE</entry>
 <entry>Char(2)</entry>
-<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (optional; not currently used by SMOKE)</entry>
+<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (optional; recommended)</entry>
 </row>
 <row>
 <entry>18</entry>
@@ -3145,7 +3148,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>38</entry>
 <entry>SUBMITTER_FAC_ID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Primary Facility ID (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
@@ -3200,25 +3203,25 @@ Sample header records for daily point sources are shown below:</para>
 <entry>47</entry>
 <entry>FUG_HEIGHT</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>Fugitive Height(optional; recommended)</entry>
 </row>
 <row>
 <entry>48</entry>
 <entry>FUG_WIDTH_YDIM</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>Fugitive Width(optional; recommended)</entry>
 </row>
 <row>
 <entry>49</entry>
 <entry>FUG_LENGTH_XDIM</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>Fugitive Length(optional; recommended)</entry>
 </row>
 <row>
 <entry>50</entry>
 <entry>FUG_ANGLE</entry>
 <entry>Real</entry>
-<entry>(optional; not currently used by SMOKE)</entry>
+<entry>Fugitive Angle(optional; recommended)</entry>
 </row>
 <row>
 <entry>51</entry>
@@ -3314,52 +3317,52 @@ Sample header records for daily point sources are shown below:</para>
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>PLANTID</entry>
-<entry>Char</entry>
-<entry>Plant Identification Code (15 characters maximum) (required; this is the same as the State Facility Identifier in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Plant Identification Code (required; this is the same as the State Facility Identifier in the NIF)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>POINTID</entry>
-<entry>Char</entry>
-<entry>Point Identification Code (15 characters maximum) (required; this is the same as the Emission Unit ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Point Identification Code (required; this is the same as the Emission Unit ID in the NIF)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>STACKID</entry>
-<entry>Char</entry>
-<entry>Stack Identification Code (15 characters maximum) (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>Stack Identification Code (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>SEGMENT</entry>
-<entry>Char</entry>
-<entry>DOE Plant ID (15 characters maximum) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char(15)</entry>
+<entry>DOE Plant ID (recommended; this is the same as the Process ID in the NIF)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>PLANT</entry>
-<entry>Char</entry>
-<entry>Plant Name (40 characters maximum) (recommended)</entry>
+<entry>Char(40)</entry>
+<entry>Plant Name (recommended; example "Power Plant", note: use double quote around the name)</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Ten character Source Classification Code (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (required)</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>ERPTYPE</entry>
-<entry>Char</entry>
-<entry><para>Emissions release point type (2 characters maximum); indicates type of stack (not used by SMOKE)</para>
+<entry>Char(2)</entry>
+<entry><para>Emissions release point type; indicates type of stack (optional; recommended)</para>
 
 <itemizedlist spacing="compact">
 <listitem>01 = fugitive</listitem>
@@ -3373,10 +3376,10 @@ Sample header records for daily point sources are shown below:</para>
 </entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>SRCTYPE</entry>
-<entry>Char</entry>
-<entry><para>Source type (2 characters maximum); used by SMOKE in determining applicable MACT-based controls (required)</para>
+<entry>Char(2)</entry>
+<entry><para>Source type; used by SMOKE in determining applicable MACT-based controls (required)</para>
 
 <itemizedlist spacing="compact">
 <listitem>01 = major</listitem>
@@ -3388,58 +3391,58 @@ Sample header records for daily point sources are shown below:</para>
 </entry>
 </row>
 <row>
-<entry>J</entry>
+<entry>10</entry>
 <entry>STKHGT</entry>
 <entry>Real</entry>
 <entry>Stack Height (ft) (required)</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>11</entry>
 <entry>STKDIAM</entry>
 <entry>Real</entry>
 <entry>Stack Diameter (ft) (required)</entry>
 </row>
 <row>
-<entry>L</entry>
+<entry>12</entry>
 <entry>STKTEMP</entry>
 <entry>Real</entry>
 <entry>Stack Gas Exit Temperature (&deg;F) (required)</entry>
 </row>
 <row>
-<entry>M</entry>
+<entry>13</entry>
 <entry>STKFLOW</entry>
 <entry>Real</entry>
 <entry>Stack Gas Flow Rate (ft<superscript>3</superscript>/sec) (optional; automatically calculated by <command>Smkinven</command> from velocity and diameter if not given in file)</entry>
 </row>
 <row>
-<entry>N</entry>
+<entry>14</entry>
 <entry>STKVEL</entry>
 <entry>Real</entry>
 <entry>Stack Gas Exit Velocity (ft/sec) (required)</entry>
 </row>
 <row>
-<entry>O</entry>
+<entry>15</entry>
 <entry>SIC</entry>
-<entry>Int</entry>
+<entry>Char(20)</entry>
 <entry>Standard Industrial Classification Code (recommended)</entry>
 </row>
 <row>
-<entry>P</entry>
+<entry>16</entry>
 <entry>MACT</entry>
-<entry>Char</entry>
-<entry>Maximum Available Control Technology Code (6 characters maximum) (optional)</entry>
+<entry>Char(6)</entry>
+<entry>Maximum Available Control Technology Code (optional)</entry>
 </row>
 <row>
-<entry>Q</entry>
+<entry>17</entry>
 <entry>NAICS</entry>
-<entry>Char</entry>
-<entry>North American Industrial Classification System Code (6 characters maximum) (optional)</entry>
+<entry>Char(6)</entry>
+<entry>North American Industrial Classification System Code (optional)</entry>
 </row>
 <row>
-<entry>R</entry>
+<entry>18</entry>
 <entry>CTYPE</entry>
-<entry>Char</entry>
-<entry><para>Coordinate system type (1 character maximum) (required)</para>
+<entry>Char(1)</entry>
+<entry><para>Coordinate system type (required)</para>
 
 <itemizedlist spacing="compact">
 <listitem>U = Universal Transverse Mercator</listitem>
@@ -3449,7 +3452,7 @@ Sample header records for daily point sources are shown below:</para>
 </entry>
 </row>
 <row>
-<entry>S</entry>
+<entry>19</entry>
 <entry>XLOC</entry>
 <entry>Real</entry>
 <entry><para>X location (required)</para>
@@ -3462,7 +3465,7 @@ Sample header records for daily point sources are shown below:</para>
 </entry>
 </row>
 <row>
-<entry>T</entry>
+<entry>20</entry>
 <entry>YLOC</entry>
 <entry>Real</entry>
 <entry><para>Y location (required)</para>
@@ -3475,301 +3478,301 @@ Sample header records for daily point sources are shown below:</para>
 </entry>
 </row>
 <row>
-<entry>U</entry>
+<entry>21</entry>
 <entry>UTMZ</entry>
 <entry>Int</entry>
 <entry>UTM zone (required if CTYPE = U)</entry>
 </row>
 <row>
-<entry>V</entry>
+<entry>22</entry>
 <entry>CAS</entry>
-<entry>Char</entry>
-<entry>Pollutant CAS number or other code (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
+<entry>Char(16)</entry>
+<entry>Pollutant CAS number or other code (required; this is called the pollutant code in the NIF)</entry>
 </row>
 <row>
-<entry>W</entry>
+<entry>23</entry>
 <entry>ANN_EMIS</entry>
 <entry>Real</entry>
 <entry>Annual Emissions (short tons/year) (required)</entry>
 </row>
 <row>
-<entry>X</entry>
+<entry>24</entry>
 <entry>AVD_EMIS</entry>
 <entry>Real</entry>
 <entry>Average-day Emissions (short tons/average day) (optional)</entry>
 </row>
 <row>
-<entry>Y</entry>
+<entry>25</entry>
 <entry>CEFF</entry>
 <entry>Real</entry>
 <entry>Control Efficiency percentage (give value of 0-100) (recommended, if left blank, SMOKE default is 0)</entry>
 </row>
 <row>
-<entry>Z</entry>
+<entry>26</entry>
 <entry>REFF</entry>
 <entry>Real</entry>
 <entry>Rule Effectiveness percentage (give value of 0-100) (recommended, if left blank, SMOKE default is 100)</entry>
 </row>
 <row>
-<entry>AA</entry>
+<entry>27</entry>
 <entry>CPRI</entry>
 <entry>Int</entry>
 <entry>Primary Control Equipment Code (not used by SMOKE)</entry>
 </row>
 <row>
-<entry>BB</entry>
+<entry>28</entry>
 <entry>CSEC</entry>
 <entry>Int</entry>
 <entry>Secondary Control Equipment Code (not used by SMOKE)</entry>
 </row>
 <row>
-<entry>CC</entry>
+<entry>29</entry>
 <entry>NEI_UNIQUE_ID</entry>
 <entry>Char</entry>
 <entry>Unique ID that ties together HAP and CAP emissions within a common facility ID and also ties together emissions obtained from muptiple data sources which may have different State facility identifiers but really belong to a single facility (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>DD</entry>
+<entry>30</entry>
 <entry>ORIS_FACILITY_CODE</entry>
 <entry>Char</entry>
 <entry>DOE Plant ID (generally recommended, and required if matching to hour-specific CEM data)</entry>
 </row>
 <row>
-<entry>EE</entry>
+<entry>31</entry>
 <entry>ORIS_BOILER_ID</entry>
 <entry>Char</entry>
 <entry>Boiler Identification Code (recommended)</entry>
 </row>
 <row>
-<entry>FF</entry>
+<entry>32</entry>
 <entry>IPM_YN</entry>
 <entry>Char</entry>
 <entry>Y or N character flag indicating whether the point source belongs in the IPM sector or not (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>GG</entry>
+<entry>33</entry>
 <entry>DATA_SOURCE</entry>
 <entry>Char</entry>
 <entry>Flag indicating the source of the data (e.g., state submitted or EPA-computed) (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>HH</entry>
+<entry>34</entry>
 <entry>STACK_DEFAULT_FLAG</entry>
 <entry>Char</entry>
 <entry>Flag indicating how NEI defaulted the stack parameters (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>II</entry>
+<entry>35</entry>
 <entry>LOCATION_DEFAULT_FLAG</entry>
 <entry>Char</entry>
 <entry>Flag indicating how NEI defaulted locations (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>JJ</entry>
+<entry>36</entry>
 <entry>YEAR</entry>
 <entry>Char</entry>
 <entry>Year of the emissions (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>KK</entry>
+<entry>37</entry>
 <entry>TRIBAL_CODE</entry>
-<entry>Char</entry>
-<entry>Indicates the particular tribe that submitted the data (optional; not currently used by SMOKE)</entry>
+<entry>Char(3)</entry>
+<entry>Indicates the particular tribe that submitted the data (optional; recommended)</entry>
 </row>
 <row>
-<entry>LL</entry>
+<entry>38</entry>
 <entry>HORIZONTAL_AREA_FUGITIVE</entry>
 <entry>Real</entry>
 <entry>Related to AXLEN and AYLEN which are optional parameters for ISCST3/AERMOD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>MM</entry>
+<entry>39</entry>
 <entry>RELEASE_HEIGHT_FUGITIVE</entry>
 <entry>Real</entry>
 <entry>Related to optional parameters for ISCST3/AERMOD (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>NN</entry>
+<entry>40</entry>
 <entry>ZIPCODE</entry>
-<entry>Real</entry>
-<entry>Postal zip code (14 characters maximum) (optional; not currently used by SMOKE)</entry>
+<entry>Real(14)</entry>
+<entry>Postal zip code (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>OO</entry>
+<entry>41</entry>
 <entry>NAICS_FLAG</entry>
 <entry>Real</entry>
 <entry>NAICS flag (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>PP</entry>
+<entry>42</entry>
 <entry>SIC_FLAG</entry>
 <entry>Real</entry>
 <entry>SIC flag (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>QQ</entry>
+<entry>43</entry>
 <entry>MACT_FLAG</entry>
-<entry>Char</entry>
-<entry>MACT flag indicating the relationship of the MACT rule and the particular source (15 characters maximum)(optional; not currently used by SMOKE)</entry>
+<entry>Char(15)</entry>
+<entry>MACT flag indicating the relationship of the MACT rule and the particular source (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>RR</entry>
+<entry>44</entry>
 <entry>PROCESS_MACT_COMPLIANCE_STATUS</entry>
 <entry>Char</entry>
 <entry>Indicate the relationship of the MACT rule and the particular source  (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>SS</entry>
+<entry>45</entry>
 <entry>IPM_FACILITY</entry>
 <entry>Char</entry>
 <entry>Integrated Planning Model (IPM) facility (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>TT</entry>
+<entry>46</entry>
 <entry>IPM_UNIT</entry>
 <entry>Char</entry>
 <entry>IPM unit (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>UU</entry>
+<entry>47</entry>
 <entry>BART_SOURCE</entry>
 <entry>Char</entry>
 <entry>Best Available Retrofit Technology (BART) source (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>VV</entry>
+<entry>48</entry>
 <entry>BART_UNIT</entry>
 <entry>Char</entry>
 <entry>BART unit (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>WW</entry>
+<entry>49</entry>
 <entry>CONTROL_STATUS</entry>
 <entry>Char</entry>
 <entry>Control status (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>XX</entry>
+<entry>50</entry>
 <entry>START_DATE</entry>
-<entry>Char</entry>
-<entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+<entry>Char(8)</entry>
+<entry>Indicates originally-reported start date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>YY</entry>
+<entry>51</entry>
 <entry>END_DATE</entry>
-<entry>Char</entry>
-<entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (8 characters maximum) (optional; not currently used by SMOKE)</entry>
+<entry>Char(8)</entry>
+<entry>Indicates originally-reported end date prior to annualizing emissions, which may be used for building temporal profiles for specific sources (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>ZZ</entry>
+<entry>52</entry>
 <entry>WINTER_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in winter (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>AAA</entry>
+<entry>53</entry>
 <entry>SPRING_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in spring (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>BBB</entry>
+<entry>54</entry>
 <entry>SUMMER_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in summer(optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>CCC</entry>
+<entry>55</entry>
 <entry>FALL_THROUGHPUT_PCT</entry>
 <entry>Real</entry>
 <entry>Percentage throughout in fall (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>DDD</entry>
+<entry>56</entry>
 <entry>ANNUAL_AVG_DAYS_PER_WEEK</entry>
 <entry>Real</entry>
 <entry>Annual average days of operation per week (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>EEE</entry>
+<entry>57</entry>
 <entry>ANNUAL_AVG_WEEKS_PER_YEAR</entry>
 <entry>Real</entry>
 <entry>Annual average weeks of operation per year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>FFF</entry>
+<entry>58</entry>
 <entry>ANNUAL_AVG_HOURS_PER_DAY</entry>
 <entry>Real</entry>
 <entry>Annual average hours of operation per day (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>GGG</entry>
+<entry>59</entry>
 <entry>ANNUAL_AVG_HOURS_PER_YEAR</entry>
 <entry>Real</entry>
 <entry>Annual average hours of operation per year (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>HHH</entry>
+<entry>60</entry>
 <entry>PERIOD_DAYS_PER_WEEK</entry>
 <entry>Real</entry>
 <entry>Days per week operating during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>III</entry>
+<entry>61</entry>
 <entry>PERIOD_WEEKS_PER_PERIOD</entry>
 <entry>Real</entry>
 <entry>Weeks per period operating during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>JJJ</entry>
+<entry>62</entry>
 <entry>PERIOD_HOURS_PER_DAY</entry>
 <entry>Real</entry>
 <entry>Hours of operation per day during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>KKK</entry>
+<entry>63</entry>
 <entry>PERIOD_HOURS_PER_PERIOD</entry>
 <entry>Real</entry>
 <entry>Hours of operation per period during the period (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>LLL</entry>
+<entry>64</entry>
 <entry>DESIGN_CAPACITY</entry>
 <entry>Real</entry>
 <entry>Indicate the design capacity for the source (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>MMM</entry>
+<entry>65</entry>
 <entry>DESIGN_CAPACITY_UNIT_NUMERATOR</entry>
 <entry>Real</entry>
 <entry>Indicate the numerator for the units of the design capacity (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>NNN</entry>
+<entry>66</entry>
 <entry>DESIGN_CAPACITY_UNIT_DENOMINATOR</entry>
 <entry>Real</entry>
 <entry>Indicate the denumerator for the units of the design capacity (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>OOO</entry>
+<entry>67</entry>
 <entry>CONTROL_MEASURES</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of control measure abbreviations (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>PPP</entry>
+<entry>68</entry>
 <entry>PCT_REDUCTION</entry>
 <entry>Char</entry>
 <entry>An &amp; delimited list of percent reductions for the applied control measures (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>QQQ</entry>
+<entry>69</entry>
 <entry>CURRENT_COST</entry>
 <entry>Char</entry>
 <entry>The cost of the most recently applied control strategy for this source (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
-<entry>RRR</entry>
+<entry>70</entry>
 <entry>CUMULATIVE_COST</entry>
 <entry>Char</entry>
 <entry>The cumulative cost for all applied control measures (optional; not currently used by SMOKE)</entry>
@@ -3817,61 +3820,61 @@ Sample header records for daily point sources are shown below:</para>
 
 <tbody>
 <row>
-<entry>A</entry>
+<entry>1</entry>
 <entry>FIPS</entry>
-<entry>Int</entry>
-<entry>Five digit FIPS code for state and county (required)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county (required)</entry>
 </row>
 <row>
-<entry>B</entry>
+<entry>2</entry>
 <entry>FIREID</entry>
-<entry>Char</entry>
-<entry>Fire Identification Code (15 characters maximum) (required)</entry>
+<entry>Char(15)</entry>
+<entry>Fire Identification Code (required)</entry>
 </row>
 <row>
-<entry>C</entry>
+<entry>3</entry>
 <entry>LOCID</entry>
-<entry>Char</entry>
-<entry>Location Identification Code (15 characters maximum) (required)</entry>
+<entry>Char(15)</entry>
+<entry>Location Identification Code (required)</entry>
 </row>
 <row>
-<entry>D</entry>
+<entry>4</entry>
 <entry>SCC</entry>
-<entry>Char</entry>
-<entry>Source Classification Code (8 characters maximum) (required)</entry>
+<entry>Char(20)</entry>
+<entry>Source Classification Code (required)</entry>
 </row>
 <row>
-<entry>E</entry>
+<entry>5</entry>
 <entry>FIRENAME</entry>
-<entry>Char</entry>
-<entry>Fire name (40 characters maximum) (recommended)</entry>
+<entry>Char(40)</entry>
+<entry>Fire name (recommended)</entry>
 </row>
 <row>
-<entry>F</entry>
+<entry>6</entry>
 <entry>LAT</entry>
 <entry>Real</entry>
 <entry>Latitude associated with FIREID/LOCID</entry>
 </row>
 <row>
-<entry>G</entry>
+<entry>7</entry>
 <entry>LON</entry>
 <entry>Real</entry>
 <entry>Longitude associated with FIREID/LOCID</entry>
 </row>
 <row>
-<entry>H</entry>
+<entry>8</entry>
 <entry>NFDRSCODE</entry>
-<entry>Char</entry>
-<entry>Code for the Vegetation type (2 characters maximum) (recommended)</entry>
+<entry>Char(2)</entry>
+<entry>Code for the Vegetation type (recommended)</entry>
 </row>
 <row>
-<entry>I</entry>
+<entry>9</entry>
 <entry>MATBURNED</entry>
 <entry>Int</entry>
 <entry>Code for the material burned</entry>
 </row>
 <row>
-<entry>K</entry>
+<entry>10</entry>
 <entry>DATAVALUE</entry>
 <entry>Real</entry>
 <entry>Value of heat content</entry>
@@ -3938,7 +3941,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Monthly Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4009,7 +4012,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Month-to-day Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4080,7 +4083,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Weekly Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4152,7 +4155,7 @@ Sample header records for daily point sources are shown below:</para>
 <tbody>
 <row>
 <entry>0</entry>
-<entry>Chars</entry>
+<entry>Chars(15)</entry>
 <entry>Hourly Temporal Profile ID (15 characters)</entry>
 </row>
 <row>
@@ -4323,7 +4326,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>10-digit SCC, or zeros filling the remaining digits (Character) (optional; put zero for entry that is not SCC-specific)</entry>
+<entry>20-digit SCC, or 10-digit SCC or zeros filling the remaining digits (Character) (optional; put zero for entry that is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -4331,19 +4334,19 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Facility ID (for ORL, this is Plant ID) (Character) (optional; point source only, leave blank for not facility-specific)</entry>
+<entry>Facility ID (for ORL, this is Plant ID) (Character(15)) (optional; point source only, leave blank for not facility-specific)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Unit ID (for ORL, this is point ID) (Character) (optional: point source only )</entry>
+<entry>Unit ID (for ORL, this is point ID) (Character(15)) (optional: point source only )</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Release Point (for ORL, this is stack ID) (Character) (optional: point source only)</entry>
+<entry>Release Point (for ORL, this is stack ID) (Character(15)) (optional: point source only)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Process ID (forORL, this is segment ID) (Character) (optional: point source only)</entry>
+<entry>Process ID (for ORL, this is segment ID) (Character(15)) (optional: point source only)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
@@ -4410,7 +4413,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Six-digit FIPS code, only 000000 is currently supported (required)</entry>
+<entry>Five-digit FIPS code, only 00000 is currently supported (required)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -4786,7 +4789,7 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>10-digit SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
+<entry>20-digit SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5018,67 +5021,10 @@ Sample header records for daily point sources are shown below:</para>
 
 <para>If emissions types (emission process/pollutant combinations) are being used, as with mobile source processing using the <command>Movesmrg</command> program (see <xref linkend="sect_concepts_moves_emission_processes" />), the emission type must be listed instead of the pollutant. For example, if exhaust running VOC emissions were being converted to exhaust TOG, then EXR__VOC  and EXR__TOG would need to appear in their respective columns on the header line (line 1 in the "old" format below or in the first and second columns in the "new" format). It would not be correct to put only VOC and TOG. All emission types must be listed, or the conversion factor that will be applied is 1. This approach permits conversion factors that are specific to each emission process (e.g., different conversions for EXR and EXS).</para>
 
-<para>The "old" format of the <envar>GSCNV</envar> file for FIPS/SCC assignments is shown in <xref linkend="tbl_input_gscnv" />.</para>
-
-<para>The "new" format of the <envar>GSCNV</envar> file for Speciation Profile ID assignments is shown in <xref linkend="tbl_input_gscnv_new" />. The new format is consistent with the format created by the Emission Modeling Framework Speciation Tool.</para>
-
-<table id="tbl_input_gscnv">
-<title>Old format for <envar>GSCNV</envar> (using FIPS/SCC assignments)</title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>1-16</entry>
-<entry>Name of pollutant or emission type converting from (Character) (required)</entry>
-</row>
-<row>
-<entry colname="Position">18-33</entry>
-<entry>Name of pollutant or emission type converting to (Character) (required)</entry>
-</row>
-<row>
-<entry>2+</entry>
-<entry>1-6</entry>
-<entry>Country/State/County code (Integer) (optional, put zero if entry is not country/state/county-specific)</entry>
-</row>
-<row>
-<entry colname="Position">8-17</entry>
-<entry>
-
-<simplelist>
-<member>Area: 10-digit SCC (full SCC is needed) (Character)</member>
-<member>Mobile: 10-digit SCC (full SCC is needed) (Character)</member>
-<member>Point: 8-digit SCC (full SCC is needed) (Character)</member>
-<member>Zero if entry is not SCC-specific</member>
-</simplelist>
-
-</entry>
-</row>
-<row>
-<entry colname="Position">19-23</entry>
-<entry>Volatile conversion factor (Real) (required)</entry>
-</row>
-<row>
-<entry namest="Line" nameend="Description">Repeat lines 1 and 2+ as needed for multiple pollutants and/or emission types</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
+<para>The format of the <envar>GSCNV</envar> file for Speciation Profile ID assignments is shown in <xref linkend="tbl_input_gscnv_new" />. The format is consistent with the format created by the Emission Modeling Framework Speciation Tool.</para>
 
 <table id="tbl_input_gscnv_new">
-<title>New format for <envar>GSCNV</envar> (using Speciation Profile ID assignments)</title>
+<title>Format for <envar>GSCNV</envar> (using Speciation Profile ID assignments)</title>
 
 <para>This format can support comment lines before the first required header
 line shown as "line 1" in the table below, or anywhere in the files. The file is list-formatted and therefore needs space, comma, or semi-colon delimeters between the fields.</para>
@@ -5253,7 +5199,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>B</entry>
 <entry>FIPS</entry>
-<entry>FIPS code for country, state and county (Char 6) (required)</entry>
+<entry>FIPS code for country, state and county (Char(5)) (required)</entry>
 </row>
 <row>
 <entry>C</entry>
@@ -5346,8 +5292,8 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>
 
 <simplelist>
-<member>Area: 10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character)</member>
-<member>Mobile: 10-digit SCC code (Character)</member>
+<member>Area: 20-digit SCC, or 10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character)</member>
+<member>Mobile: 20-digit SCC code or 10-digit SCC (Character)</member>
 <member>Set to zero if cross-reference entry is not SCC-specific</member>
 </simplelist>
 
@@ -5379,7 +5325,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Standard Industrial Code (4-character String) (optional; use 0 if not needed)</entry>
+<entry>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5417,15 +5363,14 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Number of point source characteristics in addition to plant ID in point source definition (for IDA and ORL, this will always be 4)</entry>
+<entry>Number of point source characteristics in addition to plant ID in point source definition (for ORL, this will always be 4)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
 <entry><para>Number of point source characteristic in addition to plant ID (if SCC is a part of the source definition); zero otherwise.</para>
 
 <itemizedlist spacing="compact">
-<listitem>IDA and ORL inventories: 4</listitem>
-<listitem>EMS-95 inventories: 0</listitem>
+<listitem>FF10 and ORL inventories: 4</listitem>
 </itemizedlist>
 
 </entry>
@@ -5433,7 +5378,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>2+</entry>
 <entry>A</entry>
-<entry>8- or 10-digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
+<entry>8- or 10- or 20- digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -5461,31 +5406,31 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Standard Industrial Code (4-character String) (optional; use 0 if not needed)</entry>
+<entry>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
-<entry>Plant ID for point sources (Character) (optional; leave blank if entry is not plant-specific)</entry>
+<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), (Character(15), (optional ; leave blank if entry is not plant-specific)</entry>
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (Character) (optional)</entry>
+<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (Character) (optional)</entry>
+<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (Character) (optional)</entry>
+<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (for IDA and ORL, this is 10-digit SCC, or 5-digit with zeroes) (Character) (optional)</entry>
+<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 5-digit with zeroes, or 20-digit maximum SCC) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 5 (blank for IDA and ORL) (Character) (optional)</entry>
+<entry>Characteristic 5 (blank for FF10 or ORL) (Character) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5534,7 +5479,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8- or 10-digit SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
+<entry>20-digit maximum SCC (Character) (optional; set to zero if cross-reference entry is not SCC-specific)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5550,7 +5495,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Standard Industrial Code (4-character String) (optional; use 0 if not needed)</entry>
+<entry>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
@@ -5589,13 +5534,10 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <para>/ALLOWABLE/ contains county-specific, SIC-specific, SCC-specific controls, caps, and replacement emissions. Contributes to the multiplicative control matrix. <xref linkend="sect_input_gcntl_allowable" /></para>
 </listitem>
 <listitem>
-<para>/CONTROL/ contains settings for control efficiency, rule effectiveness, and rule penetration. Contributes to the multiplicative control matrix. Cannot appear in the same input file as an /EMS_CONTROL/ packet. <xref linkend="sect_input_gcntl_control" /></para>
+<para>/CONTROL/ contains settings for control efficiency, rule effectiveness, and rule penetration. Contributes to the multiplicative control matrix. <xref linkend="sect_input_gcntl_control" /></para>
 </listitem>
 <listitem>
 <para>/CTG/ contains settings for CTG, MACT, and RACT controls. Contributes to the multiplicative control matrix. <xref linkend="sect_input_gcntl_ctg" /></para>
-</listitem>
-<listitem>
-<para>/EMS_CONTROL/ contains settings for control efficiency, rule effectiveness, and rule penetration for both the base year and a future year. Also contains a point source conversion factor and a control aggregated factor. Contributes to the multiplicative control matrix. Cannot appear in the same input file as a /CONTROL/ packet. This packet is for point sources only. <xref linkend="sect_input_gcntl_ems_control" /></para>
 </listitem>
 <listitem>
 <para>/MACT/ contains settings to support the primary MACT controls needed for toxics processing. Contributes to the multiplicative control matrix. <xref linkend="sect_input_gcntl_mact" /></para>
@@ -5608,7 +5550,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </listitem>
 </itemizedlist>
 
-<para>The formats for these packets are described in the section below. <comment>The growth formats have been designed to handle multiple year-to-year growth.</comment> Only the /EMS_CONTROL/ packet use a column-specific format; all other packets are list-directed.</para>
+<para>The formats for these packets are described in the section below. <comment>The growth formats have been designed to handle multiple year-to-year growth.</comment> All of the packets are list-directed.</para>
 
 <section id="sect_input_gcntl_allowable">
 
@@ -5645,7 +5587,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>8 or 10-digit SCC, (20 digit maximum) or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5665,31 +5607,31 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">G</entry>
-<entry>4-digit SIC for point sources or -9 if not needed (Integer) (not supported by SMOKE at this time) </entry>
+<entry>SIC for point sources or -9 if not needed (Character(20)) (not supported by SMOKE at this time) </entry>
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Plant ID for point sources, optional (Character)</entry>
+<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 1 (for IDA and ORL inventory input format, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
+<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 2 (for IDA and ORL inventory input format, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
+<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 3 (for IDA and ORL inventory input format, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
+<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for FF10 or ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">M</entry>
-<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for FF10 or ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -5707,8 +5649,6 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <title>/CONTROL/ Packet</title>
 
 <para>The format of the /CONTROL/ packet is shown in <xref linkend="tbl_input_gcntl_control" />.</para>
-
-<comment>does /CONTROL/ apply to EMS-95 inputs</comment>
 
 <table id="tbl_input_gcntl_control">
 <title>Format for /CONTROL/ packet in <envar>GCNTL</envar></title>
@@ -5739,7 +5679,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of  SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>8 or 10-digit SCC (20 digit maximum), or pieces of  SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5763,7 +5703,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Standard Industrial Category (SIC), optional (4-digit Integer)</entry>
+<entry>Standard Industrial Category (SIC), optional (20-digit Character)</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
@@ -5793,27 +5733,27 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Plant ID for point sources, optional (Character)</entry>
+<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">M</entry>
-<entry>Characteristic 1 (for IDA and ORL inventory input format, this is Point ID), optional (Character)</entry>
+<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">N</entry>
-<entry>Characteristic 2 (for IDA and ORL inventory input format, this is Stack ID), optional (Character)</entry>
+<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">O</entry>
-<entry>Characteristic 3 (for IDA and ORL inventory input format, this is segment), optional (Character)</entry>
+<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">P</entry>
-<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for FF10 or ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">Q</entry>
-<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for FF10 or ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -5861,7 +5801,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>8 or 10-digit SCC (20 digit maximum), or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -5882,141 +5822,6 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry colname="Position">G</entry>
 <entry>RACT; value should be a fraction 0 to 1; or -9 if missing (Real)</entry>
-</row>
-<row>
-<entry>3</entry>
-<entry>A</entry>
-<entry>/END/</entry>
-</row>
-</tbody>
-</tgroup>
-</table>
-
-</section>
-
-<section id="sect_input_gcntl_ems_control">
- 
-<title>/EMS_CONTROL/ Packet (point sources only)</title>
-
-<para>The format of the /EMS_CONTROL/ packet is shown in <xref linkend="tbl_input_gcntl_ems_control" />. Note the following:</para>
-
-<itemizedlist>
-<listitem>
-<para>The expected order of the plant characteristics is reversed in this packet from other EMS-95 files. The device is specified before the stack.</para>
-</listitem>
-<listitem>
-<para>The number of characters available for several of the input variables are not at the SMOKE maximum, so this file format must be used cautiously when you are using it for inventories other than EMS-95.</para>
-</listitem>
-<listitem>
-<para>The base year factors are expected to be given as percentages (1-100), while the future year factors are expected to be given as fractions (0-1).</para>
-</listitem>
-<listitem>
-<para>The control adjustment factor can be computed from other values in each packet entry. If an explicit value is given for the control adjustment factor, it will override the calculated value and SMOKE will use the explicit value directly as the factor to adjust the emissions.</para>
-</listitem>
-</itemizedlist>
-
-<table id="tbl_input_gcntl_ems_control">
-<title>Format for /EMS_CONTROL/ packet in <envar>GCNTL</envar></title>
-
-<tgroup cols="3">
-<colspec colwidth="15*" colname="Line" />
-<colspec colwidth="15*" colname="Position" />
-<colspec colwidth="70*" colname="Description" />
-
-<thead>
-<row>
-<entry>Line</entry>
-<entry>Position</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>1</entry>
-<entry>A</entry>
-<entry>/EMS_CONTROL/</entry>
-</row>
-<row>
-<entry>2+</entry>
-<entry>1-2</entry>
-<entry>State code (Integer) or zero</entry>
-</row>
-<row>
-<entry colname="Position">3-5</entry>
-<entry>County code or zero (Integer)</entry>
-</row>
-<row>
-<entry colname="Position">6-9</entry>
-<entry>SIC code (Integer) or blank for missing; not supported by SMOKE at this time</entry>
-</row>
-<row>
-<entry colname="Position">10-17</entry>
-<entry>8-character SCC, or pieces of SCC with remaining digits filled in with zeroes, or zero (Character)</entry>
-</row>
-<row>
-<entry colname="Position">18-22</entry>
-<entry>Pollutant ID; leave blank if not a pollutant-specific control (Character)</entry>
-</row>
-<row>
-<entry colname="Position">23-37</entry>
-<entry>Plant ID (EMS-95 Facility; leave blank if not needed) (Character)</entry>
-</row>
-<row>
-<entry colname="Position">38-49</entry>
-<entry>Characteristic 2 (EMS-95 Device; blank if not needed) (Character)</entry>
-</row>
-<row>
-<entry colname="Position">50-61</entry>
-<entry>Characteristic 1 (EMS-95 Stack; blank if not needed) (Character)</entry>
-</row>
-<row>
-<entry colname="Position">62-73</entry>
-<entry>Characteristic 3 (EMS-95 Process; blank if not needed) (Character)</entry>
-</row>
-<row>
-<entry colname="Position">74-81</entry>
-<entry>Future year SCC (not used by SMOKE) (Character)</entry>
-</row>
-<row>
-<entry colname="Position">82-85</entry>
-<entry>Base year control efficiency percent [1-100] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">86-89</entry>
-<entry>Base year rule effectiveness percent [0-100] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">90-93</entry>
-<entry>Base year rule penetration rate percent [0-100] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">94-97</entry>
-<entry>Future year control efficiency fraction [0.0-1.0] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">98-101</entry>
-<entry>Future year rule effectiveness fraction [0.0-1.0] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">102-105</entry>
-<entry>Future year rule penetration rate fraction [0.0-1.0] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">106-110</entry>
-<entry>Point source conversion factor fraction [0.0-1.0+ (values > 1.0 are okay)] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">111-126</entry>
-<entry>Control strategy code (not used by SMOKE) (Character)</entry>
-</row>
-<row>
-<entry colname="Position">127-130</entry>
-<entry>Point source ratio (not used by SMOKE) [0.0-1.0] (Real)</entry>
-</row>
-<row>
-<entry colname="Position">151-154</entry>
-<entry>Control adjustment factor [0.0-1.0+ (values > 1.0 are okay)] (Real) </entry>
 </row>
 <row>
 <entry>3</entry>
@@ -6064,7 +5869,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of  SCC with remaining digits filled in with zeroes or 0 (Character)</entry>
+<entry>up to 20-digit maximum, or 8 or 10-digit SCC, or pieces of  SCC with remaining digits filled in with zeroes or 0 (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -6153,7 +5958,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>up to 20 digit maximum SCC, or 8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -6165,7 +5970,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>4-digit SIC, or 2-digit with remaining digits filled in with zeroes or blank for missing, optional (Integer)</entry>
+<entry>SIC, or 2-digit with remaining digits filled in with zeroes or blank for missing, optional (Character(20))</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
@@ -6173,27 +5978,27 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">G</entry>
-<entry>Plant ID for point sources, optional (Character)</entry>
+<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
+<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
+<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
+<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for FF10 or ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for FF10 or ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -6241,7 +6046,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
+<entry>20 digit maximum SCC, or 8 or 10-digit SCC, or pieces of SCC with remaining digits filled in with zeros, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -6257,7 +6062,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Future year 10-digit SCC code (or zero to set equal to base case) (Character)</entry>
+<entry>Future year 10-digit (up to a maximum of 20 digit) SCC code (or zero to set equal to base case) (Character)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
@@ -6269,31 +6074,31 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>4-digit SIC for point sources (Integer) or -9 if not needed; not supported by SMOKE at this time</entry>
+<entry>SIC for point sources or -9 if not needed; not supported by SMOKE at this time (Character(20)</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Plant ID for point sources, optional (Character)</entry>
+<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID), optional (Character)</entry>
+<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID), optional (Character)</entry>
+<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">M</entry>
-<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID), optional (Character)</entry>
+<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry colname="Position">N</entry>
-<entry>Characteristic 4 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 4 (blank for FF10 and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry colname="Position">O</entry>
-<entry>Characteristic 5 (blank for IDA and ORL inventory input format), optional (Character)</entry>
+<entry>Characteristic 5 (blank for FF10 and ORL inventory input format), optional (Character)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -8972,7 +8777,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <title><envar>CFPRO</envar>: Mobile source control factor input file</title>
 
 <para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all three MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, and RatePerProfile). Its format is shown in <xref linkend="tbl_input_cfpro" />.</para>
-<para>A many-step hierarchy is used in applying the control factor cross-referencing. SMOKE preferentially matches each source to the most specific match in the file.</para>
+<para>A many-step hierarchy is used in applying the control factor cross-referencing. SMOKE preferentially matches each source to the most specific match in the file. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported.</para>
 
 <orderedlist spacing="compact">
 <listitem>
@@ -9062,13 +8867,13 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>A</entry>
 <entry>FIPS</entry>
-<entry>Integer</entry>
-<entry>Five-digit FIPS code for state and county code</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county code</entry>
 </row>
 <row>
 <entry>B</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Source Category Code (SCC)</entry>
 </row>
 <row>
@@ -9252,7 +9057,7 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Six-digit FIPS code for reference county (integer)</entry>
+<entry>FIPS code for reference county (Char(5))</entry>
 </row>
 <row>
 <entry></entry>
@@ -9308,7 +9113,7 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Six-digit FIPS code (Integer)</entry>
+<entry>FIPS code (Char(5))</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -9379,12 +9184,12 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 <entry>1</entry>
 <entry>FIPS</entry>
 <entry>Char(5)</entry>
-<entry>Five-digit FIPS code for state and county code</entry>
+<entry>FIPS code for state and county code</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>SCC</entry>
-<entry>Char(10)</entry>
+<entry>Char(20)</entry>
 <entry>Source Category Code (SCC)</entry>
 </row>
 <row>
@@ -9563,7 +9368,7 @@ RPMETFILE      = /netscr/MOVESDATA/georgia/2005/2005_refcounty_MOVES_OUTFILE.txt
 <tbody>
 <row>
 <entry>FIPS</entry>
-<entry>Five-digit county FIPS code for reference county (Integer)</entry>
+<entry>FIPS code for reference county (Char(5))</entry>
 </row>
 <row>
 <entry>AGE</entry>
@@ -9724,7 +9529,7 @@ sourceTypeID, yearID, ageID, ageFraction
 <tbody>
 <row>
 <entry>countyID</entry>
-<entry>Five-digit country FIPS code for reference county (Integer)</entry>
+<entry>Country FIPS code for reference county (Char(5))</entry>
 </row>
 <row>
 <entry>fuelYearID</entry>
@@ -10727,7 +10532,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Ten-digit SCC (Character)</entry>
+<entry>Twenty-digit SCC (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -10967,7 +10772,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">32-34</entry>
-<entry>Standard (non-Daylight-Saving) state time zone; see <xref linkend="tbl_input_costcy_zones" /> for valid time zones (Character) (optional)</entry>
+<entry>Standard (non-Daylight-Saving) state time zone; see <xref linkend="tbl_input_costcy_geocode4_timezones" /> for valid time zones (Character) (optional)</entry>
 </row>
 <row>
 <entry>5</entry>
@@ -11005,7 +10810,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">40-42</entry>
-<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="tbl_input_costcy_zones" /> for valid time zones (Character)</entry>
+<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="tbl_input_costcy_geocode4_timezones" /> for valid time zones (Character)</entry>
 </row>
 <row>
 <entry colname="Position">43</entry>
@@ -11046,79 +10851,339 @@ SOURCE > 100 AND SOURCE < 200
 </tbody>
 </tgroup>
 </table>
-
-<table id="tbl_input_costcy_zones">
-<title>Valid <envar>COSTCY</envar> time zones</title> 
+<table id="tbl_input_costcy_geocode4_timezones">
+<title>Valid <envar>COSTCY and GEOCODE_LEVEL4</envar> time zones</title>
 
 <tgroup cols="3">
-<colspec colwidth="15*" />
-<colspec colwidth="15*" />
-<colspec colwidth="70*" />
-
-<thead>
-<row>
-<entry>GMT</entry>
-<entry>Time zone</entry>
-<entry>Description</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>+0:00</entry>
-<entry>GMT</entry>
-<entry>Greenwich mean time (also known as Zulu time)</entry>
-</row>
-<row>
-<entry>-4:00</entry>
-<entry>AST</entry>
-<entry>Atlantic standard time</entry>
-</row>
-<row>
-<entry>-5:00</entry>
-<entry>EST</entry>
-<entry>Eastern standard time</entry>
-</row>
-<row>
-<entry>-6:00</entry>
-<entry>CST</entry>
-<entry>Central standard time</entry>
-</row>
-<row>
-<entry>-7:00</entry>
-<entry>MST</entry>
-<entry>Mountain standard time</entry>
-</row>
-<row>
-<entry>-8:00</entry>
-<entry>PST</entry>
-<entry>Pacific standard time</entry>
-</row>
-<row>
-<entry>-9:00</entry>
-<entry>YST</entry>
-<entry>Yukon standard time</entry>
-</row>
-<row>
-<entry>-10:00</entry>
-<entry>HST </entry>
-<entry>Hawaiian  standard time</entry>
-</row>
-<row>
-<entry>-10:00</entry>
-<entry>CAT</entry>
-<entry>Central Alaska time</entry>
-</row>
-<row>
-<entry>-11:00</entry>
-<entry>NT</entry>
-<entry>Nome time</entry>
-</row>
-</tbody>
+	<colspec colwidth="15*" />
+	<colspec colwidth="15*" />
+	<colspec colwidth="70*" />
+	<thead>
+		<row>
+			<entry>GMT</entry>
+			<entry>Time zone</entry>
+			<entry>Description</entry>
+		</row>
+	</thead>
+	<tbody>
+		<row>
+			<entry>+12:00</entry>
+			<entry>BIT</entry>
+			<entry>Baker Island Time</entry>
+		</row>
+		<row>
+			<entry>+11:00</entry>
+			<entry>SST</entry>
+			<entry>Samoa Standard Time</entry>
+		</row>
+		<row>
+			<entry>+10:00</entry>
+			<entry>HST</entry>
+			<entry>Hawaii Standard Time</entry>
+		</row>
+		<row>
+			<entry>+9:00</entry>
+			<entry>AKT</entry>
+			<entry>Alaska Standard Time</entry>
+		</row>
+		<row>
+		        <entry>+8:00</entry>
+		        <entry>PST</entry>
+		        <entry>Pacific Standard Time</entry>
+		</row>
+		<row>
+			<entry>+7:00</entry>
+			<entry>MST</entry>
+			<entry>Mountain Standard Time</entry>
+		</row>
+		<row>
+			<entry>+6:00</entry>
+			<entry>CST</entry>
+			<entry>Central Standard Time</entry>
+		</row>
+		<row>
+			<entry>+5:00</entry>
+			<entry>EST</entry> 
+			<entry>Eastern Standard Time</entry> 
+		</row>                                                                                      
+		<row>
+			<entry>+4:00</entry>
+			<entry>AST</entry>
+			<entry>Atlantic Standard Time</entry>
+		</row>
+		<row>
+			<entry>+3:00</entry>
+			<entry>ART</entry>
+			<entry>Argentina Time</entry>
+		</row>
+		<row>                                                                                       
+			<entry>+2:00</entry>
+			<entry>FNT </entry>                                                         
+			<entry>Fernando de Noronha Time</entry>
+		</row>                                                                                      
+		<row>                                                                                       
+			<entry>+1:00</entry>
+			<entry>EGT</entry>
+			<entry>Eastern Greenland Time</entry>
+		</row>
+		<row>
+			<entry>0:00</entry>
+			<entry>GMT</entry>
+			<entry>Greenwich Mean Time</entry>
+		</row>
+		<row>
+			<entry>-1:00</entry>
+			<entry>CET</entry>
+			<entry>Central European Time</entry>
+		</row> 
+		<row>           
+			<entry>-2:00</entry>                    
+			<entry>EET</entry>
+			<entry>Eastern European Time</entry>
+		</row>
+		<row>           
+			<entry>-3:00</entry>                    
+			<entry>MSK</entry>
+			<entry>Moscow Time</entry>
+		</row>
+		<row>           
+			<entry>-4:00</entry>                    
+			<entry>GST</entry>
+			<entry>Gulf Standard Time</entry>
+		</row>
+		<row>           
+			<entry>-5:00</entry>                    
+			<entry>PKT</entry>
+			<entry>Pakistan Standard Time</entry>
+		</row>
+		<row>           
+			<entry>-6:00</entry>                    
+			<entry>BST</entry>
+			<entry>Bangladesh Standard Time</entry>
+		</row>
+		<row>           
+			<entry>-7:00</entry>                    
+			<entry>THA</entry>
+			<entry>Thailand Time</entry>
+		</row>
+		<row>           
+			<entry>-8:00</entry>                    
+			<entry>HKT</entry>
+			<entry>China Standard Time</entry>
+		</row>
+		<row> 
+			<entry>-9:00</entry>
+			<entry>KST</entry>
+			<entry>Korean Standard Time</entry>
+		</row> 
+		<row>
+			<entry>-10:00</entry>
+			<entry>AET</entry>
+			<entry>Austrailian Eastern Time</entry>
+		</row>
+		<row>
+			<entry>-11:00</entry>
+			<entry>ADT</entry>
+			<entry>Austrailian Daylight Savings Time</entry>
+		</row>
+		<row>
+			<entry>-12:00</entry>
+			<entry>FJT</entry>
+			<entry>Fiji Time</entry>
+		</row>
+		<row>           
+			<entry>-13:00</entry>                      
+			<entry>NZT</entry>
+			<entry>New Zealand Daylight Time</entry>
+		</row>
+		<row>           
+			<entry>-14:00</entry>
+			<entry>LNT</entry>
+			<entry>Line Islands Time</entry>
+		</row>
+	</tbody>
 </tgroup>
 </table>
 
 </section>
+
+<section id="sect_input_geocode">
+	<title><envar>GEOCODE_LEVEL[1-4]: Geographical Input Files</envar></title>
+	<para>There are four GEOCODE_LEVEL files that are used to specify country level (<xref linkend="sect_input_geocode1" />), country/state-level (<xref linkend="sect_input_geocode2"/>), country/state/county-level (<xref linkend="sect_input_geocode3"/>) or country/state/county/tribal-level (<xref linkend="sect_input_geocode4"/>) Geographical codes and descriptions. These files are used if USE_EXP_GEO_CODES is set to Y, and they replace the (<xref linkend="sect_input_costcy"/>) file.</para>
+
+<section id="sect_input_geocode1">
+
+	<title><envar>GEOCODE_LEVEL1</envar></title>
+
+	<para>The GEOCODE_LEVEL1 input file contains a 3 character code used to specify the Country-level Geographical Code. The COSTCY file will not be used if the environment variable USE_EXP_GEO_CODES is set to Y. If the user would like to use chemical and temporal profiles that are specified for each country in the gridded inventory data then they would create a GEOCODE_LEVEL1 file.</para>
+
+	<para>The <envar>GEOCODE_LEVEL1</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode1" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL1</envar> file is shown in <xref linkend="tbl_input_geocode1" />.</para>
+
+	<programlisting>
+#GEOCODE_LEVEL1, Description
+"001","United States of America"
+"002","Mexico"
+"003","South Korea"
+"004","Ocean"
+	</programlisting>
+
+	<table id="tbl_input_geocode1">
+		<title>File Format for <envar>GEOCODE_LEVEL1</envar></title>
+
+		<tgroup cols="3">
+			<colspec colwidth="15*" colname="Line" />
+			<colspec colwidth="15*" colname="Position" />
+			<colspec colwidth="70*" colname="Description" />
+
+			<thead>
+				<row>
+					<entry>Lines</entry>
+					<entry>Position</entry>
+					<entry>Description</entry>
+				</row>
+			</thead>
+
+			<tbody>
+				<row>
+					<entry>1+</entry>
+					<entry>A</entry>
+					<entry>Country Code(3-character maximum string)</entry>
+				</row>
+				<row>
+					<entry colname="Position">B</entry>
+					<entry>Country Code Description (20-character string)</entry>
+				</row>
+			</tbody>
+		</tgroup>
+	</table>
+</section>
+
+<section id="sect_input_geocode2">
+
+	        <title><envar>GEOCODE_LEVEL2</envar></title>
+
+		<para>The GEOCODE_LEVEL2 input file contains up to 6 character code to specify the Country/State-level Geographical Codes which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. If the user would like to use chemical and temporal profiles that are specified for each state level region for each country in the gridded inventory data then they would create a GEOCODE_LEVEL2 file.</para>
+
+			        <para>The <envar>GEOCODE_LEVEL2</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode2" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL2</envar> file is shown in <xref linkend="tbl_input_geocode2" />.</para>
+
+    <programlisting>
+#GEOCODE_LEVEL2, Description
+"001006","California, USA"
+"001035","New Mexico, USA"
+"001048","Texas, USA"
+"002030","Veracruz, Mexico"
+   </programlisting>
+   <comment>not sure what examples to use, and or if these are correct - eaa</comment>
+   <table id="tbl_input_geocode2">
+   <title>File Format for <envar>GEOCODE_LEVEL2</envar></title>
+
+   <tgroup cols="3">
+         <colspec colwidth="15*" colname="Line" />
+         <colspec colwidth="15*" colname="Position" />
+         <colspec colwidth="70*" colname="Description" />
+
+         <thead>
+              <row>
+                                 <entry>Lines</entry>
+                                 <entry>Position</entry>
+                                 <entry>Description</entry>                                  
+              </row>                                                              
+         </thead>                                                                    
+        <tbody>                                                                     
+	      <row>                                                               
+	                        <entry>1+</entry>                                           
+	                        <entry>A</entry>                                            
+				<entry>Country Code(6-character maximum string)</entry>
+	      </row>                                                              
+	      <row>                                                               
+	                        <entry colname="Position">B</entry>                         
+			        <entry>Country Code Description (20-character string)</entry>
+		</row>                                                              
+	</tbody>                                                                    
+	</tgroup>                                                                           
+	</table>                                                                                    
+</section>                
+<section id="sect_input_geocode3">
+
+	<title><envar>GEOCODE_LEVEL3</envar></title>                        
+	<para>The GEOCODE_LEVEL3 input file contains up to 9 character code to specify the Country/State-level/County-level Geographical Code which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. </para>
+		<para>The <envar>GEOCODE_LEVEL3</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode3" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL3</envar> file is shown in <xref linkend="tbl_input_geocode3" />.</para>
+<programlisting>
+#GEOCODE_LEVEL3, Description
+"001006037","Los Angeles, California, USA"
+"001035028","Los Alamos, New Mexico, USA"
+"001048015","Austin, Texas, USA"
+</programlisting>
+<table id="tbl_input_geocode3">   <title>File Format for <envar>GEOCODE_LEVEL3</envar></title>
+     <tgroup cols="3">
+              <colspec colwidth="15*" colname="Line" />
+	      <colspec colwidth="15*" colname="Position" />
+	      <colspec colwidth="70*" colname="Description" />
+	      
+	      <thead>
+	              <row>
+		                  <entry>Lines</entry>
+				  <entry>Position</entry>
+				  <entry>Description</entry>                                                                         </row>                                                                                                 
+	  </thead> 
+		  <tbody>
+        	  <row>
+				  <entry>1+</entry>                                                                                                     <entry>A</entry>
+
+				  <entry>Country Code(9-character maximum string)</entry>                                            </row>                                                                                                                <row>                                                                                                                                   <entry colname="Position">B</entry>                                                                                   <entry>Country Code Description (20-character string)</entry>                                      </row>                                                                                                        </tbody>                                                                                                              </tgroup>                                                                                                             </table>                                                                                                      </section>
+
+<section id="sect_input_geocode4">
+	<title><envar>GEOCODE_LEVEL4</envar></title>
+	<para>The GEOCODE_LEVEL4 input file contains a 12 character code to specify the Country/State/County/Tribal-level Geographical Code which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. </para>
+	<para>The <envar>GEOCODE_LEVEL4</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode4" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL4</envar> file is shown in <xref linkend="tbl_input_geocode4" />.</para>
+<programlisting>
+#GEOCODE_LEVEL4, Description, Time Zone
+"001006037000","Los Angeles, CA, USA",PST        
+"001035028000","Los Alamos, NM, USA",CST        
+"001048015000","Austin, TX, USA",CST    
+</programlisting>
+	<table id="tbl_input_geocode4">   
+	<title>File Format for <envar>GEOCODE_LEVEL4</envar>
+	</title>     
+	<tgroup cols="3">
+        <colspec colwidth="15*" colname="Line" />
+        <colspec colwidth="15*" colname="Position" />
+	<colspec colwidth="70*" colname="Description" />
+        <thead>
+		<row>
+			<entry>Lines</entry>
+			<entry>Position</entry>
+			<entry>Description</entry>
+		</row>
+
+	</thead>
+	<tbody>
+		<row>
+			<entry>1+</entry>                                                          
+			<entry>A</entry>
+			<entry>Country Code(12-character maximum)</entry>                                            </row>
+		<row>
+			<entry></entry>
+			<entry>B</entry>
+	        	<entry>Country Code Description (20-character)</entry>
+	        </row>
+	       <row>
+		       <entry></entry>
+		       <entry>C</entry>
+		       <entry> Time Zone (3-character)</entry>
+	       </row>
+	       <row>
+		       <entry></entry>
+			<entry>D</entry>
+			<entry>Standard (non-Daylight-Saving) county time zone; see <xref linkend="tbl_input_costcy_geocode4_timezones" /> for valid time zones (Character)</entry>
+	       </row>
+
+	</tbody>
+</tgroup>                                
+</table>
+</section>
+</section>
+
 
 <section id="sect_input_invtable">
 
@@ -11434,37 +11499,37 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry></entry>
 <entry>B</entry>
-<entry>Source Classification Category (SCC) code (10-character)</entry>
+<entry>Source Classification Category (SCC) code (20-character maximum)</entry>
 </row>
 <row>
 <entry></entry>
 <entry>C</entry>
-<entry>Plant Identification Code (Character)(optional; leave blank for not plant-specific)</entry>
+<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), (Character(15), (optional ; leave blank if entry is not plant-specific)</entry>
 </row>
 <row>
 <entry></entry>
 <entry>D</entry>
-<entry>Characteristic 1 (for IDA and ORL, this is point ID; for EMS-95, this is stack ID) (Character)(optional)</entry>
+<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</entry>
 </row>
 <row>
 <entry></entry>
 <entry>E</entry>
-<entry>Characteristic 2 (for IDA and ORL, this is stack ID; for EMS-95, this is device ID) (Character)(optional)</entry>
+<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry></entry>
 <entry>F</entry>
-<entry>Characteristic 3 (for IDA and ORL, this is segment ID; for EMS-95, this is process ID) (Character)(optional)</entry>
+<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</entry>
 </row>
 <row>
 <entry></entry>
 <entry>G</entry>
-<entry>Characteristic 4 (blank for IDA and ORL because SCC already given in column A of list line) (Character)(optional)</entry>
+<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 5-digit with zeroes, or 20-digit maximum SCC) (Character) (optional)</entry>
 </row>
 <row>
 <entry></entry>
 <entry>H</entry>
-<entry>Characteristic 5 (blank for IDA and ORL) (optional)</entry>
+<entry>Characteristic 5 (blank for  and ORL) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -11625,7 +11690,7 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Country/State/County code (FIPS code) (6-digit integer)</entry>
+<entry>Country/State/County code (FIPS code) (Char(5))</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -11706,8 +11771,8 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>A</entry>
 <entry>FIPS</entry>
-<entry>Integer</entry>
-<entry>FIPS code (5-digit)</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code</entry>
 </row>
 <row>
 <entry>B</entry>
@@ -11762,7 +11827,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>SCC (10-character string)</entry>
+<entry>SCC (20-character maximum string)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -11797,7 +11862,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>1-10</entry>
-<entry>SCC (10-character string)</entry>
+<entry>SCC (20-character maximum string)</entry>
 </row>
 <row>
 <entry colname="Position">101-300</entry>
@@ -11835,11 +11900,11 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Full SCC (10-character string)</entry>
+<entry>Full SCC (20-character maximum string)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Reference SCC (10-character string)</entry>
+<entry>Reference SCC (20-character maximum string)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -11898,7 +11963,7 @@ Full_scc,Reference_scc
 <row>
 <entry>A</entry>
 <entry>CODE</entry>
-<entry>Char (6)</entry>
+<entry>Char (20)</entry>
 <entry>SIC code</entry>
 </row>
 <row>
@@ -11939,7 +12004,7 @@ Full_scc,Reference_scc
 <row>
 <entry>1-4</entry>
 <entry>CODE</entry>
-<entry>Char (6)</entry>
+<entry>Char (20)</entry>
 <entry>SIC code</entry>
 </row>
 <row>
@@ -12016,7 +12081,7 @@ Full_scc,Reference_scc
 
 <row>
 <entry colname="Position">C</entry>
-<entry>10-digit SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
+<entry>20-digit maximum SCC (Character) (optional, set to zero if not SCC-dependent)</entry>
 </row>
 
 <row>
