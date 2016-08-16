@@ -2837,7 +2837,7 @@ Sample header records for hourly point sources are shown below:
 <entry>14</entry>
 <entry>DAYTOT</entry>
 <entry>Real</entry>
-<entry>Daily Total (short tons/month) (required)</entry>
+<entry>Daily Total (short tons/day) (required if <envar>SMKINVEN_MONTH</envar> is set to 0)</entry>
 </row>
 <row>
 <entry>15</entry>
