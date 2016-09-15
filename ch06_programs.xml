@@ -1370,9 +1370,11 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <para><emphasis>Processing categories:</emphasis> area, mobile, point</para>
 
-<para>The <command>Grdmat</command> program produces the matrix that contains the factors for spatially allocating the emission sources to the modeling domain.</para>
+<para>The <command>Grdmat</command> program produces the matrix that contains the factors for spatially allocating the emission sources to the modeling domain. </para>
 
-<para>Point sources are assigned to grid cells using the geographic coordinates that are stored in each point-source record. For area and mobile sources, a cross-reference file matches the gridding surrogates to the source-level emissions. When the gridding cross-reference files are applied, the most-specific matches always override the less-specific ones.</para>
+<para>For pre-gridded inventory data, grdmat is used to convert the data from the input data grid (e.g. lat-lon for EDGAR) to the output modeling grid when the user sets IMPORT_GRDNETCDF_YN to Y.  Spatial surrogates (AGPRO or MGPRO) are not needed for processing gridded inventory data with SMOKE.  The input modeling domain information is obtained from the GRIDMASK input file and the output grid is defined by the IOAPI_GRIDNAME_1 environment variable in the GRID_CRO_2D file.</para>
+
+<para>For inventory data that is not already pre-gridded, point sources are assigned to grid cells using the geographic coordinates that are stored in each point-source record. For area and mobile sources, a cross-reference file matches the gridding surrogates to the source-level emissions. When the gridding cross-reference files are applied, the most-specific matches always override the less-specific ones.</para>
 
 <para>For the current version of SMOKE, a gridding surrogates file must be created for the specific grid of interest. This can be accomplished in a variety of ways:</para>
 
@@ -1546,7 +1548,13 @@ H<subscript>S</subscript> = Physical stack height (m)
 <para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option prevents left-7 SCC assignments using the gridding cross-reference file.</para>
 </listitem>
 <listitem>
-<para><envar>IOAPI_ISPH</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
+	<para><envar>IOAPI_GRIDNAME_1</envar>: output modeling grid that global gridded inventory data is re-gridded to.</para>
+</listitem>
+<listitem>
+	<para><envar>IOAPI_ISPH</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
+</listitem>
+<listitem>
+	<para><envar>IMPORT_GRDNETCDF_YN</envar>: Y to read the native netCDF annual inventory files</para>
 </listitem>
 <listitem>
 <para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
@@ -3720,7 +3728,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <para><emphasis>Processing categories:</emphasis> area, mobile, point</para>
 
-<para><command>Smkinven</command> reads in the raw input data, sorts the records, and creates the SMOKE inventory files that are required by most of the SMOKE programs. The program is run separately for area-, mobile-, and point-source processing. <command>Smkinven</command> reads annual, average-day, day-specific, and hour-specific inventory files. The annual and average-day inventory data are combined into a single inventory. The output also indicates whether the data started out as annual or average-day data; such <quote>temporal origin</quote> information is needed by the <command>Temporal</command> program to determine whether to apply monthly adjustments. <command>Smkinven</command> can also import gridded one-layer annual or average-day emissions in I/O API NetCDF format.</para>
+<para><command>Smkinven</command> reads in the raw input data, sorts the records, and creates the SMOKE inventory files that are required by most of the SMOKE programs. The program is run separately for area-, mobile-, and point-source processing. <command>Smkinven</command> reads annual, average-day, day-specific, and hour-specific inventory files. The annual and average-day inventory data are combined into a single inventory. The output also indicates whether the data started out as annual or average-day data; such <quote>temporal origin</quote> information is needed by the <command>Temporal</command> program to determine whether to apply monthly adjustments. <command>Smkinven</command> can also import gridded one-layer annual or average-day emissions in I/O API NetCDF or CF-compliant NetCDF format as an area sourc.</para>
 
 <para><command>Smkinven</command> writes several SMOKE inventory files for each source category: an ASCII file containing all character-string fields from the inventory, individual I/O API NetCDF files containing emissions data for each output pollutant, and an ASCII map file listing the names and locations of each file. The character string fields cannot be stored in the I/O API NetCDF file because of limitations of the I/O API library. When day-specific and hour-specific data are available (this applies only for point sources), <command>Smkinven</command> can also read these data, and produce separate I/O API NetCDF files for each data type (day-specific or hour-specific).</para>
 
@@ -3746,7 +3754,10 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <para>List format (for combining multiple files of the same or compatible formats) for area, mobile, and point</para>
 </listitem>
 <listitem>
-<para>Gridded one-layer annual or average-day NetCDF I/O API emissions data (must be treated as an area source)</para>
+	<para>LIST GRID format (for reading multiple gridded one-layer annual CF-compliant NetCDF inventory data) as area sources</para>
+</listitem>
+<listitem>
+<para>Gridded one-layer annual or average-day NetCDF I/O API or CF-compliant NetCDF emissions data (must be treated as an area source)</para>
 </listitem>
 </itemizedlist>
 
@@ -3754,6 +3765,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <para>The list format is simply a list of file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list format, all input files must have the same or compatible formats.</para>
 
+<para>The list grid format is simply a list of CF-compliant NetCDF file names with paths with a special format identifier that allows all files in the list to be processed together. To use a list grid format, all input files must have the same or compatible formats with inventory data from the same year.</para>
 <para>When using CEM data, you are encouraged to preprocess your data to prepare them down to the dates and/or sources in the domain. <comment>However, SMOKE can do this if you do not. The dates can be extracted with the DATERANGE header in the <envar>PTHOUR</envar> file (see <envar>PTHOUR</envar> file documentation).</comment> The sources in the grid will be selected based on matching to the inventory (if the inventory is for only states within the modeling grid) and/or by the <command>Grdmat</command> program, which will remove sources outside the grid from the model-ready results.</para>
 
 <para><command>Smkinven</command> also can process the hourly CEM data in a more sophisticated way. Hourly heat input from the CEM data are used to allocate annual emissons to hourly emission data. More information are available at (<xref linkend="sect_utilities_cemscan" />) and (<xref linkend="sect_concepts_inventory_import" />)</para>

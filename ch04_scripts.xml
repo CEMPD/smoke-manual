@@ -702,6 +702,10 @@ grep ERROR *
 <para>List format. The list format is simply an ASCII file that lists all of the files that you want SMOKE to import in a single run.</para>
 </listitem>
 <listitem>
+	<para>List Grid format. The list grid format is simply an ASCII file that lists all of the global gridded inventory files that you want SMOKE to import in a single run. The List Grid format has four columns.
+	Assigned SCC, Pollutant ID, Local Variable Name, Month of inventory and Full inventory fine directory path and filename.</para>
+</listitem>
+<listitem>
 <para>ORL and FF10 formats. These formats are most appropriate for non-point toxics inventories, but also can be used for any inventory data.</para>
 </listitem>
 <listitem>
@@ -716,7 +720,7 @@ grep ERROR *
 
 <orderedlist>
 <listitem>
-<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only), #ORL, #FF10 (see <xref linkend="sect_input_inventory_format" />).</para>
+<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only),#LIST GRID, #ORL, #FF10 (see <xref linkend="sect_input_inventory_format" />).</para>
 </listitem>
 <listitem>
 <para>File type (#TYPE header): The type is important because it helps SMOKE determine the file format. Make sure that the header has been set according to the directions in <xref linkend="sect_input_inventory_header" />.</para>
@@ -840,7 +844,7 @@ grep ERROR *
 
 <orderedlist>
 <listitem>
-<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only), #ORL, #FF10.</para>
+<para>File format header: Make sure that the first line of the list file or individual files start with the #LIST (for list files only),#LIST GRID, #ORL, #FF10.</para>
 </listitem>
 <listitem>
 <para>For other headers, please refer to the documentation in step (3) of the area/non-point steps in <xref linkend="sect_scripts_area_invs" />.</para>
@@ -1259,6 +1263,9 @@ grep ERROR *
 <listitem>
 <para> To apply control factors to adjust emissions by GEOCODE_LEVEL and SCC use the CONTROL packet in the GCNTL file </para>
 </listitem>
+<listitem>                                                                                                                             
+	<para> To apply vertical profiles to gridded inventory data using the SMOKE Utility Program Layalloc. The EDGAR inventory includes fixed vertical profiles by sector that define the percentages of emissions by altitude band. Layalloc will create 3-d output files for the gridded emissions sectors that emit above the surface layer (e.g. energy and industrial sources).  </para>
+</listitem>  
 </orderedlist>
 
 </section>

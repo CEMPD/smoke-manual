@@ -315,6 +315,15 @@ In this overview section, we first provide a few important notes about file form
 <entry><envar>$GE_DAT</envar></entry>
 </row>
 
+<row>
+	<entry><link linkend="sect_input_gridmask"><envar>GRIDMASK</envar></link></entry>
+	<entry>Grdmat</entry>
+	<entry>A, B, M, P</entry>
+	<entry>Gridmask</entry>
+	<entry><envar>$ARDAT</envar></entry>
+</row>
+
+
 </tbody>
 </tgroup>
 </table>
@@ -4330,7 +4339,7 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Country/state/county code (6-digit Integer in format YSSCCC) (optional)</entry>
+<entry>Country/state/county code (6-digit Character in format YSSCCC) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -4731,7 +4740,7 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Country/state/county code (6-digit Integer YSSCCC) (required)</entry>
+<entry>Country/state/county code (6-digit Character YSSCCC) (required)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
@@ -4777,7 +4786,7 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry><para>Country/state/county code (6-digit Integer YSSCCC) (optional):</para>
+<entry><para>Country/state/county code (6-digit Character YSSCCC) (optional):</para>
 
 <itemizedlist spacing="compact">
 <listitem>leave blank or put zero if not country/state-dependent</listitem>
@@ -5309,7 +5318,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry><para>Country/state/county code (6-digit Integer in format YSSCCC) (optional):</para>
+<entry><para>Country/state/county code (6-digit Character in format YSSCCC) (optional):</para>
 
 <itemizedlist spacing="compact">
 <listitem>leave blank if not country/state-dependent</listitem>
@@ -5390,7 +5399,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry><para>Country/state/county code (6-digit Integer in format YSSCCC) (optional):</para>
+<entry><para>Country/state/county code (6-digit Character in format YSSCCC) (optional):</para>
 
 <itemizedlist spacing="compact">
 <listitem>leave blank if not country/state-dependent</listitem>
@@ -5467,7 +5476,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry><para>Country/state/county code (6-digit Integer in format YSSCCC) (optional):</para>
+<entry><para>Country/state/county code (6-digit Character in format YSSCCC) (optional):</para>
 
 <itemizedlist spacing="compact">
 <listitem>leave blank if not country/state-dependent</listitem>
@@ -5583,7 +5592,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>2+</entry>
 <entry>A</entry>
-<entry>Country/State/County code or Country/state code with zero for county, or zero (Integer)</entry>
+<entry>Country/State/County code or Country/state code with zero for county, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -5675,7 +5684,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>2+</entry>
 <entry>A</entry>
-<entry>Country/State/County code or Country/state code with zero for county, or zero (Integer)</entry>
+<entry>Country/State/County code or Country/state code with zero for county, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -5797,7 +5806,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>2+</entry>
 <entry>A</entry>
-<entry>Country/State/County code or Country/state code with zero for county, or zero (Integer)</entry>
+<entry>Country/State/County code or Country/state code with zero for county, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -5954,7 +5963,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>2+</entry>
 <entry>A</entry>
-<entry>Country/State/County code, or Country/state code with zero for county, or zero (Integer)</entry>
+<entry>Country/State/County code, or Country/state code with zero for county, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -6042,7 +6051,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>2+</entry>
 <entry>A</entry>
-<entry>Country/State/County code or Country/state code with zero for county, or zero (Integer)</entry>
+<entry>Country/State/County code or Country/state code with zero for county, or zero (Character)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -8935,27 +8944,27 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry>1+</entry>
 <entry colname="Position">A</entry>
-<entry>One-digit country FIPS code for inventory county (Integer)</entry>
+<entry>One-digit country FIPS code for inventory county (Character)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Two-digit state FIPS code for inventory county (Integer)</entry>
+<entry>Two-digit state FIPS code for inventory county (Character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Three-digit county FIPS code for inventory county (Integer)</entry>
+<entry>Three-digit county FIPS code for inventory county (Character)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>One-digit country FIPS code for reference county (Integer)</entry>
+<entry>One-digit country FIPS code for reference county (Character)</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Two-digit state FIPS code for reference county (Integer)</entry>
+<entry>Two-digit state FIPS code for reference county (Character)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Three-digit county FIPS code for reference county (Integer)</entry>
+<entry>Three-digit county FIPS code for reference county (Character)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -10528,7 +10537,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>Country/State/County code (Integer)</entry>
+<entry>Country/State/County code (Character)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>
@@ -10738,7 +10747,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>2+</entry>
 <entry>1</entry>
-<entry>Country code (Integer)</entry>
+<entry>Country code (Character)</entry>
 </row>
 <row>
 <entry colname="Position">3-22</entry>
@@ -10752,11 +10761,11 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>4+</entry>
 <entry>1</entry>
-<entry>Country code; should match an entry in the /COUNTRY/ section (Integer)</entry>
+<entry>Country code; should match an entry in the /COUNTRY/ section (Character)</entry>
 </row>
 <row>
 <entry colname="Position">2-3</entry>
-<entry>State code (Integer)</entry>
+<entry>State code (Character)</entry>
 </row>
 <row>
 <entry colname="Position">4-5</entry>
@@ -10790,15 +10799,15 @@ SOURCE > 100 AND SOURCE < 200
 </row>
 <row>
 <entry colname="Position">26</entry>
-<entry>Country code, should match the one in the /COUNTRY/ section (Integer)</entry>
+<entry>Country code, should match the one in the /COUNTRY/ section (Character)</entry>
 </row>
 <row>
 <entry colname="Position">27-28</entry>
-<entry>State code, should match the one in the /STATE/ section (Integer)</entry>
+<entry>State code, should match the one in the /STATE/ section (Character)</entry>
 </row>
 <row>
 <entry colname="Position">29-31</entry>
-<entry>County code (Integer)</entry>
+<entry>County code (Character)</entry>
 </row>
 <row>
 <entry colname="Position">32-34</entry>
@@ -12070,7 +12079,7 @@ Full_scc,Reference_scc
 
 <row>
 <entry colname="Position">B</entry>
-<entry><para>Country/state/county code (6-digit Integer YSSCCC) (optional):</para>
+<entry><para>Country/state/county code (6-digit Character YSSCCC) (optional):</para>
 
 <itemizedlist spacing="compact">
 <listitem>leave blank or enter zero if not country/state-dependent</listitem>
