@@ -1,0 +1,7 @@
+# commands to download the pdf and html versions of the smoke manual from my local machine to killdevil
+
+rsync * killdevil.unc.edu:/nas02/home/l/i/lizadams/local_git_smoke_manual/smoke-manual/images/programs
+
+The smoke-manual directory that BH and Catherine have been using is:
+/nas01/depts/ie/cempd/apps/SMOKE_archive/smoke_development/manual
+
