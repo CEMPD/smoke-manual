@@ -4036,9 +4036,9 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 </listitem>
 <listitem>
-<para><envar>FLOW_RATE_FACTOR</envar>: [default: 15875 ft<superscript>3</superscript>/MMBTU]</para>
+<para><envar>FLOW_RATE_FACTOR</envar>: [default: 0.0 ft<superscript>3</superscript>/MMBTU]</para>
 
-<para>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <envar>FLOW_RATE_FACTOR</envar> is set to zero or unset, then <command>Smkinven</command> will not calculate hourly flow rates. TDetail information is described in <xref linkend="sect_concepts_hour_specific_cem" /></para>
+<para>Used to calculate hourly flow rates from hourly heat input when reading CEM data. If <envar>FLOW_RATE_FACTOR</envar> is set to zero or unset, then <command>Smkinven</command> will not calculate hourly flow rates. Detail information is described in <xref linkend="sect_concepts_hour_specific_cem" /></para>
 
 <para>hourly flow rate (m<superscript>3</superscript>/s) = [<envar>FLOW_RATE_FACTOR</envar> (ft<superscript>3</superscript>/MMBTU) * hourly heat input (MMBTU/hr) * 0.02831 m<superscript>3</superscript>/ft<superscript>3</superscript>] / 3600 s/hr</para>
 
