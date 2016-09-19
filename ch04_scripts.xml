@@ -1235,9 +1235,9 @@ grep ERROR *
 </section>
 <section id="sect_scripts_pregridded_invs_different">
 
-	<title>Pre-gridded inventories processing for converting between different modeling domains (EDGAR to CMAQ) with source characterization and attributes (SCC and GEOCODE_LEVEL)</title>
-	<para>SMOKE will regrid the data from the native data grid (e.g. lat-lon for global inventories) to the CMAQ modeling grid, and apply a unique source ID to each grid cell to allow SMOKE to perform chemical speciation, temporal allocation from annual to hourly timesteps, and elevated source selection and vertical allocation. The pre-gridded inventory (EDGAR) files each contain data for a different sector, the sector and pollutant contained in each pre-gridded inventory file is specified in the ARINV file using the #LIST GRID format.</para>
-	<para>To process pre-gridded data from different modeling domains, the following steps must be taken.</para>
+<title>Pre-gridded inventories processing for converting between different modeling domains with source characterization and attributes</title>
+<para>SMOKE will regrid the data from the native NetCDF-formatted pregridded inventory data (e.g. lat-lon for global inventories) to the CMAQ modeling grid, and apply a unique source ID to each grid cell to allow SMOKE to perform chemical speciation, temporal allocation from annual to hourly timesteps, and elevated source selection and vertical allocation. The pre-gridded inventory (EDGAR) files each contain data for a different sector, the sector and pollutant contained in each pre-gridded inventory file is specified in the ARINV file using the #LIST GRID format.</para>
+<para>To process pre-gridded data from different modeling domains, the following steps must be taken.</para>
 <orderedlist>
 <listitem>
 <para> Set the <envar>IMPORT_GRDNETCDF_YN</envar> to Y to read the native netCDF annual inventory files.</para>
