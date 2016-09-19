@@ -548,7 +548,7 @@
 <section id="sect_concepts_geocodes">
 
 	<title>Geographical Code (GEOCODE_LEVEL[1-4]</title>
-	<para> Geographical codes may be specified to the user's desired level of detail using the GEOCODE_LEVEL[1-4] files. GEOCODE_LEVEL1 contains three character codes for each country in the inventory. GEOCODE_LEVEL2 contains six character codes for each state that the user would like to track in the inventory. GEOCODE_LEVEL3 contains nine character codes for each county that the user would like to track in the inventory.  GEOCODE_LEVEL4 contains twelve character codes for each tribal region that the user would like to track in the inventory. </para> 
+	<para> Geographical codes may be specified to the user's desired level of detail using the GEOCODE_LEVEL[1-4] files. GEOCODE_LEVEL1 contains three character codes for each country in the inventory (CCC). GEOCODE_LEVEL2 contains six character codes for each state that the user would like to track in the inventory (CCCSSS). GEOCODE_LEVEL3 contains nine character codes for each county that the user would like to track in the inventory (CCCSSSYYY).  GEOCODE_LEVEL4 contains twelve character codes for each tribal region that the user would like to track in the inventory (CCCSSSYYYTTT). </para> 
 
 	<informalfigure>
 		<mediaobject>
@@ -2680,8 +2680,12 @@ Additional data</programlisting>
 </listitem>
 
 <listitem>
-	<para><emphasis role="bold">List format:</emphasis> This is the input format used to provide multiple files to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files. To support input of multiple pre-gridded NetCDF files, the keyword #LIST GRID in the header of this file will switch SMOKE into gridded inventory processing mode. This approach is described more in <xref linkend="sect_concepts_pregridded_data" /></para>
+	<para><emphasis role="bold">List format:</emphasis> This is the input format used to provide multiple files to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files.</para> 
 </listitem>
+<listitem>
+	        <para><emphasis role="bold">List GRID format:</emphasis> This is the input format used to provide multiple global gridded emission inventory files to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files. To support input of multiple pre-gridded NetCDF files, the keyword #LIST GRID in the header of this file will switch SMOKE into gridded inventory processing mode. This approach is described more in <xref linkend="sect_concepts_pregridded_data" /></para>
+	</listitem>
+
 
 <listitem>
 <para><emphasis role="bold">Gridded I/O API format:</emphasis> This format is a gridded I/O API file for allowing the import of pregridded data from the same modeling domain. This approach is described more in <xref linkend="sect_concepts_pregridded_data" />.</para>
