@@ -1196,7 +1196,10 @@ grep ERROR *
 
 </section>
 
-<section>
+<section id="sect_scripts_pregridded">
+	        <title>Pre-gridded inventories</title>
+		        <para>Smoke has two ways of processing the pregridded inventory data.  If the inventory data is in native netCDF format then see <xref linkend="sect_scripts_pregridded_invs_same" />.  If the inventory is in IO-API/netCDF format then see <xref linkend="sect_scripts_pregridded_invs_different" /> </para>
+
 <section id="sect_scripts_pregridded_invs_same">
 
 <title>Pre-gridded inventories from the same modeling domain as an area source without source characterization or attributes</title>

@@ -465,7 +465,7 @@
 </mediaobject>
 </informalfigure>
 
-<para>The SMOKE installation is set up to use U.S.-centered codes as defined in the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> (if USE_EXP_GEOCODES Y) file, which contains the codes and their associated names and time zone settings. In this file, the U.S. country code is zero, which allows the U.S. country/state/county codes to be the same as the FIPS state/county codes that appear in U.S. inventories. See <xref linkend="sect_dirs_example_data_files" /> for more information about the example <envar>COSTCY</envar> file that comes with the SMOKE installation, and <xref linkend="sect_input_costcy" /> for more information on the <envar>COSTCY</envar> file format.</para>
+<para>The SMOKE installation is set up to use U.S.-centered codes as defined in the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> (if USE_EXP_GEOCODES Y) file, which contains the codes and their associated names and time zone settings. In this file, the U.S. country code is zero, which allows the U.S. country/state/county codes to be the same as the FIPS state/county codes that appear in U.S. inventories. See <xref linkend="sect_input_costcy" /> for more information on the <envar>COSTCY</envar> file format.</para>
 
 <para>To change the meaning of the country, state, or county codes in SMOKE, the <envar>COSTCY</envar> or the <envar>GEOCODE_LEVEL4</envar> (if USE_EXP_GEOCODES Y) file must be modified to use different names associated with each country, state, county or tribal number. All SMOKE input files must also use this new numbering scheme, including inventory files and cross-reference files.</para>
 
