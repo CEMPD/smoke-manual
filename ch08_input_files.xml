@@ -316,7 +316,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 
 <row>
-	<entry><link linkend="sect_input_gridmask"><envar>GRIDMASK</envar></link></entry>
+	<entry>><envar>GRIDMASK</envar></entry>
 	<entry>Grdmat</entry>
 	<entry>A, B, M, P</entry>
 	<entry>Gridmask</entry>
