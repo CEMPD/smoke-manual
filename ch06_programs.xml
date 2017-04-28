@@ -5600,6 +5600,20 @@ Defines whether the program produces a report of emission totals by state.</para
 <itemizedlist>
 
 <listitem>
+<para><envar>CMB_CHKFRACS</envar>: [default: Y]</para>
+<para>Check whether the sum of multiple speciation profile split factors is equal to 1.0 or not.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Gives an error if the sume of split factors is not 1.0</para>
+</listitem>
+<listitem>
+<para>N: Do not check the sume of split factors</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+
+<listitem>
 <para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the speciation cross-reference files by preventing left-7 SCC assignments. The application GSCNV files are not affected by this option when using FIPS/SCC assignments, and will continue to use left-7 SCC assignments even when FULLSCC_ONLY is set to "Y".</para>
 </listitem>
 

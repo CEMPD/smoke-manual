@@ -337,12 +337,14 @@
 <entry>Source number for elevated source, zero if a PinG source</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">B</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
 <entry>Source number for PinG source, zero if simply an elevated source</entry>
 </row>
 <row>
+<entry></entry>
 <entry colname="Column">C</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>

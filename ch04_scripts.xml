@@ -396,8 +396,8 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para><userinput><filename>smk_rateperdistance_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources on-roadway rate-per-distance (RPD) run script for all processes)</emphasis></para>
 <para><userinput><filename>smk_ratepervehicle_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources off-network rate-per-vehicle (RPV) run script)</emphasis></para>
-
 <para><userinput><filename>smk_rateperprofile_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources off-network rate-per-profile (RPP) run script)</emphasis></para>
+<para><userinput><filename>smk_rateperhour_nctox.csh</filename></userinput> <emphasis>(invoke the MOVES mobile sources off-network rate-per-hour (RPH) run script)</emphasis></para>
 
 <para><userinput><filename>smk_mrgall_nctox.csh</filename></userinput> <emphasis>(invoke the all-sources merge script)</emphasis></para>
 
@@ -2225,7 +2225,7 @@ grep ERROR *
 
 <section id="sect_scripts_use_projection">
 
-<title>Use projection</title>
+<title>Setup projection and control scenarios</title>
 
 <section>
 

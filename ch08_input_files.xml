@@ -2585,6 +2585,25 @@ In this overview section, we first provide a few important notes about file form
 
 <section>
 
+<title>Date range setting</title>
+
+<comment>check if this only applies to CEM data</comment>
+
+<para>The <envar>PTHOUR</envar> file may optionally contain a packet to control the range of dates for which <command>Smkinven</command> will read data. When this feature is needed, the following entry should appear on the first line of the <envar>PTHOUR</envar> file.</para>
+
+<para>DATERANGE  MMDD(start) MMDD(end)</para>
+
+<para>where MMDD is the two-digit month and day of the month at the start and end of the period of interest. For example, to request July 10th through 12th, the first line of the file should read:</para>
+
+<para>DATERANGE  0710  0712</para>
+
+<para>The year is implied by the data themselves; note that the files can only contain data for a single year. As an alternative to using the DATERANGE packet, you can manually break the year up into smaller periods in separate files, and only list the files of interest in the <envar>PTHOUR</envar> file. Note that reading in the whole year of data and extracting just a few days will take much more time than manually editing the file to contain just the days of interest. Also note that if you choose the manual editing option, you must select days that fully cover the modeling episode after accounting for time zone differences between the facility&rsquo;s time zone and the modeling time zone (set by the <envar>OUTZONE</envar> option).</para>
+
+</section>
+
+
+<section>
+
 <title>CEM hour-specific format</title>
 
 <para>SMOKE uses the CEM ORIS ID and Boiler ID fields to match sources in the CEM hour-specific inventory to those in the annual inventory. Note that the CEM data hours are in standard local time (no daylight saving time adjustment). The format of the CEM hour-specific data is shown in <xref linkend="tbl_input_pthour_cem" />.</para>
@@ -5272,6 +5291,8 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <para>When the special keyword <quote><envar>COMBO</envar></quote> is placed in the speciation profile code column, all sources matching the cross-reference entry should use a combination speciation profile provided in  <xref linkend="sect_input_gspro_combo" />. Using the profiles listed in the <envar>GSPRO_COMBO</envar> file, <command>Spcmat</command> can use the fractions and the information from the <envar>GSPRO</envar> and <envar>GSCNV</envar> for the profiles provied to create weighted profiles for the matching source.</para>
 
+<para>As of SMOKE version 4.5, the chemical speciation profile split factor column M is added into the <xref linkend="sect_input_gsref" /> for users to apply multiple speciation profiles to a single inventory source. Unlike <envar>GSPRO_COMBO</envar> approach, this approach can be used to an individual stationary point source level.</para>
+
 <section>
 
 <title>Area- and mobile-source speciation cross-reference file entries</title>
@@ -5335,6 +5356,14 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry colname="Position">F</entry>
 <entry>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</entry>
+</row>
+<row>
+<entry colname="Position">...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry colname="Position">M</entry>
+<entry>Chemical Speciation Profile Split factor (real) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5440,6 +5469,10 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry colname="Position">L</entry>
 <entry>Characteristic 5 (blank for FF10 or ORL) (Character) (optional)</entry>
+</row>
+<row>
+<entry colname="Position">M</entry>
+<entry>Chemical Speciation Profile Split factor (real) (optional)</entry>
 </row>
 </tbody>
 </tgroup>
