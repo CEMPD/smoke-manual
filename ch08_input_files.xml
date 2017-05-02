@@ -5291,7 +5291,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <para>When the special keyword <quote><envar>COMBO</envar></quote> is placed in the speciation profile code column, all sources matching the cross-reference entry should use a combination speciation profile provided in  <xref linkend="sect_input_gspro_combo" />. Using the profiles listed in the <envar>GSPRO_COMBO</envar> file, <command>Spcmat</command> can use the fractions and the information from the <envar>GSPRO</envar> and <envar>GSCNV</envar> for the profiles provied to create weighted profiles for the matching source.</para>
 
-<para>As of SMOKE version 4.5, the chemical speciation profile split factor column M is added into the <xref linkend="sect_input_gsref" /> for users to apply multiple speciation profiles to a single inventory source. Unlike <envar>GSPRO_COMBO</envar> approach, this approach can be used to an individual stationary point source level.</para>
+<para>As of SMOKE version 4.5, the chemical speciation profile split factor column M is added into the <xref linkend="tbl_input_gsref_point" /> for users to apply multiple speciation profiles to a single inventory source. Unlike <envar>GSPRO_COMBO</envar> approach, this approach can be used to an individual stationary point source level.</para>
 
 <section>
 

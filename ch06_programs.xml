@@ -1186,6 +1186,21 @@ H<subscript>S</subscript> = Physical stack height (m)
 <title>Input Environment Variables</title>
 
 <itemizedlist>
+<listitem>
+<para><envar>ELEV_WRITE_FAKE_SRC</envar>: [default: Y]</para>
+
+<para>Defines whether the program needs to add a fake source group or not when there is no an elevated source group to output.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Add a fake source group when there is no an elevated source group to output</para>
+</listitem>
+<listitem>
+<para>N: Do not add a fake source group.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 
 <listitem>
 <para><envar>ELEV_WRITE_LATLON</envar>: [default: Y]</para>
@@ -4156,6 +4171,36 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </listitem>
 
 <listitem>
+<para><envar>NO_STACK_REPLACE_FUGITIVE</envar>: [default: N]</para>
+
+<para>Defines whether the program skips correcting any missing and/or out-of-range stack parameters.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Skip correcting any missing and/or out-of-range stack parameters</para>
+</listitem>
+<listitem>
+<para>N: Do not skip correcting any missing and/or out-of-range stack parameters</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>OUTPUT_LOCAL_TIME</envar>: [default: N]</para>
+
+<para>Defines whether the program processes daily/hourly inventories in local time or not.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Process daily/hourly inventories in local time. No time zone shift.</para>
+</listitem>
+<listitem>
+<para>N: Apply time zone shift.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
 <para><envar>RAW_DUP_CHECK</envar>: [default: N]</para>
 
 <para>Defines whether the program checks for duplicate records in the input file.</para>
@@ -6205,6 +6250,22 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 </itemizedlist>
 </listitem>
+
+<listitem>
+<para><envar>OUTPUT_LOCAL_TIME</envar>: [default: N]</para>
+
+<para>Defines whether the program processes daily/hourly inventories in local time or not.</para>
+
+<itemizedlist>
+<listitem>
+<para>Y: Process daily/hourly inventories in local time. No time zone shift.</para>
+</listitem>
+<listitem>
+<para>N: Apply time zone shift.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>OUTZONE</envar>: : [default: 0]</para>
 <para>Indicates offset from Greenwich Mean Time (GMT) for episode start date and time. <envar>OUTZONE</envar> should be set to the standard time for the time zone of interest; SMOKE will adjust to Daylight Saving time for episodes that are during periods and in regions where Daylight Saving time applies.</para>

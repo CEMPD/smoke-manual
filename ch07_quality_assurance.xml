@@ -565,6 +565,33 @@
 
 <section>
 
+<title>AERMOD instruction</title>
+
+<para>The AERMOD instruction causes <command>Smkreport</command> to generate the customized summary reports for <ulink url="https://github.com/CEMPD/SMOKE/tree/master/scripts/aermod">SMOKE4AERMOD post-processing scripts</ulink> that create AERMOD helper input files. The report includes daily total emissions by the grid cell, states, counties, SCC, temporal profiles assignments, grid cell coordinates, and so on. The list of output contents varies by the type of inventory source. For stationary point sources, it will include a few additional variables, such as point source facility ID, unit ID, release point ID, process ID, and stack parameters (stack height, stack diameter, exit gas temperature and exit gas velocity). </para>
+
+<para>The syntax of the AERMOD instruction is:</para>
+
+<para>AERMOD &lt;option 1&gt;  &lt;option 2&gt;</para>
+
+<para>with the following valid options:</para>
+<itemizedlist>
+<listitem>
+<para>option 1: There are two options. One is for stationary point sources [ POINT ] and the other is for area sources [ NONPOINT ].</para>
+</listitem>
+<listitem>
+<para>option 2: This option 2 is only applicable when option 1 is defined as [ POINT ]. PTEGU is designed for point sources with hourly CEM inventory dataset, and PTNONIPM is for the rest of stationary point sources.</para>
+</listitem>
+</itemizedlist>
+
+<para>See the example:</para>
+<itemizedlist>
+<listitem>AERMOD [ POINT | NONPOINT ]   [ PTEGU | PTNONIPM ]</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+
 <title>ARRANGE instruction</title>
 
 <para>The ARRANGE instruction controls the arrangement of variables and files for a single report. This instruction sets how many variables are included in a report or a section of a report, and can set the number of sections that a report will have. It also permits a database format that includes an emissions data value for each record in the report.</para>
@@ -799,6 +826,15 @@
 <title>CONTROL instruction</title>
 
 <para>The CONTROL instruction applies the multiplicative control matrix to all pollutants and species requested in the report. This instruction does not limit the options available for resolution of the report, so reports that have the CONTROL instruction can also include any combination of BY instructions.  <command>Smkreport</command> is unable to apply the reactivity control matrix at this time.</para>
+
+</section>
+
+
+<section>
+
+<title>CROSSWALK instruction</title>
+
+<para>The CROSSWALK instruction allows users to generate the crosswalk output file that maps how the point inventory sources are grouped into the output source for a single report. This option is only limited to stationary point sources (SMK_SOURCE is set to P). The file names in this case are created automatically by <command>Smkreport</command> based on the file name set by the associated NEWFILE instruction (explained in <xref linkend="sect_qa_repconfig_newfile" />), by appending a <quote>_crosswalk</quote>.</para>
 
 </section>
 
