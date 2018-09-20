@@ -1,9 +1,9 @@
 # base directories for applications and data
-APPS_DIR = /nas01/depts/ie/cempd/apps/SMOKE_archive/DocBook
-BASE_DIR = /nas01/depts/ie/cempd/apps/SMOKE_archive/smoke_development/manual
+APPS_DIR = /proj/ie/apps/longleaf/SMOKE_archive/DocBook
+BASE_DIR = /proj/ie/apps/longleaf/SMOKE_archive/manual
 
 # application locations
-JAVA_EXE = /nas01/depts/ie/cempd/apps/SMOKE_archive/java/jre1.7.0_05/bin/java
+JAVA_EXE = java 
 SAXON_DIR = $(APPS_DIR)/xep-3.8.4/lib
 XEP_DIR = $(APPS_DIR)/xep-3.8.4
 

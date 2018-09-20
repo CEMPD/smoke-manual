@@ -2,7 +2,7 @@
 
 <chapter id="ch_scripts">
 
-<title>Using SMOKE Scripts</title>
+<title>How to Use SMOKE</title>
 
 <section id="sect_scripts_introduction">
 
@@ -72,7 +72,7 @@
 
 <para><emphasis role="bold">biogenic sources:</emphasis> BELD3 data processed using BEIS3 (for entire grid, even those cells that are not in North Carolina)</para>
 
-<para>For area, mobile, and point sources, this case uses toxics inventories for ozone modeling. The VOC model species for the current CB5 mechanism are based in part on the toxic inventory. SMOKE resolves the duplicate VOC mass caused by combining VOC emissions with toxic VOC emissions by subtracting the toxic VOC mass from the VOC mass and computing a NONHAPVOC emissions value. This is the <quote>integrate</quote> approach for VOC emissions, described in <xref linkend="sect_concepts_combine_toxics" />. The speciation profiles provided with this version of SMOKE include profiles that map the toxics VOC and NONHAPVOC pollutants to current CB5 species. Choices for speciation profiles in this version of SMOKE are listed in <xref linkend="sect_scripts_change_speciation" />.</para>
+<para>For area, mobile, and point sources, this case uses toxics inventories for ozone modeling. The VOC model species for the current CB6 mechanism are based in part on the toxic inventory. SMOKE resolves the duplicate VOC mass caused by combining VOC emissions with toxic VOC emissions by subtracting the toxic VOC mass from the VOC mass and computing a NONHAPVOC emissions value. This is the <quote>integrate</quote> approach for VOC emissions, described in <xref linkend="sect_concepts_combine_toxics" />. The speciation profiles provided with this version of SMOKE include profiles that map the toxics VOC and NONHAPVOC pollutants to current CB6 species. Choices for speciation profiles in this version of SMOKE are listed in <xref linkend="sect_scripts_change_speciation" />.</para>
 
 <para>In addition to the inventory data listed above, the parameters of the case are the following:</para>
 
@@ -93,7 +93,7 @@
 <para><emphasis role="bold">Meteorology data:</emphasis> Daily (25-hour) 2005 meteorology files generated originally by EPA using MM5 and MCIP; the files have been reduced to the modeling domain and contain only the variables needed by SMOKE.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">Chemical speciation data:</emphasis> Revised <envar>GSPRO</envar> and <envar>GSREF</envar> files to include toxic pollutants mapped to current-CB5 mechanism for both on-road and nonroad mobile source classification category (SCC) codes.</para>
+<para><emphasis role="bold">Chemical speciation data:</emphasis> Revised <envar>GSPRO</envar> and <envar>GSREF</envar> files to include toxic pollutants mapped to current-CB6 mechanism for both on-road and nonroad mobile source classification category (SCC) codes.</para>
 </listitem>
 
 </itemizedlist>
@@ -325,7 +325,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 </listitem>
 
 <listitem>
-<para><envar>RUN_&lt;Program Name&gt;</envar>: [Y | N] The collection of <envar>RUN_&lt;Program Name&gt;</envar> variables control whether a program is going to be run during a given script run. These can be set to N if the program is not needed for some reason (e.g., the REMSAD model does not need the <command>Laypoint</command> program run). How these settings should be set is described in <xref linkend="sect_scripts_change_programs" />.</para>
+<para><envar>RUN_&lt;Program Name&gt;</envar>: [Y | N] The collection of <envar>RUN_&lt;Program Name&gt;</envar> variables control whether a program is going to be run during a given script run. These can be set to N if the program is not needed for some reason. How these settings should be set is described in <xref linkend="sect_scripts_change_programs" />.</para>
 </listitem>
 
 <comment>
@@ -340,7 +340,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 <listitem>
 <para><envar>SPC_OVERRIDE</envar>: Sets a value for the <envar>SPC</envar> variable in the Assigns file that overrides whatever value is actually inside the Assigns file. The Assigns file invokes the override mechanism when this environment variable is defined, so to not use this scripting feature, the variable must not be defined. <emphasis role="bold">In other words, it is not acceptable to set this to a blank value.</emphasis></para>
 
-<para>In addition, the merge scripts that run the <command>Mrggrid</command> program can also use the <envar>A_SPC_OVERRIDE</envar>, <envar>N_SPC_OVERRIDE</envar>, <envar>B_SPC_OVERRIDE</envar>, <envar>M_SPC_OVERRIDE</envar>, and <envar>P_SPC_OVERRIDE</envar> settings. These settings override the <envar>SPC</envar> variable used <emphasis>only</emphasis> for the definition of the <envar>A_OUT</envar>, <envar>N_OUT</envar>, <envar>B_OUT</envar>, <envar>M_OUT</envar>, and <envar>P_OUT</envar> directories that contain the hourly, gridded, and speciated SMOKE output files. These settings can be used to pull multiple chemical mechanisms (such as toxics and non-toxics) into a single model-ready file. The user must determine which multiple mechanisms are appropriate to combine. It is acceptable to combine toxics-integrated and criteria-only current CB5 mechanisms, but inappropriate to combine CB5 and RADM mechanisms.</para>
+<para>In addition, the merge scripts that run the <command>Mrggrid</command> program can also use the <envar>A_SPC_OVERRIDE</envar>, <envar>N_SPC_OVERRIDE</envar>, <envar>B_SPC_OVERRIDE</envar>, <envar>M_SPC_OVERRIDE</envar>, and <envar>P_SPC_OVERRIDE</envar> settings. These settings override the <envar>SPC</envar> variable used <emphasis>only</emphasis> for the definition of the <envar>A_OUT</envar>, <envar>N_OUT</envar>, <envar>B_OUT</envar>, <envar>M_OUT</envar>, and <envar>P_OUT</envar> directories that contain the hourly, gridded, and speciated SMOKE output files. These settings can be used to pull multiple chemical mechanisms (such as toxics and non-toxics) into a single model-ready file. The user must determine which multiple mechanisms are appropriate to combine. It is acceptable to combine toxics-integrated and criteria-only current CB6 mechanisms, but inappropriate to combine CB6 and SARPRC mechanisms.</para>
 </listitem>
 <listitem>
 <para><envar>SRCABBR</envar>: Sets the source category abbreviation name for use in naming log files. The typical settings are ar (area sources), nr (nonroad sources), mb (mobile sources), bg (biogenic sources), and pt (point sources).</para>
@@ -358,7 +358,7 @@ setenv BYFYR ${BYFYR}_${fyr2}</programlisting>
 
 <para>All SMOKE programs can be controlled by input environment variables, and the run scripts control these variables. The program documentation in <xref linkend="ch_utilities" />, <xref linkend="ch_programs" />, and <xref linkend="ch_quality_assurance" /> include the available environment variable settings for each program.</para>
 
-<para>The example run scripts contain most of the major script settings needed for running SMOKE. The major exception to this is the <envar>UAM_*</envar> settings needed for <command>Smkmerge</command> and <command>Smk2emis</command>, when running for REMSAD, UAM-V, and CAM<subscript>X</subscript>. These can be added to the scripts as needed.</para>
+<para>The example run scripts contain most of the major script settings needed for running SMOKE. The major exception to this is the <envar>UAM_*</envar> settings needed for <command>Smkmerge</command> and <command>Smk2emis</command>, when running for UAM-V and CAM<subscript>X</subscript>. These can be added to the scripts as needed.</para>
 
 </section>
 </section>
@@ -651,7 +651,7 @@ grep ERROR *
 <listitem>Point inventories</listitem>
 <listitem>Day-specific and hour-specific point and fire inventories</listitem>
 <listitem>Future-year inventories</listitem>
-<listitem>Pre-gridded inventories (for same output modeling domain or for converting to a different modeling domain (example: EDGAR to CMAQ ready emissions file)</listitem>
+<listitem>Pre-gridded inventories (for same output modeling domain or for converting to a different modeling domain (example: EDGAR/RCP/HTAP to CMAQ ready emissions file)</listitem>
 <listitem>Using seasonal and annual data in the same run</listitem>
 <listitem>Files and settings for all inventories</listitem>
 </itemizedlist>
@@ -1138,7 +1138,7 @@ grep ERROR *
 <para>Set <envar>HOUR_PLUMEDATA_YN</envar> setting to Y.</para>
 </listitem>
 <listitem>
-<para>For UAM, REMSAD, and CAM<subscript>X</subscript> modeling, set:</para>
+<para>For UAM and CAM<subscript>X</subscript> modeling, set:</para>
 
 <itemizedlist>
 <listitem>
@@ -1239,14 +1239,14 @@ grep ERROR *
 <section id="sect_scripts_pregridded_invs_different">
 
 <title>Pre-gridded inventories processing for converting between different modeling domains with source characterization and attributes</title>
-<para>SMOKE will regrid the data from the native NetCDF-formatted pregridded inventory data (e.g. lat-lon for global inventories) to the CMAQ modeling grid, and apply a unique source ID to each grid cell to allow SMOKE to perform chemical speciation, temporal allocation from annual to hourly timesteps, and elevated source selection and vertical allocation. The pre-gridded inventory (EDGAR) files each contain data for a different sector, the sector and pollutant contained in each pre-gridded inventory file is specified in the ARINV file using the #LIST GRID format.</para>
+<para>SMOKE will regrid the data from the native NetCDF-formatted pregridded inventory data (e.g. lat-lon for global inventories) to the CMAQ modeling grid, and apply a unique source ID to each grid cell to allow SMOKE to perform chemical speciation, temporal allocation from annual to hourly timesteps, and elevated source selection and vertical allocation. The pre-gridded inventory files each contain data for a different sector, the sector and pollutant contained in each pre-gridded inventory file is specified in the ARINV file using the #LIST GRID format.</para>
 <para>To process pre-gridded data from different modeling domains, the following steps must be taken.</para>
 <orderedlist>
 <listitem>
 <para> Set the <envar>IMPORT_GRDNETCDF_YN</envar> to Y to read the native netCDF annual inventory files.</para>
 </listitem>
 <listitem>
-<para>Grdmat is used to convert the data from the input data grid (e.g. lat-lon for EDGAR) to the output modeling grid. Set the <envar>IOAPI_GRIDNAME_1</envar> to specify the output grid.</para>
+<para>Grdmat is used to convert the data from the input data grid (e.g. lat-lon for EDGAR/RCP/HTAP) to the output modeling grid. Set the <envar>IOAPI_GRIDNAME_1</envar> to specify the output grid.</para>
 </listitem>
 <listitem>
 <para>SMOKE reads each grid cell in the gridded inventory file as a unique source that will have a unique source ID.  The lower left corner of inventory grid will be source 1, cell (2,1) will be source 2, cell (3,1) source 3, etc</para>
@@ -1381,7 +1381,7 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>You want to model additional REMSAD toxics not set up in the example configuration (e.g., atrazine, dioxin).</para>
+<para>You want to model additional toxics not set up in the example configuration (e.g., atrazine, dioxin).</para>
 </listitem>
 <listitem>
 <para>You want to import ROG emissions instead of VOC emissions from a criteria inventory.</para>
@@ -1507,7 +1507,7 @@ grep ERROR *
 </row>
 <row>
 <entry><envar>RUN_LAYPOINT</envar></entry>
-<entry>Calculate plume rise for CMAQ or MAQSIP for any point sources. Calculate plume rise for UAM, REMSAD, or CAM<subscript>X</subscript> for explicit plume-rise sources (i.e., those sources with precomputed plume rise).</entry>
+<entry>Calculate plume rise for CMAQ for any point sources. Calculate plume rise for UAM or CAM<subscript>X</subscript> for explicit plume-rise sources (i.e., those sources with precomputed plume rise).</entry>
 </row>
 <row>
 <entry><envar>RUN_MOVESMRG</envar></entry>
@@ -1515,11 +1515,11 @@ grep ERROR *
 </row>
 <row>
 <entry><envar>RUN_SMKMERGE</envar></entry>
-<entry>Create 3-d model-ready emissions for point sources or all source categories together for CMAQ or MAQSIP. Create 2-d gridded, hourly, speciated emissions for area sources, nonroad mobile sources, on-road mobile sources, point sources, and/or all sources combined in I/O API format. Convert units of biogenic outputs from <command>Tmpbio</command> from moles/hr to moles/s for CMAQ. Create ASCII elevated point source file for UAM, REMSAD, or CAM<subscript>X</subscript>.</entry>
+<entry>Create 3-d model-ready emissions for point sources or all source categories together for CMAQ. Create 2-d gridded, hourly, speciated emissions for area sources, nonroad mobile sources, on-road mobile sources, point sources, and/or all sources combined in I/O API format. Convert units of biogenic outputs from <command>Tmpbio</command> from moles/hr to moles/s for CMAQ. Create ASCII elevated point source file for UAM or CAM<subscript>X</subscript>.</entry>
 </row>
 <row>
 <entry><envar>RUN_SMK2EMIS</envar></entry>
-<entry>Convert 2-d merged I/O API file with all low-level emissions from <command>Smkmerge</command> to binary input format for UAM, REMSAD, or CAM<subscript>X</subscript>.</entry>
+<entry>Convert 2-d merged I/O API file with all low-level emissions from <command>Smkmerge</command> to binary input format for UAM or CAM<subscript>X</subscript>.</entry>
 </row>
 <row>
 <entry><envar>RUN_SMKREPORT</envar></entry>
@@ -1765,282 +1765,18 @@ grep ERROR *
 <listitem>
 <para>Set the <envar>SPC</envar> setting in the Assigns file.</para>
 
-<para>The <envar>SPC</envar> setting in the Assigns file controls which chemical mechanism is used by the scripts and SMOKE programs. Depending on what source categories you are modeling, the air quality model that you are using, and the chemical mechanism for that air quality model, choose the correct setting from <envar>SPC</envar> from <xref linkend="tbl_scripts_spc_settings" />. Use the descriptions below the table to decide if the <envar>SPC</envar> setting will work for your case. See the default data files described in <xref linkend="ch_scripts" /> for the actual file names that will be used for each source category. Where different files are needed for different source categories, the Assigns file will automatically detect this and set the <envar>GSPRO</envar> and <envar>GSREF</envar> files accordingly.</para>
+<para>The <envar>SPC</envar> setting in the Assigns file controls which chemical mechanism is used by the scripts and SMOKE programs. Depending on what source categories you are modeling, the air quality model that you are using, and the chemical mechanism for that air quality model. See the default data files described in <xref linkend="ch_scripts" /> for the actual file names that will be used for each source category. Where different files are needed for different source categories, the Assigns file will automatically detect this and set the <envar>GSPRO</envar> and <envar>GSREF</envar> files accordingly.</para>
 
-<table id="tbl_scripts_spc_settings">
-<title>Valid <envar>SPC</envar> settings</title>
-
-<tgroup cols="8">
-<colspec colname="c1" colwidth="40*" />
-<colspec colname="c2" colwidth="15*" />
-<colspec colname="c3" colwidth="15*" />
-<colspec colname="c4" colwidth="5*" />
-<colspec colname="c5" colwidth="5*" />
-<colspec colname="c6" colwidth="5*" />
-<colspec colname="c7" colwidth="5*" />
-<colspec colname="c8" colwidth="5*" />
-
-<thead>
-<row>
-<entry align="center" valign="bottom"><envar>SPC</envar> Setting (chemical mechanism)</entry>
-<entry align="center" valign="bottom">Air Quality Models</entry>
-<entry align="center" valign="bottom">Inventories</entry>
-<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>BEIS3</entry>
-<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Non-point/area</entry>
-<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Nonroad mobile</entry>
-<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>On-road mobile</entry>
-<entry rotate="1"><?dbfo orientation="90"?><?dbfo rotated-width="1.1in"?>Point</entry>
-</row>
-</thead>
-
-<tbody>
-<row>
-<entry>
-<simplelist>
-<member>cmaq.cb5p25</member>
-<member>(CB5 with PM<subscript>2.5</subscript> speciation)</member>
-</simplelist>
-</entry>
-<entry>
-<simplelist>
-<member>CMAQ</member>
-<member>MAQSIP*</member>
-<member>UAM*</member>
-<member>CAM<subscript>X</subscript>*</member>
-</simplelist>
-</entry>
-<entry>criteria</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-<row>
-<entry>
-<simplelist>
-<member>cmaq.cb5p25_wtox</member>
-<member>(CB5 with PM<subscript>2.5</subscript> speciation, but inputs can include VOC toxics)</member>
-</simplelist>
-</entry>
-<entry>
-<simplelist>
-<member>CMAQ</member>
-<member>MAQSIP*</member>
-<member>UAM*</member>
-<member>CAM<subscript>X</subscript>*</member>
-</simplelist>
-</entry>
-<entry>
-<simplelist>
-<member>criteria</member>
-<member>toxics</member>
-</simplelist>
-</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-<row>
-<entry>
-<simplelist>
-<member>cmaq.cb5tx1p25</member>
-<member>(CB5 toxics version 1, with PM<subscript>2.5</subscript> speciation)</member>
-</simplelist>
-</entry>
-<entry>CMAQ</entry>
-<entry>
-<simplelist>
-<member>criteria</member>
-<member>toxics</member>
-</simplelist>
-</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-<row>
-<entry>
-<simplelist>
-<member>cmaq.radm2p25</member>
-<member>(RADM2 with PM<subscript>2.5</subscript> speciation)</member>
-</simplelist>
-</entry>
-<entry>CMAQ</entry>
-<entry>criteria</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-<row>
-<entry>
-<simplelist>
-<member>cmaq.saprc99pm</member>
-<member>(SAPRC99 with PM<subscript>2.5</subscript> speciation)</member>
-</simplelist>
-</entry>
-<entry>CMAQ</entry>
-<entry>criteria</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-<row>
-<entry>maqsip.radm2pm</entry>
-<entry>MAQSIP</entry>
-<entry>criteria</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-<row>
-<entry>remsad.cb4mpm</entry>
-<entry>REMSAD v6</entry>
-<entry>criteria</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-<row>
-<entry>remsad7.cb4mpm</entry>
-<entry>REMSAD v7</entry>
-<entry>
-<simplelist>
-<member>criteria</member>
-<member>toxics</member>
-</simplelist>
-</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-<entry>X</entry>
-</row>
-
-<row>
-<entry namest="c1" nameend="c8">*Does not work for SO<subscript>2</subscript>, NH<subscript>3</subscript>, PM<subscript>2.5</subscript>, and PM<subscript>10</subscript> for this model and/or mechanism. These pollutants must not be included in the inventory when using this speciation setting for these models.</entry>
-</row>
-</tbody>
-
-</tgroup>
-</table>
-
-<itemizedlist>
-<listitem>
-<para>cmaq.cb4p25:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for CMAQ, MAQSIP, UAM, and CAM<subscript>X</subscript> for Carbon Bond 4 only (when Keep = N for all PM pollutants in <envar>INVTABLE</envar> file or inventory does not include PM pollutants)</para>
-</listitem>
-<listitem>
-<para>Use for CMAQ for Carbon Bond 4 VOC speciation and PM<subscript>2.5</subscript> speciation (no mercury)</para>
-</listitem>
-<listitem>
-<para>Use for BEIS3 modeling for all models for CB5</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>cmaq.cb4p25_wtox:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for CMAQ for CB5 and PM, and for MAQSIP, UAM, and CAM<subscript>X</subscript> for CB5 only</para>
-</listitem>
-<listitem>
-<para>Modeling with both criteria and toxics inventories for the standard CB5 chemical mechanism. The on-road mobile <envar>GSPRO</envar> file is different from that of the other source categories.</para>
-</listitem>
-<listitem>
-<para>Use for BEIS3 modeling for all models for CB5.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>cmaq.cb4tx1p25:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for CMAQ modeling only with both criteria and toxics inventories for the <quote>toxics-CB5</quote> chemical mechanism. This works for all source categories, including BEIS3 modeling. The <envar>GSPRO</envar> and <envar>GSREF</envar> files are different for on-road mobile sources, and the <envar>GSREF</envar> file is different for the point sources.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>cmaq.radm2p25:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for CMAQ with RADM2 chemical mechanism, with or without PM emissions. This works for all source categories, including BEIS3 modeling.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>cmaq.saprc99pm:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for CMAQ with SAPRC 99 chemical mechanism. This works for all source categories, including BEIS3 modeling. The <envar>GSPRO</envar> file is different for on-road mobile sources.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>maqsip.radm2pm:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for MAQSIP with RADM2 chemical mechanism, with or without PM emissions. This works for all source categories, including BEIS3 modeling.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>remsad.cb4mpm:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for REMSAD version 6 with micro-CB5 and PM emissions. This works for all source categories, including BEIS3 modeling.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-<listitem>
-<para>remsad7.cb4mpm:</para>
-
-<itemizedlist>
-<listitem>
-<para>Use for REMSAD version 7 for micro-CB5 and speciated PM<subscript>2.5</subscript> emissions. Use also for mercury and cadmium modeling. This works for all source categories, including BEIS3 modeling.</para>
-</listitem>
-</itemizedlist>
-
-</listitem>
-</itemizedlist>
 </listitem>
 
 <listitem>
 <para>Determine whether VOC-to-TOG or ROG-to-TOG is needed and set script accordingly.</para>
 
-<para>If your inventory contains the pollutant VOC or ROG and you are modeling for CMAQ, MAQSIP, UAM, or CAM<subscript>X</subscript>, then you will need to use SMOKE&rsquo;s <envar>GSCNV</envar> file to convert the VOC or ROG mass to TOG mass.</para>
+<para>If your inventory contains the pollutant VOC or ROG and you are modeling for CMAQ, UAM, or CAM<subscript>X</subscript>, then you will need to use SMOKE&rsquo;s <envar>GSCNV</envar> file to convert the VOC or ROG mass to TOG mass.</para>
 
 <para>The SMOKE <command>Spcmat</command> program will use the <envar>GSCNV</envar> file if the <envar>POLLUTANT_CONVERSION</envar> setting in the script is Y. This is the default configuration for the CMAQ run scripts.</para>
 
-<para>If you are using one of the REMSAD models or if your inventory contains TOG, then the <envar>POLLUTANT_CONVERSION</envar> setting in the run script should be set to N.</para>
+<para>If your inventory contains TOG, then the <envar>POLLUTANT_CONVERSION</envar> setting in the run script should be set to N.</para>
 </listitem>
 
 <listitem>
@@ -2054,9 +1790,6 @@ grep ERROR *
 </listitem>
 <listitem>
 <para>For CMAQ, UAM, and CAM<subscript>X</subscript> and the pollutant is VOC or ROG, check that the TOG profiles are in the <envar>GSPRO</envar> file.</para>
-</listitem>
-<listitem>
-<para>For REMSAD and the pollutant is VOC, check that the VOC profiles are in the <envar>GSPRO</envar> file.</para>
 </listitem>
 <listitem>
 <para>For all models and all other pollutants, check that the profiles are included in the <envar>GSPRO</envar> file.</para>
@@ -2079,7 +1812,7 @@ grep ERROR *
 <listitem>
 <para>Create and install the <envar>GSPRO</envar> file.</para>
 
-<para>If only a few changes will be made to a <envar>GSPRO</envar> file (like adding some more toxic species for REMSAD), you can simply copy an existing <envar>GSPRO</envar> file to a new file. If more extensive changes are needed to create a new mechanism, currently, there is no utility for creating a <envar>GSPRO</envar> file in SMOKE. <comment>There is a system in development that will be available in early 2004.</comment> For now, users must use the file format in <xref linkend="ch_input_files" /> and a high degree of expertise to develop new <envar>GSPRO</envar> files.</para>
+<para>If only a few changes will be made to a <envar>GSPRO</envar> file, you can simply copy an existing <envar>GSPRO</envar> file to a new file. If more extensive changes are needed to create a new mechanism, currently, there is no utility for creating a <envar>GSPRO</envar> file in SMOKE. <comment>There is a system in development that will be available in early 2004.</comment> For now, users must use the file format in <xref linkend="ch_input_files" /> and a high degree of expertise to develop new <envar>GSPRO</envar> files.</para>
 
 <para>Install the <envar>GSPRO</envar> file in the <filename class="directory"><envar>$GE_DAT</envar></filename> directory. For the default <envar>GSPRO</envar> file for that chemical mechanism (i.e., the one that applies to the most source categories), name the file <filename>gspro.<envar>$SPC</envar>.txt</filename>. If your speciation profile is specific to a certain source category, name the <envar>GSPRO</envar> file as follows:</para>
 
@@ -2197,7 +1930,7 @@ grep ERROR *
 
 <title>Changing the definition of NONHAPVOC or NONHAPTOG</title>
 
-<para>The definition of NONHAPVOC and NONHAPTOG simply must be consistent between the <envar>GSPRO</envar> file and the <envar>INVTABLE</envar> file. This change applies only to chemical mechanisms that use VOC model species and can therefore benefit from the integration of toxics and criteria VOC. This includes all models that SMOKE supports except REMSAD.</para>
+<para>The definition of NONHAPVOC and NONHAPTOG simply must be consistent between the <envar>GSPRO</envar> file and the <envar>INVTABLE</envar> file. This change applies only to chemical mechanisms that use VOC model species and can therefore benefit from the integration of toxics and criteria VOC. This includes all models that SMOKE supports.</para>
 
 <orderedlist>
 <listitem>
@@ -2501,7 +2234,7 @@ grep ERROR *
 <para><envar>MEPROC</envar>: Mobile emission processes</para>
 </listitem>
 <listitem>
-<para><envar>MCXREF</envar>: Mobile reference county cross-reference file</para>
+<para><envar>MCXREF</envar>: Mobile representative county cross-reference file</para>
 </listitem>
 <listitem>
 <para><envar>MFMREF</envar>: Mobile fuel month file</para>
@@ -2545,7 +2278,7 @@ grep ERROR *
 <para>When integrating toxics HAPs and criteria TOG and using MOVES, the NONHAPTOG definition in the <envar>INVTABLE</envar> file and <envar>GSPRO</envar> files must be consistent.</para>
 </listitem>
 <listitem>
-<para>The <envar>MCXREF</envar> file should assign reference counties for all counties for which you provide VMT data in the inventory.</para>
+<para>The <envar>MCXREF</envar> file should assign representative counties for all counties for which you provide VMT data in the inventory.</para>
 </listitem>
 </itemizedlist>
 
@@ -2553,16 +2286,16 @@ grep ERROR *
 
 <section>
 
-<title>Changing reference counties</title>
+<title>Changing representative counties</title>
 
-<para>Reference counties have previously been explained in <xref linkend="sect_concepts_reference_counties_moves" />. The <envar>MCXREF</envar> file assigns reference counties for each county in your domain. To change the reference counties, this file should be edited to assign different reference counties to each county in the inventory. After editing this file, you must make sure that no counties in the inventory have been left out of the file.</para>
+<para>Representative counties have previously been explained in <xref linkend="sect_concepts_reference_counties_moves" />. The <envar>MCXREF</envar> file assigns representative counties for each county in your domain. To change the representative counties, this file should be edited to assign different representative counties to each county in the inventory. After editing this file, you must make sure that no counties in the inventory have been left out of the file.</para>
 
 </section>
 <section>
 
-<title>Changing fuel month for reference counties</title>
+<title>Changing fuel month for representative counties</title>
 
-<para>Reference fuel month have previously been explained in <xref linkend="sect_concepts_moves_reference_fuel_month" />. The <envar>MFMREF</envar> file assigns fuel month for each reference county in your domain. To change the fuel month, this file should be edited to assign a different fuel month to each reference county in the inventory. User must meet the criteria to share the same fuel month between reference counties.</para>
+<para>Reference fuel month have previously been explained in <xref linkend="sect_concepts_moves_reference_fuel_month" />. The <envar>MFMREF</envar> file assigns fuel month for each representative county in your domain. To change the fuel month, this file should be edited to assign a different fuel month to each representative county in the inventory. User must meet the criteria to share the same fuel month between representative counties.</para>
 </section>
 
 </section>
@@ -2913,13 +2646,10 @@ grep ERROR *
 
 <itemizedlist>
 <listitem>
-<para>You are running UAM, REMSAD, or CAM<subscript>X</subscript> including elevated point sources and/or PinG sources.</para>
+<para>You are running UAM or CAM<subscript>X</subscript> including elevated point sources and/or PinG sources.</para>
 </listitem>
 <listitem>
 <para>You are running CMAQ and want to select specific elevated sources or want to model with the PinG capability.</para>
-</listitem>
-<listitem>
-<para>You are running MAQSIP and want to select specific elevated sources.</para>
 </listitem>
 </itemizedlist>
 
@@ -3012,9 +2742,9 @@ grep ERROR *
 <listitem>
 <para>Determine what format your air quality model will accept for meteorology data and convert data to I/O API format if needed.</para>
 
-<para>If you are modeling with CMAQ or MAQSIP, then the data will be in the I/O API format created by MCIP or MCPL that SMOKE can accept. If you are modeling with UAM, REMSAD, or CAM<subscript>X</subscript>, then you must check to see which meteorology format the model accepts. Some versions of these models can use the same I/O API format as for CMAQ, but some cannot.</para>
+<para>If you are modeling with CMAQ, then the data will be in the I/O API format created by MCIP or MCPL that SMOKE can accept. If you are modeling with UAM or CAM<subscript>X</subscript>, then you must check to see which meteorology format the model accepts. Some versions of these models can use the same I/O API format as for CMAQ, but some cannot.</para>
 
-<para>If your meteorology data are not in the correct format, then you will need to convert the data. There is currently no utility provided with SMOKE to convert the meteorology format needed by some versions of UAM, REMSAD, and CAM<subscript>X</subscript> to SMOKE input format.</para>
+<para>If your meteorology data are not in the correct format, then you will need to convert the data. There is currently no utility provided with SMOKE to convert the meteorology format needed by some versions of UAM and CAM<subscript>X</subscript> to SMOKE input format.</para>
 </listitem>
 <listitem>
 <para>Ensure required variables are included in meteorology data</para>
@@ -3056,6 +2786,8 @@ grep ERROR *
 <para>Heat Flux (BTU/hr) = [ Area Burned (acre/day) x Fuel Loading (tons/acre) x Heat Content (BTU/lb) x (2000lb/ton) ] /  Duration of fire (hr/day) </para>
 </listitem>
 </orderedlist>
+
+<para>Detail information on how the fire emissions are calculated can be found on the proceeding presented by <ulink url="https://www3.epa.gov/ttnchie1/conference/ei14/session12/pouliot.pdf">Pouliot et al., (2005)</ulink>.</para>
 
 <para>The SMOKE plume rise requires two ORL formatted files for wildfire/prescribed fires. The master #ORL FIRE file (<xref linkend="sect_input_ptinv_fire" />) contains the fire characteristics including country/state/county code, fire idenfication code, geographic coordinate, fire name, heat content, material burned and NFDRS code.  The day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>) includes daily pollutant emissions, area burned, fuel loading, optional heat flux, and fire begining and ending time. Starting with SMOKE version 3.7, <command>Smkinven</command> can process these master and daily fire inventories with precomputed heat flux using current point FF10 formats, #FF10_POINT file (<quote><xref linkend="sect_input_ptinv_ff10" /></quote>) and #FF10_DAILY_FF10 file (<quote><xref linkend="sect_input_ptday_ff10" /></quote>)</para>
 
@@ -3222,18 +2954,18 @@ grep ERROR *
 
 <section id="sect_scripts_model_cmaq">
 
-<title>Model for CMAQ and MAQSIP</title>
+<title>Model for CMAQ</title>
 
-<para>In this section, we attempt to give a basic outline of the considerations for script reconfiguration needed for SMOKE output for the CMAQ and MAQSIP models. All models require <command>Smkmerge</command> to be configured for outputting gridded data, with speciation, and with hourly emissions. The following configurations are needed when modeling for CMAQ and MAQSIP.</para>
+<para>In this section, we attempt to give a basic outline of the considerations for script reconfiguration needed for SMOKE output for the CMAQ model. All models require <command>Smkmerge</command> to be configured for outputting gridded data, with speciation, and with hourly emissions. The following configurations are needed when modeling for CMAQ.</para>
 
 <orderedlist>
 <listitem>
-<para>Make sure the chemical speciation is set for one of the CMAQ or MAQSIP chemical  mechanisms.</para>
+<para>Make sure the chemical speciation is set for one of the CMAQ chemical mechanism.</para>
 
 <para>This check involves the <envar>SPC</envar> setting, explained in <xref linkend="sect_scripts_change_speciation" />.</para>
 </listitem>
 <listitem>
-<para>Set the basic settings for CMAQ or MAQSIP.</para>
+<para>Set the basic settings for CMAQ.</para>
 
 <itemizedlist>
 <listitem>
@@ -3268,9 +3000,7 @@ grep ERROR *
 
 <para>CMAQ expects output units of moles/s. For biogenic processing, this requires the <command>Smkmerge</command> program to be run to convert the moles/hr units output by <command>Tmpbio</command> or <command>Tmpbeis3</command> to moles/s.</para>
 
-<para>MAQSIP expects output units of moles/hr.</para>
-
-<para>Set the <envar>MRG_GRDOUT_UNIT</envar> setting in the run script to either moles/s (for CMAQ) or moles/hr (for MAQSIP). For biogenics processing, make sure <envar>RUN_SMKMERGE</envar> is set to Y.</para>
+<para>Set the <envar>MRG_GRDOUT_UNIT</envar> setting in the run script to either moles/s (for CMAQ). For biogenics processing, make sure <envar>RUN_SMKMERGE</envar> is set to Y.</para>
 </listitem>
 
 <listitem>
@@ -3305,7 +3035,7 @@ grep ERROR *
 
 </listitem>
 <listitem>
-<para>Select specific elevated sources for CMAQ or MAQSIP and calculate plume rise only for those.</para>
+<para>Select specific elevated sources for CMAQ and calculate plume rise only for those.</para>
 
 <para>Use the same settings as in part (a) above, except:</para>
 
@@ -3343,7 +3073,7 @@ grep ERROR *
 <listitem>
 <para>Configure approach for plume rise for explicit plume rise sources.</para>
 
-<para>Explicit plume rise sources (i.e., sources for which plume rise has been computed outside of SMOKE) require additional precomputed plume rise information, previously described for inventory data import in <xref linkend="sect_scripts_hour_day_invs" />. In addition to these data for CMAQ or MAQSIP modeling, the following settings must be made in the run scripts. These settings are in addition to the other configurations you need for the other point sources described above. <remark>If the only point sources in your inventory are explicit plume rise sources, then use the settings described in steps 3 and 5a above.</remark></para>
+<para>Explicit plume rise sources (i.e., sources for which plume rise has been computed outside of SMOKE) require additional precomputed plume rise information, previously described for inventory data import in <xref linkend="sect_scripts_hour_day_invs" />. In addition to these data for CMAQ modeling, the following settings must be made in the run scripts. These settings are in addition to the other configurations you need for the other point sources described above. <remark>If the only point sources in your inventory are explicit plume rise sources, then use the settings described in steps 3 and 5a above.</remark></para>
 
 <itemizedlist>
 <listitem>
@@ -3358,16 +3088,16 @@ grep ERROR *
 
 <section id="sect_scripts_model_uam">
 
-<title>Model for UAM, REMSAD, and CAM<subscript>X</subscript></title>
+<title>Model for UAM and CAM<subscript>X</subscript></title>
 
 <orderedlist>
 <listitem>
-<para>Make sure the chemical speciation is set for one of the UAM, REMSAD, or CAM<subscript>X</subscript> chemical mechanisms.</para>
+<para>Make sure the chemical speciation is set for one of the UAM or CAM<subscript>X</subscript> chemical mechanisms.</para>
 
 <para>This check involves the <envar>SPC</envar> setting, explained in <xref linkend="sect_scripts_change_speciation" />. Please note that the files and setup needed for CAM<subscript>X</subscript>-PM are not available in SMOKE v2.1.</para>
 </listitem>
 <listitem>
-<para>Set the basic settings for UAM, REMSAD, and CAM<subscript>X</subscript></para>
+<para>Set the basic settings for UAM and CAM<subscript>X</subscript></para>
 
 <para>In these settings, we will configure the system to select elevated point sources using the <command>Elevpoint</command> program, but not PinG sources.</para>
 
@@ -3426,7 +3156,7 @@ grep ERROR *
 <listitem>
 <para>Configure approach for plume rise for explicit plume rise sources.</para>
 
-<para>Explicit plume rise sources (i.e., sources for which plume rise has been computed outside of SMOKE) require additional precomputed plume rise information, previously described for inventory data import in <xref linkend="sect_scripts_hour_day_invs" />. In addition to these data for UAM, REMSAD, and CAM<subscript>X</subscript> modeling, the following settings must be made in the run scripts. These settings are in addition to the other configurations you need for the other point sources described above. <remark>If the only point sources in your inventory are explicit plume rise sources, then use the settings described in steps 2 and 3 above.</remark></para>
+<para>Explicit plume rise sources (i.e., sources for which plume rise has been computed outside of SMOKE) require additional precomputed plume rise information, previously described for inventory data import in <xref linkend="sect_scripts_hour_day_invs" />. In addition to these data for UAM and CAM<subscript>X</subscript> modeling, the following settings must be made in the run scripts. These settings are in addition to the other configurations you need for the other point sources described above. <remark>If the only point sources in your inventory are explicit plume rise sources, then use the settings described in steps 2 and 3 above.</remark></para>
 
 <itemizedlist>
 <listitem>
@@ -3599,7 +3329,7 @@ grep ERROR *
 
 <section id="sect_scripts_source_apportionment">
 
-<title>Output source apportionment data</title>
+<title>Generating CMAQ-ready Source Apportionment Input Data Files</title>
 
 <para>Source apportionment in SMOKE consists of grouping sources by characteristics (i.e. FIPS code, SCC, and point source information) and then tagging the emissions from those groupings for further analysis in the air quality model. The SMOKE programs <command>Movesmrg</command> and <command>Smkmerge</command> can optionally output the emissions in special files used for later source apportionment processing.</para>
 
@@ -3671,6 +3401,28 @@ grep ERROR *
 </orderedlist>
 
 </section>
+
+<section id="sect_scripts_aermod">
+
+<title>Generating AERMOD-ready Input Data Files [SMOKE4AERMOD)</title>
+
+<para>As of SMOKE v4.5, The <ulink url="https://github.com/CEMPD/SMOKE/tree/master/scripts/aermod">SMOKE4AERMOD</ulink> postprocessing scripts have been developed for SMOKE to generate the SMOKE-compatible inventory-based AERMOD-ready input data files for AERMOD modeling run in chi/q mode as a part of <ulink url="https://www.epa.gov/national-air-toxics-assessment/nata-overview">U.S. EPA National Air Toxics Assessment (NATA)</ulink> studies support. The NATA is an EPA&rsquo;s screening tool of ongoing review of air toxics in the United States for states, local and tribal agencies. NATA's results will help these agencies identify which pollutatns, emission sources and places they may wish to study further to better understand any possible risks to public health air toxics.</para>
+<para>These postprocessing scripts creates <quote>helper</quote> files for several inventory sectors listed below.</para> 
+
+<orderedlist>
+<listitem><para>Nonpoint Sources : nonpt</para></listitem>
+<listitem><para>Nonpoint Oil and Gas Sources : np_oilgas</para></listitem>
+<listitem><para>Point Energy Generating Unit Sources : ptegu</para></listitem>
+<listitem><para>Point Non-Integrated Planning Model Sources : ptnonipm</para></listitem>
+<listitem><para>Point Airports Sources : ptairport</para></listitem>
+<listitem><para>Nonroad Mobile Sources : nonroad</para></listitem>
+<listitem><para>Onroad Mobile Sources : Onroad</para></listitem>
+<listitem><para>Residential Wood Combustion Sources : RWC</para></listitem>
+<listitem><para>Commercial Marine Vessel Sources : CMV</para></listitem>
+</orderedlist>
+</section>
+
+
 
 </section>
 

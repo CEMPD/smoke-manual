@@ -1347,7 +1347,7 @@
 <para>Type: ASCII - column-specific</para>
 
 <para>Used by: <link linkend="section_moves_driver_script"> MOVES Driver Script</link></para>
-<para>The output file created by <command>Met4moves</command> for RPP mode in the MOVES driver script contains the absolute minimum and maximum temperatures, and sets of 24 hour diurnal temperature profiles based on combinations of min/max temperature bins for all reference counties by temperature bin.</para>
+<para>The output file created by <command>Met4moves</command> for RPP mode in the MOVES driver script contains the absolute minimum and maximum temperatures, and sets of 24 hour diurnal temperature profiles based on combinations of min/max temperature bins for all representative counties by temperature bin.</para>
 
 <table>
 <title>File columns in <envar>MOVES_OUTFILE</envar></title>
@@ -1371,7 +1371,7 @@
 <entry>A</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
-<entry>Reference County</entry>
+<entry>Representative County</entry>
 </row>
 <row>
 <entry colname="Column">B</entry>
@@ -1433,7 +1433,7 @@
 <para>Type: ASCII - column-specific</para>
 
 <para>Used by: <link linkend="section_moves_driver_script"> MOVES Driver Script</link></para>
-<para>The output file created by <command>Met4moves</command> program for RPD, RPV and RPH modes in both MOVES and SMOKE models contains fuel month-specific min and max temperatures, and averaged RH values in local time for all reference counties by temperature bin.</para>
+<para>The output file created by <command>Met4moves</command> program for RPD, RPV and RPH modes in both MOVES and SMOKE models contains fuel month-specific min and max temperatures, and averaged RH values in local time for all representative counties by temperature bin.</para>
 <table>
 <title>File columns in <envar>MOVES_RH_OUTFILE</envar></title>
 <tgroup cols="4">
@@ -1456,7 +1456,7 @@
 <entry colnam="Column">A</entry>
 <entry>Integer</entry>
 <entry>Unitless</entry>
-<entry>Reference County</entry>
+<entry>Representative County</entry>
 </row>
 <row>
 <entry colname="Column">B</entry>

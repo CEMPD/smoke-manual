@@ -234,16 +234,16 @@
 <para>Region: Country/state/county code (CSSYYY where C=country, SS=state, and YYY=county)</para>
 </listitem>
 <listitem>
-<para>Plant: Inventory facility ID</para>
+<para>Plant: Facility ID (FF10), Plant ID (ORL)</para>
 </listitem>
 <listitem>
-<para>Char 1: For IDA inventory, Point ID</para>
+<para>Char 1: Unity ID (FF10), Point ID (ORL)</para>
 </listitem>
 <listitem>
-<para>Char 2: For IDA inventory, Stack ID</para>
+<para>Char 2: Release Point ID (FF10), Stack ID (ORL)</para>
 </listitem>
 <listitem>
-<para>Char 3: For IDA inventory, Segment ID</para>
+<para>Char 3: Process ID (FF10), Segment ID (ORL)</para>
 </listitem>
 <listitem>
 <para>Char 4: For IDA inventory, SCC</para>

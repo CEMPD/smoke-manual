@@ -60,7 +60,7 @@
 <glossentry>
 <glossterm>Chemical mechanism</glossterm>
 <glossdef>
-<para>A set of chemical species and their interactions used to represent air chemistry (e.g., carbon bond 4 [CB4], Regional Acid Deposition Model [RADM], Statewide Air Pollution Research Center [SAPRC]).</para>
+<para>A set of chemical species and their interactions used to represent air chemistry (e.g., carbon bond 6 [CB6], Statewide Air Pollution Research Center [SAPRC]).</para>
 </glossdef>
 </glossentry>
 
@@ -426,9 +426,9 @@
 
 <glossdiv><title>R</title>
 <glossentry>
-<glossterm>Reference County</glossterm>
+<glossterm>Representative County</glossterm>
 <glossdef>
-<para>Reference county is used to represent a set of counties that have the a constant set of fuel parameters (distribution of fuels over the year), fleet age distritution, inspection/maintenance (I/M) programs, similar community characteristics (e.g. urban vs rural) and similar meteorological conditions (e.g. temperature and relative humidity). Variables that can vary within the counties represented by a representative county include vehicle miles traveled (VMT), source type vehicle population, roadway speed and grid cell temperatures. By specifying a representative county the user is able to reduce the computational time of MOVES by using a single county to represent a set of counties.</para>
+<para>Representative county is used to represent a set of counties that have the a constant set of fuel parameters (distribution of fuels over the year), fleet age distritution, inspection/maintenance (I/M) programs, similar community characteristics (e.g. urban vs rural) and similar meteorological conditions (e.g. temperature and relative humidity). Variables that can vary within the counties represented by a representative county include vehicle miles traveled (VMT), source type vehicle population, roadway speed and grid cell temperatures. By specifying a representative county the user is able to reduce the computational time of MOVES by using a single county to represent a set of counties.</para>
 </glossdef>
 </glossentry>
 </glossdiv>

@@ -152,7 +152,7 @@
 <entry><envar>ELEVTS_[L|S]</envar></entry>
 <entry>ASCII</entry>
 <entry>P</entry>
-<entry>Elevated point-source file written by <command>Smkmerge</command> for REMSAD, UAM, and CAM<subscript>X</subscript> modeling. See <envar>MRG_GRDOUT_UNIT</envar> environment variable setting in <xref linkend="sect_qa_smkreport_envar" />.</entry>
+<entry>Elevated point-source file written by <command>Smkmerge</command> for UAM and CAM<subscript>X</subscript> modeling. See <envar>MRG_GRDOUT_UNIT</envar> environment variable setting in <xref linkend="sect_qa_smkreport_envar" />.</entry>
 </row>
 <row>
 	<entry><envar>GEOCODE_LEVEL[1-4]</envar></entry>

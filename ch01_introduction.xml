@@ -12,7 +12,7 @@
 
 <para>The MCNC Environmental Modeling Center (EMC) created the Sparse Matrix Operator Kernel Emissions (SMOKE) Modeling System to allow emissions data processing methods to integrate high-performance-computing (HPC) sparse-matrix algorithms. The SMOKE system is a significant addition to the available resources for decision-making about emissions controls for both urban and regional applications. It provides a mechanism for preparing specialized inputs for air quality modeling research, and it makes air quality forecasting possible. The SMOKE system continues to develop and improve at the University of North Carolina at Chapel Hill&rsquo;s Institute for the Environment (IE).</para>
 
-<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA). The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms (described in more detail in <xref linkend="sect_concepts_chemical_processing" />) and (2) emissions processing for reactivity assessments (described in <xref linkend="sect_concepts_create_reactivity" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE v1.5. In 2003, SMOKE v2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE v2.1, released in 2004, included updated versions of the BEIS3 and MOBILE6.2 models, the ability to use humidity data when processing on-road mobile sources with MOBILE6, and support for polar stereographic output grids. In 2009, SMOKE v2.6 enhanced the processing of fire data, streamlined the processing for CAMx, REMSAD, and UAM models, and added a new approach to processing CEM data. Version 2.7, SMOKE was enhanced to support processing the MOVES (MOter Vehicle Emission Simulator) emission rates output through the SMOKE system to model on-roadway and off-network mobile sources. As of version 4.0 SMOKE is enhanced to support hemispheric modeling by enabling the processing of global gridded emission inventories, such as EDGAR, for input to chemistry-tranport models.</para>
+<para>The SMOKE prototype, available since 1996, was an effective tool for emissions processing in a number of regional air quality modeling applications. In 1998 and 1999, SMOKE was redesigned and improved with the support of the U.S. Environmental Protection Agency (EPA). The primary purposes of the first SMOKE redesign were support of (1) emissions processing with user-selected chemical mechanisms (described in more detail in <xref linkend="sect_concepts_chemical_processing" />) and (2) emissions processing for reactivity assessments (described in <xref linkend="sect_concepts_create_reactivity" />). In 2002, SMOKE was enhanced to support driving the MOBILE6 model used to create on-road mobile emission factors and to support on-road and nonroad mobile toxics inventories, resulting in SMOKE v1.5. In 2003, SMOKE v2.0 was created to include all toxic inventories, including point and nonpoint (stationary sources reported at the county level) sources. SMOKE v2.1, released in 2004, included updated versions of the BEIS3 and MOBILE6.2 models, the ability to use humidity data when processing on-road mobile sources with MOBILE6, and support for polar stereographic output grids. In 2009, SMOKE v2.6 enhanced the processing of fire data, streamlined the processing for CAMx and UAM models, and added a new approach to processing CEM data. Version 2.7, SMOKE was enhanced to support processing the MOVES (MOter Vehicle Emission Simulator) emission rates output through the SMOKE system to model on-roadway and off-network mobile sources. As of version 4.0 SMOKE is enhanced to support hemispheric modeling by enabling the processing of global gridded emission inventories, such as EDGAR, for input to chemistry-tranport models.</para>
 
 <para>SMOKE can process criteria gaseous pollutants such as carbon monoxide (CO), nitrogen oxides (NO<subscript>x</subscript>), volatile organic compounds (VOC), ammonia (NH<subscript>3</subscript>), sulfur dioxide (SO<subscript>2</subscript>); particulate matter (PM) pollutants such as PM 2.5 microns or less (PM<subscript>2.5</subscript>) and PM less than 10 microns (PM<subscript>10</subscript>); as well as a large array of toxic pollutants, such as mercury, cadmium, benzene, and formaldehyde. In fact, SMOKE has no limitation regarding the number or types of pollutants it can process.</para>
 
@@ -28,8 +28,6 @@
 
 <itemizedlist spacing="compact">
 <listitem>Community Multiscale Air Quality (CMAQ) modeling system</listitem>
-<listitem>Multiscale Air Quality Simulation Platform (MAQSIP)</listitem>
-<listitem>Regulatory Modeling System for Aerosols and Deposition (REMSAD)</listitem>
 <listitem>Comprehensive Air Quality Model, with Extensions (CAM<subscript>X</subscript>)</listitem>
 <listitem>Urban Airshed Model, version 4 (UAM-IV)</listitem>
 <listitem>Urban Airshed Model, Variable grid (UAM-V)</listitem>
@@ -185,12 +183,6 @@
     <itemizedlist>
     <listitem>
     <para>Community Multiscale Air Quality (CMAQ) model: part of the Models-3 system. SMOKE v2.0 and later supports a research toxics version of CMAQ for non-point (stationary area) sources, nonroad mobile sources, on-road mobile sources, point sources, and biogenic sources.</para>
-    </listitem>
-    <listitem>
-    <para>Multiscale Air Quality Simulation Platform (MAQSIP): for both standard and real-time air quality modeling. Also MAQSIP-PM as an alternative system for modeling regional haze.</para>
-    </listitem>
-    <listitem>
-    <para>Regulatory Modeling System for Aerosols and Deposition (REMSAD)</para>
     </listitem>
     <listitem>
     <para>Comprehensive Air Quality Model, with Extensions (CAM<subscript>X</subscript>)</para>

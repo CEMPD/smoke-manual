@@ -8,8 +8,8 @@
 
 <title>Introduction</title>
 
-<para>Instructions on how to download and install SMOKE are provided in <xref linkend="sect_install_download" /> and <xref linkend="sect_install_install" />. <xref linkend="sect_install_compile" /> describes how to compile SMOKE for UNIX platforms other than those supported by CMAS. The SMOKE compile scripts are configured to use a UNIX C-shell environment, so they are not useful for creating Windows-based SMOKE files; using SMOKE with any version of the Windows operating system is not supported. If your operating system is one of the types supported by CMAS, you need only to download the SMOKE executables available from the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>.</para>
-
+<para>Instructions on how to download and install SMOKE are provided in <xref linkend="sect_install_download" /> and <xref linkend="sect_install_install" />. <xref linkend="sect_install_compile" /> describes how to compile SMOKE for UNIX platforms other than those supported by CMAS. The SMOKE compile scripts are configured to use a Linux C-shell environment, and are not designed for Windows or Mac operating systems. Using SMOKE on operating systems other than Linux is not supported by CMAS. If your operating system is one of the types supported by CMAS, you need only to download the SMOKE executables available from the <ulink url="http://www.cmascenter.org/html/models.html">CMAS Model Clearinghouse</ulink>.</para>
+<para><command>IMPORTANT</command>: Most SMOKE applications will use the pre-compiled Linux binaries. You only need to compile SMOKE for developing new functionality, debugging the source code, or porting the software to operating systems other than Linux.</para>
 </section>
 
 <section id="sect_install_download">
@@ -100,7 +100,7 @@
 
 <title>Compiling SMOKE for UNIX</title>
 
-<para>If the executables for your platform are not available from the CMAS web site, you will need to compile SMOKE for your system. You may also need to compile SMOKE if you would like to modify the source code. The following steps will help get you set up to compile SMOKE.</para>
+<para>Unless you are planning to modify the SMOKE source codes, DO NOT try to compile the codes; use the precompiled binary Linux executables provided by the CMAS Center. Also, if the precompiled executables are not compatible with your OS platform, you will need to compile SMOKE for your system. The SMOKE compile scripts are configured to use a Linux C-shell environment, and are not designed for Windows or Mac operating systems. Using SMOKE on operating systems other than Linux is not supported by CMAS. The following steps will help get you set up to compile SMOKE.</para>
 
 <itemizedlist>
 

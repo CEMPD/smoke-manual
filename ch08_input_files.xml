@@ -1006,7 +1006,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>5</entry>
 <entry>SHAPE_ID</entry>
 <entry>Char</entry>
-<entry>Shape ID (optional; not currently used by SMOKE</entry>
+<entry>Shape Identification (optional; recommended)</entry>
 </row>
 <row>
 <entry>6</entry>
@@ -1028,7 +1028,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>9</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant Code (required)</entry>
 </row>
@@ -1160,13 +1160,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>4</entry>
 <entry>CENSUS_TRACT</entry>
 <entry>Char</entry>
-<entry>Census tract ID (optional; not currently used by SMOKE</entry>
+<entry>Census tract ID (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>SHAPE_ID</entry>
 <entry>Char</entry>
-<entry>Shape ID (optional; not currently used by SMOKE</entry>
+<entry>Shape Identification (optional; recommended)</entry>
 </row>
 <row>
 <entry>6</entry>
@@ -1188,7 +1188,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>9</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant Code (required)</entry>
 </row>
@@ -1353,13 +1353,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>4</entry>
 <entry>CENSUS_TRACT</entry>
 <entry>Char</entry>
-<entry>Census tract ID (optional; not currently used by SMOKE</entry>
+<entry>Census tract ID (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>SHAPE_ID</entry>
 <entry>Char</entry>
-<entry>Shape ID (optional; not currently used by SMOKE</entry>
+<entry>Shape Identification (optional; recommended)</entry>
 </row>
 <row>
 <entry>6</entry>
@@ -1375,7 +1375,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>8</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant Code (required)</entry>
 </row>
@@ -1584,7 +1584,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>7</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant CAS number or other name (16 characters maximum) (required; this is called the pollutant code in the NIF)</entry>
 </row>
@@ -1821,7 +1821,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>3</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant CAS number or other name (required; this is called the pollutant code in the NIF)</entry>
 </row>
@@ -2058,7 +2058,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>3</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant CAS number or other name (required; this is called the pollutant code in the NIF)</entry>
 </row>
@@ -2223,8 +2223,8 @@ In this overview section, we first provide a few important notes about file form
 <entry>5</entry>
 <entry>SHAPE_ID</entry>
 <entry>Char(20)</entry>
-<entry>N</entry>
-<entry>Not currently used by SMOKE</entry>
+<entry>Char</entry>
+<entry>Shape Identification (optional; recommended)</entry>
 </row>
 <row>
 <entry>6</entry>
@@ -2374,26 +2374,26 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
-<entry>Char(15)</entry>
-<entry>Facility Identification Code (required; this is the same as the Plant ID in the ORL Format)</entry>
+<entry>Char(20)</entry>
+<entry>Facility Identification Code (required; same as the Plant ID in the ORL format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char(15)</entry>
-<entry>Unit Identification Code (required; this is the same as the Point ID in the ORL Format) (required)</entry>
+<entry>Char(20)</entry>
+<entry>Unit Identification Code (required; same as the Point ID in the ORL format) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry>Char(15)</entry>
-<entry>Release Point Identification Code (recommended; this is the same as the Stack ID in the ORL Format)</entry>
+<entry>Char(20)</entry>
+<entry>Release Point Identification Code (recommended; same as the Stack ID in the ORL format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char(15)</entry>
-<entry>Process Identification Code characters (recommended; this is the same as the Segment ID in the ORL Format)</entry>
+<entry>Char(20)</entry>
+<entry>Process Identification Code characters (recommended; same as the Segment ID in the ORL format)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -2403,7 +2403,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>9</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant Code (required)</entry>
 </row>
@@ -2481,7 +2481,7 @@ In this overview section, we first provide a few important notes about file form
 
 <section id="sect_input_ptday_fireemis">
 
-<title>ORL FIRE Emission Format</title>
+<title>ORL FIREEMIS Emission Format</title>
 
 <para>The SMOKE requires that the sources in the day-specific fires inventory format (<envar>#ORL FIREEMIS</envar>) <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information, such as <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are used to adjust the hourly temporal profile.</para>
 <para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para>
@@ -2491,7 +2491,7 @@ In this overview section, we first provide a few important notes about file form
 #TYPE    Day-specific Point Source Inventory for FIRES
 #COUNTRY US
 #YEAR    2002
-#DESC    FIPS,FIREID,LOCID,SCC,DATA,DATE,DATAVALUE,BEGHOUR,ENDHOUR</programlisting>
+#DESC    FIPS,FIREID,LOCID,SCC,DATA,DATE,DATA_VALUE,BEGHOUR,ENDHOUR</programlisting>
 
 <para>The format for the data records is shown in <xref linkend="tbl_input_ptday_fireemis" />.</para>
 
@@ -2523,13 +2523,13 @@ In this overview section, we first provide a few important notes about file form
 <row>
 <entry>2</entry>
 <entry>FIREID</entry>
-<entry>Char</entry>
+<entry>Char(20)</entry>
 <entry>Fire idenfication code (required)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>LOCID</entry>
-<entry>Char</entry>
+<entry>Char(15)</entry>
 <entry>Location identification code (required)</entry>
 </row>
 <row>
@@ -2540,7 +2540,7 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>5</entry>
-<entry>DATA</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>The pollutant codes, "ACRESCBURNED", or "FUEL_LOAD" (16 characters) (required)</entry>
 </row>
@@ -2552,9 +2552,9 @@ In this overview section, we first provide a few important notes about file form
 </row>
 <row>
 <entry>7</entry>
-<entry>DATAVALUE</entry>
+<entry>DATA_VALUE</entry>
 <entry>Real</entry>
-<entry>If the value of "DATA" is a particular pollutant, then this value represents the daily emissions associated with the particular pollutant (required)</entry>
+<entry>If "POLID" is a pollutant, it represents the daily total emissions (short tons/day). If not, ACRESBURNED in the unit of acres/day, FUEL_LOAD in the unit of tons/acres, and HEATFLUX in the unit of BTU/day. (required)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -2631,13 +2631,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>1</entry>
 <entry>ORISID</entry>
 <entry>Char (6)</entry>
-<entry>DOE Plant Identification Code (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
+<entry>DOE Plant Identification Code (required)</entry>
 </row>
 <row>
 <entry>2</entry>
 <entry>BLRID</entry>
 <entry>Char (6)</entry>
-<entry>Boiler Identification Code (required) (should match the same field in the <envar>PTINV</envar> file in IDA format)</entry>
+<entry>Boiler Identification Code (required)</entry>
 </row>
 <row>
 <entry>3</entry>
@@ -2808,25 +2808,25 @@ Sample header records for hourly point sources are shown below:
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
 <entry>Char(15)</entry>
-<entry>Facility Identification Code (required; this is the same as the Plant Identification Code in the ORL Format)</entry>
+<entry>Facility Identification Code (required; same as the Plant ID in the ORL format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Unit Identification Code (required; this is the same as the Emission Unit ID in the NIF) (required)</entry>
+<entry>Unit Identification Code (required; same as the Point ID in the ORL format)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Release Point Identification Code (required; this is the same as the Stack Identification Code in the ORL Format)</entry>
+<entry>Release Point Identification Code (required; same as the Stack ID in the ORL format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
 <entry>Char(15)</entry>
-<entry>Process Identification Code (recommended; this is the same as the Segment ID in the ORL Format)</entry>
+<entry>Process Identification Code (recommended; same as the Segment ID in the ORL format)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -2836,7 +2836,7 @@ Sample header records for hourly point sources are shown below:
 </row>
 <row>
 <entry>9</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant Code (required)</entry>
 </row>
@@ -2911,7 +2911,294 @@ Sample header records for hourly point sources are shown below:
 </table>
 
 </section>
+<section>
+
+<title>EMS-95 Format and EMS-95 Wider Format</title>
+
+<para>For EMS-95 formatted data, SMOKE requires that the sources in the <envar>PTHOUR</envar> file also be in the <envar>PTINV</envar> file. The values of the fields that are common to the hour-specific data and the annual data need to match exactly. These fields are Facility ID, Stack ID, Device ID, and Process ID. These fields are treated as text fields (not numeric) in SMOKE, so leading zeros need to be consistent between the hour-specific and annual or average-day inventory files.</para>
+
+<para>There are two types of EMS-95 format available for hour-specific data. The traditional EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems" /> and the wider EMS-95 format is shown in <xref linkend="tbl_input_pthour_ems_wider" />. The traditional EMS-95 format has 7 columns available for the emissions values instead of 12 columns in the EMS-95 wider format. For some air pollutant values, the 7 columsns was not big enough to capture the low precision unless scientific notation is used. To use the EMS-95 wider format, the optional environmental variable <envar>HOURLY_WIDE_FMT</envar> needs to be set to <envar>Y</envar>.</para>
+<para>To process pollutant names greater than 5 characters, you need to add the new field of inventory pollutant code known as CAS number from column 261 to 276. If this new field is filled, the <envar>POLID</envar> is not used.  If the new field is not filled, the <envar>POLID</envar> is required to use the inventory data name. The CAS number will be used to distinguish which chemical compound or inventory pollutant is provided on each line of the file. <command>Smkinven</command> matches these numbers with the CAS numbers from an inventory table (<envar>INVTABLE</envar>) file, described in <xref linkend="sect_input_invtable" />. The CAS number does not necessarily have to be a valid CAS number; it can be any number as long as there is a match between the numbers in the SMOKE ORL file and the inventory table.</para>
+
+<table id="tbl_input_pthour_ems">
+<title>EMS-95 Format for individual hour-specific files</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1-2</entry>
+<entry>STID</entry>
+<entry>Int</entry>
+<entry>State Code (required)</entry>
+</row>
+<row>
+<entry>3-5</entry>
+<entry>CYID</entry>
+<entry>Int</entry>
+<entry>County Code (required)</entry>
+</row>
+<row>
+<entry>6-20</entry>
+<entry>FCID</entry>
+<entry>Char</entry>
+<entry>Facility ID (a.k.a. Plant ID) (required)</entry>
+</row>
+<row>
+<entry>21-32</entry>
+<entry>SKID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in FF10 format: Unit ID (required)</member>
+<member>If <envar>PTINV</envar> in ORL format: Point ID</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>33-44</entry>
+<entry>DVID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in FF10 format: Release Point ID (required)</member>
+<member>If <envar>PTINV</envar> in ORL format: Stack ID</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>45-56</entry>
+<entry>PRID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in FF10 format: Process ID (required)</member>
+<member>If <envar>PTINV</envar> in ORL format: Segment</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>57-61</entry>
+<entry>POLID</entry>
+<entry>Char</entry>
+<entry>Pollutant name (required)</entry>
+</row>
+<row>
+<entry>62-69</entry>
+<entry>DATE</entry>
+<entry>Char</entry>
+<entry>Date in MM/DD/YY format. Years less than 70 are treated as century 2000 (required)</entry>
+</row>
+<row>
+<entry>70-72</entry>
+<entry>TZONNAM</entry>
+<entry>Char</entry>
+<entry>Time zone name associated with emissions data. Valid entries are GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, and PST. (required)</entry>
+</row>
+<row>
+<entry>73-79</entry>
+<entry>HRVAL1</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 1 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>80-86</entry>
+<entry>HRVAL2</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>87-93</entry>
+<entry>HRVAL3</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>...</entry>
+</row>
+<row>
+<entry>234-240</entry>
+<entry>HRVAL24</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 24 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>241-248</entry>
+<entry>DAYTOT</entry>
+<entry>Real</entry>
+<entry>Daily emissions total (short tons/day)</entry>
+</row>
+<row>
+<entry>250-259</entry>
+<entry>SCC</entry>
+<entry>Char</entry>
+<entry>SCC (required).</entry>
+</row>
+<row>
+<entry>261-276</entry>
+<entry>DATNAM</entry>
+<entry>Char</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table id="tbl_input_pthour_ems_wider">
+<title>EMS-95 Wider Format for individual hour-specific files</title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1-2</entry>
+<entry>STID</entry>
+<entry>Int</entry>
+<entry>State Code (required)</entry>
+</row>
+<row>
+<entry>3-5</entry>
+<entry>CYID</entry>
+<entry>Int</entry>
+<entry>County Code (required)</entry>
+</row>
+<row>
+<entry>6-20</entry>
+<entry>FCID</entry>
+<entry>Char</entry>
+<entry>Facility ID (a.k.a. Plant ID) (required)</entry>
+</row>
+<row>
+<entry>21-32</entry>
+<entry>SKID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in FF10 format: Unit ID (required)</member>
+<member>If <envar>PTINV</envar> in ORL format: Point ID</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>33-44</entry>
+<entry>DVID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in FF10 format: Release Point ID (required)</member>
+<member>If <envar>PTINV</envar> in ORL format: Stack ID</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>45-56</entry>
+<entry>PRID</entry>
+<entry>Char</entry>
+<entry>
+<simplelist>
+<member>If <envar>PTINV</envar> in FF10 format: Process ID (required)</member>
+<member>If <envar>PTINV</envar> in ORL format: Segment</member>
+</simplelist>
+</entry>
+</row>
+<row>
+<entry>57-61</entry>
+<entry>     </entry>
+<entry>     </entry>
+<entry>Leave blank</entry>
+</row>
+<row>
+<entry>62-69</entry>
+<entry>DATE</entry>
+<entry>Char</entry>
+<entry>Date in MM/DD/YY format. Years less than 70 are treated as century 2000 (required)</entry>
+</row>
+<row>
+<entry>70-72</entry>
+<entry>TZONNAM</entry>
+<entry>Char</entry>
+<entry>Time zone name associated with emissions data. Valid entries are GMT, ADT, AST, EDT, EST, CDT, CST, MDT, MST, PDT, and PST. (required)</entry>
+</row>
+<row>
+<entry>73-84</entry>
+<entry>HRVAL1</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 1 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>85-96</entry>
+<entry>HRVAL2</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 2 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>97-108</entry>
+<entry>HRVAL3</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 3 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>...</entry>
+</row>
+<row>
+<entry>349-360</entry>
+<entry>HRVAL24</entry>
+<entry>Real</entry>
+<entry>Hourly emissions for hour 24 (short tons/hour) (required)</entry>
+</row>
+<row>
+<entry>361-372</entry>
+<entry>DAYTOT</entry>
+<entry>Real</entry>
+<entry>Daily emissions total (short tons/day)</entry>
+</row>
+<row>
+<entry>373-380</entry>
+<entry>SCC</entry>
+<entry>Char</entry>
+<entry>SCC (required).</entry>
+</row>
+<row>
+<entry>381-396</entry>
+<entry>DATNAM</entry>
+<entry>Char</entry>
+<entry>Inventory Pollutant Code (16-characters) (optional) that matches same column of Inventory Table. It is the name of the pollutants used in the ORL inventory files. This field should be used instead of the "<envar>POLID</envar>" field when pollutant anmes are longer than 5 characters. If this field is filled, <envar>POLID</envar> is not used.</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
 </section>
+
+
+</section>
+
 
 <section id="sect_input_ptinv">
 
@@ -2973,25 +3260,25 @@ Sample header records for daily point sources are shown below:</para>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
 <entry>Char(15)</entry>
-<entry>Facility Identification Code (required; this is the same as Plant Identification Code in ORL Format)</entry>
+<entry>Facility Identification Code (required; same as Plant ID in the ORL format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Unit Identification Code (required; this is the same as the Point Identification Code in the ORL Format) (required)</entry>
+<entry>Unit Identification Code (required; same as the Point ID in the ORL format) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
 <entry>Char(15)</entry>
-<entry>Relative Point Identification Code (recommended; this is the same as the Stack Identification Code in the ORL Format)</entry>
+<entry>Release Point Identification Code (recommended; same as the Stack ID in the ORL format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
 <entry>Char(15)</entry>
-<entry>Segment Identification Code (a.k.a DOE Plant ID) (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Process Identification Code (recommended; same as the Segement ID in the ORL format)</entry>
 </row>
 <row>
 <entry>8</entry>
@@ -3025,7 +3312,7 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry>13</entry>
-<entry>POLL</entry>
+<entry>POLID</entry>
 <entry>Char(16)</entry>
 <entry>Pollutant Code (required)</entry>
 </row>
@@ -3231,25 +3518,25 @@ Sample header records for daily point sources are shown below:</para>
 <entry>47</entry>
 <entry>FUG_HEIGHT</entry>
 <entry>Real</entry>
-<entry>Fugitive Height(optional; recommended)</entry>
+<entry>Fugitive Height (optional; recommended)</entry>
 </row>
 <row>
 <entry>48</entry>
 <entry>FUG_WIDTH_YDIM</entry>
 <entry>Real</entry>
-<entry>Fugitive Width(optional; recommended)</entry>
+<entry>Fugitive Width (optional; recommended)</entry>
 </row>
 <row>
 <entry>49</entry>
 <entry>FUG_LENGTH_XDIM</entry>
 <entry>Real</entry>
-<entry>Fugitive Length(optional; recommended)</entry>
+<entry>Fugitive Length (optional; recommended)</entry>
 </row>
 <row>
 <entry>50</entry>
 <entry>FUG_ANGLE</entry>
 <entry>Real</entry>
-<entry>Fugitive Angle(optional; recommended)</entry>
+<entry>Fugitive Angle (optional; recommended)</entry>
 </row>
 <row>
 <entry>51</entry>
@@ -3353,26 +3640,26 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>2</entry>
 <entry>PLANTID</entry>
-<entry>Char(15)</entry>
-<entry>Plant Identification Code (required; this is the same as the State Facility Identifier in the NIF)</entry>
+<entry>Char(20)</entry>
+<entry>Plant Identification Code (required; same as the Facility Identifier in the FF10 format)</entry>
 </row>
 <row>
 <entry>3</entry>
 <entry>POINTID</entry>
-<entry>Char(15)</entry>
-<entry>Point Identification Code (required; this is the same as the Emission Unit ID in the NIF)</entry>
+<entry>Char(20)</entry>
+<entry>Point Identification Code (required; same as the Unit ID in the FF10 format)</entry>
 </row>
 <row>
 <entry>4</entry>
 <entry>STACKID</entry>
-<entry>Char(15)</entry>
-<entry>Stack Identification Code (recommended; this is the same as the Emissions Release Point ID in the NIF)</entry>
+<entry>Char(20)</entry>
+<entry>Stack Identification Code (recommended; same as the Release Point ID in the FF10 format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>SEGMENT</entry>
-<entry>Char(15)</entry>
-<entry>DOE Plant ID (recommended; this is the same as the Process ID in the NIF)</entry>
+<entry>Char(20)</entry>
+<entry>Segment ID (a.k.a DOE Plant ID) (recommended; same as the Process ID in the FF10 format)</entry>
 </row>
 <row>
 <entry>6</entry>
@@ -3893,7 +4180,7 @@ Sample header records for daily point sources are shown below:</para>
 <entry>8</entry>
 <entry>NFDRSCODE</entry>
 <entry>Char(2)</entry>
-<entry>Code for the Vegetation type (recommended)</entry>
+<entry>Code for the National Fire Danger Rating System (NFDRS) (recommended)</entry>
 </row>
 <row>
 <entry>9</entry>
@@ -3903,9 +4190,9 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry>10</entry>
-<entry>DATAVALUE</entry>
+<entry>DATA_VALUE</entry>
 <entry>Real</entry>
-<entry>Value of heat content</entry>
+<entry>Value of fire heat content (BTU/lb)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5322,7 +5609,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>
 
 <simplelist>
-<member>Area: 20-digit SCC, or 10-digit SCC, or 7-digit SCC with zeros filling the remaining digits (Character)</member>
+<member>Area: 20-digit SCC, or 10-digit SCC with zeros filling the remaining digits (Character)</member>
 <member>Mobile: 20-digit SCC code or 10-digit SCC (Character)</member>
 <member>Set to zero if cross-reference entry is not SCC-specific</member>
 </simplelist>
@@ -5464,7 +5751,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 5-digit with zeroes, or 20-digit maximum SCC) (Character) (optional)</entry>
+<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 20-digit maximum SCC) (Character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
@@ -8953,9 +9240,9 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <section id="sect_input_mcxref">
 
-<title><envar>MCXREF</envar>: Mobile reference county cross-reference file</title>
+<title><envar>MCXREF</envar>: Mobile representative county cross-reference file</title>
 
-<para>The <envar>MCXREF</envar> file is a list-directed file used to assign reference counties to inventory counties. Its format is shown in <xref linkend="tbl_input_mcxref" />.</para>
+<para>The <envar>MCXREF</envar> file is a list-directed file used to assign representative counties to inventory counties. Its format is shown in <xref linkend="tbl_input_mcxref" />.</para>
 
 <table id="tbl_input_mcxref">
 <title>Format for <envar>MCXREF</envar></title>
@@ -8989,15 +9276,15 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>One-digit country FIPS code for reference county (Character)</entry>
+<entry>One-digit country FIPS code for representative county (Character)</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Two-digit state FIPS code for reference county (Character)</entry>
+<entry>Two-digit state FIPS code for representative county (Character)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Three-digit county FIPS code for reference county (Character)</entry>
+<entry>Three-digit county FIPS code for representative county (Character)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -9078,7 +9365,7 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 
 <title><envar>MFMREF</envar>: Mobile fuel month file for MOVES</title>
 
-<para>The <envar>MFMREF</envar> file specifies reference fuel months to assign to calendar months being simulated for each reference county.  The file specifies the representative month where the fuel formulation mix is representative for other months. The file serves the purpose of grouping months of the year by fuel parameters. The format of the <envar>MFMREF</envar> file shown in <xref linkend="tbl_input_mfmref" />.</para>
+<para>The <envar>MFMREF</envar> file specifies reference fuel months to assign to calendar months being simulated for each representative county.  The file specifies the representative month where the fuel formulation mix is representative for other months. The file serves the purpose of grouping months of the year by fuel parameters. The format of the <envar>MFMREF</envar> file shown in <xref linkend="tbl_input_mfmref" />.</para>
 <table id="tbl_input_mfmref">
 <title>Format for <envar>MFMREF</envar></title>
 
@@ -9099,12 +9386,12 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>FIPS code for reference county (Char(5))</entry>
+<entry>FIPS code for representative county (Char(5))</entry>
 </row>
 <row>
 <entry></entry>
 <entry>B</entry>
-<entry>Reference county fuel month (integer)</entry>
+<entry>Representative county fuel month (integer)</entry>
 </row>
 <row>
 <entry></entry>
@@ -9133,7 +9420,7 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 
 <title><envar>MRCLIST</envar>: List of MOVES Lookup Tables</title>
 
-<para>The <envar>MRCLIST</envar> file is an input file for <command>Movesmrg</command> that contains the list of MOVES-based lookup tables from the MOVES processing script associated with reference county and fuel month.  The format of the <envar>MRCLIST</envar> file is shown in <xref linkend="tbl_input_mrclist" />.</para>
+<para>The <envar>MRCLIST</envar> file is an input file for <command>Movesmrg</command> that contains the list of MOVES-based lookup tables from the MOVES processing script associated with representative county and fuel month.  The format of the <envar>MRCLIST</envar> file is shown in <xref linkend="tbl_input_mrclist" />.</para>
 
 <table id="tbl_input_mrclist">
 <title>Format for <envar>MRCLIST</envar></title>
@@ -9390,9 +9677,9 @@ RPMETFILE      = /netscr/MOVESDATA/georgia/2005/2005_refcounty_MOVES_OUTFILE.txt
 </section>
 <section id="sect_input_refcountyfile">
 
-<title>Reference County File for MOVES Driver Script</title>
+<title>Representative County File for MOVES Driver Script</title>
 
-<para>The Reference County file (a.k.a Countyrep.in) is used to specify the list of reference counties as separate REPCOUNTY packets, as shown below. Each reference county needs entries for the FIPS field and the full path and file names for csv files containing the MOVES data for AGE, IM, FUELSUPPLY, POP, Highway Performance Monitoring System (HPMS) and Vehicle Miles Travelled (VMT), and FUELFORM (optional). Every county specified in the Met4moves output file must be specified in the reference county file or an error will occur. The format is shown in <xref linkend="tbl_input_refcountyfile" />.</para>
+<para>The Representative County file (a.k.a Countyrep.in) is used to specify the list of representative counties as separate REPCOUNTY packets, as shown below. Each representative county needs entries for the FIPS field and the full path and file names for csv files containing the MOVES data for AGE, IM, FUELSUPPLY, POP, Highway Performance Monitoring System (HPMS) and Vehicle Miles Travelled (VMT), and FUELFORM (optional). Every county specified in the Met4moves output file must be specified in the representative county file or an error will occur. The format is shown in <xref linkend="tbl_input_refcountyfile" />.</para>
 
 <table id="tbl_input_refcountyfile">
 <title>Format for <envar>Countyrep.in</envar></title>
@@ -9410,7 +9697,7 @@ RPMETFILE      = /netscr/MOVESDATA/georgia/2005/2005_refcounty_MOVES_OUTFILE.txt
 <tbody>
 <row>
 <entry>FIPS</entry>
-<entry>FIPS code for reference county (Char(5))</entry>
+<entry>FIPS code for representative county (Char(5))</entry>
 </row>
 <row>
 <entry>AGE</entry>
@@ -9469,9 +9756,9 @@ FUELFOR M =
 </section>
 <section id="sect_input_sourceTypeAgeDist">
 
-<title>Age Distribution File for Reference County for MOVES model</title>
+<title>Age Distribution File for Representative County for MOVES model</title>
 
-<para>The Age Distribution file for each reference county shows the sourceTypeID, yearID, ageID, and ageFraction for the vehicles in each reference county.  The format is shown in <xref linkend="tbl_input_agedistribution" />.</para>
+<para>The Age Distribution file for each representative county shows the sourceTypeID, yearID, ageID, and ageFraction for the vehicles in each representative county.  The format is shown in <xref linkend="tbl_input_agedistribution" />.</para>
 
 <table id="tbl_input_agedistribution">
 <title>Format for <envar>agedistribution_referencecounty.csv</envar></title>
@@ -9489,7 +9776,7 @@ FUELFOR M =
 <tbody>
 <row>
 <entry>sourceTypeID</entry>
-<entry>two-digit sourceTypeID for reference county (Integer)</entry>
+<entry>two-digit sourceTypeID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>yearID</entry>
@@ -9552,7 +9839,7 @@ sourceTypeID, yearID, ageID, ageFraction
 
 <title>Fuel Supply file for MOVES model</title>
 
-<para>The Fuel Supply file is a list directed file used to define the fuel supply and the months that the fuels are used for each reference counties. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
+<para>The Fuel Supply file is a list directed file used to define the fuel supply and the months that the fuels are used for each representative counties. Its format is shown in <xref linkend="tbl_input_fuelsupply" />.</para>
 
 <table id="tbl_input_fuelsupply">
 <title>Format for <envar>FuelSupply.csv</envar></title>
@@ -9571,23 +9858,23 @@ sourceTypeID, yearID, ageID, ageFraction
 <tbody>
 <row>
 <entry>countyID</entry>
-<entry>Country FIPS code for reference county (Char(5))</entry>
+<entry>Country FIPS code for representative county (Char(5))</entry>
 </row>
 <row>
 <entry>fuelYearID</entry>
-<entry>Four-digit fuel year ID for reference county (Integer)</entry>
+<entry>Four-digit fuel year ID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>monthGroupID</entry>
-<entry>One-digit month group ID for reference county (Integer)</entry>
+<entry>One-digit month group ID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>fuelFormulationID</entry>
-<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+<entry>Four to Five digit fuel formulation ID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>marketShare</entry>
-<entry>decimal fraction of marketShare for the fuel/month for the reference county</entry>
+<entry>decimal fraction of marketShare for the fuel/month for the representative county</entry>
 </row>
 <row>
 <entry>marketShareCV</entry>
@@ -9635,7 +9922,7 @@ sourceTypeID, yearID, ageID, ageFraction
 <tbody>
 <row>
 <entry>FuelFormulationID</entry>
-<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+<entry>Four to Five digit fuel formulation ID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>fuelSubtypeID</entry>
@@ -9734,11 +10021,11 @@ sourceTypeID, yearID, ageID, ageFraction
 <tbody>
 <row>
 <entry>HPMSVtypeID</entry>
-<entry>Two-digit HPMSV type IDs within the reference county (Integer)</entry>
+<entry>Two-digit HPMSV type IDs within the representative county (Integer)</entry>
 </row>
 <row>
 <entry>yearID</entry>
-<entry>year ID for the reference county (Integer)</entry>
+<entry>year ID for the representative county (Integer)</entry>
 </row>
 <row>
 <entry>HPMSVBaseYearVMT</entry>
@@ -9771,7 +10058,7 @@ HPMSVtypeID,yearID,HPMSBaseYearVMT,baseYearOffNetVMT
 
 <title>IM Coverage file for MOVES Model</title>
 
-<para>The IM Coverage file is a list directed file used to define the inspection and maintanance data available for each reference counties. Its format is shown in <xref linkend="tbl_input_IMcoverage" />.</para>
+<para>The IM Coverage file is a list directed file used to define the inspection and maintanance data available for each representative counties. Its format is shown in <xref linkend="tbl_input_IMcoverage" />.</para>
 
 <table id="tbl_input_IMcoverage">
 <title>Format for <envar>imcoverage_referencecountyID.csv</envar></title>
@@ -9790,23 +10077,23 @@ HPMSVtypeID,yearID,HPMSBaseYearVMT,baseYearOffNetVMT
 <tbody>
 <row>
 <entry>polProcessID</entry>
-<entry>Three-digit pol process in the reference county (Integer)</entry>
+<entry>Three-digit pol process in the representative county (Integer)</entry>
 </row>
 <row>
 <entry>stateID</entry>
-<entry>Two-digit state ID in the reference county (Integer)</entry>
+<entry>Two-digit state ID in the representative county (Integer)</entry>
 </row>
 <row>
 <entry>countyID</entry>
-<entry>Five-digit county ID for the reference county (Integer)</entry>
+<entry>Five-digit county ID for the representative county (Integer)</entry>
 </row>
 <row>
 <entry>yearID</entry>
-<entry>Four-digit year ID for reference county (Integer)</entry>
+<entry>Four-digit year ID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>sourceTypeID</entry>
-<entry>Two-digit source type ID for the reference county</entry>
+<entry>Two-digit source type ID for the representative county</entry>
 </row>
 <row>
 <entry>fuelTypeID</entry>
@@ -9814,15 +10101,15 @@ HPMSVtypeID,yearID,HPMSBaseYearVMT,baseYearOffNetVMT
 </row>
 <row>
 <entry>IMProgramID</entry>
-<entry>One or two-digit inspection and maintance program ID for reference county (Integer)</entry>
+<entry>One or two-digit inspection and maintance program ID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>inspectFreq</entry>
-<entry>One-digit inspection frequency ID for the reference county</entry>
+<entry>One-digit inspection frequency ID for the representative county</entry>
 </row>
 <row>
 <entry>testStandardsID</entry>
-<entry>Two-digit test standards ID for the reference county </entry>
+<entry>Two-digit test standards ID for the representative county </entry>
 </row>
 <row>
 <entry>begModelYearID</entry>
@@ -9830,7 +10117,7 @@ HPMSVtypeID,yearID,HPMSBaseYearVMT,baseYearOffNetVMT
 </row>
 <row>
 <entry>endModelYearID</entry>
-<entry>Four to Five digit fuel formulation ID for reference county (Integer)</entry>
+<entry>Four to Five digit fuel formulation ID for representative county (Integer)</entry>
 </row>
 <row>
 <entry>useIMyn</entry>
@@ -9866,7 +10153,7 @@ polProcessID,stateID,countyID,yearID,sourceTypeID,fuelTypeID,IMProgramID,inspect
 
 <title>MOVES Vehicle Population by source type input file for MOVES model</title>
 
-<para>The MOVES Population by source type file contains the year, source and population for each reference county. Its format is shown in <xref linkend="tbl_input_sourcetypeyear" />.</para>
+<para>The MOVES Population by source type file contains the year, source and population for each representative county. Its format is shown in <xref linkend="tbl_input_sourcetypeyear" />.</para>
 
 <table id="tbl_input_sourcetypeyear">
 <title>Format for <envar>population_13217.csv</envar></title>
@@ -9925,7 +10212,7 @@ yearID,sourceTypeID,sourceTypePopulation
 
 <title>Dummy Average Speed Distribution file for MOVES model</title>
 
-<para>The Dummy Average Speed Distribution file is a file that contains the average speed bin ID and average speed fraction for each reference counties. Its format is shown in <xref linkend="tbl_input_dummy_avgspeeddistribution" />.</para>
+<para>The Dummy Average Speed Distribution file is a file that contains the average speed bin ID and average speed fraction for each representative counties. Its format is shown in <xref linkend="tbl_input_dummy_avgspeeddistribution" />.</para>
 
 <table id="tbl_input_dummy_avgspeeddistribution">
 <title>Format for <envar>dummyavgspeeddistribution.csv</envar></title>
@@ -9960,7 +10247,7 @@ yearID,sourceTypeID,sourceTypePopulation
 </row>
 <row>
 <entry>avgSpeedFraction</entry>
-<entry>decimal fraction representing the proportion of vechicles that travel at within each of the speed bins for a specific road typeID and hourDayID for the reference county</entry>
+<entry>decimal fraction representing the proportion of vechicles that travel at within each of the speed bins for a specific road typeID and hourDayID for the representative county</entry>
 </row>
 </tbody>
 </tgroup>
@@ -10526,7 +10813,7 @@ NOX > 500.
 </listitem>
 </itemizedlist>
 
-<para>All of the source selection criteria for elevated sources are the same as the PinG selection criteria at this time (see <xref linkend="sect_input_pelvconfig_ping" />). To use the <quote>cutoff</quote> method for UAM-style processing, only the <quote>RISE</quote> variable should be used; the packet should not contain any other selection criteria. The <quote>cutoff</quote> method  is the traditional approach for elevated-source selection for UAM, UAM-V, REMSAD, and CAM<subscript>X</subscript>; you can decide if you want to use this traditional approach or a more complex set of criteria.</para>
+<para>All of the source selection criteria for elevated sources are the same as the PinG selection criteria at this time (see <xref linkend="sect_input_pelvconfig_ping" />). To use the <quote>cutoff</quote> method for UAM-style processing, only the <quote>RISE</quote> variable should be used; the packet should not contain any other selection criteria. The <quote>cutoff</quote> method  is the traditional approach for elevated-source selection for UAM, UAM-V, and CAM<subscript>X</subscript>; you can decide if you want to use this traditional approach or a more complex set of criteria.</para>
 
 <para>The following example illustrates using all of the different source selection variables and criterion types listed in the previous sections.</para>
 
@@ -11385,7 +11672,7 @@ SOURCE > 100 AND SOURCE < 200
 <para>Model species: A <quote>Y</quote> should be entered if the pollutant is also a VOC model species for the AQM being targeted for the run. Any other values will be treated as an <quote>N</quote>.</para>
 </listitem>
 <listitem>
-<para>Explicit in mechanism: A <quote>Y</quote> should be entered if (1) the pollutant is a VOC species (the model-species column must be <quote>Y</quote> as well), and (2) that model-species is explicitly treated in the AQM&rsquo;s chemical mechanism. The pollutant can be an explicit species in the chemical mechanism only when the <envar>GSPRO</envar> file definitions of the lumped VOC species have been adjusted to account for the pollutants/species that are explicit in the mechanism. The current explicit-in-mechanism species being used in the toxics CB4 mechanism for CMAQ are formaldehyde, acetaldheyde, acrolein and 1,3 butadiene.</para>
+<para>Explicit in mechanism: A <quote>Y</quote> should be entered if (1) the pollutant is a VOC species (the model-species column must be <quote>Y</quote> as well), and (2) that model-species is explicitly treated in the AQM&rsquo;s chemical mechanism. The pollutant can be an explicit species in the chemical mechanism only when the <envar>GSPRO</envar> file definitions of the lumped VOC species have been adjusted to account for the pollutants/species that are explicit in the mechanism. The current explicit-in-mechanism species being used in the toxics CB6 mechanism for CMAQ are formaldehyde, acetaldheyde, acrolein and 1,3 butadiene.</para>
 </listitem>
 <listitem>
 <para>Activity: A <quote>Y</quote> should be entered if the inventory data name is a type of activity instead of emissions. Any other values will be treated as an <quote>N</quote>.</para>
@@ -11566,7 +11853,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry></entry>
 <entry>G</entry>
-<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 5-digit with zeroes, or 20-digit maximum SCC) (Character) (optional)</entry>
+<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 20-digit maximum SCC) (Character) (optional)</entry>
 </row>
 <row>
 <entry></entry>
@@ -11624,7 +11911,7 @@ SOURCE > 100 AND SOURCE < 200
 </listitem>
 </orderedlist>
 
-<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition. (The header is required for IDA inventories). For IDA-formatted inventories, a source is defined as the unique combination of country/state/county code, plant ID, point ID, stack ID, segment, and SCC. This documentation applies to IDA-formatted inventories only. <quote>5-digit SCC</quote> means a 10-digit SCC with the last 5 digits set to zero. If only 8-digit SCCs are available, these can be used and SMOKE will assume leading zeros. In this case, the <quote>5-digit SCC</quote> becomes a <quote>3-digit SCC</quote>.</para>
+<para>For point sources, the available combinations depend on the source definition. A header is used in the file to indicate the source definition.</para>
 
 <para>The hierarchy of cross-referencing is the following.</para>
 
@@ -11657,37 +11944,19 @@ SOURCE > 100 AND SOURCE < 200
 <para>Country/state/county code, 10-digit SCC, and pollutant</para>
 </listitem>
 <listitem>
-<para>Country/state/county code, 5-digit SCC, and pollutant</para>
-</listitem>
-<listitem>
 <para>Country/state code, 10-digit SCC, and pollutant</para>
-</listitem>
-<listitem>
-<para>Country/state code, 5-digit SCC, and pollutant</para>
 </listitem>
 <listitem>
 <para>10-digit SCC and pollutant</para>
 </listitem>
 <listitem>
-<para>5-digit SCC and pollutant</para>
-</listitem>
-<listitem>
 <para>Country/state/county code and 10-digit SCC</para>
-</listitem>
-<listitem>
-<para>Country/state/county code and 5-digit SCC</para>
 </listitem>
 <listitem>
 <para>Country/state code and 10-digit SCC</para>
 </listitem>
 <listitem>
-<para>Country/state code and 5-digit SCC</para>
-</listitem>
-<listitem>
 <para>10-digit SCC</para>
-</listitem>
-<listitem>
-<para>5-digit SCC</para>
 </listitem>
 <listitem>
 <para>Country/state/county code</para>
@@ -11728,7 +11997,7 @@ SOURCE > 100 AND SOURCE < 200
 <row>
 <entry>1+</entry>
 <entry>A</entry>
-<entry>DOE Plant ID (ORIS ID) (6-character string); must match the same field in the IDA-formatted PTINV file.</entry>
+<entry>DOE Plant ID (ORIS ID) (6-character string)</entry>
 </row>
 <row>
 <entry colname="Position">B</entry>

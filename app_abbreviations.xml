@@ -29,7 +29,7 @@
 
 <seglistitem><seg>CAM<subscript>X</subscript></seg><seg>Comprehensive Air Quality Model, with Extensions</seg></seglistitem>
 
-<seglistitem><seg>CB4</seg><seg>Carbon Bond 4</seg></seglistitem>
+<seglistitem><seg>CB6</seg><seg>Carbon Bond 6</seg></seglistitem>
 
 <seglistitem><seg>CEI</seg><seg>crankcase extended idle exhaust</seg></seglistitem>
 
@@ -113,8 +113,6 @@
 
 <seglistitem><seg>MACT</seg><seg>Maximum Achievable Control Technology</seg></seglistitem>
 
-<seglistitem><seg>MAQSIP</seg><seg>Multiscale Air Quality Simulation Platform</seg></seglistitem>
-
 <seglistitem><seg>MCIP</seg><seg>Meteorology-Chemistry Interface Processor</seg></seglistitem>
 
 <seglistitem><seg>MCPL</seg><seg>Meteorology Coupler</seg></seglistitem>
@@ -178,8 +176,6 @@
 <seglistitem><seg>RACT</seg><seg>reasonably available control technology</seg></seglistitem>
 
 <seglistitem><seg>RADM</seg><seg>Regional Acid Deposition Model</seg></seglistitem>
-
-<seglistitem><seg>REMSAD</seg><seg>Regulatory Modeling System for Aerosols and Deposition</seg></seglistitem>
 
 <seglistitem><seg>RFG</seg><seg>reformulated gas</seg></seglistitem>
 

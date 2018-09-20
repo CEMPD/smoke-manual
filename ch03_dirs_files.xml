@@ -369,10 +369,6 @@ source $ASSIGNS/set_dirs.scr
 <para><envar>SCCDESC</envar>, <envar>SRGDESC</envar>, <envar>ORISDESC</envar>, <envar>SICDESC</envar>, <envar>MACTDESC</envar>, <envar>NAICSDESC</envar>: The descriptions of each known SCC, surrogate code, ORIS ID, SIC code, MACT code, and NAICS code.</para>
 </listitem>
 
-<listitem>
-<para><envar>VNAMMAP</envar>: The name-mapping file for transforming the I/O API file model-species names to the names used by the model (e.g., renaming CD for REMSAD to CD-1).</para>
-</listitem>
-
 </itemizedlist>
 
 </listitem>
@@ -423,7 +419,7 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>MCXREF</envar> (mobile-source county cross-reference). For MOVES modeling only, contains the reference county assignments (see <xref linkend="sect_concepts_reference_counties_moves" /> for an explanation of reference counties).</para>
+<para><envar>MCXREF</envar> (mobile-source county cross-reference). For MOVES modeling only, contains the representative county assignments (see <xref linkend="sect_concepts_reference_counties_moves" /> for an explanation of representative counties).</para>
 </listitem>
 
 <listitem>
@@ -497,7 +493,7 @@ source $ASSIGNS/set_dirs.scr
 
 </listitem>
 <listitem>
-<para><filename class="directory">met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-roadway and off-network mobile sources with MOVES using gridded, hourly meteorology data; or (3) point sources for the CMAQ or MAQSIP models. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ&rsquo;s MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats. See <xref linkend="sect_input_meteorology" /> for more information about the meteorology data needed by SMOKE.</para>
+<para><filename class="directory">met/run_<envar>$METSCEN</envar></filename>: This directory contains the meteorology files that are needed for running (1) biogenic emissions; (2) on-roadway and off-network mobile sources with MOVES using gridded, hourly meteorology data; or (3) point sources for the CMAQ model. Meteorology data are required in all of these cases. SMOKE can use output files from CMAQ&rsquo;s MCIP and MCIP2 meteorology processors or from the Meteorology Coupler (MCPL) processor. SMOKE automatically checks for the different variable names that may be used for the same meteorology data in the different file formats. See <xref linkend="sect_input_meteorology" /> for more information about the meteorology data needed by SMOKE.</para>
 </listitem>
 </itemizedlist>
 
@@ -609,7 +605,7 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>PLAY_EX</envar>: The point-source hourly layer fractions for <emphasis>explicit</emphasis> plume rise sources when processing for UAM, CAM<subscript>X</subscript>, or REMSAD.</para>
+<para><envar>PLAY_EX</envar>: The point-source hourly layer fractions for <emphasis>explicit</emphasis> plume rise sources when processing for UAM or CAM<subscript>X</subscript>.</para>
 </listitem>
 </itemizedlist>
 
@@ -764,9 +760,9 @@ source $ASSIGNS/set_dirs.scr
 
 <itemizedlist>
 <listitem>
-<para><emphasis role="bold">For CMAQ or MAQSIP:</emphasis></para>
+<para><emphasis role="bold">For CMAQ:</emphasis></para>
 
-<para><envar>EGTS3D_L</envar>: CMAQ or MAQSIP 3-D hourly, gridded, speciated emissions file, excluding PinG emissions (from the <command>Smkmerge</command> program).</para>
+<para><envar>EGTS3D_L</envar>: CMAQ 3-D hourly, gridded, speciated emissions file, excluding PinG emissions (from the <command>Smkmerge</command> program).</para>
 </listitem>
 
 <listitem>
@@ -778,7 +774,7 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><emphasis role="bold">For UAM, REMSAD, or CAM<subscript>X</subscript>:</emphasis></para>
+<para><emphasis role="bold">For UAM or CAM<subscript>X</subscript>:</emphasis></para>
 
 <para><envar>EGTS_L</envar>: I/O API version of the 2-D merged low-level, hourly, gridded, speciated emissions file (from <command>Smkmerge</command>).</para>
 
@@ -814,11 +810,11 @@ source $ASSIGNS/set_dirs.scr
 </listitem>
 
 <listitem>
-<para><envar>PGTS_L</envar> and <envar>PGTS_S</envar>: Point-surce hourly, gridded, speciated emissions (from <command>Smkmerge</command>). This file would be created when modeling for UAM, REMSAD, or CAM<subscript>X</subscript>, which need the low-level point sources but not the 3-D point sources. This file would not include the elevated-point-source emissions if it were created using the <envar>SMK_ASCIIELEV_YN</envar> = Y setting.</para>
+<para><envar>PGTS_L</envar> and <envar>PGTS_S</envar>: Point-surce hourly, gridded, speciated emissions (from <command>Smkmerge</command>). This file would be created when modeling for UAM or CAM<subscript>X</subscript>, which need the low-level point sources but not the 3-D point sources. This file would not include the elevated-point-source emissions if it were created using the <envar>SMK_ASCIIELEV_YN</envar> = Y setting.</para>
 </listitem>
 
 <listitem>
-<para><envar>PGTS3D_L</envar> and <envar>PGTS3D_S</envar>: Point-source 3-D, hourly, gridded, speciated emissions (from <command>Smkmerge</command>). This file would be created for CMAQ and MAQSIP only, using the elevated layer fraction, which requires the option <envar>MRG_LAYERS_YN</envar> = Y.</para>
+<para><envar>PGTS3D_L</envar> and <envar>PGTS3D_S</envar>: Point-source 3-D, hourly, gridded, speciated emissions (from <command>Smkmerge</command>). This file would be created for CMAQ only, using the elevated layer fraction, which requires the option <envar>MRG_LAYERS_YN</envar> = Y.</para>
 </listitem>
 </itemizedlist>
 
@@ -1096,19 +1092,19 @@ source $ASSIGNS/set_dirs.scr
 <row>
 <entry><filename>gspro.cmaq.cb4p25_wtox.txt</filename></entry>
 <entry><envar>GSPRO</envar></entry>
-<entry>Speciation profiles for CMAQ CB5 chemical mechanism with additional toxics species for all source categories except on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>Speciation profiles for CMAQ CB6 chemical mechanism with additional toxics species for all source categories except on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gspro.cmaq.cb4p25_wtox.m.txt</filename></entry>
 <entry><envar>GSPRO</envar></entry>
-<entry>Speciation profiles for CMAQ CB5 chemical mechanism with additional toxics species for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>Speciation profiles for CMAQ CB6 chemical mechanism with additional toxics species for on-road mobile sources; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
 <entry><filename>gsref.cmaq.cb4p25_wtox.txt</filename></entry>
 <entry><envar>GSREF</envar></entry>
-<entry>Speciation cross-reference for CMAQ for CB5 with PM2.5 speciation and additional toxic species; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
+<entry>Speciation cross-reference for CMAQ for CB6 with PM2.5 speciation and additional toxic species; extracted in November 2005 from EPA&rsquo;s 2001 modeling platform archive.</entry>
 </row>
 
 <row>
@@ -1183,15 +1179,13 @@ source $ASSIGNS/set_dirs.scr
 </tgroup>
 </table>
 
-<para>Additional speciation profile files and speciation cross-reference files are available with EPA&rsquo;s 2001 modeling platform. The files are described in <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/readme_2001.txt">readme_2001.txt</ulink>. The files in the archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink> support the following air quality models and chemical mechanisms:</para>
+<para>Additional speciation profile files and speciation cross-reference files are available with EPA&rsquo;s 2014 modeling platform. The files are described in <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/readme_2001.txt">readme_2001.txt</ulink>. The files in the archive <ulink url="ftp://ftp.epa.gov/EmisInventory/2001nmp/2001nmp_misc_071504.zip">2001nmp_misc_071504.zip</ulink> support the following air quality models and chemical mechanisms:</para>
 
 <itemizedlist spacing="compact">
-<listitem>CAMx4: CB5 with PM2.5 speciation</listitem>
-<listitem>CMAQ: CB5 with PM2.5 speciation</listitem>
-<listitem>CMAQ: CB5 with integrated toxics and criteria inventories</listitem>
-<listitem>CMAQ: RADM2 with PM2.5 speciation</listitem>
-<listitem>CMAQ: SAPRC99</listitem>
-<listitem>MAQSIP: RADM2 with PM2.5 speciation</listitem>
+<listitem>CAMx4: CB6 with PM2.5 speciation</listitem>
+<listitem>CMAQ: CB6 with PM2.5 speciation</listitem>
+<listitem>CMAQ: CB6 with integrated toxics and criteria inventories</listitem>
+<listitem>CMAQ: SAPRC07</listitem>
 </itemizedlist>
 
 </section>
