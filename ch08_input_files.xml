@@ -932,7 +932,7 @@ In this overview section, we first provide a few important notes about file form
 <entry>#DATA or #POLID</entry>
 <entry>data1 data2 ... data <emphasis>n</emphasis></entry>
 <entry>
-<para>In wild/Rx fires ORL format files (#ORL FIRE (<quote><xref linkend="sect_input_ptinv_fire" /></quote>) and day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para> 
+<para>In wild/Rx fires ORL format files (#ORL FIRE (<quote><xref linkend="sect_input_ptinv_fire" /></quote>) and day-specific #ORL FIREEMIS file (<quote><xref linkend="sect_input_ptday_fireemis" /></quote>), it defines a complete list of pollutant names from day-specific ORL FIREEMIS files; <quote>data1</quote> is the first pollutant name or CAS number, <quote>data2</quote> is the second pollutant name( or CAS number ), and so on.</para>
 </entry>
 </row>
 </tbody>
@@ -2325,13 +2325,13 @@ In this overview section, we first provide a few important notes about file form
 
 <section id="sect_input_ptday_ff10">
 <title> FF10 Format</title>
-<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header"/>. For daily or hourly specific emissions, the user specifies the data provided using this command in the header: FF10_DAILY_POINT.</para> 
+<para>This FF10 format uses the header described in <xref linkend="sect_input_inventory_header"/>. For daily or hourly specific emissions, the user specifies the data provided using this command in the header: FF10_DAILY_POINT.</para>
 <para>Sample header records for daily point source data are shown below:</para>
 <programlisting>
 #FORMAT   FF10_DAILY_POINT
 #COUNTRY  US
 #YEAR     2005
-#DESC     Point Daily Source Inventory 
+#DESC     Point Daily Source Inventory
 #DESC     FF10 Point Daily format</programlisting>
 
 <table id="tbl_input_ptday_FF10">
@@ -2763,7 +2763,7 @@ Sample header records for hourly point sources are shown below:
 <programlisting>
 #FORMAT=FF10_HOURLY_POINT
 #COUNTRY  US
-#YEAR     year of inventory, e.g. 2008 
+#YEAR     year of inventory, e.g. 2008
 #DESC     Point Hourly Source Inventory
 #DESC     FF10 Point Hourly format</programlisting>
 
@@ -3522,13 +3522,13 @@ Sample header records for daily point sources are shown below:</para>
 </row>
 <row>
 <entry>48</entry>
-<entry>FUG_WIDTH_YDIM</entry>
+<entry>FUG_WIDTH_XDIM</entry>
 <entry>Real</entry>
 <entry>Fugitive Width (optional; recommended)</entry>
 </row>
 <row>
 <entry>49</entry>
-<entry>FUG_LENGTH_XDIM</entry>
+<entry>FUG_LENGTH_YDIM</entry>
 <entry>Real</entry>
 <entry>Fugitive Length (optional; recommended)</entry>
 </row>
@@ -4234,7 +4234,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <para>This optional date-specific hourly temporal profiles will take precedence over the default monthly, weekly and hourly profiles. Also users must to use FIPS and SCC cross-reference hiearchy to use these temporal profiles.</para>
 
-<section id="sect_input_tpro_monthly" > 
+<section id="sect_input_tpro_monthly" >
 <title>[A|M|P]TPRO_MONTHLY: Year-to-Monthk Temporal Profiles</title>
 
 <table id="tbl_input_tpro_monthly">
@@ -4305,7 +4305,7 @@ Sample header records for daily point sources are shown below:</para>
 </table>
 </section>
 
-<section id="sect_input_tpro_daily" > 
+<section id="sect_input_tpro_daily" >
 <title>[A|M|P]TPRO_DAILY: Month-to-day Temporal Profiles</title>
 
 <table id="tbl_input_tpro_daily">
@@ -4376,7 +4376,7 @@ Sample header records for daily point sources are shown below:</para>
 
 </section>
 
-<section id="sect_input_tpro_weekly" > 
+<section id="sect_input_tpro_weekly" >
 <title>[A|M|P]TPRO_WEEKLY: Month-to-Week Temporal Profiles</title>
 
 <table id="tbl_input_tpro_weekly">
@@ -4448,7 +4448,7 @@ Sample header records for daily point sources are shown below:</para>
 
 </section>
 
-<section id="sect_input_tpro_hourly" > 
+<section id="sect_input_tpro_hourly" >
 <title>[A|M|P]TPRO_HOURLY: Day-to-Hour Temporal Profiles</title>
 
 <table id="tbl_input_tpro_hourly">
@@ -4519,7 +4519,7 @@ Sample header records for daily point sources are shown below:</para>
 
 </section>
 
-<section id="sect_input_tpro_hourly_ncf" > 
+<section id="sect_input_tpro_hourly_ncf" >
 <title>[A|M|P]TPRO_HOURLY_NCF: Hourly Temporal Profiles</title>
 
 <para>This NetCDF hourly temporal profiles input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para>
@@ -4579,7 +4579,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <para>The <envar>ATREF</envar>, <envar>MTREF</envar>, and <envar>PTREF</envar> files contain the area-, mobile-, and point-source cross-reference records for assigning the temporal profiles to the sources. If needed, the same file can be used for area-, mobile-, or point-source categories, but more fields are used for mobile than for area, and more fields are used for point than for mobile. <xref linkend="sect_programs_temporal" /> provides a list of the matching hierarchies that SMOKE uses when applying the file to an inventory. <remark>If a field is blank, it must be set to -9.</remark></para>
 
-<para>Between weekly and daily temporal profiles, daily Profiles will take precedence weekly profiles. Within hourly diurnal profiles, the processing occurs as follows (1) day-to-hour hourly profiles (i.e., Monday,,,,,Sunday), (2) Weekday/Weekend hourly profiles, and (3) All days (Monday-Sunday) hourly profiles. However, date-specific houlry temporal profiles from <link linkend="sect_input_tpro_hourly_ncf"><envar>[A|M|P]TPRO_HOURLY_NCF</envar></link> input file will take precedence any types of temporal profiles. This date-specific hourly temporal profiles NetCDF input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para> 
+<para>Between weekly and daily temporal profiles, daily Profiles will take precedence weekly profiles. Within hourly diurnal profiles, the processing occurs as follows (1) day-to-hour hourly profiles (i.e., Monday,,,,,Sunday), (2) Weekday/Weekend hourly profiles, and (3) All days (Monday-Sunday) hourly profiles. However, date-specific houlry temporal profiles from <link linkend="sect_input_tpro_hourly_ncf"><envar>[A|M|P]TPRO_HOURLY_NCF</envar></link> input file will take precedence any types of temporal profiles. This date-specific hourly temporal profiles NetCDF input file contains annual total (<envar>ANNTOT</envar>), monthly total (<envar>MONTOT</envar>), daily total (<envar>DAYTOT</envar>) and hourly total (<envar>HRLTOT</envar>) to compute year-to-hour, month-to-hour, day-to-hour profiles to calculate hourly total depending on types of inventory data (annual, monthly or daily inventory). If inventory is annual total, year-to-hour profiles will be used to convert annual total to hourly total emissions. If inventory is monthly total, month-to-hour profiles will be used to compute hourly total from monthly total inventory.</para>
 
 <para>Within the <command>Temporal</command> program, the processing occurs as follows:</para>
 <itemizedlist>
@@ -4609,7 +4609,7 @@ Sample header records for daily point sources are shown below:</para>
 </listitem>
 </itemizedlist>
 
-<para>NOTE: Date-specific houlry diurnal temporal profiles require FIPS and SCC specific entries in <envar>[A|M|P]TREF</envar> input file.</para> 
+<para>NOTE: Date-specific houlry diurnal temporal profiles require FIPS and SCC specific entries in <envar>[A|M|P]TREF</envar> input file.</para>
 <para>The pollutant field allows the user to assign a different temporal profile for each pollutant associated with a given source. This is an optional approach; if you do not want to use pollutant as a characteristic in assigning temporal profiles, you can put a <quote>-9</quote> in the pollutant field. In that case, all pollutants for a given source will be assigned that temporal profile.</para>
 
 <para>The country/state/county code is defined as follows:</para>
@@ -4826,7 +4826,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <title><envar>SRGDESC</envar>: Surrogate Designation, Description and Surrogate profile filename.</title>
 
-<para>The Surrogate Description file is used to designate the regional location of the surrogate, the surrogate code number, a brief description of the code number and the Area and Mobile spatial surrogate file in which surrogate profile can be found.  This file is located in <envar>SRGPRO_PATH</envar>. See <xref linkend="fig_programs_grdmat" />.  The format of the <envar>SRGDESC</envar> file is shown in <xref linkend="tbl_input_srgdesc" />.</para> 
+<para>The Surrogate Description file is used to designate the regional location of the surrogate, the surrogate code number, a brief description of the code number and the Area and Mobile spatial surrogate file in which surrogate profile can be found.  This file is located in <envar>SRGPRO_PATH</envar>. See <xref linkend="fig_programs_grdmat" />.  The format of the <envar>SRGDESC</envar> file is shown in <xref linkend="tbl_input_srgdesc" />.</para>
 
 <table id="tbl_input_srgdesc">
 <title>Format for <envar>SRGDESC</envar></title>
@@ -5070,7 +5070,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <title><envar>AGREF</envar> and <envar>MGREF</envar>: Gridding cross-reference files for area and mobile sources</title>
 
-<para>The gridding cross-reference files are used to match the emissions sources with the spatial surrogates in the surrogates file. The way that of the gridding cross-reference files are applied in SMOKE ensures that the most-specific matches override the less-specific ones. A description of how the gridding cross-reference is applied to the inventory is provided in <xref linkend="sect_programs_grdmat" />. The format of the <envar>AGREF</envar> and <envar>MGREF</envar> files is shown in <xref linkend="tbl_input_amgref" />.</para> 
+<para>The gridding cross-reference files are used to match the emissions sources with the spatial surrogates in the surrogates file. The way that of the gridding cross-reference files are applied in SMOKE ensures that the most-specific matches override the less-specific ones. A description of how the gridding cross-reference is applied to the inventory is provided in <xref linkend="sect_programs_grdmat" />. The format of the <envar>AGREF</envar> and <envar>MGREF</envar> files is shown in <xref linkend="tbl_input_amgref" />.</para>
 
 <table id="tbl_input_amgref">
 <title>Format for <envar>AGREF</envar> and <envar>MGREF</envar></title>
@@ -5374,7 +5374,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Speciation profile code (5-character) (required)</entry>
+<entry>Speciation profile code (10-character) (required)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
@@ -5436,11 +5436,11 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Pollutant ID (name) (Character)</entry>
+<entry>Pollutant ID (name) (10-digit character)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Species ID (name) (Character)</entry>
+<entry>Species ID (name) (16-character)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
@@ -5480,6 +5480,49 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <para>The mass fraction is the value put in the mass-based speciation matrix. The ratio of the mass fraction and the split factor is the average molecular weight for the species and profile, if the divisor is 1.</para>
 </listitem>
 </itemizedlist>
+
+</section>
+
+<section id="sect_input_gsprodesc">
+
+<title><envar>GSPRODESC</envar>: NAICS code descriptions</title>
+
+<para>This file provides text descriptions of the GSPRO codes. The format of the <envar>GSPRODESC</envar> file is shown in <xref linkend="tbl_input_gsprodesc" />.</para>
+
+<table id="tbl_input_gsprodesc">
+<title>Format for <envar>GSPRODESC</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="55*" />
+
+<thead>
+<row>
+<entry>Position</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>A</entry>
+<entry>CODE</entry>
+<entry>Char (6)</entry>
+<entry>GSPRO code</entry>
+</row>
+<row>
+<entry>B</entry>
+<entry>DESC</entry>
+<entry>Char (200)</entry>
+<entry>Description for GSPRO code</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 
 </section>
 
@@ -5566,8 +5609,8 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <para><envar> EVP__VOC   001001   1   3   8174   0.50   8175   0.20   8176   0.30</envar></para>
 
 <para>This file would do the following:</para>
-<para>For county 01001 in period=1 (e.g., <envar>SPCMAT_PERIOD</envar> set to 1 ), Exhaust mode VOC would use 3 profiles ( 50% profile 8170, 20% profile 8171, and 30% profile 8172).</para> 
-<para>For county 01001 in period=1 (e.g., <envar>SPCMAT_PERIOD</envar> set to 1 ), Evaporative mode VOC would use 3 profiles ( 50% profile 8174, 20% profile 8175, and 30% profile 8176).</para> 
+<para>For county 01001 in period=1 (e.g., <envar>SPCMAT_PERIOD</envar> set to 1 ), Exhaust mode VOC would use 3 profiles ( 50% profile 8170, 20% profile 8171, and 30% profile 8172).</para>
+<para>For county 01001 in period=1 (e.g., <envar>SPCMAT_PERIOD</envar> set to 1 ), Evaporative mode VOC would use 3 profiles ( 50% profile 8174, 20% profile 8175, and 30% profile 8176).</para>
 </section>
 
 <section id="sect_input_gsref">
@@ -5618,15 +5661,15 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Speciation profile code (Character) (required; must match codes in the <envar>GSPRO</envar> file)</entry>
+<entry>Speciation profile code (10-digit character) (required; must match codes in the <envar>GSPRO</envar> file)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Pollutant name or emission type (Character) (required; must match pollutants for profile code in <envar>GSPRO</envar> file; put zero id not pollutant-dependent)</entry>
+<entry>Pollutant name or emission type (16-digit character) (required; must match pollutants for profile code in <envar>GSPRO</envar> file; put zero id not pollutant-dependent)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry><para>Country/state/county code (6-digit Character in format YSSCCC) (optional):</para>
+<entry><para>Country/state/county code (6-digit character in format YSSCCC) (optional):</para>
 
 <itemizedlist spacing="compact">
 <listitem>leave blank if not country/state-dependent</listitem>
@@ -5638,11 +5681,11 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Maximum Achievable Technology Code (6-character String) (optional; use 0 if not needed)</entry>
+<entry>Maximum Achievable Technology Code (6-digit character) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</entry>
+<entry>Standard Industrial Code (20-digit character) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">...</entry>
@@ -5707,15 +5750,15 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">B</entry>
-<entry>Speciation profile code (Character) (required; must match codes in the <envar>GSPRO</envar> file)</entry>
+<entry>Speciation profile code (10-digit character) (required; must match codes in the <envar>GSPRO</envar> file)</entry>
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Pollutant name or emission type (Character) (required; must match pollutants for profile code in <envar>GSPRO</envar> file; put zero if not pollutant-dependent)</entry>
+<entry>Pollutant name or emission type (16-digit character) (required; must match pollutants for profile code in <envar>GSPRO</envar> file; put zero if not pollutant-dependent)</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry><para>Country/state/county code (6-digit Character in format YSSCCC) (optional):</para>
+<entry><para>Country/state/county code (6-digit character in format YSSCCC) (optional):</para>
 
 <itemizedlist spacing="compact">
 <listitem>leave blank if not country/state-dependent</listitem>
@@ -5727,35 +5770,35 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Maximum Achievable Technology Code (6-character String) (optional; use 0 if not needed)</entry>
+<entry>Maximum Achievable Technology Code (6-digit character) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</entry>
+<entry>Standard Industrial Code (20-digit character String) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
-<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), (Character(15), (optional ; leave blank if entry is not plant-specific)</entry>
+<entry>Facility ID for FF10 Point Sources (Plant ID for ORL), (15-digit character), (optional ; leave blank if entry is not plant-specific)</entry>
 </row>
 <row>
 <entry colname="Position">H</entry>
-<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (Character(15))</entry>
+<entry>Characteristic 1 (for FF10, this is Unit ID; for ORL, this is Point ID), optional (15-digit character)</entry>
 </row>
 <row>
 <entry colname="Position">I</entry>
-<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (Character(15))</entry>
+<entry>Characteristic 2 (for FF10, this is Release Point ID, (for ORL, this is stack ID); optional (15-digit character)</entry>
 </row>
 <row>
 <entry colname="Position">J</entry>
-<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (Character(15))</entry>
+<entry>Characteristic 3 (for FF10, this is Process ID, (for ORL, this is segment ID); optional (15-digit character)</entry>
 </row>
 <row>
 <entry colname="Position">K</entry>
-<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 20-digit maximum SCC) (Character) (optional)</entry>
+<entry>Characteristic 4 (for FF10 or ORL, this is 10-digit SCC, or 20-digit maximum SCC) (20-digit character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">L</entry>
-<entry>Characteristic 5 (blank for FF10 or ORL) (Character) (optional)</entry>
+<entry>Characteristic 5 (blank for FF10 or ORL) (15-digit character) (optional)</entry>
 </row>
 <row>
 <entry colname="Position">M</entry>
@@ -5812,23 +5855,23 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 </row>
 <row>
 <entry colname="Position">C</entry>
-<entry>Species name (Character) (required; must match Species in <envar>GSPRO</envar> file; 16-character maximum). If missing or -9, SMOKE willl return an error.</entry>
+<entry>Species name (16-digit character) (required; must match Species in <envar>GSPRO</envar> file; 16-character maximum). If missing or -9, SMOKE willl return an error.</entry>
 </row>
 <row>
 <entry colname="Position">D</entry>
-<entry>Tagging label (Character) (required; 8-character maximum. The combination of Species name in column C and the tagging label can not exceed 16 chracters)</entry>
+<entry>Tagging label (Character) (required; 8-digit character maximum. The combination of Species name in column C and the tagging label can not exceed 16 chracters)</entry>
 </row>
 <row>
 <entry colname="Position">E</entry>
-<entry>Maximum Achievable Technology Code (6-character String) (optional; use 0 if not needed)</entry>
+<entry>Maximum Achievable Technology Code (6-digit character) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">F</entry>
-<entry>Standard Industrial Code (20-character String) (optional; use 0 if not needed)</entry>
+<entry>Standard Industrial Code (20-digit character) (optional; use 0 if not needed)</entry>
 </row>
 <row>
 <entry colname="Position">G</entry>
-<entry>Plant ID for point sources (Character) (optional; leave bank or -9 if entry is not plant-specific)</entry>
+<entry>Plant ID for point sources (15-digit character) (optional; leave bank or -9 if entry is not plant-specific)</entry>
 </row>
 </tbody>
 </tgroup>
@@ -5839,8 +5882,8 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <para><envar> 001001, 2530050000, NO,   _T1</envar></para>
 
 <para>This file would do the following:</para>
-<para><envar>ALD2</envar> species from County 0100 and SCC 20400408 is tagged as <envar>ALD2_T1</envar>.</para> 
-<para><envar>NO</envar> species from County 0100 and SCC 2530050000 is tagged as <envar>NO_T1</envar>.</para> 
+<para><envar>ALD2</envar> species from County 0100 and SCC 20400408 is tagged as <envar>ALD2_T1</envar>.</para>
+<para><envar>NO</envar> species from County 0100 and SCC 2530050000 is tagged as <envar>NO_T1</envar>.</para>
 </section>
 
 
@@ -6740,14 +6783,66 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 </section>
 
+<section id="sect_input_beisfac">
+
+<title><envar>BEISFAC</envar>: Biogenic emissions factors file for BEIS v3.7 or later version</title>
+
+<para>The <envar>BEISFAC</envar> file for BEIS version 3.7 or later version contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for various species/compounds listed in <xref linkend="tbl_input_beisfac" />. As of BEIS version 3.7, <envar>BEISFAC</envar> is deisgned for <xref linkend="sect_input_source_beld5" />. </para>
+<para>NOTE: To check its comparability between <envar>BEISFAC</envar> and <envar>BELD5</envar>, new header <envar>#BEISFAC4BELD5</envar> is required.</para>
+
+<table id="tbl_input_beisfac">
+<title>Format for <envar>BEISFAC</envar>, BEIS version 3.7 or later version.</title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Line</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>Header (required)</entry>
+<entry>#BEISFAC4BELD5</entry>
+</row>
+<row>
+<entry>2+</entry>
+<entry>A</entry>
+<entry>Abbreviated name for land use type (Character)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry colname="Description">String indicating type (e.g. Leaf Area Index (LAI), Dry Leaf Biomass (LFBIO), Winter Biomass (WFAC), Specific Leaf Weight (SLW), Isoprene (ISOP), Sesquiterpene (SESQT) emissions, etc.) (Character)</entry>
+</row>
+<row>
+<entry colname="Position">C</entry>
+<entry colname="Description">Units or “none” if no units (Character)</entry>
+</row>
+<row>
+<entry colname="Position">D</entry>
+<entry colname="Description">Value of LAI, LFBIO, WFAC, SLW, or Normalized emissions (i.e., ISOP, SESQT, and son on) flux for item in position B (g C/km<superscript>2</superscript>-hr) (Real)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
 <section id="sect_input_b360fac">
 
-<title><envar>B360FAC</envar>: Biogenic emissions factors file for BEIS v3.60 </title>
+<title><envar>B360FAC</envar>: Biogenic emissions factors file for BEIS v3.61 </title>
 
-<para>The <envar>B360FAC</envar> file for BEIS version 3.60 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds listed in <xref linkend="tbl_input_b360fac" />.</para>
+<para>The <envar>B360FAC</envar> file for BEIS version 3.61 contains LAI, dry leaf biomass, winter biomass factor, indicator of specific leaf weight, and normalized emission fluxes for 34 different species/compounds listed in <xref linkend="tbl_input_b360fac" />.</para>
 
 <table id="tbl_input_b360fac">
-<title>Format for <envar>B3FAC</envar>, BEIS version 3.60</title>
+<title>Format for <envar>B360FAC</envar>, BEIS version 3.61</title>
 
 <tgroup cols="3">
 <colspec colwidth="15*" colname="Line" />
@@ -6972,9 +7067,18 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 </section>
 
+
+<section id="sect_input_source_beld5">
+
+<title><envar>BELD5</envar>: Landuse input file for BEIS v3.7 or later version</title>
+
+<para>BELD5 share the same format as <xref linkend="tbl_input_landuse286" /> that contains names and descriptions of the land use categories in BELD4.</para>
+
+</section>
+
 <section id="sect_input_source_beld4">
 
-<title><envar>BELD4</envar>: Landuse input file for BEIS v3.60</title>
+<title><envar>BELD4</envar>: Landuse input file for BEIS v3.61</title>
 
 <para><xref linkend="tbl_input_landuse286" /> contains names and descriptions of the 286 land use categories in BELD4.</para>
 
@@ -9101,11 +9205,71 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <section>
 <title> SMOKE-related Mobile Input Files</title>
+
+<section id="sect_input_avgspd_sccxref">
+
+<title><envar>AVGSPD_SCCXREF</envar>: Reference SCC input file for average speed distribution profiles</title>
+
+<para>This file provides mapping between reference SCC (i.e., SCC8) and full SCC (i.e., SCC10) for <command>Movesmrg</command> to convert reference SCC-level inventory to full SCC inventory. Although it shares the same format of <xref linkend="tbl_input_sccxref" />, this input file is designed for RatePerDistance (RPD) mode run in <command>Movesmrg</command> for users to allow to map aggregated SCC-level averaged speed (AVGSPD) distribution profiles to full SCCs in RPD mode run:</para>
+
+<table id="tbl_input_avgspd_sccxref">
+<title>Delimited format for <envar>AVGSPD_SCCXREF</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="15*" colname="Line" />
+<colspec colwidth="15*" colname="Position" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Lines</entry>
+<entry>Position</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1+</entry>
+<entry>A</entry>
+<entry>Full SCC (20-character maximum string)</entry>
+</row>
+<row>
+<entry colname="Position">B</entry>
+<entry>Reference SCC (20-character maximum string)</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>AVGSPD_SCCXREF</envar> example file</title>
+
+<programlisting>
+Full_scc,Reference_scc
+2201110262,2200110200
+2201110362,2200110300
+2201110462,2200110400
+2201110562,2200110500
+2201210262,2200210200
+2201210362,2200210300
+2201210462,2200210400
+2201210562,2200210500
+2201310262,2200310200
+2201310362,2200310300
+2201310462,2200310400
+2201310562,2200310500
+2201320262,2200320200
+....
+</programlisting>
+</example>
+</section>
+
 <section id="sect_input_cfpro">
 
 <title><envar>CFPRO</envar>: Mobile source control factor input file</title>
 
-<para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all three MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, and RatePerProfile). Its format is shown in <xref linkend="tbl_input_cfpro" />.</para>
+<para>The <envar>CFPRO</envar> file is used to allow the user to apply factors to <command>Movesmrg</command> to control hourly emission rates from all MOVES lookup tables (i.e., RatePerDistance, RatePerVehicle, RatePerHour, and RatePerProfile). Its format is shown in <xref linkend="tbl_input_cfpro" />.</para>
 <para>A many-step hierarchy is used in applying the control factor cross-referencing. SMOKE preferentially matches each source to the most specific match in the file. The maximum field width in SMOKE and its input files for SCC is 20 characters as of SMOKE v4.0. The 8 or 10 digit SCC are still supported, but if the SCC is greater than 10 digits the SCC hierarchial approach will not be supported.</para>
 
 <orderedlist spacing="compact">
@@ -9484,6 +9648,110 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 </example>
 
 </section>
+<section id="sect_input_spdist">
+
+<title><envar>SPDIST</envar>: Mobile average speed distribution profile input file</title>
+
+<para>The <envar>SPDIST</envar> file is used to provide weekend/weekday and hour-specific average 16-speed bins distribution profile data to <command>Movesmrg</command> to estimate hourly emission rates from RatePerDistance (RPD) lookup table. It's format is shown in <xref linkend="tbl_input_spdist" />.</para>
+
+<table id="tbl_input_spdist">
+<title>Format for <envar>SPDIST</envar></title>
+
+<tgroup cols="4">
+<colspec colwidth="15*" colname="Column" />
+<colspec colwidth="15*" colname="Name" />
+<colspec colwidth="15*" colname="Type" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>Column</entry>
+<entry>Name</entry>
+<entry>Type</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>1</entry>
+<entry>FIPS</entry>
+<entry>Char(5)</entry>
+<entry>FIPS code for state and county code</entry>
+</row>
+<row>
+<entry>2</entry>
+<entry>SCC</entry>
+<entry>Char(20)</entry>
+<entry>Source Category Code (SCC)</entry>
+</row>
+<row>
+<entry>3</entry>
+<entry>Day of week</entry>
+<entry>Integer</entry>
+<entry>"Weekday = 5, Weekend = 2"</entry>
+</row>
+<row>
+<entry>4</entry>
+<entry>Hour of day</entry>
+<entry>Integer</entry>
+<entry>"Hour of day (1,,,,24)"</entry>
+</row>
+<row>
+<entry>5</entry>
+<entry>Speed Bin #1</entry>
+<entry>Real</entry>
+<entry>Average speed distribution factor for speed bin 1</entry>
+</row>
+<row>
+<entry>6</entry>
+<entry>Speed Bin #2</entry>
+<entry>Real</entry>
+<entry>Average speed distribution factor for speed bin 2</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>19</entry>
+<entry>Speed Bin #15</entry>
+<entry>Real</entry>
+<entry>Average speed distribution factor for speed bin 15</entry>
+</row>
+<row>
+<entry>20</entry>
+<entry>Speed Bin #16</entry>
+<entry>Real</entry>
+<entry>Average speed distribution factor for speed bin 16</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<example>
+<title><envar>SPDPRO</envar> file</title>
+
+<programlisting>
+#FIPS,SCC,dayID,hourID,spdbin1,spdbin2,,,,,,,,,,,,,spdbin15,spdbin16
+1001,2201110200,2,1,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.06,0.22,0.11,0.61
+1001,2201110200,2,2,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.54,0.46
+1001,2201110200,2,3,0.00,0.00,0.00,0.00,0.00,0.01,0.00,0.00,0.00,0.00,0.04,0.00,0.02,0.02,0.48,0.43
+1001,2201110200,2,4,0.00,0.00,0.01,0.01,0.01,0.01,0.02,0.01,0.01,0.00,0.01,0.01,0.02,0.39,0.20,0.29
+1001,2201110200,2,5,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.02,0.04,0.94
+...
+1001,2201110200,2,20,0.02,0.12,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.02,0.02,0.09,0.13,0.60
+1001,2201110200,2,21,0.00,0.08,0.04,0.01,0.00,0.00,0.02,0.00,0.00,0.00,0.03,0.00,0.08,0.06,0.28,0.39
+1001,2201110200,2,22,0.00,0.00,0.04,0.00,0.01,0.01,0.03,0.00,0.06,0.00,0.02,0.01,0.10,0.08,0.18,0.49
+1001,2201110200,2,23,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.04,0.07,0.00,0.04,0.23,0.62
+1001,2201110200,2,24,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.02,0.03,0.08,0.21,0.65
+</programlisting>
+</example>
+
+</section>
+
 <section id="sect_input_spdpro">
 
 <title><envar>SPDPRO</envar>: Mobile hourly speed profile input file</title>
@@ -9596,6 +9864,7 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 </example>
 
 </section>
+
 </section>
 
 <section>
@@ -11232,9 +11501,9 @@ SOURCE > 100 AND SOURCE < 200
 		</row>
 		<row>
 			<entry>+5:00</entry>
-			<entry>EST</entry> 
-			<entry>Eastern Standard Time</entry> 
-		</row>                                                                                      
+			<entry>EST</entry>
+			<entry>Eastern Standard Time</entry>
+		</row>
 		<row>
 			<entry>+4:00</entry>
 			<entry>AST</entry>
@@ -11245,12 +11514,12 @@ SOURCE > 100 AND SOURCE < 200
 			<entry>ART</entry>
 			<entry>Argentina Time</entry>
 		</row>
-		<row>                                                                                       
+		<row>
 			<entry>+2:00</entry>
-			<entry>FNT </entry>                                                         
+			<entry>FNT </entry>
 			<entry>Fernando de Noronha Time</entry>
-		</row>                                                                                      
-		<row>                                                                                       
+		</row>
+		<row>
 			<entry>+1:00</entry>
 			<entry>EGT</entry>
 			<entry>Eastern Greenland Time</entry>
@@ -11264,47 +11533,47 @@ SOURCE > 100 AND SOURCE < 200
 			<entry>-1:00</entry>
 			<entry>CET</entry>
 			<entry>Central European Time</entry>
-		</row> 
-		<row>           
-			<entry>-2:00</entry>                    
+		</row>
+		<row>
+			<entry>-2:00</entry>
 			<entry>EET</entry>
 			<entry>Eastern European Time</entry>
 		</row>
-		<row>           
-			<entry>-3:00</entry>                    
+		<row>
+			<entry>-3:00</entry>
 			<entry>MSK</entry>
 			<entry>Moscow Time</entry>
 		</row>
-		<row>           
-			<entry>-4:00</entry>                    
+		<row>
+			<entry>-4:00</entry>
 			<entry>GST</entry>
 			<entry>Gulf Standard Time</entry>
 		</row>
-		<row>           
-			<entry>-5:00</entry>                    
+		<row>
+			<entry>-5:00</entry>
 			<entry>PKT</entry>
 			<entry>Pakistan Standard Time</entry>
 		</row>
-		<row>           
-			<entry>-6:00</entry>                    
+		<row>
+			<entry>-6:00</entry>
 			<entry>BST</entry>
 			<entry>Bangladesh Standard Time</entry>
 		</row>
-		<row>           
-			<entry>-7:00</entry>                    
+		<row>
+			<entry>-7:00</entry>
 			<entry>THA</entry>
 			<entry>Thailand Time</entry>
 		</row>
-		<row>           
-			<entry>-8:00</entry>                    
+		<row>
+			<entry>-8:00</entry>
 			<entry>HKT</entry>
 			<entry>China Standard Time</entry>
 		</row>
-		<row> 
+		<row>
 			<entry>-9:00</entry>
 			<entry>KST</entry>
 			<entry>Korean Standard Time</entry>
-		</row> 
+		</row>
 		<row>
 			<entry>-10:00</entry>
 			<entry>AET</entry>
@@ -11320,12 +11589,12 @@ SOURCE > 100 AND SOURCE < 200
 			<entry>FJT</entry>
 			<entry>Fiji Time</entry>
 		</row>
-		<row>           
-			<entry>-13:00</entry>                      
+		<row>
+			<entry>-13:00</entry>
 			<entry>NZT</entry>
 			<entry>New Zealand Daylight Time</entry>
 		</row>
-		<row>           
+		<row>
 			<entry>-14:00</entry>
 			<entry>LNT</entry>
 			<entry>Line Islands Time</entry>
@@ -11415,26 +11684,26 @@ SOURCE > 100 AND SOURCE < 200
               <row>
                                  <entry>Lines</entry>
                                  <entry>Position</entry>
-                                 <entry>Description</entry>                                  
-              </row>                                                              
-         </thead>                                                                    
-        <tbody>                                                                     
-	      <row>                                                               
-	                        <entry>1+</entry>                                           
-	                        <entry>A</entry>                                            
-				<entry>Country Code(6-character maximum string)</entry>
-	      </row>                                                              
-	      <row>                                                               
-	                        <entry colname="Position">B</entry>                         
-			        <entry>Country Code Description (20-character string)</entry>
-		</row>                                                              
-	</tbody>                                                                    
-	</tgroup>                                                                           
-	</table>                                                                                    
-</section>                
+                                 <entry>Description</entry>
+              </row>
+         </thead>
+        <tbody>
+	      <row>
+	                        <entry>1+</entry>
+	                        <entry>A</entry>
+				<entry>Country/State Code(6-character maximum string)</entry>
+	      </row>
+	      <row>
+	                        <entry colname="Position">B</entry>
+			        <entry>Country/State Code Description (20-character string)</entry>
+		</row>
+	</tbody>
+	</tgroup>
+	</table>
+</section>
 <section id="sect_input_geocode3">
 
-	<title><envar>GEOCODE_LEVEL3</envar></title>                        
+	<title><envar>GEOCODE_LEVEL3</envar></title>
 	<para>The GEOCODE_LEVEL3 input file contains up to 9 character code to specify the Country/State-level/County-level Geographical Code which will replace the COSTCY file if the environment variable USE_EXP_GEO_CODES is set to Y. </para>
 		<para>The <envar>GEOCODE_LEVEL3</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode3" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL3</envar> file is shown in <xref linkend="tbl_input_geocode3" />.</para>
 <programlisting>
@@ -11448,18 +11717,18 @@ SOURCE > 100 AND SOURCE < 200
               <colspec colwidth="15*" colname="Line" />
 	      <colspec colwidth="15*" colname="Position" />
 	      <colspec colwidth="70*" colname="Description" />
-	      
+
 	      <thead>
 	              <row>
 		                  <entry>Lines</entry>
 				  <entry>Position</entry>
-				  <entry>Description</entry>                                                                         </row>                                                                                                 
-	  </thead> 
+				  <entry>Description</entry>                                                                         </row>
+	  </thead>
 		  <tbody>
         	  <row>
 				  <entry>1+</entry>                                                                                                     <entry>A</entry>
 
-				  <entry>Country Code(9-character maximum string)</entry>                                            </row>                                                                                                                <row>                                                                                                                                   <entry colname="Position">B</entry>                                                                                   <entry>Country Code Description (20-character string)</entry>                                      </row>                                                                                                        </tbody>                                                                                                              </tgroup>                                                                                                             </table>                                                                                                      </section>
+				  <entry>Country/State/County Code(9-character maximum string)</entry>                                            </row>                                                                                                                <row>                                                                                                                                   <entry colname="Position">B</entry>                                                                                   <entry>Country/State/County Code Description (20-character string)</entry>                                      </row>                                                                                                        </tbody>                                                                                                              </tgroup>                                                                                                             </table>                                                                                                      </section>
 
 <section id="sect_input_geocode4">
 	<title><envar>GEOCODE_LEVEL4</envar></title>
@@ -11467,13 +11736,13 @@ SOURCE > 100 AND SOURCE < 200
 	<para>The <envar>GEOCODE_LEVEL4</envar> file is comma delimited as shown in <xref linkend="tbl_input_geocode4" /> . This file should not include any descriptions that have the pipe symbol (|), single quotes, or double quotes. It is okay to include dashes, slashes, semicolons, colons, commas, and periods in descriptions. The format of the <envar>GEOCODE_LEVEL4</envar> file is shown in <xref linkend="tbl_input_geocode4" />.</para>
 <programlisting>
 #GEOCODE_LEVEL4, Description, Time Zone
-"001006037000","Los Angeles, CA, USA",PST        
-"001035028000","Los Alamos, NM, USA",CST        
-"001048015000","Austin, TX, USA",CST    
+"001006037000","Los Angeles, CA, USA",PST
+"001035028000","Los Alamos, NM, USA",CST
+"001048015000","Austin, TX, USA",CST
 </programlisting>
-	<table id="tbl_input_geocode4">   
+	<table id="tbl_input_geocode4">
 	<title>File Format for <envar>GEOCODE_LEVEL4</envar>
-	</title>     
+	</title>
 	<tgroup cols="3">
         <colspec colwidth="15*" colname="Line" />
         <colspec colwidth="15*" colname="Position" />
@@ -11488,13 +11757,13 @@ SOURCE > 100 AND SOURCE < 200
 	</thead>
 	<tbody>
 		<row>
-			<entry>1+</entry>                                                          
+			<entry>1+</entry>
 			<entry>A</entry>
-			<entry>Country Code(12-character maximum)</entry>                                            </row>
+			<entry>Country/State/County/District Code(12-character maximum)</entry>                                            </row>
 		<row>
 			<entry></entry>
 			<entry>B</entry>
-	        	<entry>Country Code Description (20-character)</entry>
+	        	<entry>Country/State/County/District Code Description (20-character)</entry>
 	        </row>
 	       <row>
 		       <entry></entry>
@@ -11508,7 +11777,7 @@ SOURCE > 100 AND SOURCE < 200
 	       </row>
 
 	</tbody>
-</tgroup>                                
+</tgroup>
 </table>
 </section>
 </section>

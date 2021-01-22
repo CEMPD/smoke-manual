@@ -227,7 +227,7 @@
 <itemizedlist>
 
 <listitem>
-	<para><emphasis role="bold">Source characteristics:</emphasis> For all typical inventories, the source characteristics that identify these sources are country/state/county code, SCC and/or GEOCODE_LEVEL[1-4]. See 
+	<para><emphasis role="bold">Source characteristics:</emphasis> For all typical inventories, the source characteristics that identify these sources are country/state/county code, SCC and/or GEOCODE_LEVEL[1-4]. See
 	<xref linkend="sect_concepts_costcy_codes" /> and <xref linkend="sect_concepts_scc_codes" /> and <xref linkend="sect_concepts_geocodes" /> for further information.</para>
 </listitem>
 
@@ -290,7 +290,7 @@
 <itemizedlist>
 
 <listitem>
-	<para><emphasis role="bold">Source characteristics:</emphasis> The source characteristics for point sources depend on the inventory input format. The SMOKE one-record-per-line (ORL) and Flat File 10 Format (FF10) formats identify sources by country/state/county code, plant code, point code, stack code, segment code, and SCC. 95. 
+	<para><emphasis role="bold">Source characteristics:</emphasis> The source characteristics for point sources depend on the inventory input format. The SMOKE one-record-per-line (ORL) and Flat File 10 Format (FF10) formats identify sources by country/state/county code, plant code, point code, stack code, segment code, and SCC. 95.
 	</para>
 </listitem>
 
@@ -548,7 +548,7 @@
 <section id="sect_concepts_geocodes">
 
 	<title>Geographical Code (GEOCODE_LEVEL[1-4]</title>
-	<para> Geographical codes may be specified to the user's desired level of detail using the GEOCODE_LEVEL[1-4] files. GEOCODE_LEVEL1 contains three character codes for each country in the inventory (CCC). GEOCODE_LEVEL2 contains six character codes for each state that the user would like to track in the inventory (CCCSSS). GEOCODE_LEVEL3 contains nine character codes for each county that the user would like to track in the inventory (CCCSSSYYY).  GEOCODE_LEVEL4 contains twelve character codes for each tribal region that the user would like to track in the inventory (CCCSSSYYYTTT). </para> 
+	<para> Geographical codes may be specified to the user's desired level of detail using the GEOCODE_LEVEL[1-4] files. GEOCODE_LEVEL1 contains three character codes for each country in the inventory (CCC). GEOCODE_LEVEL2 contains six character codes for each state that the user would like to track in the inventory (CCCSSS). GEOCODE_LEVEL3 contains nine character codes for each county that the user would like to track in the inventory (CCCSSSYYY).  GEOCODE_LEVEL4 contains twelve character codes for each tribal region that the user would like to track in the inventory (CCCSSSYYYTTT). </para>
 
 	<informalfigure>
 		<mediaobject>
@@ -558,9 +558,9 @@
 			<imageobject role="html">
 				<imagedata fileref="images/concepts/geocode_html.jpg" />
 			</imageobject>
-		</mediaobject>                                                                                                                       
-	</informalfigure>                                                                                                                    
-	                                                                                                                                     
+		</mediaobject>
+	</informalfigure>
+
 </section>
 
 
@@ -642,7 +642,7 @@
     <listitem>cross-references: <envar>NHAPEXCLUDE</envar>, <envar>VMTMIX</envar>, <envar>PSTK</envar>, <envar>ARTOPNT</envar></listitem>
     <listitem>profiles: none (factors are included in the cross-reference files when needed)</listitem>
     </itemizedlist>
-    
+
 </listitem>
 <listitem>Temporal allocation (<command>Temporal</command>)
 
@@ -650,7 +650,7 @@
     <listitem>cross-references: <envar>ATREF</envar>, <envar>MTREF</envar>, <envar>PTREF</envar></listitem>
     <listitem>profiles: <envar>ATPRO</envar>, <envar>MTPRO</envar>, <envar>PTPRO</envar></listitem>
     </itemizedlist>
-    
+
 </listitem>
 <listitem>Chemical speciation (<command>Spcmat</command>)
 
@@ -658,7 +658,7 @@
     <listitem>cross-references: <envar>GSREF</envar>, <envar>GSCNV</envar></listitem>
     <listitem>profiles: <envar>GSPRO</envar></listitem>
     </itemizedlist>
-    
+
 </listitem>
 <listitem>Spatial allocation (<command>Grdmat</command>)
 
@@ -666,7 +666,7 @@
     <listitem>cross-references: <envar>AGREF</envar>, <envar>MGREF</envar></listitem>
     <listitem>profiles: <envar>AGPRO</envar>, <envar>MGPRO</envar> (<command>* Note</command>)</listitem>
     </itemizedlist>
-    
+
 </listitem>
 <listitem>Growth and controls (<command>Cntlmat</command>)
 
@@ -674,7 +674,7 @@
     <listitem>cross-references: <envar>GCNTL</envar></listitem>
     <listitem>profiles: none (factors are included in the cross-reference files)</listitem>
     </itemizedlist>
-    
+
 </listitem>
 <listitem>Mobile-source speed assignment (<command>Movesmrg</command>)
 
@@ -682,10 +682,10 @@
     <listitem>cross-references: <envar>MCXREF</envar>, <envar>MFMREF</envar></listitem>
     <listitem>profiles: <envar>SPDPRO</envar></listitem>
     </itemizedlist>
-    
+
 </listitem>
 </itemizedlist>
-    
+
 <para>The hierarchies that each SMOKE program uses to assign cross-reference entries to sources are provided in <xref linkend="ch_programs" />, where the programs are described at length. The file contents and formats are described in more detail in <xref linkend="ch_input_files" />.</para>
 
 <para><command>Note</command>:  The use of the Environment variable <envar>AGPRO</envar> (Area spatial surrogate file)and <envar>MGPRO</envar> (Mobile spatial surrogate file) have been discontinued.  Two new Environment variables have been introduced to SMOKE; <envar>SRGPRO_PATH</envar> (spatial surrogate profile file location) and <envar>SRGDESC</envar> (description file with the specific list of available surrogates located in <envar>SRGPRO_PATH</envar>) See <xref linkend="fig_programs_grdmat" />.  The surrogate files located in <envar>SRGPRO_PATH</envar> are refinements of the old [A|M]GPRO files.  They are of the same format as the old files, however, there now may be one or more surrogate files.  <command>Grdmat</command> now process each surrogate separately.  On domains with large cell counts, this approach limits the memory usage at the expense of slightly longer run times. </para>
@@ -1306,7 +1306,7 @@ Additional data</programlisting>
 
 <title>Fuel types in MOVES</title>
 
-<para>MOVES can model six different fuel types: Gasoline, Diesel, Compressed Natural Gas (CNG), Liquefied Petroleum Gas (LPG), Ethanol, and Electricity. <xref linkend="tbl_concepts_moves_fuel"/> indicates a list of original MOVES fule types. <xref linkend="tbl_concepts_moves_agg_fuel"/> shows how the four aggregated SCC fuel types are mapped to the six MOVES fuel types.</para>
+<para>MOVES can model six different fuel types: Gasoline, Diesel, Compressed Natural Gas (CNG), Liquefied Petroleum Gas (LPG), Ethanol, and Electricity. <xref linkend="tbl_concepts_moves_fuel"/> indicates a list of original MOVES fuel types.<!-- <xref linkend="tbl_concepts_moves_agg_fuel"/> shows how the four aggregated SCC fuel types are mapped to the six MOVES fuel types.--></para>
 
 <table id="tbl_concepts_moves_fuel">
 <?dbfo table-width="4in"?>
@@ -1352,7 +1352,7 @@ Additional data</programlisting>
 </tgroup>
 </table>
 
-
+<!--
 <table id="tbl_concepts_moves_agg_fuel">
 <?dbfo table-width="4in"?>
 <title>Example of aggregated fuel types and corresponding MOVES fuel types</title>
@@ -1394,6 +1394,7 @@ Additional data</programlisting>
 </tbody>
 </tgroup>
 </table>
+-->
 
 </section>
 
@@ -1401,7 +1402,7 @@ Additional data</programlisting>
 
 <title>MOVES Vehicle Types</title>
 
-<para>The vehicle types used in SMOKE&rsquo;s on-road mobile source processing are described in <xref linkend="tbl_concepts_vehicle_types" />. <xref linkend="tbl_concepts_agg_vehicle_types"/> shows how the eight aggregated MOVES vehicle types are mapped to the original MOVES vehicle types.</para>
+<para>The vehicle types used in SMOKE&rsquo;s on-road mobile source processing are described in <xref linkend="tbl_concepts_vehicle_types" />.<!--<xref linkend="tbl_concepts_agg_vehicle_types"/> shows how the eight aggregated MOVES vehicle types are mapped to the original MOVES vehicle types.--></para>
 
 <table id="tbl_concepts_vehicle_types">
 <?dbfo table-width="3.5in"?>
@@ -1475,6 +1476,7 @@ Additional data</programlisting>
 </tgroup>
 </table>
 
+<!--
 <table id="tbl_concepts_agg_vehicle_types">
 <?dbfo table-width="3.5in"?>
 <title>Example of aggregated vehicle types and corresponding MOVES vehicle types</title>
@@ -1538,6 +1540,7 @@ Additional data</programlisting>
 </table>
 
 <para>MOVES can produce emission factors for possible combinations between 13 MOVES vehicle types and fuel types. For the efficiency of SMOKE processing, the emission factors can be aggregated to a list of vehicle types listed in <xref linkend="tbl_concepts_agg_vehicle_types" />.</para>
+-->
 
 </section>
 
@@ -1545,7 +1548,7 @@ Additional data</programlisting>
 
 <title>MOVES Road Types</title>
 
-<para>MOVES can model nine different road types: rural restricted/unrestricted access with ramps, rural restricted/unrestricted access without ramps, urban restricted/unrestricted access with ramps, urban restricted/unrestricted access without ramps, and off-network (<xref linkend="tbl_concepts_moves_roads" />). <xref linkend="tbl_concepts_moves_agg_roads" /> indicates how the 6 aggregated MOVES road classes are mapped to the nine MOVES road types.</para>
+<para>MOVES can model nine different road types: rural restricted/unrestricted access with ramps, rural restricted/unrestricted access without ramps, urban restricted/unrestricted access with ramps, urban restricted/unrestricted access without ramps, and off-network (<xref linkend="tbl_concepts_moves_roads" />). <!--<xref linkend="tbl_concepts_moves_agg_roads" /> indicates how the 6 aggregated MOVES road classes are mapped to the nine MOVES road types.--></para>
 
 <table id="tbl_concepts_moves_roads">
 <?dbfo table-width="4in"?>
@@ -1604,6 +1607,7 @@ Additional data</programlisting>
 </tgroup>
 </table>
 
+<!--
 <table id="tbl_concepts_moves_agg_roads">
 <?dbfo table-width="4in"?>
 <title>Example of aggregated road types and corresponding MOVES road types</title>
@@ -1655,6 +1659,7 @@ Additional data</programlisting>
 </tbody>
 </tgroup>
 </table>
+-->
 
 </section>
 
@@ -1662,7 +1667,7 @@ Additional data</programlisting>
 
 <title>MOVES Process Types</title>
 
-<para>MOVES can model 14 different process types: including on-roadway and off-network emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting in MOVES (<xref linkend="tbl_concepts_moves_proc" />). <xref linkend="tbl_concepts_moves_agg_proc" /> indicates how the 14 aggregated MOVES process types are mapped to the 14 MOVES process types.</para>
+<para>MOVES can model 14 different process types: including on-roadway and off-network emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting in MOVES (<xref linkend="tbl_concepts_moves_proc" />). <!--<xref linkend="tbl_concepts_moves_agg_proc" /> indicates how the 14 aggregated MOVES process types are mapped to the 14 MOVES process types.--></para>
 
 <table id="tbl_concepts_moves_proc">
 <?dbfo table-width="4in"?>
@@ -1738,12 +1743,13 @@ Additional data</programlisting>
 </row>
 <row>
 <entry>99</entry>
-<entry>Well-to-Pum>Well-to-Pumpp</entry>
+<entry>Well-to-Pump</entry>
 </row>
 </tbody>
 </tgroup>
 </table>
 
+<!--
 <table id="tbl_concepts_moves_agg_proc">
 <?dbfo table-width="4in"?>
 <title>Example of aggregated process types and corresponding MOVES process types</title>
@@ -1840,6 +1846,7 @@ Additional data</programlisting>
 </tbody>
 </tgroup>
 </table>
+-->
 
 </section>
 
@@ -1889,20 +1896,28 @@ Additional data</programlisting>
 <para>When the MOVES model runs for SMOKE, it runs for all emissions processes (or modes), including on-roadway and off-network emissions processes, for the selected pollutants. Off-network emission processes (e.g., parked engine-off, engine starts, and idling, and fuel vapor venting) in MOVES are hour-dependent due to vehicle activity assumptions built into the MOVES model; the emission rate depends on both hour of the day and temperature. On-roadway emission processes (e.g., running exhaust, crankcase running exhaust, brake wear, tire wear, and on-road evaporative), on the other hand, do not depend on hour. In MOVES, these emission processes are categorized into three major groups:</para>
 <itemizedlist>
 <listitem>
-<emphasis role="bold">RatePerDistance (RPD) - </emphasis>The emission rate of on-roadway vehicles (i.e., driving) from MOVES. The rate is expressed in grams/mile traveled.
+<emphasis role="bold">RatePerDistance (RPD) - </emphasis>The emission rate of on-roadway vehicles (e.g., driving) from MOVES. The rate is expressed in grams/mile traveled.
 </listitem>
 <listitem>
-<emphasis role="bold">RatePerVehicle (RPV) - </emphasis>The emission rate of vehicles off-network (e.g., idling, starts, refueling, parked) from MOVES. The rate is given in grams/vehicle/hour.
+<emphasis role="bold">RatePerVehicle (RPV) - </emphasis>The emission rate of off-network vehicles (e.g., idling, refueling, parked) from MOVES. The rate is given in grams/vehicle/hour.
 </listitem>
 <listitem>
-<emphasis role="bold">RatePerProfile (RPP) - </emphasis>The emission rate of vehicles off-network specifically, the evaporation from parked vehicles (vapor-venting emissions) from MOVES. The rate is expressed in grams/vehicle/hour.
+<emphasis role="bold">RatePerProfile (RPP) - </emphasis>The emission rate of off-network vehicles specifically, the evaporation from parked vehicles (vapor-venting emissions) from MOVES. The rate is expressed in grams/vehicle/hour.
 </listitem>
 <listitem>
 <emphasis role="bold">RatePerHour (RPH) - </emphasis>The emission rate of extended idle exhaust from on-roadway vehicle. The rate is expressed in grams/hour traveled.
 </listitem>
+<listitem>
+<emphasis role="bold">RatePerStart (RPS) - </emphasis>The emission rate of off-network vehicles from engine start exhaust and crankcase start exhaust processes. The rate is expressed in grams/no of engine starts.
+</listitem>
+<listitem>
+<emphasis role="bold">Off-Network Idling (ONI) - </emphasis>The emission rate of off-network vehicles from idling process from parking lots, dustribution centers et al., The rate is expressed in grams/hours of vehicle idling.
+</listitem>
+
+
 </itemizedlist>
 
-<para>MOVES emission rates are organized into four lookup tables (RPD, RPV, RPP, RPH), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
+<para>MOVES emission rates are organized into four lookup tables (RPD, RPV, RPP, RPH, RPS and ONI), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
 
 <table id="tbl_concepts_moves_emission_rate_tbl">
 <title>MOVES Emission Processes by Emission Rate Tables</title>
@@ -1960,16 +1975,26 @@ Additional data</programlisting>
 <entry align="center">Grams/hour</entry>
 <entry align="left">On-roadway Extended Idle Exhaust</entry>
 </row>
+<row>
+<entry>RatePerStart (RPS)</entry>
+<entry align="center">Grams/start</entry>
+<entry align="left">Off-network Engine Start Exhaust</entry>
+</row>
+<row>
+<entry>Off-Network Idling (ONI)</entry>
+<entry align="center">Grams/hour</entry>
+<entry align="left">Off-Network Idling</entry>
+</row>
 </tbody>
-
 </tgroup>
 </table>
 
-<para><emphasis>The RPD lookup table</emphasis> is used to provide estimates of on-roadway emissions processes from mobile sources, using a separate file for each representative county. The on-road running processes that appear in this table include running exhaust, crankcase running exhaust, brake wear, tire wear, on-road evaporative permeation, on-road evaporative fuel leaks, and on-road evaporative vapor venting. The units of the emission rates in this table are grams/mile. The lookup fields for the factors are temperature and average speed. There are 16 set speed bins defined in <xref linkend="tbl_moves_speed_bins" /> (i.e., avgSpeedBinID 1=2.5mph, 2=5mph, 3=10mph, …16=75mph). The avgBinSpeed is used for interpolation in the RPD table.</para>  
+<para><emphasis>The RPD lookup table</emphasis> is used to provide estimates of on-roadway emissions processes from mobile sources, using a separate file for each representative county. The on-road running processes that appear in this table include running exhaust, crankcase running exhaust, brake wear, tire wear, on-road evaporative permeation, on-road evaporative fuel leaks, and on-road evaporative vapor venting. The units of the emission rates in this table are grams/mile. The lookup fields for the factors are temperature and average speed. There are 16 set speed bins defined in <xref linkend="tbl_moves_speed_bins" /> (i.e., avgSpeedBinID 1=2.5mph, 2=5mph, 3=10mph, …16=75mph). The avgBinSpeed is used for interpolation in the RPD table.</para>
 <para><emphasis>The RPV lookup table</emphasis> is used to provide estimates of off-network emission processes (parked engine-off, engine starts, and idling), except for the evaporative off-network vapor venting emissions process. A separate file is provided for each representative county. The off-network emission processes include start exhaust, crankcase start exhaust, off-network evaporative permeation, off-network evaporative fuel leaks, extended idle exhaust, and crankcase extended idle exhaust. Fuel month, temperature, and local hour are the lookup fields in this table, and hours are in the local time of the modeling county. The units of the emission rates are grams/vehicle/hour. Note: Although the units are grams/vehicle/hour, the number of vehicles (i.e., population) should not be temporally allocated to hours in SMOKE. Instead, a county total of vehicle population should be multiplied by emission rates at any given hour. The number of starts per vehicle by hour is already accounted for in the MOVES lookup table.</para>
 <para><emphasis>The RPP table</emphasis> is used only to estimate emissions for off-network fuel vapor venting when the vehicle is parked. This process type includes diurnal (when the vehicle is parked during the day) and hot soak (immediately after a trip when the vehicle parks) emissions types. The process depends on the rate of rise in temperature and the maximum temperature achieved during the day for the diurnal emissions type, and on the hourly temperatures for the hot soak emission type. The lookup fields for this table are reference fuel month and hour of day. As with the RPV table, the units of the emission rates are grams/vehicle/hour. The estimated emissions rates need to be multiplied by the county vehicle population. The representative county lookup tables contain 24-hour emission rates per hour per vehicle using a representative county temperature profile with different minimum and maximum temperatures. The average day county emissions are determined by interpolating between the minimum and maximum temperatures for the modeling county generated by <command>Met4moves</command>. <xref linkend="sect_concepts_moves_met_processing" /> summarizes how <command>Met4moves</command> processes meteorological data for both MOVES and SMOKE.</para>
-<para><emphasis>The RPH table</emphasis> is used only to estimate emissions for on-roadway extended idle exhaust process from mobile sources, using a separate file for each representative county.</para>
-
+<para><emphasis>The RPH table</emphasis> is used only to estimate emissions for on-roadway extended idle exhaust process from mobile sources, using a separate file for each representative county.</para>:
+<para><emphasis>The RPS table</emphasis> is used only to estimate emissions for off-netwrok engine start and crankcase start exhaust when the vehicle engines get ignited. Number of vehicle starts activity inventory will be used to compute the emissions multiplying to RPS grams/start emission rate.</para>
+<para><emphasis>The ONI table</emphasis> is used only to estimate emissions for off-netwrok vehicle idling process during especially heavy duty vehicle engines are in idling mode in the partking lot and distribution. Number of vehicle idling hours activity inventory will be used to compute the emissions multiplying to ONI grams/hour emission rate.</para>
 <table id="tbl_moves_speed_bins">
 <?dbfo table-width="6in"?>
 <title>MOVES Default Speed Bins</title>
@@ -2070,7 +2095,7 @@ Additional data</programlisting>
 </row>
 </tbody>
 </tgroup>
-</table>  
+</table>
 
 </section>
 
@@ -2685,7 +2710,7 @@ Additional data</programlisting>
 </listitem>
 
 <listitem>
-	<para><emphasis role="bold">List format:</emphasis> This is the input format used to provide multiple files to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files.</para> 
+	<para><emphasis role="bold">List format:</emphasis> This is the input format used to provide multiple files to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files.</para>
 </listitem>
 <listitem>
 	        <para><emphasis role="bold">List GRID format:</emphasis> This is the input format used to provide multiple global gridded emission inventory files to <command>Smkinven</command> in a single run. This format is simply an ASCII file that contains a list of other files. To support input of multiple pre-gridded NetCDF files, the keyword #LIST GRID in the header of this file will switch SMOKE into gridded inventory processing mode. This approach is described more in <xref linkend="sect_concepts_pregridded_data" /></para>
@@ -2864,7 +2889,7 @@ Additional data</programlisting>
 
 <para>There are two approaches for processing weekly temporal profiles: weekly normalization and weekday normalization. Although the actual normalization happens during temporal allocation, <command>Smkinven</command> sets the approach to use for each source. In the weekly approach, the <command>Temporal</command> program normalizes the weekly temporal profiles over every day of the week. This approach is appropriate for annual-total inventories or average-day inventories. Weekday normalization normalizes over just the weekdays (i.e., Monday through Friday) in the profile, or if the profile indicates no emissions on weekdays, then over just the weekend days in the profile. This approach is appropriate only for average-weekday inventories. <xref linkend="sect_concepts_temporal_processing" /> describes the two forms of weekly profile normalization in more detail.</para>
 
-<para>The default normalization setting for ORL and FF10 formats in <command>Smkinven</command> is weekly normalization.  The default settings can be changed using the <envar>WKDAY_NORMALIZE</envar> option in the SMOKE run scripts. When this option is set to Y, the sources will be set to instruct <command>Temporal</command> to use weekday normalization, and when this option is set to N, the sources will be set to cause weekly normalization. <command>Smkinven</command> gives a warning when an approach is being used that is inconsistent with the expected approach for the inventory format being used.</para> 
+<para>The default normalization setting for ORL and FF10 formats in <command>Smkinven</command> is weekly normalization.  The default settings can be changed using the <envar>WKDAY_NORMALIZE</envar> option in the SMOKE run scripts. When this option is set to Y, the sources will be set to instruct <command>Temporal</command> to use weekday normalization, and when this option is set to N, the sources will be set to cause weekly normalization. <command>Smkinven</command> gives a warning when an approach is being used that is inconsistent with the expected approach for the inventory format being used.</para>
 </section>
 
 <section id="sect_concepts_assign_countries">
@@ -2951,7 +2976,7 @@ Additional data</programlisting>
 <para><emphasis role="bold">CEM data format:</emphasis> The CEM data format provides standard local time hourly emissions by ORIS identification code and boiler number. It was developed in conjunction with the Market Trading Division of EPA, and that division now provides this ASCII file format when the data are released.</para>
 </listitem>
 <listitem>
-<para><emphasis role="bold">FF10 format:</emphasis>The FF10 day- and hour-specific format can be input to SMOKE using either the FF10 annual or average-day inventories.</para> 
+<para><emphasis role="bold">FF10 format:</emphasis>The FF10 day- and hour-specific format can be input to SMOKE using either the FF10 annual or average-day inventories.</para>
 </listitem>
 
 </itemizedlist>
@@ -3875,7 +3900,7 @@ Additional data</programlisting>
 
 <para>After applying the control factors to the SMOKE intermediate inventory file, the <command>Grwinven</command> program writes a new SMOKE intermediate inventory file that contains the new, controlled emissions. <command>Grwinven</command> writes only the I/O API part of the inventory and not the ASCII part, because the ASCII part that contains the state/county codes, SCCs, and other character strings does not change between the base and future or past year. All of the sources in the base and controlled inventory files are the same; the difference is in their emissions values.</para>
 
-<para><command>Grwinven</command> can also output the ORL inventory format (in addition to I/O API format), which is also a SMOKE input format. 
+<para><command>Grwinven</command> can also output the ORL inventory format (in addition to I/O API format), which is also a SMOKE input format.
 </para>
 
 </section>
@@ -4039,7 +4064,7 @@ Additional data</programlisting>
 <section id="sect_concepts_onroad_processing_moves">
 
 <title>Mobile-source processing with MOVES</title>
-<para>MOVES is the U.S. Environmental Protection Agency's (EPA) Motor Vehicle Emission Simulator.  In the modeling process, the user specifies vehicle types, time periods, geographical areas, pollutants, vehicle operating characteristics, and road types to be modeled. The model then performs a series of calculations, which have been carefully developed to accurately reflect vehicle operating processes (such as cold start or extended idle) and provide estimates of bulk emissions or emission rates. </para> 
+<para>MOVES is the U.S. Environmental Protection Agency's (EPA) Motor Vehicle Emission Simulator.  In the modeling process, the user specifies vehicle types, time periods, geographical areas, pollutants, vehicle operating characteristics, and road types to be modeled. The model then performs a series of calculations, which have been carefully developed to accurately reflect vehicle operating processes (such as cold start or extended idle) and provide estimates of bulk emissions or emission rates. </para>
 <para>An important feature of MOVES is that it allows users to choose between (1) the Inventory calculation type, which provides emission rates in terms of total quantity of emissions for a given time period; and (2) Emission Rate calculation type, which gives emission rates in terms of grams/mile or grams/vehicle/hour. For large-scale emissions modeling such as that needed for regional- and national-scale air quality modeling projects, it is desirable to use the Emission Rate calculation type, which populates emission rate lookup tables that can then be applied to many times and places, thus reducing the total number of MOVES runs required.</para>
 <para>To reduce the time and effort and to help the user obtain more accurate modeling results, users need to prepare and post-process MOVES runs for a representative county (See <xref linkend="sect_concepts_reference_counties_moves" />) and reference fuel month (See <xref linkend="sect_concepts_moves_reference_fuel_month" />) This approach consists of a set of scripts that automate the proper use of the Emission Rate calculations for the purpose of estimating mobile-source emissions for air quality (AQ) modeling.</para>
 <para>Integrating MOVES into SMOKE modeling system consists of three major parts:</para>
@@ -4190,25 +4215,25 @@ Additional data</programlisting>
 	<entry>Temperature</entry>
 	<entry>RatePerProfile</entry>
 	<entry>roadTypeID</entry>
-</row> 
+</row>
 <row>
 	<entry>avgSpeedBinID</entry>
 	<entry>RatePerVehicle</entry>
 	<entry></entry>
 	<entry>Temperature</entry>
-</row>  
+</row>
 <row>
 	<entry>Temperature</entry>
 	<entry></entry>
 	<entry></entry>
 	<entry>RatePerHour</entry>
-</row> 
+</row>
 <row>
 	<entry>relHumidity</entry>
-</row>  
+</row>
 <row>
 	<entry>RatePerDistance</entry>
-</row> 
+</row>
 </tbody>
 </tgroup>
 </table>
@@ -4315,13 +4340,13 @@ Additional data</programlisting>
 	<entry>PM10OC</entry>
 	<entry>VOC</entry>
 	<entry>VOC</entry>
-</row> 
+</row>
 <row>
 		<entry>...</entry>
 	<entry>...</entry>
 	<entry>...</entry>
 	<entry>...</entry>
-</row>  
+</row>
 </tbody>
 </tgroup>
 </table>

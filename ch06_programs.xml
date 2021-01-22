@@ -2044,10 +2044,14 @@ S<subscript>fraction</subscript> = smoldering fration
 </listitem>
 <listitem>
 <para><envar>FIRE_AREA</envar>: [default: 0.0]</para>
-
 <para>Sets daily area burned in acres/day; only used when <envar>FIRE_PLUME_YN</envar> is set to Y and <envar>HOURLY_FIRE_YN</envar> is set to N.</para>
-
 </listitem>
+
+<listitem>
+<para><envar>FIRE_BOTTOM_LAYER_1_YN</envar>: [default: N]</para>
+<para>Enforcing fire emissions vertical allocation starting from modeling layer 1 to Brigg's fire plume height top layer.</para>
+</listitem>
+
 <listitem>
 <para><envar>FIRE_HFLUX</envar>: [default: 0.0]</para>
 
@@ -2612,6 +2616,11 @@ S<subscript>fraction</subscript> = smoldering fration
 <entry>Source apportionment groups</entry>
 </row>
 <row>
+<entry><link linkend="sect_input_spdist"><envar>SPDIST</envar></link> (optional)</entry>
+<entry>ASCII</entry>
+<entry>Weekday and weekend hour-specific 16-bins average speed distribution profiles</entry>
+</row>
+<row>
 <entry><link linkend="sect_input_spdpro"><envar>SPDPRO</envar></link> (optional)</entry>
 <entry>ASCII</entry>
 <entry>Weekday and weekend hourly speed profiles</entry>
@@ -2624,11 +2633,14 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <section>
 <title>Input Environment Variables</title>
-
 <itemizedlist>
 <listitem>
-<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
-<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
+<para><envar>APPLY_NOX_HUMIDITY_ADJ: </envar>: [default: N]</para>
+<para> Allows <command>Movesmrg</command> to apply NOx humidity correction to gridded hourly NOx emissions for RPD_MODE and RPH_MODE runs. If there is a header "HUMIDITY_ADJUSTED_NOX Y" listed in the MOVES lookup tables, it means that NOx emissions in those MOVES lookup tables are already adjusted and this flag will be overwritten to N. No NOx humidity correction will be applied. </para>
+<itemizedlist>
+<listitem><para>Y: Apply NOx humidity correction to non-NOx humidity correction applied MOVES lookup tables from RPD and RPH runs.</para></listitem>
+<listitem><para>N: Do not apply NOx humidity correction.</para></listitem>
+</itemizedlist> 
 </listitem>
 <listitem>
 <para><envar>MEMORY_OPTIMIZE_YN: </envar>: [default: Y]</para>
@@ -2638,12 +2650,10 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem><para>N: Runs <command>Movesmrg</command> faster mode using high capacity of RAM memory.</para></listitem>
 </itemizedlist> 
 </listitem>
-
 <listitem>
 <para><envar>MRG_BYDAY</envar>: [default: blank]</para>
 <para> String code that specifies which source category is to use a by-day approach for the hourly input files. It must be set to "M" for a <command>Movesmrg</command> to create an output file for each day.</para>
 </listitem>
-
 <listitem>
 <para><envar>MRG_GRDOUT_YN</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> produces a gridded output file.</para>
@@ -2708,7 +2718,14 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem><para>N: Do not output Temporal intermediate output file</para></listitem>
 </itemizedlist>
 </listitem>
-
+<listitem>
+<para><envar>ONI_MODE</envar>: [default: N]</para>
+<para> Determines whether <command>Movesmrg</command> processes off-network idling emissions.</para>
+<itemizedlist>
+<listitem><para>Y: Process off-network idling emissions</para></listitem>
+<listitem><para>N: Do not process off-network idling emissions</para></listitem>
+</itemizedlist>
+</listitem>
 <listitem>
 <para><envar>RPD_MODE:</envar> [default: N] </para>
 <para>Determines whether <command>Movesmrg</command> processes rate-per-distance emissions.</para>
@@ -2742,6 +2759,14 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
+<para><envar>RPS_MODE</envar>: [default: N]</para>
+<para> Determines whether <command>Movesmrg</command> processes rate-per-start emissions.</para>
+<itemizedlist>
+<listitem><para>Y: Process rate-per-start emissions</para></listitem>
+<listitem><para>N: Do not process rate-per-start emissions</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
 <para><envar>SMK_MVSPATH</envar>: [default: blank]</para>
 <para>Defines the location of MOVES emission factors lookup tables.</para>
 </listitem>
@@ -2767,6 +2792,14 @@ S<subscript>fraction</subscript> = smoldering fration
 <para>  Name of temperature variable to read from the meteorology files for <command>Movesmrg</command>.</para>
 </listitem>
 <listitem>
+<para><envar>USE_AVG_SPD_DIST</envar>: [default: N]</para>
+<para> Allows the user to apply 16-speed bin average speed distribution profiles by region, SCC, day of week, and hour of day.</para>
+<itemizedlist>
+<listitem><para>Y: Apply 16-speed bin average speed distribution profiles.</para></listitem>
+<listitem><para>N: Do not apply average speed distribution profiles.</para></listitem>
+</itemizedlist>
+</listitem>
+<listitem>
 <para><envar>USE_CONTROL_FACTORS</envar>: [default: N]</para>
 <para> Allows the user to apply control factor by region, SCC, pollutant, and month.</para>
 <itemizedlist>
@@ -2781,6 +2814,10 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem><para>Y: Apply pollutant/species-specific explicit control factors to MOVES emission rates from MOVES lookup tables.</para></listitem>
 <listitem><para>N: Do not apply control factor.</para></listitem>
 </itemizedlist>
+</listitem>
+<listitem>
+<para><envar>USE_EXP_GEO_CODES</envar>: [default: N]</para>
+<para>If set to Y then use GEOCODE_LEVEL[1-4] files instead of the COSTCY file to define expanded geographical detail such as country-level(GEOCODE_LEVEL1), country/state-level (GEOCODE_LEVEL2), country/state/county-level (GEOCODE_LEVEL3) or country/state/county/tribal-level (GEOCODE_LEVEL4).</para>
 </listitem>
 <listitem>
 <para><envar>USE_REF_CONTROL_FAC_YN</envar>: [default: N]</para>
@@ -3599,10 +3636,10 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_normbeis360" /> shows the input and output files for the <command>Normbeis3</command> program for BEIS v3.14. The input files are the emission factors file (<envar>B3FAC</envar>), the gridded land use file for the first 120 land use types (<envar>BELD3_A</envar>), the gridded land use types for the next 110 types (<envar>BELD3_B</envar>), and the land use totals data file (<envar>BELD3_TOT</envar>).</para>
+<para><xref linkend="fig_programs_normbeis3" /> shows the input and output files for the <command>Normbeis3</command> program for BEIS v3.14. The input files are the emission factors file (<envar>B3FAC</envar>), the gridded land use file for the first 120 land use types (<envar>BELD3_A</envar>), the gridded land use types for the next 110 types (<envar>BELD3_B</envar>), and the land use totals data file (<envar>BELD3_TOT</envar>).</para>
 
 <figure id="fig_programs_normbeis360">
-<title><command>Normbeis3</command> input and output files for BEIS v3.60</title>
+<title><command>Normbeis3</command> input and output files for BEIS v3.61</title>
 <mediaobject>
 <imageobject role="pdf">
 <imagedata width="6.5in" fileref="images/programs/normbeis360_pdf.jpg" />
@@ -3613,7 +3650,22 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_normbeis3" /> shows the input and output files for the <command>Normbeis3</command> program for BEIS v3.60. The input files are the emission factors file (<envar>B360FAC</envar>), the gridded land use file for the first 286 land use types (<envar>BELD4</envar>).</para>
+<para><xref linkend="fig_programs_normbeis360" /> shows the input and output files for the <command>Normbeis3</command> program for BEIS v3.61. The input files are the emission factors file (<envar>B360FAC</envar>), the gridded land use file for the first 286 land use types (<envar>BELD4</envar>).</para>
+
+
+<figure id="fig_programs_normbeis370">
+<title><command>Normbeis3</command> input and output files for BEIS v3.7 or later version</title>
+<mediaobject>
+<imageobject role="pdf">
+<imagedata width="6.5in" fileref="images/programs/normbeis370_pdf.jpg" />
+</imageobject>
+<imageobject role="html">
+<imagedata fileref="images/programs/normbeis370_html.jpg" />
+</imageobject>
+</mediaobject>
+</figure>
+
+<para><xref linkend="fig_programs_normbeis370" /> shows the input and output files for the <command>Normbeis3</command> program for BEIS v3.7 or later version. The input files are the emission factors file (<envar>BEISFAC</envar>), the gridded land use file for the land use types (<envar>BELD5</envar>).</para>
 
 <para><command>Normbeis3</command> outputs a gridded, normalized biogenic emissions file (<envar>B3GRD</envar>) and a log file (<envar>LOGFILE</envar>).</para>
 
@@ -3639,6 +3691,26 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <tbody>
 <row>
+<entry><envar>BEISFAC</envar></entry>
+<entry>ASCII</entry>
+<entry>Emission factors file for BEIS v3.7 or later version</entry>
+</row>
+<row>
+<entry><envar>BELD5</envar></entry>
+<entry>ASCII</entry>
+<entry>Gridded 286 land use for BEIS v3.7 or later version</entry>
+</row>
+<row>
+<entry><envar>B360FAC</envar></entry>
+<entry>ASCII</entry>
+<entry>Emission factors file for BEIS v3.61</entry>
+</row>
+<row>
+<entry><envar>BELD4</envar></entry>
+<entry>ASCII</entry>
+<entry>Gridded 286 land use for BEIS v3.61</entry>
+</row>
+<row>
 <entry><envar>B3FAC</envar></entry>
 <entry>ASCII</entry>
 <entry>Emission factors file for BEIS v3.14</entry>
@@ -3658,18 +3730,6 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Land use totals data for BEIS v3.14</entry>
 </row>
-<row>
-<entry><envar>B360FAC</envar></entry>
-<entry>ASCII</entry>
-<entry>Emission factors file for BEIS v3.60</entry>
-</row>
-<row>
-<entry><envar>BELD4</envar></entry>
-<entry>ASCII</entry>
-<entry>Gridded 286 land use for BEIS v3.60</entry>
-</row>
-
-
 </tbody>
 </tgroup>
 </informaltable>
@@ -3680,7 +3740,13 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <title>Input Environment Variables</title>
 
-<para>None</para>
+<itemizedlist>
+<listitem>
+<para><envar>BEIS_VERSION</envar>: [default: 3.7]</para>
+<para>Define the version of BEIS model to perform</para>
+</listitem>
+
+</itemizedlist>
 
 </section>
 
@@ -4218,9 +4284,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <listitem>
 <para><envar>OUTPUT_LOCAL_TIME</envar>: [default: N]</para>
-
 <para>Defines whether the program processes daily/hourly inventories in local time or not.</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Process daily/hourly inventories in local time. No time zone shift.</para>
@@ -4230,6 +4294,23 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 </listitem>
 </itemizedlist>
 </listitem>
+
+<listitem>
+<para><envar>PROCESS_MULT_ORIS_UNITS_YN </envar>: [default: N]</para>
+<para>Defines whether the program considers ORIS and Boiler IDs as additional source characteristics along with native point inventory source characteristics (i.e., facility, unit, release point, and process IDs).</para>
+<itemizedlist>
+<listitem>
+<para>Y: Consider ORIS/Boiler IDs along with native point characteristics. NOTE that this option will internally modify the unit IDs by appending '_##' when there are multiple ORIS/Boiler IDs Continuous Emissions Monitoring (CEM) sources under same unit IDs.</para>
+</listitem>
+<listitem>
+<para>N: Do not consider ORIS/Boiler IDs as  point characteristics.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+
+
+
 
 <listitem>
 <para><envar>RAW_DUP_CHECK</envar>: [default: N]</para>

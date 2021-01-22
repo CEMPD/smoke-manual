@@ -779,6 +779,9 @@
 <para>SUNCODE: Records are printed by Sunday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
+<para>STACK [NAME]: For point sources only, records are printed as facility and stack totals. NAME can be appended to the option to get the facility names in the output file.</para>
+</listitem>
+<listitem>
 <para>THUCODE: Records are printed by Thursday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
@@ -797,9 +800,6 @@
 <para>Future versions of the BY command may support the following options, if a need for them is identified by SMOKE users:</para>
 
 <itemizedlist>
-<listitem>
-<para>STACK [NAME]: For point sources only, records are printed as facility and stack totals. NAME can be appended to the option to get the facility names in the output file.</para>
-</listitem>
 <listitem>
 <para>POINT [NAME]: For point sources only, records are printed as facility, stack, and point totals. NAME can be appended to the option to get the facility names in the output file.</para>
 </listitem>
