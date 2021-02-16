@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
-        "/proj/ie/apps/longleaf/SMOKE_archive/DocBook/docbook.dtd/docbookx.dtd" [
+        "/proj/vizuetelab/projects/NIEHS_Gulf/apps/SMOKE_archive/DocBook/docbook.dtd/docbookx.dtd" [
 <!ENTITY chap1 SYSTEM "ch01_introduction.xml">
 <!ENTITY chap2 SYSTEM "ch02_concepts.xml">
 <!ENTITY chap3 SYSTEM "ch03_dirs_files.xml">
@@ -20,12 +20,13 @@
 <book>
 
 <bookinfo>
-<title>SMOKE v4.8 User&rsquo;s Manual</title>
+<title>SMOKE v4.8.1 User&rsquo;s Manual</title>
 
 <edition>$Revision: 1.16 $</edition>
-<pubdate>$Date: 2020/10/09 09:00:10 $</pubdate>
+<pubdate>$Date: 2020/1/29 09:00:10 $</pubdate>
 
 <copyright>
+<year>2021</year>
 <year>2020</year>
 <year>2019</year>
 <year>2018</year>

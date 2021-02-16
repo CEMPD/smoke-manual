@@ -2783,6 +2783,16 @@ S<subscript>fraction</subscript> = smoldering fration
 <listitem><para>N: Do not perform any source apportionment processing</para></listitem>
 </itemizedlist>
 </listitem>
+
+<listitem>
+<para><envar>SMK_SUB_SECTOR_OUTPUT_YN</envar>: [default: N]</para>
+<para>Indicates if sub-sector source group emissions should be output</para>
+<itemizedlist>
+<listitem><para>Y: Group sources and output sub-sector source group files</para></listitem>
+<listitem><para>N: Do not perform sub-sector source group processing</para></listitem>
+</itemizedlist>
+</listitem>
+
 <listitem>
 <para><envar>TEMP_BUFFER_BIN</envar>: [default: 0.0]</para>
 <para>Defines the temperature buffer value (°F). This value allows <command>Movesmrg</command> to cover the outside of min/max temperature range in <envar>SMOKE_OUTFILE</envar> from <command>Met4moves</command> for <command>Movesmrg</command> RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Movesmrg</command>. Emission rates for those temperatures outside of original temperature range will share the ones from original max/min temperatures.</para>      
@@ -2899,7 +2909,12 @@ S<subscript>fraction</subscript> = smoldering fration
 <row>
 <entry><envar>SRCGRP_REPORT</envar></entry>
 <entry>ASCII</entry>
-<entry>Source group report file, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
+<entry>Source group report file, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> or <envar>SMK_SUB_SECTOR_OUTPUT_YN</envar> is set to Y</entry>
+</row>
+<row>
+<entry><envar>SUBOUT##GTS[_S|_L]</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Emissions by sub-sector source group ID (##) produced if <envar>SMK_SUB_SECTOR_OUTPUT_YN</envar> is set to Y</entry>
 </row>
 
 </tbody>
@@ -5138,6 +5153,16 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
+<para><envar>SMK_SUB_SECTOR_OUTPUT_YN</envar>: [default: N]</para>
+<para>Indicates if sub-sector source group emissions should be output</para>
+<itemizedlist>
+<listitem><para>Y: Group sources and output sub-sector source group files</para></listitem>
+<listitem><para>N: Do not perform sub-sector source group processing</para></listitem>
+</itemizedlist>
+</listitem>
+
+
+<listitem>
 <para><envar>SMKMERGE_CUSTOM_OUTPUT</envar>: [default: N]</para>
 
 <para>Defines his/her own output file names from <command>Smkmerge</command>. Manually define environment variables for those output file names below:</para>
@@ -5347,8 +5372,14 @@ Defines whether the program produces a report of emission totals by state.</para
 <row>
 <entry><envar>SRCGRP_REPORT</envar></entry>
 <entry>ASCII</entry>
-<entry>Source group report file, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y</entry>
+<entry>Source group report file, produced if <envar>SMK_SRCGROUP_OUTPUT_YN</envar> or  <envar>SMK_SUB_SECTOR_OUTPUT_YN</envar> is set to Y</entry>
 </row>
+<row>
+<entry><envar>SUBOUT##GTS[_S|_L]</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>Emissions by sub-sector source group ID (##) produced if <envar>SMK_SUB_SECTOR_OUTPUT_YN</envar> is set to Y</entry>
+</row>
+
 </tbody>
 </tgroup>
 </informaltable>
@@ -5769,6 +5800,18 @@ Defines whether the program produces a report of emission totals by state.</para
 </itemizedlist>
 </listitem>
 
+<listitem>
+<para><envar>DEFAULT_CONV_FAC_ERROR</envar>: [default: N]</para>
+<para>Defines whether the program treats as an error when there is no matched VOC to TOG conversion factor available in the pollutant-to-pollutant conversion file (<xref linkend="sect_input_gscnv" />).</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use speciation tagging cross-reference file</para>
+</listitem>
+<listitem>
+<para>N: Do not use speciation tagging cross-reference file</para>
+</listitem>
+</itemizedlist>
+</listitem>
 
 <listitem>
 <para><envar>FULLSCC_ONLY</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" />. In this context, this option affects cross-referencing for the speciation cross-reference files by preventing left-7 SCC assignments. The application GSCNV files are not affected by this option when using FIPS/SCC assignments, and will continue to use left-7 SCC assignments even when FULLSCC_ONLY is set to "Y".</para>
@@ -5789,9 +5832,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <listitem>
 <para><envar>POLLUTANT_CONVERSION</envar>: [default: N]</para>
-
 <para>Defines whether the program uses the pollutant-to-pollutant conversion file (<xref linkend="sect_input_gscnv" />).</para>
-
 <itemizedlist>
 <listitem>
 <para>Y: Use conversion file</para>
@@ -5828,14 +5869,14 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
-<para><envar>DEFAULT_CONV_FAC_ERROR</envar>: [default: N]</para>
-<para>Defines whether the program treats as an error when there is no matched VOC to TOG conversion factor available in the pollutant-to-pollutant conversion file (<xref linkend="sect_input_gscnv" />).</para>
+<para><envar>USE_REF_COUNTY_MAP_YN</envar>: [default: N]</para>
+<para>Defines whether the program uses the county reference county file to assign speciation profiles by reference county or not (<xref linkend="sect_input_mcxref" />).</para>
 <itemizedlist>
 <listitem>
-<para>Y: Use speciation tagging cross-reference file</para>
+<para>Y: Use inventory to reference county cross-reference file</para>
 </listitem>
 <listitem>
-<para>N: Do not use speciation tagging cross-reference file</para>
+<para>N: Do not use county cross-reference file</para>
 </listitem>
 </itemizedlist>
 </listitem>

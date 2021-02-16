@@ -4,7 +4,7 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format"
     version="1.0">
 
-<xsl:import href="/proj/ie/apps/longleaf/SMOKE_archive/DocBook/xsl/fo/docbook.xsl" />
+<xsl:import href="/proj/vizuetelab/projects/NIEHS_Gulf/apps/SMOKE_archive/DocBook/xsl/fo/docbook.xsl" />
 
 <xsl:include href="custom-common.xsl" />
 

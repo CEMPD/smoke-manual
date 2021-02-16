@@ -1,6 +1,6 @@
 # base directories for applications and data
-APPS_DIR = /proj/ie/apps/longleaf/SMOKE_archive/DocBook
-BASE_DIR = /proj/ie/apps/longleaf/SMOKE_archive/manual
+APPS_DIR = /proj/vizuetelab/projects/NIEHS_Gulf/apps/SMOKE_archive/DocBook
+BASE_DIR = /proj/vizuetelab/projects/NIEHS_Gulf/apps/SMOKE_archive/manual
 
 # application locations
 JAVA_EXE = java 

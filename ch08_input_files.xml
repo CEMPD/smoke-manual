@@ -2679,13 +2679,13 @@ In this overview section, we first provide a few important notes about file form
 <entry>9</entry>
 <entry>GLOAD</entry>
 <entry>Real</entry>
-<entry>Gross load (MW) (optional)</entry>
+<entry>Gross load (MW) (required)</entry>
 </row>
 <row>
 <entry>10</entry>
 <entry>SLOAD</entry>
 <entry>Real</entry>
-<entry>Steam load (1000 lbs/hr) (optional)</entry>
+<entry>Steam load (1000 lbs/hr) (required)</entry>
 </row>
 <row>
 <entry>11</entry>
