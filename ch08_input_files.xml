@@ -4219,7 +4219,7 @@ Sample header records for daily point sources are shown below:</para>
 <para><command><envar>[A|M|P]TPRO_MONTHLY</envar></command> : Year to month temporal weighting factors</para>
 </listitem>
 <listitem>
-<para><command><envar>[A|M|P]TPRO_DAILY</envar></command> : Year to day temporal weighting factors</para>
+<para><command><envar>[A|M|P]TPRO_DAILY</envar></command> : Month to day temporal weighting factors</para>
 </listitem>
 <listitem>
 <para><command><envar>[A|M|P]TPRO_WEEKLY</envar></command> : Month to Week temporal weighting factors</para>
@@ -4235,7 +4235,7 @@ Sample header records for daily point sources are shown below:</para>
 <para>This optional date-specific hourly temporal profiles will take precedence over the default monthly, weekly and hourly profiles. Also users must to use FIPS and SCC cross-reference hiearchy to use these temporal profiles.</para>
 
 <section id="sect_input_tpro_monthly" >
-<title>[A|M|P]TPRO_MONTHLY: Year-to-Monthk Temporal Profiles</title>
+<title>[A|M|P]TPRO_MONTHLY: Year-to-Month Temporal Profiles</title>
 
 <table id="tbl_input_tpro_monthly">
 <title>Format for <envar>ATPRO_MONTHLY</envar>, <envar>MTPRO_MONTHLY</envar>, and <envar>PTPRO_MONTHLY</envar></title>
@@ -4673,7 +4673,7 @@ Sample header records for daily point sources are shown below:</para>
 <simplelist>
 <member><quote><command><envar>HOURLY</envar></command></quote>: Date-specific hourly diurnal temporal profile from <link linkend="tbl_input_tpro_hourly_ncf"><envar>[A|M|P]TPRO_HOURLY_NCF</envar></link>.</member>
 <member><quote><command><envar>MONTHLY</envar></command></quote>: Year to month temporal profile from <link linkend="sect_input_tpro_monthly"><envar>[A|M|P]TPRO_MONTHLY</envar></link>.</member>
-<member><quote><command><envar>DAILY</envar></command></quote>: Year to day temporal profile from <link linkend="tbl_input_tpro_daily"><envar>[A|M|P]TPRO_DAILY</envar></link>.</member>
+<member><quote><command><envar>DAILY</envar></command></quote>: Month to day temporal profile from <link linkend="tbl_input_tpro_daily"><envar>[A|M|P]TPRO_DAILY</envar></link>.</member>
 <member><quote><command><envar>WEEKLY</envar></command></quote>: Month to week temporal profile from <link linkend="tbl_input_tpro_weekly"><envar>[A|M|P]TPRO_WEEKLY</envar></link>.</member>
 <member><quote><command><envar>MONDAY</envar></command></quote>: Monday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
 <member><quote><command><envar>TUESDAY</envar></command></quote>: Tuesday diurnal temporal profile from <link linkend="tbl_input_tpro_hourly"><envar>[A|M|P]TPRO_HOURLY</envar></link>.</member>
