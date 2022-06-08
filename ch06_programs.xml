@@ -1582,7 +1582,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 </listitem>
 <listitem>
 <para><envar>SMK_USE_FALLBACK</envar>: [Y/N]  </para>
-<para>Defines the surrogate code number to use as a fallback surrogate when the surrogate number set by the cross-reference file would zero out the emissions for that source.  This fallback surrogate is also used to define the county/state/country (FIPS) codes for use in <command>Grdmat</command>; therefore, a fallback surrogate code is mandatory even if the <envar>SMK_USE_FALLBACK</envar> is set to [N]. This code should exist in the <envar>SRGDESC</envar> file and be representative on all county/state/countries.  See description in <xref linkend="sect_input_srgdesc" />.</para>
+<para>Defines the surrogate code number to use as a fallback surrogate when the surrogate number set by the cross-reference file would zero out the emissions for that source.  This fallback surrogate is also used to define the country/state/county (FIPS) codes for use in <command>Grdmat</command>; therefore, a fallback surrogate code is mandatory even if the <envar>SMK_USE_FALLBACK</envar> is set to [N]. This code should exist in the <envar>SRGDESC</envar> file and be representative on all country/state/counties.  See description in <xref linkend="sect_input_srgdesc" />.</para>
 </listitem>
 <listitem>
 <para><envar>SMK_SOURCE</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>

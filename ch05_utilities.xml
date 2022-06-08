@@ -108,7 +108,7 @@ MySQL output database names to be postprocessed.</para>
 <row>
 <entry><link linkend="sect_input_refcountyfile">countyrep.in</link></entry>
 <entry>ASCII</entry>
-<entry>Representative county file containing the county/state/country FIPS codes and the full path and file names for the files containing MOVES data for AGE, FUELSUPPLY, FUELFORM(optional), IM, POP, SourceType, HPMSVMT, VMT for each representative county</entry>
+<entry>Representative county file containing the country/state/county FIPS codes and the full path and file names for the files containing MOVES data for AGE, FUELSUPPLY, FUELFORM(optional), IM, POP, SourceType, HPMSVMT, VMT for each representative county</entry>
 </row>
 <row>
 <entry><link linkend="sect_input_runctlfile">control.in</link></entry>
