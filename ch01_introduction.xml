@@ -206,7 +206,7 @@
 </section>
 </comment>
 
-
+<comment>
 <section>
 
 <title>How to Use this Manual</title>
@@ -262,5 +262,6 @@
 <para>This manual does not provide substantial technical documentation on the code itself, though some information is provided in <xref linkend="ch_source" />. The code does have extensive in-line documentation to assist Fortran-savvy users in understanding its workings. We hope that in the future we will be able to enhance the documentation in <xref linkend="ch_source" />, but are unsure of the necessity and have not obtained resources for such documentation to date.</para>
 
 </section>
+</comment>
 
 </chapter>

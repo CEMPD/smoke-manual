@@ -14,7 +14,7 @@
 
 <itemizedlist>
 <listitem>
-<para>Setting up SMOKE using available documentation (this manual) on file formats and script setup.</para>
+<para>Setting up SMOKE using available documentation (this manual) on file formats<comment> and script setup</comment>.</para>
 </listitem>
 <listitem>
 <para>Reviewing log files for errors and warnings, then resolving any problems.</para>
@@ -27,7 +27,7 @@
 </listitem>
 </itemizedlist>
 
-<para>In this chapter, we provide documentation on the <command>Smkreport</command> program (<xref linkend="sect_qa_smkreport" />), on its main input file <envar>REPCONFIG</envar> (<xref linkend="sect_qa_repconfig" />), and on the <command>Smkreport</command> output reports (<xref linkend="sect_qa_output" />). In the final section of this chapter (<xref linkend="sect_qa_methods" />), we outline QA methods that SMOKE users can apply to ensure that their inventory and emissions modeling efforts are as correct as possible.</para>
+<para>In this chapter, we provide documentation on the <command>Smkreport</command> program (<xref linkend="sect_qa_smkreport" />), on its main input file <envar>REPCONFIG</envar> (<xref linkend="sect_qa_repconfig" />), and on the <command>Smkreport</command> output reports (<xref linkend="sect_qa_output" />). <comment>In the final section of this chapter (<xref linkend="sect_qa_methods" />), we outline QA methods that SMOKE users can apply to ensure that their inventory and emissions modeling efforts are as correct as possible.</comment></para>
 
 </section>
 
@@ -43,7 +43,7 @@
 
 <para>The most important input file to <command>Smkreport</command> is the <envar>REPCONFIG</envar> file. Through this file, you have a tremendous amount of flexibility in generating different types of reports. Options are invoked by using reporting <quote>instructions</quote>, which you prepares before using <command>Smkreport</command>. See the <envar>REPCONFIG</envar> documentation in <xref linkend="sect_qa_repconfig" /> for more information on the reporting options. Additionally, in <xref linkend="sect_qa_methods" /> we provide some guidance on the types of analyses you can perform using reports created by <command>Smkreport</command>, and reasons why you might want to use those analyses.</para>
 
-<para><command>Smkreport</command> can generate multiple reports with a single run of the program. Multiple report writing is helpful, because a large part of the time that the program takes to run is reading in the SMOKE intermediate files. Note that the multiple reports are all for a single source category for one run of <command>Smkreport</command>. As described in the <xref linkend="sect_qa_output" />, the report output names are configured by the <envar>REPCONFIG</envar> file. You may specify either physical file names (including the path) in <envar>REPCONFIG</envar>, or you may specify logical file names and then make sure your script sets the logical file names to physical file names. <xref linkend="ch_scripts" /> describes the default configuration of reports in the example SMOKE scripts. At the end of <xref linkend="ch_scripts" />, we also provide information about how to configure the scripts to change the output reports that SMOKE will create.</para>
+<para><command>Smkreport</command> can generate multiple reports with a single run of the program. Multiple report writing is helpful, because a large part of the time that the program takes to run is reading in the SMOKE intermediate files. Note that the multiple reports are all for a single source category for one run of <command>Smkreport</command>. As described in the <xref linkend="sect_qa_output" />, the report output names are configured by the <envar>REPCONFIG</envar> file. You may specify either physical file names (including the path) in <envar>REPCONFIG</envar>, or you may specify logical file names and then make sure your script sets the logical file names to physical file names. <comment><xref linkend="ch_scripts" /> describes the default configuration of reports in the example SMOKE scripts. At the end of <xref linkend="ch_scripts" />, we also provide information about how to configure the scripts to change the output reports that SMOKE will create.</comment></para>
 
 </section>
 
@@ -1749,6 +1749,7 @@ Date      , Co/St/Cy, State         , CO            , NO      , NO2
 
 </section>
 
+<comment>
 <section id="sect_qa_methods">
 
 <title>Quality Assurance Methods</title>
@@ -2106,5 +2107,6 @@ Date      , Co/St/Cy, State         , CO            , NO      , NO2
 </section>
 
 </section>
+</comment>
 
 </chapter>

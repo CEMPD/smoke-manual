@@ -72,6 +72,7 @@ In this overview section, we first provide a few important notes about file form
 
 </section>
 
+<comment>
 <section id="sect_input_file_locations">
 
 <title>Where to put SMOKE input files</title>
@@ -810,6 +811,7 @@ In this overview section, we first provide a few important notes about file form
 </table>
 
 </section>
+</comment>
 
 </section>
 
@@ -829,11 +831,11 @@ In this overview section, we first provide a few important notes about file form
 
 <para>Area-, mobile-, and point-source inventories are provided to SMOKE as ASCII text files using the logical file names <envar>ARINV</envar>, <envar>MBINV</envar>, and <envar>PTINV</envar>, respectively. These files may either contain the actual inventory data (i.e. source characteristics, emissions data, and other information) or they can contain a list of file names with full paths (i.e. <filename>/apps/smoke/data/inventory/nei02/area/arinv.txt</filename>); in the latter case, we call the file a <quote>list file</quote>. When the inventory is a list file, SMOKE will open and read the data in each of the listed files and combine the data into one inventory.  You may also choose to separate your data into multiple files, splitting the data by country or into EGU versus nonEGU point sources, or to reduce the individual file sizes. Some inventory formats require that a list file is used; this will be noted in the format descriptions.</para>
 
-<para>An inventory list file can be created using the UNIX <command>ls</command>. The following command will create the <envar>ARINV</envar> file containing a list of all files starting with <filename>arinv</filename> in the <filename class="directory"><envar>$ARDAT</envar></filename> directory, complete with full paths.</para>
+<comment><para>An inventory list file can be created using the UNIX <command>ls</command>. The following command will create the <envar>ARINV</envar> file containing a list of all files starting with <filename>arinv</filename> in the <filename class="directory"><envar>$ARDAT</envar></filename> directory, complete with full paths.</para>
 
 <para><userinput><command>ls</command> <filename><envar>$ARDAT</envar>/arinv*</filename> &gt; <envar>$ARINV</envar></userinput></para>
 
-<para>You will still need to edit this file to add format information (see <xref linkend="sect_input_inventory_format" />).</para>
+<para>You will still need to edit this file to add format information (see <xref linkend="sect_input_inventory_format" />).</para></comment>
 
 </section>
 
@@ -2484,7 +2486,7 @@ In this overview section, we first provide a few important notes about file form
 <title>ORL FIREEMIS Emission Format</title>
 
 <para>The SMOKE requires that the sources in the day-specific fires inventory format (<envar>#ORL FIREEMIS</envar>) <envar>PTDAY</envar> file also be in the <envar>PTINV</envar> file described in <xref linkend="sect_input_ptinv_fire"/>. The values of the fields that are common to the day-specific data and the master (annual) data from <envar>PTINV</envar> are used to match exactly by country/state/county code, fire identification, location identification, and SCC. Default daily <envar>ACRESBURNED</envar> and <envar>FUEL_LOAD</envar> input are required to internally estimate heat flux for the fire-specific plume-rise computation. Fire duration information, such as <envar>BEGHOUR</envar> and <envar>ENDHOUR</envar> are used to adjust the hourly temporal profile.</para>
-<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para>
+<comment><para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para></comment>
 <para>NOTE: All inventory pollutant names need to be listed in the master (annual) <envar>PTINV</envar> and the day-specific <envar>PTDAY</envar> files using a header record <envar>#DATA</envar>. Sample header records are shown below:</para>
 
 <programlisting>#ORL     FIREEMIS
@@ -4103,7 +4105,7 @@ Sample header records for daily point sources are shown below:</para>
 <title>ORL FIRE Format</title>
 
 <para>The ORL inventory file for fires (<envar>#ORL FIRE</envar>) is one of the required input files to provide wildfire and prescribed fire data that are being treated as point sources to SMOKE. This file includes the fire characteristics, such as country/state/county code, fire identification, fire name, location identification, location coordinates, SCC (flaming or smoldering), material burned, vegetation types and heat content. Some of characteristics that are common to this master (annual) inventory file <envar>PTINV</envar> and the day-specific inventory file <envar>PTDAY</envar> shown in <xref linkend="sect_input_ptday_fireemis"/> need to match exactly by country/state/county code, fire ID, location ID, location coordinates, and SCC. </para>
-<para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para>
+<comment><para>Detail script setting information for fires emission modeling is described in <xref linkend="sect_ptfire_emis_cmaq" />.</para></comment>
 <para>NOTE: Although inventory pollutants are not listed, user needs to list all inventory pollutant names available from the day-specific inventory file <envar>PTDAY</envar> using a header record <envar>#DATA</envar>. Sample header records are shown below:</para>
 
 <programlisting>#ORL     FIRE
@@ -12607,7 +12609,7 @@ Full_scc,Reference_scc
 
 <title><envar>SOURCE_GROUPS</envar>: Source apportionment groups</title>
 
-<para>The <envar>SOURCE_GROUPS</envar> file is used to define groups of sources when processing emissions for source apportionment. See <xref linkend="sect_scripts_source_apportionment" /> for general information about using source apportionment in SMOKE. <command>Movesmrg</command> and <command>Smkmerge</command> read this file when <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y.</para>
+<para>The <envar>SOURCE_GROUPS</envar> file is used to define groups of sources when processing emissions for source apportionment. <comment>See <xref linkend="sect_scripts_source_apportionment" /> for general information about using source apportionment in SMOKE.</comment> <command>Movesmrg</command> and <command>Smkmerge</command> read this file when <envar>SMK_SRCGROUP_OUTPUT_YN</envar> is set to Y.</para>
 
 <para>When reading the <envar>SOURCE_GROUPS</envar> file, SMOKE will skip lines with data that doesn't apply to the current source category. Lines that contain a plant ID or point ID will be skipped when processing area, biogenic, or mobile sources. Lines containing an SCC will be skipped when processing biogenic sources.</para>
 

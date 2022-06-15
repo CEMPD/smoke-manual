@@ -1278,9 +1278,9 @@ H<subscript>S</subscript> = Physical stack height (m)
 </listitem>
 <listitem>
 <para>2: Use the <quote>Elevated</quote> section of the <envar>PELVCONFIG</envar> configuration file to select specific sources. This approach can be used for in-line plume rise in CMAQ. Must set <envar>SMK_PING_METHOD</envar> = 0.</para>
-<para>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. To reduce the total number of plume rise calculations that would be done in the CMAQ in-line plume rise module, <command>Elevpoint</command> needs to group sources with nearly identical stack parameters. <command>Elevpoint</command> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation in CMAQ. See <xref linkend="sect_in-line_model_cmaq" /> for more detail.</para>
+<para>For in-line plume rise processing in CMAQ, this environment variable must be set to 2 and the <envar>PELVCONFIG</envar> file will be used to select specific sources. To reduce the total number of plume rise calculations that would be done in the CMAQ in-line plume rise module, <command>Elevpoint</command> needs to group sources with nearly identical stack parameters. <command>Elevpoint</command> outputs stack group file that identifies elevated source locations and stack parameters for in-line plume rise calculation in CMAQ. <comment>See <xref linkend="sect_in-line_model_cmaq" /> for more detail.</comment></para>
 <para>When using <command>Smkmerge</command> for in-line plume rise processing, <envar>MRG_LAYERS_YN</envar> must set to N to create hourly speciated 2-D surface layer emissions file. If <envar>SMKMERGE_CUSTOM_OUTPUT</envar> is set to Y, the output file for the in-line emissions is called <envar>INLNST_L</envar>.</para>
-<para>To process point fire emission (ptfire sector) without precomputed plume rise described in described in <xref linkend="sect_scripts_hour_day_invs" />.</para>
+<comment><para>To process point fire emission (ptfire sector) without precomputed plume rise described in described in <xref linkend="sect_scripts_hour_day_invs" />.</para></comment>
 </listitem>
 
 </itemizedlist>
@@ -1575,7 +1575,7 @@ H<subscript>S</subscript> = Physical stack height (m)
 <para><envar>REPORT_DEFAULTS</envar>: See description in <xref linkend="sect_programs_cntlmat_envar" /></para>
 </listitem>
 <listitem>
-<para><envar>SRGPRO_PATH</envar>: Defines the location of the Area and Mobile spatial surrogate files. This should be a sub-directory in the <envar>$GE_DAT</envar> directory.</para>
+<para><envar>SRGPRO_PATH</envar>: Defines the location of the Area and Mobile spatial surrogate files. <comment>This should be a sub-directory in the <envar>$GE_DAT</envar> directory.</comment></para>
 </listitem>
 <listitem>
 <para><envar>SMK_DEFAULT_SRGID</envar>: [default: 100 (Models-3 population surrogate code)] Mandatory, user MUST choose a fallback code.</para>
@@ -1875,10 +1875,10 @@ H<subscript>S</subscript> = Physical stack height (m)
 
 <title>Plume rise calculation for fires</title>
 
-<para>Regardless whether the heat flux for wildfires is precomputed or internally computed, the Pouliot-Godowitch plume rise algorithm ( http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf ) converts the heat flux (Q) to a bouyancy flux (F) for use in the plume rise calculation (Equation 1). Hourly heat flux (Q) can be estimated based upon daily area burned, fuel loading, material burned and a constant default heat content (8000 BTU/lb). See more detail information in <xref linkend="sect_ptfire_emis_cmaq"/>.</para>
+<para>Regardless whether the heat flux for wildfires is precomputed or internally computed, the Pouliot-Godowitch plume rise algorithm ( http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf ) converts the heat flux (Q) to a bouyancy flux (F) for use in the plume rise calculation (Equation 1). Hourly heat flux (Q) can be estimated based upon daily area burned, fuel loading, material burned and a constant default heat content (8000 BTU/lb). <comment>See more detail information in <xref linkend="sect_ptfire_emis_cmaq"/>.</comment></para>
 
 <para>To account for a smoldering fraction of the fire emissions, fire plumes are distributed into both the model layers below the plume bottom and into the model layers between the plume top and bottom. The smoldering fraction of the total fire emissions is distributed into the model layer below the plume bottom. The remaining part of emissions are distributed into the model layers between the plume bottom and top.</para>
-<para>Equation 2 estimates the plume bouyant efficiency (BE) which is the portion of heat release from a fire that produces bouyancy, using the fire size in acres. The smoldering fraction (S<subscript>fraction</subscript>) of the fire plume is calculated from the BE (Equation 3). All the fire emissions are allocated to the model layers using a weighting based on the hourly sigma-pressure vertical coordinate. These equations are is used in <command>Laypoint</command> when the variable <envar>FIRE_PLUME_YN</envar> is set to Y. More information about processing fire emissions is in <xref linkend="sect_ptfire_emis_cmaq"/>.</para> 
+<para>Equation 2 estimates the plume bouyant efficiency (BE) which is the portion of heat release from a fire that produces bouyancy, using the fire size in acres. The smoldering fraction (S<subscript>fraction</subscript>) of the fire plume is calculated from the BE (Equation 3). All the fire emissions are allocated to the model layers using a weighting based on the hourly sigma-pressure vertical coordinate. These equations are is used in <command>Laypoint</command> when the variable <envar>FIRE_PLUME_YN</envar> is set to Y. <comment>More information about processing fire emissions is in <xref linkend="sect_ptfire_emis_cmaq"/>.</comment></para> 
 
 <para> Fire-specific plume rise equations are following:</para> 
 
@@ -2514,7 +2514,7 @@ S<subscript>fraction</subscript> = smoldering fration
 
 <para><command>Movesmrg</command> outputs a model-ready emissions file <envar>MGTS_L</envar> or <envar>MGTS_S</envar>, a report file <envar>REPMGTS_S</envar>, and a log file <envar>LOGFILE</envar>.</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Movesmrg</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment<comment> (see <xref linkend="sect_scripts_source_apportionment" />)</comment>, <command>Movesmrg</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <section>
 
@@ -4640,7 +4640,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs a data file that is determined by the inputs and can be a model-ready emissions file (<envar>AG[T][S][C]_L</envar> or <envar>AG[T][S][C]_S</envar>), a log file (<envar>LOGFILE</envar>), and an optional report file (<envar>REPAG[T][S][C]_L</envar> or <envar>REPAG[T][S][C]_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment<comment> (see <xref linkend="sect_scripts_source_apportionment" />)</comment>, <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_biogenic">
 <title><command>Smkmerge</command> input and output files for biogenic sources</title>
@@ -4658,7 +4658,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs either a mole-based emissions file (<envar>BGTS_L_O</envar>) or a mass-based emissions file (<envar>BGTS_S_O</envar>). Note that _O is appended to the output file name to distinguish it from the input file. The program also writes a log file (<envar>LOGFILE</envar>) and an optional report file (<envar>REPBGTS_L</envar> or <envar>REPBGTS_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment<comment> (see <xref linkend="sect_scripts_source_apportionment" />)</comment>, <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_mobile">
 <title><command>Smkmerge</command> input and output files for mobile sources</title>
@@ -4676,7 +4676,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>), a data file that is determined by the inputs and can be a model-ready emissions file (<envar>MG[T][S][C]_L</envar> or <envar>MG[T][S][C]_S</envar>), and an optional report file (<envar>REPMG[T][S][C]_L</envar> or <envar>REPMG[T][S][C]_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment<comment> (see <xref linkend="sect_scripts_source_apportionment" />)</comment>, <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_point">
 <title><command>Smkmerge</command> input and output files for point sources</title>
@@ -4694,7 +4694,7 @@ OUTPUT = INPUT1 - INPUT2
 
 <para><command>Smkmerge</command> can output an elevated sources file (<envar>ELEV[T]S[_S|_L]</envar>) if requested. Like all other SMOKE programs, <command>Smkmerge</command> outputs a log file (<envar>LOGFILE</envar>) detailing the program&rsquo;s execution. The main data file is determined by the inputs and can be include a model-ready emissions file (<envar>PG[T][S][C][3D]_L</envar> or <envar>PG[T][S][C][3D]_S</envar>). Other output files can be a PinG file (<envar>PING[T][S][C][_S][_L]</envar> and a report file (<envar>REPPG[T][S][C]_L</envar> or <envar>REPPG[T][S][C]_S</envar>).</para>
 
-<para>When using source apportionment (see <xref linkend="sect_scripts_source_apportionment" />), <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and the stack groups file (<envar>STACK_GROUPS</envar>), and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
+<para>When using source apportionment<comment> (see <xref linkend="sect_scripts_source_apportionment" />)</comment>, <command>Smkmerge</command> will also read the source grouping file (<envar>SOURCE_GROUPS</envar>) and the stack groups file (<envar>STACK_GROUPS</envar>), and output the source group information <envar>SRCGROUPS_OUT</envar>, the emissions for each source group <envar>SGINLNTS_L</envar> or <envar>SGINLNTS_S</envar>, and a source group report file <envar>SRCGRP_REPORT</envar>.</para>
 
 <figure id="fig_programs_smkmerge_all">
 <title><command>Smkmerge</command> input and output files for all source categories</title>
