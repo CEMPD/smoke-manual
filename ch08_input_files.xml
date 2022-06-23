@@ -22,7 +22,7 @@ In this overview section, we first provide a few important notes about file form
 <para>Temporal allocation files used by <command>Temporal</command> (<xref linkend="sect_input_temporal" />)</para>
 </listitem>
 <listitem>
-<para>Spatial allocation files used by <command>Grdmat</command>, <command>Normbeis3</command>, and <command>Smkmerge</command> (<xref linkend="sect_input_spatial" />)</para>
+<para>Spatial allocation files used by <command>Grdmat</command>, <command>Normbeis3</command>, <command>Normbeis4</command>, and <command>Smkmerge</command> (<xref linkend="sect_input_spatial" />)</para>
 </listitem>
 <listitem>
 <para>Chemical speciation files used by <command>Spcmat</command> (<xref linkend="sect_input_chemical" />)</para>
@@ -34,7 +34,7 @@ In this overview section, we first provide a few important notes about file form
 <para>Special merging files used by <command>Mrggrid</command> (<xref linkend="sect_input_merging" />)</para>
 </listitem>
 <listitem>
-<para>Meteorology files used by <command>Tmpbeis3</command>, <command>Met4moves</command>, and <command>Laypoint</command> (<xref linkend="sect_input_meteorology" />)</para>
+<para>Meteorology files used by <command>Tmpbeis3</command>, <command>Tmpbeis4</command>, <command>Met4moves</command>, and <command>Laypoint</command> (<xref linkend="sect_input_meteorology" />)</para>
 </listitem>
 <listitem>
 <para>Source-specific files for biogenics, mobile, and point source processing (<xref linkend="sect_input_source_specific" />)</para>
@@ -4809,7 +4809,7 @@ Sample header records for daily point sources are shown below:</para>
 
 <itemizedlist>
 <listitem>
-<para>The MIMS Spatial Allocator can create surrogates and prepare BELD3 inputs files for any modeling grid.</para>
+<para>The MIMS Spatial Allocator can create surrogates and prepare BELD inputs files for any modeling grid.</para>
 </listitem>
 
 <listitem>
@@ -5129,6 +5129,14 @@ Sample header records for daily point sources are shown below:</para>
 <para>FOREST: Percentage of forest area in each grid cell</para>
 </listitem>
 </itemizedlist>
+
+</section>
+
+<section id="sect_input_beld6">
+
+<title><envar>BELD6</envar> and <envar>BIOMASS</envar>: BELD land use data files</title>
+
+<para><envar>BELD6</envar> and <envar>BIOMASS</envar> files are I/O API netCDF files that contain gridded BELD6 data.</para>
 
 </section>
 
@@ -6568,7 +6576,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <tbody>
 <row>
 <entry><envar>GRID_CRO_2D</envar></entry>
-<entry><command>Tmpbeis3</command></entry>
+<entry><command>Tmpbeis3, Tmpbeis4</command></entry>
 <entry>LAT</entry>
 <entry>grid cell latitude (degrees)</entry>
 </row>
@@ -6624,7 +6632,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>variable name is set by <envar>TVARNAME</envar>, all <command>Met4moves</command> variables must be in same file</entry>
 </row>
 <row>
-<entry colname="Program"><command>Tmpbeis3</command></entry>
+<entry colname="Program"><command>Tmpbeis3, Tmpbeis4</command></entry>
 <entry>RGRND</entry>
 <entry>solar radiation reaching surface (watts/m<superscript>2</superscript>)</entry>
 <entry>variable name is set by <envar>RAD_VAR</envar>, actual file used is determined by <envar>BIOMET_SAME</envar></entry>
@@ -6674,7 +6682,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>all <command>Met4moves</command> variables must be in same file</entry>
 </row>
 <row>
-<entry colname="Program"><command>Tmpbeis3</command></entry>
+<entry colname="Program"><command>Tmpbeis3, Tmpbeis4</command></entry>
 <entry>PRES</entry>
 <entry>pressure (Pascals)</entry>
 <entry>variable name is set by <envar>PRES_VAR</envar></entry>
@@ -6682,27 +6690,27 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <row>
 <entry colname="Variable">RC</entry>
 <entry>convective rainfall (cm)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.14, variable name is set by <envar>RC_VAR</envar></entry>
+<entry>variable name is set by <envar>RC_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">RN</entry>
 <entry>nonconvective rainfall (cm)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.14, variable name is set by <envar>RN_VAR</envar></entry>
+<entry>variable name is set by <envar>RN_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SLTYP</entry>
 <entry>soil texture type by USDA category</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.14 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>ISLTYP_VAR</envar></entry>
+<entry>only used if <envar>PX_VERSION</envar> = Y, variable name is set by <envar>ISLTYP_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SOIM1</entry>
 <entry>volumetric soil moisture in top centimeter (m<superscript>3</superscript>/m<superscript>3</superscript>)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.14 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILM_VAR</envar></entry>
+<entry>only used if <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILM_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">SOIT1</entry>
 <entry>soil temperature in top centimeter (Kelvins)</entry>
-<entry>only used if <envar>BEIS_VERSION</envar> = 3.14 and <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILT_VAR</envar></entry>
+<entry>only used if <envar>PX_VERSION</envar> = Y, variable name is set by <envar>SOILT_VAR</envar></entry>
 </row>
 <row>
 <entry colname="Variable">TA</entry>
@@ -6710,7 +6718,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 <entry>variable name is set by <envar>TMPR_VAR</envar>, actual file opened depends on <envar>MET_FILE1</envar></entry>
 </row>
 <row>
-<entry colname="Program"><command>Tmpbeis3</command></entry>
+<entry colname="Program"><command>Tmpbeis3, Tmpbeis4</command></entry>
 <entry>TA</entry>
 <entry>air temperature (Kelvins)</entry>
 <entry>variable name is set by <envar>TMPR_VAR</envar>, actual file opened depends on <envar>MET_FILE1</envar>/<envar>METLIST</envar></entry>
