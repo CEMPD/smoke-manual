@@ -1916,6 +1916,326 @@
 
 </section>
 
+<section id="sect_intmed_normbeis4">
+
+<title><command>Normbeis4</command></title>
+
+<para>The <command>Normbeis4</command> program is responsible for computing normalized biogenic emissions. <command>Normbeis4</command> creates the following intermediate file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Normalized biogenic emissions file: <xref linkend="sect_intmed_beis_norm_emis" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_beis_norm_emis">
+
+<title><envar>BEIS4_NORM_EMIS</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Tmpbeis4</command></para>
+
+<table>
+<title>I/O API Header for <envar>BEIS4_NORM_EMIS</envar></title>
+<tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of rows in the grid</entry>
+<entry>NROWS3D from the gridded land use file</entry>
+</row>
+<row>
+<entry>NCOLS3D</entry>
+<entry>Number of columns in the grid</entry>
+<entry>NCOLS3D from the gridded land use file</entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of biogenic emission species times the number of seasons modeled</entry>
+<entry><filename>B3DIMS3.EXT</filename> include file</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<para><xref linkend="tbl_input_beis_norm_emis" /> contains names and descriptions of variables in the <envar>BEIS4_NORM_EMIS</envar> output file form <command>Normbeis4</command>, BEIS4.</para>
+
+
+<para>For BEIS version 4.0, <command>Normbeis4</command> calculates normalized emissions for both the summer and winter seasons. For nitric acid (NO) calculations, however, emissions depend on a given grid cell&rsquo;s land use category (or categories). For agricultural land use portions of a grid cell, a determination is made of whether the given day is in the growing season or the non-growing season. The appropriate emissions factor is then applied to the NO emissions calculations. The agricultural land use categories USGS Cropgrass (a cropland/grassland mosaic) and USGS Cropwoodland (a cropland/woodland mosaic) represent grid cells with mixed vegetation and only half the area is assumed to be covered by crops. Accordingly, the corresponding emissions factors for these two categories are multiplied by 0.5 for NO calculations. (Note that the USGS Drycrop and USGS Irrcrop land use categories assume the vegetation is all crop.) For the non-growing season in agricultural areas, the emissions factor for the USGS Grassland land use category is used for NO emission calculations. Finally, for non-agricultural areas, the USGS Grassland emissions factor is used all year round.</para>
+
+<table id="tbl_input_beis_norm_emis">
+<title>Variables in <envar>BEIS4_NORM_EMIS</envar> for BEIS version 4.0</title>
+<tgroup cols="4">
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>AVG_ISOP&lt;Season (S or W)&gt; </entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized isoprene emissions</entry>
+</row>
+<row>
+<entry>AVG_MBO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized 2-methyl-3-buten-2-ol emissions</entry>
+</row>
+<row>
+<entry>AVG_METH&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized methanol emissions</entry>
+</row>
+<row>
+<entry>AVG_APIN&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized alpha-pinene emissions</entry>
+</row>
+<row>
+<entry>AVG_BPIN&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized beta-pinene emissions</entry>
+</row>
+<row>
+<entry>AVG_D3CAR&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized delta-3-carene emissions</entry>
+</row>
+<row>
+<entry>AVG_DLIM&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized d-limonene emissions</entry>
+</row>
+<row>
+<entry>AVG_CAMPH&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized camphene emissions</entry>
+</row>
+<row>
+<entry>AVG_MYRC&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized myrcene emissions</entry>
+</row>
+<row>
+<entry>AVG_ATERP&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized alpha-terpinene emissions</entry>
+</row>
+<row>
+<entry>AVG_BPHE&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized beta-phellandrene emissions</entry>
+</row>
+<row>
+<entry>AVG_SABI&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized sabinene emissions</entry>
+</row>
+<row>
+<entry>AVG_PCYM&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized p-cymene emissions</entry>
+</row>
+<row>
+<entry>AVG_OCIM&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized ocimene emissions</entry>
+</row>
+<row>
+<entry>AVG_ATHU&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized alpha-thujene emissions</entry>
+</row>
+<row>
+<entry>AVG_TRPO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized terpinolene emissions</entry>
+</row>
+<row>
+<entry>AVG_GTERP&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized gamma-terpinene emissions</entry>
+</row>
+<row>
+<entry>AVG_ETHE&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized ethene emissions</entry>
+</row>
+<row>
+<entry>AVG_PROPE&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized propene emissions</entry>
+</row>
+<row>
+<entry>AVG_ETHO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized ethanol emissions</entry>
+</row>
+<row>
+<entry>AVG_ACET&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized acetone emissionS</entry>
+</row>
+<row>
+<entry>AVG_HEXA&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized hexanal emissions</entry>
+</row>
+<row>
+<entry>AVG_HEXE&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized hexenol emissions</entry>
+</row>
+<row>
+<entry>AVG_HEXY&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized hexenylacetate emissions</entry>
+</row>
+<row>
+<entry>AVG_FORM&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized formaldehyde emissions</entry>
+</row>
+<row>
+<entry>AVG_ACTAL&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized acetaldehyde emissions</entry>
+</row>
+<row>
+<entry>AVG_BUTE&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized butene emissions</entry>
+</row>
+<row>
+<entry>AVG_ETHA&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized ethane emissions</entry>
+</row>
+<row>
+<entry>AVG_FORAC&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized formic acid emissions</entry>
+</row>
+<row>
+<entry>AVG_ACTAC&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized acetic acid emissions</entry>
+</row>
+<row>
+<entry>AVG_BUTO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized butenone (aka methyl vinyl ketone) emissions</entry>
+</row>
+<row>
+<entry>AVG_CO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized carbon monoxide emissions</entry>
+</row>
+<row>
+<entry>AVG_ORVOC&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>g C/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized other reactive VOC emissions</entry>
+</row>
+<row>
+<entry>LAI_ISOP&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>m<superscript>2</superscript>/m<superscript>2</superscript></entry>
+<entry>Leaf area index for isoprene emissions</entry>
+</row>
+<row>
+<entry>LAI_MBO&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>m<superscript>2</superscript>/m<superscript>2</superscript></entry>
+<entry>Leaf area index for 2-methyl-3-buten-2-ol emissions</entry>
+</row>
+<row>
+<entry>LAI_METH&lt;Season (S or W)&gt;</entry>
+<entry>Real</entry>
+<entry>m<superscript>2</superscript>/m<superscript>2</superscript></entry>
+<entry>Leaf area index for methanol emissions</entry>
+</row>
+<row>
+<entry>AVG_NOAG_GROW</entry>
+<entry>Real</entry>
+<entry>g N/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized nitric acid emissions in agricultural areas during the growing season</entry>
+</row>
+<row>
+<entry>AVG_NOAG_NONGROW</entry>
+<entry>Real</entry>
+<entry>g N/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized nitric acid emissions in agricultural areas during the non-growing season</entry>
+</row>
+<row>
+<entry>AVG_NONONAG</entry>
+<entry>Real</entry>
+<entry>g N/km<superscript>2</superscript>-hr</entry>
+<entry>Normalized nitric acid emissions in non-agricultural areas</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
 <section id="sect_intmed_smkinven">
 
 <title><command>Smkinven</command></title>
@@ -2674,6 +2994,32 @@
 <para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
 
 <para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="sect_output_b3gts" /> for format information.</para>
+
+</section>
+
+</section>
+
+<section id="sect_intmed_tmpbeis4">
+
+<title><command>Tmpbeis4</command></title>
+
+<para>The <command>Tmpbeis4</command> is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbeis4</command> creates the following intermediate files:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready biogenic emissions: <xref linkend="sect_intmed_b4gts" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_intmed_b4gts">
+
+<title><envar>B4GTS_L</envar> and <envar>B4GTS_S</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<para>Used by: <command>Mrggrid</command> and <command>Smkmerge</command></para>
+
+<para>These files are model-ready output, but can be input into <command>Mrggrid</command> or <command>Smkmerge</command> to be combined with other source category model-ready files. See <xref linkend="sect_output_b4gts" /> for format information.</para>
 
 </section>
 
