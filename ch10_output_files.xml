@@ -721,6 +721,104 @@
 
 </section>
 
+<section id="sect_output_tmpbeis4">
+
+<title><command>Tmpbeis4</command></title>
+
+<para>The <command>Tmpbeis4</command> program is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbeis4</command> creates the following output file:</para>
+
+<itemizedlist>
+<listitem>
+<para>Model-ready biogenic emissions: <xref linkend="sect_output_b4gts" /></para>
+</listitem>
+</itemizedlist>
+
+<section id="sect_output_b4gts">
+
+<title><envar>B4GTS_L</envar> and <envar>B4GTS_S</envar></title>
+
+<para>Type: I/O API NetCDF - adapted gridded format</para>
+
+<table>
+<title>I/O API Header for <envar>B4GTS_L</envar> and <envar>B4GTS_S</envar></title>
+
+<tgroup cols="3">
+<colspec colwidth="25*" />
+<colspec colwidth="35*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>I/O API Header variable</entry>
+<entry>Meaning</entry>
+<entry>Set by...</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>NCOLS3D</entry>
+<entry>Number of columns in the grid</entry>
+<entry>Output grid description in <envar>GRIDDESC</envar></entry>
+</row>
+<row>
+<entry>NROWS3D</entry>
+<entry>Number of rows in the grid</entry>
+<entry>Output grid description in <envar>GRIDDESC</envar></entry>
+</row>
+<row>
+<entry>NVARS3D</entry>
+<entry>Number of output species</entry>
+<entry>Chemical mechanism and speciation profiles in <envar>GSPRO</envar></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+<table>
+<title>Variables in <envar>B4GTS_L</envar> and <envar>B4GTS_S</envar></title>
+<tgroup cols="4">
+<colspec colwidth="30*" />
+<colspec colwidth="15*" />
+<colspec colwidth="15*" />
+<colspec colwidth="40*" />
+
+<thead>
+<row>
+<entry>Variable Name</entry>
+<entry>Type</entry>
+<entry>Units</entry>
+<entry>Description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry>Name of species 1</entry>
+<entry>Real</entry>
+<entry>[moles|tons]/hr</entry>
+<entry>Emissions for species 1</entry>
+</row>
+<row>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+<entry>...</entry>
+</row>
+<row>
+<entry>Name of species NVARS3D</entry>
+<entry>Real</entry>
+<entry>[moles|tons]/hr</entry>
+<entry>Emissions for species NVARS3D</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+
+</section>
+
+</section>
+
 <section id="sect_output_tmpbio">
 
 <title><command>Tmpbio</command></title>
