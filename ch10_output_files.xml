@@ -819,28 +819,4 @@
 
 </section>
 
-<section id="sect_output_tmpbio">
-
-<title><command>Tmpbio</command></title>
-
-<para>The <command>Tmpbio</command> program is responsible for creating gridded, hourly biogenic emissions. <command>Tmpbio</command> creates the following output file:</para>
-
-<itemizedlist>
-<listitem>
-<para>Model-ready biogenic emissions: <xref linkend="sect_output_bgts" /></para>
-</listitem>
-</itemizedlist>
-
-<section id="sect_output_bgts">
-
-<title><envar>BGTS_L</envar> and <envar>BGTS_S</envar></title>
-
-<para>Type: I/O API NetCDF - adapted gridded format</para>
-
-<para>The <envar>BGTS_L</envar> and <envar>BGTS_S</envar> files have the same format as the <envar>B3GTS_L</envar> and <envar>B3GTS_S</envar> files, respectively. See <xref linkend="sect_output_b3gts" /> for format information.</para>
-
-</section>
-
-</section>
-
 </chapter>
