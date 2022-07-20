@@ -3825,7 +3825,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <para><emphasis>Processing categories:</emphasis> biogenic</para>
 
 <para>
-<command>Normbeis4</command> reads gridded land use data and emissions factors and produces gridded normalized biogenic emissions. <command>Normbeis4</command> is the first program in the SMOKE-BEIS4 model. The gridded land use includes various number of land use types. Emissions factors are provided for each land use type. The output gridded domain is the same as the input domain for the land use data. Emission fluxes are normalized to 30 &deg;C, and isoprene and methyl-butenol fluxes are also normalized to a photosynthetic active radiation (PAR) of 1000 &micro;mol/m<superscript>2</superscript>s. <command>Normbeis4</command> also computes normalized emissions for winter months, using a winter factor read in from the emissions factor table.
+<command>Normbeis4</command> reads gridded land use data, gridded biomass data, and emissions factors and produces gridded normalized biogenic emissions. <command>Normbeis4</command> is the first program in the SMOKE-BEIS4 model. The gridded land use includes various number of land use types. Emissions factors are provided for each land use type. The output gridded domain is the same as the input domain for the land use data. Emission fluxes are normalized to 30 &deg;C, and isoprene and methyl-butenol fluxes are also normalized to a photosynthetic active radiation (PAR) of 1000 &micro;mol/m<superscript>2</superscript>s. <command>Normbeis4</command> also computes normalized emissions for winter months, using a winter factor read in from the emissions factor table.
 </para>
 
 <para>For BEIS version 4, <command>Normbeis4</command> outputs winter and summer normalized emissions for the 35 species/compounds (including 14 monoterpenes and 1 sesquiterpene) listed below. The output units for NO are grams of nitrogen per hour; the units for all other species/compounds are grams of carbon per hour.</para>
@@ -4061,7 +4061,6 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <title>Input Files</title>
 
-<para>Gridded land use data can be created using the Spatial Allocator and the original 1-km resolution BELD6 database.</para>
 
 <informaltable>
 <tgroup cols="3">
@@ -4133,7 +4132,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <tbody>
 <row>
-<entry><envar>BEIS4_NORM_EMIS</envar></entry>
+<entry><envar>BEIS_NORM_EMIS</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Gridded, normalized biogenic emissions (in grams of carbon or nitrogen per hour, depending on the species): contains both summer and winter normalized emissions</entry>
 </row>
@@ -7324,7 +7323,7 @@ Defines whether the program produces a report of emission totals by state.</para
 
 <tbody>
 <row>
-<entry><envar>BEIS4_NORM_EMIS</envar></entry>
+<entry><envar>BEIS_NORM_EMIS</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>Gridded, normalized biogenic emissions, output from <command>Normbeis4</command></entry>
 </row>
@@ -7336,7 +7335,7 @@ Defines whether the program produces a report of emission totals by state.</para
 <row>
 <entry><envar>GSPRO</envar></entry>
 <entry>ASCII</entry>
-<entry>Speciation profiles file (<emphasis role="bold">use <quote>BV309</quote> for CB04 speciation profile or <quote>B10C5</quote> for CB05 speciation profile.</emphasis>)</entry>
+<entry>Speciation profiles file (<emphasis role="bold">use <quote>B10C5</quote> for CB05 speciation profile or <quote>BC6E7</quote> for the cb6r3_ae7 chemical mechanism used in CMAQ.</emphasis>)</entry>
 </row>
 <row>
 <entry><envar>GRID_CRO_2D</envar></entry>
@@ -7425,7 +7424,31 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Y: Use gridded seasonal switch file <envar>BIOSEASON</envar></para>
 </listitem>
 <listitem>
-<para>N: Use environment variable <envar>SUMMER_YN</envar> to determine season</para>
+<para>N: Use environment variable <envar>SUMMER_YN</envar> to determine season or see <envar>COMPUTE_SEASON_FUNCTION</envar> environment variable.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>COMPUTE_SEASON_FUNCTION</envar>: [default: Y]</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use gridded soil temperature 1 meter deep to calculate season function for using the summer and winter normalized emissions.</para>
+</listitem>
+<listitem>
+<para>N: Use <envar>BIOSEASON</envar> file or see <envar>SUMMER_YN</envar> environment variable.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>USE_WRF_LAI</envar>: [default: Y]</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use gridded, hourly, Leaf Area Index (LAI) values from WRF-MCIP (e.g. <envar>MET_FILE1</envar>) for all biogenic emissions calculations in <command>Tmpbeis4</command>.</para>
+</listitem>
+<listitem>
+<para>N: Use summer and winter LAIs computed in <command>Normbeis4</command> in the <envar>BEIS_NORM_EMIS</envar> file.</para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -7535,8 +7558,18 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
+<para><envar>SOILT2_VAR</envar>: [default: SOIT2]</para>
+<para>Specifies the soil temperature for top meter variable name used if <envar>PX_VERSION = Y</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>WSAT_VAR</envar>: [default: WSAT_PX]</para>
+<para>Specifies the soil saturation variable name used if <envar>PX_VERSION = Y</envar>.</para>
+</listitem>
+
+<listitem>
 <para><envar>SUMMER_YN</envar>: [default: Y]</para>
-<para>Indicates whether summer or winter normalized emissions should be used; only used when <envar>BIOSW_YN</envar> is N.</para>
+<para>Indicates whether summer or winter normalized emissions should be used; only used when <envar>BIOSW_YN</envar> and <envar>COMPUTE_SEASON_FUNCTION</envar> are set to N.</para>
 <itemizedlist>
 <listitem>
 <para>Y: Use summer normalized emissions</para>
