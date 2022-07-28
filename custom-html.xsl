@@ -2,7 +2,7 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-<xsl:import href="/proj/vizuetelab/projects/NIEHS_Gulf/apps/SMOKE_archive/DocBook/xsl/html/chunk.xsl" />
+<xsl:import href="/proj/ie/apps/longleaf/SMOKE_archive/DocBook/xsl/html/chunk.xsl" />
 
 <xsl:include href="custom-common.xsl" />
 
