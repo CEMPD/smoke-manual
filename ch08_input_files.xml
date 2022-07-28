@@ -7081,7 +7081,906 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>BELD6</envar>: Landuse input file for BEIS v4</title>
 
-<para>BELD6 share the same format as <xref linkend="tbl_input_landuse286" /> that contains names and descriptions of the land use categories in BELD6. Variable units are percent.</para>
+<para><xref linkend="tbl_input_beld6" /> lists the names and descriptions of the variables used in the BELD6 input file. Variable units are percent.</para>
+
+<table id="tbl_input_beld6">
+<title>Land use categories in BELD6</title>
+
+<tgroup cols="2">
+<colspec colwidth="30*" colname="Land use category" />
+<colspec colwidth="70*" colname="Description" />
+
+<thead>
+<row>
+<entry>BELD6 variable</entry>
+<entry>Common veg name / description</entry>
+</row>
+</thead>
+
+<tbody>
+<row>
+<entry colname="Land use category">MODIS_1</entry>
+<entry>Evergreen needleleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_2</entry>
+<entry>Evergreen broadleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_3</entry>
+<entry>Deciduous needleleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_4</entry>
+<entry>Deciduous broadleaf forest</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_5</entry>
+<entry>Mixed forests</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_6</entry>
+<entry>Closed shrublands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_7</entry>
+<entry>Open shrublands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_8</entry>
+<entry>Woody savannas</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_9</entry>
+<entry>Savannas</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_10</entry>
+<entry>Grasslands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_11</entry>
+<entry>Permanent wetlands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_12</entry>
+<entry>Croplands</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_13</entry>
+<entry>Urban and built up</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_14</entry>
+<entry>Cropland / natural vegetation mosaic</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_15</entry>
+<entry>Permanent snow and ice</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_16</entry>
+<entry>Barren or sparsely vegetated</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_17</entry>
+<entry>IGBP water</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_18</entry>
+<entry>Wooded tundra</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_19</entry>
+<entry>Mixed tundra</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_20</entry>
+<entry>Barren tundra</entry>
+</row>
+<row>
+<entry colname="Land use category">MODIS_21</entry>
+<entry>Lakes</entry>
+</row>
+<row>
+<entry colname="Land use category">Hay</entry>
+<entry>Hay</entry>
+</row>
+<row>
+<entry colname="Land use category">Hay_ir</entry>
+<entry>Hay irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Alfalfa</entry>
+<entry>Alfalfa</entry>
+</row>
+<row>
+<entry colname="Land use category">Alfalfa_ir</entry>
+<entry>Alfalfa irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_Grass</entry>
+<entry>Other grass</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_Grass_ir</entry>
+<entry>Other grass irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Barley</entry>
+<entry>Barley</entry>
+</row>
+<row>
+<entry colname="Land use category">Barley_ir</entry>
+<entry>Barley irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">BeansEdible</entry>
+<entry>Beans edible</entry>
+</row>
+<row>
+<entry colname="Land use category">BeansEdible_ir</entry>
+<entry>Beans edible irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">CornGrain</entry>
+<entry>Corn Grain</entry>
+</row>
+<row>
+<entry colname="Land use category">CornGrain_ir</entry>
+<entry>Corn Grain irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">CornSilage</entry>
+<entry>Corn Silage</entry>
+</row>
+<row>
+<entry colname="Land use category">CornSilage_ir</entry>
+<entry>Corn Silage irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Cotton</entry>
+<entry>Cotton</entry>
+</row>
+<row>
+<entry colname="Land use category">Cotton_ir</entry>
+<entry>Cotton irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Oats</entry>
+<entry>Oats</entry>
+</row>
+<row>
+<entry colname="Land use category">Oats_ir</entry>
+<entry>Oats irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Peanuts</entry>
+<entry>Peanuts</entry>
+</row>
+<row>
+<entry colname="Land use category">Peanuts_ir</entry>
+<entry>Peanuts</entry>
+</row>
+<row>
+<entry colname="Land use category">Potatoes</entry>
+<entry>Potatoes</entry>
+</row>
+<row>
+<entry colname="Land use category">Potatoes_ir</entry>
+<entry>Potatoes irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Rice</entry>
+<entry>Rice</entry>
+</row>
+<row>
+<entry colname="Land use category">Rice_ir</entry>
+<entry>Rice irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Rye</entry>
+<entry>Rye</entry>
+</row>
+<row>
+<entry colname="Land use category">Rye_ir</entry>
+<entry>Rye irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumGrain</entry>
+<entry>Sorghum Grain</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumGrain_ir</entry>
+<entry>Sorghum Grain irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumSilage</entry>
+<entry>Sorghum Silage</entry>
+</row>
+<row>
+<entry colname="Land use category">SorghumSilage_ir</entry>
+<entry>Sorghum Silage irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Soybeans</entry>
+<entry>Soybeans</entry>
+</row>
+<row>
+<entry colname="Land use category">Soybeans_ir</entry>
+<entry>Soybeans irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_Spring</entry>
+<entry>Wheat spring</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_Spring_ir</entry>
+<entry>Wheat spring irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_Winter</entry>
+<entry>Wheat winter</entry>
+</row>
+<row>
+<entry colname="Land use category">Wheat_Winter_ir</entry>
+<entry>Wheat winter irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_Crop</entry>
+<entry>Other crops</entry>
+</row>
+<row>
+<entry colname="Land use category">Other_Crop_ir</entry>
+<entry>Other crops irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Canola</entry>
+<entry>Canola</entry>
+</row>
+<row>
+<entry colname="Land use category">Canola_ir</entry>
+<entry>Canola irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Beans</entry>
+<entry>Beans</entry>
+</row>
+<row>
+<entry colname="Land use category">Beans_ir</entry>
+<entry>Beans irrigated</entry>
+</row>
+<row>
+<entry colname="Land use category">Abies_spp</entry>
+<entry>Fir Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Acacia_farnesiana</entry>
+<entry>Sweet Acacia</entry>
+</row>
+<row>
+<entry colname="Land use category">Acer_negundo</entry>
+<entry>Boxelder</entry>
+</row>
+<row>
+<entry colname="Land use category">Acer_rubrum</entry>
+<entry>Red Maple</entry>
+</row>
+<row>
+<entry colname="Land use category">Acer_saccharinum</entry>
+<entry>Silver Maple</entry>
+</row>
+<row>
+<entry colname="Land use category">Acer_saccharum</entry>
+<entry>Sugar Maple</entry>
+</row>
+<row>
+<entry colname="Land use category">Acer_spp</entry>
+<entry>Maple Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Aesculus_spp</entry>
+<entry>Buckeye, Horsechestnut Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Ailanthus_altissima</entry>
+<entry>Ailanthus</entry>
+</row>
+<row>
+<entry colname="Land use category">Albizia_julibrissin</entry>
+<entry>Mimosa, Silktree</entry>
+</row>
+<row>
+<entry colname="Land use category">Alnus_glutinosa</entry>
+<entry>European Alder</entry>
+</row>
+<row>
+<entry colname="Land use category">Alnus_rubra</entry>
+<entry>Red Alder</entry>
+</row>
+<row>
+<entry colname="Land use category">Amelanchier_spp</entry>
+<entry>Serviceberry Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Annona_glabra</entry>
+<entry>Pond-Apple  </entry>
+</row>
+<row>
+<entry colname="Land use category">Arbutus_spp</entry>
+<entry>Pacific Madrone</entry>
+</row>
+<row>
+<entry colname="Land use category">Asimina_triloba</entry>
+<entry>Pawpaw</entry>
+</row>
+<row>
+<entry colname="Land use category">Avicennia_germinans</entry>
+<entry>Black-Mangrove</entry>
+</row>
+<row>
+<entry colname="Land use category">Betula_papyrifera</entry>
+<entry>Sweet Birch</entry>
+</row>
+<row>
+<entry colname="Land use category">Betula_spp</entry>
+<entry>Birch Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Bursera_simaruba</entry>
+<entry>Gumbo Limbo  </entry>
+</row>
+<row>
+<entry colname="Land use category">Calocedrus_decurrens</entry>
+<entry>Incense-Cedar</entry>
+</row>
+<row>
+<entry colname="Land use category">Carpinus_caroliniana</entry>
+<entry>American Hornbeam, Musclewood</entry>
+</row>
+<row>
+<entry colname="Land use category">Carya_aquatica</entry>
+<entry>Water Hickory</entry>
+</row>
+<row>
+<entry colname="Land use category">Carya_spp</entry>
+<entry>Hickory Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Castanea_spp</entry>
+<entry>Chestnut Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Casuarina_lepidophloia</entry>
+<entry>Belah</entry>
+</row>
+<row>
+<entry colname="Land use category">Catalpa_spp</entry>
+<entry>Catalpa Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Celtis_occidentalis</entry>
+<entry>Hackberry</entry>
+</row>
+<row>
+<entry colname="Land use category">Celtis_spp</entry>
+<entry>Hackberry Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Cercis_canadensis</entry>
+<entry>Eastern Redbud</entry>
+</row>
+<row>
+<entry colname="Land use category">Chamaecy_spp</entry>
+<entry>Port-Orford-Cedar</entry>
+</row>
+<row>
+<entry colname="Land use category">Cinnamomum_camphora</entry>
+<entry>Camphortree</entry>
+</row>
+<row>
+<entry colname="Land use category">Citrus_spp</entry>
+<entry>Citrus Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Cladrastis_kentukea</entry>
+<entry>Yellowwood</entry>
+</row>
+<row>
+<entry colname="Land use category">Condalia_hookeri</entry>
+<entry>Buttonwood-Mangrove</entry>
+</row>
+<row>
+<entry colname="Land use category">Conocarpus_erectus</entry>
+<entry>Flowering Dogwood</entry>
+</row>
+<row>
+<entry colname="Land use category">Cornus_florida</entry>
+<entry>Smoketree</entry>
+</row>
+<row>
+<entry colname="Land use category">Cotinus_obovatus</entry>
+<entry>Cockspur Hawthorn</entry>
+</row>
+<row>
+<entry colname="Land use category">Crataegus_spp</entry>
+<entry>Downy Hawthorn</entry>
+</row>
+<row>
+<entry colname="Land use category">Diospyros_spp</entry>
+<entry>Persimmon Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Ehretia_anacua</entry>
+<entry>Anacua Knockaway</entry>
+</row>
+<row>
+<entry colname="Land use category">Elaeagnus_angustifolia</entry>
+<entry>Russian-Olive</entry>
+</row>
+<row>
+<entry colname="Land use category">Eucalyptus_grandis</entry>
+<entry>Grand Eucalyptus</entry>
+</row>
+<row>
+<entry colname="Land use category">Eucalyptus_spp</entry>
+<entry>Eucalyptus Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Fagus_grandifolia</entry>
+<entry>American Beech</entry>
+</row>
+<row>
+<entry colname="Land use category">Arecaceae_spp</entry>
+<entry>Other Palms</entry>
+</row>
+<row>
+<entry colname="Land use category">Ficus_aurea</entry>
+<entry>Florida Strangler Fig</entry>
+</row>
+<row>
+<entry colname="Land use category">Fraxinus_spp</entry>
+<entry>White Ash</entry>
+</row>
+<row>
+<entry colname="Land use category">Ginkgo_biloba</entry>
+<entry>Ginkgo, Maidenhair Tree</entry>
+</row>
+<row>
+<entry colname="Land use category">Gleditsia_spp</entry>
+<entry>Waterlocust</entry>
+</row>
+<row>
+<entry colname="Land use category">Gordonia_lasianthus</entry>
+<entry>Loblolly-Bay</entry>
+</row>
+<row>
+<entry colname="Land use category">Gymnocladus_dioicus</entry>
+<entry>Kentucky Coffeetree</entry>
+</row>
+<row>
+<entry colname="Land use category">Halesia_spp</entry>
+<entry>Carolina Silverbell</entry>
+</row>
+<row>
+<entry colname="Land use category">Ilex_opaca</entry>
+<entry>American Holly</entry>
+</row>
+<row>
+<entry colname="Land use category">Juglans_nigra</entry>
+<entry>Black Walnut</entry>
+</row>
+<row>
+<entry colname="Land use category">Juglans_spp</entry>
+<entry>Walnut Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Juniperus_spp</entry>
+<entry>Ashe Juniper</entry>
+</row>
+<row>
+<entry colname="Land use category">Laguncularia_racemosa</entry>
+<entry>White-Mangrove</entry>
+</row>
+<row>
+<entry colname="Land use category">Larix_spp</entry>
+<entry>Larch Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Liquidambar_styraciflua</entry>
+<entry>Sweetgum</entry>
+</row>
+<row>
+<entry colname="Land use category">Liriodendron_tulipifera</entry>
+<entry>Yellow-Poplar</entry>
+</row>
+<row>
+<entry colname="Land use category">Lithocarpus_densiflorus</entry>
+<entry>Tanoak</entry>
+</row>
+<row>
+<entry colname="Land use category">Maclura_pomifera</entry>
+<entry>Osage-Orange</entry>
+</row>
+<row>
+<entry colname="Land use category">Magnolia_grandiflora</entry>
+<entry>Southern Magnolia</entry>
+</row>
+<row>
+<entry colname="Land use category">Magnolia_spp</entry>
+<entry>Magnolia Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Malus_spp</entry>
+<entry>Apple Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Melaleuca_quinquenervia</entry>
+<entry>Melaleuca</entry>
+</row>
+<row>
+<entry colname="Land use category">Melia_azedarach</entry>
+<entry>Chinaberry</entry>
+</row>
+<row>
+<entry colname="Land use category">Metopium_toxiferum</entry>
+<entry>Florida Poisontree</entry>
+</row>
+<row>
+<entry colname="Land use category">Morus_rubra</entry>
+<entry>White Mulberry</entry>
+</row>
+<row>
+<entry colname="Land use category">Morus_spp</entry>
+<entry>Mulberry Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Nyssa_spp</entry>
+<entry>Tupelo Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Nyssa_sylvatica</entry>
+<entry>Blackgum</entry>
+</row>
+<row>
+<entry colname="Land use category">Ostrya_virginiana</entry>
+<entry>Eastern Hophornbeam</entry>
+</row>
+<row>
+<entry colname="Land use category">Oxydendrum_arboreum</entry>
+<entry>Sourwood</entry>
+</row>
+<row>
+<entry colname="Land use category">Paulownia_tomentosa</entry>
+<entry>Paulownia, Empress-Tree</entry>
+</row>
+<row>
+<entry colname="Land use category">Persea_borbonia</entry>
+<entry>Redbay</entry>
+</row>
+<row>
+<entry colname="Land use category">Persea_spp</entry>
+<entry>Bay Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Picea_abies</entry>
+<entry>Norway Spruce</entry>
+</row>
+<row>
+<entry colname="Land use category">Picea_glauca</entry>
+<entry>White Spruce</entry>
+</row>
+<row>
+<entry colname="Land use category">Picea_mariana</entry>
+<entry>Black Spruce</entry>
+</row>
+<row>
+<entry colname="Land use category">Picea_pungens</entry>
+<entry>Blue Spruce</entry>
+</row>
+<row>
+<entry colname="Land use category">Picea_rubens</entry>
+<entry>Red Spruce</entry>
+</row>
+<row>
+<entry colname="Land use category">Picea_sitchensis</entry>
+<entry>Sitka Spruce</entry>
+</row>
+<row>
+<entry colname="Land use category">Picea_spp</entry>
+<entry>Spruce Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_clausa</entry>
+<entry>Sand Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_echinata</entry>
+<entry>Shortleaf Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_edulis</entry>
+<entry>Common Or Two-Needle Pinyon</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_nigra</entry>
+<entry>Austrian Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_palustris</entry>
+<entry>Longleaf Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_ponderosa</entry>
+<entry>Ponderosa Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_spp</entry>
+<entry>Pine Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_strobus</entry>
+<entry>Eastern White Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_sylvestris</entry>
+<entry>Scotch Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_taeda</entry>
+<entry>Loblolly Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Pinus_virginiana</entry>
+<entry>Virginia Pine</entry>
+</row>
+<row>
+<entry colname="Land use category">Piscidia_piscipula</entry>
+<entry>Fishpoison Tree</entry>
+</row>
+<row>
+<entry colname="Land use category">Planera_aquatica</entry>
+<entry>Water-Elm, Planertree</entry>
+</row>
+<row>
+<entry colname="Land use category">Platanus_occidentalis</entry>
+<entry>American Sycamore</entry>
+</row>
+<row>
+<entry colname="Land use category">Populus_deltoides</entry>
+<entry>Eastern Cottonwood</entry>
+</row>
+<row>
+<entry colname="Land use category">Populus_grandidentata</entry>
+<entry>Bigtooth Aspen</entry>
+</row>
+<row>
+<entry colname="Land use category">Populus_spp</entry>
+<entry>Cottonwood And Poplar Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Populus_tremuloides</entry>
+<entry>Quaking Aspen</entry>
+</row>
+<row>
+<entry colname="Land use category">Prosipis_spp</entry>
+<entry>Mesquite Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Prunus_avium</entry>
+<entry>Sweet Cherry, Domesticated</entry>
+</row>
+<row>
+<entry colname="Land use category">Prunus_persica</entry>
+<entry>Peach</entry>
+</row>
+<row>
+<entry colname="Land use category">Prunus_serotina</entry>
+<entry>Black Cherry</entry>
+</row>
+<row>
+<entry colname="Land use category">Prunus_spp</entry>
+<entry>Cherry And Plum Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Pseudotsuga_menziesii</entry>
+<entry>Douglas-Fir</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_alba</entry>
+<entry>White Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_chrysolepis</entry>
+<entry>Canyon Live Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_coccinea</entry>
+<entry>Scarlet Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_falcata</entry>
+<entry>Southern Red Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_gambelii</entry>
+<entry>Gambel Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_incana</entry>
+<entry>Bluejack Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_kelloggii</entry>
+<entry>California Black Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_laevis</entry>
+<entry>Turkey Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_laurifolia</entry>
+<entry>Laurel Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_nigra</entry>
+<entry>Water Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_phellos</entry>
+<entry>Willow Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_prinus</entry>
+<entry>Chestnut Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_rubra</entry>
+<entry>Northern Red Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_stellata</entry>
+<entry>Post Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_sppE</entry>
+<entry>Evergreen Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_sppD</entry>
+<entry>Deciduous Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_velutina</entry>
+<entry>Black Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Quercus_virginiana</entry>
+<entry>Live Oak</entry>
+</row>
+<row>
+<entry colname="Land use category">Rhizophora_mangle</entry>
+<entry>American Mangrove</entry>
+</row>
+<row>
+<entry colname="Land use category">Robinia_pseudoacacia</entry>
+<entry>Black Locust</entry>
+</row>
+<row>
+<entry colname="Land use category">Roystonea_spp</entry>
+<entry>Royal Palm Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Sabal_palmetto</entry>
+<entry>Cabbage Palmetto</entry>
+</row>
+<row>
+<entry colname="Land use category">Salix_alba</entry>
+<entry>White Willow</entry>
+</row>
+<row>
+<entry colname="Land use category">Salix_caroliniana</entry>
+<entry>Coastal Plain Willow</entry>
+</row>
+<row>
+<entry colname="Land use category">Salix_nigra</entry>
+<entry>Black Willow</entry>
+</row>
+<row>
+<entry colname="Land use category">Salix_spp</entry>
+<entry>Willow Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Sapindus_saponaria</entry>
+<entry>Western Soapberry</entry>
+</row>
+<row>
+<entry colname="Land use category">Sassafras_albidum</entry>
+<entry>Sassafras</entry>
+</row>
+<row>
+<entry colname="Land use category">Sequoia_sempervirens</entry>
+<entry>Redwood</entry>
+</row>
+<row>
+<entry colname="Land use category">Sequoiadendron_giganteum</entry>
+<entry>Giant Sequoia</entry>
+</row>
+<row>
+<entry colname="Land use category">Sideroxylon_lanuginosum</entry>
+<entry>Chittamwood, Gum Bumelia</entry>
+</row>
+<row>
+<entry colname="Land use category">Sorbus_spp</entry>
+<entry>American Mountain-Ash</entry>
+</row>
+<row>
+<entry colname="Land use category">Syzygium_cumini</entry>
+<entry>Java Plum</entry>
+</row>
+<row>
+<entry colname="Land use category">Tamarix_spp</entry>
+<entry>Saltcedar</entry>
+</row>
+<row>
+<entry colname="Land use category">Taxodium_spp</entry>
+<entry>Pondcypress</entry>
+</row>
+<row>
+<entry colname="Land use category">Thrinax_morrisii</entry>
+<entry>Key Thatch Palm</entry>
+</row>
+<row>
+<entry colname="Land use category">Thuja_spp</entry>
+<entry>Western Redcedar</entry>
+</row>
+<row>
+<entry colname="Land use category">Tilia_americana</entry>
+<entry>Carolina Basswood</entry>
+</row>
+<row>
+<entry colname="Land use category">Tilia_spp</entry>
+<entry>Basswood Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Deciduous_tree</entry>
+<entry>Unknown Dead Hardwood</entry>
+</row>
+<row>
+<entry colname="Land use category">Triadica_sebifera</entry>
+<entry>Chinese Tallowtree</entry>
+</row>
+<row>
+<entry colname="Land use category">Tsuga_heterophylla</entry>
+<entry>Western Hemlock</entry>
+</row>
+<row>
+<entry colname="Land use category">Tsuga_mertensiana</entry>
+<entry>Mountain Hemlock</entry>
+</row>
+<row>
+<entry colname="Land use category">Tsuga_spp</entry>
+<entry>Hemlock Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Ulmus_americana</entry>
+<entry>Winged Elm</entry>
+</row>
+<row>
+<entry colname="Land use category">Ulmus_spp</entry>
+<entry>Elm Spp.</entry>
+</row>
+<row>
+<entry colname="Land use category">Umbellularia_californica</entry>
+<entry>California-Laurel</entry>
+</row>
+<row>
+<entry colname="Land use category">Vernicia_fordii</entry>
+<entry>Tungoil Tree</entry>
+</row>
+</tbody>
+</tgroup>
+</table>
 
 </section>
 
@@ -7089,7 +7988,7 @@ line shown as "line 1" in the table below, or anywhere in the files. The file is
 
 <title><envar>BIOMASS</envar>: Landuse input file for BEIS v4</title>
 
-<para>BIOMASS share the same format as <xref linkend="tbl_input_landuse286" /> that contains names and descriptions of the land use categories in BELD6. Variable units are in grams per meter squared.</para>
+<para>BIOMASS share the same format as <xref linkend="tbl_input_beld6" /> that contains names and descriptions of the land use categories in BELD6. Variable units are in grams per meter squared.</para>
 
 </section>
 
