@@ -664,6 +664,9 @@
 
 <itemizedlist>
 <listitem>
+<para>BOILER [NAME]: Records are printed by ORIS BOILER code. NAME can be appended to the option to additional output the ORIS BOILER code description (from the <envar>ORISDESC</envar> file) instead of only the ORIS ID code.</para>
+</listitem>
+<listitem>
 <para>CELL: Records are printed by cell. This option requires the GRIDDING instruction, so <command>Smkreport</command> automatically adds the GRIDDING instruction when the BY CELL instruction is used (even if it is not actually in the <envar>REPCONFIG</envar> file).</para>
 </listitem>
 <listitem>
@@ -677,6 +680,9 @@
 </listitem>
 <listitem>
 <para>ELEVSTAT [STACKGROUP]: Records include the status of sources as elevated (E), plume-in-grid (P), and low-level (L). All elevated statuses could appear in the same report, depending on the inventory and elevated source selection criteria. <envar>STACKGROUP</envar> can be appended to the option to additionally output stack group number from <envar>PELV</envar>. This instruction can be used for point sources only.</para>
+</listitem>
+<listitem>
+<para>FACILITY [NAME]: For point sources, emissions can be printed at the FACILITY level, replicating the existing PLANT option. NAME can be appended to the option to additional output the name of the facility.</para>
 </listitem>
 <listitem>
 <para>FRICODE: Records are printed by Friday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
