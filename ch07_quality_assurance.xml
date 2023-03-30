@@ -664,7 +664,7 @@
 
 <itemizedlist>
 <listitem>
-<para>BOILER [NAME]: Records are printed by ORIS BOILER code. NAME can be appended to the option to additional output the ORIS BOILER code description (from the <envar>ORISDESC</envar> file) instead of only the ORIS ID code.</para>
+<para>BOILER [NAME]: Records are printed by ORIS boiler code. NAME can be appended to the option to additionally output the ORIS facility description (from the <envar>ORISDESC</envar> file).</para>
 </listitem>
 <listitem>
 <para>CELL: Records are printed by cell. This option requires the GRIDDING instruction, so <command>Smkreport</command> automatically adds the GRIDDING instruction when the BY CELL instruction is used (even if it is not actually in the <envar>REPCONFIG</envar> file).</para>
@@ -730,7 +730,7 @@
 <para>NAICS [NAME]: Records are printed by NAICS code. NAME can be appended to the option to additional output the NAICS code description (from the <envar>NAICSDESC</envar> file) instead of only the NAICS code.</para>
 </listitem>
 <listitem>
-<para>ORIS [NAME]: Records are printed by ORIS ID code. NAME can be appended to the option to additional output the ORIS ID code description (from the <envar>ORISDESC</envar> file) instead of only the ORIS ID code.</para>
+<para>ORIS [NAME]: Records are printed by ORIS facility code. NAME can be appended to the option to additionally output the ORIS facility description (from the <envar>ORISDESC</envar> file).</para>
 </listitem>
 <listitem>
 <para>PLANT [NAME]: For point sources, emissions are printed by plant total. This option cannot be used in conjunction with the BY SOURCE option; if the <envar>REPCONFIG</envar> file contains both instructions, SMOKE will ignore the BY PLANT instruction.</para>
