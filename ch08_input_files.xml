@@ -3508,7 +3508,7 @@ Sample header records for daily point sources are shown below:</para>
 <entry>45</entry>
 <entry>CALC_YEAR</entry>
 <entry>Int</entry>
-<entry>Year used to represent 2002 emissions (optional; not currently used by SMOKE)</entry>
+<entry>Year used to represent emissions (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
 <entry>46</entry>
