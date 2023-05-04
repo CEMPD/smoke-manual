@@ -12298,7 +12298,7 @@ SOURCE > 100 AND SOURCE < 200
 
 <section id="sect_input_rwc_county_temp">
 
-<title><envar>RWC_COUNTY_TEMP</envar>: County-specific minimum temperature for Residential Wood Combustion (RWC) Equations</title>
+<title><envar>RWC_COUNTY_TEMP</envar>: County-specific temperature threshold in Fahrenheit for Residential Wood Combustion (RWC) Emission Sources</title>
 
 <para>This file allows to county-specific minimum temperature that is required for RWC equations listed at <xref linkend="sect_utilities_gentpro" /> . The format of the <envar>RWC_COUNTY_TEMP</envar> file is shown in <xref linkend="tbl_input_rwc_county_temp" />.</para>
 
@@ -12331,7 +12331,19 @@ SOURCE > 100 AND SOURCE < 200
 <entry>B</entry>
 <entry>Value</entry>
 <entry>Real</entry>
-<entry>Minimum temperature</entry>
+<entry>Minimum temperature theshold in Fahrenheit that occurs the RWC emission sources (required)</entry>
+</row>
+<row>
+<entry>C</entry>
+<entry>Value</entry>
+<entry>Real</entry>
+<entry>Lower-end temperature theshold in Fahrenheit that occurs the recreational RWC emission sources (optional)</entry>
+</row>
+<row>
+<entry>D</entry>
+<entry>Value</entry>
+<entry>Real</entry>
+<entry>Higher-end temperature theshold in Fahrenheit that occurs the recreational RWC emission sources (optional)</entry>
 </row>
 </tbody>
 </tgroup>
