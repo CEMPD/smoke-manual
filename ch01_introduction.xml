@@ -110,7 +110,6 @@
 <para>Below, we also summarize the major features from the previous SMOKE v2.3 release.</para>
 
 <itemizedlist>
-  <listitem><para>Supports new wild and Rx fires emission inventory in new ORL-formatted inventories. The fire emissions are either estimated by the EPM/CONSUME model in the Bluesky modeling framework or they come from the 2002 NEI.</para></listitem>
   <listitem><para>Supports the extended ORL format.&nbsp; It accepts source type codes for area, nonroad mobile and onroad mobile sources, as well as ORIS and boiler identification codes for point sources.</para></listitem>
 	<listitem><para>Supports new CEM format with additional variables including flow rate for the boiler unit, and pollutant status flags ( measured/substituted/not used ).</para></listitem>
 	<listitem><para>Allows multiple plant descriptions and FIPS codes for an ORIS ID when matching hourly point data to annual data and also supports matching hourly point source data to annual data in either IDA or ORL format.</para></listitem>

@@ -2777,8 +2777,6 @@ grep ERROR *
 
 <title>Plume Rise Calculation for Fires</title>
 
-<para>Starting with version 2.2, SMOKE contains an approach for computing plume rise for wildfire/prescribed fires using the Bluesky Pouliot-Godowitch plume rise algorithm (http://www.epa.gov/ttn/chief/conference/ei14/session12/pouliot.pdf).  In SMOKE version 2.2, SMOKE can compute hourly plume rise from precomputed hourly heat flux, fuel loading and area burned data using the Bluesky CONSUME model. The SMOKE preprocessor <command>Bluesky2Inv</command> that converts the output from the CONSUME model into SMOKE-readable annual and daily inventory files (<xref linkend="sect_utilities_bluesky2inv" />).</para>
-
 <para>Starting with SMOKE version 2.3, SMOKE can compute hourly plume rise from an intenally computed heat flux using area burned and fuel loading data. This approach allows SMOKE to compute hourly heat flux based upon daily area burned, fuel loading, material burned and a constant default heat content (8000 BTU/lb) (Equation 1). The daily heat flux and emissions are temporally allocated to hourly values based upon the duration of the fire (begining and ending hours). However, if there is a precomputed heat flux available as a daily inventory, <command>Smkinven</command> will not internally compute the heat flux and drop the begin and end hours of fire.</para>
 
 <orderedlist>
