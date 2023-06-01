@@ -2410,8 +2410,12 @@ S<subscript>fraction</subscript> = smoldering fration
 <para>Defines the temperature buffer value (°F). This value will allow <command>Met4moves</command> to expand the min/max temperature range for MOVES RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Met4moves</command>.</para>      
 </listitem>
 <listitem>
+<para><envar>QVARNAME</envar>: [default: QV]</para>
+<para>Specifies the variable name for the specific humidity to the NOx humidity correction.</para>
+</listitem>
+<listitem>
 <para><envar>TVARNAME</envar>: [default: TEMP2]</para>
-<para>Specifies the variable name for the temperature to extract from the <command>Met4moves</command> output file (<envar>MOVES_OUTFILE</envar>).</para>
+<para>Specifies the variable name for the temperature to estimate the emission factor from the MOVES emission factors lookup tables.</para>
 </listitem>
 </itemizedlist>
 
@@ -2798,7 +2802,7 @@ S<subscript>fraction</subscript> = smoldering fration
 <para>Defines the temperature buffer value (°F). This value allows <command>Movesmrg</command> to cover the outside of min/max temperature range in <envar>SMOKE_OUTFILE</envar> from <command>Met4moves</command> for <command>Movesmrg</command> RPP processing. If <envar>TEMP_BUFFER_BIN</envar> is set to 10.0, the original max temperature which is 90.0°F will be treated as 100.0°F, and minimum temperaure (=30°F) will be treated as 20.0°F internally in <command>Movesmrg</command>. Emission rates for those temperatures outside of original temperature range will share the ones from original max/min temperatures.</para>      
 </listitem>
 <listitem>
-<para><envar>TMPVNAME</envar>: [default: TEMP2]</para>
+<para><envar>TVARNAME</envar>: [default: TEMP2]</para>
 <para>  Name of temperature variable to read from the meteorology files for <command>Movesmrg</command>.</para>
 </listitem>
 <listitem>
