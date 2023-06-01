@@ -28,7 +28,7 @@
 
 <para><link linkend="sect_programs_grdmat"><command>Grdmat</command></link> creates the gridding matrix for the anthropogenic source categories.</para>
 
-<para>The <link linkend="sect_programs_temporal"><command>Temporal</command></link> program is used to create an hourly emissions file for the anthropogenic source categories. It can read in day-specific and hour-specific data, and merge this with estimated daily and hourly data created from the annual emissions data using temporal profiles.</para>
+<para><link linkend="sect_programs_temporal"><command>Temporal</command></link> program is used to create an hourly emissions file for the anthropogenic source categories. It can read in day-specific and hour-specific data, and merge this with estimated daily and hourly data created from the annual emissions data using temporal profiles.</para>
 
 <para><link linkend="sect_programs_elevpoint"><command>Elevpoint</command></link> preprocesses the selected PinG and major point sources. <command>Elevpoint</command> is not used when no PinG or major point sources need to be defined. In this case, SMOKE can create elevated emissions for all point sources, so there is no need to specifically indicate the major point sources.</para>
 
@@ -5474,6 +5474,10 @@ Defines whether the program produces a report of emission totals by state.</para
 <para>Used to set the default value for <envar>UAM_LAYERS</envar> when the <command>Smkmerge</command> output is to be used in UAM-V elevated-point-source output processing.</para>
 </listitem>
 <listitem>
+<para><envar>SMK_ELEV_METHOD</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
+</listitem>
+
+<listitem>
 <para><envar>SMK_PING_METHOD</envar>: See description in <xref linkend="sect_programs_elevpoint_envar" /></para>
 
 <para>Creates CMAQ PinG file or flags PinG sources in UAM-style elevated ASCII file (when the <envar>SMK_ASCIIELEV_YN</envar> environment variable is set to Y).</para>
@@ -5689,6 +5693,11 @@ Defines whether the program produces a report of emission totals by state.</para
 <entry><envar>LOGFILE</envar></entry>
 <entry>ASCII</entry>
 <entry>Log generated from executing <command>Smkmerge</command></entry>
+</row>
+<row>
+<entry><envar>INLN[T][S]_S|_L]</envar></entry>
+<entry>I/O API NetCDF</entry>
+<entry>CMAQ in-line emissions file, produced if <envar>SMK_ELEV_METHOD</envar> is set to 2</entry>
 </row>
 <row>
 <entry><envar>PING[T][S][C][_S|_L]</envar></entry>
