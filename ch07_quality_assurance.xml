@@ -794,6 +794,9 @@
 <para>TUECODE: Records are printed by Tuesday diurnal profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant.</para>
 </listitem>
 <listitem>
+<para>UNIT [NAME]: For point sources, emissions are printed by facility and unit total. This option cannot be used in conjunction with the BY SOURCE option; if the REPCONFIG file contains both instructions, SMOKE will ignore the BY UNIT instruction. When the NAME option is included, the facility name will be included in the report. Otherwise, only the facility and unit IDs will be included.</para>
+</listitem>
+<listitem>
 <para>WEKCODE: Records are printed by Weekly profile code. This option will work correctly only when monthly temporal profiles have not been applied by pollutant. Note that this option spelling is <emphasis>not</emphasis> WEEKCODE.</para>
 </listitem>
 <listitem>
