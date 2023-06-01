@@ -2809,25 +2809,25 @@ Sample header records for hourly point sources are shown below:
 <row>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Facility Identification Code (required; same as the Plant ID in the ORL format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Unit Identification Code (required; same as the Point ID in the ORL format)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Release Point Identification Code (required; same as the Stack ID in the ORL format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Process Identification Code (recommended; same as the Segment ID in the ORL format)</entry>
 </row>
 <row>
@@ -3261,31 +3261,31 @@ Sample header records for daily point sources are shown below:</para>
 <row>
 <entry>4</entry>
 <entry>FACILITY_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Facility Identification Code (required; same as Plant ID in the ORL format)</entry>
 </row>
 <row>
 <entry>5</entry>
 <entry>UNIT_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Unit Identification Code (required; same as the Point ID in the ORL format) (required)</entry>
 </row>
 <row>
 <entry>6</entry>
 <entry>REL_POINT_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Release Point Identification Code (recommended; same as the Stack ID in the ORL format)</entry>
 </row>
 <row>
 <entry>7</entry>
 <entry>PROCESS_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char(20)</entry>
 <entry>Process Identification Code (recommended; same as the Segement ID in the ORL format)</entry>
 </row>
 <row>
 <entry>8</entry>
 <entry>AGY_FACILITY_ID</entry>
-<entry>Char(15)</entry>
+<entry>Char</entry>
 <entry>Facility ID submitted by responsible agency (optional; not currently used by SMOKE)</entry>
 </row>
 <row>
