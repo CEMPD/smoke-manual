@@ -2723,6 +2723,28 @@ S<subscript>fraction</subscript> = smoldering fration
 </itemizedlist>
 </listitem>
 <listitem>
+<para><envar>OUTPUT_EMIS_TABLE_YN</envar>: [default: N]</para>
+<para> Determines whether <command>Movesmrg</command> outputs temperature-bin precomputed gridded hourly emissions tables or not (Not applicable for RPP mode). Find the details on how the temperature-bin-specific pregridded hourly emissions approach can work for your modeling run <quote><ulink url="https://gmd.copernicus.org/preprints/gmd-2022-253/"> CMAQ-MetEmis Dynamic Coupler Development</ulink></quote></para>
+<itemizedlist>
+<listitem><para>Y: Output temperature-bin precomputed gridded hourly emissions table.</para></listitem>
+<listitem><para>N: Do not output temperature-bin precomputed gridded hourly emissions table</para></listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>MIN_TEMP_EMIS_TABLE</envar>: [default: 0.0]</para>
+<para>Define the lowest temperature for precomputed emissions table output file when OUTPUT_EMIS_TABLE_YN is set to Y.</para>
+</listitem>
+<listitem>
+<para><envar>MAX_TEMP_EMIS_TABLE</envar>: [default: 120.0]</para>
+<para>Define the highest temperature for precomputed emissions table output file when OUTPUT_EMIS_TABLE_YN is set to Y.</para>
+</listitem>
+<listitem>
+<para><envar>TEMP_INCREMENT_EMIS_TABLE</envar>: [default: 5.0]</para>
+<para>Define the temperature bin increment for precomputed emissions table output file when OUTPUT_EMIS_TABLE_YN is set to Y.</para>
+</listitem>
+
+<listitem>
 <para><envar>ONI_MODE</envar>: [default: N]</para>
 <para> Determines whether <command>Movesmrg</command> processes off-network idling emissions.</para>
 <itemizedlist>
@@ -3149,7 +3171,14 @@ S<subscript>fraction</subscript> = smoldering fration
 <row>
 <entry><envar>FILELIST</envar></entry>
 <entry>ASCII</entry>
-<entry>List of <emphasis>logical</emphasis> file name for 2-D and 3-D gridded I/O API NetCDF files; this file cannot contain the full paths and file names. Users should make sure that the logical file names that appear in <envar>FILELIST</envar> are defined prior to running <command>Mrggrid</command>.</entry>
+<entry><para>List of <emphasis>logical</emphasis> file name for 2-D and 3-D gridded I/O API NetCDF files; this file cannot contain the full paths and file names. Users should make sure that the logical file names that appear in the column A of <envar>FILELIST</envar> are defined prior to running <command>Mrggrid</command>. The column B can be filled with "METEMIS" to enable the MOVES onroad mobile emissions except for RPP mode using METCRO2D and/or METCRO3D input files. Optionally, the column C can enable the NOx humidity correction by fuel types ("GASOLINE" or "DIESEL").</para>
+<programlisting>
+RPD_DIESEL, METEMIS, DIESEL
+RPD_GASOLINE, METEMIS, GASOLINE
+RPV, METEMIS
+RPP
+</programlisting>
+</entry>
 </row>
 
 <row>
