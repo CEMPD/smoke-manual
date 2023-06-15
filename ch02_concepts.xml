@@ -1913,13 +1913,13 @@ Additional data</programlisting>
 <emphasis role="bold">RatePerStart (RPS) - </emphasis>The emission rate of off-network vehicles from engine start exhaust and crankcase start exhaust processes. The rate is expressed in grams/no of engine starts.
 </listitem>
 <listitem>
-<emphasis role="bold">Off-Network Idling (ONI) - </emphasis>The emission rate of off-network vehicles from idling process from parking lots, dustribution centers et al., The rate is expressed in grams/hours of vehicle idling.
+<emphasis role="bold">Off-Network Idling (RPHO or ONI) - </emphasis>The emission rate of off-network vehicles from idling process from parking lots, dustribution centers et al., The rate is expressed in grams/hours of vehicle idling.
 </listitem>
 
 
 </itemizedlist>
 
-<para>MOVES emission rates are organized into four lookup tables (RPD, RPV, RPP, RPH, RPS and ONI), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
+<para>MOVES emission rates are organized into four lookup tables (RPD, RPV, RPP, RPH, RPS and RPHO), depending on emission process and whether the vehicle is parked or in motion.  The approach to running MOVES for SMOKE is unique for each emission rate table listed in <xref linkend="tbl_concepts_moves_emission_rate_tbl"/>.  A complete inventory must use the emission rates from all three tables. Note that refueling emission process is not a subject to MOVES emission rate table approach yet.</para>
 
 <table id="tbl_concepts_moves_emission_rate_tbl">
 <title>MOVES Emission Processes by Emission Rate Tables</title>
@@ -1983,7 +1983,7 @@ Additional data</programlisting>
 <entry align="left">Off-network Engine Start Exhaust</entry>
 </row>
 <row>
-<entry>Off-Network Idling (ONI)</entry>
+<entry>Off-Network Idling (RPHO or ONI)</entry>
 <entry align="center">Grams/hour</entry>
 <entry align="left">Off-Network Idling</entry>
 </row>
@@ -1992,11 +1992,11 @@ Additional data</programlisting>
 </table>
 
 <para><emphasis>The RPD lookup table</emphasis> is used to provide estimates of on-roadway emissions processes from mobile sources, using a separate file for each representative county. The on-road running processes that appear in this table include running exhaust, crankcase running exhaust, brake wear, tire wear, on-road evaporative permeation, on-road evaporative fuel leaks, and on-road evaporative vapor venting. The units of the emission rates in this table are grams/mile. The lookup fields for the factors are temperature and average speed. There are 16 set speed bins defined in <xref linkend="tbl_moves_speed_bins" /> (i.e., avgSpeedBinID 1=2.5mph, 2=5mph, 3=10mph, …16=75mph). The avgBinSpeed is used for interpolation in the RPD table.</para>
-<para><emphasis>The RPV lookup table</emphasis> is used to provide estimates of off-network emission processes (parked engine-off, engine starts, and idling), except for the evaporative off-network vapor venting emissions process. A separate file is provided for each representative county. The off-network emission processes include start exhaust, crankcase start exhaust, off-network evaporative permeation, off-network evaporative fuel leaks, extended idle exhaust, and crankcase extended idle exhaust. Fuel month, temperature, and local hour are the lookup fields in this table, and hours are in the local time of the modeling county. The units of the emission rates are grams/vehicle/hour. Note: Although the units are grams/vehicle/hour, the number of vehicles (i.e., population) should not be temporally allocated to hours in SMOKE. Instead, a county total of vehicle population should be multiplied by emission rates at any given hour. The number of starts per vehicle by hour is already accounted for in the MOVES lookup table.</para>
+<para><emphasis>The RPV, RPH, and RPS lookup table</emphasis> is used to provide estimates of off-network emission processes (parked engine-off, engine starts, and idling), except for the evaporative off-network vapor venting emissions process. A separate file is provided for each representative county. The off-network emission processes include start exhaust, crankcase start exhaust, off-network evaporative permeation, off-network evaporative fuel leaks, extended idle exhaust, and crankcase extended idle exhaust. Fuel month, temperature, and local hour are the lookup fields in this table, and hours are in the local time of the modeling county. The units of the emission rates are grams/vehicle/hour. Note: Although the units are grams/vehicle/hour, the number of vehicles (i.e., population) should not be temporally allocated to hours in SMOKE. Instead, a county total of vehicle population should be multiplied by emission rates at any given hour. The number of starts per vehicle by hour is already accounted for in the MOVES lookup table.</para>
 <para><emphasis>The RPP table</emphasis> is used only to estimate emissions for off-network fuel vapor venting when the vehicle is parked. This process type includes diurnal (when the vehicle is parked during the day) and hot soak (immediately after a trip when the vehicle parks) emissions types. The process depends on the rate of rise in temperature and the maximum temperature achieved during the day for the diurnal emissions type, and on the hourly temperatures for the hot soak emission type. The lookup fields for this table are reference fuel month and hour of day. As with the RPV table, the units of the emission rates are grams/vehicle/hour. The estimated emissions rates need to be multiplied by the county vehicle population. The representative county lookup tables contain 24-hour emission rates per hour per vehicle using a representative county temperature profile with different minimum and maximum temperatures. The average day county emissions are determined by interpolating between the minimum and maximum temperatures for the modeling county generated by <command>Met4moves</command>. <xref linkend="sect_concepts_moves_met_processing" /> summarizes how <command>Met4moves</command> processes meteorological data for both MOVES and SMOKE.</para>
 <para><emphasis>The RPH table</emphasis> is used only to estimate emissions for on-roadway extended idle exhaust process from mobile sources, using a separate file for each representative county.</para>:
 <para><emphasis>The RPS table</emphasis> is used only to estimate emissions for off-netwrok engine start and crankcase start exhaust when the vehicle engines get ignited. Number of vehicle starts activity inventory will be used to compute the emissions multiplying to RPS grams/start emission rate.</para>
-<para><emphasis>The ONI table</emphasis> is used only to estimate emissions for off-netwrok vehicle idling process during especially heavy duty vehicle engines are in idling mode in the partking lot and distribution. Number of vehicle idling hours activity inventory will be used to compute the emissions multiplying to ONI grams/hour emission rate.</para>
+<para><emphasis>The RPHO (ONI) table</emphasis> is used only to estimate emissions for off-netwrok vehicle idling process during especially heavy duty vehicle engines are in idling mode in the partking lot and distribution. Number of vehicle idling hours activity inventory will be used to compute the emissions multiplying to RPHO (ONI) grams/hour emission rate.</para>
 <table id="tbl_moves_speed_bins">
 <?dbfo table-width="6in"?>
 <title>MOVES Default Speed Bins</title>
@@ -4126,7 +4126,7 @@ Additional data</programlisting>
 
 <thead>
 <row>
-<entry morerows="1" valign="bottom" align="center">RatePerDistance       (grams/mile)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerDistance (grams/mile)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerVehicle (grams/vehicle/hour)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerProfile (grams/vehicle/hour)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerHour (grams/activity-hour)</entry>
@@ -4269,10 +4269,12 @@ Additional data</programlisting>
 
 <thead>
 <row>
-<entry morerows="1" valign="bottom" align="center">RatePerDistance       (grams/mile)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerDistance (grams/mile)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerVehicle (grams/vehicle/hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerStart (grams/no of starts)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerProfile (grams/vehicle/hour)</entry>
 <entry morerows="1" valign="bottom" align="center">RatePerHour (grams/activity-hour)</entry>
+<entry morerows="1" valign="bottom" align="center">RatePerHour_ONI (grams/activity-hour)</entry>
 </row>
 </thead>
 
@@ -4282,69 +4284,93 @@ Additional data</programlisting>
 <entry>MOVESScenarioID</entry>
 <entry>MOVESScenarioID</entry>
 <entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
+<entry>MOVESScenarioID</entry>
 </row>
 <row>
 	<entry>yearID</entry>
 	<entry>yearID</entry>
 	<entry>yearID</entry>
 	<entry>yearID</entry>
+	<entry>yearID</entry>
+	<entry>yearID</entry>
 </row>
 <row>
 	<entry>monthID</entry>
 	<entry>monthID</entry>
 	<entry>monthID</entry>
 	<entry>monthID</entry>
+	<entry>monthID</entry>
+	<entry>monthID</entry>
 </row>
 <row>
-		<entry>FIPS</entry>
-		<entry>dayID</entry>
-		<entry>dayID</entry>
-		<entry>FIPS</entry>
+	<entry>FIPS</entry>
+	<entry>dayID</entry>
+	<entry>dayID</entry>
+	<entry>dayID</entry>
+	<entry>FIPS</entry>
+	<entry>FIPS</entry>
 </row>
 <row>
     <entry>SCC</entry>
     <entry>hourID</entry>
     <entry>hourID</entry>
+    <entry>hourID</entry>
+    <entry>SCC</entry>
     <entry>SCC</entry>
 </row>
 <row>
 	<entry>avgSpeedBin</entry>
 	<entry>FIPS</entry>
 	<entry>FIPS</entry>
+	<entry>FIPS</entry>
+	<entry>temperature</entry>
 	<entry>temperature</entry>
 </row>
 <row>
 	<entry>temperature</entry>
 	<entry>SCC</entry>
 	<entry>SCC</entry>
+	<entry>SCC</entry>
+	<entry>CO</entry>
 	<entry>CO</entry>
 </row>
 <row>
 	<entry>relHumidity</entry>
 	<entry>temperature (for each grid cell)</entry>
+	<entry>temperature (for each grid cell)</entry>
 	<entry>temperature (24hr temporal profile)</entry>
+	<entry>TOG</entry>
 	<entry>TOG</entry>
 </row>
 <row>
 	<entry>CO</entry>
 	<entry>CO</entry>
+	<entry>CO</entry>
 	<entry>THC</entry>
+	<entry>BENZENE</entry>
 	<entry>BENZENE</entry>
 </row>
 <row>
 	<entry>TOG</entry>
 	<entry>NOX</entry>
+	<entry>NOX</entry>
 	<entry>TOG</entry>
+	<entry>NOX</entry>
 	<entry>NOX</entry>
 </row>
 <row>
 	<entry>BENZENE</entry>
 	<entry>PM10OC</entry>
+	<entry>PM10OC</entry>
+	<entry>VOC</entry>
 	<entry>VOC</entry>
 	<entry>VOC</entry>
 </row>
 <row>
-		<entry>...</entry>
+    <entry>...</entry>
+	<entry>...</entry>
+	<entry>...</entry>
 	<entry>...</entry>
 	<entry>...</entry>
 	<entry>...</entry>
