@@ -9705,7 +9705,7 @@ VPOP CO NO NO2 HONO SO2 NH3 TOG VOC_INV POC PEC PSO4 PNO3 PMFINE NH4 PMC
 </table>
 
 <example>
-<title><envar>SPDPRO</envar> file</title>
+<title><envar>SPDIST</envar> file</title>
 
 <programlisting>
 #FIPS,SCC,dayID,hourID,spdbin1,spdbin2,,,,,,,,,,,,,spdbin15,spdbin16
