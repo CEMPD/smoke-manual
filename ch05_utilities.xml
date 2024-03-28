@@ -1904,6 +1904,11 @@ PAR             0.6</programlisting></entry>
 
 <tbody>
 <row>
+<entry><envar>GRIDDESC</envar></entry>
+<entry>ASCII</entry>
+<entry>Grid descriptions file that defines the output grid for the output surrogates file created by the program. It must include the name of the grid set by the <envar>IOAPI_GRIDNAME_1</envar> environment variable setting.</entry>
+</row>
+<row>
 <entry><envar>INLN</envar></entry>
 <entry>I/O API NetCDF</entry>
 <entry>CMAQ-ready Inline 2-D ridded emissions file, output by <command>Smkmerge</command></entry>
@@ -1916,6 +1921,19 @@ PAR             0.6</programlisting></entry>
 </tbody>
 </tgroup>
 </informaltable>
+
+</section>
+
+<section>
+<title> Input Environment Variables </title>
+
+<itemizedlist>
+<listitem>
+<para><envar>IOAPI_GRIDNAME_1</envar>: [default: blank]</para>
+
+<para>This variable sets the name of the output grid definition to be read from the <envar>GRIDDESC</envar> input file. The name can be a maximum of 16 characters (the limitation of I/O API grid names).</para>
+</listitem>
+</itemizedlist>
 
 </section>
 

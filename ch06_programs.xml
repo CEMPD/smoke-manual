@@ -3342,8 +3342,8 @@ PGTS_L, PAR, t3</programlisting></entry>
 </mediaobject>
 </figure>
 
-<para><xref linkend="fig_programs_mrgpt" /> shows the input and output files for the <command>Mrgpt</command> program. The input files are a list of the logical file names for the speciated hourly emissions files  from <command>Smkmerge</command> to be merged (<envar>FILELIST_INLN</envar>) and a list of the logical file names for the ASCII elevated output files from <command>Elevpoint</command> to be merged (<envar>FILELIST_STACK</envar>). The program outputs a log file (<envar>LOGFILE</envar>), a merged specated hourly emissions file (<envar>OUTFILE_INLN</envar>), a merged ASCII elevated output file (<envar>OUTFILE_STACK</envar>), and if merging different days, a report file (<envar>REPMRGGRID</envar>).</para>
-
+<para><xref linkend="fig_programs_mrgpt" /> shows the input and output files for the <command>Mrgpt</command> program. The input files are a list of the logical file names for the speciated hourly emissions files  from <command>Smkmerge</command> to be merged (<envar>FILELIST_INLN</envar>) and a list of the logical file names for the ASCII elevated output files from <command>Elevpoint</command> to be merged (<envar>FILELIST_STACK</envar>). The program outputs a log file (<envar>LOGFILE</envar>), a merged specated hourly emissions file (<envar>OUTFILE_INLN</envar>), a merged ASCII elevated output file (<envar>OUTFILE_STACK</envar>), and if creating report by state, a report file (<envar>REPORT_BY_STATE</envar>).</para>
+<para><command>Mrgpt</command> requires overlapped time period between <envar>FILELIST_INLN</envar> files; otherwise not merged file can be created</para>
 <section>
 
 <title>Input Files</title>
@@ -3394,16 +3394,13 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 
 <itemizedlist>
 <listitem>
-<para><envar>MRG_DIFF_DAYS</envar>: [default: N]</para>
-<para>This environment variable allows <command>Mrgpt</command> to merge files with data from different days.</para>
+<para><envar>CREATE_REPORT</envar>: [default: N]</para>
 <itemizedlist>
 <listitem>
-<para>Y: Allow data from different dates to be merged together</para>
-<para><command>Mrgpt</command> will use the environment variables <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, <envar>G_RUNLEN</envar>, and <envar>G_TSTEP</envar> to set the start date, start time, length, and time step of the output file. All input files must have the same starting time as <envar>G_STTIME</envar>, the same time step as <envar>G_TSTEP</envar>, and must contain more than <envar>G_RUNLEN</envar> steps of data. For each input file, if it contains data to cover the actual episode requested by <envar>G_STDATE</envar>, <envar>G_STTIME</envar>, and <envar>G_RUNLEN</envar>, then the data for the actual episode will be used; otherwise, data starting at the first time step of the file will be used.</para>
+<para>Y: Create report of emissions of model species to <envar>REPORT_BY_STATE</envar> report file</para>
 </listitem>
 <listitem>
-<para>N: Require all merged data to be from the same date</para>
-<para><command>Mrgpt</command> will determine the output file time period based on the latest starting input file and the earliest ending input file.</para>
+<para>N: Not creating report of merged emissions</para>
 </listitem>
 </itemizedlist>
 
@@ -3447,14 +3444,9 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <entry>Merged inline-mode ASCII point elevated file</entry>
 </row>
 <row>
-<entry><envar>REPMRGGRID</envar></entry>
+<entry><envar>REPORT_BY_STATE</envar></entry>
 <entry>ASCII</entry>
-<entry>Report file generated when <envar>MRG_DIFF_DAYS</envar> is set to Y; the report lists the date and time for each output time step along with the actual date and time of the data read from each file</entry>
-</row>
-<row>
-<entry><envar>REPMERG_ADJ</envar></entry>
-<entry>ASCII</entry>
-<entry>Report file generated when <envar>ADJ_FACS</envar> is set; the report lists the date, the logical file name, the species name, the factor applied, a daily total of species before and after applying adjustment factor, and the ratio (after/ratio). The report only lists when the ratio is not equal to 1.0 </entry>
+<entry>Report file generated when <envar>CREATE_REPORT</envar> is set to Y; the report lists emissions of model species appear in each of the CMAQ 2-D surface layer INLN emissions files (<emphasis>logical</emphasis> file name) that are listed in <envar>FILELIST_INLN</envar> input file before adjustment and after adjustment if <envar>ADJ_FACS</envar> was set</entry>
 </row>
 </tbody>
 </tgroup>
