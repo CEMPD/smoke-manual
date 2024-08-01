@@ -7476,18 +7476,6 @@ Defines whether the program produces a report of emission totals by state.</para
 </listitem>
 
 <listitem>
-<para><envar>USE_WRF_LAI</envar>: [default: Y]</para>
-<itemizedlist>
-<listitem>
-<para>Y: Use gridded, hourly, Leaf Area Index (LAI) values from WRF-MCIP (e.g. <envar>MET_FILE1</envar>) for all biogenic emissions calculations in <command>Tmpbeis4</command>.</para>
-</listitem>
-<listitem>
-<para>N: Use summer and winter LAIs computed in <command>Normbeis4</command> in the <envar>BEIS_NORM_EMIS</envar> file.</para>
-</listitem>
-</itemizedlist>
-</listitem>
-
-<listitem>
 <para><envar>INITIAL_RUN</envar>: [default: N]</para>
 <para>Indicates whether a particular day is the first day in a sequence of simulations.</para>
 <itemizedlist>
@@ -7594,6 +7582,31 @@ Defines whether the program produces a report of emission totals by state.</para
 <listitem>
 <para><envar>SOILT2_VAR</envar>: [default: SOIT2]</para>
 <para>Specifies the soil temperature for top meter variable name used if <envar>PX_VERSION = Y</envar>.</para>
+</listitem>
+
+<listitem>
+<para><envar>USE_WRF_LAI</envar>: [default: Y]</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use gridded, hourly, Leaf Area Index (LAI) values from WRF-MCIP (e.g. <envar>MET_FILE1</envar>) for all biogenic emissions calculations in <command>Tmpbeis4</command>.</para>
+</listitem>
+<listitem>
+<para>N: Use summer and winter LAIs computed in <command>Normbeis4</command> in the <envar>BEIS_NORM_EMIS</envar> file.</para>
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>USE_WRF_WSAT</envar>: [default: Y]</para>
+<para>Indicates whether to use soil saturation variable in the MCIP input file, <envar>MET_FILE1</envar>.</para>
+<itemizedlist>
+<listitem>
+<para>Y: Use the soil saturation variable in calculating emissions.</para>
+</listitem>
+<listitem>
+<para>N: Do not use the soil saturation variable or the soil saturation variable is not available for use.</para>
+</listitem>
+</itemizedlist>
 </listitem>
 
 <listitem>
