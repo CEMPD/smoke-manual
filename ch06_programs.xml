@@ -4635,7 +4635,7 @@ PAR, PTIPMTS_L_INLN, 0.6</programlisting></entry>
 <para>Define minimum stack exit velocity in unit of m/sec</para>
 </listitem>
 <listitem>
-<para><envar>MAX_STK_VELOCITY</envar>: [default: 0.0001]</para>
+<para><envar>MAX_STK_VELOCITY</envar>: [default: 500.0]</para>
 <para>Define maximum stack exit velocity in unit of m/sec</para>
 </listitem>
 
