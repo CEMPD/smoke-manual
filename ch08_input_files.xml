@@ -3340,25 +3340,25 @@ Sample header records for daily point sources are shown below:</para>
 <entry>17</entry>
 <entry>ERPTYPE</entry>
 <entry>Char(2)</entry>
-<entry>Emissions release point type ( 01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (optional; recommended)</entry>
+<entry>Emissions release point type (01 = fugitive, 02 = vertical stack, 03 = horizontal stack..) (optional; recommended)</entry>
 </row>
 <row>
 <entry>18</entry>
 <entry>STKHGT</entry>
 <entry>Real</entry>
-<entry>Stack Height (ft) (required)</entry>
+<entry>Stack Height (ft) (required; values &lt;= 0 are treated as missing)</entry>
 </row>
 <row>
 <entry>19</entry>
 <entry>STKDIAM</entry>
 <entry>Real</entry>
-<entry>Stack Diameter (ft) (required)</entry>
+<entry>Stack Diameter (ft) (required; values &lt;= 0 are treated as missing)</entry>
 </row>
 <row>
 <entry>20</entry>
 <entry>STKTEMP</entry>
 <entry>Real</entry>
-<entry>Stack Gas Exit Temperature (°F) (required)</entry>
+<entry>Stack Gas Exit Temperature (°F) (required; values &lt;= 0 are treated as missing)</entry>
 </row>
 <row>
 <entry>21</entry>
@@ -3370,7 +3370,7 @@ Sample header records for daily point sources are shown below:</para>
 <entry>22</entry>
 <entry>STKVEL</entry>
 <entry>Real</entry>
-<entry>Stack Gas Exit Velocity (ft/sec) (required)</entry>
+<entry>Stack Gas Exit Velocity (ft/sec) (required; values &lt;= 0 are treated as missing)</entry>
 </row>
 <row>
 <entry>23</entry>
