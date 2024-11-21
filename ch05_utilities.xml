@@ -1817,7 +1817,44 @@ PAR             0.6</programlisting></entry>
 
 <title>Input Environment Variables</title>
 
-<para>None</para>
+<itemizedlist>
+<listitem>
+<para><envar>MASKVAR:</envar> [default: MASK]</para>
+<para>Name of variable in GEOMASK indicating the masked region</para>
+    <itemizedlist>
+    <listitem>
+    <para>If not specified, Geofac will assume the default variable MASK as indicator for masked region in GEOMASK.</para>
+    </listitem>
+    </itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>MASKFRAC:</envar> [default: Y]</para>
+<para>Indicating whether fractional mask value is considered</para>
+    <itemizedlist>
+    <listitem>
+    <para>'Y': include grid cells with fractional mask value less than or equal 1.0 into masked region</para>
+    </listitem>
+    <listitem>
+    <para>'N': only consider grid cells with mask value equal 1.0 as masked region.</para>
+    </listitem>
+    </itemizedlist>
+</listitem>
+
+<listitem>
+<para><envar>ZEROEMIS:</envar> [default: N]</para>
+<para>Keep emissions outside masked region as-is or zero out.</para>
+    <itemizedlist>
+    <listitem>
+    <para>Y: Set emissions in every grid cell outside masked region to zero</para>
+    </listitem>
+    <listitem>
+    <para>N: Keep emissions in non-masked region as-is</para>
+    </listitem>
+    </itemizedlist>
+</listitem>
+</itemizedlist>
+
 
 </section>
 
